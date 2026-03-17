@@ -1,13 +1,21 @@
 # AUTHORITATIVE_PATHS — Construction_Kernel
 
-## First-Read
+## Cross-Repo Reading Order
 
-Files to read before any work in this repo.
+Before reading this repo, read:
+1. `Universal_Truth_Kernel` → `nucleus/NUCLEUS_DOCTRINE.md`
+2. `ValidKernel_Registry` → topology surfaces
 
-1. `README.md`
-2. `kernel/CONSTRUCTION_KERNEL_V0.1.md`
+Then read this repo's surfaces:
 3. `docs/system/REPO_MANIFEST.md`
-4. `maps/kernel_relationship_map.md`
+4. `docs/system/AUTHORITATIVE_PATHS.md`
+5. `docs/system/DEPENDENCY_MAP.md`
+6. `docs/system/FROZEN_SEAMS.md`
+
+Then repo-specific authoritative files:
+7. `kernel/CONSTRUCTION_KERNEL_V0.1.md`
+8. `maps/kernel_relationship_map.md`
+9. Only then targeted kernel files
 
 ## Authoritative
 

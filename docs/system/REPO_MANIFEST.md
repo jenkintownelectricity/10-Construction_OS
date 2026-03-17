@@ -60,10 +60,14 @@
 
 ### Future Agent Reading Order
 
-1. `README.md`
-2. `kernel/CONSTRUCTION_KERNEL_V0.1.md`
-3. `docs/system/REPO_MANIFEST.md`
-4. `kernels/` — as needed by task context
+1. `Universal_Truth_Kernel` → `nucleus/NUCLEUS_DOCTRINE.md`
+2. `ValidKernel_Registry` → topology surfaces
+3. This repo → `docs/system/REPO_MANIFEST.md`
+4. This repo → `docs/system/AUTHORITATIVE_PATHS.md`
+5. This repo → `docs/system/DEPENDENCY_MAP.md`
+6. This repo → `docs/system/FROZEN_SEAMS.md`
+7. `kernel/CONSTRUCTION_KERNEL_V0.1.md`
+8. Only then targeted kernel files
 
 ## Mutability
 
