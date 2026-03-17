@@ -1,12 +1,21 @@
 # AUTHORITATIVE_PATHS — Construction_Runtime
 
-## First-Read
+## Cross-Repo Reading Order
 
-Start here. These files establish context and authority.
+Before reading this repo, read:
+1. `Universal_Truth_Kernel` → `nucleus/NUCLEUS_DOCTRINE.md`
+2. `ValidKernel_Registry` → topology surfaces
 
-- `README.md` — Project overview and orientation
-- `docs/system/REPO_MANIFEST.md` — Identity, ownership, stack position, frozen/mutable boundaries
-- `docs/system/FROZEN_SEAMS.md` — What must not change and what may evolve
+Then read this repo's surfaces:
+3. `docs/system/REPO_MANIFEST.md`
+4. `docs/system/AUTHORITATIVE_PATHS.md`
+5. `docs/system/DEPENDENCY_MAP.md`
+6. `docs/system/FROZEN_SEAMS.md`
+
+Then repo-specific authoritative files:
+7. `contracts/*.schema.json`
+8. `standards/error_codes.py`
+9. Only then targeted implementation files
 
 ## Authoritative
 

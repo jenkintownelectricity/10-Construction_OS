@@ -8,10 +8,10 @@
 
 | Dependency | Layer | Relationship |
 |---|---|---|
-| Universal_Truth_Kernel | Layer 1 — Nucleus | Conceptual, transitive via Construction_Kernel. Ultimate ground of truth. |
-| Construction_Kernel | Layer 4 — Domain Kernel | Defines construction truth this runtime executes. Direct upstream authority. |
-| ValidKernel-Governance | Layer 2 — Governance | Governance rules constraining runtime behavior. |
-| ValidKernel_Runtime | Layer 5 — Generic Runtime | Generic runtime patterns this domain runtime specializes. |
+| Universal_Truth_Kernel | Layer 0 — Nucleus | Conceptual, transitive via Construction_Kernel. Ultimate ground of truth. |
+| Construction_Kernel | Layer 5 — Domain Kernel | Defines construction truth this runtime executes. Direct upstream authority. |
+| ValidKernel-Governance | Layer 1 — Control Plane | Governance rules constraining runtime behavior. |
+| ValidKernel_Runtime | Layer 4 — Execution | Generic runtime patterns (conceptual/pattern alignment; no code inheritance). |
 
 ## Downstream Consumers
 

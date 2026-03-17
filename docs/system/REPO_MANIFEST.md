@@ -37,7 +37,7 @@
 
 ## Stack Position
 
-- **Upstream:** Universal_Truth_Kernel (conceptual, transitive via Construction_Kernel), Construction_Kernel (defines construction truth this runtime executes), ValidKernel-Governance (governance rules), ValidKernel_Runtime (generic runtime patterns)
+- **Upstream:** Universal_Truth_Kernel (conceptual, transitive via Construction_Kernel), Construction_Kernel (defines construction truth this runtime executes), ValidKernel-Governance (governance rules), ValidKernel_Runtime (generic runtime patterns — conceptual/pattern alignment; no code inheritance)
 - **Downstream:** Construction_Application_OS (apps consume runtime capabilities)
 
 ## Primary Directories
@@ -54,14 +54,16 @@
 | `apps/` | Demo apps (assembly_parser_app, spec_intelligence_app) |
 | `tests/` | Parser, engine, pipeline, mutation, golden, snapshots |
 
-## First-Read Order
+## Future Agent Reading Order
 
-1. `README.md`
-2. `docs/system/REPO_MANIFEST.md`
-3. `docs/system/FROZEN_SEAMS.md`
-4. `contracts/`
-5. `standards/error_codes.py`
-6. Targeted implementation files as needed
+1. `Universal_Truth_Kernel` → `nucleus/NUCLEUS_DOCTRINE.md`
+2. `ValidKernel_Registry` → topology surfaces
+3. This repo → `docs/system/REPO_MANIFEST.md`
+4. This repo → `docs/system/AUTHORITATIVE_PATHS.md`
+5. This repo → `docs/system/DEPENDENCY_MAP.md`
+6. This repo → `docs/system/FROZEN_SEAMS.md`
+7. `contracts/`
+8. Only then targeted implementation files
 
 ## Frozen
 
