@@ -68,14 +68,15 @@ Layer 7 — Application
 Upstream conceptual dependency (transitive via Construction_Kernel and Construction_Runtime). This layer consumes applied construction truth ultimately grounded in Universal_Truth_Kernel. It does not originate, redefine, or contradict truth at any layer.
 
 ## Future Agent Reading Order
-1. `README.md`
-2. `os/CONSTRUCTION_APPLICATION_OS_V0.1.md`
-3. `docs/system/REPO_MANIFEST.md`
-4. `docs/system/AUTHORITATIVE_PATHS.md`
-5. `maps/stack_map.md`
-6. `maps/app_to_runtime_map.md`
-7. `maps/app_to_kernel_map.md`
-8. Per-app specs as needed
+1. `Universal_Truth_Kernel` → `nucleus/NUCLEUS_DOCTRINE.md`
+2. `ValidKernel_Registry` → topology surfaces
+3. This repo → `docs/system/REPO_MANIFEST.md`
+4. This repo → `docs/system/AUTHORITATIVE_PATHS.md`
+5. This repo → `docs/system/DEPENDENCY_MAP.md`
+6. This repo → `docs/system/FROZEN_SEAMS.md`
+7. `os/CONSTRUCTION_APPLICATION_OS_V0.1.md`
+8. `maps/stack_map.md`
+9. Only then targeted app specs or workflow files
 
 ## Execution Notes
 - No executable code in this repo (v0.1 is documentation/specification only)

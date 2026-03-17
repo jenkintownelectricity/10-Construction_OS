@@ -1,12 +1,21 @@
 # Authoritative Paths — Construction_Application_OS
 
-## First-Read Priority Order
+## Cross-Repo Reading Order
 
-1. `README.md` — Repo purpose, stack position, responsibilities
-2. `os/CONSTRUCTION_APPLICATION_OS_V0.1.md` — OS identity and app definitions
-3. `docs/system/REPO_MANIFEST.md` — Ownership and boundaries
-4. `docs/system/FROZEN_SEAMS.md` — Frozen surfaces
-5. `maps/stack_map.md` — Full stack context
+Before reading this repo, read:
+1. `Universal_Truth_Kernel` → `nucleus/NUCLEUS_DOCTRINE.md`
+2. `ValidKernel_Registry` → topology surfaces
+
+Then read this repo's surfaces:
+3. `docs/system/REPO_MANIFEST.md`
+4. `docs/system/AUTHORITATIVE_PATHS.md`
+5. `docs/system/DEPENDENCY_MAP.md`
+6. `docs/system/FROZEN_SEAMS.md`
+
+Then repo-specific authoritative files:
+7. `os/CONSTRUCTION_APPLICATION_OS_V0.1.md`
+8. `maps/stack_map.md`
+9. Only then targeted app specs or workflow files
 
 ## Authoritative Files
 
