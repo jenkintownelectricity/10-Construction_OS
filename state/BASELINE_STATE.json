@@ -1,0 +1,19 @@
+{
+  "repo_name": "Construction_Application_OS",
+  "stack_layer": "Layer 7 — Application",
+  "current_branch": "claude/harden-kernel-security-dO723",
+  "baseline_version": "v0.1",
+  "baseline_commit": "INITIAL",
+  "manifest_version": "v0.1",
+  "frozen_seams_version": "v0.1",
+  "cache_mode": "manifest_first",
+  "cache_validity": "valid_until_branch_commit_or_manifest_change",
+  "requires_reaudit_on": [
+    "branch_change",
+    "commit_change",
+    "manifest_change",
+    "frozen_seam_change",
+    "explicit_user_request",
+    "topology_change"
+  ]
+}
