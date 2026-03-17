@@ -1,0 +1,90 @@
+{
+  "schema_version": "v1",
+  "family": "construction-kernel",
+  "artifact_type": "shared-enum-registry",
+  "description": "Canonical enum values shared across the construction-kernel family. All repos must use these enum values for shared fields. Repos may define repo-local enums for their own truth surfaces.",
+  "lifecycle_stages": [
+    "design",
+    "procurement",
+    "installation",
+    "commissioning",
+    "operation",
+    "maintenance",
+    "failure",
+    "replacement"
+  ],
+  "climate_exposure_flags": [
+    "marine_exposure",
+    "high_uv",
+    "freeze_thaw",
+    "coastal_salt",
+    "high_wind",
+    "high_humidity",
+    "severe_precipitation"
+  ],
+  "geometry_contexts": [
+    "low_slope_roof",
+    "steep_slope_roof",
+    "complex_roof_geometry",
+    "large_parapet_run",
+    "multi_penetration_field",
+    "irregular_drainage_geometry",
+    "tall_wall_field",
+    "podium_condition"
+  ],
+  "confidence_levels": [
+    "low",
+    "medium",
+    "high",
+    "established"
+  ],
+  "risk_levels": [
+    "critical",
+    "high",
+    "medium",
+    "low"
+  ],
+  "revision_postures": [
+    "immutable",
+    "append_only",
+    "revisable_with_audit",
+    "draft"
+  ],
+  "evidence_types": [
+    "field_observation",
+    "lab_test",
+    "forensic_report",
+    "manufacturer_data",
+    "literature",
+    "expert_judgment",
+    "sensor_data",
+    "inspection_report",
+    "commissioning_report",
+    "warranty_claim"
+  ],
+  "control_layer_ids": [
+    "bulk_water_control",
+    "capillary_control",
+    "air_control",
+    "vapor_control",
+    "thermal_control",
+    "fire_smoke_control",
+    "movement_control",
+    "weathering_surface",
+    "drainage_plane",
+    "protection_layer",
+    "vegetation_support_layer"
+  ],
+  "interface_zone_ids": [
+    "roof_to_wall",
+    "parapet_transition",
+    "penetration",
+    "fenestration_edge",
+    "below_grade_transition",
+    "expansion_joint",
+    "deck_to_wall",
+    "roof_edge",
+    "curb_transition",
+    "drain_transition"
+  ]
+}

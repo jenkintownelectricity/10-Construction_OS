@@ -1,0 +1,99 @@
+{
+  "schema_version": "v1",
+  "family": "construction-kernel",
+  "artifact_type": "shared-risk-registry",
+  "description": "Canonical risk classification registry for the construction-kernel family. Defines risk categories, severity levels, and assessment posture shared across all repos.",
+  "risk_categories": [
+    {
+      "category_id": "water_intrusion",
+      "name": "Water Intrusion",
+      "description": "Risk of bulk water, capillary moisture, or condensation entering the building enclosure.",
+      "control_layers_affected": ["bulk_water_control", "capillary_control", "drainage_plane"],
+      "typical_severity": "critical"
+    },
+    {
+      "category_id": "air_leakage",
+      "name": "Air Leakage",
+      "description": "Risk of uncontrolled air movement through the building enclosure.",
+      "control_layers_affected": ["air_control"],
+      "typical_severity": "high"
+    },
+    {
+      "category_id": "condensation",
+      "name": "Interstitial Condensation",
+      "description": "Risk of condensation forming within the wall or roof assembly.",
+      "control_layers_affected": ["vapor_control", "thermal_control"],
+      "typical_severity": "high"
+    },
+    {
+      "category_id": "thermal_bridging",
+      "name": "Thermal Bridging",
+      "description": "Risk of localized heat loss or gain through thermally conductive elements.",
+      "control_layers_affected": ["thermal_control"],
+      "typical_severity": "medium"
+    },
+    {
+      "category_id": "fire_propagation",
+      "name": "Fire Propagation",
+      "description": "Risk of fire spread through or along the building enclosure.",
+      "control_layers_affected": ["fire_smoke_control"],
+      "typical_severity": "critical"
+    },
+    {
+      "category_id": "material_incompatibility",
+      "name": "Material/Chemical Incompatibility",
+      "description": "Risk of adverse reaction between adjacent materials or chemical systems.",
+      "control_layers_affected": ["all"],
+      "typical_severity": "high"
+    },
+    {
+      "category_id": "movement_failure",
+      "name": "Movement Accommodation Failure",
+      "description": "Risk of cracking, debonding, or tearing due to inadequate movement accommodation.",
+      "control_layers_affected": ["movement_control"],
+      "typical_severity": "high"
+    },
+    {
+      "category_id": "wind_uplift",
+      "name": "Wind Uplift",
+      "description": "Risk of component displacement or system failure under wind loads.",
+      "control_layers_affected": ["weathering_surface", "protection_layer"],
+      "typical_severity": "critical"
+    },
+    {
+      "category_id": "installation_defect",
+      "name": "Installation Defect",
+      "description": "Risk arising from improper installation practice or sequence.",
+      "control_layers_affected": ["all"],
+      "typical_severity": "high"
+    },
+    {
+      "category_id": "trade_miscoordination",
+      "name": "Trade Miscoordination",
+      "description": "Risk arising from incomplete or incorrect coordination between trades at scope boundaries.",
+      "control_layers_affected": ["all"],
+      "typical_severity": "high"
+    },
+    {
+      "category_id": "premature_degradation",
+      "name": "Premature Degradation",
+      "description": "Risk of material or system degradation before expected service life.",
+      "control_layers_affected": ["weathering_surface", "protection_layer"],
+      "typical_severity": "medium"
+    },
+    {
+      "category_id": "warranty_void",
+      "name": "Warranty Voiding Condition",
+      "description": "Risk of voiding manufacturer or system warranty due to non-compliant conditions.",
+      "control_layers_affected": ["all"],
+      "typical_severity": "high"
+    }
+  ],
+  "severity_scale": {
+    "critical": "Life safety impact, structural damage, or immediate building closure risk.",
+    "high": "Significant performance degradation, major repair cost, or warranty invalidation.",
+    "medium": "Reduced performance, accelerated maintenance, or localized repair.",
+    "low": "Minor cosmetic or maintenance impact."
+  },
+  "assessment_posture": "Risk assessment is evidence-linked where possible. Unsubstantiated risk claims must be flagged with ambiguity_flag: true and confidence: low."
+}

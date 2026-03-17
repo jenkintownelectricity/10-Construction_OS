@@ -1,0 +1,148 @@
+{
+  "schema_version": "v1",
+  "family": "construction-kernel",
+  "artifact_type": "shared-taxonomy",
+  "description": "Canonical shared taxonomy fields for the construction-kernel family. All six repos must align around these shared classification fields where relevant. This file defines field names, types, and allowed values. It does not replace repo-local truth models.",
+  "taxonomy_fields": {
+    "csi_section_code": {
+      "type": "string",
+      "description": "CSI MasterFormat section number (e.g., '07 52 00').",
+      "pattern": "^\\d{2} \\d{2} \\d{2}$"
+    },
+    "csi_section_title": {
+      "type": "string",
+      "description": "Human-readable CSI section title."
+    },
+    "spec_family": {
+      "type": "string",
+      "description": "Specification family grouping.",
+      "examples": ["membrane_roofing", "waterproofing", "air_barrier", "insulation", "flashing", "sealant", "fireproofing"]
+    },
+    "subfamily": {
+      "type": "string",
+      "description": "More specific classification within a spec family.",
+      "examples": ["tpo_membrane", "epdm_membrane", "pvc_membrane", "fluid_applied_air_barrier", "self_adhered_air_barrier"]
+    },
+    "control_function": {
+      "type": "string",
+      "description": "The control-layer function served. Must reference control_layers.json IDs.",
+      "reference": "shared/control_layers.json"
+    },
+    "assembly_zone": {
+      "type": "string",
+      "description": "Zone within an assembly where the item is positioned.",
+      "enum": ["field", "perimeter", "corner", "transition", "penetration", "termination", "substrate", "cover_board", "facer"]
+    },
+    "interface_type": {
+      "type": "string",
+      "description": "Interface zone type. Must reference interface_zones.json IDs.",
+      "reference": "shared/interface_zones.json"
+    },
+    "primary_material_class": {
+      "type": "string",
+      "description": "Primary material classification.",
+      "enum": ["thermoplastic", "thermoset", "elastomer", "bituminous", "cementitious", "metallic", "mineral_fiber", "cellular_plastic", "composite", "fluid_applied", "sheet_applied", "spray_applied"]
+    },
+    "chemistry_family": {
+      "type": "string",
+      "description": "Chemical family classification.",
+      "enum": ["polyurethane", "silicone", "polysulfide", "acrylic", "epoxy", "bituminous", "polyolefin", "pvc", "epdm", "butyl", "sbs", "app", "pmma", "polyurea", "hybrid"]
+    },
+    "installation_method": {
+      "type": "string",
+      "description": "Primary installation method.",
+      "enum": ["mechanically_attached", "fully_adhered", "ballasted", "torch_applied", "hot_mopped", "cold_applied", "spray_applied", "self_adhered", "loose_laid", "standing_seam", "lapped", "welded"]
+    },
+    "performance_class": {
+      "type": "string",
+      "description": "Performance tier or classification.",
+      "enum": ["standard", "enhanced", "high_performance", "extreme_exposure", "code_minimum"]
+    },
+    "evidence_required": {
+      "type": "boolean",
+      "description": "Whether evidence documentation is required for this item."
+    },
+    "test_method_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "ASTM, AAMA, or other test method references by citation."
+    },
+    "standards_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Standards references by citation (IBC, NFPA, ASHRAE, etc.)."
+    },
+    "warranty_posture": {
+      "type": "string",
+      "description": "Warranty classification.",
+      "enum": ["manufacturer_standard", "manufacturer_extended", "system_warranty", "no_dollar_limit", "prorated", "none", "unknown"]
+    },
+    "risk_if_miscoordinated": {
+      "type": "string",
+      "description": "Risk level if this item is miscoordinated across trades or kernels.",
+      "enum": ["critical", "high", "medium", "low"]
+    },
+    "lifecycle_stage": {
+      "type": "string",
+      "description": "Lifecycle stage this item relates to.",
+      "reference": "shared/shared_enum_registry.json#lifecycle_stages"
+    },
+    "climate_zone": {
+      "type": "string",
+      "description": "ASHRAE climate zone (e.g., '4A', '5B')."
+    },
+    "climate_profile": {
+      "type": "string",
+      "description": "Climate exposure profile.",
+      "reference": "shared/shared_enum_registry.json#climate_exposure_flags"
+    },
+    "exposure_class": {
+      "type": "string",
+      "description": "Overall exposure classification.",
+      "enum": ["sheltered", "moderate", "severe", "extreme"]
+    },
+    "geometry_context": {
+      "type": "string",
+      "description": "Geometric context.",
+      "reference": "shared/shared_enum_registry.json#geometry_contexts"
+    },
+    "lineage": {
+      "type": "object",
+      "description": "Revision and supersession lineage tracking.",
+      "properties": {
+        "supersedes": { "type": "string" },
+        "superseded_by": { "type": "string" },
+        "revision": { "type": "string" },
+        "created": { "type": "string", "format": "date" },
+        "last_modified": { "type": "string", "format": "date" }
+      }
+    },
+    "ambiguity_flag": {
+      "type": "boolean",
+      "description": "True if this item contains known ambiguity requiring human resolution."
+    },
+    "revision_posture": {
+      "type": "string",
+      "description": "Revision governance posture.",
+      "enum": ["immutable", "append_only", "revisable_with_audit", "draft"]
+    },
+    "confidence_basis": {
+      "type": "string",
+      "description": "Basis for current confidence assessment.",
+      "enum": ["manufacturer_data", "field_observation", "lab_testing", "forensic_analysis", "literature_review", "expert_judgment", "anecdotal", "unknown"]
+    },
+    "confidence_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": { "type": "string", "format": "date" },
+          "confidence": { "type": "string", "enum": ["low", "medium", "high", "established"] },
+          "basis": { "type": "string" },
+          "note": { "type": "string" }
+        }
+      },
+      "description": "Historical confidence evolution."
+    }
+  }
+}

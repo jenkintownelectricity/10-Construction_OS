@@ -1,0 +1,81 @@
+{
+  "schema_version": "v1",
+  "family": "construction-kernel",
+  "artifact_type": "shared-standards-registry",
+  "description": "Canonical standards reference registry for the construction-kernel family. References standards by citation only — does not reproduce copyrighted standards text. All repos must reference standards through this registry.",
+  "non_duplication_posture": "Standards text is never copied into any repo. Only citation references, relevance categories, and governing relationships are recorded.",
+  "standards": [
+    {
+      "reference_id": "IBC",
+      "title": "International Building Code",
+      "relevance_category": "building_code",
+      "applicable_domains": ["specification", "assembly", "material", "scope"],
+      "evidence_linkage_posture": "Code requirements link to specification obligations and assembly compliance records.",
+      "governing_relationship": "mandatory_compliance"
+    },
+    {
+      "reference_id": "NFPA_285",
+      "title": "NFPA 285 — Standard Fire Test Method for Evaluation of Fire Propagation Characteristics of Exterior Wall Assemblies",
+      "relevance_category": "fire_test_standard",
+      "applicable_domains": ["assembly", "material", "specification"],
+      "evidence_linkage_posture": "Test results link to assembly records and material compatibility.",
+      "governing_relationship": "mandatory_compliance_where_applicable"
+    },
+    {
+      "reference_id": "ASHRAE_90_1",
+      "title": "ASHRAE 90.1 — Energy Standard for Buildings Except Low-Rise Residential Buildings",
+      "relevance_category": "energy_code",
+      "applicable_domains": ["specification", "assembly", "material"],
+      "evidence_linkage_posture": "Thermal performance values link to assembly and material properties.",
+      "governing_relationship": "mandatory_compliance"
+    },
+    {
+      "reference_id": "WBDG",
+      "title": "Whole Building Design Guide",
+      "relevance_category": "design_guidance",
+      "applicable_domains": ["assembly", "specification", "scope"],
+      "evidence_linkage_posture": "Design guidance references link to best-practice intelligence.",
+      "governing_relationship": "advisory"
+    },
+    {
+      "reference_id": "UFGS",
+      "title": "Unified Facilities Guide Specifications",
+      "relevance_category": "federal_specification",
+      "applicable_domains": ["specification", "scope"],
+      "evidence_linkage_posture": "Federal spec requirements link to specification obligations.",
+      "governing_relationship": "mandatory_compliance_federal"
+    },
+    {
+      "reference_id": "CSI_MASTERFORMAT",
+      "title": "CSI MasterFormat — Numbers and Titles for the Construction Industry",
+      "relevance_category": "classification_system",
+      "applicable_domains": ["specification", "scope", "assembly", "material", "chemistry"],
+      "evidence_linkage_posture": "Section numbers classify all spec-domain truth.",
+      "governing_relationship": "classification_authority"
+    },
+    {
+      "reference_id": "ASTM",
+      "title": "ASTM International Test Methods (various)",
+      "relevance_category": "test_method_body",
+      "applicable_domains": ["material", "chemistry", "assembly", "specification"],
+      "evidence_linkage_posture": "Individual ASTM test methods link to material properties and specification requirements.",
+      "governing_relationship": "test_method_authority"
+    },
+    {
+      "reference_id": "AAMA",
+      "title": "American Architectural Manufacturers Association Methods (various)",
+      "relevance_category": "test_method_body",
+      "applicable_domains": ["material", "assembly", "specification"],
+      "evidence_linkage_posture": "AAMA methods link to fenestration and curtain wall performance.",
+      "governing_relationship": "test_method_authority"
+    },
+    {
+      "reference_id": "ISO_13788",
+      "title": "ISO 13788 — Hygrothermal performance of building components and building elements",
+      "relevance_category": "hygrothermal_standard",
+      "applicable_domains": ["material", "assembly", "chemistry"],
+      "evidence_linkage_posture": "Hygrothermal analysis links to material properties and assembly configurations.",
+      "governing_relationship": "analytical_method"
+    }
+  ]
+}

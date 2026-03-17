@@ -1,0 +1,84 @@
+{
+  "schema_version": "v1",
+  "family": "construction-kernel",
+  "artifact_type": "shared-evidence-registry",
+  "description": "Canonical evidence classification registry for the construction-kernel family. Defines evidence types, quality tiers, and linkage posture shared across all repos.",
+  "evidence_types": [
+    {
+      "type_id": "field_observation",
+      "name": "Field Observation",
+      "description": "Direct observation recorded during site visit or field inspection.",
+      "quality_tier": "primary",
+      "typical_sources": ["inspector", "consultant", "contractor"]
+    },
+    {
+      "type_id": "lab_test",
+      "name": "Laboratory Test",
+      "description": "Result from a controlled laboratory test per a recognized test method.",
+      "quality_tier": "primary",
+      "typical_sources": ["accredited_lab", "manufacturer_lab"]
+    },
+    {
+      "type_id": "forensic_report",
+      "name": "Forensic Analysis Report",
+      "description": "Post-failure analysis documenting root cause determination.",
+      "quality_tier": "primary",
+      "typical_sources": ["forensic_consultant", "building_envelope_consultant"]
+    },
+    {
+      "type_id": "manufacturer_data",
+      "name": "Manufacturer Published Data",
+      "description": "Data published by the product manufacturer (TDS, SDS, installation guides).",
+      "quality_tier": "secondary",
+      "typical_sources": ["manufacturer"]
+    },
+    {
+      "type_id": "literature",
+      "name": "Published Literature",
+      "description": "Peer-reviewed or industry-published research, case studies, or technical papers.",
+      "quality_tier": "secondary",
+      "typical_sources": ["journal", "conference", "trade_publication"]
+    },
+    {
+      "type_id": "expert_judgment",
+      "name": "Expert Judgment",
+      "description": "Professional opinion from a qualified subject matter expert.",
+      "quality_tier": "tertiary",
+      "typical_sources": ["consultant", "engineer", "architect"]
+    },
+    {
+      "type_id": "sensor_data",
+      "name": "Sensor/Monitoring Data",
+      "description": "Data from embedded sensors, moisture monitors, or building monitoring systems.",
+      "quality_tier": "primary",
+      "typical_sources": ["bms", "moisture_sensor", "thermal_sensor"]
+    },
+    {
+      "type_id": "inspection_report",
+      "name": "Inspection Report",
+      "description": "Formal inspection report from a qualified inspector or testing agency.",
+      "quality_tier": "primary",
+      "typical_sources": ["third_party_inspector", "building_official"]
+    },
+    {
+      "type_id": "commissioning_report",
+      "name": "Commissioning Report",
+      "description": "Building enclosure commissioning report documenting functional performance verification.",
+      "quality_tier": "primary",
+      "typical_sources": ["commissioning_agent", "becx_agent"]
+    },
+    {
+      "type_id": "warranty_claim",
+      "name": "Warranty Claim Record",
+      "description": "Documentation from a warranty claim or dispute.",
+      "quality_tier": "secondary",
+      "typical_sources": ["owner", "manufacturer", "contractor"]
+    }
+  ],
+  "quality_tiers": {
+    "primary": "Direct measurement, observation, or test result from a qualified source.",
+    "secondary": "Published data or manufacturer documentation — authoritative but not project-specific.",
+    "tertiary": "Professional opinion or anecdotal — useful but requires corroboration."
+  },
+  "linkage_posture": "Evidence records must reference the kernel truth entry they support. Evidence does not replace kernel truth — it validates, qualifies, or challenges it."
+}
