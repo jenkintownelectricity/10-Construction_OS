@@ -47,4 +47,4 @@ All Kernels ──────────────────► Intelligen
 
 ## Relationship to Universal_Truth_Kernel
 
-Inherits "system is bounded by truth." Applies and specializes truth for the construction domain without contradicting the nucleus. Each domain kernel must possess truth and define its truth within construction boundaries.
+Operates within the truth boundary defined by the nucleus. Truth doctrine is defined in Universal_Truth_Kernel and referenced here. Applies and specializes truth for the construction domain without contradicting the nucleus.

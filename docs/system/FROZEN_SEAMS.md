@@ -26,7 +26,7 @@ Each kernel has exclusive ownership of its domain truth. Kernels consult but do 
 
 ### Nucleus Inheritance
 
-"The system is bounded by truth" — inherited from Universal_Truth_Kernel. This inheritance is frozen.
+Nucleus truth inheritance — this kernel operates within the truth boundary defined by Universal_Truth_Kernel. This inheritance is frozen.
 
 ## Boundary Rules
 

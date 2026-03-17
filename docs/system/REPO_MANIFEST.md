@@ -32,7 +32,7 @@
 
 ### Upstream
 
-- **Universal_Truth_Kernel** — Conceptual. Inherits "system is bounded by truth."
+- **Universal_Truth_Kernel** — Conceptual. Operates within the truth boundary defined by the nucleus.
 - **ValidKernel-Governance** — Follows governance rules.
 - **ValidKernel_Registry** — Registered in topology.
 
@@ -85,7 +85,7 @@
 
 ## Relationship to Universal_Truth_Kernel
 
-Direct upstream conceptual dependency. Construction Kernel inherits the Universal Truth Kernel rule: "The system is bounded by truth." Each kernel must possess truth and define its truth. May specialize and apply truth for the construction domain but may not contradict the nucleus.
+Direct upstream conceptual dependency. This kernel operates within the truth boundary defined by Universal_Truth_Kernel. Truth doctrine is defined in the nucleus and referenced here. May specialize and apply truth for the construction domain but may not contradict the nucleus.
 
 ## Execution Notes
 
