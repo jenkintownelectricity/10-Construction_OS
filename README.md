@@ -30,6 +30,8 @@ This registry covers only repositories that have been confirmed as part of the C
 - **Construction Truth Spine**: See [`Construction_Kernel/docs/system/CONSTRUCTION_TRUTH_SPINE.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_TRUTH_SPINE.md) for the canonical truth history architecture.
 - **Construction Assembly Identity System**: See [`Construction_Kernel/docs/system/CONSTRUCTION_ASSEMBLY_IDENTITY_SYSTEM.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_ASSEMBLY_IDENTITY_SYSTEM.md) for governed object identity architecture.
 - **Construction Object Evidence and Matching**: See [`Construction_Kernel/docs/system/CONSTRUCTION_OBJECT_EVIDENCE_AND_MATCHING.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_OBJECT_EVIDENCE_AND_MATCHING.md) for evidence and matching basis architecture.
+- **Construction Assembly Composition Model**: See [`Construction_Kernel/docs/system/CONSTRUCTION_ASSEMBLY_COMPOSITION_MODEL.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_ASSEMBLY_COMPOSITION_MODEL.md) for canonical assembly composition architecture.
+- **Construction Assembly Graph**: See [`Construction_Kernel/docs/system/CONSTRUCTION_ASSEMBLY_GRAPH.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_ASSEMBLY_GRAPH.md) for assembly graph representation.
 
 ---
 
