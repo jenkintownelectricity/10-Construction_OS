@@ -34,7 +34,7 @@ Dimension authority statuses: EXPLICIT, DERIVED, INFERRED, UNAPPROVED. These sta
 
 ### Layer Standards
 
-10 canonical A- layers with ACI color indices. Layer names and color assignments are frozen.
+10 governed A- layers with ACI color indices. Layer names and color assignments are frozen. This is a runtime-level standard, not kernel-level canonical truth.
 
 ### Deliverable Model Format
 

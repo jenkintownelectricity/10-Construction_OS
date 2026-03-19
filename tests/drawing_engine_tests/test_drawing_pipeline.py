@@ -33,6 +33,9 @@ from runtime.drawing_engine.contract_loader import (
     load_ir_instruction_types,
     load_detail_schema,
     ContractLoadError,
+    ContractVersionError,
+    ContractSchemaError,
+    EXPECTED_CONTRACT_VERSION,
 )
 
 
@@ -516,6 +519,208 @@ class TestDeterminismPreserved:
         assert r2.success is True
         assert r1.detail_id == r2.detail_id == "TPO_ROOF_EDGE_STANDARD"
         assert r1.ir_instruction_count == r2.ir_instruction_count
+
+
+# ──────────────────────────────────────────────
+# Contract Seam Lock Tests (Wave 6.6 Hardening)
+# ──────────────────────────────────────────────
+
+
+class TestContractVersionLock:
+    """Prove runtime enforces exact contract version match."""
+
+    def test_runtime_rejects_unknown_contract_version(self, tmp_path, monkeypatch):
+        """Contract with wrong version fails closed with ContractVersionError."""
+        rules_dir = tmp_path / "detail_applicability"
+        schemas_dir = tmp_path / "schemas"
+        rules_dir.mkdir(parents=True)
+        schemas_dir.mkdir(parents=True)
+        # Write a contract with wrong version
+        contract = {
+            "contract_id": "construction_kernel.detail_applicability.rules",
+            "version": "99.0",
+            "authority": "Construction_Kernel",
+            "contract_type": "governed_applicability_rules",
+            "rules": [{"rule_id": "R1", "condition_pattern": {"interface_type": "test"},
+                        "applies_detail": "D1", "detail_family": "f1",
+                        "priority": 1, "components": [{"name": "c", "role": "r"}],
+                        "relationships": []}],
+        }
+        (rules_dir / "applicability_rules.json").write_text(json.dumps(contract))
+        monkeypatch.setenv("CONSTRUCTION_KERNEL_CONTRACTS_PATH", str(tmp_path))
+        from runtime.drawing_engine import contract_loader
+        try:
+            contract_loader.load_applicability_rules()
+            assert False, "Should have raised ContractVersionError"
+        except ContractVersionError as exc:
+            assert "99.0" in str(exc)
+            assert EXPECTED_CONTRACT_VERSION in str(exc)
+
+    def test_runtime_rejects_missing_version(self, tmp_path, monkeypatch):
+        """Contract without version field fails closed."""
+        rules_dir = tmp_path / "detail_applicability"
+        rules_dir.mkdir(parents=True)
+        contract = {
+            "contract_id": "construction_kernel.detail_applicability.rules",
+            "authority": "Construction_Kernel",
+            "contract_type": "governed_applicability_rules",
+            "rules": [{"rule_id": "R1", "condition_pattern": {"interface_type": "test"},
+                        "applies_detail": "D1", "detail_family": "f1",
+                        "priority": 1, "components": [{"name": "c", "role": "r"}],
+                        "relationships": []}],
+        }
+        (rules_dir / "applicability_rules.json").write_text(json.dumps(contract))
+        monkeypatch.setenv("CONSTRUCTION_KERNEL_CONTRACTS_PATH", str(tmp_path))
+        from runtime.drawing_engine import contract_loader
+        try:
+            contract_loader.load_applicability_rules()
+            assert False, "Should have raised ContractVersionError"
+        except ContractVersionError as exc:
+            assert "None" in str(exc)
+
+    def test_correct_version_accepted(self):
+        """Contract with correct version loads successfully."""
+        rules = load_applicability_rules()
+        assert len(rules) >= 1
+
+
+class TestContractSchemaValidation:
+    """Prove runtime validates contracts against kernel-owned schemas."""
+
+    def test_runtime_rejects_schema_mismatch(self, tmp_path, monkeypatch):
+        """Contract missing schema-required fields fails with ContractSchemaError."""
+        rules_dir = tmp_path / "detail_applicability"
+        schemas_dir = tmp_path / "schemas"
+        rules_dir.mkdir(parents=True)
+        schemas_dir.mkdir(parents=True)
+        # Write a valid schema
+        schema = {
+            "$id": "test",
+            "required": ["contract_id", "version", "authority", "contract_type", "rules"],
+            "properties": {
+                "version": {"type": "string", "const": "1.0"},
+                "authority": {"type": "string", "const": "Construction_Kernel"},
+                "contract_type": {"type": "string", "const": "governed_applicability_rules"},
+                "rules": {"type": "array", "minItems": 1},
+            },
+        }
+        (schemas_dir / "detail_applicability.schema.json").write_text(json.dumps(schema))
+        # Write a contract missing required 'rules' field
+        contract = {
+            "contract_id": "construction_kernel.detail_applicability.rules",
+            "version": "1.0",
+            "authority": "Construction_Kernel",
+            "contract_type": "governed_applicability_rules",
+        }
+        (rules_dir / "applicability_rules.json").write_text(json.dumps(contract))
+        monkeypatch.setenv("CONSTRUCTION_KERNEL_CONTRACTS_PATH", str(tmp_path))
+        from runtime.drawing_engine import contract_loader
+        try:
+            contract_loader.load_applicability_rules()
+            assert False, "Should have raised ContractSchemaError"
+        except ContractSchemaError as exc:
+            assert "rules" in str(exc)
+
+    def test_contracts_validate_against_kernel_schemas(self):
+        """All production contracts pass schema validation (proven by successful load)."""
+        rules = load_applicability_rules()
+        assert len(rules) >= 5
+        types = load_ir_instruction_types()
+        assert len(types) == 9
+        schema = load_detail_schema()
+        assert len(schema["valid_component_roles"]) >= 10
+
+    def test_runtime_rejects_wrong_authority(self, tmp_path, monkeypatch):
+        """Contract with wrong authority fails closed."""
+        rules_dir = tmp_path / "detail_applicability"
+        schemas_dir = tmp_path / "schemas"
+        rules_dir.mkdir(parents=True)
+        schemas_dir.mkdir(parents=True)
+        schema = {
+            "$id": "test",
+            "required": ["contract_id", "version", "authority", "contract_type", "rules"],
+            "properties": {
+                "version": {"type": "string", "const": "1.0"},
+                "authority": {"type": "string", "const": "Construction_Kernel"},
+                "contract_type": {"type": "string", "const": "governed_applicability_rules"},
+                "rules": {"type": "array", "minItems": 1},
+            },
+        }
+        (schemas_dir / "detail_applicability.schema.json").write_text(json.dumps(schema))
+        contract = {
+            "contract_id": "construction_kernel.detail_applicability.rules",
+            "version": "1.0",
+            "authority": "Some_Other_System",
+            "contract_type": "governed_applicability_rules",
+            "rules": [{"rule_id": "R1", "condition_pattern": {"interface_type": "t"},
+                        "applies_detail": "D1", "detail_family": "f1",
+                        "priority": 1, "components": [{"name": "c", "role": "r"}],
+                        "relationships": []}],
+        }
+        (rules_dir / "applicability_rules.json").write_text(json.dumps(contract))
+        monkeypatch.setenv("CONSTRUCTION_KERNEL_CONTRACTS_PATH", str(tmp_path))
+        from runtime.drawing_engine import contract_loader
+        try:
+            contract_loader.load_applicability_rules()
+            assert False, "Should have raised ContractSchemaError"
+        except ContractSchemaError as exc:
+            assert "authority" in str(exc)
+
+
+class TestContractBypassDetection:
+    """Prove runtime cannot operate without contract_loader."""
+
+    def test_runtime_must_use_contract_loader(self):
+        """detail_resolver.py must import and use contract_loader."""
+        import runtime.drawing_engine.detail_resolver as mod
+        source = inspect.getsource(mod)
+        assert "from runtime.drawing_engine.contract_loader import" in source
+        assert "load_applicability_rules" in source
+        # Must not contain inline rule definitions
+        assert "APPLICABILITY_RULES" not in source
+
+    def test_runtime_rejects_empty_contract_rules(self, tmp_path, monkeypatch):
+        """Pipeline fails closed when contract has empty rules list."""
+        rules_dir = tmp_path / "detail_applicability"
+        schemas_dir = tmp_path / "schemas"
+        rules_dir.mkdir(parents=True)
+        schemas_dir.mkdir(parents=True)
+        schema = {
+            "$id": "test",
+            "required": ["contract_id", "version", "authority", "contract_type", "rules"],
+            "properties": {
+                "version": {"type": "string", "const": "1.0"},
+                "authority": {"type": "string", "const": "Construction_Kernel"},
+                "contract_type": {"type": "string", "const": "governed_applicability_rules"},
+                "rules": {"type": "array", "minItems": 1},
+            },
+        }
+        (schemas_dir / "detail_applicability.schema.json").write_text(json.dumps(schema))
+        contract = {
+            "contract_id": "construction_kernel.detail_applicability.rules",
+            "version": "1.0",
+            "authority": "Construction_Kernel",
+            "contract_type": "governed_applicability_rules",
+            "rules": [],
+        }
+        (rules_dir / "applicability_rules.json").write_text(json.dumps(contract))
+        monkeypatch.setenv("CONSTRUCTION_KERNEL_CONTRACTS_PATH", str(tmp_path))
+        from runtime.drawing_engine import contract_loader
+        try:
+            contract_loader.load_applicability_rules()
+            assert False, "Should have raised ContractSchemaError for empty rules"
+        except (ContractSchemaError, ContractLoadError) as exc:
+            assert "rules" in str(exc).lower() or "no rules" in str(exc).lower()
+
+    def test_loader_does_not_define_schema_structures(self):
+        """contract_loader.py must not embed schema definitions."""
+        import runtime.drawing_engine.contract_loader as mod
+        source = inspect.getsource(mod)
+        # Must not contain JSON Schema definition keywords that would indicate
+        # the loader is defining schema truth instead of loading it
+        assert '"$id"' not in source
+        assert '"title"' not in source
+        assert '"additionalProperties"' not in source
 
 
 # ──────────────────────────────────────────────

@@ -32,7 +32,7 @@
 | `generator/` | dxf_writer, svg_writer | Dual output from DrawingInstructionSet |
 | `runtime/pipeline/` | construction_pipeline | Pipeline orchestration |
 | `runtime/logging/` | audit logging | Append-only, cryptographic hashes |
-| `standards/` | error_codes, layer_standards, svg_standards | Canonical standards |
+| `standards/` | error_codes, layer_standards, svg_standards | Governed runtime standards |
 | `adapters/` | translation adapters | External interface translation |
 | `apps/` | assembly_parser_app, spec_intelligence_app | Demo applications |
 | `tests/` | parser, engine, pipeline, mutation, golden, snapshots | 6 test categories |
