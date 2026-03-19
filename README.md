@@ -28,6 +28,8 @@ This registry covers only repositories that have been confirmed as part of the C
 ## Architecture References
 
 - **Construction Truth Spine**: See [`Construction_Kernel/docs/system/CONSTRUCTION_TRUTH_SPINE.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_TRUTH_SPINE.md) for the canonical truth history architecture.
+- **Construction Assembly Identity System**: See [`Construction_Kernel/docs/system/CONSTRUCTION_ASSEMBLY_IDENTITY_SYSTEM.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_ASSEMBLY_IDENTITY_SYSTEM.md) for governed object identity architecture.
+- **Construction Object Evidence and Matching**: See [`Construction_Kernel/docs/system/CONSTRUCTION_OBJECT_EVIDENCE_AND_MATCHING.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_OBJECT_EVIDENCE_AND_MATCHING.md) for evidence and matching basis architecture.
 
 ---
 
