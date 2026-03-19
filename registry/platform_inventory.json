@@ -44,6 +44,32 @@
         "signal-generation",
         "execution"
       ]
+    },
+    {
+      "repo_name": "trade_os",
+      "layer": "execution",
+      "primary_area": "execution",
+      "role_summary": "Execution platform for service-based contractor operations.",
+      "tags": [
+        "platform",
+        "contractor_operations",
+        "service"
+      ],
+      "owner_approved": true,
+      "admission_status": "v2_approved"
+    },
+    {
+      "repo_name": "SUPA-SAINT",
+      "layer": "execution",
+      "primary_area": "execution",
+      "role_summary": "Execution platform for building-envelope delivery pipeline.",
+      "tags": [
+        "platform",
+        "pipeline",
+        "building_envelope"
+      ],
+      "owner_approved": true,
+      "admission_status": "v2_approved"
     }
   ],
   "exclusions": [

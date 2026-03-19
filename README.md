@@ -8,6 +8,10 @@ This registry catalogs all repositories that are confirmed members of the Constr
 
 See `registry/platform_inventory.json` for the machine-readable canonical inventory.
 
+## Layer Map
+
+For the canonical Construction OS layer map, see [`Construction_Kernel/docs/system/CONSTRUCTION_OS_LAYER_MAP.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_OS_LAYER_MAP.md).
+
 ## Scope
 
 This registry covers only repositories that have been confirmed as part of the Construction OS platform through architectural audit. Systems classified as PRE-UTK or independent are explicitly excluded.
