@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Define the canonical failure classes for the deterministic drawing runtime. Every runtime failure must be classified. Unclassified failures are governance violations.
+Define the governed failure classes for the deterministic drawing runtime. Every runtime failure must be classified. Unclassified failures are governance violations.
 
 ---
 

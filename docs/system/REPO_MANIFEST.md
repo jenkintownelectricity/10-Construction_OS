@@ -13,11 +13,11 @@
 - v0.2 pipeline: parse → normalize → structural validate → domain validate → geometry engine → DrawingInstructionSet → generation validate → DXF/SVG → DeliverableModel → audit
 - Contract schemas (6 JSON schemas): assembly_input, runtime_assembly, spec_input, runtime_spec, drawing_instruction, deliverable
 - Structural, domain, and generation validators (three-stage, fail-closed)
-- Canonical error taxonomy: 62 codes across 11 categories
-- DrawingInstructionSet: canonical intermediate representation; sole input to all generation
+- Error taxonomy: 62 codes across 11 categories (runtime-level governed standard)
+- DrawingInstructionSet: governed intermediate representation; sole input to all generation
 - Deterministic geometry engine
 - DXF writer and SVG writer (dual output from identical instruction set)
-- Layer standards: 10 canonical A- layers with ACI color indices
+- Layer standards: 10 governed A- layers with ACI color indices
 - Deliverable model
 - Audit logging: append-only, cryptographic hashes, 9 event types
 - Assembly engine, constraint engine, spec engine
@@ -69,7 +69,7 @@
 
 - Contract schemas (6 JSON schemas)
 - Validation stages: structural → domain → generation
-- Canonical error taxonomy (62 codes, 11 categories)
+- Error taxonomy (62 codes, 11 categories)
 - DrawingInstructionSet as sole generation input
 - DXF and SVG deriving from same instruction set
 - Audit event model (append-only, cryptographic hashes)
