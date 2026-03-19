@@ -22,3 +22,17 @@ This registry covers only repositories that have been confirmed as part of the C
 - All entries must be confirmed through architectural audit before inclusion
 - PRE-UTK systems must NOT be listed in this registry
 - Layer and primary_area fields must align with confirmed audit findings
+
+---
+
+## Repository Rename Notice
+
+This repository was originally created under the name `ConstructionOS_Registry`.
+
+It was renamed to `Construction_OS_Registry` to align with the canonical naming conventions used across the Construction OS ecosystem.
+
+This rename does not represent an architectural change.
+
+No lineage relationships, registry structures, or classifications were modified.
+
+Only the repository identifier was corrected.
