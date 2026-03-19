@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "contract_id": "construction_kernel.drawing_instruction_ir.v0.6",
+  "contract_type": "governed_ir_contract",
+  "authority": "Construction_Kernel",
+  "description": "Governed Drawing Instruction IR contract. Defines the valid instruction types, instruction fields, and boundary rules for construction-semantic IR. Runtime consumes this contract and does not define IR instruction types.",
+  "governance_source": "Construction_Kernel/docs/governance/construction-detail-doctrine.md",
+  "architecture_source": "Construction_Kernel/docs/system/DRAWING_INSTRUCTION_IR.md",
+  "fail_closed_rule": "If required component references, relationship references, or output intent are incomplete, IR emission must fail closed. The system must not emit partial drawing instructions or silently omit unresolved elements.",
+  "ir_instruction_types": [
+    "draw_component",
+    "draw_profile",
+    "draw_relationship",
+    "place_symbol",
+    "place_annotation",
+    "place_dimension",
+    "place_material_tag",
+    "define_view_boundary",
+    "set_representation_depth"
+  ],
+  "ir_instruction_fields": {
+    "required": ["instruction_type"],
+    "optional": ["target_reference", "material_reference", "position_context", "parameters", "representation_intent"]
+  },
+  "ir_boundary_rules": [
+    "IR must not encode vendor-specific CAD commands",
+    "IR must not encode application-specific scripting",
+    "IR must not encode renderer-specific low-level instructions",
+    "IR must not encode absolute coordinate geometry",
+    "IR must not encode file format structures"
+  ],
+  "renderer_separation_rule": "The IR is renderer-agnostic. It defines what must be drawn. The renderer defines how it is geometrically emitted."
+}
