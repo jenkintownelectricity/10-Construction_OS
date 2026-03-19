@@ -32,6 +32,7 @@ This registry covers only repositories that have been confirmed as part of the C
 - **Construction Object Evidence and Matching**: See [`Construction_Kernel/docs/system/CONSTRUCTION_OBJECT_EVIDENCE_AND_MATCHING.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_OBJECT_EVIDENCE_AND_MATCHING.md) for evidence and matching basis architecture.
 - **Construction Assembly Composition Model**: See [`Construction_Kernel/docs/system/CONSTRUCTION_ASSEMBLY_COMPOSITION_MODEL.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_ASSEMBLY_COMPOSITION_MODEL.md) for canonical assembly composition architecture.
 - **Construction Assembly Graph**: See [`Construction_Kernel/docs/system/CONSTRUCTION_ASSEMBLY_GRAPH.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_ASSEMBLY_GRAPH.md) for assembly graph representation.
+- **Construction Interface and Adjacent Systems Model**: See [`Construction_Kernel/docs/system/CONSTRUCTION_INTERFACE_AND_ADJACENT_SYSTEMS_MODEL.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_INTERFACE_AND_ADJACENT_SYSTEMS_MODEL.md) for interface and adjacent systems architecture.
 
 ---
 
