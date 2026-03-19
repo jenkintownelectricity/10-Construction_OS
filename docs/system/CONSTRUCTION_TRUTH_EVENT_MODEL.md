@@ -185,6 +185,31 @@ If object identity is unresolved, truth may be recorded provisionally. Provision
 
 ---
 
+## 11a. Identity and Evidence Event Fields
+
+The following fields extend the event model to support identity continuity and evidence traceability. These fields are required on events that involve identity operations or evidence-based determinations.
+
+| Field | Description |
+|-------|-------------|
+| `object_id` | Governed identity of the object. Anchors identity continuity across events. |
+| `identity_status` | Current identity state: unknown, provisional, established, disputed, superseded. |
+| `identity_operation` | Identity operation performed: create, continue, split, merge, replace, supersede, retire. Null if no identity operation. |
+| `continuity_basis` | Summary of the governed basis for asserting identity continuity. Null for creation events. |
+| `evidence_sources` | List of source artifact references supporting this event's identity and truth assertions. |
+| `prior_object_id` | For split, merge, replace, or supersede operations: the identity of the prior object. Null otherwise. |
+| `resulting_object_id` | For split, merge, replace, or supersede operations: the identity of the resulting object. Null otherwise. |
+
+### Clarifications
+
+- `object_id` anchors identity continuity. All events referencing the same governed identity share the same `object_id`.
+- Identity operations must be explicit. Implicit identity changes through document replacement or positional inference are governance violations.
+- `evidence_sources` records the supporting artifacts for this event. Evidence sources provide traceability for both truth assertions and identity determinations.
+- Document references alone cannot prove identity continuity. Identity continuity requires governed evaluation of evidence as defined in the Construction Assembly Identity System.
+- See `Construction_Kernel/docs/system/CONSTRUCTION_ASSEMBLY_IDENTITY_SYSTEM.md` for identity architecture.
+- See `Construction_Kernel/docs/governance/construction-assembly-identity-doctrine.md` for identity governance.
+
+---
+
 ## 12. State Version vs Fact Version
 
 - **`state_version`** tracks the authoritative state progression of an object. Each state transition increments the state version. The state version represents the object's position in its governed lifecycle.
