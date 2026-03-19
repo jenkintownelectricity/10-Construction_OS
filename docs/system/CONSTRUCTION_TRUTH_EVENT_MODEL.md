@@ -210,6 +210,17 @@ The following fields extend the event model to support identity continuity and e
 
 ---
 
+## 11b. Composition Linkage
+
+Truth events that involve compositional changes must reference the assembly's composition context. When a truth event records a component addition, removal, retyping, or relationship change within an assembly's composition graph, the event must reference the governed assembly identity and the specific composition operation.
+
+Composition changes are truth events. They follow the same append-only, immutable, evidence-supported rules as all other truth events. Composition state is derived by replaying the event history of the assembly's composition operations.
+
+- See `Construction_Kernel/docs/system/CONSTRUCTION_ASSEMBLY_COMPOSITION_MODEL.md` for the composition model.
+- See `Construction_Kernel/docs/system/CONSTRUCTION_ASSEMBLY_GRAPH.md` for the graph representation.
+
+---
+
 ## 12. State Version vs Fact Version
 
 - **`state_version`** tracks the authoritative state progression of an object. Each state transition increments the state version. The state version represents the object's position in its governed lifecycle.
