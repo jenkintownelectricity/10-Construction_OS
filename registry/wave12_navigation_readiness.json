@@ -1,0 +1,27 @@
+{
+  "wave": "12",
+  "navigation_readiness": {
+    "runtime_navigation_services": "operational",
+    "application_surfaces": "operational",
+    "overlays": "operational",
+    "filters": "operational",
+    "explanation_panels": "operational",
+    "path_trace": "operational",
+    "view_switcher": "operational",
+    "map_view": "operational",
+    "list_view": "operational",
+    "detail_view": "operational"
+  },
+  "integration_status": {
+    "wave11a_graph_engine_consumed": true,
+    "wave11a_query_engine_consumed": true,
+    "wave11a_readiness_routing_consumed": true,
+    "wave11a_impact_analysis_consumed": true,
+    "runtime_ui_boundary_preserved": true,
+    "unknown_state_explicit": true,
+    "enrichment_labels_preserved": true,
+    "incomplete_state_shown_as_incomplete": true,
+    "no_independent_graph_logic_in_ui": true,
+    "deterministic_outputs": true
+  }
+}
