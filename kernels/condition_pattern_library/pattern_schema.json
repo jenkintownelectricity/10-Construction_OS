@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "construction_kernel.condition_pattern_library.pattern_schema",
+  "title": "Condition Pattern Schema",
+  "description": "JSON Schema for condition patterns in the Construction Kernel Condition Pattern Library. Each pattern defines a known construction condition with its associated assembly relationships, interface relationships, detail relationships, blocker archetypes, remediation archetypes, issue signatures, and discipline tags. Patterns are kernel truth; runtime may reference but not author patterns.",
+  "authority": "Construction_Kernel",
+  "type": "object",
+  "required": [
+    "pattern_id",
+    "pattern_class",
+    "description",
+    "assembly_relationships",
+    "interface_relationships",
+    "detail_relationships",
+    "blocker_archetypes",
+    "remediation_archetypes",
+    "issue_signatures",
+    "severity_default",
+    "discipline_tags"
+  ],
+  "properties": {
+    "pattern_id": {
+      "type": "string",
+      "pattern": "^cpat-[a-z0-9\\-]+$",
+      "description": "Unique identifier for the condition pattern."
+    },
+    "pattern_class": {
+      "type": "string",
+      "enum": [
+        "flashing_gap",
+        "termination_failure",
+        "scope_gap",
+        "drainage_mismatch",
+        "material_mismatch",
+        "interface_conflict",
+        "detail_omission",
+        "coordination_gap"
+      ],
+      "description": "Classification of the condition pattern."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the condition and its construction significance."
+    },
+    "assembly_relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["assembly_type", "role", "relationship"],
+        "properties": {
+          "assembly_type": { "type": "string" },
+          "role": {
+            "type": "string",
+            "enum": ["primary", "adjacent", "transitional", "substrate"]
+          },
+          "relationship": { "type": "string" },
+          "required_components": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      },
+      "description": "Assembly types and roles involved in this condition pattern."
+    },
+    "interface_relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["interface_type", "from_assembly", "to_assembly", "criticality"],
+        "properties": {
+          "interface_type": { "type": "string" },
+          "from_assembly": { "type": "string" },
+          "to_assembly": { "type": "string" },
+          "criticality": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"]
+          },
+          "seal_requirement": { "type": "string" },
+          "transition_type": { "type": "string" }
+        }
+      },
+      "description": "Interface relationships that characterize this condition."
+    },
+    "detail_relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["detail_type", "detail_family", "status"],
+        "properties": {
+          "detail_type": { "type": "string" },
+          "detail_family": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["required", "recommended", "optional", "missing", "inadequate"]
+          },
+          "gap_description": { "type": "string" }
+        }
+      },
+      "description": "Detail drawings related to this condition pattern."
+    },
+    "blocker_archetypes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Reference to a blocker archetype ID in blocker_archetypes.json."
+      },
+      "description": "Blocker archetypes commonly triggered by this condition."
+    },
+    "remediation_archetypes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Reference to a remediation archetype ID in remediation_archetypes.json."
+      },
+      "description": "Remediation archetypes applicable to this condition."
+    },
+    "issue_signatures": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "Reference to an issue signature ID in issue_signatures.json."
+      },
+      "description": "Issue signatures that indicate this condition is present."
+    },
+    "severity_default": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low", "informational"],
+      "description": "Default severity when this condition pattern is detected."
+    },
+    "discipline_tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Disciplines responsible for or affected by this condition."
+    }
+  },
+  "additionalProperties": false
+}

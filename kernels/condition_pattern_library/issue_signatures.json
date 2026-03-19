@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "authority": "Construction_Kernel",
+  "description": "Canonical issue signature definitions for condition pattern matching.",
+  "signatures": [
+    {
+      "signature_id": "SIG_FLASHING_DISCONTINUITY",
+      "description": "Flashing assembly shows discontinuity at transition point",
+      "issue_classes": ["missing_detail", "unresolved_interface"],
+      "indicator_fields": ["detail_id", "interface_id"],
+      "severity_range": ["moderate", "critical"],
+      "discipline_tags": ["waterproofing", "sheet-metal"]
+    },
+    {
+      "signature_id": "SIG_TERMINATION_FAILURE",
+      "description": "Mechanical termination component missing or improperly specified",
+      "issue_classes": ["missing_detail", "parameter_gap"],
+      "indicator_fields": ["detail_id", "parameter_state"],
+      "severity_range": ["moderate", "critical"],
+      "discipline_tags": ["waterproofing", "fastening"]
+    },
+    {
+      "signature_id": "SIG_SCOPE_BOUNDARY_GAP",
+      "description": "Scope boundary between trades leaves coverage gap",
+      "issue_classes": ["scope_conflict", "missing_ownership"],
+      "indicator_fields": ["owner_state", "assembly_id"],
+      "severity_range": ["moderate", "high"],
+      "discipline_tags": ["coordination", "scope-management"]
+    },
+    {
+      "signature_id": "SIG_SLOPE_DRAINAGE_MISMATCH",
+      "description": "Slope specification does not align with drainage infrastructure",
+      "issue_classes": ["incompatible_material", "parameter_gap"],
+      "indicator_fields": ["parameter_state", "assembly_id"],
+      "severity_range": ["high", "critical"],
+      "discipline_tags": ["roofing", "drainage"]
+    },
+    {
+      "signature_id": "SIG_MATERIAL_INCOMPATIBILITY",
+      "description": "Adjacent materials have incompatible physical or chemical properties",
+      "issue_classes": ["incompatible_material"],
+      "indicator_fields": ["assembly_id", "interface_id"],
+      "severity_range": ["moderate", "critical"],
+      "discipline_tags": ["materials", "chemistry"]
+    },
+    {
+      "signature_id": "SIG_COMPRESSIBILITY_MISMATCH",
+      "description": "Insulation compressibility does not meet structural or thermal requirements",
+      "issue_classes": ["incompatible_material", "parameter_gap"],
+      "indicator_fields": ["parameter_state", "assembly_id"],
+      "severity_range": ["moderate", "high"],
+      "discipline_tags": ["insulation", "structural"]
+    },
+    {
+      "signature_id": "SIG_READINESS_BLOCKER_CHAIN",
+      "description": "Multiple sequential blockers prevent readiness progression",
+      "issue_classes": ["readiness_blocker"],
+      "indicator_fields": ["blocker_refs", "readiness_state"],
+      "severity_range": ["high", "critical"],
+      "discipline_tags": ["coordination", "scheduling"]
+    },
+    {
+      "signature_id": "SIG_UNRESOLVED_INTERFACE",
+      "description": "Interface between assemblies has no resolved detail specification",
+      "issue_classes": ["unresolved_interface", "missing_detail"],
+      "indicator_fields": ["interface_id", "detail_id"],
+      "severity_range": ["moderate", "high"],
+      "discipline_tags": ["detailing", "coordination"]
+    }
+  ]
+}

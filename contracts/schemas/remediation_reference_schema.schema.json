@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "construction_kernel.schemas.remediation_reference_schema",
+  "title": "Remediation Reference Contract Schema",
+  "description": "Schema definition for governed remediation reference objects. Owned by Construction_Kernel. Remediation references link identified issues to resolution strategies, candidate solutions, and confidence assessments. Runtime must validate remediation records against this schema and must not define its own.",
+  "authority": "Construction_Kernel",
+  "type": "object",
+  "required": ["contract_id", "version", "authority", "contract_type", "valid_strategies"],
+  "properties": {
+    "contract_id": {
+      "type": "string",
+      "pattern": "^construction_kernel\\.remediation_reference\\."
+    },
+    "version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "authority": {
+      "type": "string",
+      "const": "Construction_Kernel"
+    },
+    "contract_type": {
+      "type": "string",
+      "const": "governed_remediation_reference_schema"
+    },
+    "description": { "type": "string" },
+    "governance_source": { "type": "string" },
+    "architecture_source": { "type": "string" },
+    "fail_closed_rule": { "type": "string" },
+    "valid_strategies": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" },
+      "description": "Governed list of valid remediation strategies."
+    },
+    "confidence_range": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "number", "minimum": 0.0 },
+        "max": { "type": "number", "maximum": 1.0 }
+      }
+    },
+    "remediation_item_schema": {
+      "type": "object",
+      "description": "Schema for individual remediation reference records.",
+      "required": ["remediation_id", "target_issue_ref", "strategy", "candidate_refs", "confidence"],
+      "properties": {
+        "remediation_id": {
+          "type": "string",
+          "pattern": "^rem-[a-z0-9\\-]+$",
+          "description": "Unique identifier for the remediation reference."
+        },
+        "target_issue_ref": {
+          "type": "string",
+          "description": "Reference to the issue being remediated."
+        },
+        "strategy": {
+          "type": "string",
+          "description": "Remediation strategy. Must be one of valid_strategies."
+        },
+        "candidate_refs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["ref", "ref_type"],
+            "properties": {
+              "ref": { "type": "string" },
+              "ref_type": {
+                "type": "string",
+                "enum": ["detail", "assembly", "material", "specification", "standard"]
+              },
+              "description": { "type": "string" },
+              "applicability_score": {
+                "type": "number",
+                "minimum": 0.0,
+                "maximum": 1.0
+              }
+            }
+          },
+          "description": "Candidate references that may resolve the issue."
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Confidence that the proposed remediation will resolve the issue."
+        },
+        "rationale": { "type": "string" },
+        "proposed_at": { "type": "string", "format": "date-time" },
+        "applied_at": { "type": "string", "format": "date-time" },
+        "verification_state": {
+          "type": "string",
+          "enum": ["proposed", "approved", "applied", "verified", "rejected"]
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,80 @@
+{
+  "pattern_id": "cpat-termination-bar-failure",
+  "pattern_class": "termination_failure",
+  "description": "The membrane or flashing termination lacks a mechanical termination bar, or the specified termination bar is inadequate for the substrate and exposure conditions. Without proper mechanical termination, the membrane edge is vulnerable to wind uplift, thermal cycling, and progressive peel-back, compromising the weather envelope at the termination point.",
+  "assembly_relationships": [
+    {
+      "assembly_type": "membrane_termination",
+      "role": "primary",
+      "relationship": "requires_mechanical_fastening",
+      "required_components": ["termination_bar", "fasteners", "sealant_bead", "membrane_edge"]
+    },
+    {
+      "assembly_type": "roof_membrane_system",
+      "role": "adjacent",
+      "relationship": "terminates_at_wall_or_curb",
+      "required_components": ["roof_membrane", "base_flashing"]
+    },
+    {
+      "assembly_type": "vertical_substrate",
+      "role": "substrate",
+      "relationship": "receives_termination_bar",
+      "required_components": ["concrete_wall", "masonry_wall", "metal_panel"]
+    }
+  ],
+  "interface_relationships": [
+    {
+      "interface_type": "membrane_to_substrate",
+      "from_assembly": "membrane_termination",
+      "to_assembly": "vertical_substrate",
+      "criticality": "critical",
+      "seal_requirement": "mechanical_plus_sealant",
+      "transition_type": "membrane_to_rigid_substrate"
+    },
+    {
+      "interface_type": "termination_bar_to_wall",
+      "from_assembly": "membrane_termination",
+      "to_assembly": "vertical_substrate",
+      "criticality": "critical",
+      "seal_requirement": "continuous_sealant_above_bar",
+      "transition_type": "metal_bar_to_substrate"
+    }
+  ],
+  "detail_relationships": [
+    {
+      "detail_type": "termination_bar_section",
+      "detail_family": "membrane_termination_details",
+      "status": "required",
+      "gap_description": "Termination bar profile, fastener spacing, and sealant specification not defined."
+    },
+    {
+      "detail_type": "fastener_pattern",
+      "detail_family": "membrane_termination_details",
+      "status": "required",
+      "gap_description": "Fastener type, spacing, and embedment depth for the substrate not specified."
+    },
+    {
+      "detail_type": "counterflashing_over_bar",
+      "detail_family": "membrane_termination_details",
+      "status": "recommended",
+      "gap_description": "Counterflashing to protect the termination bar and sealant from UV and weather exposure."
+    }
+  ],
+  "blocker_archetypes": [
+    "ba-missing-termination-bar-spec",
+    "ba-substrate-incompatibility",
+    "ba-fastener-pullout-risk"
+  ],
+  "remediation_archetypes": [
+    "ra-add-termination-bar",
+    "ra-specify-fastener-pattern",
+    "ra-add-counterflashing-over-bar"
+  ],
+  "issue_signatures": [
+    "is-missing-termination-bar-detail",
+    "is-undefined-fastener-spacing",
+    "is-no-sealant-spec-at-termination"
+  ],
+  "severity_default": "critical",
+  "discipline_tags": ["roofing", "waterproofing", "architectural"]
+}

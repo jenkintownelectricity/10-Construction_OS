@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "construction_kernel.schemas.blocker_typing_schema",
+  "title": "Blocker Typing Contract Schema",
+  "description": "Schema definition for governed blocker typing objects. Owned by Construction_Kernel. Blockers represent dependency constraints that prevent progress on a target entity until a blocking condition is resolved. Runtime must validate blocker records against this schema and must not define its own.",
+  "authority": "Construction_Kernel",
+  "type": "object",
+  "required": ["contract_id", "version", "authority", "contract_type", "valid_blocker_classes", "valid_resolution_states"],
+  "properties": {
+    "contract_id": {
+      "type": "string",
+      "pattern": "^construction_kernel\\.blocker_typing\\."
+    },
+    "version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "authority": {
+      "type": "string",
+      "const": "Construction_Kernel"
+    },
+    "contract_type": {
+      "type": "string",
+      "const": "governed_blocker_typing_schema"
+    },
+    "description": { "type": "string" },
+    "governance_source": { "type": "string" },
+    "architecture_source": { "type": "string" },
+    "fail_closed_rule": { "type": "string" },
+    "valid_blocker_classes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" },
+      "description": "Governed enumeration of valid blocker classes."
+    },
+    "valid_resolution_states": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["unresolved", "in_progress", "resolved", "waived", "escalated"]
+      },
+      "description": "Governed enumeration of valid resolution states."
+    },
+    "blocker_item_schema": {
+      "type": "object",
+      "description": "Schema for individual blocker records.",
+      "required": ["blocker_id", "blocker_class", "blocking_ref", "blocked_ref", "resolution_state"],
+      "properties": {
+        "blocker_id": {
+          "type": "string",
+          "pattern": "^blk-[a-z0-9\\-]+$",
+          "description": "Unique identifier for the blocker."
+        },
+        "blocker_class": {
+          "type": "string",
+          "description": "Classification of the blocker. Must be one of valid_blocker_classes."
+        },
+        "blocking_ref": {
+          "type": "string",
+          "description": "Graph reference to the entity causing the blockage."
+        },
+        "blocked_ref": {
+          "type": "string",
+          "description": "Graph reference to the entity being blocked."
+        },
+        "resolution_state": {
+          "type": "string",
+          "enum": ["unresolved", "in_progress", "resolved", "waived", "escalated"],
+          "description": "Current state of blocker resolution."
+        },
+        "description": { "type": "string" },
+        "issue_ref": {
+          "type": "string",
+          "description": "Reference to the associated issue record."
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Resolution priority. Lower values indicate higher priority."
+        },
+        "created_at": { "type": "string", "format": "date-time" },
+        "resolved_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "additionalProperties": true
+}

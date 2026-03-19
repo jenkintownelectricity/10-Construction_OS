@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "construction_kernel.schemas.drawing_package_contract",
+  "title": "Drawing Package Contract Schema",
+  "description": "Schema definition for governed drawing package objects. Owned by Construction_Kernel. Drawing packages aggregate sheets and drawing references into revisioned, QA-gated deliverables. Each package tracks completeness state and quality assurance state. Runtime must validate drawing packages against this schema and must not define its own.",
+  "authority": "Construction_Kernel",
+  "type": "object",
+  "required": ["contract_id", "version", "authority", "contract_type", "valid_qa_states", "valid_completeness_states"],
+  "properties": {
+    "contract_id": {
+      "type": "string",
+      "pattern": "^construction_kernel\\.drawing_package\\."
+    },
+    "version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "authority": {
+      "type": "string",
+      "const": "Construction_Kernel"
+    },
+    "contract_type": {
+      "type": "string",
+      "const": "governed_drawing_package_contract"
+    },
+    "description": { "type": "string" },
+    "governance_source": { "type": "string" },
+    "architecture_source": { "type": "string" },
+    "fail_closed_rule": { "type": "string" },
+    "valid_qa_states": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" },
+      "description": "Governed list of valid QA states for drawing packages."
+    },
+    "valid_completeness_states": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" },
+      "description": "Governed list of valid completeness states."
+    },
+    "drawing_package_item_schema": {
+      "type": "object",
+      "description": "Schema for individual drawing package records.",
+      "required": ["package_id", "revision_id", "sheets", "drawing_refs", "qa_state", "completeness_state"],
+      "properties": {
+        "package_id": {
+          "type": "string",
+          "pattern": "^pkg-[a-z0-9\\-]+$",
+          "description": "Unique identifier for the drawing package."
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^rev-[a-z0-9\\-]+$",
+          "description": "Revision identifier for this version of the package."
+        },
+        "sheets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["sheet_id", "sheet_number", "sheet_title"],
+            "properties": {
+              "sheet_id": { "type": "string" },
+              "sheet_number": { "type": "string" },
+              "sheet_title": { "type": "string" },
+              "discipline": { "type": "string" },
+              "scale": { "type": "string" }
+            }
+          }
+        },
+        "drawing_refs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "References to individual drawing IR instructions or detail references."
+        },
+        "qa_state": {
+          "type": "string",
+          "description": "Must be one of valid_qa_states."
+        },
+        "completeness_state": {
+          "type": "string",
+          "description": "Must be one of valid_completeness_states."
+        },
+        "title": { "type": "string" },
+        "project_ref": { "type": "string" },
+        "issued_date": { "type": "string", "format": "date" },
+        "blocker_refs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "References to any active blockers on this package."
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

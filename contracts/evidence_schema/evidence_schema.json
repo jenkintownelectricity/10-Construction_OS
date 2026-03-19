@@ -1,0 +1,55 @@
+{
+  "contract_id": "construction_kernel.evidence_schema.v1",
+  "version": "1.0",
+  "authority": "Construction_Kernel",
+  "contract_type": "governed_evidence_schema",
+  "description": "Defines the evidence schema contract for tracking provenance of extracted construction data. Evidence records link source documents to extracted entities with confidence scoring and temporal metadata.",
+  "governance_source": "GOVERNANCE_KERNEL.md",
+  "architecture_source": "INTELLIGENCE_KERNEL.md",
+  "fail_closed_rule": "Any evidence record that does not conform to this schema must be rejected. Runtime must not infer or fabricate evidence fields.",
+  "evidence_fields": {
+    "required": [
+      "evidence_id",
+      "source_document",
+      "extraction_method",
+      "confidence",
+      "extracted_entities",
+      "timestamps"
+    ],
+    "optional": [
+      "validation_state",
+      "reviewer_notes",
+      "superseded_by",
+      "linked_issue_refs"
+    ]
+  },
+  "valid_extraction_methods": [
+    "manual_entry",
+    "ocr_extraction",
+    "nlp_extraction",
+    "table_extraction",
+    "drawing_scan",
+    "specification_parse",
+    "schedule_import",
+    "bim_export",
+    "field_observation"
+  ],
+  "valid_source_document_types": [
+    "architectural_drawing",
+    "structural_drawing",
+    "mep_drawing",
+    "specification_section",
+    "shop_drawing",
+    "submittal",
+    "rfi_response",
+    "change_order",
+    "field_report",
+    "inspection_report",
+    "product_data_sheet",
+    "test_report"
+  ],
+  "confidence_range": {
+    "min": 0.0,
+    "max": 1.0
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "construction_kernel.schemas.issue_typing_schema",
+  "title": "Issue Typing Contract Schema",
+  "description": "Schema definition for governed issue typing objects. Owned by Construction_Kernel. Issue typing defines the classification system for construction issues including missing details, incompatible materials, unresolved interfaces, scope conflicts, parameter gaps, missing ownership, and readiness blockers. Runtime must validate issue records against this schema and must not define its own.",
+  "authority": "Construction_Kernel",
+  "type": "object",
+  "required": ["contract_id", "version", "authority", "contract_type", "valid_issue_classes", "valid_severity_levels"],
+  "properties": {
+    "contract_id": {
+      "type": "string",
+      "pattern": "^construction_kernel\\.issue_typing\\."
+    },
+    "version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "authority": {
+      "type": "string",
+      "const": "Construction_Kernel"
+    },
+    "contract_type": {
+      "type": "string",
+      "const": "governed_issue_typing_schema"
+    },
+    "description": { "type": "string" },
+    "governance_source": { "type": "string" },
+    "architecture_source": { "type": "string" },
+    "fail_closed_rule": { "type": "string" },
+    "valid_issue_classes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "missing_detail",
+          "incompatible_material",
+          "unresolved_interface",
+          "scope_conflict",
+          "parameter_gap",
+          "missing_ownership",
+          "readiness_blocker"
+        ]
+      },
+      "description": "Governed enumeration of valid issue classes."
+    },
+    "valid_severity_levels": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["critical", "high", "medium", "low", "informational"]
+      },
+      "description": "Governed severity levels for issues."
+    },
+    "issue_item_schema": {
+      "type": "object",
+      "description": "Schema for individual issue records.",
+      "required": ["issue_id", "issue_class", "severity", "target_ref"],
+      "properties": {
+        "issue_id": {
+          "type": "string",
+          "pattern": "^iss-[a-z0-9\\-]+$",
+          "description": "Unique identifier for the issue."
+        },
+        "issue_class": {
+          "type": "string",
+          "enum": [
+            "missing_detail",
+            "incompatible_material",
+            "unresolved_interface",
+            "scope_conflict",
+            "parameter_gap",
+            "missing_ownership",
+            "readiness_blocker"
+          ],
+          "description": "Classification of the issue."
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low", "informational"],
+          "description": "Severity level of the issue."
+        },
+        "target_ref": {
+          "type": "string",
+          "description": "Graph reference to the target entity affected by this issue."
+        },
+        "description": { "type": "string" },
+        "evidence_refs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "References to evidence records supporting this issue."
+        },
+        "related_issue_refs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "References to related issues."
+        },
+        "detected_at": { "type": "string", "format": "date-time" },
+        "resolution_state": {
+          "type": "string",
+          "enum": ["open", "in_progress", "resolved", "deferred", "rejected"]
+        }
+      }
+    },
+    "issue_class_definitions": {
+      "type": "object",
+      "description": "Detailed definitions for each issue class.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" },
+          "description": { "type": "string" },
+          "default_severity": { "type": "string" },
+          "requires_blocker": { "type": "boolean" }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

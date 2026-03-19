@@ -53,6 +53,159 @@
       "canonicality": "governed_contract",
       "fail_mode": "fail_closed",
       "seam_status": "frozen"
+    },
+    {
+      "seam_id": "evidence_schema",
+      "authority_repo": "Construction_Kernel",
+      "authority_artifacts": [
+        "contracts/evidence_schema/evidence_schema.json",
+        "contracts/schemas/evidence_schema.schema.json"
+      ],
+      "consumer_repo": "Construction_Runtime",
+      "consumer_modules": [
+        "runtime/evidence/ingestion.py"
+      ],
+      "version_policy": "exact_match",
+      "canonicality": "governed_contract",
+      "fail_mode": "fail_closed",
+      "seam_status": "frozen"
+    },
+    {
+      "seam_id": "graph_reference",
+      "authority_repo": "Construction_Kernel",
+      "authority_artifacts": [
+        "contracts/graph_reference/graph_reference_contract.json",
+        "contracts/schemas/graph_reference_contract.schema.json"
+      ],
+      "consumer_repo": "Construction_Runtime",
+      "consumer_modules": [
+        "runtime/graph_refs/graph_service.py"
+      ],
+      "version_policy": "exact_match",
+      "canonicality": "governed_contract",
+      "fail_mode": "fail_closed",
+      "seam_status": "frozen"
+    },
+    {
+      "seam_id": "issue_typing",
+      "authority_repo": "Construction_Kernel",
+      "authority_artifacts": [
+        "contracts/issue_typing/issue_typing_schema.json",
+        "contracts/schemas/issue_typing_schema.schema.json"
+      ],
+      "consumer_repo": "Construction_Runtime",
+      "consumer_modules": [
+        "runtime/qa/qa_engine.py",
+        "runtime/deviation_detection/detector.py"
+      ],
+      "version_policy": "exact_match",
+      "canonicality": "governed_contract",
+      "fail_mode": "fail_closed",
+      "seam_status": "frozen"
+    },
+    {
+      "seam_id": "blocker_typing",
+      "authority_repo": "Construction_Kernel",
+      "authority_artifacts": [
+        "contracts/blocker_typing/blocker_typing_schema.json",
+        "contracts/schemas/blocker_typing_schema.schema.json"
+      ],
+      "consumer_repo": "Construction_Runtime",
+      "consumer_modules": [
+        "runtime/qa/qa_engine.py",
+        "runtime/dependency_projection/projector.py"
+      ],
+      "version_policy": "exact_match",
+      "canonicality": "governed_contract",
+      "fail_mode": "fail_closed",
+      "seam_status": "frozen"
+    },
+    {
+      "seam_id": "remediation_reference",
+      "authority_repo": "Construction_Kernel",
+      "authority_artifacts": [
+        "contracts/remediation_reference/remediation_reference_schema.json",
+        "contracts/schemas/remediation_reference_schema.schema.json"
+      ],
+      "consumer_repo": "Construction_Runtime",
+      "consumer_modules": [
+        "runtime/qa/qa_engine.py"
+      ],
+      "version_policy": "exact_match",
+      "canonicality": "governed_contract",
+      "fail_mode": "fail_closed",
+      "seam_status": "frozen"
+    },
+    {
+      "seam_id": "qa_constraint",
+      "authority_repo": "Construction_Kernel",
+      "authority_artifacts": [
+        "contracts/qa_constraint/qa_constraint_schema.json",
+        "contracts/schemas/qa_constraint_schema.schema.json"
+      ],
+      "consumer_repo": "Construction_Runtime",
+      "consumer_modules": [
+        "runtime/qa/qa_engine.py"
+      ],
+      "version_policy": "exact_match",
+      "canonicality": "governed_contract",
+      "fail_mode": "fail_closed",
+      "seam_status": "frozen"
+    },
+    {
+      "seam_id": "drawing_package",
+      "authority_repo": "Construction_Kernel",
+      "authority_artifacts": [
+        "contracts/drawing_package/drawing_package_contract.json",
+        "contracts/schemas/drawing_package_contract.schema.json"
+      ],
+      "consumer_repo": "Construction_Runtime",
+      "consumer_modules": [
+        "runtime/package_builder/builder.py"
+      ],
+      "version_policy": "exact_match",
+      "canonicality": "governed_contract",
+      "fail_mode": "fail_closed",
+      "seam_status": "frozen"
+    },
+    {
+      "seam_id": "export",
+      "authority_repo": "Construction_Kernel",
+      "authority_artifacts": [
+        "contracts/export/export_contract.json",
+        "contracts/schemas/export_contract.schema.json"
+      ],
+      "consumer_repo": "Construction_Runtime",
+      "consumer_modules": [
+        "runtime/export/exporter.py"
+      ],
+      "version_policy": "exact_match",
+      "canonicality": "governed_contract",
+      "fail_mode": "fail_closed",
+      "seam_status": "frozen"
+    },
+    {
+      "seam_id": "condition_pattern_library",
+      "authority_repo": "Construction_Kernel",
+      "authority_artifacts": [
+        "kernels/condition_pattern_library/pattern_schema.json",
+        "kernels/condition_pattern_library/blocker_archetypes.json",
+        "kernels/condition_pattern_library/remediation_archetypes.json",
+        "kernels/condition_pattern_library/issue_signatures.json",
+        "kernels/condition_pattern_library/patterns/PARAPET_FLASHING_GAP.json",
+        "kernels/condition_pattern_library/patterns/TERMINATION_BAR_FAILURE.json",
+        "kernels/condition_pattern_library/patterns/COUNTERFLASHING_SCOPE_GAP.json",
+        "kernels/condition_pattern_library/patterns/SLOPE_TO_DRAIN_MISMATCH.json",
+        "kernels/condition_pattern_library/patterns/INSULATION_COMPRESSIBILITY_MISMATCH.json"
+      ],
+      "consumer_repo": "Construction_Runtime",
+      "consumer_modules": [
+        "runtime/condition_linking/*"
+      ],
+      "version_policy": "exact_match",
+      "canonicality": "governed_contract",
+      "fail_mode": "fail_closed",
+      "seam_status": "frozen"
     }
   ]
 }

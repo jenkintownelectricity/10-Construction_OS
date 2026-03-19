@@ -1,0 +1,80 @@
+{
+  "pattern_id": "cpat-counterflashing-scope-gap",
+  "pattern_class": "scope_gap",
+  "description": "Counterflashing installation falls between the scopes of the roofing contractor and the sheet metal or masonry contractor, with neither party clearly responsible. This scope gap results in counterflashing being omitted, improperly installed, or installed without coordination with the base flashing below. The reglet, surface-mounted, or through-wall counterflashing requires coordination between multiple trades that is not defined in the contract documents.",
+  "assembly_relationships": [
+    {
+      "assembly_type": "counterflashing_system",
+      "role": "primary",
+      "relationship": "bridges_roofing_and_wall_scopes",
+      "required_components": ["counterflashing", "reglet", "sealant", "attachment_clips"]
+    },
+    {
+      "assembly_type": "roof_membrane_system",
+      "role": "adjacent",
+      "relationship": "base_flashing_receives_counterflashing",
+      "required_components": ["base_flashing", "membrane"]
+    },
+    {
+      "assembly_type": "wall_assembly",
+      "role": "adjacent",
+      "relationship": "provides_counterflashing_receiver",
+      "required_components": ["masonry", "reglet_groove", "sealant_joint"]
+    }
+  ],
+  "interface_relationships": [
+    {
+      "interface_type": "counterflashing_to_base_flashing",
+      "from_assembly": "counterflashing_system",
+      "to_assembly": "roof_membrane_system",
+      "criticality": "critical",
+      "seal_requirement": "overlap_minimum_4_inches",
+      "transition_type": "metal_over_membrane"
+    },
+    {
+      "interface_type": "counterflashing_to_wall",
+      "from_assembly": "counterflashing_system",
+      "to_assembly": "wall_assembly",
+      "criticality": "high",
+      "seal_requirement": "reglet_or_surface_mount_sealed",
+      "transition_type": "metal_into_masonry_or_concrete"
+    }
+  ],
+  "detail_relationships": [
+    {
+      "detail_type": "counterflashing_section",
+      "detail_family": "roof_wall_interface_details",
+      "status": "missing",
+      "gap_description": "No detail showing counterflashing profile, engagement with reglet, and overlap with base flashing."
+    },
+    {
+      "detail_type": "scope_coordination_note",
+      "detail_family": "general_notes",
+      "status": "missing",
+      "gap_description": "No specification note or detail note assigning counterflashing installation responsibility."
+    },
+    {
+      "detail_type": "reglet_detail",
+      "detail_family": "roof_wall_interface_details",
+      "status": "inadequate",
+      "gap_description": "Reglet shown on wall elevation but depth, width, and sealant not specified."
+    }
+  ],
+  "blocker_archetypes": [
+    "ba-undefined-scope-ownership",
+    "ba-missing-counterflashing-detail",
+    "ba-reglet-coordination-gap"
+  ],
+  "remediation_archetypes": [
+    "ra-assign-counterflashing-scope",
+    "ra-add-counterflashing-detail",
+    "ra-coordinate-reglet-installation"
+  ],
+  "issue_signatures": [
+    "is-counterflashing-scope-unassigned",
+    "is-missing-counterflashing-section",
+    "is-reglet-spec-incomplete"
+  ],
+  "severity_default": "high",
+  "discipline_tags": ["roofing", "sheet_metal", "masonry", "architectural"]
+}

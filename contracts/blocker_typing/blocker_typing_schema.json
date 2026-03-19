@@ -1,0 +1,81 @@
+{
+  "contract_id": "construction_kernel.blocker_typing.v1",
+  "version": "1.0",
+  "authority": "Construction_Kernel",
+  "contract_type": "governed_blocker_typing_schema",
+  "description": "Defines the blocker typing contract governing dependency constraints in the construction pipeline. Blockers represent conditions that prevent progress on a target entity until a blocking condition is resolved. Runtime must validate blocker records against this contract and must not define its own blocker classes.",
+  "governance_source": "GOVERNANCE_KERNEL.md",
+  "architecture_source": "INTELLIGENCE_KERNEL.md",
+  "fail_closed_rule": "Any blocker record with an unrecognized blocker_class or resolution_state must be rejected. Runtime must not invent blocker classifications.",
+  "valid_blocker_classes": [
+    "missing_detail_blocker",
+    "missing_submittal_blocker",
+    "incompatible_material_blocker",
+    "unresolved_rfi_blocker",
+    "failed_qa_check_blocker",
+    "scope_ownership_blocker",
+    "interface_coordination_blocker",
+    "specification_conflict_blocker",
+    "incomplete_drawing_blocker",
+    "field_condition_blocker"
+  ],
+  "valid_resolution_states": [
+    "unresolved",
+    "in_progress",
+    "resolved",
+    "waived",
+    "escalated"
+  ],
+  "blocker_class_definitions": {
+    "missing_detail_blocker": {
+      "label": "Missing Detail Blocker",
+      "description": "A required construction detail is absent, blocking assembly completion or drawing issuance.",
+      "typical_severity": "high"
+    },
+    "missing_submittal_blocker": {
+      "label": "Missing Submittal Blocker",
+      "description": "A required product submittal or shop drawing has not been received or approved.",
+      "typical_severity": "high"
+    },
+    "incompatible_material_blocker": {
+      "label": "Incompatible Material Blocker",
+      "description": "Material incompatibility blocks assembly acceptance until substitution or engineering resolution.",
+      "typical_severity": "critical"
+    },
+    "unresolved_rfi_blocker": {
+      "label": "Unresolved RFI Blocker",
+      "description": "An RFI response is pending, blocking design resolution.",
+      "typical_severity": "medium"
+    },
+    "failed_qa_check_blocker": {
+      "label": "Failed QA Check Blocker",
+      "description": "A QA constraint has failed, blocking artifact advancement.",
+      "typical_severity": "critical"
+    },
+    "scope_ownership_blocker": {
+      "label": "Scope Ownership Blocker",
+      "description": "Scope ownership is unassigned or disputed, blocking coordination.",
+      "typical_severity": "medium"
+    },
+    "interface_coordination_blocker": {
+      "label": "Interface Coordination Blocker",
+      "description": "Interface between assemblies requires multi-discipline coordination that has not occurred.",
+      "typical_severity": "high"
+    },
+    "specification_conflict_blocker": {
+      "label": "Specification Conflict Blocker",
+      "description": "Conflicting specification requirements block material or method selection.",
+      "typical_severity": "high"
+    },
+    "incomplete_drawing_blocker": {
+      "label": "Incomplete Drawing Blocker",
+      "description": "Drawing package is incomplete, blocking issuance.",
+      "typical_severity": "high"
+    },
+    "field_condition_blocker": {
+      "label": "Field Condition Blocker",
+      "description": "A field condition differs from design assumptions, blocking construction.",
+      "typical_severity": "critical"
+    }
+  }
+}
