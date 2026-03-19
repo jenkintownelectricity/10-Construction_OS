@@ -1,0 +1,36 @@
+{
+  "wave": "12",
+  "title": "Construction Navigation Interface",
+  "status": "delivered",
+  "depends_on": ["wave_11a", "wave_8a", "wave_8.5"],
+  "repositories_touched": [
+    "Construction_Runtime",
+    "Construction_OS_Registry",
+    "ValidKernelOS_VKBUS"
+  ],
+  "runtime_service_count": 10,
+  "application_surface_count": 18,
+  "overlay_count": 9,
+  "filter_count": 12,
+  "explanation_panel_count": 4,
+  "view_count": 3,
+  "boundary_discipline": {
+    "kernel_untouched": true,
+    "runtime_owns_semantics": true,
+    "ui_is_surface_only": true,
+    "registry_is_catalog_only": true,
+    "vkbus_is_observer_only": true
+  },
+  "navigation_readiness": {
+    "project_map": "ready",
+    "system_view": "ready",
+    "assembly_view": "ready",
+    "condition_detail": "ready",
+    "readiness_overlay": "ready",
+    "impact_overlay": "ready",
+    "path_trace": "ready",
+    "view_switcher": "ready",
+    "filter_bar": "ready",
+    "explanation_panels": "ready"
+  }
+}

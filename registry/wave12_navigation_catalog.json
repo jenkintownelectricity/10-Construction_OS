@@ -1,0 +1,65 @@
+{
+  "wave": "12",
+  "title": "Construction Navigation Interface",
+  "status": "delivered",
+  "catalog_version": "v1",
+  "authority": "Construction_OS_Registry",
+  "runtime_navigation_services": [
+    {"module_id": "navigation_service", "path": "runtime/navigation/navigation_service.py", "description": "Main navigation facade over graph query/routing/impact engines"},
+    {"module_id": "navigation_query_engine", "path": "runtime/navigation_queries/navigation_query_engine.py", "description": "Navigation-facing query engine composing graph queries for UI consumption"},
+    {"module_id": "view_builder", "path": "runtime/navigation_views/view_builder.py", "description": "Transforms query results into map/list/detail view structures"},
+    {"module_id": "filter_engine", "path": "runtime/navigation_filters/filter_engine.py", "description": "Pure predicate-based filter engine for navigation views"},
+    {"module_id": "visual_state_mapper", "path": "runtime/navigation_state/visual_state.py", "description": "Maps runtime readiness states to visual display states"},
+    {"module_id": "explanation_panel_builder", "path": "runtime/navigation_panels/explanation_panels.py", "description": "Builds explanation panels from runtime graph reasoning"},
+    {"module_id": "map_projection", "path": "runtime/navigation_map/map_projection.py", "description": "Projects graph into navigable hierarchy map"},
+    {"module_id": "list_projection", "path": "runtime/navigation_list/list_projection.py", "description": "Projects graph into flat/sorted list views"},
+    {"module_id": "detail_projection", "path": "runtime/navigation_detail/detail_projection.py", "description": "Projects full node detail with all related info"},
+    {"module_id": "overlay_engine", "path": "runtime/navigation_overlays/overlay_engine.py", "description": "Generates readiness/blocker/dependency/ownership/impact overlays"}
+  ],
+  "application_surfaces": [
+    {"module_id": "navigation_app", "path": "apps/navigation/navigation_app.py", "description": "Main navigation application entry point"},
+    {"module_id": "project_map_surface", "path": "apps/navigation/project_map.py", "description": "Project condition map surface"},
+    {"module_id": "system_map_surface", "path": "apps/navigation/system_map.py", "description": "System view surface"},
+    {"module_id": "assembly_map_surface", "path": "apps/navigation/assembly_map.py", "description": "Assembly view surface"},
+    {"module_id": "condition_panel_surface", "path": "apps/navigation/condition_panel.py", "description": "Condition detail panel surface"},
+    {"module_id": "blocker_panel_surface", "path": "apps/navigation/blocker_panel.py", "description": "Blocker panel surface"},
+    {"module_id": "dependency_panel_surface", "path": "apps/navigation/dependency_panel.py", "description": "Dependency panel surface"},
+    {"module_id": "owner_panel_surface", "path": "apps/navigation/owner_panel.py", "description": "Owner panel surface with explicit unknown handling"},
+    {"module_id": "remediation_panel_surface", "path": "apps/navigation/remediation_panel.py", "description": "Remediation panel surface"},
+    {"module_id": "evidence_panel_surface", "path": "apps/navigation/evidence_panel.py", "description": "Evidence panel surface"},
+    {"module_id": "artifact_panel_surface", "path": "apps/navigation/artifact_panel.py", "description": "Artifact panel surface"},
+    {"module_id": "package_panel_surface", "path": "apps/navigation/package_panel.py", "description": "Package panel surface"},
+    {"module_id": "revision_panel_surface", "path": "apps/navigation/revision_panel.py", "description": "Revision panel surface"},
+    {"module_id": "readiness_overlay_surface", "path": "apps/navigation/readiness_overlay.py", "description": "Readiness overlay surface"},
+    {"module_id": "impact_overlay_surface", "path": "apps/navigation/impact_overlay.py", "description": "Impact overlay surface"},
+    {"module_id": "filter_bar_surface", "path": "apps/navigation/filter_bar.py", "description": "Filter bar surface"},
+    {"module_id": "view_switcher_surface", "path": "apps/navigation/view_switcher.py", "description": "Map/list/detail view switcher surface"},
+    {"module_id": "path_trace_surface", "path": "apps/navigation/path_trace.py", "description": "Path trace surface for unblock/owner/impact/dependency paths"}
+  ],
+  "overlays": [
+    "readiness_overlay", "blocker_overlay", "dependency_overlay", "ownership_overlay",
+    "remediation_overlay", "impact_overlay", "evidence_overlay", "artifact_overlay", "pattern_overlay"
+  ],
+  "filters": [
+    "system", "owner", "readiness_state", "issue_type", "blocker_type",
+    "pattern_classification", "assembly", "interface", "artifact_type",
+    "package", "revision", "enrichment_distinction"
+  ],
+  "explanation_panels": [
+    "why_blocked", "what_depends", "what_changed", "evidence_support"
+  ],
+  "views": ["map", "list", "detail"],
+  "governance_rules": {
+    "ui_is_derived_surface_only": true,
+    "ui_consumes_runtime_services": true,
+    "ui_does_not_define_graph_semantics": true,
+    "ui_preserves_unknown_state_explicitly": true,
+    "ui_labels_enrichment_explicitly": true,
+    "ui_shows_incomplete_state_explicitly": true,
+    "filters_do_not_alter_graph_state": true,
+    "overlays_are_derived_views_only": true,
+    "no_independent_graph_execution_in_ui": true,
+    "registry_catalog_only": true,
+    "vkbus_observer_only": true
+  }
+}
