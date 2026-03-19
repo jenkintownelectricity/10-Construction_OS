@@ -221,6 +221,17 @@ Composition changes are truth events. They follow the same append-only, immutabl
 
 ---
 
+## 11c. Interface Linkage
+
+Truth events may reference interface conditions as contextual facts. When an event records a change to an assembly's interface declarations (termination added, penetration declared, adjacent system updated), the event must reference the assembly's governed identity and the specific interface condition.
+
+Interface changes are contextual truth events. They follow the same append-only, immutable, evidence-supported rules as all other truth events. Interface linkage does not modify identity or evidence logic.
+
+- See `Construction_Kernel/docs/system/CONSTRUCTION_INTERFACE_AND_ADJACENT_SYSTEMS_MODEL.md` for the interface model.
+- See `Construction_Kernel/docs/governance/construction-interface-doctrine.md` for interface governance.
+
+---
+
 ## 12. State Version vs Fact Version
 
 - **`state_version`** tracks the authoritative state progression of an object. Each state transition increments the state version. The state version represents the object's position in its governed lifecycle.

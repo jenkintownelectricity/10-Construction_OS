@@ -151,6 +151,18 @@ This diagram shows a simplified wall assembly composition with:
 
 ---
 
+## Interface Edge Discipline
+
+Interface edges connect composition graph nodes to external context (adjacent assemblies, building edges, adjacent systems). Interface edges must follow the same typed, bounded rules as composition edges.
+
+- Interface edges must not alter composition layering relationships.
+- Interface edges connect outward from the composition boundary; they do not restructure internal composition.
+- Interface edge types are defined by the Interface and Adjacent Systems Model.
+- See `Construction_Kernel/docs/system/CONSTRUCTION_INTERFACE_AND_ADJACENT_SYSTEMS_MODEL.md` for interface architecture.
+- See `Construction_Kernel/docs/governance/construction-interface-doctrine.md` for interface governance.
+
+---
+
 ## Safety Note
 
 - This document defines architecture documentation only
