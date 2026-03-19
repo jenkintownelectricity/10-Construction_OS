@@ -1,0 +1,55 @@
+{
+  "registry_version": "v1",
+  "registry_type": "construction_os_platform_inventory",
+  "description": "Canonical inventory of repositories confirmed as part of the Construction OS platform.",
+  "last_updated": "2026-03-19",
+  "entries": [
+    {
+      "repo_name": "Construction_Application_OS",
+      "layer": "interfaces",
+      "primary_area": "interfaces",
+      "role_summary": "Specification and coordination layer defining apps, workflows, role models, and runtime/kernel mappings for the Construction OS platform.",
+      "tags": [
+        "application-coordination",
+        "specification",
+        "workflows",
+        "role-model",
+        "interfaces"
+      ]
+    },
+    {
+      "repo_name": "Construction_Reference_Intelligence",
+      "layer": "capabilities",
+      "primary_area": "capabilities",
+      "role_summary": "Governance-controlled intelligence curation system with evidence-linked failure/success patterns, confidence tracking, and immutable history.",
+      "tags": [
+        "intelligence",
+        "evidence-linked",
+        "knowledge-curation",
+        "building-envelope",
+        "observation",
+        "capabilities"
+      ]
+    },
+    {
+      "repo_name": "Construction_Intelligence_Workers",
+      "layer": "execution",
+      "primary_area": "execution",
+      "role_summary": "Worker fleet specification and doctrine repo defining extraction workers, output contracts, and routing rules for construction signal generation.",
+      "tags": [
+        "workers",
+        "extraction",
+        "proposals",
+        "doctrine",
+        "signal-generation",
+        "execution"
+      ]
+    }
+  ],
+  "exclusions": [
+    {
+      "repo_name": "CADless_drawings",
+      "reason": "PRE-UTK independent system. Not part of Construction OS. See ValidKernel_Registry for classification."
+    }
+  ]
+}
