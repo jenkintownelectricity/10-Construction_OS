@@ -34,6 +34,9 @@ This registry covers only repositories that have been confirmed as part of the C
 - **Construction Assembly Graph**: See [`Construction_Kernel/docs/system/CONSTRUCTION_ASSEMBLY_GRAPH.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_ASSEMBLY_GRAPH.md) for assembly graph representation.
 - **Construction Interface and Adjacent Systems Model**: See [`Construction_Kernel/docs/system/CONSTRUCTION_INTERFACE_AND_ADJACENT_SYSTEMS_MODEL.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_INTERFACE_AND_ADJACENT_SYSTEMS_MODEL.md) for interface and adjacent systems architecture.
 - **Construction Scope Boundary Model**: See [`Construction_Kernel/docs/system/CONSTRUCTION_SCOPE_BOUNDARY_MODEL.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_SCOPE_BOUNDARY_MODEL.md) for scope boundary and coordination obligation architecture.
+- **Construction Material Taxonomy**: See [`Construction_Kernel/docs/system/CONSTRUCTION_MATERIAL_TAXONOMY.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_MATERIAL_TAXONOMY.md) for canonical material class vocabulary.
+- **Construction Material Compatibility Model**: See [`Construction_Kernel/docs/system/CONSTRUCTION_MATERIAL_COMPATIBILITY_MODEL.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_MATERIAL_COMPATIBILITY_MODEL.md) for material compatibility rules.
+- **Construction View Intent Model**: See [`Construction_Kernel/docs/system/CONSTRUCTION_VIEW_INTENT_MODEL.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_VIEW_INTENT_MODEL.md) for view intent architecture.
 
 ---
 
