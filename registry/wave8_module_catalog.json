@@ -1,0 +1,147 @@
+{
+  "catalog_version": "1.0",
+  "wave": "8A",
+  "authority": "Construction_OS_Registry",
+  "modules": [
+    {
+      "module_id": "runtime.evidence",
+      "path": "Construction_Runtime/runtime/evidence",
+      "description": "Evidence ingestion and candidate extraction",
+      "lane": "Agent 1",
+      "dependencies": ["kernel.evidence_schema"]
+    },
+    {
+      "module_id": "runtime.assembly_inference",
+      "path": "Construction_Runtime/runtime/assembly_inference",
+      "description": "Assembly inference from evidence candidates",
+      "lane": "Agent 1",
+      "dependencies": ["kernel.assembly_schema", "runtime.evidence"]
+    },
+    {
+      "module_id": "runtime.graph_reference",
+      "path": "Construction_Runtime/runtime/graph_reference",
+      "description": "Graph reference projection and backbone traversal",
+      "lane": "Agent 1",
+      "dependencies": ["kernel.graph_reference"]
+    },
+    {
+      "module_id": "runtime.drawing_generation",
+      "path": "Construction_Runtime/runtime/drawing_generation",
+      "description": "Drawing generation from assembly graph",
+      "lane": "Agent 7",
+      "dependencies": ["kernel.drawing_schema", "runtime.assembly_inference"]
+    },
+    {
+      "module_id": "runtime.drawing_layout",
+      "path": "Construction_Runtime/runtime/drawing_layout",
+      "description": "Drawing layout and spatial composition",
+      "lane": "Agent 7",
+      "dependencies": ["runtime.drawing_generation"]
+    },
+    {
+      "module_id": "runtime.drawing_annotation",
+      "path": "Construction_Runtime/runtime/drawing_annotation",
+      "description": "Drawing annotation and label placement",
+      "lane": "Agent 7",
+      "dependencies": ["runtime.drawing_generation"]
+    },
+    {
+      "module_id": "runtime.qa_checks",
+      "path": "Construction_Runtime/runtime/qa_checks",
+      "description": "QA constraint evaluation and issue detection",
+      "lane": "Agent 9",
+      "dependencies": ["kernel.qa_constraint", "runtime.assembly_inference"]
+    },
+    {
+      "module_id": "runtime.issue_typing",
+      "path": "Construction_Runtime/runtime/issue_typing",
+      "description": "Issue classification and typing",
+      "lane": "Agent 9",
+      "dependencies": ["kernel.issue_typing", "runtime.qa_checks"]
+    },
+    {
+      "module_id": "runtime.blocker_typing",
+      "path": "Construction_Runtime/runtime/blocker_typing",
+      "description": "Blocker detection and classification",
+      "lane": "Agent 9",
+      "dependencies": ["kernel.blocker_typing", "runtime.qa_checks"]
+    },
+    {
+      "module_id": "runtime.remediation",
+      "path": "Construction_Runtime/runtime/remediation",
+      "description": "Remediation reference resolution and action generation",
+      "lane": "Agent 9",
+      "dependencies": ["kernel.remediation_reference", "runtime.issue_typing"]
+    },
+    {
+      "module_id": "runtime.revision_management",
+      "path": "Construction_Runtime/runtime/revision_management",
+      "description": "Revision tracking and version management",
+      "lane": "Agent 7",
+      "dependencies": ["kernel.revision_schema", "runtime.drawing_generation"]
+    },
+    {
+      "module_id": "runtime.package_building",
+      "path": "Construction_Runtime/runtime/package_building",
+      "description": "Drawing package assembly and bundling",
+      "lane": "Agent 7",
+      "dependencies": ["kernel.drawing_package", "runtime.revision_management"]
+    },
+    {
+      "module_id": "runtime.export",
+      "path": "Construction_Runtime/runtime/export",
+      "description": "Package export and delivery",
+      "lane": "Agent 7",
+      "dependencies": ["kernel.export", "runtime.package_building"]
+    },
+    {
+      "module_id": "runtime.condition_evaluation",
+      "path": "Construction_Runtime/runtime/condition_evaluation",
+      "description": "Condition pattern evaluation engine",
+      "lane": "Agent 9",
+      "dependencies": ["kernel.condition_pattern_library", "runtime.assembly_inference"]
+    },
+    {
+      "module_id": "runtime.condition_candidate",
+      "path": "Construction_Runtime/runtime/condition_candidate",
+      "description": "Condition candidate generation and scoring",
+      "lane": "Agent 9",
+      "dependencies": ["runtime.condition_evaluation", "runtime.evidence"]
+    },
+    {
+      "module_id": "runtime.condition_resolution",
+      "path": "Construction_Runtime/runtime/condition_resolution",
+      "description": "Condition resolution and state transition",
+      "lane": "Agent 9",
+      "dependencies": ["runtime.condition_candidate", "runtime.qa_checks"]
+    },
+    {
+      "module_id": "runtime.assembly_readiness",
+      "path": "Construction_Runtime/runtime/assembly_readiness",
+      "description": "Assembly readiness evaluation and gate checks",
+      "lane": "Agent 1",
+      "dependencies": ["runtime.assembly_inference", "runtime.qa_checks"]
+    },
+    {
+      "module_id": "runtime.ownership_tracking",
+      "path": "Construction_Runtime/runtime/ownership_tracking",
+      "description": "Ownership assignment and responsibility tracking",
+      "lane": "Agent 1",
+      "dependencies": ["runtime.assembly_inference"]
+    },
+    {
+      "module_id": "runtime.release_management",
+      "path": "Construction_Runtime/runtime/release_management",
+      "description": "Release coordination and delivery management",
+      "lane": "Agent 7",
+      "dependencies": ["runtime.package_building", "runtime.qa_checks"]
+    },
+    {
+      "module_id": "runtime.observation_bridge",
+      "path": "Construction_Runtime/runtime/observation_bridge",
+      "description": "Bridge emitting runtime events to VKBUS observation layer",
+      "lane": "Agent 9",
+      "dependencies": ["runtime.qa_checks", "runtime.condition_evaluation"]
+    }
+  ]
+}

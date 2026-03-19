@@ -70,6 +70,60 @@
       ],
       "owner_approved": true,
       "admission_status": "v2_approved"
+    },
+    {
+      "repo_name": "Construction_Kernel",
+      "layer": "truth",
+      "primary_area": "truth",
+      "role_summary": "Canonical kernel defining construction truth structures, contracts, schemas, and the condition pattern library. Does not implement runtime logic.",
+      "tags": [
+        "kernel",
+        "truth",
+        "contracts",
+        "schemas",
+        "patterns",
+        "condition-patterns"
+      ]
+    },
+    {
+      "repo_name": "Construction_Runtime",
+      "layer": "execution",
+      "primary_area": "execution",
+      "role_summary": "Deterministic execution engine implementing evidence ingestion, assembly inference, drawing generation, QA checks, revision management, package building, export, and graph reference projection.",
+      "tags": [
+        "runtime",
+        "execution",
+        "drawing-generation",
+        "qa",
+        "evidence",
+        "revision",
+        "export"
+      ]
+    },
+    {
+      "repo_name": "ValidKernelOS_VKBUS",
+      "layer": "observation",
+      "primary_area": "observation",
+      "role_summary": "Shadow observation bus that monitors architecture drift, seam integrity, derived artifact discipline, and registry completeness. Read-only — never mutates system state.",
+      "tags": [
+        "observation",
+        "bus",
+        "shadow",
+        "drift-detection",
+        "seam-integrity"
+      ]
+    },
+    {
+      "repo_name": "ValidKernel_Registry",
+      "layer": "governance",
+      "primary_area": "governance",
+      "role_summary": "Master registry cataloging kernels, repositories, domains, families, and system-wide architecture snapshots.",
+      "tags": [
+        "registry",
+        "governance",
+        "catalogs",
+        "architecture"
+      ]
     }
   ],
   "exclusions": [

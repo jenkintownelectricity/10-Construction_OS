@@ -1,0 +1,42 @@
+{
+  "catalog_version": "1.0",
+  "wave": "8.5",
+  "authority": "Construction_OS_Registry",
+  "patterns": [
+    {
+      "pattern_id": "condition.moisture_intrusion",
+      "description": "Detects moisture intrusion conditions based on evidence of water damage, staining, or moisture readings exceeding thresholds in building envelope assemblies.",
+      "related_assemblies": ["wall_assembly", "roof_assembly", "window_assembly", "below_grade_assembly"],
+      "severity": "critical",
+      "triggers": ["evidence.moisture_reading", "evidence.visual_staining", "evidence.water_damage"]
+    },
+    {
+      "pattern_id": "condition.thermal_bridging",
+      "description": "Identifies thermal bridging conditions where insulation continuity is broken, leading to energy loss and potential condensation at building envelope transitions.",
+      "related_assemblies": ["wall_assembly", "roof_assembly", "slab_edge_assembly", "window_assembly"],
+      "severity": "major",
+      "triggers": ["evidence.thermal_scan", "evidence.insulation_gap", "evidence.condensation"]
+    },
+    {
+      "pattern_id": "condition.air_barrier_discontinuity",
+      "description": "Detects discontinuities in the air barrier system where seals, transitions, or membrane laps fail to maintain continuity.",
+      "related_assemblies": ["wall_assembly", "roof_assembly", "window_assembly", "penetration_assembly"],
+      "severity": "major",
+      "triggers": ["evidence.blower_door_test", "evidence.smoke_test", "evidence.visual_gap"]
+    },
+    {
+      "pattern_id": "condition.structural_deflection",
+      "description": "Identifies structural deflection conditions where movement exceeds tolerances, affecting cladding attachment, sealant joints, or waterproofing integrity.",
+      "related_assemblies": ["wall_assembly", "floor_assembly", "curtain_wall_assembly", "balcony_assembly"],
+      "severity": "critical",
+      "triggers": ["evidence.deflection_measurement", "evidence.cracking", "evidence.sealant_failure"]
+    },
+    {
+      "pattern_id": "condition.drainage_path_obstruction",
+      "description": "Detects obstructions in designed drainage paths that prevent water from exiting the assembly, leading to accumulation and potential damage.",
+      "related_assemblies": ["wall_assembly", "roof_assembly", "below_grade_assembly", "plaza_assembly"],
+      "severity": "major",
+      "triggers": ["evidence.water_accumulation", "evidence.blocked_weep", "evidence.debris_buildup"]
+    }
+  ]
+}

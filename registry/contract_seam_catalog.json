@@ -1,0 +1,103 @@
+{
+  "catalog_version": "1.0",
+  "authority": "Construction_OS_Registry",
+  "description": "Catalog of all kernel contract seams — the typed boundaries between kernel truth and runtime consumers.",
+  "seams": [
+    {
+      "seam_id": "assembly_schema",
+      "origin": "Construction_Kernel",
+      "wave": "pre-8A",
+      "description": "Defines the canonical assembly structure — layers, materials, and composition rules.",
+      "consumers": ["runtime.assembly_inference", "runtime.assembly_readiness"],
+      "contract_type": "schema"
+    },
+    {
+      "seam_id": "drawing_schema",
+      "origin": "Construction_Kernel",
+      "wave": "pre-8A",
+      "description": "Defines canonical drawing structures, sheet types, and layout rules.",
+      "consumers": ["runtime.drawing_generation", "runtime.drawing_layout"],
+      "contract_type": "schema"
+    },
+    {
+      "seam_id": "revision_schema",
+      "origin": "Construction_Kernel",
+      "wave": "pre-8A",
+      "description": "Defines revision identity, version lineage, and change tracking rules.",
+      "consumers": ["runtime.revision_management"],
+      "contract_type": "schema"
+    },
+    {
+      "seam_id": "evidence_schema",
+      "origin": "Construction_Kernel",
+      "wave": "8A",
+      "description": "Defines the evidence record structure — field types, source classifications, and candidate extraction rules.",
+      "consumers": ["runtime.evidence", "runtime.condition_candidate"],
+      "contract_type": "schema"
+    },
+    {
+      "seam_id": "graph_reference",
+      "origin": "Construction_Kernel",
+      "wave": "8A",
+      "description": "Defines the graph backbone reference model — node types, edge types, traversal rules, and projection constraints.",
+      "consumers": ["runtime.graph_reference", "runtime.assembly_inference"],
+      "contract_type": "reference"
+    },
+    {
+      "seam_id": "issue_typing",
+      "origin": "Construction_Kernel",
+      "wave": "8A",
+      "description": "Defines the issue type taxonomy — severity levels, classification rules, and lifecycle states.",
+      "consumers": ["runtime.issue_typing", "runtime.qa_checks"],
+      "contract_type": "taxonomy"
+    },
+    {
+      "seam_id": "blocker_typing",
+      "origin": "Construction_Kernel",
+      "wave": "8A",
+      "description": "Defines the blocker type taxonomy — blocking conditions, escalation rules, and resolution requirements.",
+      "consumers": ["runtime.blocker_typing", "runtime.qa_checks"],
+      "contract_type": "taxonomy"
+    },
+    {
+      "seam_id": "remediation_reference",
+      "origin": "Construction_Kernel",
+      "wave": "8A",
+      "description": "Defines remediation action references — standard remediation types, applicability rules, and resolution patterns.",
+      "consumers": ["runtime.remediation"],
+      "contract_type": "reference"
+    },
+    {
+      "seam_id": "qa_constraint",
+      "origin": "Construction_Kernel",
+      "wave": "8A",
+      "description": "Defines QA constraint rules — validation criteria, pass/fail thresholds, and constraint composition.",
+      "consumers": ["runtime.qa_checks", "runtime.condition_evaluation"],
+      "contract_type": "constraint"
+    },
+    {
+      "seam_id": "drawing_package",
+      "origin": "Construction_Kernel",
+      "wave": "8A",
+      "description": "Defines drawing package structure — bundling rules, sheet ordering, and package completeness criteria.",
+      "consumers": ["runtime.package_building"],
+      "contract_type": "schema"
+    },
+    {
+      "seam_id": "export",
+      "origin": "Construction_Kernel",
+      "wave": "8A",
+      "description": "Defines export format contracts — output formats, delivery targets, and export validation rules.",
+      "consumers": ["runtime.export"],
+      "contract_type": "contract"
+    },
+    {
+      "seam_id": "condition_pattern_library",
+      "origin": "Construction_Kernel",
+      "wave": "8A",
+      "description": "Defines the condition pattern library — pattern structures, trigger definitions, evaluation rules, and boundary constraints.",
+      "consumers": ["runtime.condition_evaluation", "runtime.condition_candidate", "runtime.condition_resolution"],
+      "contract_type": "library"
+    }
+  ]
+}
