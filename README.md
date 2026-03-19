@@ -37,6 +37,9 @@ This registry covers only repositories that have been confirmed as part of the C
 - **Construction Material Taxonomy**: See [`Construction_Kernel/docs/system/CONSTRUCTION_MATERIAL_TAXONOMY.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_MATERIAL_TAXONOMY.md) for canonical material class vocabulary.
 - **Construction Material Compatibility Model**: See [`Construction_Kernel/docs/system/CONSTRUCTION_MATERIAL_COMPATIBILITY_MODEL.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_MATERIAL_COMPATIBILITY_MODEL.md) for material compatibility rules.
 - **Construction View Intent Model**: See [`Construction_Kernel/docs/system/CONSTRUCTION_VIEW_INTENT_MODEL.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_VIEW_INTENT_MODEL.md) for view intent architecture.
+- **Construction Detail Applicability Model**: See [`Construction_Kernel/docs/system/CONSTRUCTION_DETAIL_APPLICABILITY_MODEL.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_DETAIL_APPLICABILITY_MODEL.md) for detail selection architecture.
+- **Construction Detail Schema**: See [`Construction_Kernel/docs/system/CONSTRUCTION_DETAIL_SCHEMA.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/CONSTRUCTION_DETAIL_SCHEMA.md) for canonical detail logic representation.
+- **Drawing Instruction IR**: See [`Construction_Kernel/docs/system/DRAWING_INSTRUCTION_IR.md`](https://github.com/jenkintownelectricity/Construction_Kernel/blob/master/docs/system/DRAWING_INSTRUCTION_IR.md) for engine-agnostic drawing instruction layer.
 
 ---
 
