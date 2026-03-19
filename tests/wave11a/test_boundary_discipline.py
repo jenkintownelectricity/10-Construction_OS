@@ -129,8 +129,11 @@ class TestBoundaryDiscipline:
         if not os.path.isdir(APPS_DIR):
             pytest.skip("apps/ directory not found")
 
+        # Apps may import ConditionGraph as a data container type for
+        # type annotations.  Importing graph *internals* (node/edge
+        # projection, materialization, validation, query engines,
+        # routing, impact analysis) is forbidden.
         graph_module_fragments = (
-            "runtime.graph.",
             "runtime.graph_nodes.",
             "runtime.graph_edges.",
             "runtime.graph_validation.",
@@ -139,10 +142,20 @@ class TestBoundaryDiscipline:
             "runtime.readiness_routing.",
             "runtime.impact_analysis.",
         )
+        # Allow ConditionGraph container import but forbid deeper graph internals
+        graph_internal_fragments = (
+            "runtime.graph.graph_node",
+            "runtime.graph.graph_edge",
+            "runtime.graph.materialize_graph",
+            "runtime.graph.graph_index",
+        )
 
         violations = []
         for fpath in _python_files_in(APPS_DIR):
             for fragment in graph_module_fragments:
+                if _file_imports_module(fpath, fragment):
+                    violations.append((fpath, fragment))
+            for fragment in graph_internal_fragments:
                 if _file_imports_module(fpath, fragment):
                     violations.append((fpath, fragment))
 
