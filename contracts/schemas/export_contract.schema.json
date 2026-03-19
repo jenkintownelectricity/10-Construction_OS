@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "construction_kernel.schemas.export_contract",
+  "title": "Export Contract Schema",
+  "description": "Schema definition for governed export objects. Owned by Construction_Kernel. Export records track the generation of deliverable artifacts from drawing packages, including format, generated artifacts, timestamps, and deterministic hashes for reproducibility verification. Runtime must validate export records against this schema and must not define its own.",
+  "authority": "Construction_Kernel",
+  "type": "object",
+  "required": ["contract_id", "version", "authority", "contract_type", "valid_export_formats"],
+  "properties": {
+    "contract_id": {
+      "type": "string",
+      "pattern": "^construction_kernel\\.export\\."
+    },
+    "version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "authority": {
+      "type": "string",
+      "const": "Construction_Kernel"
+    },
+    "contract_type": {
+      "type": "string",
+      "const": "governed_export_contract"
+    },
+    "description": { "type": "string" },
+    "governance_source": { "type": "string" },
+    "architecture_source": { "type": "string" },
+    "fail_closed_rule": { "type": "string" },
+    "valid_export_formats": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" },
+      "description": "Governed list of valid export formats."
+    },
+    "export_item_schema": {
+      "type": "object",
+      "description": "Schema for individual export records.",
+      "required": ["export_id", "package_ref", "format", "generated_artifacts", "timestamp", "deterministic_hash"],
+      "properties": {
+        "export_id": {
+          "type": "string",
+          "pattern": "^exp-[a-z0-9\\-]+$",
+          "description": "Unique identifier for the export record."
+        },
+        "package_ref": {
+          "type": "string",
+          "description": "Reference to the source drawing package."
+        },
+        "format": {
+          "type": "string",
+          "description": "Export format. Must be one of valid_export_formats."
+        },
+        "generated_artifacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["artifact_id", "artifact_type", "file_path"],
+            "properties": {
+              "artifact_id": { "type": "string" },
+              "artifact_type": {
+                "type": "string",
+                "enum": ["pdf_sheet", "dwg_file", "svg_drawing", "png_raster", "json_data", "csv_schedule"]
+              },
+              "file_path": { "type": "string" },
+              "file_size_bytes": { "type": "integer", "minimum": 0 },
+              "artifact_hash": { "type": "string" }
+            }
+          }
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of export generation."
+        },
+        "deterministic_hash": {
+          "type": "string",
+          "description": "Hash of all generated artifacts for reproducibility verification."
+        },
+        "export_config": {
+          "type": "object",
+          "properties": {
+            "dpi": { "type": "integer" },
+            "color_mode": { "type": "string" },
+            "include_metadata": { "type": "boolean" }
+          }
+        },
+        "qa_verification": {
+          "type": "object",
+          "properties": {
+            "verified": { "type": "boolean" },
+            "verified_at": { "type": "string", "format": "date-time" },
+            "verification_hash_match": { "type": "boolean" }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

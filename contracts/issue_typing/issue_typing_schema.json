@@ -1,0 +1,70 @@
+{
+  "contract_id": "construction_kernel.issue_typing.v1",
+  "version": "1.0",
+  "authority": "Construction_Kernel",
+  "contract_type": "governed_issue_typing_schema",
+  "description": "Defines the issue typing contract governing classification of construction issues. All issues must be typed using the governed issue_class enumeration. Runtime must validate issue records against this contract and must not define its own issue classes.",
+  "governance_source": "GOVERNANCE_KERNEL.md",
+  "architecture_source": "INTELLIGENCE_KERNEL.md",
+  "fail_closed_rule": "Any issue record with an unrecognized issue_class or severity must be rejected. Runtime must not invent issue classifications.",
+  "valid_issue_classes": [
+    "missing_detail",
+    "incompatible_material",
+    "unresolved_interface",
+    "scope_conflict",
+    "parameter_gap",
+    "missing_ownership",
+    "readiness_blocker"
+  ],
+  "valid_severity_levels": [
+    "critical",
+    "high",
+    "medium",
+    "low",
+    "informational"
+  ],
+  "issue_class_definitions": {
+    "missing_detail": {
+      "label": "Missing Detail",
+      "description": "A required construction detail is absent from the drawing set. The assembly or interface cannot be fully described without this detail.",
+      "default_severity": "high",
+      "requires_blocker": true
+    },
+    "incompatible_material": {
+      "label": "Incompatible Material",
+      "description": "Two or more materials specified in the assembly are chemically, thermally, or structurally incompatible per manufacturer or code requirements.",
+      "default_severity": "critical",
+      "requires_blocker": true
+    },
+    "unresolved_interface": {
+      "label": "Unresolved Interface",
+      "description": "An interface between two assemblies or components lacks a defined connection, seal, or transition detail.",
+      "default_severity": "high",
+      "requires_blocker": true
+    },
+    "scope_conflict": {
+      "label": "Scope Conflict",
+      "description": "Two or more disciplines or specification sections claim ownership of the same assembly, component, or interface without coordination.",
+      "default_severity": "medium",
+      "requires_blocker": false
+    },
+    "parameter_gap": {
+      "label": "Parameter Gap",
+      "description": "A required parameter (dimension, slope, R-value, fire rating, etc.) is missing or under-specified in the contract documents.",
+      "default_severity": "medium",
+      "requires_blocker": false
+    },
+    "missing_ownership": {
+      "label": "Missing Ownership",
+      "description": "No discipline or trade has been assigned responsibility for a required assembly, detail, or interface.",
+      "default_severity": "high",
+      "requires_blocker": true
+    },
+    "readiness_blocker": {
+      "label": "Readiness Blocker",
+      "description": "A prerequisite condition for construction readiness has not been met, such as missing submittals, incomplete QA checks, or unresolved RFIs.",
+      "default_severity": "critical",
+      "requires_blocker": true
+    }
+  }
+}

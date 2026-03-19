@@ -1,0 +1,101 @@
+{
+  "contract_id": "construction_kernel.qa_constraint.v1",
+  "version": "1.0",
+  "authority": "Construction_Kernel",
+  "contract_type": "governed_qa_constraint_schema",
+  "description": "Defines the QA constraint contract governing validation rules for construction artifacts. QA constraints define completeness checks, compatibility checks, and readiness gates. Runtime must validate QA constraints against this contract and must not define its own constraint classes.",
+  "governance_source": "GOVERNANCE_KERNEL.md",
+  "architecture_source": "DELIVERABLE_KERNEL.md",
+  "fail_closed_rule": "Any QA constraint violation in fail_closed mode must halt the pipeline. Runtime must not suppress or downgrade fail_closed constraints.",
+  "valid_constraint_classes": [
+    "completeness_check",
+    "material_compatibility_check",
+    "interface_resolution_check",
+    "parameter_bounds_check",
+    "scope_coverage_check",
+    "drawing_consistency_check",
+    "specification_alignment_check",
+    "blocker_clearance_gate",
+    "submittal_readiness_gate",
+    "export_integrity_check"
+  ],
+  "valid_target_types": [
+    "assembly",
+    "detail",
+    "interface",
+    "drawing_package",
+    "sheet",
+    "specification_section",
+    "export",
+    "material",
+    "component"
+  ],
+  "valid_fail_modes": [
+    "fail_closed",
+    "fail_open",
+    "warn",
+    "block"
+  ],
+  "constraint_class_definitions": {
+    "completeness_check": {
+      "label": "Completeness Check",
+      "description": "Verifies that all required components, details, and parameters are present for the target entity.",
+      "default_fail_mode": "fail_closed",
+      "default_severity": "high"
+    },
+    "material_compatibility_check": {
+      "label": "Material Compatibility Check",
+      "description": "Verifies that materials in contact or proximity are compatible per manufacturer and code requirements.",
+      "default_fail_mode": "fail_closed",
+      "default_severity": "critical"
+    },
+    "interface_resolution_check": {
+      "label": "Interface Resolution Check",
+      "description": "Verifies that all interfaces for the target entity have defined connection or transition details.",
+      "default_fail_mode": "fail_closed",
+      "default_severity": "high"
+    },
+    "parameter_bounds_check": {
+      "label": "Parameter Bounds Check",
+      "description": "Verifies that specified parameters (slope, thickness, R-value, etc.) fall within acceptable ranges.",
+      "default_fail_mode": "block",
+      "default_severity": "medium"
+    },
+    "scope_coverage_check": {
+      "label": "Scope Coverage Check",
+      "description": "Verifies that all assemblies and interfaces have assigned discipline ownership.",
+      "default_fail_mode": "warn",
+      "default_severity": "medium"
+    },
+    "drawing_consistency_check": {
+      "label": "Drawing Consistency Check",
+      "description": "Verifies that drawing references, callouts, and cross-references are internally consistent.",
+      "default_fail_mode": "block",
+      "default_severity": "medium"
+    },
+    "specification_alignment_check": {
+      "label": "Specification Alignment Check",
+      "description": "Verifies that drawing details align with specification section requirements.",
+      "default_fail_mode": "warn",
+      "default_severity": "medium"
+    },
+    "blocker_clearance_gate": {
+      "label": "Blocker Clearance Gate",
+      "description": "Verifies that all blockers on the target entity are resolved or waived before advancement.",
+      "default_fail_mode": "fail_closed",
+      "default_severity": "critical"
+    },
+    "submittal_readiness_gate": {
+      "label": "Submittal Readiness Gate",
+      "description": "Verifies that all required submittals are approved before construction readiness.",
+      "default_fail_mode": "fail_closed",
+      "default_severity": "high"
+    },
+    "export_integrity_check": {
+      "label": "Export Integrity Check",
+      "description": "Verifies that exported artifacts match their deterministic hashes and all sheets are present.",
+      "default_fail_mode": "fail_closed",
+      "default_severity": "critical"
+    }
+  }
+}

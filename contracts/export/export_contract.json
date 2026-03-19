@@ -1,0 +1,40 @@
+{
+  "contract_id": "construction_kernel.export.v1",
+  "version": "1.0",
+  "authority": "Construction_Kernel",
+  "contract_type": "governed_export_contract",
+  "description": "Defines the export contract governing generation of deliverable artifacts from drawing packages. Export records track format, generated artifacts, timestamps, and deterministic hashes for reproducibility. Runtime must validate export records against this contract and must not define its own export formats.",
+  "governance_source": "GOVERNANCE_KERNEL.md",
+  "architecture_source": "DELIVERABLE_KERNEL.md",
+  "fail_closed_rule": "Any export whose deterministic_hash does not match re-computation must be rejected. Runtime must not issue exports that fail integrity verification.",
+  "valid_export_formats": [
+    "pdf_set",
+    "dwg_package",
+    "svg_bundle",
+    "png_raster_set",
+    "json_data_export",
+    "csv_schedule_export",
+    "ifc_model",
+    "dxf_package"
+  ],
+  "valid_artifact_types": [
+    "pdf_sheet",
+    "dwg_file",
+    "svg_drawing",
+    "png_raster",
+    "json_data",
+    "csv_schedule",
+    "ifc_file",
+    "dxf_file",
+    "cover_sheet",
+    "index_sheet",
+    "revision_log"
+  ],
+  "export_rules": {
+    "require_qa_passed": true,
+    "require_completeness_complete": true,
+    "require_deterministic_hash": true,
+    "hash_algorithm": "sha256",
+    "max_retry_on_hash_mismatch": 1
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "pattern_id": "cpat-parapet-flashing-gap",
+  "pattern_class": "flashing_gap",
+  "description": "A gap exists in the flashing system at the roof-to-parapet wall interface. The parapet cap flashing, through-wall flashing, or base flashing does not provide continuous weather protection, creating a path for water infiltration into the wall assembly and roof system. This condition commonly occurs where metal coping transitions to membrane roofing without a defined flashing termination detail.",
+  "assembly_relationships": [
+    {
+      "assembly_type": "parapet_wall",
+      "role": "primary",
+      "relationship": "contains_flashing_termination",
+      "required_components": ["parapet_cap", "through_wall_flashing", "wall_substrate", "coping"]
+    },
+    {
+      "assembly_type": "roof_membrane_system",
+      "role": "adjacent",
+      "relationship": "terminates_at_parapet",
+      "required_components": ["roof_membrane", "base_flashing", "cant_strip", "insulation"]
+    },
+    {
+      "assembly_type": "exterior_wall",
+      "role": "substrate",
+      "relationship": "supports_parapet",
+      "required_components": ["wall_sheathing", "air_barrier", "cladding"]
+    }
+  ],
+  "interface_relationships": [
+    {
+      "interface_type": "roof_to_parapet",
+      "from_assembly": "roof_membrane_system",
+      "to_assembly": "parapet_wall",
+      "criticality": "critical",
+      "seal_requirement": "continuous_weathertight_seal",
+      "transition_type": "base_flashing_to_through_wall"
+    },
+    {
+      "interface_type": "coping_to_wall",
+      "from_assembly": "parapet_wall",
+      "to_assembly": "exterior_wall",
+      "criticality": "high",
+      "seal_requirement": "drip_edge_with_sealant",
+      "transition_type": "metal_to_masonry"
+    },
+    {
+      "interface_type": "membrane_to_base_flashing",
+      "from_assembly": "roof_membrane_system",
+      "to_assembly": "parapet_wall",
+      "criticality": "critical",
+      "seal_requirement": "fully_adhered_or_mechanically_fastened",
+      "transition_type": "membrane_to_flashing"
+    }
+  ],
+  "detail_relationships": [
+    {
+      "detail_type": "parapet_flashing_section",
+      "detail_family": "roof_edge_details",
+      "status": "missing",
+      "gap_description": "No section detail showing continuous flashing from roof membrane up and over the parapet cap."
+    },
+    {
+      "detail_type": "base_flashing_termination",
+      "detail_family": "roof_edge_details",
+      "status": "required",
+      "gap_description": "Base flashing height and attachment method not defined."
+    },
+    {
+      "detail_type": "coping_joint_detail",
+      "detail_family": "parapet_details",
+      "status": "recommended",
+      "gap_description": "Coping splice joints and end dam details not shown."
+    }
+  ],
+  "blocker_archetypes": [
+    "ba-missing-flashing-termination",
+    "ba-incomplete-parapet-detail",
+    "ba-unresolved-membrane-transition"
+  ],
+  "remediation_archetypes": [
+    "ra-install-continuous-flashing",
+    "ra-add-parapet-section-detail",
+    "ra-define-base-flashing-height"
+  ],
+  "issue_signatures": [
+    "is-flashing-discontinuity-at-parapet",
+    "is-missing-parapet-section-detail",
+    "is-undefined-membrane-termination-height"
+  ],
+  "severity_default": "critical",
+  "discipline_tags": ["roofing", "waterproofing", "architectural", "sheet_metal"]
+}

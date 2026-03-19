@@ -1,0 +1,130 @@
+{
+  "contract_id": "construction_kernel.remediation_reference.v1",
+  "version": "1.0",
+  "authority": "Construction_Kernel",
+  "contract_type": "governed_remediation_reference_schema",
+  "description": "Defines the remediation reference contract governing resolution strategies for construction issues. Remediation references link issues to candidate solutions with confidence assessments. Runtime must validate remediation records against this contract and must not define its own strategies.",
+  "governance_source": "GOVERNANCE_KERNEL.md",
+  "architecture_source": "INTELLIGENCE_KERNEL.md",
+  "fail_closed_rule": "Any remediation record with an unrecognized strategy must be rejected. Runtime must not invent remediation strategies.",
+  "valid_strategies": [
+    "add_missing_detail",
+    "substitute_material",
+    "add_interface_detail",
+    "resolve_scope_ownership",
+    "add_specification_parameter",
+    "issue_rfi",
+    "revise_drawing",
+    "coordinate_disciplines",
+    "request_submittal",
+    "field_verification",
+    "engineering_redesign",
+    "value_engineering_substitution",
+    "add_transition_detail",
+    "install_continuous_flashing",
+    "add_termination_bar",
+    "revise_slope_design"
+  ],
+  "confidence_range": {
+    "min": 0.0,
+    "max": 1.0
+  },
+  "strategy_definitions": {
+    "add_missing_detail": {
+      "label": "Add Missing Detail",
+      "description": "Create and add the missing construction detail to the drawing set.",
+      "typical_confidence": 0.85,
+      "applicable_issue_classes": ["missing_detail"]
+    },
+    "substitute_material": {
+      "label": "Substitute Material",
+      "description": "Replace the incompatible material with a compatible alternative.",
+      "typical_confidence": 0.75,
+      "applicable_issue_classes": ["incompatible_material"]
+    },
+    "add_interface_detail": {
+      "label": "Add Interface Detail",
+      "description": "Create a detail drawing defining the unresolved interface connection.",
+      "typical_confidence": 0.80,
+      "applicable_issue_classes": ["unresolved_interface"]
+    },
+    "resolve_scope_ownership": {
+      "label": "Resolve Scope Ownership",
+      "description": "Assign clear scope ownership through coordination meeting or specification amendment.",
+      "typical_confidence": 0.90,
+      "applicable_issue_classes": ["scope_conflict", "missing_ownership"]
+    },
+    "add_specification_parameter": {
+      "label": "Add Specification Parameter",
+      "description": "Add the missing parameter to the relevant specification section.",
+      "typical_confidence": 0.85,
+      "applicable_issue_classes": ["parameter_gap"]
+    },
+    "issue_rfi": {
+      "label": "Issue RFI",
+      "description": "Issue a Request for Information to the architect or engineer of record.",
+      "typical_confidence": 0.70,
+      "applicable_issue_classes": ["missing_detail", "parameter_gap", "unresolved_interface"]
+    },
+    "revise_drawing": {
+      "label": "Revise Drawing",
+      "description": "Issue a drawing revision addressing the identified issue.",
+      "typical_confidence": 0.85,
+      "applicable_issue_classes": ["missing_detail", "unresolved_interface", "parameter_gap"]
+    },
+    "coordinate_disciplines": {
+      "label": "Coordinate Disciplines",
+      "description": "Conduct multi-discipline coordination to resolve interface or scope conflicts.",
+      "typical_confidence": 0.80,
+      "applicable_issue_classes": ["scope_conflict", "unresolved_interface", "missing_ownership"]
+    },
+    "request_submittal": {
+      "label": "Request Submittal",
+      "description": "Request product submittal or shop drawing from the responsible trade.",
+      "typical_confidence": 0.75,
+      "applicable_issue_classes": ["readiness_blocker"]
+    },
+    "field_verification": {
+      "label": "Field Verification",
+      "description": "Conduct field verification to confirm existing conditions match design assumptions.",
+      "typical_confidence": 0.70,
+      "applicable_issue_classes": ["parameter_gap", "unresolved_interface"]
+    },
+    "engineering_redesign": {
+      "label": "Engineering Redesign",
+      "description": "Engage structural or specialty engineer for redesign of the affected assembly.",
+      "typical_confidence": 0.65,
+      "applicable_issue_classes": ["incompatible_material", "unresolved_interface"]
+    },
+    "value_engineering_substitution": {
+      "label": "Value Engineering Substitution",
+      "description": "Propose value engineering substitution to resolve material or method conflicts.",
+      "typical_confidence": 0.60,
+      "applicable_issue_classes": ["incompatible_material", "scope_conflict"]
+    },
+    "add_transition_detail": {
+      "label": "Add Transition Detail",
+      "description": "Add a transition detail between dissimilar assemblies or materials.",
+      "typical_confidence": 0.80,
+      "applicable_issue_classes": ["unresolved_interface", "missing_detail"]
+    },
+    "install_continuous_flashing": {
+      "label": "Install Continuous Flashing",
+      "description": "Add continuous flashing at the identified gap location.",
+      "typical_confidence": 0.90,
+      "applicable_issue_classes": ["missing_detail", "unresolved_interface"]
+    },
+    "add_termination_bar": {
+      "label": "Add Termination Bar",
+      "description": "Install termination bar to mechanically secure membrane or flashing termination.",
+      "typical_confidence": 0.85,
+      "applicable_issue_classes": ["missing_detail", "unresolved_interface"]
+    },
+    "revise_slope_design": {
+      "label": "Revise Slope Design",
+      "description": "Revise the slope-to-drain design to meet minimum drainage requirements.",
+      "typical_confidence": 0.80,
+      "applicable_issue_classes": ["parameter_gap", "incompatible_material"]
+    }
+  }
+}
