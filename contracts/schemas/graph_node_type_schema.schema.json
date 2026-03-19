@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "graph_node_type_schema",
+  "title": "Graph Node Type Definition Schema",
+  "description": "Kernel-owned schema defining the structure of graph node type entries in GRAPH_NODE_TYPES.",
+  "type": "object",
+  "properties": {
+    "node_type": {
+      "type": "string",
+      "enum": [
+        "condition", "assembly", "interface", "detail",
+        "issue", "blocker", "remediation", "artifact",
+        "evidence", "pattern", "package", "revision", "owner"
+      ]
+    },
+    "required_source_fields": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "Source fields that must be present for this node type."
+    },
+    "optional_source_fields": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true,
+      "description": "Source fields that may optionally be present for this node type."
+    }
+  },
+  "required": ["node_type", "required_source_fields", "optional_source_fields"],
+  "additionalProperties": false
+}

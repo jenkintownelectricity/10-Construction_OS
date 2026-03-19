@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "graph_edge_type_schema",
+  "title": "Graph Edge Type Definition Schema",
+  "description": "Kernel-owned schema defining the structure of graph edge type entries in GRAPH_EDGE_TYPES.",
+  "type": "object",
+  "properties": {
+    "edge_type": {
+      "type": "string",
+      "enum": [
+        "depends_on", "blocked_by", "interfaces_with", "implemented_by",
+        "resolved_by", "derived_from", "classified_as", "included_in",
+        "revised_by", "owned_by", "supported_by"
+      ]
+    },
+    "valid_from_node_types": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "Node types that may appear as the source of this edge type."
+    },
+    "valid_to_node_types": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "Node types that may appear as the target of this edge type."
+    },
+    "is_enrichment_derived": {
+      "type": "boolean",
+      "default": false,
+      "description": "True if this edge type is derived from enrichment (non-authoritative)."
+    }
+  },
+  "required": ["edge_type", "valid_from_node_types", "valid_to_node_types", "is_enrichment_derived"],
+  "additionalProperties": false
+}
