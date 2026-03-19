@@ -153,7 +153,71 @@ The **Truth Event Model** sits between the kernel doctrine and runtime execution
 
 ---
 
-## 7. Safety Note
+## 7. Event Immutability Rule
+
+Truth events are immutable once recorded. No event in the ledger may be modified, overwritten, or deleted after it has been committed. The ledger is append-only. Any process that attempts to alter a committed event must be rejected.
+
+---
+
+## 8. Supersession Rule
+
+Corrections are recorded as new events that reference the event being corrected via `supersedes_event_id`. The original event remains in the ledger as historical record. The current truth of any object is derived by replaying its event history with supersession applied. Silent mutation of prior events is a governance violation.
+
+---
+
+## 9. Source Artifact Rule
+
+Every truth event must reference a source artifact — the evidence surface from which facts were extracted. Source documents are evidence. The `extracted_facts` field carries the canonical payload derived from the source artifact. The source artifact provides traceability; the extracted facts provide canonical truth content.
+
+---
+
+## 10. Authority Rule
+
+Every truth event must identify the governance authority under which it was recorded and the actor who produced it. Events without traceable authority are governance violations. The `authority` field records the governing authority. The `actor` field records the producing agent.
+
+---
+
+## 11. Identity Dependency Rule
+
+All durable truth transitions depend on stable object identity. Without governed identity, the system cannot reliably assert that a sequence of events belongs to the same object.
+
+If object identity is unresolved, truth may be recorded provisionally. Provisional records must be explicitly marked and must fail closed for final continuity claims. Unresolved object continuity must not be implied without governed identity support.
+
+---
+
+## 12. State Version vs Fact Version
+
+- **`state_version`** tracks the authoritative state progression of an object. Each state transition increments the state version. The state version represents the object's position in its governed lifecycle.
+- **`fact_version`** tracks the canonical fact-payload revision lineage. When extracted facts are revised (e.g., corrected extraction from the same source artifact), the fact version increments independently of state version. The fact version represents the revision history of the canonical truth content.
+
+State version and fact version are independent versioning axes. A state transition always produces a new state version. A fact revision may produce a new fact version without a state change.
+
+---
+
+## 13. Effective Timestamp vs Recorded Timestamp
+
+- **`effective_timestamp`** is when the truth condition applies in the real world — when the physical condition occurred, when the decision was made, or when the observation was taken.
+- **`recorded_timestamp`** is when the event entered the spine — when the system recorded the truth event.
+
+These timestamps may differ significantly. A field observation may occur days before its event is recorded. The effective timestamp provides temporal truth context. The recorded timestamp provides ledger ordering.
+
+---
+
+## 14. Event Field Clarifications
+
+Source documents are evidence. The `extracted_facts` field is the canonical payload — the structured facts extracted from the source artifact that constitute the truth content of the event.
+
+Prior events must never be silently edited. Any correction to extracted facts must produce a new event with an incremented `fact_version` and a `supersedes_event_id` referencing the corrected event.
+
+The `state_version` tracks authoritative state progression. The `fact_version` tracks canonical fact-payload revision lineage. These are independent versioning axes maintained per object.
+
+The `effective_timestamp` is when the truth condition applies. The `recorded_timestamp` is when the event entered the spine. Temporal ordering in the ledger uses `recorded_timestamp`. Temporal reasoning about truth conditions uses `effective_timestamp`.
+
+Unresolved object continuity must not be implied without governed identity support. If `object_id` references a provisional identifier, the event must be marked as provisional.
+
+---
+
+## 15. Safety Note
 
 - This document defines architecture documentation only
 - No runtime code, schemas, or implementations are modified
