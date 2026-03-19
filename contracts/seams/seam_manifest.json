@@ -1,0 +1,58 @@
+{
+  "manifest_id": "construction_kernel.seam_manifest",
+  "version": "1.0",
+  "authority": "Construction_Kernel",
+  "description": "Frozen seam manifest declaring official contract seams between Construction_Kernel and its consumers. Each seam defines the authority artifacts, consumer modules, version policy, and fail mode. Seam ownership belongs to Construction_Kernel.",
+  "seams": [
+    {
+      "seam_id": "detail_applicability",
+      "authority_repo": "Construction_Kernel",
+      "authority_artifacts": [
+        "contracts/detail_applicability/applicability_rules.json",
+        "contracts/schemas/detail_applicability.schema.json"
+      ],
+      "consumer_repo": "Construction_Runtime",
+      "consumer_modules": [
+        "runtime/drawing_engine/contract_loader.py",
+        "runtime/drawing_engine/detail_resolver.py"
+      ],
+      "version_policy": "exact_match",
+      "canonicality": "governed_contract",
+      "fail_mode": "fail_closed",
+      "seam_status": "frozen"
+    },
+    {
+      "seam_id": "detail_schema",
+      "authority_repo": "Construction_Kernel",
+      "authority_artifacts": [
+        "contracts/detail_schema/detail_schema.json",
+        "contracts/schemas/detail_schema.schema.json"
+      ],
+      "consumer_repo": "Construction_Runtime",
+      "consumer_modules": [
+        "runtime/drawing_engine/contract_loader.py"
+      ],
+      "version_policy": "exact_match",
+      "canonicality": "governed_contract",
+      "fail_mode": "fail_closed",
+      "seam_status": "frozen"
+    },
+    {
+      "seam_id": "drawing_instruction_ir",
+      "authority_repo": "Construction_Kernel",
+      "authority_artifacts": [
+        "contracts/drawing_instruction_ir/ir_instruction_types.json",
+        "contracts/schemas/ir_instruction_types.schema.json"
+      ],
+      "consumer_repo": "Construction_Runtime",
+      "consumer_modules": [
+        "runtime/drawing_engine/contract_loader.py",
+        "runtime/drawing_engine/ir_emitter.py"
+      ],
+      "version_policy": "exact_match",
+      "canonicality": "governed_contract",
+      "fail_mode": "fail_closed",
+      "seam_status": "frozen"
+    }
+  ]
+}
