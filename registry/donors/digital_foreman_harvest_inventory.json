@@ -1,0 +1,178 @@
+{
+  "registry_version": "v1",
+  "registry_type": "donor_harvest_inventory",
+  "donor_repo": "cad_observer",
+  "donor_subsystem": "Digital Foreman",
+  "donor_path": "roofing_intelligence/roofio/platform/digital_foreman/",
+  "harvest_wave": "16A",
+  "harvest_date": "2026-03-20",
+  "extraction_verdict": "PARTIAL_ACCEPT",
+  "best_role": "Observation Runtime seed + Atlas UI design reference",
+  "description": "Digital Foreman is a spec-grade field documentation and safety compliance platform from the ROOFIO roofing company operating system. It provides structured observation capture with fail-closed safety gates, immutable evidence chains, and human review workflows. Harvested as the primary seed for Construction_Observation_Runtime.",
+  "harvested_modules": [
+    {
+      "module_name": "gatekeeper",
+      "source_class": "GatekeeperService",
+      "target_repo": "Construction_Runtime",
+      "target_path": "runtime/observation/gatekeeper/",
+      "target_wave": "17",
+      "status": "approved_for_transplant",
+      "parameterization_required": true,
+      "notes": "Safety-gated observation capture. Must parameterize JHA templates."
+    },
+    {
+      "module_name": "weather_observation",
+      "source_class": "WeatherTruthAgent",
+      "target_repo": "Construction_Runtime",
+      "target_path": "runtime/observation/weather/",
+      "target_wave": "17",
+      "status": "approved_for_transplant",
+      "parameterization_required": false,
+      "notes": "Already parameterized via configurable thresholds."
+    },
+    {
+      "module_name": "photo_custody",
+      "source_class": "PhotoChainOfCustody",
+      "target_repo": "Construction_Runtime",
+      "target_path": "runtime/observation/photo_custody/",
+      "target_wave": "17",
+      "status": "approved_for_transplant",
+      "parameterization_required": false,
+      "notes": "Fully domain-agnostic. Ready for transplant."
+    },
+    {
+      "module_name": "inspection",
+      "source_class": "Inspector visit model",
+      "target_repo": "Construction_Runtime",
+      "target_path": "runtime/observation/inspection/",
+      "target_wave": "17",
+      "status": "approved_for_transplant",
+      "parameterization_required": true,
+      "notes": "Inspection type catalog must be configurable."
+    },
+    {
+      "module_name": "daily_log",
+      "source_class": "Daily Log schema + model",
+      "target_repo": "Construction_Runtime",
+      "target_path": "runtime/observation/daily_log/",
+      "target_wave": "17",
+      "status": "approved_for_transplant",
+      "parameterization_required": true,
+      "notes": "Core observation record. Work area taxonomy must be configurable."
+    },
+    {
+      "module_name": "alerts",
+      "source_class": "System Alerts pipeline",
+      "target_repo": "Construction_Runtime",
+      "target_path": "runtime/observation/alerts/",
+      "target_wave": "17",
+      "status": "approved_for_transplant",
+      "parameterization_required": false,
+      "notes": "Alert types already enumerated and extensible."
+    },
+    {
+      "module_name": "audit_log",
+      "source_class": "Audit Log",
+      "target_repo": "Construction_Runtime",
+      "target_path": "runtime/observation/audit/",
+      "target_wave": "17",
+      "status": "approved_for_transplant",
+      "parameterization_required": false,
+      "notes": "Pure infrastructure. No domain-specific logic."
+    },
+    {
+      "module_name": "observation_models",
+      "source_class": "All data classes and enums",
+      "target_repo": "Construction_Runtime",
+      "target_path": "runtime/observation/models/",
+      "target_wave": "17",
+      "status": "approved_for_transplant",
+      "parameterization_required": true,
+      "notes": "Clean Python dataclasses. Some enums need extension points."
+    },
+    {
+      "module_name": "material_verification",
+      "source_class": "MaterialVerifier",
+      "target_repo": "Construction_Runtime",
+      "target_path": "runtime/observation/material_verification/",
+      "target_wave": "18",
+      "status": "approved_for_transplant",
+      "parameterization_required": true,
+      "notes": "Submittal lookup must be abstracted behind interface."
+    },
+    {
+      "module_name": "compliance_verification",
+      "source_class": "SilicaTracker (generalized)",
+      "target_repo": "Construction_Runtime",
+      "target_path": "runtime/observation/compliance/",
+      "target_wave": "18",
+      "status": "approved_with_adaptation",
+      "parameterization_required": true,
+      "notes": "Must generalize from silica-specific to any compliance type."
+    },
+    {
+      "module_name": "field_permits",
+      "source_class": "Hot Work Permits (generalized)",
+      "target_repo": "Construction_Runtime",
+      "target_path": "runtime/observation/permits/",
+      "target_wave": "19",
+      "status": "approved_with_adaptation",
+      "parameterization_required": true,
+      "notes": "Must generalize to any permit type."
+    },
+    {
+      "module_name": "offline_sync",
+      "source_class": "Sync Queue",
+      "target_repo": "Construction_Runtime",
+      "target_path": "runtime/infrastructure/sync/",
+      "target_wave": "19",
+      "status": "approved_with_adaptation",
+      "parameterization_required": true,
+      "notes": "Conflict resolution strategy must be configurable."
+    }
+  ],
+  "rejected_components": [
+    {
+      "component": "digital_foreman.html",
+      "reason": "Roofing-branded UI. Design reference only."
+    },
+    {
+      "component": "inspector.html",
+      "reason": "Roofing-branded UI. Design reference only."
+    },
+    {
+      "component": "Flask Blueprint routes",
+      "reason": "Framework-specific. Runtime defines contracts, not HTTP routes."
+    },
+    {
+      "component": "OCIP Sales Strategy",
+      "reason": "Business content."
+    },
+    {
+      "component": "Division 07 JHA seed data",
+      "reason": "Trade-specific. Reference only for future parameterized catalogs."
+    }
+  ],
+  "reference_components": [
+    {
+      "component": "Gatekeeper lock screen UX pattern",
+      "target": "Construction_Atlas_UI design reference"
+    },
+    {
+      "component": "GPS-verified form submission UX",
+      "target": "Construction_Atlas_UI design reference"
+    },
+    {
+      "component": "Guest inspector access pattern",
+      "target": "Construction_Atlas_UI design reference"
+    },
+    {
+      "component": "Division 07 JHA templates",
+      "target": "Future kernel safety catalog reference"
+    },
+    {
+      "component": "Specification language templates (Division 01)",
+      "target": "Documentation reference"
+    }
+  ]
+}
