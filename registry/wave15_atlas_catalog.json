@@ -1,0 +1,110 @@
+{
+  "wave": "15",
+  "title": "Construction Atlas — Global Detail Navigation",
+  "status": "delivered",
+  "catalog_version": "v1",
+  "authority": "Construction_OS_Registry",
+  "description": "Wave 15 establishes the first hardened Construction Atlas navigation layer with global detail index, graph-backed navigation, search, and advisory similarity.",
+  "subsystems": [
+    {
+      "subsystem_id": "detail_index",
+      "path": "runtime/detail_index/",
+      "purpose": "Builds deterministic lookup indexes from canonical Detail DNA records. Provides detail_lookup, family_index, tag_index, condition_index, system_index, and class_index.",
+      "contract": "runtime/detail_index/contract.py",
+      "engine": "runtime/detail_index/index_builder.py",
+      "validator": "runtime/detail_index/validator.py",
+      "serializer": "runtime/detail_index/serializer.py",
+      "tests": "runtime/detail_index/tests/",
+      "truth_source": "Construction_Kernel/data/detail_dna/",
+      "contract_surface": "build_detail_index()"
+    },
+    {
+      "subsystem_id": "detail_graph",
+      "path": "runtime/detail_graph/",
+      "purpose": "Constructs a detail relationship graph from kernel-backed route data. Supports BFS, DFS, shortest path, neighbor lookup, and path existence.",
+      "contract": "runtime/detail_graph/contract.py",
+      "engine": "runtime/detail_graph/graph_builder.py",
+      "validator": "runtime/detail_graph/validator.py",
+      "tests": "runtime/detail_graph/tests/",
+      "truth_source": "Construction_Kernel/data/detail_route_index.json",
+      "contract_surface": "build_detail_graph()"
+    },
+    {
+      "subsystem_id": "detail_navigation",
+      "path": "runtime/detail_navigation/",
+      "purpose": "Cross-detail traversal and path resolution. Provides related detail lookup, neighbor resolution, upstream/downstream dependency resolution, installation transitions, and navigation path resolution.",
+      "contract": "runtime/detail_navigation/contract.py",
+      "engine": "runtime/detail_navigation/navigator.py",
+      "tests": "runtime/detail_navigation/tests/",
+      "depends_on": ["detail_graph"],
+      "contract_surfaces": [
+        "find_related_details(detail_id)",
+        "resolve_neighbors(detail_id)",
+        "resolve_upstream_dependencies(detail_id)",
+        "resolve_downstream_paths(detail_id)",
+        "resolve_installation_transitions(detail_id)",
+        "resolve_navigation_path(detail_a, detail_b)"
+      ]
+    },
+    {
+      "subsystem_id": "detail_search",
+      "path": "runtime/detail_search/",
+      "purpose": "Deterministic detail discovery via tag, family, condition, name, synonym, and composite search. Tier 0 deterministic search mandatory. Tier 1 AI expansion optional and bounded.",
+      "contract": "runtime/detail_search/contract.py",
+      "engine": "runtime/detail_search/search_engine.py",
+      "validator": "runtime/detail_search/validator.py",
+      "tests": "runtime/detail_search/tests/",
+      "depends_on": ["detail_index"],
+      "contract_surface": "search_details(query)"
+    },
+    {
+      "subsystem_id": "detail_similarity",
+      "path": "runtime/detail_similarity/",
+      "purpose": "Advisory similarity scoring between details based on tags, conditions, components, geometry, and assembly family. Scores are deterministic and advisory-only — they do not redefine canonical relationships.",
+      "contract": "runtime/detail_similarity/contract.py",
+      "engine": "runtime/detail_similarity/similarity_engine.py",
+      "tests": "runtime/detail_similarity/tests/",
+      "depends_on": ["detail_index"],
+      "contract_surfaces": [
+        "compute_detail_similarity(detail_id, candidate_id)",
+        "find_similar_details(detail_id)"
+      ]
+    }
+  ],
+  "topology": {
+    "truth_source": "Construction_Kernel (frozen, read-only)",
+    "execution_layer": "Construction_Runtime",
+    "catalog_layer": "Construction_OS_Registry",
+    "verification_layer": "ValidKernelOS_VKBUS"
+  },
+  "dependencies": {
+    "kernel_schemas": [
+      "Construction_Kernel/schemas/detail_dna_schema.json",
+      "Construction_Kernel/schemas/detail_relationship_schema.json"
+    ],
+    "kernel_data": [
+      "Construction_Kernel/data/detail_dna/*.json",
+      "Construction_Kernel/data/detail_route_index.json",
+      "Construction_Kernel/data/detail_tag_index.json",
+      "Construction_Kernel/data/detail_tags.json"
+    ]
+  },
+  "test_inventory": {
+    "detail_index_tests": 12,
+    "detail_graph_tests": 11,
+    "detail_navigation_tests": 9,
+    "detail_search_tests": 14,
+    "detail_similarity_tests": 12,
+    "total": 58
+  },
+  "governance_rules": {
+    "kernel_is_read_only": true,
+    "runtime_consumes_truth": true,
+    "runtime_does_not_redefine_truth": true,
+    "similarity_is_advisory_only": true,
+    "all_outputs_deterministic": true,
+    "all_validators_fail_closed": true,
+    "registry_is_catalog_only": true,
+    "vkbus_is_observer_only": true
+  }
+}

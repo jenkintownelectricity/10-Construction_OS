@@ -1,0 +1,51 @@
+{
+  "wave": "15",
+  "title": "Wave 15 Artifact Manifest",
+  "authority": "Construction_OS_Registry",
+  "artifacts": {
+    "runtime_modules": [
+      "runtime/detail_index/__init__.py",
+      "runtime/detail_index/contract.py",
+      "runtime/detail_index/index_builder.py",
+      "runtime/detail_index/validator.py",
+      "runtime/detail_index/serializer.py",
+      "runtime/detail_graph/__init__.py",
+      "runtime/detail_graph/contract.py",
+      "runtime/detail_graph/graph_builder.py",
+      "runtime/detail_graph/validator.py",
+      "runtime/detail_navigation/__init__.py",
+      "runtime/detail_navigation/contract.py",
+      "runtime/detail_navigation/navigator.py",
+      "runtime/detail_search/__init__.py",
+      "runtime/detail_search/contract.py",
+      "runtime/detail_search/search_engine.py",
+      "runtime/detail_search/validator.py",
+      "runtime/detail_similarity/__init__.py",
+      "runtime/detail_similarity/contract.py",
+      "runtime/detail_similarity/similarity_engine.py"
+    ],
+    "test_modules": [
+      "runtime/detail_index/tests/test_detail_index.py",
+      "runtime/detail_graph/tests/test_detail_graph.py",
+      "runtime/detail_navigation/tests/test_detail_navigation.py",
+      "runtime/detail_search/tests/test_detail_search.py",
+      "runtime/detail_similarity/tests/test_detail_similarity.py"
+    ],
+    "registry_artifacts": [
+      "registry/wave15_atlas_catalog.json",
+      "registry/wave15_atlas_manifest.json"
+    ],
+    "vkbus_artifacts": [
+      "bus/observers/wave15_atlas_boundary_observer.py",
+      "bus/reports/wave15_compliance_report.json"
+    ]
+  },
+  "contract_surfaces": [
+    "build_detail_index()",
+    "build_detail_graph()",
+    "find_related_details(detail_id)",
+    "search_details(query)",
+    "resolve_navigation_path(detail_a, detail_b)",
+    "compute_detail_similarity(detail_id, candidate_id)"
+  ]
+}
