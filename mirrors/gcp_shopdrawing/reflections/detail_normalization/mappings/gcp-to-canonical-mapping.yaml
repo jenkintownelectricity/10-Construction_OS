@@ -1,0 +1,388 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Field-Level Mapping: GCP Source to Construction OS Canonical Format
+# Slice: detail_normalization
+#
+# Defines the complete field-by-field mapping from GCP shop drawing detail
+# records to the Construction OS normalized detail schema. Each entry
+# specifies the source path, target path, transformation rule, and
+# criticality classification.
+##############################################################################
+
+mapping:
+  name: gcp-to-canonical-mapping
+  version: "1.0.0"
+  source_schema: "../schemas/source-detail-format.schema.json"
+  target_schema: "../schemas/normalized-detail.schema.json"
+  effective_date: "2026-03-20"
+
+# ─── IDENTITY AND METADATA FIELDS ───────────────────────────────────────────
+
+identity_fields:
+  - source_path: "$.gcp_record_id"
+    target_path: "$.normalization_metadata.source_record_id"
+    transform: direct_copy
+    critical: true
+    description: "Preserve original GCP record ID for traceability."
+
+  - source_path: null
+    target_path: "$.detail_id"
+    transform: generate
+    rule_ref: "normalization-rules.yaml#/id_generation/ID-001"
+    critical: true
+    description: "Generate canonical detail ID from discipline and sequence."
+
+  - source_path: null
+    target_path: "$.canonical_version"
+    transform: constant
+    value: "1.0.0"
+    critical: true
+
+  - source_path: "$.meta.exported_at"
+    target_path: "$.normalization_metadata.normalized_at"
+    transform: timestamp_offset
+    description: "Normalization timestamp is the processing time, not export time."
+    critical: false
+
+  - source_path: "$.meta.checksum"
+    target_path: "$.normalization_metadata.source_hash"
+    transform: sha256_wrap
+    description: "Wrap source checksum in sha256: prefix format."
+    critical: true
+
+# ─── PROJECT REFERENCE FIELDS ───────────────────────────────────────────────
+
+project_fields:
+  - source_path: "$.gcp_project_key"
+    target_path: "$.project_ref.project_id"
+    transform: lookup
+    lookup_table: project_registry
+    lookup_key: gcp_key
+    lookup_value: cos_project_id
+    critical: true
+
+  - source_path: "$.gcp_project_key"
+    target_path: "$.project_ref.project_name"
+    transform: lookup
+    lookup_table: project_registry
+    lookup_key: gcp_key
+    lookup_value: project_name
+    critical: false
+
+  - source_path: "$.doc_type"
+    target_path: "$.project_ref.phase"
+    transform: map
+    value_map:
+      SHOP_DWG: shop_drawing
+      ERECTION_DWG: fabrication
+      FABRICATION_DWG: fabrication
+      DETAIL_SHEET: construction_documents
+      ASSEMBLY_DWG: fabrication
+    critical: false
+
+# ─── DISCIPLINE ──────────────────────────────────────────────────────────────
+
+discipline_fields:
+  - source_path: "$context.discipline_code"
+    target_path: "$.discipline"
+    transform: direct_copy
+    critical: true
+    description: "Discipline comes from the normalization context, not the source record."
+
+# ─── ELEMENT TYPE FIELDS ────────────────────────────────────────────────────
+
+element_type_fields:
+  - source_path: "$.element_data.elem_type_code"
+    target_path: "$.element_type.primary_type"
+    transform: rule_lookup
+    rule_ref: "normalization-rules.yaml#/element_type_mapping/ET-001"
+    critical: true
+
+  - source_path: "$.element_data.elem_subtype"
+    target_path: "$.element_type.subtype"
+    transform: rule_lookup
+    rule_ref: "normalization-rules.yaml#/element_type_mapping/ET-001"
+    critical: true
+
+  - source_path: "$.geometry_block.section_designation"
+    target_path: "$.element_type.designation"
+    transform: format_normalize
+    description: "Normalize section designation formatting (e.g., 'W24X76' to 'W24x76')."
+    critical: false
+
+# ─── GEOMETRY FIELDS ────────────────────────────────────────────────────────
+
+geometry_fields:
+  - source_path: "$.element_data.elem_type_code"
+    target_path: "$.geometry.profile.shape"
+    transform: derive
+    derivation_rules:
+      BM:
+        WF: I_shape
+        HSS_R: hollow_circular
+        HSS_S: hollow_rectangular
+        CHL: C_shape
+        ANG: L_shape
+      CL:
+        WF: I_shape
+        HSS_R: hollow_circular
+        HSS_S: hollow_rectangular
+        RC: rectangular
+      PN:
+        CW: rectangular
+        PC: rectangular
+        MTL: rectangular
+    critical: true
+
+  - source_path: "$.geometry_block.depth_raw"
+    target_path: "$.geometry.profile.depth_in"
+    transform: parse_imperial_dimension
+    rule_ref: "normalization-rules.yaml#/unit_conversion/UC-001"
+    critical: true
+
+  - source_path: "$.geometry_block.width_raw"
+    target_path: "$.geometry.profile.width_in"
+    transform: parse_imperial_dimension
+    rule_ref: "normalization-rules.yaml#/unit_conversion/UC-001"
+    critical: true
+
+  - source_path: "$.geometry_block.web_thk_raw"
+    target_path: "$.geometry.profile.thickness_in"
+    transform: parse_imperial_dimension
+    allow_empty: true
+    critical: false
+
+  - source_path: "$.geometry_block.flg_thk_raw"
+    target_path: "$.geometry.profile.flange_thickness_in"
+    transform: parse_imperial_dimension
+    allow_empty: true
+    critical: false
+
+  - source_path: "$.geometry_block.length_raw"
+    target_path: "$.geometry.length_in"
+    transform: parse_imperial_dimension
+    rule_ref: "normalization-rules.yaml#/unit_conversion/UC-001"
+    critical: true
+
+  - source_path: "$.geometry_block.rotation_raw"
+    target_path: "$.geometry.orientation.rotation_deg"
+    transform: parse_angle
+    rule_ref: "normalization-rules.yaml#/unit_conversion/UC-003"
+    critical: false
+
+  - source_path: "$.geometry_block.slope_raw"
+    target_path: "$.geometry.orientation.slope_ratio"
+    transform: direct_copy
+    allow_empty: true
+    critical: false
+
+  - source_path: "$.element_data.grid_location"
+    target_path: "$.geometry.coordinates"
+    transform: parse_grid_reference
+    description: >
+      Split grid location string (e.g., 'C3-D3') into grid_line_x and
+      grid_line_y components.
+    critical: false
+
+  - source_path: "$.element_data.elevation_raw"
+    target_path: "$.geometry.coordinates.elevation_ft"
+    transform: parse_elevation_to_feet
+    description: "Parse elevation string to decimal feet."
+    critical: false
+
+  - source_path: "$.element_data.level_tag"
+    target_path: "$.geometry.coordinates.level"
+    transform: direct_copy
+    critical: false
+
+# ─── MATERIAL FIELDS ────────────────────────────────────────────────────────
+
+material_fields:
+  - source_path: "$.material_data.mat_code"
+    target_path: "$.material.category"
+    transform: rule_lookup
+    rule_ref: "normalization-rules.yaml#/material_mapping/MAT-001"
+    output_field: category
+    critical: true
+
+  - source_path: "$.material_data.mat_code"
+    target_path: "$.material.specification"
+    transform: rule_lookup
+    rule_ref: "normalization-rules.yaml#/material_mapping/MAT-001"
+    output_field: specification
+    critical: true
+
+  - source_path: "$.material_data.mat_code"
+    target_path: "$.material.grade"
+    transform: rule_lookup
+    rule_ref: "normalization-rules.yaml#/material_mapping/MAT-001"
+    output_field: grade
+    critical: false
+
+  - source_path: "$.material_data.coating_spec"
+    target_path: "$.material.finish"
+    transform: direct_copy
+    fallback_source: "$.material_data.finish_code"
+    critical: false
+
+  - source_path: "$.material_data.fy_raw"
+    target_path: "$.material.yield_strength_ksi"
+    transform: parse_stress_value
+    target_unit: ksi
+    allow_empty: true
+    critical: false
+
+  - source_path: "$.material_data.fc_raw"
+    target_path: "$.material.compressive_strength_psi"
+    transform: parse_stress_value
+    target_unit: psi
+    allow_empty: true
+    critical: false
+
+# ─── DIMENSION FIELDS ───────────────────────────────────────────────────────
+
+dimension_fields:
+  - source_path: "$.dim_block.unit_flag"
+    target_path: "$.dimensions.unit_system"
+    transform: map
+    value_map:
+      IMP: imperial
+      MET: metric
+      DUAL: imperial    # normalize dual to primary unit system
+    critical: true
+
+  - source_path: "$.dim_block.dims[]"
+    target_path: "$.dimensions.primary_dimensions[]"
+    transform: array_map
+    per_item:
+      - source_field: dim_label
+        target_field: label
+        transform: direct_copy
+      - source_field: dim_value_raw
+        target_field: value
+        transform: parse_imperial_dimension
+      - source_field: null
+        target_field: unit
+        transform: constant
+        value: "in"
+      - source_field: dim_tol_plus_raw
+        target_field: tolerance_plus
+        transform: parse_imperial_dimension
+        allow_empty: true
+      - source_field: dim_tol_minus_raw
+        target_field: tolerance_minus
+        transform: parse_imperial_dimension
+        allow_empty: true
+      - source_field: is_critical
+        target_field: critical
+        transform: direct_copy
+        default: false
+    critical: true
+
+# ─── CONNECTION FIELDS ──────────────────────────────────────────────────────
+
+connection_fields:
+  - source_path: "$.connection_block[]"
+    target_path: "$.connections[]"
+    transform: array_map
+    per_item:
+      - source_field: conn_id
+        target_field: connection_id
+        transform: direct_copy
+      - source_field: conn_location_code
+        target_field: location
+        transform: rule_lookup
+        rule_ref: "normalization-rules.yaml#/connection_mapping/CONN-001"
+      - source_field: conn_type_code
+        target_field: type
+        transform: rule_lookup
+        rule_ref: "normalization-rules.yaml#/connection_mapping/CONN-002"
+      - source_field: bolt_data.bolt_type_code
+        target_field: fasteners.bolt_type
+        transform: direct_copy
+        allow_empty: true
+      - source_field: bolt_data.bolt_dia_raw
+        target_field: fasteners.bolt_diameter_in
+        transform: parse_imperial_dimension
+        allow_empty: true
+      - source_field: bolt_data.bolt_qty
+        target_field: fasteners.bolt_count
+        transform: direct_copy
+        allow_empty: true
+      - source_field: bolt_data.hole_type_code
+        target_field: fasteners.hole_type
+        transform: rule_lookup
+        rule_ref: "normalization-rules.yaml#/connection_mapping/CONN-003"
+        allow_empty: true
+      - source_field: weld_data
+        target_field: welds
+        transform: conditional_map
+        condition: "weld_data is not empty"
+        allow_empty: true
+      - source_field: connects_to_mark
+        target_field: connected_to
+        transform: mark_to_detail_ref
+        description: "Convert mark number reference to canonical detail reference."
+    critical: true
+
+# ─── ANNOTATION FIELDS ──────────────────────────────────────────────────────
+
+annotation_fields:
+  - source_path: "$.annotation_block[]"
+    target_path: "$.annotations[]"
+    transform: array_map
+    per_item:
+      - source_field: anno_id
+        target_field: annotation_id
+        transform: direct_copy
+      - source_field: anno_type_code
+        target_field: type
+        transform: map
+        value_map:
+          DIM: dimension
+          NOTE: note
+          CALLOUT: callout
+          REV_CLD: revision_cloud
+          SEC_CUT: section_cut
+          DET_REF: detail_reference
+      - source_field: anno_text
+        target_field: text
+        transform: direct_copy
+      - source_field: anno_x
+        target_field: position.x
+        transform: direct_copy
+      - source_field: anno_y
+        target_field: position.y
+        transform: direct_copy
+    critical: false
+
+# ─── REVISION FIELDS ────────────────────────────────────────────────────────
+
+revision_fields:
+  - source_path: "$.revision_block[]"
+    target_path: "$.revisions[]"
+    transform: array_map
+    per_item:
+      - source_field: rev_id
+        target_field: revision_id
+        transform: direct_copy
+      - source_field: rev_date
+        target_field: date
+        transform: direct_copy
+      - source_field: rev_desc
+        target_field: description
+        transform: direct_copy
+      - source_field: rev_by
+        target_field: author
+        transform: direct_copy
+      - source_field: rev_type_code
+        target_field: delta_type
+        transform: map
+        value_map:
+          INIT: full_redesign
+          DIM_CHG: dimensional_change
+          MAT_CHG: material_change
+          CONN_CHG: connection_change
+          ANNO_UPD: annotation_update
+          FULL_RED: full_redesign
+    critical: false

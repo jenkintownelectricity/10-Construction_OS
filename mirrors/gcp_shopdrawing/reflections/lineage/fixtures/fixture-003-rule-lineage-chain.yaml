@@ -1,0 +1,36 @@
+fixture:
+  fixture_id: fixture-003-rule-lineage-chain
+  slice: lineage
+  mirror: gcp_shopdrawing
+  description: "Traces the lineage of a rule application result"
+
+  input:
+    entity_id: "RULE-RESULT-BEAM-COMPLIANCE-001"
+    entity_type: RULE_RESULT
+    origin_system: mirror_rules_engine
+    events:
+      - action: CREATED
+        actor: rules_engine
+        timestamp: "2026-03-15T11:00:00Z"
+        metadata:
+          rule_id: "RULE-AISC-BEAM-001"
+          detail_id: "DTL-STEEL-BEAM-001"
+      - action: RULE_APPLIED
+        actor: rules_engine
+        timestamp: "2026-03-15T11:00:05Z"
+        metadata:
+          result: COMPLIANT
+          checks_performed: 5
+          checks_passed: 5
+
+  expected_output:
+    chain_id: "CHAIN-RULEBEAM001"
+    chain_length: 2
+    records_valid: true
+    chain_integrity_verifiable: true
+
+  parity_criteria:
+    - "Chain contains exactly 2 records"
+    - "First record is CREATED, second is RULE_APPLIED"
+    - "Rule result metadata present"
+    - "Timestamps are chronological"

@@ -1,0 +1,75 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Fixture 003: Material Certificate Artifact Registration
+# Slice: artifact_manifest
+#
+# A test fixture for registering a mill test certificate artifact with
+# permanent retention policy.
+##############################################################################
+
+fixture:
+  id: "FIXTURE-AM-003"
+  name: "Material Certificate — Mill Test Report for A992 Steel"
+  description: >
+    Registers a mill test report (MTR) PDF for ASTM A992 Grade 50 steel
+    used in Level 3 floor beams. Mill certificates are classified as
+    permanent-retention artifacts per construction document management
+    standards. This fixture exercises the permanent retention path and
+    certification-specific metadata requirements.
+  slice: artifact_manifest
+  created: "2026-03-20"
+  status: active
+
+input_artifact:
+  artifact_type: "material_certificate"
+  category: "certification"
+  file_name: "MTR-A992-Heat-X72491-PSF.pdf"
+  file_format: "pdf"
+  file_size_bytes: 524288
+  content_hash: "sha256:f0e1d2c3b4a596877869504132fabcde0123456789abcdef0123456789abcdef"
+  detail_refs:
+    - "DET-STRC-00000045"
+    - "DET-STRC-00000046"
+    - "DET-STRC-00000047"
+    - "DET-STRC-00000048"
+  submission_ref: "SUB-000000000201"
+  version:
+    version_number: 1
+    revision_label: "R0"
+  metadata:
+    title: "Mill Test Report — ASTM A992 Heat X72491"
+    description: "Certified mill test report for ASTM A992 Grade 50 structural steel, Heat Number X72491, Nucor-Yamato Steel Company."
+    author: "Nucor-Yamato Steel Company"
+    created_date: "2025-11-15"
+    discipline: "structural"
+    page_count: 3
+    tags: ["MTR", "mill_certificate", "A992", "steel", "heat_X72491"]
+  gcp_source_ref: "GCP-DOC-2026-0042-MTR-X72491"
+  retention:
+    retention_policy: "permanent"
+
+expected_output:
+  artifact_id: "ART-CERT-0000000003"
+  registered_at: "2026-03-20T10:02:00Z"
+  content_verified: true
+  content_hash: "sha256:f0e1d2c3b4a596877869504132fabcde0123456789abcdef0123456789abcdef"
+  source_system: "gcp_shopdrawing"
+
+assertions:
+  - assert: field_present
+    path: "$.artifact_id"
+  - assert: value_equals
+    path: "$.content_verified"
+    expected: true
+  - assert: value_starts_with
+    path: "$.artifact_id"
+    expected: "ART-CERT-"
+    description: "Certification artifacts use CERT prefix."
+  - assert: value_equals
+    path: "$.retention.retention_policy"
+    expected: "permanent"
+    description: "Mill test reports have permanent retention."
+  - assert: array_length
+    path: "$.detail_refs"
+    expected: 4
+    description: "MTR covers four details using the same heat."

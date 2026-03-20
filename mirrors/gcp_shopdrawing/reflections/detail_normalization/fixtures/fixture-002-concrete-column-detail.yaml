@@ -1,0 +1,259 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Fixture 002: Concrete Column Detail Normalization
+# Slice: detail_normalization
+#
+# A known-good test fixture representing the normalization of a reinforced
+# concrete column from GCP source format to Construction OS canonical format.
+##############################################################################
+
+fixture:
+  id: "FIXTURE-DN-002"
+  name: "Concrete Column Detail — 24x24 RC Column"
+  description: >
+    A 24"x24" reinforced concrete column at grid intersection E-5, extending
+    from Level 2 to Level 3. The column has 8-#9 vertical reinforcing bars,
+    #4 ties at 12" spacing, and 1-1/2" clear cover. This fixture exercises
+    concrete material mapping, rebar specification parsing, and metric/imperial
+    dual-unit handling.
+  slice: detail_normalization
+  created: "2026-03-20"
+  status: active
+
+source_input:
+  gcp_record_id: "GCP-SD-000000005678"
+  gcp_project_key: "PRJ-HARBOR-TOWER-2026"
+  gcp_schema_version: "2.3.0"
+  doc_type: "SHOP_DWG"
+  sheet_ref:
+    sheet_number: "S-210"
+    sheet_title: "COLUMN SCHEDULE AND DETAILS - LEVEL 2 TO 3"
+    sheet_revision: "R1"
+    sheet_date: "2026-02-01"
+  element_data:
+    elem_type_code: "CL"
+    elem_subtype: "RC"
+    mark_number: "C15"
+    piece_count: 1
+    sequence_number: 22
+    grid_location: "E5"
+    level_tag: "L2-L3"
+    elevation_raw: "18'-0\" to 32'-6\""
+  geometry_block:
+    section_designation: "24x24 RC"
+    depth_raw: "24\""
+    width_raw: "24\""
+    length_raw: "14'-6\""
+    web_thk_raw: ""
+    flg_thk_raw: ""
+    rotation_raw: "0deg"
+    slope_raw: ""
+    camber_raw: ""
+    cope_data: []
+  material_data:
+    mat_code: "CONC-5000-NW"
+    mat_spec_ref: "SPEC-CONC-002"
+    grade_raw: "NW"
+    finish_code: "FORMED"
+    coating_spec: ""
+    fy_raw: ""
+    fc_raw: "5000 psi"
+    weld_electrode: ""
+  dim_block:
+    unit_flag: "IMP"
+    dims:
+      - dim_label: "Column Width"
+        dim_value_raw: "24\""
+        dim_tol_plus_raw: "1/4\""
+        dim_tol_minus_raw: "1/4\""
+        is_critical: true
+      - dim_label: "Column Depth"
+        dim_value_raw: "24\""
+        dim_tol_plus_raw: "1/4\""
+        dim_tol_minus_raw: "1/4\""
+        is_critical: true
+      - dim_label: "Floor-to-Floor Height"
+        dim_value_raw: "14'-6\""
+        dim_tol_plus_raw: "1/2\""
+        dim_tol_minus_raw: "1/2\""
+        is_critical: true
+      - dim_label: "Clear Cover"
+        dim_value_raw: "1-1/2\""
+        is_critical: true
+      - dim_label: "Tie Spacing"
+        dim_value_raw: "12\""
+        is_critical: false
+  connection_block:
+    - conn_id: "C-BT-001"
+      conn_location_code: "BT"
+      conn_type_code: "LAP_SPLICE"
+      bolt_data: {}
+      weld_data: {}
+      connects_to_mark: "C15-L1"
+    - conn_id: "C-TP-001"
+      conn_location_code: "TP"
+      conn_type_code: "LAP_SPLICE"
+      bolt_data: {}
+      weld_data: {}
+      connects_to_mark: "C15-L3"
+  annotation_block:
+    - anno_id: "A001"
+      anno_type_code: "NOTE"
+      anno_text: "8-#9 VERT. BARS, #4 TIES @ 12\" O.C."
+      anno_x: 100.0
+      anno_y: 150.0
+    - anno_id: "A002"
+      anno_type_code: "NOTE"
+      anno_text: "CLEAR COVER 1-1/2\" ALL SIDES"
+      anno_x: 100.0
+      anno_y: 170.0
+    - anno_id: "A003"
+      anno_type_code: "CALLOUT"
+      anno_text: "SEE DET 3/S-210 FOR SECTION"
+      anno_x: 120.0
+      anno_y: 200.0
+  revision_block:
+    - rev_id: "R1"
+      rev_date: "2026-02-01"
+      rev_desc: "Initial issue for construction"
+      rev_by: "AKumar"
+      rev_type_code: "INIT"
+  meta:
+    exported_at: "2026-03-01T10:00:00Z"
+    export_version: "2.3.0"
+    source_application: "Revit Structure"
+    source_application_version: "2025.2"
+    checksum: "b2c3d4e5f67890123456789abcdef012"
+
+normalization_context:
+  project_id: "COS-PRJ-2026-0042"
+  discipline_code: structural
+  unit_system: imperial
+  override_rules: []
+
+expected_output:
+  detail_id: "DET-STRC-00000022"
+  canonical_version: "1.0.0"
+  project_ref:
+    project_id: "COS-PRJ-2026-0042"
+    project_name: "Harbor Tower 2026"
+    phase: "shop_drawing"
+  discipline: "structural"
+  element_type:
+    primary_type: "column"
+    subtype: "reinforced_concrete"
+    designation: "24x24 RC"
+  geometry:
+    profile:
+      shape: "rectangular"
+      depth_in: 24.0
+      width_in: 24.0
+    length_in: 174.0
+    orientation:
+      rotation_deg: 0.0
+    coordinates:
+      grid_line_x: "E"
+      grid_line_y: "5"
+      elevation_ft: 18.0
+      level: "L2-L3"
+  material:
+    category: "reinforced_concrete"
+    specification: "ACI 318 f'c=5000psi"
+    grade: "NW"
+    finish: "FORMED"
+    compressive_strength_psi: 5000.0
+  dimensions:
+    unit_system: "imperial"
+    primary_dimensions:
+      - label: "Column Width"
+        value: 24.0
+        unit: "in"
+        tolerance_plus: 0.25
+        tolerance_minus: 0.25
+        critical: true
+      - label: "Column Depth"
+        value: 24.0
+        unit: "in"
+        tolerance_plus: 0.25
+        tolerance_minus: 0.25
+        critical: true
+      - label: "Floor-to-Floor Height"
+        value: 174.0
+        unit: "in"
+        tolerance_plus: 0.5
+        tolerance_minus: 0.5
+        critical: true
+      - label: "Clear Cover"
+        value: 1.5
+        unit: "in"
+        critical: true
+      - label: "Tie Spacing"
+        value: 12.0
+        unit: "in"
+        critical: false
+  connections:
+    - connection_id: "C-BT-001"
+      location: "bottom"
+      type: "splice"
+      connected_to: "DET-STRC-C15-L1"
+    - connection_id: "C-TP-001"
+      location: "top"
+      type: "splice"
+      connected_to: "DET-STRC-C15-L3"
+  annotations:
+    - annotation_id: "A001"
+      type: "note"
+      text: "8-#9 VERT. BARS, #4 TIES @ 12\" O.C."
+      position: { x: 100.0, y: 150.0 }
+    - annotation_id: "A002"
+      type: "note"
+      text: "CLEAR COVER 1-1/2\" ALL SIDES"
+      position: { x: 100.0, y: 170.0 }
+    - annotation_id: "A003"
+      type: "callout"
+      text: "SEE DET 3/S-210 FOR SECTION"
+      position: { x: 120.0, y: 200.0 }
+  revisions:
+    - revision_id: "R1"
+      date: "2026-02-01"
+      description: "Initial issue for construction"
+      author: "AKumar"
+      delta_type: "full_redesign"
+  normalization_metadata:
+    source_system: "gcp_shopdrawing"
+    source_record_id: "GCP-SD-000000005678"
+    normalized_at: "2026-03-01T10:05:00Z"
+    contract_version: "1.0.0"
+    mapping_version: "1.0.0"
+    source_hash: "sha256:b2c3d4e5f67890123456789abcdef012abcdef012abcdef012abcdef012abcdef"
+    output_hash: "sha256:1a2b3c4d5e6f78901234567890abcdef1234567890abcdef1234567890abcdef"
+    warnings:
+      - "NORM_W001: Element subtype 'RC' not in standard GCP subtype table for 'CL'; mapped via fallback rule to 'reinforced_concrete'."
+
+assertions:
+  - assert: value_equals
+    path: "$.element_type.primary_type"
+    expected: "column"
+
+  - assert: value_equals
+    path: "$.material.category"
+    expected: "reinforced_concrete"
+
+  - assert: value_equals
+    path: "$.material.compressive_strength_psi"
+    expected: 5000.0
+
+  - assert: value_equals
+    path: "$.geometry.length_in"
+    expected: 174.0
+    description: "14'-6\" must convert to 174.0 inches."
+
+  - assert: value_equals
+    path: "$.dimensions.primary_dimensions[3].value"
+    expected: 1.5
+    description: "1-1/2\" clear cover must parse to 1.5 inches."
+
+  - assert: array_length
+    path: "$.warnings"
+    expected: 1
+    description: "One warning expected for non-standard subtype mapping."

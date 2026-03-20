@@ -1,0 +1,142 @@
+# ============================================================================
+# CAPABILITY SLICE DEFINITION — DETAIL NORMALIZATION
+# Command C: Capability Slice Architecture
+# Kernel: KERN-INTEGRATION-MIRROR-NUCLEUS
+# ============================================================================
+# This slice normalizes shop drawing details across different source formats
+# into a canonical representation suitable for downstream rule evaluation,
+# validation, and artifact generation.
+# ============================================================================
+
+slice_id: detail_normalization
+name: "Detail Normalization Engine"
+version: "1.0.0"
+
+purpose: |
+  The detail_normalization slice transforms shop drawing details from
+  heterogeneous source formats (DWG, DXF, PDF markups, Revit exports, IFC
+  fragments, proprietary fabricator formats) into a canonical internal
+  representation. This canonical form preserves all semantically meaningful
+  information — dimensions, material callouts, connection types, tolerance
+  specifications, finish schedules, and spatial relationships — while
+  abstracting away format-specific encoding differences. The normalized
+  output enables all downstream slices (rules_engine, validation,
+  artifact_manifest) to operate on a single consistent data model rather
+  than implementing format-specific parsers. In practice, this means a
+  structural steel connection detail from a Tekla export and the same
+  detail from a hand-drafted PDF markup will produce equivalent canonical
+  representations, allowing apples-to-apples comparison and rule evaluation.
+
+status:
+  gcp_shopdrawing: ACTIVE
+  default: STAGED
+
+# ---------------------------------------------------------------------------
+# DATA CONTRACTS
+# ---------------------------------------------------------------------------
+
+inputs:
+  - name: raw_drawing_files
+    description: "Original shop drawing files in native formats (DWG, DXF, PDF, RVT, IFC)"
+    format: binary_file
+    required: true
+
+  - name: format_detection_hints
+    description: "Metadata hints about source format, version, and originating application"
+    format: structured_record
+    required: false
+
+  - name: project_unit_system
+    description: "Project-level unit system configuration (imperial, metric, mixed)"
+    format: configuration
+    required: true
+
+  - name: material_vocabulary_mapping
+    description: "Project-specific material naming conventions mapped to canonical vocabulary"
+    format: lookup_table
+    required: false
+
+  - name: detail_extraction_rules
+    description: "Configuration rules for how to extract and classify detail regions from drawings"
+    format: yaml_bundle
+    required: true
+
+  - name: prior_normalization_context
+    description: "Previously normalized versions of the same detail for delta detection"
+    format: canonical_detail
+    required: false
+
+outputs:
+  - name: canonical_details
+    description: "Normalized detail representations in the kernel's canonical schema"
+    format: canonical_detail
+    retention: "project_lifetime"
+
+  - name: normalization_report
+    description: "Report of what was extracted, transformed, and any data loss or ambiguity"
+    format: structured_report
+    retention: "project_lifetime"
+
+  - name: extraction_confidence_scores
+    description: "Per-element confidence scores indicating reliability of extraction"
+    format: score_vector
+    retention: "project_lifetime"
+
+  - name: format_conversion_log
+    description: "Detailed log of format-specific conversion steps and decisions"
+    format: append_only_log
+    retention: "365_days"
+
+  - name: delta_change_set
+    description: "When prior context is available, the set of changes from previous normalization"
+    format: change_set
+    retention: "project_lifetime"
+
+  - name: unresolved_ambiguities
+    description: "Details or elements that could not be unambiguously normalized, requiring human review"
+    format: review_queue_item
+    retention: "90_days"
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY GRAPH
+# ---------------------------------------------------------------------------
+
+required_dependencies:
+  - spec_ingestion
+
+optional_dependencies:
+  - standards_mapping
+  - lineage
+
+# ---------------------------------------------------------------------------
+# CLASSIFICATION & TRANSFER
+# ---------------------------------------------------------------------------
+
+trust_class: MIRROR_REFLECTED
+transfer_class: WHITE_LABELABLE
+detachability_level: FULLY_DETACHABLE
+
+# ---------------------------------------------------------------------------
+# PARITY & PROMOTION
+# ---------------------------------------------------------------------------
+
+parity_eligibility: true
+promotion_eligibility: true
+classification: CORE_PROMOTABLE
+
+# ---------------------------------------------------------------------------
+# OPERATIONAL NOTES
+# ---------------------------------------------------------------------------
+
+operational_notes: |
+  Detail normalization is ACTIVE in the GCP shop drawing mirror because it
+  is the entry point for all drawing data entering the system. It depends
+  on spec_ingestion to provide the project specification context needed to
+  resolve ambiguous material references and dimensional tolerances. The
+  standards_mapping slice is optional but improves normalization accuracy
+  when code-specific vocabulary is available. This slice is FULLY_DETACHABLE
+  and WHITE_LABELABLE because the normalization logic is self-contained and
+  can operate independently with appropriate configuration. It is
+  CORE_PROMOTABLE because improvements discovered in mirror-specific
+  normalization (e.g., a better extraction rule for Tekla exports) can be
+  promoted back to the core kernel for all mirrors to benefit from.

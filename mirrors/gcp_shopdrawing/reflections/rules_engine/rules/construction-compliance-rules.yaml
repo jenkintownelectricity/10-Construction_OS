@@ -1,0 +1,340 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Construction Compliance Rules
+# Slice: rules_engine
+#
+# Defines the complete set of construction compliance rules evaluated against
+# normalized shop drawing details from GCP sources. Rules are organized by
+# category and reference applicable building code sections.
+##############################################################################
+
+rules:
+  version: "1.0.0"
+  effective_date: "2026-03-20"
+  mirror: gcp_shopdrawing
+  slice: rules_engine
+
+# --- DIMENSIONAL COMPLIANCE RULES ------------------------------------------
+
+dimensional_compliance:
+  - rule_id: CCR-DIM-001
+    rule_version: "1.0.0"
+    name: beam_depth_to_span_ratio
+    description: >
+      Verify that the beam depth-to-span ratio meets minimum requirements
+      per AISC Steel Construction Manual Table 3-23. Prevents excessively
+      shallow beams that may exhibit unacceptable deflection or vibration.
+    severity: major
+    applicable_disciplines: [structural]
+    applicable_element_types: [beam]
+    jurisdiction_refs: ["AISC 360-22 Chapter L", "IBC-2021 Section 1604.3"]
+    condition:
+      type: computed
+      expression: "geometry.profile.depth_in / geometry.length_in >= parameters.min_ratio"
+      parameters:
+        min_ratio: 0.04167
+    message_template: >
+      Beam {detail_id} depth/span ratio is {computed_ratio}, below minimum {min_ratio}.
+    remediation: >
+      Increase beam depth or reduce span. Consider a deeper section from the
+      AISC selection tables. Verify deflection criteria per project spec.
+    tags: [deflection, serviceability]
+
+  - rule_id: CCR-DIM-002
+    rule_version: "1.0.0"
+    name: column_slenderness_check
+    description: >
+      Check column slenderness ratio (KL/r) against maximum permissible
+      values per AISC 360-22. Prevents columns too slender for unbraced length.
+    severity: critical
+    applicable_disciplines: [structural]
+    applicable_element_types: [column]
+    jurisdiction_refs: ["AISC 360-22 Section E2"]
+    condition:
+      type: computed
+      expression: "parameters.K * geometry.length_in / parameters.r_min <= parameters.max_slenderness"
+      parameters:
+        K: 1.0
+        max_slenderness: 200
+    message_template: >
+      Column {detail_id} slenderness ratio exceeds {max_slenderness}.
+    remediation: >
+      Increase column section size or reduce unbraced length by adding
+      intermediate bracing.
+    tags: [stability, buckling]
+
+  - rule_id: CCR-DIM-003
+    rule_version: "1.0.0"
+    name: fabrication_length_tolerance
+    description: >
+      Verify that fabrication length tolerances are within AISC Code of
+      Standard Practice limits for the element type.
+    severity: minor
+    applicable_disciplines: [structural]
+    applicable_element_types: [beam, column, brace]
+    jurisdiction_refs: ["AISC 303-22 Section 6.4"]
+    condition:
+      type: field_range
+      expression: "dimensions.primary_dimensions[?label='Overall Length'].tolerance_plus <= parameters.max_tol"
+      parameters:
+        max_tol: 0.25
+    message_template: >
+      Fabrication tolerance {tolerance_plus} exceeds AISC limit of {max_tol} inches.
+    remediation: >
+      Tighten fabrication tolerance or obtain project engineer approval.
+    tags: [fabrication, tolerance]
+
+# --- MATERIAL COMPLIANCE RULES ---------------------------------------------
+
+material_compliance:
+  - rule_id: CCR-MAT-001
+    rule_version: "1.0.0"
+    name: steel_specification_verification
+    description: >
+      Verify that steel material meets minimum yield strength requirements
+      for the element type and loading condition.
+    severity: critical
+    applicable_disciplines: [structural]
+    applicable_element_types: [beam, column, brace, connection, plate]
+    jurisdiction_refs: ["AISC 360-22 Section A3.1", "IBC-2021 Section 2205"]
+    condition:
+      type: field_range
+      expression: "material.yield_strength_ksi >= parameters.min_fy"
+      parameters:
+        min_fy: 36.0
+    message_template: >
+      Material yield strength {material.yield_strength_ksi} ksi is below
+      minimum {min_fy} ksi for {element_type.primary_type}.
+    remediation: >
+      Specify a higher-grade steel or redesign for available material strength.
+    tags: [material, strength]
+
+  - rule_id: CCR-MAT-002
+    rule_version: "1.0.0"
+    name: concrete_compressive_strength_check
+    description: >
+      Verify concrete compressive strength meets project minimum requirements
+      and falls within ACI 318 permitted ranges.
+    severity: critical
+    applicable_disciplines: [structural]
+    applicable_element_types: [column, slab, wall, footing]
+    jurisdiction_refs: ["ACI 318-19 Section 19.2", "IBC-2021 Section 1905"]
+    condition:
+      type: field_range
+      expression: "material.compressive_strength_psi >= parameters.min_fc AND material.compressive_strength_psi <= parameters.max_fc"
+      parameters:
+        min_fc: 3000
+        max_fc: 10000
+    message_template: >
+      Concrete strength {material.compressive_strength_psi} psi is outside
+      acceptable range [{min_fc}, {max_fc}] psi.
+    remediation: >
+      Adjust concrete mix design. Values below 3000 psi are not permitted
+      for structural elements per ACI 318.
+    tags: [material, concrete]
+
+  - rule_id: CCR-MAT-003
+    rule_version: "1.0.0"
+    name: weld_electrode_compatibility
+    description: >
+      Verify weld electrode is compatible with the base metal grade per
+      AWS D1.1 prequalified joint criteria.
+    severity: major
+    applicable_disciplines: [structural]
+    applicable_element_types: [connection]
+    jurisdiction_refs: ["AWS D1.1/D1.1M:2020 Table 3.1"]
+    condition:
+      type: lookup
+      expression: "connections[*].welds.electrode IN parameters.approved_electrodes"
+      parameters:
+        approved_electrodes: ["E70XX", "E7018", "E71T-1", "E71T-8"]
+    message_template: >
+      Weld electrode {electrode} is not in the approved list for base metal grade.
+    remediation: >
+      Select a prequalified electrode matching the base metal per AWS D1.1.
+    tags: [welding, connection]
+
+# --- CONNECTION COMPLIANCE RULES -------------------------------------------
+
+connection_compliance:
+  - rule_id: CCR-CONN-001
+    rule_version: "1.0.0"
+    name: minimum_bolt_edge_distance
+    description: >
+      Verify bolt hole edge distances meet AISC 360-22 Table J3.4 minimum
+      requirements to prevent tear-out failure.
+    severity: critical
+    applicable_disciplines: [structural]
+    applicable_element_types: [connection, beam, column]
+    jurisdiction_refs: ["AISC 360-22 Section J3.10", "AISC 360-22 Table J3.4"]
+    condition:
+      type: computed
+      expression: "connections[*].fasteners.bolt_diameter_in * parameters.edge_multiplier <= parameters.max_edge_distance"
+      parameters:
+        edge_multiplier: 1.5
+        max_edge_distance: 5.0
+    message_template: >
+      Bolt edge distance check for {connection_id}: diameter {bolt_diameter_in}
+      requires minimum edge distance of {computed_min_edge} inches.
+    remediation: >
+      Increase edge distance or reduce bolt diameter.
+    tags: [connection, bolted]
+
+  - rule_id: CCR-CONN-002
+    rule_version: "1.0.0"
+    name: bolt_spacing_minimum
+    description: >
+      Verify bolt spacing is at least 2-2/3 times the nominal bolt diameter
+      per AISC 360-22 Section J3.3.
+    severity: major
+    applicable_disciplines: [structural]
+    applicable_element_types: [connection, beam, column]
+    jurisdiction_refs: ["AISC 360-22 Section J3.3"]
+    condition:
+      type: computed
+      expression: "bolt_spacing >= parameters.spacing_multiplier * fasteners.bolt_diameter_in"
+      parameters:
+        spacing_multiplier: 2.6667
+    message_template: >
+      Bolt spacing is less than {spacing_multiplier} x bolt diameter.
+    remediation: >
+      Increase bolt spacing or use a smaller bolt diameter.
+    tags: [connection, bolted, spacing]
+
+  - rule_id: CCR-CONN-003
+    rule_version: "1.0.0"
+    name: minimum_weld_size
+    description: >
+      Verify weld sizes meet AISC 360-22 Table J2.4 minimums based on
+      the thicker part joined.
+    severity: critical
+    applicable_disciplines: [structural]
+    applicable_element_types: [connection]
+    jurisdiction_refs: ["AISC 360-22 Table J2.4"]
+    condition:
+      type: lookup
+      expression: "connections[*].welds.weld_size_in >= lookup(thickness_of_thicker_part)"
+      parameters:
+        thickness_ranges:
+          - max_thickness_in: 0.25
+            min_weld_size_in: 0.125
+          - max_thickness_in: 0.5
+            min_weld_size_in: 0.1875
+          - max_thickness_in: 0.75
+            min_weld_size_in: 0.25
+          - max_thickness_in: 999
+            min_weld_size_in: 0.3125
+    message_template: >
+      Weld size {weld_size_in} is below minimum for material thickness.
+    remediation: >
+      Increase weld size per AISC Table J2.4.
+    tags: [connection, welding]
+
+# --- GEOMETRIC COMPLIANCE RULES -------------------------------------------
+
+geometric_compliance:
+  - rule_id: CCR-GEO-001
+    rule_version: "1.0.0"
+    name: beam_camber_reasonableness
+    description: >
+      Verify that specified beam camber is within reasonable bounds.
+      Camber should typically be L/300 to L/180 for floor beams.
+    severity: minor
+    applicable_disciplines: [structural]
+    applicable_element_types: [beam]
+    jurisdiction_refs: ["AISC 303-22 Section 6.4.4"]
+    condition:
+      type: computed
+      expression: "camber_in <= geometry.length_in / parameters.min_ratio AND camber_in >= geometry.length_in / parameters.max_ratio"
+      parameters:
+        min_ratio: 180
+        max_ratio: 600
+    message_template: >
+      Beam {detail_id} camber is outside typical range for the span length.
+    remediation: >
+      Review camber specification with structural engineer.
+    tags: [geometry, camber, serviceability]
+
+  - rule_id: CCR-GEO-002
+    rule_version: "1.0.0"
+    name: cope_depth_limit
+    description: >
+      Verify that cope depth does not exceed half the beam depth, which
+      could compromise beam web stability.
+    severity: major
+    applicable_disciplines: [structural]
+    applicable_element_types: [beam]
+    jurisdiction_refs: ["AISC Design Guide 2"]
+    condition:
+      type: computed
+      expression: "cope_depth_in < geometry.profile.depth_in * parameters.max_cope_ratio"
+      parameters:
+        max_cope_ratio: 0.5
+    message_template: >
+      Cope depth exceeds {max_cope_ratio} of beam depth at {detail_id}.
+    remediation: >
+      Reduce cope depth or add web reinforcement.
+    tags: [geometry, cope, stability]
+
+# --- DOCUMENTATION COMPLIANCE RULES ---------------------------------------
+
+documentation_compliance:
+  - rule_id: CCR-DOC-001
+    rule_version: "1.0.0"
+    name: revision_history_present
+    description: >
+      Verify the detail has revision history with at least one entry.
+    severity: minor
+    applicable_disciplines: [structural, architectural, mechanical, electrical, plumbing, fire_protection]
+    applicable_element_types: []
+    jurisdiction_refs: ["AISC 303-22 Section 4.4"]
+    condition:
+      type: field_presence
+      expression: "revisions IS NOT EMPTY"
+    message_template: >
+      Detail {detail_id} has no revision history entries.
+    remediation: >
+      Add revision history with at minimum the initial issue entry.
+    tags: [documentation, quality]
+
+  - rule_id: CCR-DOC-002
+    rule_version: "1.0.0"
+    name: mark_number_assigned
+    description: >
+      Verify that a unique fabrication mark number has been assigned.
+    severity: major
+    applicable_disciplines: [structural]
+    applicable_element_types: [beam, column, brace, connection, plate, truss]
+    jurisdiction_refs: ["AISC 303-22 Section 4.2"]
+    condition:
+      type: field_presence
+      expression: "element_type.designation IS NOT NULL"
+    message_template: >
+      Detail {detail_id} is missing a fabrication mark number designation.
+    remediation: >
+      Assign a unique mark number per the project numbering system.
+    tags: [documentation, fabrication]
+
+# --- WAIVERS ---------------------------------------------------------------
+
+waivers:
+  description: >
+    Project-specific waivers that allow bypassing certain rules when
+    approved by the engineer of record.
+  schema:
+    type: array
+    items:
+      type: object
+      required: [rule_id, waiver_id, approved_by, expiry_date]
+      properties:
+        rule_id:
+          type: string
+        waiver_id:
+          type: string
+        reason:
+          type: string
+        approved_by:
+          type: string
+        expiry_date:
+          type: string
+          format: date

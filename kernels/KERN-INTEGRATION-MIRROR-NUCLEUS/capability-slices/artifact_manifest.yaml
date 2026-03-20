@@ -1,0 +1,138 @@
+# ============================================================================
+# CAPABILITY SLICE DEFINITION — ARTIFACT MANIFEST
+# Command C: Capability Slice Architecture
+# Kernel: KERN-INTEGRATION-MIRROR-NUCLEUS
+# ============================================================================
+# This slice tracks all generated artifacts and their lineage, maintaining
+# a complete manifest of every file, document, and data object produced
+# by the integration mirror during its operation.
+# ============================================================================
+
+slice_id: artifact_manifest
+name: "Artifact Manifest & Inventory Tracker"
+version: "1.0.0"
+
+purpose: |
+  The artifact_manifest slice maintains a comprehensive inventory of every
+  artifact produced, consumed, or referenced during integration mirror
+  operation. An artifact is any discrete data object — a normalized drawing
+  file, a validation report, a review comment set, an approval stamp, a
+  transmittal package, or a compliance certificate. For each artifact, the
+  manifest records its content hash, creation timestamp, producing slice,
+  input artifacts that contributed to its creation, storage location, access
+  permissions, retention policy, and current lifecycle state. In the
+  construction context, this means every version of every shop drawing,
+  every review markup, every RFI generated from a review, and every
+  transmittal letter is tracked with full provenance. The manifest enables
+  queries like "show me every artifact that was produced from Drawing
+  S-201 Rev 3" or "which artifacts would be affected if we invalidate
+  this material certification."
+
+status:
+  gcp_shopdrawing: ACTIVE
+  default: STAGED
+
+# ---------------------------------------------------------------------------
+# DATA CONTRACTS
+# ---------------------------------------------------------------------------
+
+inputs:
+  - name: artifact_registration_events
+    description: "Events from other slices registering newly created artifacts"
+    format: event_stream
+    required: true
+
+  - name: artifact_content_hashes
+    description: "Content hashes for integrity verification of registered artifacts"
+    format: hash_manifest
+    required: true
+
+  - name: storage_location_metadata
+    description: "Where each artifact is physically stored (object store, file system, etc.)"
+    format: structured_record
+    required: true
+
+  - name: retention_policy_rules
+    description: "Rules governing how long each artifact type must be retained"
+    format: policy_rules
+    required: true
+
+  - name: access_control_grants
+    description: "Access permissions for each artifact (who can read, modify, delete)"
+    format: acl_record
+    required: false
+
+  - name: artifact_relationship_declarations
+    description: "Explicit parent-child and derivation relationships between artifacts"
+    format: relationship_graph
+    required: false
+
+outputs:
+  - name: artifact_catalog
+    description: "Complete searchable catalog of all managed artifacts"
+    format: structured_record
+    retention: permanent
+
+  - name: artifact_lineage_graph
+    description: "Directed graph showing derivation relationships between artifacts"
+    format: directed_graph
+    retention: permanent
+
+  - name: integrity_check_results
+    description: "Results of periodic content hash verification against stored artifacts"
+    format: verification_report
+    retention: "365_days"
+
+  - name: retention_compliance_report
+    description: "Report on artifact retention compliance (what is retained, what is overdue for deletion)"
+    format: structured_report
+    retention: "365_days"
+
+  - name: impact_analysis_results
+    description: "On-demand analysis of downstream impact when an artifact is invalidated or updated"
+    format: impact_report
+    retention: "90_days"
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY GRAPH
+# ---------------------------------------------------------------------------
+
+required_dependencies:
+  - registry
+
+optional_dependencies:
+  - lineage
+  - receipt_audit
+  - governance
+
+# ---------------------------------------------------------------------------
+# CLASSIFICATION & TRANSFER
+# ---------------------------------------------------------------------------
+
+trust_class: SHARED_GOVERNED
+transfer_class: BUYOUT_READY
+detachability_level: FULLY_DETACHABLE
+
+# ---------------------------------------------------------------------------
+# PARITY & PROMOTION
+# ---------------------------------------------------------------------------
+
+parity_eligibility: true
+promotion_eligibility: false
+classification: MIRROR_ONLY
+
+# ---------------------------------------------------------------------------
+# OPERATIONAL NOTES
+# ---------------------------------------------------------------------------
+
+operational_notes: |
+  The artifact manifest is ACTIVE in the GCP shop drawing mirror because
+  artifact tracking is essential from the moment the first drawing is
+  ingested. It requires the registry to resolve mirror and slice identifiers
+  when recording artifact provenance. The lineage slice is optional but
+  greatly enriches the manifest with transformation history when available.
+  This slice is FULLY_DETACHABLE and BUYOUT_READY because the manifest
+  data and tracking logic are self-contained and can be transferred to a
+  client who acquires the mirror. It is MIRROR_ONLY because the manifest
+  is specific to the artifacts produced within a particular mirror instance
+  and does not generalize to the core kernel.

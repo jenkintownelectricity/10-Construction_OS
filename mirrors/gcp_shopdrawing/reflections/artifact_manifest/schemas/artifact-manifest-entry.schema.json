@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-os.dev/schemas/gcp-mirror/artifact-manifest-entry.schema.json",
+  "title": "Artifact Manifest Entry",
+  "description": "Schema for a single artifact entry in the construction shop drawing artifact manifest. Represents one discrete deliverable document or file tracked through the shop drawing review lifecycle.",
+  "type": "object",
+  "required": [
+    "artifact_id",
+    "project_id",
+    "artifact_type",
+    "classification",
+    "content_hash",
+    "registered_at",
+    "provenance"
+  ],
+  "properties": {
+    "artifact_id": {
+      "type": "string",
+      "pattern": "^ART-[A-Z]{2,4}-[0-9]{8}$",
+      "description": "Unique artifact identifier. Format: ART-{type_prefix}-{sequence}."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Construction OS project identifier."
+    },
+    "artifact_type": {
+      "type": "string",
+      "enum": [
+        "shop_drawing",
+        "calculation_package",
+        "material_test_report",
+        "weld_procedure_spec",
+        "inspection_report",
+        "erection_plan",
+        "coordination_drawing",
+        "as_built_drawing",
+        "rfi_response",
+        "cover_sheet"
+      ],
+      "description": "Primary artifact type classification."
+    },
+    "classification": {
+      "type": "object",
+      "required": ["discipline", "spec_section"],
+      "properties": {
+        "discipline": {
+          "type": "string",
+          "enum": ["structural", "architectural", "mechanical", "electrical", "plumbing", "fire_protection"]
+        },
+        "spec_section": {
+          "type": "string",
+          "description": "CSI MasterFormat specification section (e.g., '05 12 00')."
+        },
+        "sub_category": {
+          "type": "string",
+          "description": "Finer classification within the artifact type."
+        },
+        "confidentiality": {
+          "type": "string",
+          "enum": ["public", "project_team", "restricted"],
+          "default": "project_team"
+        }
+      }
+    },
+    "content_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "description": "SHA-256 content hash of the artifact file."
+    },
+    "file_metadata": {
+      "type": "object",
+      "properties": {
+        "filename": { "type": "string" },
+        "format": {
+          "type": "string",
+          "enum": ["pdf", "dwg", "dxf", "ifc", "rvt", "xlsx", "docx", "csv", "xml", "json", "step", "3dm"]
+        },
+        "size_bytes": { "type": "integer", "minimum": 0 },
+        "page_count": { "type": "integer", "minimum": 1 },
+        "sheet_numbers": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Drawing sheet numbers contained in this artifact."
+        }
+      }
+    },
+    "registered_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of manifest registration."
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["source_system", "source_record_id"],
+      "properties": {
+        "source_system": {
+          "type": "string",
+          "description": "Originating system (e.g., 'gcp_shopdrawing')."
+        },
+        "source_record_id": {
+          "type": "string",
+          "description": "Original record or document ID in the source system."
+        },
+        "created_by": {
+          "type": "string",
+          "description": "Entity that created the artifact."
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the artifact was originally created."
+        },
+        "application": {
+          "type": "string",
+          "description": "Software used to create the artifact."
+        },
+        "application_version": {
+          "type": "string"
+        }
+      }
+    },
+    "associations": {
+      "type": "object",
+      "description": "Links to related submissions, details, and other artifacts.",
+      "properties": {
+        "submission_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Submission IDs this artifact is part of."
+        },
+        "detail_ids": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Canonical detail IDs this artifact relates to."
+        },
+        "supersedes": {
+          "type": "string",
+          "description": "Artifact ID that this entry supersedes."
+        },
+        "superseded_by": {
+          "type": "string",
+          "description": "Artifact ID that supersedes this entry."
+        },
+        "related_artifacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "artifact_id": { "type": "string" },
+              "relationship": {
+                "type": "string",
+                "enum": ["supports", "references", "derived_from", "attachment_to", "revision_of"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "revision": {
+      "type": "object",
+      "properties": {
+        "revision_id": { "type": "string" },
+        "revision_date": { "type": "string", "format": "date" },
+        "revision_description": { "type": "string" },
+        "revision_number": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "retention": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "type": "string",
+          "enum": ["project_lifetime", "permanent", "regulatory_minimum"]
+        },
+        "expiry_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date after which the artifact may be archived."
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "superseded", "archived", "withdrawn"],
+      "default": "active"
+    }
+  },
+  "additionalProperties": false
+}

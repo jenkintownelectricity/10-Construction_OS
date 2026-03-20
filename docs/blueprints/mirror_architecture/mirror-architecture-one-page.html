@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mirror Architecture — One Page Blueprint</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
+      background: #F8FAFC;
+      color: #1F2937;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      color: #FFFFFF;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    header .doctrine {
+      font-size: 1.05rem;
+      color: #94A3B8;
+      font-style: italic;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    header .doctrine strong {
+      color: #38BDF8;
+    }
+
+    nav.toc {
+      background: #FFFFFF;
+      border-bottom: 2px solid #E2E8F0;
+      padding: 1rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    nav.toc h2 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748B;
+      margin-bottom: 0.5rem;
+    }
+
+    nav.toc ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem 1.2rem;
+    }
+
+    nav.toc a {
+      color: #2563EB;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    nav.toc a:hover { color: #7C3AED; text-decoration: underline; }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section.diagram {
+      margin: 2.5rem 0;
+      background: #FFFFFF;
+      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    section.diagram .section-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid #E2E8F0;
+    }
+
+    section.diagram .section-header h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0F172A;
+      margin-bottom: 0.3rem;
+    }
+
+    section.diagram .section-header p {
+      font-size: 0.92rem;
+      color: #64748B;
+    }
+
+    section.diagram .svg-wrap {
+      padding: 1rem;
+      overflow-x: auto;
+      background: #F9FAFB;
+    }
+
+    section.diagram .svg-wrap svg {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    .legend-section {
+      margin: 2.5rem 0;
+      background: #FFFFFF;
+      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .legend-section h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .legend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 0.75rem;
+      background: #F8FAFC;
+      border-radius: 8px;
+      border: 1px solid #E2E8F0;
+    }
+
+    .legend-swatch {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .legend-swatch.dashed {
+      background: none;
+      border: 2px dashed #DC2626;
+    }
+
+    .legend-item .legend-text strong {
+      display: block;
+      font-size: 0.85rem;
+      color: #0F172A;
+    }
+
+    .legend-item .legend-text span {
+      font-size: 0.78rem;
+      color: #64748B;
+    }
+
+    .doctrines {
+      margin: 2.5rem 0;
+      background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%);
+      border-radius: 12px;
+      padding: 2rem;
+      color: #FFFFFF;
+    }
+
+    .doctrines h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #C4B5FD;
+    }
+
+    .doctrines ol {
+      padding-left: 1.5rem;
+    }
+
+    .doctrines li {
+      margin-bottom: 0.6rem;
+      font-size: 0.95rem;
+      color: #E0E7FF;
+    }
+
+    .doctrines li strong {
+      color: #A5B4FC;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #94A3B8;
+      font-size: 0.85rem;
+      border-top: 1px solid #E2E8F0;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 1.5rem; }
+      header .doctrine { font-size: 0.92rem; }
+      nav.toc ul { flex-direction: column; gap: 0.3rem; }
+      .legend-grid { grid-template-columns: 1fr; }
+      section.diagram .section-header h2 { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Mirror Architecture Blueprint</h1>
+  <p class="doctrine">
+    <strong>"Connected by mirrors, never hard-wired. Sold by capability, detachable by design. Cooperate without entanglement."</strong>
+  </p>
+</header>
+
+<nav class="toc">
+  <div class="container">
+    <h2>Table of Contents</h2>
+    <ul>
+      <li><a href="#legend">Legend</a></li>
+      <li><a href="#doctrines">Key Doctrines</a></li>
+      <li><a href="#system-context">1. System Context</a></li>
+      <li><a href="#kernel-to-mirror">2. Kernel to Mirror Hierarchy</a></li>
+      <li><a href="#slice-attachment">3. Slice Attachment Model</a></li>
+      <li><a href="#parity-drift">4. Parity Drift Loop</a></li>
+      <li><a href="#registry-control">5. Registry Control Plane</a></li>
+      <li><a href="#promotion-breakaway">6. Promotion vs Breakaway</a></li>
+      <li><a href="#transfer-buyout">7. Transfer &amp; Buyout Path</a></li>
+      <li><a href="#gcp-instance">8. GCP Shop Drawing Mirror Instance</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- LEGEND -->
+  <div class="legend-section" id="legend">
+    <h2>Blueprint Legend</h2>
+    <div class="legend-grid">
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:#2563EB;"></div>
+        <div class="legend-text"><strong>Core</strong><span>#2563EB &mdash; Construction OS Core</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:#7C3AED;"></div>
+        <div class="legend-text"><strong>Nucleus</strong><span>#7C3AED &mdash; Mirror Kernel Nucleus</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:#059669;"></div>
+        <div class="legend-text"><strong>Mirror</strong><span>#059669 &mdash; Mirror Instances</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:#EA580C;"></div>
+        <div class="legend-text"><strong>External</strong><span>#EA580C &mdash; External Systems</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch dashed"></div>
+        <div class="legend-text"><strong>Shield</strong><span>#DC2626 dashed &mdash; Trust Boundary</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:#0D9488;"></div>
+        <div class="legend-text"><strong>Slices</strong><span>#0D9488 &mdash; Capability Units</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:#38BDF8;"></div>
+        <div class="legend-text"><strong>Reflections</strong><span>#38BDF8 &mdash; Contracts/Schemas/Rules</span></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:#F8FAFC; border:1px solid #D1D5DB;"></div>
+        <div class="legend-text"><strong>Background</strong><span>#F8FAFC &mdash; Canvas</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCTRINES -->
+  <div class="doctrines" id="doctrines">
+    <h2>Governing Doctrines</h2>
+    <ol>
+      <li><strong>Mirrors, not wires.</strong> We never expose internal kernel APIs. We project governed reflections.</li>
+      <li><strong>Slices, not monoliths.</strong> Clients take exactly what they need. Nothing more.</li>
+      <li><strong>Parity, not trust.</strong> We do not assume mirrors behave correctly. We measure continuously.</li>
+      <li><strong>Drift, not failure.</strong> Divergence is expected. It is governed, not punished.</li>
+      <li><strong>Exits, not traps.</strong> Every attachment has a clean detachment path. Always.</li>
+      <li><strong>Promotion, not accumulation.</strong> Good ideas flow inward. The kernel improves from every engagement.</li>
+    </ol>
+  </div>
+
+  <!-- 1. System Context -->
+  <section class="diagram" id="system-context">
+    <div class="section-header">
+      <h2>1. System Context</h2>
+      <p>Highest-level view showing the Construction OS Core, Mirror Kernel Nucleus, mirror instances for partners and internal use, and external systems beyond the shield boundary. Everything flows through governed reflections.</p>
+    </div>
+    <div class="svg-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" width="1000" height="800">
+  <title>Mirror Architecture — System Context Diagram</title>
+  <defs>
+    <marker id="arrowSolid" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <marker id="arrowDashed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7C3AED"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#D97706"/>
+    </marker>
+    <style>
+      text { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
+      .title { font-size: 20px; font-weight: bold; fill: #1F2937; }
+      .subtitle { font-size: 13px; fill: #6B7280; font-style: italic; }
+      .label { font-size: 14px; fill: #FFFFFF; font-weight: 600; }
+      .label-dark { font-size: 14px; fill: #1F2937; font-weight: 600; }
+      .label-small { font-size: 12px; fill: #6B7280; }
+      .label-slice { font-size: 11px; fill: #0D9488; font-weight: 500; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="800" fill="#F9FAFB" rx="8"/>
+
+  <!-- Title -->
+  <text x="500" y="35" text-anchor="middle" class="title">Mirror Architecture — System Context</text>
+  <text x="500" y="55" text-anchor="middle" class="subtitle">Connected by mirrors, never hard-wired. Sold by capability, detachable by design.</text>
+
+  <!-- Shield Boundary (outermost red dashed) -->
+  <rect x="120" y="80" width="760" height="640" rx="20" fill="none" stroke="#DC2626" stroke-width="3" stroke-dasharray="12,6"/>
+  <text x="140" y="105" font-size="13" fill="#DC2626" font-weight="bold">SHIELD BOUNDARY</text>
+
+  <!-- Construction OS Core (center blue) -->
+  <rect x="370" y="300" width="260" height="100" rx="16" fill="#2563EB" stroke="#1D4ED8" stroke-width="2"/>
+  <text x="500" y="340" text-anchor="middle" class="label">Construction OS</text>
+  <text x="500" y="360" text-anchor="middle" class="label">Core Platform</text>
+  <text x="500" y="385" text-anchor="middle" font-size="11" fill="#BFDBFE">Governance | Validation | Generation | Engine</text>
+
+  <!-- Mirror Kernel Nucleus (purple, wrapping core) -->
+  <rect x="280" y="230" width="440" height="240" rx="20" fill="none" stroke="#7C3AED" stroke-width="3"/>
+  <text x="500" y="258" text-anchor="middle" font-size="15" fill="#7C3AED" font-weight="bold">Mirror Kernel Nucleus</text>
+  <text x="500" y="275" text-anchor="middle" font-size="11" fill="#8B5CF6">Lifecycle | Parity | Drift | Registry | Control Plane</text>
+
+  <!-- Mirror Instance: Top Left (GCP Shop Drawing) -->
+  <rect x="150" y="130" width="200" height="80" rx="12" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="250" y="165" text-anchor="middle" class="label">GCP Shop Drawing</text>
+  <text x="250" y="183" text-anchor="middle" font-size="11" fill="#D1FAE5">Mirror Instance</text>
+
+  <!-- Mirror Instance: Top Right (Partner Alpha) -->
+  <rect x="650" y="130" width="200" height="80" rx="12" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="750" y="165" text-anchor="middle" class="label">Partner Alpha</text>
+  <text x="750" y="183" text-anchor="middle" font-size="11" fill="#D1FAE5">Mirror Instance</text>
+
+  <!-- Mirror Instance: Bottom Left -->
+  <rect x="150" y="530" width="200" height="80" rx="12" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="250" y="565" text-anchor="middle" class="label">Internal QA</text>
+  <text x="250" y="583" text-anchor="middle" font-size="11" fill="#D1FAE5">Mirror Instance</text>
+
+  <!-- Mirror Instance: Bottom Right -->
+  <rect x="650" y="530" width="200" height="80" rx="12" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="750" y="565" text-anchor="middle" class="label">Partner Beta</text>
+  <text x="750" y="583" text-anchor="middle" font-size="11" fill="#D1FAE5">Mirror Instance</text>
+
+  <!-- External Systems (orange, outside shield) -->
+  <!-- These are conceptually beyond the boundary but we show them at edges -->
+  <rect x="15" y="280" width="90" height="60" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="60" y="307" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">GCP</text>
+  <text x="60" y="322" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Client</text>
+
+  <rect x="895" y="280" width="90" height="60" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="940" y="307" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Partner</text>
+  <text x="940" y="322" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Systems</text>
+
+  <rect x="15" y="460" width="90" height="60" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="60" y="487" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">CI/CD</text>
+  <text x="60" y="502" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Pipeline</text>
+
+  <rect x="895" y="460" width="90" height="60" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="940" y="487" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">External</text>
+  <text x="940" y="502" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">API</text>
+
+  <!-- Connection: Nucleus to Mirror Instances (dashed purple - control flow) -->
+  <line x1="380" y1="260" x2="310" y2="210" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowDashed)"/>
+  <line x1="620" y1="260" x2="690" y2="210" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowDashed)"/>
+  <line x1="380" y1="460" x2="310" y2="530" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowDashed)"/>
+  <line x1="620" y1="460" x2="690" y2="530" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowDashed)"/>
+
+  <!-- Connection: Mirror to External (solid - data flow through boundary) -->
+  <line x1="150" y1="180" x2="105" y2="290" stroke="#374151" stroke-width="2" marker-end="url(#arrowSolid)"/>
+  <line x1="850" y1="180" x2="895" y2="290" stroke="#374151" stroke-width="2" marker-end="url(#arrowSolid)"/>
+  <line x1="150" y1="560" x2="105" y2="490" stroke="#374151" stroke-width="2" marker-end="url(#arrowSolid)"/>
+  <line x1="850" y1="560" x2="895" y2="490" stroke="#374151" stroke-width="2" marker-end="url(#arrowSolid)"/>
+
+  <!-- Slice indicators on mirrors -->
+  <text x="250" y="200" text-anchor="middle" class="label-slice">5 slices active</text>
+  <text x="750" y="200" text-anchor="middle" class="label-slice">3 slices active</text>
+  <text x="250" y="520" text-anchor="middle" class="label-slice">2 slices active</text>
+  <text x="750" y="520" text-anchor="middle" class="label-slice">4 slices active</text>
+
+  <!-- Legend mini -->
+  <rect x="340" y="700" width="320" height="80" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="355" y="715" width="14" height="14" rx="3" fill="#2563EB"/>
+  <text x="375" y="727" font-size="11" fill="#374151">Core</text>
+  <rect x="415" y="715" width="14" height="14" rx="3" fill="#7C3AED"/>
+  <text x="435" y="727" font-size="11" fill="#374151">Nucleus</text>
+  <rect x="490" y="715" width="14" height="14" rx="3" fill="#059669"/>
+  <text x="510" y="727" font-size="11" fill="#374151">Mirror</text>
+  <rect x="560" y="715" width="14" height="14" rx="3" fill="#D97706"/>
+  <text x="580" y="727" font-size="11" fill="#374151">External</text>
+  <line x1="355" y1="752" x2="395" y2="752" stroke="#DC2626" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="405" y="756" font-size="11" fill="#374151">Shield Boundary</text>
+  <line x1="505" y1="752" x2="545" y2="752" stroke="#374151" stroke-width="2" marker-end="url(#arrowSolid)"/>
+  <text x="555" y="756" font-size="11" fill="#374151">Data Flow</text>
+</svg>
+    </div>
+  </section>
+
+  <!-- 2. Kernel to Mirror Hierarchy -->
+  <section class="diagram" id="kernel-to-mirror">
+    <div class="section-header">
+      <h2>2. Kernel to Mirror Hierarchy</h2>
+      <p>The layered relationship from Core to Nucleus to Mirror Instances to Slices to Reflections. The Registry tracks every element at every level. This is the structural backbone of the architecture.</p>
+    </div>
+    <div class="svg-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" width="1000" height="800">
+  <title>Mirror Architecture — Kernel to Mirror Hierarchy</title>
+  <defs>
+    <marker id="arrowDown" markerWidth="10" markerHeight="7" refX="5" refY="0" orient="auto">
+      <polygon points="0 0, 10 0, 5 7" fill="#374151"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="10" markerHeight="7" refX="5" refY="0" orient="auto">
+      <polygon points="0 0, 10 0, 5 7" fill="#7C3AED"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="5" refY="0" orient="auto">
+      <polygon points="0 0, 10 0, 5 7" fill="#059669"/>
+    </marker>
+    <marker id="arrowTeal" markerWidth="10" markerHeight="7" refX="5" refY="0" orient="auto">
+      <polygon points="0 0, 10 0, 5 7" fill="#0D9488"/>
+    </marker>
+    <style>
+      text { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
+      .title { font-size: 20px; font-weight: bold; fill: #1F2937; }
+      .subtitle { font-size: 13px; fill: #6B7280; font-style: italic; }
+      .label { font-size: 14px; fill: #FFFFFF; font-weight: 600; }
+      .label-sm { font-size: 12px; fill: #FFFFFF; }
+      .annotation { font-size: 11px; fill: #6B7280; }
+      .relation { font-size: 12px; fill: #7C3AED; font-weight: 600; }
+    </style>
+  </defs>
+
+  <rect width="1000" height="800" fill="#F9FAFB" rx="8"/>
+
+  <text x="500" y="35" text-anchor="middle" class="title">Kernel to Mirror — Hierarchical Relationships</text>
+  <text x="500" y="55" text-anchor="middle" class="subtitle">Nucleus governs mirrors. Mirrors expose slices. Slices contain reflections. Registry tracks all.</text>
+
+  <!-- Level 0: Construction OS Core -->
+  <rect x="370" y="80" width="260" height="70" rx="16" fill="#2563EB" stroke="#1D4ED8" stroke-width="2"/>
+  <text x="500" y="112" text-anchor="middle" class="label">Construction OS Core</text>
+  <text x="500" y="130" text-anchor="middle" font-size="11" fill="#BFDBFE">Canonical capabilities &amp; source of truth</text>
+
+  <!-- Relationship label -->
+  <text x="500" y="175" text-anchor="middle" class="relation">CONTAINS &amp; EMPOWERS</text>
+  <line x1="500" y1="150" x2="500" y2="190" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowPurple)"/>
+
+  <!-- Level 1: Mirror Kernel Nucleus -->
+  <rect x="330" y="195" width="340" height="70" rx="16" fill="#7C3AED" stroke="#6D28D9" stroke-width="2"/>
+  <text x="500" y="225" text-anchor="middle" class="label">Mirror Kernel Nucleus</text>
+  <text x="500" y="245" text-anchor="middle" font-size="11" fill="#DDD6FE">Lifecycle | Parity | Drift | Registry</text>
+
+  <!-- Relationship label -->
+  <text x="500" y="292" text-anchor="middle" class="relation">GOVERNS</text>
+  <line x1="370" y1="265" x2="220" y2="330" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowPurple)"/>
+  <line x1="500" y1="265" x2="500" y2="330" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowPurple)"/>
+  <line x1="630" y1="265" x2="780" y2="330" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowPurple)"/>
+
+  <!-- Level 2: Mirror Instances -->
+  <rect x="120" y="335" width="200" height="65" rx="12" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="220" y="363" text-anchor="middle" class="label">Mirror Instance A</text>
+  <text x="220" y="383" text-anchor="middle" font-size="11" fill="#D1FAE5">GCP Shop Drawing</text>
+
+  <rect x="400" y="335" width="200" height="65" rx="12" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="500" y="363" text-anchor="middle" class="label">Mirror Instance B</text>
+  <text x="500" y="383" text-anchor="middle" font-size="11" fill="#D1FAE5">Partner Alpha</text>
+
+  <rect x="680" y="335" width="200" height="65" rx="12" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="780" y="363" text-anchor="middle" class="label">Mirror Instance C</text>
+  <text x="780" y="383" text-anchor="middle" font-size="11" fill="#D1FAE5">Internal QA</text>
+
+  <!-- Relationship label -->
+  <text x="500" y="425" text-anchor="middle" class="relation">EXPOSES</text>
+
+  <!-- Lines from Mirror A to Slices -->
+  <line x1="170" y1="400" x2="110" y2="465" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <line x1="220" y1="400" x2="220" y2="465" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <line x1="270" y1="400" x2="330" y2="465" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <!-- Lines from Mirror B to Slices -->
+  <line x1="460" y1="400" x2="440" y2="465" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <line x1="540" y1="400" x2="560" y2="465" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <!-- Lines from Mirror C to Slices -->
+  <line x1="750" y1="400" x2="700" y2="465" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <line x1="810" y1="400" x2="810" y2="465" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <line x1="850" y1="400" x2="910" y2="465" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <!-- Level 3: Slices (hexagonal style via polygons) -->
+  <!-- Mirror A slices -->
+  <polygon points="110,470 145,470 160,490 145,510 110,510 95,490" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="128" y="494" text-anchor="middle" font-size="10" fill="#FFF" font-weight="600">Valid.</text>
+
+  <polygon points="205,470 240,470 255,490 240,510 205,510 190,490" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="222" y="494" text-anchor="middle" font-size="10" fill="#FFF" font-weight="600">Rules</text>
+
+  <polygon points="315,470 350,470 365,490 350,510 315,510 300,490" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="332" y="494" text-anchor="middle" font-size="10" fill="#FFF" font-weight="600">Gov.</text>
+
+  <!-- Mirror B slices -->
+  <polygon points="425,470 460,470 475,490 460,510 425,510 410,490" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="442" y="494" text-anchor="middle" font-size="10" fill="#FFF" font-weight="600">Gen.</text>
+
+  <polygon points="545,470 580,470 595,490 580,510 545,510 530,490" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="562" y="494" text-anchor="middle" font-size="10" fill="#FFF" font-weight="600">Engine</text>
+
+  <!-- Mirror C slices -->
+  <polygon points="685,470 720,470 735,490 720,510 685,510 670,490" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="702" y="494" text-anchor="middle" font-size="10" fill="#FFF" font-weight="600">Valid.</text>
+
+  <polygon points="795,470 830,470 845,490 830,510 795,510 780,490" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="812" y="494" text-anchor="middle" font-size="10" fill="#FFF" font-weight="600">Gov.</text>
+
+  <polygon points="895,470 930,470 945,490 930,510 895,510 880,490" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="912" y="494" text-anchor="middle" font-size="10" fill="#FFF" font-weight="600">Lineage</text>
+
+  <!-- Relationship label -->
+  <text x="500" y="545" text-anchor="middle" class="relation">CONTAINS</text>
+
+  <!-- Level 4: Reflections -->
+  <!-- Under Validation slice of Mirror A -->
+  <line x1="128" y1="510" x2="80" y2="575" stroke="#0D9488" stroke-width="1.5" marker-end="url(#arrowTeal)"/>
+  <line x1="128" y1="510" x2="128" y2="575" stroke="#0D9488" stroke-width="1.5" marker-end="url(#arrowTeal)"/>
+  <line x1="128" y1="510" x2="176" y2="575" stroke="#0D9488" stroke-width="1.5" marker-end="url(#arrowTeal)"/>
+
+  <rect x="55" y="580" width="50" height="40" rx="4" fill="#7DD3FC" stroke="#38BDF8" stroke-width="1.5"/>
+  <text x="80" y="600" text-anchor="middle" font-size="9" fill="#0C4A6E" font-weight="600">Contract</text>
+  <text x="80" y="612" text-anchor="middle" font-size="8" fill="#0C4A6E">v2.1.0</text>
+
+  <rect x="103" y="580" width="50" height="40" rx="4" fill="#7DD3FC" stroke="#38BDF8" stroke-width="1.5"/>
+  <text x="128" y="600" text-anchor="middle" font-size="9" fill="#0C4A6E" font-weight="600">Schema</text>
+  <text x="128" y="612" text-anchor="middle" font-size="8" fill="#0C4A6E">v2.1.0</text>
+
+  <rect x="151" y="580" width="50" height="40" rx="4" fill="#7DD3FC" stroke="#38BDF8" stroke-width="1.5"/>
+  <text x="176" y="600" text-anchor="middle" font-size="9" fill="#0C4A6E" font-weight="600">Fixture</text>
+  <text x="176" y="612" text-anchor="middle" font-size="8" fill="#0C4A6E">v2.1.0</text>
+
+  <!-- Under Rules slice -->
+  <line x1="222" y1="510" x2="222" y2="575" stroke="#0D9488" stroke-width="1.5" marker-end="url(#arrowTeal)"/>
+  <line x1="222" y1="510" x2="270" y2="575" stroke="#0D9488" stroke-width="1.5" marker-end="url(#arrowTeal)"/>
+
+  <rect x="197" y="580" width="50" height="40" rx="4" fill="#7DD3FC" stroke="#38BDF8" stroke-width="1.5"/>
+  <text x="222" y="600" text-anchor="middle" font-size="9" fill="#0C4A6E" font-weight="600">Rules</text>
+  <text x="222" y="612" text-anchor="middle" font-size="8" fill="#0C4A6E">v1.4.0</text>
+
+  <rect x="245" y="580" width="50" height="40" rx="4" fill="#7DD3FC" stroke="#38BDF8" stroke-width="1.5"/>
+  <text x="270" y="600" text-anchor="middle" font-size="9" fill="#0C4A6E" font-weight="600">Fixture</text>
+  <text x="270" y="612" text-anchor="middle" font-size="8" fill="#0C4A6E">v1.4.0</text>
+
+  <!-- Registry (cylinder) on the right side -->
+  <ellipse cx="500" cy="660" rx="80" ry="15" fill="#374151" stroke="#1F2937" stroke-width="2"/>
+  <rect x="420" y="660" width="160" height="50" fill="#374151" stroke="none"/>
+  <line x1="420" y1="660" x2="420" y2="710" stroke="#1F2937" stroke-width="2"/>
+  <line x1="580" y1="660" x2="580" y2="710" stroke="#1F2937" stroke-width="2"/>
+  <ellipse cx="500" cy="710" rx="80" ry="15" fill="#4B5563" stroke="#1F2937" stroke-width="2"/>
+  <text x="500" y="690" text-anchor="middle" font-size="13" fill="#FFF" font-weight="600">Registry</text>
+
+  <!-- Registry connection lines -->
+  <line x1="500" y1="645" x2="250" y2="580" stroke="#374151" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="500" y1="645" x2="500" y2="580" stroke="#374151" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="500" y1="645" x2="780" y2="580" stroke="#374151" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="500" y="640" text-anchor="middle" class="annotation">Tracks lifecycle of every reflection</text>
+
+  <!-- Legend -->
+  <rect x="640" y="580" width="330" height="130" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="660" y="600" font-size="12" fill="#374151" font-weight="bold">Hierarchy</text>
+  <rect x="660" y="610" width="12" height="12" rx="3" fill="#2563EB"/>
+  <text x="680" y="621" font-size="11" fill="#374151">Core (source of truth)</text>
+  <rect x="660" y="630" width="12" height="12" rx="3" fill="#7C3AED"/>
+  <text x="680" y="641" font-size="11" fill="#374151">Nucleus (control plane)</text>
+  <rect x="660" y="650" width="12" height="12" rx="3" fill="#059669"/>
+  <text x="680" y="661" font-size="11" fill="#374151">Mirror (projection)</text>
+  <polygon points="660,670 672,670 678,680 672,690 660,690 654,680" fill="#0D9488"/>
+  <text x="690" y="684" font-size="11" fill="#374151">Slice (capability unit)</text>
+  <rect x="660" y="694" width="12" height="12" rx="3" fill="#7DD3FC"/>
+  <text x="680" y="705" font-size="11" fill="#374151">Reflection (contract/schema/rule/fixture)</text>
+</svg>
+    </div>
+  </section>
+
+  <!-- 3. Slice Attachment Model -->
+  <section class="diagram" id="slice-attachment">
+    <div class="section-header">
+      <h2>3. Slice Attachment Model</h2>
+      <p>Clients attach at the slice level, taking exactly what they need. Five capability slices are available: Governance, Validation, Generation, Engine, and Lineage. Each is independently attachable and detachable.</p>
+    </div>
+    <div class="svg-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" width="1000" height="800">
+  <title>Mirror Architecture — Slice Attachment Model</title>
+  <defs>
+    <marker id="arrSolid" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <marker id="arrGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+    <style>
+      text { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
+      .title { font-size: 20px; font-weight: bold; fill: #1F2937; }
+      .subtitle { font-size: 13px; fill: #6B7280; font-style: italic; }
+      .label { font-size: 14px; fill: #FFFFFF; font-weight: 600; }
+      .label-sm { font-size: 12px; fill: #FFFFFF; }
+      .check { font-size: 16px; fill: #059669; font-weight: bold; }
+      .cross { font-size: 16px; fill: #9CA3AF; font-weight: bold; }
+      .client-label { font-size: 13px; fill: #92400E; font-weight: 600; }
+    </style>
+  </defs>
+
+  <rect width="1000" height="800" fill="#F9FAFB" rx="8"/>
+
+  <text x="500" y="35" text-anchor="middle" class="title">Slice Attachment Model — Mix and Match</text>
+  <text x="500" y="55" text-anchor="middle" class="subtitle">Clients take exactly what they need. No full-platform dependency. Detachable by design.</text>
+
+  <!-- Available Slices (top row) -->
+  <text x="500" y="95" text-anchor="middle" font-size="15" fill="#0D9488" font-weight="bold">Available Capability Slices</text>
+
+  <!-- Slice: Governance -->
+  <polygon points="120,120 190,120 215,150 190,180 120,180 95,150" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="155" y="148" text-anchor="middle" font-size="12" fill="#FFF" font-weight="600">Governance</text>
+  <text x="155" y="163" text-anchor="middle" font-size="9" fill="#CCFBF1">Rules &amp; Policy</text>
+
+  <!-- Slice: Validation -->
+  <polygon points="280,120 350,120 375,150 350,180 280,180 255,150" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="315" y="148" text-anchor="middle" font-size="12" fill="#FFF" font-weight="600">Validation</text>
+  <text x="315" y="163" text-anchor="middle" font-size="9" fill="#CCFBF1">Check &amp; Verify</text>
+
+  <!-- Slice: Generation -->
+  <polygon points="440,120 510,120 535,150 510,180 440,180 415,150" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="475" y="148" text-anchor="middle" font-size="12" fill="#FFF" font-weight="600">Generation</text>
+  <text x="475" y="163" text-anchor="middle" font-size="9" fill="#CCFBF1">Produce Output</text>
+
+  <!-- Slice: Engine -->
+  <polygon points="600,120 670,120 695,150 670,180 600,180 575,150" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="635" y="148" text-anchor="middle" font-size="12" fill="#FFF" font-weight="600">Engine</text>
+  <text x="635" y="163" text-anchor="middle" font-size="9" fill="#CCFBF1">Core Logic</text>
+
+  <!-- Slice: Lineage -->
+  <polygon points="760,120 830,120 855,150 830,180 760,180 735,150" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="795" y="148" text-anchor="middle" font-size="12" fill="#FFF" font-weight="600">Lineage</text>
+  <text x="795" y="163" text-anchor="middle" font-size="9" fill="#CCFBF1">Tracking &amp; Audit</text>
+
+  <!-- Divider -->
+  <line x1="50" y1="210" x2="950" y2="210" stroke="#E5E7EB" stroke-width="2"/>
+  <text x="500" y="235" text-anchor="middle" font-size="15" fill="#D97706" font-weight="bold">Client Attachment Configurations</text>
+
+  <!-- Client A: Governance Only -->
+  <rect x="60" y="260" width="180" height="55" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="150" y="283" text-anchor="middle" class="label">Client A</text>
+  <text x="150" y="300" text-anchor="middle" font-size="11" fill="#FDE68A">Compliance Auditor</text>
+
+  <!-- Attachment indicators for Client A -->
+  <text x="155" y="340" text-anchor="middle" class="check">Y</text>
+  <text x="315" y="340" text-anchor="middle" class="cross">-</text>
+  <text x="475" y="340" text-anchor="middle" class="cross">-</text>
+  <text x="635" y="340" text-anchor="middle" class="cross">-</text>
+  <text x="795" y="340" text-anchor="middle" class="cross">-</text>
+  <line x1="150" y1="315" x2="155" y2="330" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <text x="500" y="345" text-anchor="middle" font-size="11" fill="#6B7280">Governance only — lightweight policy attachment</text>
+
+  <!-- Client B: Validation Only -->
+  <rect x="60" y="370" width="180" height="55" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="150" y="393" text-anchor="middle" class="label">Client B</text>
+  <text x="150" y="410" text-anchor="middle" font-size="11" fill="#FDE68A">QA Platform</text>
+
+  <text x="155" y="450" text-anchor="middle" class="cross">-</text>
+  <text x="315" y="450" text-anchor="middle" class="check">Y</text>
+  <text x="475" y="450" text-anchor="middle" class="cross">-</text>
+  <text x="635" y="450" text-anchor="middle" class="cross">-</text>
+  <text x="795" y="450" text-anchor="middle" class="cross">-</text>
+  <line x1="150" y1="425" x2="315" y2="440" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <text x="500" y="455" text-anchor="middle" font-size="11" fill="#6B7280">Validation only — check and verify without generation</text>
+
+  <!-- Client C: Generation Only -->
+  <rect x="60" y="480" width="180" height="55" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="150" y="503" text-anchor="middle" class="label">Client C</text>
+  <text x="150" y="520" text-anchor="middle" font-size="11" fill="#FDE68A">Document Producer</text>
+
+  <text x="155" y="560" text-anchor="middle" class="cross">-</text>
+  <text x="315" y="560" text-anchor="middle" class="cross">-</text>
+  <text x="475" y="560" text-anchor="middle" class="check">Y</text>
+  <text x="635" y="560" text-anchor="middle" class="cross">-</text>
+  <text x="795" y="560" text-anchor="middle" class="cross">-</text>
+  <line x1="150" y1="535" x2="475" y2="550" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <text x="500" y="565" text-anchor="middle" font-size="11" fill="#6B7280">Generation only — produce output without governance</text>
+
+  <!-- Client D: Governance + Engine -->
+  <rect x="60" y="590" width="180" height="55" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="150" y="613" text-anchor="middle" class="label">Client D</text>
+  <text x="150" y="630" text-anchor="middle" font-size="11" fill="#FDE68A">Smart Contractor</text>
+
+  <text x="155" y="670" text-anchor="middle" class="check">Y</text>
+  <text x="315" y="670" text-anchor="middle" class="cross">-</text>
+  <text x="475" y="670" text-anchor="middle" class="cross">-</text>
+  <text x="635" y="670" text-anchor="middle" class="check">Y</text>
+  <text x="795" y="670" text-anchor="middle" class="cross">-</text>
+  <line x1="150" y1="645" x2="155" y2="660" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <line x1="150" y1="645" x2="635" y2="660" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <text x="500" y="675" text-anchor="middle" font-size="11" fill="#6B7280">Governance + Engine — policy-aware computation, skip validation/generation</text>
+
+  <!-- Client E: Full Suite -->
+  <rect x="60" y="700" width="180" height="55" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="150" y="723" text-anchor="middle" class="label">Client E</text>
+  <text x="150" y="740" text-anchor="middle" font-size="11" fill="#FDE68A">Full Platform Partner</text>
+
+  <text x="155" y="780" text-anchor="middle" class="check">Y</text>
+  <text x="315" y="780" text-anchor="middle" class="check">Y</text>
+  <text x="475" y="780" text-anchor="middle" class="check">Y</text>
+  <text x="635" y="780" text-anchor="middle" class="check">Y</text>
+  <text x="795" y="780" text-anchor="middle" class="check">Y</text>
+  <line x1="150" y1="755" x2="155" y2="770" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <line x1="150" y1="755" x2="315" y2="770" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <line x1="150" y1="755" x2="475" y2="770" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <line x1="150" y1="755" x2="635" y2="770" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <line x1="150" y1="755" x2="795" y2="770" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <text x="500" y="785" text-anchor="middle" font-size="11" fill="#6B7280">All slices — complete capability set, still independently detachable</text>
+
+  <!-- Key insight box -->
+  <rect x="640" y="260" width="320" height="90" rx="8" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
+  <text x="800" y="285" text-anchor="middle" font-size="13" fill="#065F46" font-weight="bold">Key Principle</text>
+  <text x="800" y="305" text-anchor="middle" font-size="11" fill="#065F46">Each slice is independently attachable.</text>
+  <text x="800" y="320" text-anchor="middle" font-size="11" fill="#065F46">No slice requires any other slice.</text>
+  <text x="800" y="335" text-anchor="middle" font-size="11" fill="#065F46">Every attachment has a clean detachment.</text>
+</svg>
+    </div>
+  </section>
+
+  <!-- 4. Parity Drift Loop -->
+  <section class="diagram" id="parity-drift">
+    <div class="section-header">
+      <h2>4. Parity Drift Loop</h2>
+      <p>Every active mirror runs a continuous behavioral comparison loop. Canonical fixtures feed both the kernel and mirror, outputs are compared, and results are classified as PASS, DRIFT, or BREAK. Drift is governed, not punished.</p>
+    </div>
+    <div class="svg-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" width="1000" height="800">
+  <title>Mirror Architecture — Parity Drift Loop</title>
+  <defs>
+    <marker id="pdArrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <marker id="pdArrowRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#DC2626"/>
+    </marker>
+    <marker id="pdArrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+    <marker id="pdArrowAmber" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#F59E0B"/>
+    </marker>
+    <style>
+      text { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
+      .title { font-size: 20px; font-weight: bold; fill: #1F2937; }
+      .subtitle { font-size: 13px; fill: #6B7280; font-style: italic; }
+      .node-label { font-size: 14px; fill: #FFFFFF; font-weight: 600; }
+      .node-desc { font-size: 11px; fill: #E5E7EB; }
+      .flow-label { font-size: 12px; fill: #374151; font-weight: 500; }
+      .outcome { font-size: 13px; font-weight: 700; }
+    </style>
+  </defs>
+
+  <rect width="1000" height="800" fill="#F9FAFB" rx="8"/>
+
+  <text x="500" y="35" text-anchor="middle" class="title">Parity Drift Loop — Continuous Behavioral Comparison</text>
+  <text x="500" y="55" text-anchor="middle" class="subtitle">Parity, not trust. We measure continuously. Drift is governed, not punished.</text>
+
+  <!-- Circular flow: 7 nodes arranged in a loop -->
+
+  <!-- Node 1: Fixture Input (top center) -->
+  <rect x="400" y="90" width="200" height="70" rx="14" fill="#2563EB" stroke="#1D4ED8" stroke-width="2"/>
+  <text x="500" y="122" text-anchor="middle" class="node-label">Fixture Input</text>
+  <text x="500" y="140" text-anchor="middle" class="node-desc">Canonical test data from kernel</text>
+
+  <!-- Node 2: Source Behavior (right top) -->
+  <rect x="720" y="200" width="200" height="70" rx="14" fill="#2563EB" stroke="#1D4ED8" stroke-width="2"/>
+  <text x="820" y="232" text-anchor="middle" class="node-label">Source Behavior</text>
+  <text x="820" y="250" text-anchor="middle" class="node-desc">Kernel produces expected output</text>
+
+  <!-- Node 3: Mirror Behavior (right bottom) -->
+  <rect x="720" y="350" width="200" height="70" rx="14" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="820" y="382" text-anchor="middle" class="node-label">Mirror Behavior</text>
+  <text x="820" y="400" text-anchor="middle" class="node-desc">Mirror produces its output</text>
+
+  <!-- Node 4: Compare (center right - diamond) -->
+  <polygon points="580,430 650,480 580,530 510,480" fill="#7C3AED" stroke="#6D28D9" stroke-width="2"/>
+  <text x="580" y="478" text-anchor="middle" class="node-label">Compare</text>
+  <text x="580" y="495" text-anchor="middle" font-size="10" fill="#DDD6FE">Behavioral Diff</text>
+
+  <!-- Node 5: Parity Result (center bottom) -->
+  <rect x="350" y="560" width="200" height="70" rx="14" fill="#374151" stroke="#1F2937" stroke-width="2"/>
+  <text x="450" y="592" text-anchor="middle" class="node-label">Parity Result</text>
+  <text x="450" y="610" text-anchor="middle" class="node-desc">PASS | DRIFT | BREAK</text>
+
+  <!-- Node 6: Drift Record (left bottom) -->
+  <rect x="80" y="470" width="200" height="70" rx="14" fill="#F59E0B" stroke="#D97706" stroke-width="2"/>
+  <text x="180" y="502" text-anchor="middle" font-size="14" fill="#1F2937" font-weight="600">Drift Record</text>
+  <text x="180" y="520" text-anchor="middle" font-size="11" fill="#451A03">Logged, measured, reviewed</text>
+
+  <!-- Node 7: Decision (left top - diamond) -->
+  <polygon points="180,260 250,310 180,360 110,310" fill="#7C3AED" stroke="#6D28D9" stroke-width="2"/>
+  <text x="180" y="308" text-anchor="middle" class="node-label">Decision</text>
+  <text x="180" y="325" text-anchor="middle" font-size="10" fill="#DDD6FE">Review</text>
+
+  <!-- Arrows connecting the loop -->
+
+  <!-- 1 -> 2: Fixture to Source -->
+  <line x1="600" y1="125" x2="720" y2="210" stroke="#374151" stroke-width="2.5" marker-end="url(#pdArrow)"/>
+  <text x="680" y="155" class="flow-label">Feed to kernel</text>
+
+  <!-- 1 -> 3: Fixture to Mirror -->
+  <line x1="580" y1="155" x2="720" y2="355" stroke="#374151" stroke-width="2.5" marker-end="url(#pdArrow)"/>
+  <text x="690" y="275" class="flow-label">Feed to mirror</text>
+
+  <!-- 2 -> 4: Source to Compare -->
+  <line x1="720" y1="260" x2="640" y2="460" stroke="#2563EB" stroke-width="2.5" marker-end="url(#pdArrow)"/>
+  <text x="710" y="370" class="flow-label" fill="#2563EB">Expected</text>
+
+  <!-- 3 -> 4: Mirror to Compare -->
+  <line x1="720" y1="400" x2="650" y2="470" stroke="#059669" stroke-width="2.5" marker-end="url(#pdArrow)"/>
+  <text x="715" y="440" class="flow-label" fill="#059669">Actual</text>
+
+  <!-- 4 -> 5: Compare to Parity Result -->
+  <line x1="545" y1="520" x2="480" y2="560" stroke="#374151" stroke-width="2.5" marker-end="url(#pdArrow)"/>
+  <text x="530" y="550" class="flow-label">Result</text>
+
+  <!-- 5 -> 6: Parity Result to Drift Record -->
+  <line x1="350" y1="600" x2="280" y2="530" stroke="#F59E0B" stroke-width="2.5" marker-end="url(#pdArrowAmber)"/>
+  <text x="290" y="575" class="flow-label" fill="#D97706">Record drift</text>
+
+  <!-- 6 -> 7: Drift Record to Decision -->
+  <line x1="180" y1="470" x2="180" y2="360" stroke="#374151" stroke-width="2.5" marker-end="url(#pdArrow)"/>
+  <text x="210" y="420" class="flow-label">Review</text>
+
+  <!-- 7 -> 1: Decision loops back to Fixture Input (next cycle) -->
+  <path d="M 180,260 C 180,160 300,100 400,115" fill="none" stroke="#374151" stroke-width="2.5" marker-end="url(#pdArrow)"/>
+  <text x="260" y="130" class="flow-label">Next cycle</text>
+
+  <!-- Outcome paths from Decision -->
+
+  <!-- Promotion path (left, green) -->
+  <rect x="20" y="140" width="150" height="60" rx="10" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="95" y="168" text-anchor="middle" class="node-label">Promotion</text>
+  <text x="95" y="186" text-anchor="middle" font-size="10" fill="#D1FAE5">Absorb into kernel</text>
+  <line x1="130" y1="280" x2="95" y2="200" stroke="#059669" stroke-width="2.5" marker-end="url(#pdArrowGreen)"/>
+  <text x="70" y="250" class="flow-label" fill="#059669">Stable</text>
+
+  <!-- Breakaway path (far left, red) -->
+  <rect x="20" y="350" width="150" height="60" rx="10" fill="#F43F5E" stroke="#DC2626" stroke-width="2"/>
+  <text x="95" y="378" text-anchor="middle" class="node-label">Breakaway</text>
+  <text x="95" y="396" text-anchor="middle" font-size="10" fill="#FFE4E6">Freeze and detach</text>
+  <line x1="125" y1="335" x2="95" y2="350" stroke="#DC2626" stroke-width="2.5" marker-end="url(#pdArrowRed)"/>
+  <text x="70" y="345" class="flow-label" fill="#DC2626">Incompatible</text>
+
+  <!-- Result indicators -->
+  <rect x="620" y="580" width="340" height="140" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="790" y="605" text-anchor="middle" font-size="14" fill="#1F2937" font-weight="bold">Parity Outcomes</text>
+  <circle cx="650" cy="630" r="8" fill="#059669"/>
+  <text x="670" y="635" font-size="13" fill="#059669" font-weight="600">PASS — Behavioral match confirmed</text>
+  <circle cx="650" cy="660" r="8" fill="#F59E0B"/>
+  <text x="670" y="665" font-size="13" fill="#D97706" font-weight="600">DRIFT — Divergence detected, review</text>
+  <circle cx="650" cy="690" r="8" fill="#DC2626"/>
+  <text x="670" y="695" font-size="13" fill="#DC2626" font-weight="600">BREAK — Incompatible, action required</text>
+
+  <!-- Cycle indicator -->
+  <text x="500" y="780" text-anchor="middle" font-size="12" fill="#6B7280" font-style="italic">This loop runs continuously for every active mirror reflection</text>
+</svg>
+    </div>
+  </section>
+
+  <!-- 5. Registry Control Plane -->
+  <section class="diagram" id="registry-control">
+    <div class="section-header">
+      <h2>5. Registry Control Plane</h2>
+      <p>The lifecycle state machine governing every mirror: PROPOSED, CHARTERED, STAGED, ACTIVE, FROZEN, RETIRED. The control plane manages slice enablement, parity reviews, drift records, transfer readiness, and promotion reviews.</p>
+    </div>
+    <div class="svg-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 800" width="1100" height="800">
+  <title>Mirror Architecture — Registry Control Plane</title>
+  <defs>
+    <marker id="rcArrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <marker id="rcArrowPurple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7C3AED"/>
+    </marker>
+    <style>
+      text { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
+      .title { font-size: 20px; font-weight: bold; fill: #1F2937; }
+      .subtitle { font-size: 13px; fill: #6B7280; font-style: italic; }
+      .state-label { font-size: 13px; fill: #FFFFFF; font-weight: 700; }
+      .state-desc { font-size: 10px; fill: #E5E7EB; }
+      .section-title { font-size: 15px; fill: #7C3AED; font-weight: bold; }
+      .cp-label { font-size: 12px; fill: #FFFFFF; font-weight: 600; }
+    </style>
+  </defs>
+
+  <rect width="1100" height="800" fill="#F9FAFB" rx="8"/>
+
+  <text x="550" y="35" text-anchor="middle" class="title">Registry Control Plane — Lifecycle State Machine</text>
+  <text x="550" y="55" text-anchor="middle" class="subtitle">Every mirror follows a governed lifecycle. The registry tracks every state transition.</text>
+
+  <!-- ====== STATE MACHINE (top half) ====== -->
+  <text x="550" y="90" text-anchor="middle" class="section-title">Mirror Lifecycle States</text>
+
+  <!-- State: PROPOSED -->
+  <circle cx="100" cy="170" r="42" fill="#6B7280" stroke="#4B5563" stroke-width="2"/>
+  <text x="100" y="168" text-anchor="middle" class="state-label">PROPOSED</text>
+  <text x="100" y="183" text-anchor="middle" class="state-desc">Scope review</text>
+
+  <!-- Arrow: PROPOSED -> CHARTERED -->
+  <line x1="142" y1="170" x2="218" y2="170" stroke="#374151" stroke-width="2.5" marker-end="url(#rcArrow)"/>
+  <text x="180" y="160" text-anchor="middle" font-size="10" fill="#6B7280">Approved</text>
+
+  <!-- State: CHARTERED -->
+  <circle cx="270" cy="170" r="42" fill="#7C3AED" stroke="#6D28D9" stroke-width="2"/>
+  <text x="270" y="168" text-anchor="middle" class="state-label">CHARTERED</text>
+  <text x="270" y="183" text-anchor="middle" class="state-desc">Slices defined</text>
+
+  <!-- Arrow: CHARTERED -> STAGED -->
+  <line x1="312" y1="170" x2="388" y2="170" stroke="#374151" stroke-width="2.5" marker-end="url(#rcArrow)"/>
+  <text x="350" y="160" text-anchor="middle" font-size="10" fill="#6B7280">Loaded</text>
+
+  <!-- State: STAGED -->
+  <circle cx="440" cy="170" r="42" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="440" y="168" text-anchor="middle" class="state-label">STAGED</text>
+  <text x="440" y="183" text-anchor="middle" class="state-desc">Parity testing</text>
+
+  <!-- Arrow: STAGED -> ACTIVE -->
+  <line x1="482" y1="170" x2="558" y2="170" stroke="#374151" stroke-width="2.5" marker-end="url(#rcArrow)"/>
+  <text x="520" y="160" text-anchor="middle" font-size="10" fill="#6B7280">Parity OK</text>
+
+  <!-- State: ACTIVE -->
+  <circle cx="610" cy="170" r="42" fill="#059669" stroke="#047857" stroke-width="3"/>
+  <text x="610" y="168" text-anchor="middle" class="state-label">ACTIVE</text>
+  <text x="610" y="183" text-anchor="middle" class="state-desc">Live &amp; monitored</text>
+
+  <!-- Arrow: ACTIVE -> FROZEN -->
+  <line x1="652" y1="170" x2="728" y2="170" stroke="#374151" stroke-width="2.5" marker-end="url(#rcArrow)"/>
+  <text x="690" y="160" text-anchor="middle" font-size="10" fill="#6B7280">Freeze</text>
+
+  <!-- State: FROZEN -->
+  <circle cx="780" cy="170" r="42" fill="#F59E0B" stroke="#D97706" stroke-width="2"/>
+  <text x="780" y="168" text-anchor="middle" font-size="13" fill="#1F2937" font-weight="700">FROZEN</text>
+  <text x="780" y="183" text-anchor="middle" font-size="10" fill="#451A03">Read-only</text>
+
+  <!-- Arrow: FROZEN -> RETIRED -->
+  <line x1="822" y1="170" x2="898" y2="170" stroke="#374151" stroke-width="2.5" marker-end="url(#rcArrow)"/>
+  <text x="860" y="160" text-anchor="middle" font-size="10" fill="#6B7280">Decommission</text>
+
+  <!-- State: RETIRED -->
+  <circle cx="950" cy="170" r="42" fill="#F43F5E" stroke="#DC2626" stroke-width="2"/>
+  <text x="950" y="168" text-anchor="middle" class="state-label">RETIRED</text>
+  <text x="950" y="183" text-anchor="middle" class="state-desc">Decommissioned</text>
+
+  <!-- Alternate path: ACTIVE -> RETIRED (direct) -->
+  <path d="M 640,205 Q 780,280 920,205" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#rcArrow)"/>
+  <text x="780" y="260" text-anchor="middle" font-size="10" fill="#DC2626">Emergency retire</text>
+
+  <!-- Alternate path: STAGED back to CHARTERED (rejection) -->
+  <path d="M 410,205 Q 355,250 300,205" fill="none" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#rcArrow)"/>
+  <text x="355" y="240" text-anchor="middle" font-size="10" fill="#D97706">Parity fail</text>
+
+  <!-- ====== CONTROL PLANE (bottom half) ====== -->
+  <line x1="30" y1="300" x2="1070" y2="300" stroke="#E5E7EB" stroke-width="2"/>
+  <text x="550" y="330" text-anchor="middle" class="section-title">Control Plane Functions</text>
+
+  <!-- Slice Enablement -->
+  <rect x="40" y="355" width="180" height="100" rx="12" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="130" y="385" text-anchor="middle" class="cp-label">Slice Enablement</text>
+  <text x="130" y="405" text-anchor="middle" font-size="10" fill="#CCFBF1">Attach / detach slices</text>
+  <text x="130" y="420" text-anchor="middle" font-size="10" fill="#CCFBF1">per mirror instance.</text>
+  <text x="130" y="435" text-anchor="middle" font-size="10" fill="#CCFBF1">Independent toggles.</text>
+
+  <!-- Parity Reviews -->
+  <rect x="250" y="355" width="180" height="100" rx="12" fill="#2563EB" stroke="#1D4ED8" stroke-width="2"/>
+  <text x="340" y="385" text-anchor="middle" class="cp-label">Parity Reviews</text>
+  <text x="340" y="405" text-anchor="middle" font-size="10" fill="#BFDBFE">Schedule fixture runs.</text>
+  <text x="340" y="420" text-anchor="middle" font-size="10" fill="#BFDBFE">Compare behaviors.</text>
+  <text x="340" y="435" text-anchor="middle" font-size="10" fill="#BFDBFE">Approve / reject.</text>
+
+  <!-- Drift Records -->
+  <rect x="460" y="355" width="180" height="100" rx="12" fill="#F59E0B" stroke="#D97706" stroke-width="2"/>
+  <text x="550" y="385" text-anchor="middle" font-size="12" fill="#1F2937" font-weight="600">Drift Records</text>
+  <text x="550" y="405" text-anchor="middle" font-size="10" fill="#451A03">Log all divergence.</text>
+  <text x="550" y="420" text-anchor="middle" font-size="10" fill="#451A03">Track severity &amp; trend.</text>
+  <text x="550" y="435" text-anchor="middle" font-size="10" fill="#451A03">Trigger alerts.</text>
+
+  <!-- Transfer Readiness -->
+  <rect x="670" y="355" width="180" height="100" rx="12" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="760" y="385" text-anchor="middle" class="cp-label">Transfer Readiness</text>
+  <text x="760" y="405" text-anchor="middle" font-size="10" fill="#FDE68A">Assess handoff state.</text>
+  <text x="760" y="420" text-anchor="middle" font-size="10" fill="#FDE68A">Check dependencies.</text>
+  <text x="760" y="435" text-anchor="middle" font-size="10" fill="#FDE68A">Generate bundles.</text>
+
+  <!-- Promotion Reviews -->
+  <rect x="880" y="355" width="180" height="100" rx="12" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="970" y="385" text-anchor="middle" class="cp-label">Promotion Reviews</text>
+  <text x="970" y="405" text-anchor="middle" font-size="10" fill="#D1FAE5">Evaluate candidates.</text>
+  <text x="970" y="420" text-anchor="middle" font-size="10" fill="#D1FAE5">Run kernel integration.</text>
+  <text x="970" y="435" text-anchor="middle" font-size="10" fill="#D1FAE5">Absorb into core.</text>
+
+  <!-- Registry database (cylinder) -->
+  <ellipse cx="550" cy="530" rx="120" ry="20" fill="#374151" stroke="#1F2937" stroke-width="2"/>
+  <rect x="430" y="530" width="240" height="60" fill="#374151" stroke="none"/>
+  <line x1="430" y1="530" x2="430" y2="590" stroke="#1F2937" stroke-width="2"/>
+  <line x1="670" y1="530" x2="670" y2="590" stroke="#1F2937" stroke-width="2"/>
+  <ellipse cx="550" cy="590" rx="120" ry="20" fill="#4B5563" stroke="#1F2937" stroke-width="2"/>
+  <text x="550" y="565" text-anchor="middle" font-size="15" fill="#FFF" font-weight="bold">Mirror Registry</text>
+
+  <!-- Lines from control plane functions to registry -->
+  <line x1="130" y1="455" x2="470" y2="530" stroke="#374151" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="340" y1="455" x2="490" y2="530" stroke="#374151" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="550" y1="455" x2="550" y2="530" stroke="#374151" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="760" y1="455" x2="610" y2="530" stroke="#374151" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="970" y1="455" x2="630" y2="530" stroke="#374151" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <!-- Registry contents -->
+  <rect x="100" y="640" width="900" height="130" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="550" y="665" text-anchor="middle" font-size="14" fill="#1F2937" font-weight="bold">Registry Tracks</text>
+
+  <rect x="120" y="680" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="195" y="702" text-anchor="middle" font-size="11" fill="#374151">Mirror Manifests</text>
+
+  <rect x="290" y="680" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="365" y="702" text-anchor="middle" font-size="11" fill="#374151">Slice Configurations</text>
+
+  <rect x="460" y="680" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="535" y="702" text-anchor="middle" font-size="11" fill="#374151">Reflection Versions</text>
+
+  <rect x="630" y="680" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="705" y="702" text-anchor="middle" font-size="11" fill="#374151">Parity Results</text>
+
+  <rect x="120" y="725" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="195" y="747" text-anchor="middle" font-size="11" fill="#374151">Drift Histories</text>
+
+  <rect x="290" y="725" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="365" y="747" text-anchor="middle" font-size="11" fill="#374151">Transfer Classes</text>
+
+  <rect x="460" y="725" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="535" y="747" text-anchor="middle" font-size="11" fill="#374151">Promotion Candidates</text>
+
+  <rect x="630" y="725" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="705" y="747" text-anchor="middle" font-size="11" fill="#374151">Audit Trails</text>
+
+  <rect x="800" y="680" width="180" height="80" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="890" y="710" text-anchor="middle" font-size="11" fill="#374151">State Transition</text>
+  <text x="890" y="728" text-anchor="middle" font-size="11" fill="#374151">Logs &amp; Governance</text>
+  <text x="890" y="746" text-anchor="middle" font-size="11" fill="#374151">Decision Records</text>
+</svg>
+    </div>
+  </section>
+
+  <!-- 6. Promotion vs Breakaway -->
+  <section class="diagram" id="promotion-breakaway">
+    <div class="section-header">
+      <h2>6. Promotion vs Breakaway</h2>
+      <p>Two governed paths for mirror reflections. Stable, reusable reflections are promoted inward into the kernel core (left path). Incompatible or partner-specific reflections are frozen and detached outward (right path).</p>
+    </div>
+    <div class="svg-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" width="1000" height="800">
+  <title>Mirror Architecture — Promotion vs Breakaway</title>
+  <defs>
+    <marker id="pbArrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <marker id="pbArrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+    <marker id="pbArrowRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#DC2626"/>
+    </marker>
+    <style>
+      text { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
+      .title { font-size: 20px; font-weight: bold; fill: #1F2937; }
+      .subtitle { font-size: 13px; fill: #6B7280; font-style: italic; }
+      .label { font-size: 14px; fill: #FFFFFF; font-weight: 600; }
+      .label-sm { font-size: 12px; fill: #FFFFFF; }
+      .criteria { font-size: 11px; fill: #374151; }
+    </style>
+  </defs>
+
+  <rect width="1000" height="800" fill="#F9FAFB" rx="8"/>
+
+  <text x="500" y="35" text-anchor="middle" class="title">Promotion vs Breakaway — Two Paths</text>
+  <text x="500" y="55" text-anchor="middle" class="subtitle">Stable reflections flow inward. Incompatible reflections detach outward. Both are governed.</text>
+
+  <!-- Center: Active Mirror Reflection -->
+  <rect x="370" y="150" width="260" height="80" rx="14" fill="#059669" stroke="#047857" stroke-width="2.5"/>
+  <text x="500" y="185" text-anchor="middle" class="label">Active Mirror Reflection</text>
+  <text x="500" y="205" text-anchor="middle" font-size="11" fill="#D1FAE5">Under continuous parity monitoring</text>
+
+  <!-- Decision Diamond -->
+  <polygon points="500,280 580,340 500,400 420,340" fill="#7C3AED" stroke="#6D28D9" stroke-width="2.5"/>
+  <text x="500" y="335" text-anchor="middle" class="label">Parity</text>
+  <text x="500" y="352" text-anchor="middle" font-size="11" fill="#DDD6FE">Review</text>
+
+  <!-- Arrow from reflection to decision -->
+  <line x1="500" y1="230" x2="500" y2="280" stroke="#374151" stroke-width="2.5" marker-end="url(#pbArrow)"/>
+
+  <!-- ====== LEFT PATH: PROMOTION (inward, green) ====== -->
+  <text x="200" y="310" text-anchor="middle" font-size="16" fill="#059669" font-weight="bold">PROMOTION PATH</text>
+  <text x="200" y="328" text-anchor="middle" font-size="12" fill="#059669">Stable &amp; Reusable — Flows Inward</text>
+
+  <!-- Arrow from decision to promotion -->
+  <line x1="420" y1="340" x2="310" y2="340" stroke="#059669" stroke-width="3" marker-end="url(#pbArrowGreen)"/>
+  <text x="365" y="330" font-size="11" fill="#059669" font-weight="600">Stable</text>
+
+  <!-- Promotion steps -->
+  <rect x="100" y="370" width="200" height="55" rx="10" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
+  <text x="200" y="393" text-anchor="middle" font-size="13" fill="#065F46" font-weight="600">Candidate Identified</text>
+  <text x="200" y="410" text-anchor="middle" font-size="10" fill="#065F46">Parity 100% for 3+ cycles</text>
+
+  <line x1="200" y1="425" x2="200" y2="445" stroke="#059669" stroke-width="2" marker-end="url(#pbArrowGreen)"/>
+
+  <rect x="100" y="450" width="200" height="55" rx="10" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
+  <text x="200" y="473" text-anchor="middle" font-size="13" fill="#065F46" font-weight="600">Integration Review</text>
+  <text x="200" y="490" text-anchor="middle" font-size="10" fill="#065F46">Kernel team evaluates fit</text>
+
+  <line x1="200" y1="505" x2="200" y2="525" stroke="#059669" stroke-width="2" marker-end="url(#pbArrowGreen)"/>
+
+  <rect x="100" y="530" width="200" height="55" rx="10" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
+  <text x="200" y="553" text-anchor="middle" font-size="13" fill="#065F46" font-weight="600">Kernel Absorption</text>
+  <text x="200" y="570" text-anchor="middle" font-size="10" fill="#065F46">Reflection becomes canonical</text>
+
+  <line x1="200" y1="585" x2="200" y2="605" stroke="#059669" stroke-width="2" marker-end="url(#pbArrowGreen)"/>
+
+  <!-- Final: Core -->
+  <rect x="100" y="610" width="200" height="60" rx="14" fill="#2563EB" stroke="#1D4ED8" stroke-width="2.5"/>
+  <text x="200" y="637" text-anchor="middle" class="label">Construction OS Core</text>
+  <text x="200" y="655" text-anchor="middle" font-size="10" fill="#BFDBFE">Available to all mirrors</text>
+
+  <!-- ====== RIGHT PATH: BREAKAWAY (outward, red) ====== -->
+  <text x="800" y="310" text-anchor="middle" font-size="16" fill="#DC2626" font-weight="bold">BREAKAWAY PATH</text>
+  <text x="800" y="328" text-anchor="middle" font-size="12" fill="#DC2626">Incompatible / Partner-Specific — Flows Outward</text>
+
+  <!-- Arrow from decision to breakaway -->
+  <line x1="580" y1="340" x2="690" y2="340" stroke="#DC2626" stroke-width="3" marker-end="url(#pbArrowRed)"/>
+  <text x="635" y="330" font-size="11" fill="#DC2626" font-weight="600">Diverged</text>
+
+  <!-- Breakaway steps -->
+  <rect x="700" y="370" width="200" height="55" rx="10" fill="#FFF1F2" stroke="#DC2626" stroke-width="2"/>
+  <text x="800" y="393" text-anchor="middle" font-size="13" fill="#9F1239" font-weight="600">Drift Threshold Exceeded</text>
+  <text x="800" y="410" text-anchor="middle" font-size="10" fill="#9F1239">Parity below minimum 3+ cycles</text>
+
+  <line x1="800" y1="425" x2="800" y2="445" stroke="#DC2626" stroke-width="2" marker-end="url(#pbArrowRed)"/>
+
+  <rect x="700" y="450" width="200" height="55" rx="10" fill="#FFF1F2" stroke="#DC2626" stroke-width="2"/>
+  <text x="800" y="473" text-anchor="middle" font-size="13" fill="#9F1239" font-weight="600">Breakaway Review</text>
+  <text x="800" y="490" text-anchor="middle" font-size="10" fill="#9F1239">Confirm incompatibility</text>
+
+  <line x1="800" y1="505" x2="800" y2="525" stroke="#DC2626" stroke-width="2" marker-end="url(#pbArrowRed)"/>
+
+  <rect x="700" y="530" width="200" height="55" rx="10" fill="#FFF1F2" stroke="#DC2626" stroke-width="2"/>
+  <text x="800" y="553" text-anchor="middle" font-size="13" fill="#9F1239" font-weight="600">Freeze &amp; Snapshot</text>
+  <text x="800" y="570" text-anchor="middle" font-size="10" fill="#9F1239">Lock version, archive state</text>
+
+  <line x1="800" y1="585" x2="800" y2="605" stroke="#DC2626" stroke-width="2" marker-end="url(#pbArrowRed)"/>
+
+  <!-- Final: Detached -->
+  <rect x="700" y="610" width="200" height="60" rx="14" fill="#F43F5E" stroke="#DC2626" stroke-width="2.5"/>
+  <text x="800" y="637" text-anchor="middle" class="label">Detached / Frozen</text>
+  <text x="800" y="655" text-anchor="middle" font-size="10" fill="#FFE4E6">Partner-owned, no kernel sync</text>
+
+  <!-- Criteria boxes -->
+  <rect x="30" y="710" width="440" height="70" rx="8" fill="#ECFDF5" stroke="#059669" stroke-width="1.5"/>
+  <text x="250" y="732" text-anchor="middle" font-size="13" fill="#065F46" font-weight="bold">Promotion Criteria</text>
+  <text x="250" y="750" text-anchor="middle" class="criteria">100% parity for 3+ cycles | Reusable across mirrors</text>
+  <text x="250" y="765" text-anchor="middle" class="criteria">No partner-specific logic | Kernel team approves</text>
+
+  <rect x="530" y="710" width="440" height="70" rx="8" fill="#FFF1F2" stroke="#DC2626" stroke-width="1.5"/>
+  <text x="750" y="732" text-anchor="middle" font-size="13" fill="#9F1239" font-weight="bold">Breakaway Criteria</text>
+  <text x="750" y="750" text-anchor="middle" class="criteria">Parity below threshold for 3+ cycles | Partner-specific logic</text>
+  <text x="750" y="765" text-anchor="middle" class="criteria">Incompatible with kernel direction | Mutual agreement</text>
+</svg>
+    </div>
+  </section>
+
+  <!-- 7. Transfer &amp; Buyout Path -->
+  <section class="diagram" id="transfer-buyout">
+    <div class="section-header">
+      <h2>7. Transfer &amp; Buyout Path</h2>
+      <p>The clean exit protocol. Slices are classified by transfer eligibility, pass through a detachment gate with IP audit and dependency checks, are packaged into a handoff bundle, and exit cleanly. The partner operates independently.</p>
+    </div>
+    <div class="svg-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" width="1000" height="700">
+  <title>Mirror Architecture — Transfer &amp; Buyout Path</title>
+  <defs>
+    <marker id="tbArrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <marker id="tbArrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#EA580C"/>
+    </marker>
+    <marker id="tbArrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+    <marker id="tbArrowTeal" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0D9488"/>
+    </marker>
+    <style>
+      text { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
+      .title { font-size: 20px; font-weight: bold; fill: #1F2937; }
+      .subtitle { font-size: 13px; fill: #6B7280; font-style: italic; }
+      .label { font-size: 14px; fill: #FFFFFF; font-weight: 600; }
+      .label-sm { font-size: 12px; fill: #FFFFFF; }
+      .label-dark { font-size: 14px; fill: #1F2937; font-weight: 600; }
+      .desc { font-size: 11px; fill: #6B7280; }
+      .class-label { font-size: 12px; fill: #FFFFFF; font-weight: 600; }
+      .class-desc { font-size: 10px; fill: #E5E7EB; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="700" fill="#F8FAFC" rx="8"/>
+
+  <!-- Title -->
+  <text x="500" y="35" text-anchor="middle" class="title">Transfer &amp; Buyout Path — Clean Exit Protocol</text>
+  <text x="500" y="55" text-anchor="middle" class="subtitle">Every attachment has a clean detachment. Sold by capability, detachable by design.</text>
+
+  <!-- ====== STAGE 1: Selectable Slices ====== -->
+  <text x="105" y="95" text-anchor="middle" font-size="15" fill="#0D9488" font-weight="bold">Selectable</text>
+  <text x="105" y="112" text-anchor="middle" font-size="15" fill="#0D9488" font-weight="bold">Slices</text>
+
+  <!-- Slice hexagons -->
+  <polygon points="75,130 135,130 160,155 135,180 75,180 50,155" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="105" y="153" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Governance</text>
+  <text x="105" y="167" text-anchor="middle" font-size="9" fill="#CCFBF1">[T:varies]</text>
+
+  <polygon points="75,195 135,195 160,220 135,245 75,245 50,220" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="105" y="218" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Validation</text>
+  <text x="105" y="232" text-anchor="middle" font-size="9" fill="#CCFBF1">[T:varies]</text>
+
+  <polygon points="75,260 135,260 160,285 135,310 75,310 50,285" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="105" y="283" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Generation</text>
+  <text x="105" y="297" text-anchor="middle" font-size="9" fill="#CCFBF1">[T:varies]</text>
+
+  <polygon points="75,325 135,325 160,350 135,375 75,375 50,350" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="105" y="348" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Engine</text>
+  <text x="105" y="362" text-anchor="middle" font-size="9" fill="#CCFBF1">[T:varies]</text>
+
+  <polygon points="75,390 135,390 160,415 135,440 75,440 50,415" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="105" y="413" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Lineage</text>
+  <text x="105" y="427" text-anchor="middle" font-size="9" fill="#CCFBF1">[T:varies]</text>
+
+  <!-- Arrows from slices to transfer classes -->
+  <line x1="160" y1="155" x2="230" y2="155" stroke="#0D9488" stroke-width="2" marker-end="url(#tbArrowTeal)"/>
+  <line x1="160" y1="220" x2="230" y2="220" stroke="#0D9488" stroke-width="2" marker-end="url(#tbArrowTeal)"/>
+  <line x1="160" y1="285" x2="230" y2="285" stroke="#0D9488" stroke-width="2" marker-end="url(#tbArrowTeal)"/>
+  <line x1="160" y1="350" x2="230" y2="350" stroke="#0D9488" stroke-width="2" marker-end="url(#tbArrowTeal)"/>
+  <line x1="160" y1="415" x2="230" y2="415" stroke="#0D9488" stroke-width="2" marker-end="url(#tbArrowTeal)"/>
+
+  <!-- ====== STAGE 2: Transfer Classes ====== -->
+  <text x="330" y="95" text-anchor="middle" font-size="15" fill="#EA580C" font-weight="bold">Transfer Classes</text>
+
+  <!-- NON_TRANSFERABLE -->
+  <rect x="240" y="125" width="180" height="50" rx="10" fill="#DC2626" stroke="#B91C1C" stroke-width="2"/>
+  <text x="330" y="148" text-anchor="middle" class="class-label">NON_TRANSFERABLE</text>
+  <text x="330" y="163" text-anchor="middle" class="class-desc">Core IP — never leaves</text>
+
+  <!-- LICENSE_ONLY -->
+  <rect x="240" y="190" width="180" height="50" rx="10" fill="#EA580C" stroke="#C2410C" stroke-width="2"/>
+  <text x="330" y="213" text-anchor="middle" class="class-label">LICENSE_ONLY</text>
+  <text x="330" y="228" text-anchor="middle" class="class-desc">Use rights, no source</text>
+
+  <!-- WHITE_LABELABLE -->
+  <rect x="240" y="255" width="180" height="50" rx="10" fill="#F59E0B" stroke="#D97706" stroke-width="2"/>
+  <text x="330" y="278" text-anchor="middle" font-size="12" fill="#1F2937" font-weight="600">WHITE_LABELABLE</text>
+  <text x="330" y="293" text-anchor="middle" font-size="10" fill="#451A03">Rebrand permitted</text>
+
+  <!-- BUYOUT_READY -->
+  <rect x="240" y="320" width="180" height="50" rx="10" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="330" y="343" text-anchor="middle" class="class-label">BUYOUT_READY</text>
+  <text x="330" y="358" text-anchor="middle" class="class-desc">Full source available</text>
+
+  <!-- FULL_HANDOFF_READY -->
+  <rect x="240" y="385" width="180" height="50" rx="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="2"/>
+  <text x="330" y="408" text-anchor="middle" class="class-label">FULL_HANDOFF_READY</text>
+  <text x="330" y="423" text-anchor="middle" class="class-desc">Complete independence</text>
+
+  <!-- NON_TRANSFERABLE dead end -->
+  <line x1="420" y1="150" x2="460" y2="150" stroke="#DC2626" stroke-width="2" stroke-dasharray="6,4"/>
+  <rect x="463" y="135" width="40" height="25" rx="4" fill="none" stroke="#DC2626" stroke-width="2"/>
+  <text x="483" y="153" text-anchor="middle" font-size="16" fill="#DC2626" font-weight="bold">X</text>
+
+  <!-- Arrows from transferable classes to detachment gate -->
+  <line x1="420" y1="215" x2="510" y2="290" stroke="#374151" stroke-width="2" marker-end="url(#tbArrow)"/>
+  <line x1="420" y1="280" x2="510" y2="290" stroke="#374151" stroke-width="2" marker-end="url(#tbArrow)"/>
+  <line x1="420" y1="345" x2="510" y2="310" stroke="#374151" stroke-width="2" marker-end="url(#tbArrow)"/>
+  <line x1="420" y1="410" x2="510" y2="320" stroke="#374151" stroke-width="2" marker-end="url(#tbArrow)"/>
+
+  <!-- ====== STAGE 3: Detachment Gate (Diamond) ====== -->
+  <text x="570" y="95" text-anchor="middle" font-size="15" fill="#7C3AED" font-weight="bold">Detachment Gate</text>
+
+  <polygon points="570,240 640,300 570,360 500,300" fill="#7C3AED" stroke="#6D28D9" stroke-width="2.5"/>
+  <text x="570" y="295" text-anchor="middle" class="label">Detach</text>
+  <text x="570" y="312" text-anchor="middle" font-size="10" fill="#DDD6FE">Gate</text>
+
+  <!-- Gate checklist -->
+  <rect x="510" y="375" width="120" height="90" rx="6" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.5"/>
+  <text x="570" y="392" text-anchor="middle" font-size="10" fill="#6D28D9" font-weight="bold">Gate Checks</text>
+  <text x="525" y="408" font-size="9" fill="#4C1D95">&#x2713; Parity snapshot</text>
+  <text x="525" y="422" font-size="9" fill="#4C1D95">&#x2713; IP audit clear</text>
+  <text x="525" y="436" font-size="9" fill="#4C1D95">&#x2713; Deps resolved</text>
+  <text x="525" y="450" font-size="9" fill="#4C1D95">&#x2713; Contracts signed</text>
+
+  <!-- Arrow from gate to handoff bundle -->
+  <line x1="640" y1="300" x2="710" y2="300" stroke="#374151" stroke-width="2.5" marker-end="url(#tbArrow)"/>
+  <text x="675" y="290" font-size="10" fill="#374151" font-weight="500">Approved</text>
+
+  <!-- ====== STAGE 4: Handoff Bundle ====== -->
+  <text x="790" y="95" text-anchor="middle" font-size="15" fill="#059669" font-weight="bold">Handoff Bundle</text>
+
+  <rect x="720" y="200" width="140" height="200" rx="12" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
+  <text x="790" y="225" text-anchor="middle" font-size="13" fill="#065F46" font-weight="bold">Bundle</text>
+
+  <!-- Bundle contents -->
+  <rect x="735" y="240" width="110" height="24" rx="4" fill="#059669"/>
+  <text x="790" y="257" text-anchor="middle" font-size="10" fill="#FFF" font-weight="500">Source Code</text>
+
+  <rect x="735" y="270" width="110" height="24" rx="4" fill="#059669"/>
+  <text x="790" y="287" text-anchor="middle" font-size="10" fill="#FFF" font-weight="500">Schemas</text>
+
+  <rect x="735" y="300" width="110" height="24" rx="4" fill="#059669"/>
+  <text x="790" y="317" text-anchor="middle" font-size="10" fill="#FFF" font-weight="500">Test Fixtures</text>
+
+  <rect x="735" y="330" width="110" height="24" rx="4" fill="#059669"/>
+  <text x="790" y="347" text-anchor="middle" font-size="10" fill="#FFF" font-weight="500">Documentation</text>
+
+  <rect x="735" y="360" width="110" height="24" rx="4" fill="#059669"/>
+  <text x="790" y="377" text-anchor="middle" font-size="10" fill="#FFF" font-weight="500">License Terms</text>
+
+  <!-- ====== STAGE 5: Clean Exit Path ====== -->
+  <line x1="790" y1="400" x2="790" y2="450" stroke="#059669" stroke-width="2.5" marker-end="url(#tbArrowGreen)"/>
+
+  <rect x="700" y="460" width="180" height="70" rx="14" fill="#059669" stroke="#047857" stroke-width="2.5"/>
+  <text x="790" y="490" text-anchor="middle" class="label">Clean Exit</text>
+  <text x="790" y="510" text-anchor="middle" font-size="11" fill="#D1FAE5">Partner operates independently</text>
+
+  <!-- Post-exit states -->
+  <line x1="790" y1="530" x2="700" y2="570" stroke="#374151" stroke-width="1.5" marker-end="url(#tbArrow)"/>
+  <line x1="790" y1="530" x2="880" y2="570" stroke="#374151" stroke-width="1.5" marker-end="url(#tbArrow)"/>
+
+  <rect x="620" y="575" width="160" height="45" rx="8" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="700" y="596" text-anchor="middle" font-size="11" fill="#374151" font-weight="600">Mirror RETIRED</text>
+  <text x="700" y="611" text-anchor="middle" font-size="9" fill="#6B7280">Registry updated</text>
+
+  <rect x="800" y="575" width="160" height="45" rx="8" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="880" y="596" text-anchor="middle" font-size="11" fill="#374151" font-weight="600">Partner Independent</text>
+  <text x="880" y="611" text-anchor="middle" font-size="9" fill="#6B7280">No kernel dependency</text>
+
+  <!-- ====== Flow Summary (bottom) ====== -->
+  <rect x="50" y="500" width="400" height="170" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="250" y="525" text-anchor="middle" font-size="14" fill="#1F2937" font-weight="bold">Transfer Flow Summary</text>
+
+  <text x="70" y="548" font-size="12" fill="#0D9488" font-weight="600">1.</text>
+  <text x="88" y="548" font-size="12" fill="#374151">Select slices for transfer</text>
+
+  <text x="70" y="568" font-size="12" fill="#EA580C" font-weight="600">2.</text>
+  <text x="88" y="568" font-size="12" fill="#374151">Classify each slice&#x27;s transfer eligibility</text>
+
+  <text x="70" y="588" font-size="12" fill="#7C3AED" font-weight="600">3.</text>
+  <text x="88" y="588" font-size="12" fill="#374151">Pass detachment gate (IP, deps, parity, contracts)</text>
+
+  <text x="70" y="608" font-size="12" fill="#059669" font-weight="600">4.</text>
+  <text x="88" y="608" font-size="12" fill="#374151">Package handoff bundle with all artifacts</text>
+
+  <text x="70" y="628" font-size="12" fill="#059669" font-weight="600">5.</text>
+  <text x="88" y="628" font-size="12" fill="#374151">Execute clean exit — partner operates independently</text>
+
+  <text x="250" y="658" text-anchor="middle" font-size="11" fill="#6B7280" font-style="italic">Every attachment has a clean detachment path. Always.</text>
+</svg>
+    </div>
+  </section>
+
+  <!-- 8. GCP Shop Drawing Mirror Instance -->
+  <section class="diagram" id="gcp-instance">
+    <div class="section-header">
+      <h2>8. GCP Shop Drawing Mirror Instance</h2>
+      <p>A concrete example showing the GCP Shop Drawing mirror with five active slices: detail_normalization, rules_engine, validation, artifact_manifest, and lineage. Each slice contains reflected contracts, schemas, rules, and fixtures with parity tracking.</p>
+    </div>
+    <div class="svg-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" width="1000" height="800">
+  <title>Mirror Architecture — GCP Shop Drawing Mirror Instance</title>
+  <defs>
+    <marker id="gcpArrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <marker id="gcpArrowPurple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7C3AED"/>
+    </marker>
+    <marker id="gcpArrowTeal" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0D9488"/>
+    </marker>
+    <style>
+      text { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
+      .title { font-size: 20px; font-weight: bold; fill: #1F2937; }
+      .subtitle { font-size: 13px; fill: #6B7280; font-style: italic; }
+      .label { font-size: 14px; fill: #FFFFFF; font-weight: 600; }
+      .label-sm { font-size: 12px; fill: #FFFFFF; }
+      .label-dark { font-size: 14px; fill: #1F2937; font-weight: 600; }
+      .slice-title { font-size: 13px; fill: #FFFFFF; font-weight: 700; }
+      .reflection-label { font-size: 10px; fill: #0C4A6E; font-weight: 600; }
+      .reflection-ver { font-size: 9px; fill: #0C4A6E; }
+      .section-title { font-size: 15px; font-weight: bold; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="800" fill="#F8FAFC" rx="8"/>
+
+  <!-- Title -->
+  <text x="500" y="35" text-anchor="middle" class="title">GCP Shop Drawing — Mirror Instance Detail</text>
+  <text x="500" y="55" text-anchor="middle" class="subtitle">Concrete example: five active slices, reflected contracts/schemas/rules/fixtures per slice</text>
+
+  <!-- Shield Boundary -->
+  <rect x="30" y="70" width="940" height="650" rx="16" fill="none" stroke="#DC2626" stroke-width="2.5" stroke-dasharray="10,5"/>
+  <text x="50" y="90" font-size="12" fill="#DC2626" font-weight="bold">SHIELD BOUNDARY — GCP Shop Drawing Mirror</text>
+
+  <!-- Mirror Instance Header -->
+  <rect x="320" y="100" width="360" height="60" rx="14" fill="#059669" stroke="#047857" stroke-width="2.5"/>
+  <text x="500" y="128" text-anchor="middle" class="label">GCP Shop Drawing Mirror</text>
+  <text x="500" y="147" text-anchor="middle" font-size="11" fill="#D1FAE5">State: ACTIVE | 5 slices | Parity: 98.7%</text>
+
+  <!-- Connection to Nucleus (above shield) -->
+  <line x1="500" y1="100" x2="500" y2="75" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#gcpArrowPurple)"/>
+  <text x="530" y="85" font-size="10" fill="#7C3AED">Governed by Nucleus</text>
+
+  <!-- ====== FIVE ACTIVE SLICES ====== -->
+
+  <!-- SLICE 1: detail_normalization -->
+  <rect x="50" y="190" width="170" height="40" rx="8" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="135" y="215" text-anchor="middle" class="slice-title">detail_normalization</text>
+
+  <rect x="50" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="90" y="256" text-anchor="middle" class="reflection-label">Contract</text>
+  <text x="90" y="268" text-anchor="middle" class="reflection-ver">v3.1.0</text>
+
+  <rect x="140" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="180" y="256" text-anchor="middle" class="reflection-label">Schema</text>
+  <text x="180" y="268" text-anchor="middle" class="reflection-ver">v3.1.0</text>
+
+  <rect x="50" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="90" y="300" text-anchor="middle" class="reflection-label">Rules</text>
+  <text x="90" y="312" text-anchor="middle" class="reflection-ver">v2.8.0</text>
+
+  <rect x="140" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="180" y="300" text-anchor="middle" class="reflection-label">Fixtures</text>
+  <text x="180" y="312" text-anchor="middle" class="reflection-ver">v3.1.0</text>
+
+  <text x="135" y="340" text-anchor="middle" font-size="10" fill="#059669" font-weight="500">[P] Parity: 99.2%</text>
+
+  <!-- SLICE 2: rules_engine -->
+  <rect x="240" y="190" width="170" height="40" rx="8" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="325" y="215" text-anchor="middle" class="slice-title">rules_engine</text>
+
+  <rect x="240" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="280" y="256" text-anchor="middle" class="reflection-label">Contract</text>
+  <text x="280" y="268" text-anchor="middle" class="reflection-ver">v4.0.1</text>
+
+  <rect x="330" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="370" y="256" text-anchor="middle" class="reflection-label">Schema</text>
+  <text x="370" y="268" text-anchor="middle" class="reflection-ver">v4.0.1</text>
+
+  <rect x="240" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="280" y="300" text-anchor="middle" class="reflection-label">Rules</text>
+  <text x="280" y="312" text-anchor="middle" class="reflection-ver">v4.0.1</text>
+
+  <rect x="330" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="370" y="300" text-anchor="middle" class="reflection-label">Fixtures</text>
+  <text x="370" y="312" text-anchor="middle" class="reflection-ver">v4.0.1</text>
+
+  <text x="325" y="340" text-anchor="middle" font-size="10" fill="#059669" font-weight="500">[P] Parity: 100%</text>
+
+  <!-- SLICE 3: validation -->
+  <rect x="430" y="190" width="170" height="40" rx="8" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="515" y="215" text-anchor="middle" class="slice-title">validation</text>
+
+  <rect x="430" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="470" y="256" text-anchor="middle" class="reflection-label">Contract</text>
+  <text x="470" y="268" text-anchor="middle" class="reflection-ver">v2.5.0</text>
+
+  <rect x="520" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="560" y="256" text-anchor="middle" class="reflection-label">Schema</text>
+  <text x="560" y="268" text-anchor="middle" class="reflection-ver">v2.5.0</text>
+
+  <rect x="430" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="470" y="300" text-anchor="middle" class="reflection-label">Rules</text>
+  <text x="470" y="312" text-anchor="middle" class="reflection-ver">v2.3.0</text>
+
+  <rect x="520" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="560" y="300" text-anchor="middle" class="reflection-label">Fixtures</text>
+  <text x="560" y="312" text-anchor="middle" class="reflection-ver">v2.5.0</text>
+
+  <text x="515" y="340" text-anchor="middle" font-size="10" fill="#059669" font-weight="500">[P] Parity: 99.8%</text>
+
+  <!-- SLICE 4: artifact_manifest -->
+  <rect x="620" y="190" width="170" height="40" rx="8" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="705" y="215" text-anchor="middle" class="slice-title">artifact_manifest</text>
+
+  <rect x="620" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="660" y="256" text-anchor="middle" class="reflection-label">Contract</text>
+  <text x="660" y="268" text-anchor="middle" class="reflection-ver">v1.2.0</text>
+
+  <rect x="710" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="750" y="256" text-anchor="middle" class="reflection-label">Schema</text>
+  <text x="750" y="268" text-anchor="middle" class="reflection-ver">v1.2.0</text>
+
+  <rect x="620" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="660" y="300" text-anchor="middle" class="reflection-label">Rules</text>
+  <text x="660" y="312" text-anchor="middle" class="reflection-ver">v1.1.0</text>
+
+  <rect x="710" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="750" y="300" text-anchor="middle" class="reflection-label">Fixtures</text>
+  <text x="750" y="312" text-anchor="middle" class="reflection-ver">v1.2.0</text>
+
+  <text x="705" y="340" text-anchor="middle" font-size="10" fill="#F59E0B" font-weight="500">[D] Parity: 96.1%</text>
+
+  <!-- SLICE 5: lineage -->
+  <rect x="810" y="190" width="150" height="40" rx="8" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="885" y="215" text-anchor="middle" class="slice-title">lineage</text>
+
+  <rect x="810" y="240" width="72" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="846" y="256" text-anchor="middle" class="reflection-label">Contract</text>
+  <text x="846" y="268" text-anchor="middle" class="reflection-ver">v2.0.0</text>
+
+  <rect x="888" y="240" width="72" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="924" y="256" text-anchor="middle" class="reflection-label">Schema</text>
+  <text x="924" y="268" text-anchor="middle" class="reflection-ver">v2.0.0</text>
+
+  <rect x="810" y="284" width="72" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="846" y="300" text-anchor="middle" class="reflection-label">Rules</text>
+  <text x="846" y="312" text-anchor="middle" class="reflection-ver">v1.9.0</text>
+
+  <rect x="888" y="284" width="72" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="924" y="300" text-anchor="middle" class="reflection-label">Fixtures</text>
+  <text x="924" y="312" text-anchor="middle" class="reflection-ver">v2.0.0</text>
+
+  <text x="885" y="340" text-anchor="middle" font-size="10" fill="#059669" font-weight="500">[P] Parity: 100%</text>
+
+  <!-- ====== DIVIDER ====== -->
+  <line x1="50" y1="365" x2="950" y2="365" stroke="#E5E7EB" stroke-width="2"/>
+
+  <!-- ====== REFLECTED CONTENT SUMMARY ====== -->
+  <text x="500" y="395" text-anchor="middle" class="section-title" fill="#2563EB">Reflected Content per Slice</text>
+
+  <!-- Summary table -->
+  <rect x="50" y="410" width="900" height="175" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+
+  <!-- Table headers -->
+  <rect x="50" y="410" width="900" height="30" rx="8" fill="#F1F5F9"/>
+  <text x="170" y="430" text-anchor="middle" font-size="12" fill="#374151" font-weight="bold">Slice</text>
+  <text x="350" y="430" text-anchor="middle" font-size="12" fill="#374151" font-weight="bold">Contracts</text>
+  <text x="490" y="430" text-anchor="middle" font-size="12" fill="#374151" font-weight="bold">Schemas</text>
+  <text x="630" y="430" text-anchor="middle" font-size="12" fill="#374151" font-weight="bold">Rules</text>
+  <text x="770" y="430" text-anchor="middle" font-size="12" fill="#374151" font-weight="bold">Fixtures</text>
+  <text x="900" y="430" text-anchor="middle" font-size="12" fill="#374151" font-weight="bold">Parity</text>
+
+  <!-- Row 1 -->
+  <text x="170" y="458" text-anchor="middle" font-size="11" fill="#0D9488" font-weight="600">detail_normalization</text>
+  <text x="350" y="458" text-anchor="middle" font-size="11" fill="#374151">3 contracts</text>
+  <text x="490" y="458" text-anchor="middle" font-size="11" fill="#374151">4 schemas</text>
+  <text x="630" y="458" text-anchor="middle" font-size="11" fill="#374151">12 rules</text>
+  <text x="770" y="458" text-anchor="middle" font-size="11" fill="#374151">28 fixtures</text>
+  <text x="900" y="458" text-anchor="middle" font-size="11" fill="#059669" font-weight="600">99.2%</text>
+
+  <!-- Row 2 -->
+  <text x="170" y="480" text-anchor="middle" font-size="11" fill="#0D9488" font-weight="600">rules_engine</text>
+  <text x="350" y="480" text-anchor="middle" font-size="11" fill="#374151">2 contracts</text>
+  <text x="490" y="480" text-anchor="middle" font-size="11" fill="#374151">3 schemas</text>
+  <text x="630" y="480" text-anchor="middle" font-size="11" fill="#374151">24 rules</text>
+  <text x="770" y="480" text-anchor="middle" font-size="11" fill="#374151">45 fixtures</text>
+  <text x="900" y="480" text-anchor="middle" font-size="11" fill="#059669" font-weight="600">100%</text>
+
+  <!-- Row 3 -->
+  <text x="170" y="502" text-anchor="middle" font-size="11" fill="#0D9488" font-weight="600">validation</text>
+  <text x="350" y="502" text-anchor="middle" font-size="11" fill="#374151">4 contracts</text>
+  <text x="490" y="502" text-anchor="middle" font-size="11" fill="#374151">6 schemas</text>
+  <text x="630" y="502" text-anchor="middle" font-size="11" fill="#374151">18 rules</text>
+  <text x="770" y="502" text-anchor="middle" font-size="11" fill="#374151">52 fixtures</text>
+  <text x="900" y="502" text-anchor="middle" font-size="11" fill="#059669" font-weight="600">99.8%</text>
+
+  <!-- Row 4 -->
+  <text x="170" y="524" text-anchor="middle" font-size="11" fill="#0D9488" font-weight="600">artifact_manifest</text>
+  <text x="350" y="524" text-anchor="middle" font-size="11" fill="#374151">2 contracts</text>
+  <text x="490" y="524" text-anchor="middle" font-size="11" fill="#374151">2 schemas</text>
+  <text x="630" y="524" text-anchor="middle" font-size="11" fill="#374151">8 rules</text>
+  <text x="770" y="524" text-anchor="middle" font-size="11" fill="#374151">15 fixtures</text>
+  <text x="900" y="524" text-anchor="middle" font-size="11" fill="#F59E0B" font-weight="600">96.1%</text>
+
+  <!-- Row 5 -->
+  <text x="170" y="546" text-anchor="middle" font-size="11" fill="#0D9488" font-weight="600">lineage</text>
+  <text x="350" y="546" text-anchor="middle" font-size="11" fill="#374151">2 contracts</text>
+  <text x="490" y="546" text-anchor="middle" font-size="11" fill="#374151">3 schemas</text>
+  <text x="630" y="546" text-anchor="middle" font-size="11" fill="#374151">6 rules</text>
+  <text x="770" y="546" text-anchor="middle" font-size="11" fill="#374151">20 fixtures</text>
+  <text x="900" y="546" text-anchor="middle" font-size="11" fill="#059669" font-weight="600">100%</text>
+
+  <!-- Totals -->
+  <line x1="60" y1="556" x2="940" y2="556" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="170" y="575" text-anchor="middle" font-size="12" fill="#1F2937" font-weight="bold">TOTALS</text>
+  <text x="350" y="575" text-anchor="middle" font-size="12" fill="#1F2937" font-weight="bold">13</text>
+  <text x="490" y="575" text-anchor="middle" font-size="12" fill="#1F2937" font-weight="bold">18</text>
+  <text x="630" y="575" text-anchor="middle" font-size="12" fill="#1F2937" font-weight="bold">68</text>
+  <text x="770" y="575" text-anchor="middle" font-size="12" fill="#1F2937" font-weight="bold">160</text>
+  <text x="900" y="575" text-anchor="middle" font-size="12" fill="#059669" font-weight="bold">98.7%</text>
+
+  <!-- ====== EXCLUDED CONCERNS ====== -->
+  <rect x="50" y="610" width="430" height="100" rx="8" fill="#FFF1F2" stroke="#DC2626" stroke-width="1.5"/>
+  <text x="265" y="635" text-anchor="middle" font-size="13" fill="#9F1239" font-weight="bold">Excluded — App-Local Concerns (Not Mirrored)</text>
+  <text x="70" y="655" font-size="11" fill="#9F1239">&#x2717; GCP-specific authentication &amp; OAuth flows</text>
+  <text x="70" y="672" font-size="11" fill="#9F1239">&#x2717; Client UI rendering &amp; frontend state management</text>
+  <text x="70" y="689" font-size="11" fill="#9F1239">&#x2717; Local caching, session storage, user preferences</text>
+  <text x="70" y="706" font-size="11" fill="#9F1239">&#x2717; Deployment infrastructure &amp; CI/CD pipelines</text>
+
+  <!-- ====== MIRROR METADATA ====== -->
+  <rect x="510" y="610" width="450" height="100" rx="8" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.5"/>
+  <text x="735" y="635" text-anchor="middle" font-size="13" fill="#6D28D9" font-weight="bold">Mirror Metadata</text>
+  <text x="530" y="655" font-size="11" fill="#4C1D95">Mirror ID: gcp-shop-drawing-001</text>
+  <text x="530" y="672" font-size="11" fill="#4C1D95">Chartered: 2025-06-15 | Active since: 2025-08-01</text>
+  <text x="530" y="689" font-size="11" fill="#4C1D95">Transfer Class: WHITE_LABELABLE</text>
+  <text x="530" y="706" font-size="11" fill="#4C1D95">Drift alerts: 1 active (artifact_manifest)</text>
+
+  <!-- Legend -->
+  <rect x="50" y="730" width="900" height="40" rx="6" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="70" y="742" width="12" height="12" rx="3" fill="#0D9488"/>
+  <text x="90" y="753" font-size="11" fill="#374151">Slice</text>
+  <rect x="140" y="742" width="12" height="12" rx="3" fill="#38BDF8"/>
+  <text x="160" y="753" font-size="11" fill="#374151">Reflection</text>
+  <text x="240" y="753" font-size="11" fill="#059669" font-weight="600">[P] = Parity OK</text>
+  <text x="370" y="753" font-size="11" fill="#F59E0B" font-weight="600">[D] = Drift Detected</text>
+  <rect x="520" y="740" width="16" height="16" rx="2" fill="none" stroke="#DC2626" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="545" y="753" font-size="11" fill="#374151">Shield Boundary</text>
+  <rect x="660" y="742" width="12" height="12" rx="3" fill="#7C3AED"/>
+  <text x="680" y="753" font-size="11" fill="#374151">Nucleus Control</text>
+</svg>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>Mirror Architecture Blueprint &mdash; Construction OS</p>
+  <p><em>Connected by mirrors, never hard-wired. Sold by capability, detachable by design. Cooperate without entanglement.</em></p>
+</footer>
+
+</body>
+</html>

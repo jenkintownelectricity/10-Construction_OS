@@ -1,0 +1,142 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Fixture 003: Panel Compliance Check (Conditionally Compliant)
+# Slice: rules_engine
+#
+# A test fixture for a curtain wall panel with a waived rule, producing
+# a "conditionally_compliant" verdict.
+##############################################################################
+
+fixture:
+  id: "FIXTURE-RE-003"
+  name: "Panel Compliance Check — Curtain Wall (Conditionally Compliant)"
+  description: >
+    Evaluates a 5'-0" x 10'-0" curtain wall panel with aluminum framing.
+    The panel fails thermal break continuity but has an approved waiver,
+    resulting in a conditionally compliant verdict. Exercises the waiver
+    mechanism and architectural discipline rule paths.
+  slice: rules_engine
+  created: "2026-03-20"
+  status: active
+
+input_detail:
+  detail_id: "DET-ARCH-00000112"
+  canonical_version: "1.0.0"
+  project_ref:
+    project_id: "COS-PRJ-2026-0042"
+    project_name: "Harbor Tower 2026"
+    phase: "shop_drawing"
+  discipline: "architectural"
+  element_type:
+    primary_type: "panel"
+    subtype: "curtain_wall"
+    designation: "CW-TYPE-A"
+  geometry:
+    profile:
+      shape: "rectangular"
+      depth_in: 4.5
+      width_in: 60.0
+    length_in: 120.0
+  material:
+    category: "aluminum"
+    specification: "AA 6063"
+    grade: "Temper T6"
+    finish: "Anodized Class I, Clear"
+  dimensions:
+    unit_system: "imperial"
+    primary_dimensions:
+      - label: "Panel Width"
+        value: 60.0
+        unit: "in"
+        tolerance_plus: 0.0625
+        tolerance_minus: 0.0625
+        critical: true
+      - label: "Panel Height"
+        value: 120.0
+        unit: "in"
+        tolerance_plus: 0.0625
+        tolerance_minus: 0.0625
+        critical: true
+      - label: "Glass Thickness"
+        value: 1.0
+        unit: "in"
+        critical: true
+  connections:
+    - connection_id: "C-TP-001"
+      location: "top"
+      type: "fixed"
+      connected_to: "DET-STRC-B15"
+    - connection_id: "C-BT-001"
+      location: "bottom"
+      type: "pinned"
+      connected_to: "DET-STRC-B12"
+  revisions:
+    - revision_id: "R1"
+      date: "2026-01-30"
+      description: "Initial curtain wall panel submission"
+      author: "LChen"
+      delta_type: "full_redesign"
+    - revision_id: "R2"
+      date: "2026-02-20"
+      description: "Updated glass specification per thermal analysis"
+      author: "LChen"
+      delta_type: "material_change"
+  normalization_metadata:
+    source_system: "gcp_shopdrawing"
+    source_record_id: "GCP-SD-000000003456"
+    normalized_at: "2026-03-05T16:00:00Z"
+    contract_version: "1.0.0"
+
+rule_set_selector:
+  project_id: "COS-PRJ-2026-0042"
+  jurisdiction_code: "IBC-2021"
+  discipline_code: architectural
+  rule_tags: [envelope, thermal]
+  override_waivers:
+    - rule_id: "CCR-THRM-001"
+      waiver_id: "WVR-2026-0042-003"
+      reason: "Thermal break exception approved per energy model."
+      approved_by: "RThompson, PE"
+      expiry_date: "2026-12-31"
+
+expected_output:
+  evaluation_id: "EVAL-000000000103"
+  detail_id: "DET-ARCH-00000112"
+  overall_verdict: "conditionally_compliant"
+  summary:
+    total_evaluated: 4
+    passed: 3
+    failed: 0
+    warnings: 1
+    not_evaluable: 0
+    critical_failures: 0
+    evaluation_duration_ms: 38
+  rule_results:
+    - rule_id: "CCR-DIM-003"
+      status: "passed"
+      message: "Panel fabrication tolerances within 1/16 inch limit."
+    - rule_id: "CCR-DOC-001"
+      status: "passed"
+      message: "Revision history contains 2 entries."
+    - rule_id: "CCR-DOC-002"
+      status: "passed"
+      message: "Fabrication designation CW-TYPE-A is assigned."
+    - rule_id: "CCR-THRM-001"
+      status: "warning"
+      message: "Thermal break continuity waived per WVR-2026-0042-003."
+  waivers_applied:
+    - rule_id: "CCR-THRM-001"
+      waiver_id: "WVR-2026-0042-003"
+      approved_by: "RThompson, PE"
+      expiry_date: "2026-12-31"
+
+assertions:
+  - assert: value_equals
+    path: "$.overall_verdict"
+    expected: "conditionally_compliant"
+  - assert: value_equals
+    path: "$.summary.failed"
+    expected: 0
+  - assert: array_length
+    path: "$.waivers_applied"
+    expected: 1

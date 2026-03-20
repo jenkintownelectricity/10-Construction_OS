@@ -1,0 +1,148 @@
+# ============================================================================
+# CAPABILITY SLICE DEFINITION — ARTIFACT GENERATION
+# Command C: Capability Slice Architecture
+# Kernel: KERN-INTEGRATION-MIRROR-NUCLEUS
+# ============================================================================
+# This slice produces derived artifacts from validated and normalized data,
+# including formatted review documents, comparison overlays, compliance
+# certificates, and transmittal packages.
+# ============================================================================
+
+slice_id: artifact_generation
+name: "Artifact Generation & Document Production"
+version: "1.0.0"
+
+purpose: |
+  The artifact_generation slice produces derived artifacts from the outputs
+  of upstream slices. It takes normalized details, rule evaluation results,
+  and validation verdicts and transforms them into human-consumable and
+  machine-consumable documents. Generated artifacts include formatted review
+  comment sheets, side-by-side comparison overlays between submission
+  revisions, compliance summary certificates, deficiency correction
+  directives, transmittal cover letters, approval stamps and signatures,
+  and archival packages. In construction workflows, this means generating
+  the actual documents that get sent back to contractors — the marked-up
+  drawings, the review action letters, the approval stamps that get applied
+  to accepted sheets. The slice supports configurable output templates
+  so that generated documents match the project's or firm's branding,
+  formatting standards, and distribution requirements.
+
+status:
+  gcp_shopdrawing: STAGED
+  default: STAGED
+
+# ---------------------------------------------------------------------------
+# DATA CONTRACTS
+# ---------------------------------------------------------------------------
+
+inputs:
+  - name: canonical_details
+    description: "Normalized details from the detail_normalization slice"
+    format: canonical_detail
+    required: true
+
+  - name: validation_verdicts
+    description: "Validation results from the validation slice"
+    format: verdict_record
+    required: true
+
+  - name: rule_evaluation_results
+    description: "Detailed rule results from the rules_engine for inclusion in reports"
+    format: evaluation_record
+    required: false
+
+  - name: output_templates
+    description: "Document templates for each artifact type (review letters, stamps, transmittals)"
+    format: template_bundle
+    required: true
+
+  - name: project_branding_config
+    description: "Logo, header/footer, font, and layout configuration for output documents"
+    format: configuration
+    required: false
+
+  - name: review_comments
+    description: "Human reviewer comments to be incorporated into generated documents"
+    format: comment_set
+    required: false
+
+  - name: signature_authorities
+    description: "Digital signature credentials for authorized signers"
+    format: credential_reference
+    required: false
+
+outputs:
+  - name: review_documents
+    description: "Formatted review comment sheets and action letters"
+    format: pdf_document
+    retention: "project_lifetime"
+
+  - name: comparison_overlays
+    description: "Visual comparison overlays between submission revisions"
+    format: overlay_image
+    retention: "project_lifetime"
+
+  - name: compliance_certificates
+    description: "Formal compliance summary certificates for approved submissions"
+    format: pdf_document
+    retention: "project_lifetime"
+
+  - name: transmittal_packages
+    description: "Complete transmittal packages ready for distribution"
+    format: package_bundle
+    retention: "project_lifetime"
+
+  - name: approval_stamps
+    description: "Digital approval stamps applied to accepted drawing sheets"
+    format: stamp_overlay
+    retention: "project_lifetime"
+
+  - name: archival_packages
+    description: "Long-term archival packages with all artifacts and metadata"
+    format: archive_bundle
+    retention: permanent
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY GRAPH
+# ---------------------------------------------------------------------------
+
+required_dependencies:
+  - detail_normalization
+  - validation
+  - artifact_manifest
+
+optional_dependencies:
+  - rules_engine
+  - review_support
+  - lineage
+
+# ---------------------------------------------------------------------------
+# CLASSIFICATION & TRANSFER
+# ---------------------------------------------------------------------------
+
+trust_class: MIRROR_REFLECTED
+transfer_class: WHITE_LABELABLE
+detachability_level: FULLY_DETACHABLE
+
+# ---------------------------------------------------------------------------
+# PARITY & PROMOTION
+# ---------------------------------------------------------------------------
+
+parity_eligibility: true
+promotion_eligibility: true
+classification: CORE_PROMOTABLE
+
+# ---------------------------------------------------------------------------
+# OPERATIONAL NOTES
+# ---------------------------------------------------------------------------
+
+operational_notes: |
+  Artifact generation is STAGED in the GCP shop drawing mirror because
+  the initial deployment focuses on normalization, rule evaluation, and
+  validation. Document generation will be activated once the upstream
+  pipeline is stabilized and output templates have been configured for
+  the project's formatting requirements. This slice is FULLY_DETACHABLE
+  and WHITE_LABELABLE — document generation is inherently customizable
+  and can operate independently with appropriate templates. It is
+  CORE_PROMOTABLE because template improvements and generation logic
+  refinements can be generalized to benefit all mirrors.

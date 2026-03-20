@@ -1,0 +1,201 @@
+# =============================================================================
+# GCP Shop Drawing Mirror — Machine-Readable Manifest
+# =============================================================================
+# This manifest is the authoritative machine-readable definition of the
+# gcp_shopdrawing mirror instance. All tooling, validation, and automation
+# MUST reference this file as the source of truth for mirror metadata.
+#
+# Doctrine: Connected by mirrors, never hard-wired.
+#           Sold by capability, detachable by design.
+#           Cooperate without entanglement.
+# =============================================================================
+
+mirror_id: gcp_shopdrawing
+mirror_name: "GCP Shop Drawing Mirror"
+mirror_type: capability_reflection
+version: 1.0.0
+created_at: "2026-03-20"
+updated_at: "2026-03-20"
+owner: construction_os_platform_team
+
+# -----------------------------------------------------------------------------
+# Source System
+# -----------------------------------------------------------------------------
+source_system:
+  id: gcp
+  name: "GCP (General Contractor Platform)"
+  type: external_platform
+  domain: construction_management
+  subdomain: shop_drawing_management
+  integration_pattern: schema_mediated_reflection
+  connection_type: mirror  # Never "direct" or "hard-wired"
+
+# -----------------------------------------------------------------------------
+# Lifecycle
+# -----------------------------------------------------------------------------
+lifecycle_state: STAGED
+# STAGED means the mirror is defined and partially activated.
+# Individual slices may be ACTIVE within a STAGED mirror.
+# The mirror moves to ACTIVE when all required slices pass validation.
+lifecycle_transitions:
+  - from: DRAFTED
+    to: STAGED
+    date: "2026-03-20"
+    reason: "Initial mirror creation with 5 active slices"
+
+# -----------------------------------------------------------------------------
+# Trust Boundary
+# -----------------------------------------------------------------------------
+trust_boundary: gcp_shopdrawing_boundary
+trust_boundary_config:
+  ingress_format: gcp_native
+  egress_format: construction_os_canonical
+  schema_mediation: required
+  direct_passthrough: forbidden
+  audit_logging: enabled
+  validation_on_crossing: mandatory
+
+# -----------------------------------------------------------------------------
+# Enabled Slices (ACTIVE)
+# -----------------------------------------------------------------------------
+enabled_slices:
+  - slice_id: detail_normalization
+    status: ACTIVE
+    activated_at: "2026-03-20"
+    description: >
+      Normalizes shop drawing detail conventions across trades into a
+      canonical Construction OS format. Handles structural steel details,
+      mechanical equipment schedules, electrical panel schedules, plumbing
+      riser diagrams, and fire protection layout details.
+    parity_target: 0.95
+    drift_tolerance: 0.05
+
+  - slice_id: rules_engine
+    status: ACTIVE
+    activated_at: "2026-03-20"
+    description: >
+      Reflects GCP's shop drawing validation rules as declarative rule sets.
+      Rules are expressed in a vendor-neutral format consumable by any
+      validation engine within Construction OS.
+    parity_target: 0.90
+    drift_tolerance: 0.08
+
+  - slice_id: validation
+    status: ACTIVE
+    activated_at: "2026-03-20"
+    description: >
+      Provides validation results and conformance reports for shop drawing
+      submissions. Validates against reflected rules, contract document
+      references, and code compliance requirements.
+    parity_target: 0.92
+    drift_tolerance: 0.06
+
+  - slice_id: artifact_manifest
+    status: ACTIVE
+    activated_at: "2026-03-20"
+    description: >
+      Tracks the inventory of shop drawing artifacts including drawing files,
+      supporting calculations, material certifications, and product data
+      sheets. Maintains format metadata, version history, and release state.
+    parity_target: 0.95
+    drift_tolerance: 0.04
+
+  - slice_id: lineage
+    status: ACTIVE
+    activated_at: "2026-03-20"
+    description: >
+      Maintains the full revision history and approval chain for every shop
+      drawing through its lifecycle from initial submission through approval,
+      revision, and final release to fabrication.
+    parity_target: 0.98
+    drift_tolerance: 0.02
+
+# -----------------------------------------------------------------------------
+# Staged Slices (NOT YET ACTIVE)
+# -----------------------------------------------------------------------------
+staged_slices:
+  - slice_id: approval_workflow
+    status: STAGED
+    description: "Multi-party approval process reflection"
+    activation_blockers:
+      - "Approval state machine mapping not yet complete"
+      - "Cross-party notification schema pending"
+
+  - slice_id: rfi_linkage
+    status: STAGED
+    description: "RFI-to-shop-drawing linkage reflection"
+    activation_blockers:
+      - "RFI mirror not yet instantiated"
+
+  - slice_id: clash_detection
+    status: STAGED
+    description: "Spatial clash detection results reflection"
+    activation_blockers:
+      - "3D geometry normalization schema pending"
+
+  - slice_id: submittal_packaging
+    status: STAGED
+    description: "Formal submittal packaging reflection"
+    activation_blockers:
+      - "Transmittal format standardization in progress"
+
+  - slice_id: trade_coordination
+    status: STAGED
+    description: "Cross-trade coordination status reflection"
+    activation_blockers:
+      - "Trade taxonomy alignment pending"
+
+  - slice_id: fabrication_release
+    status: STAGED
+    description: "Release-to-fabrication state tracking"
+    activation_blockers:
+      - "Fabrication release gate criteria not yet defined"
+
+  - slice_id: markup_capture
+    status: STAGED
+    description: "Format-neutral markup and annotation capture"
+    activation_blockers:
+      - "Markup normalization schema in development"
+
+  - slice_id: schedule_linkage
+    status: STAGED
+    description: "Schedule activity linkage for shop drawing milestones"
+    activation_blockers:
+      - "Schedule mirror not yet instantiated"
+
+# -----------------------------------------------------------------------------
+# Compatibility
+# -----------------------------------------------------------------------------
+compatibility:
+  kernel_version_min: "0.6.0"
+  kernel_version_max: "1.x"
+  required_kernel_capabilities:
+    - mirror_framework
+    - trust_boundary_enforcement
+    - schema_mediation
+    - drift_detection
+    - parity_verification
+
+# -----------------------------------------------------------------------------
+# Operational Metadata
+# -----------------------------------------------------------------------------
+operational:
+  sync_interval: "15m"
+  sync_mode: schema_mediated
+  health_check_interval: "5m"
+  alert_channels:
+    - construction_os_platform_alerts
+  drift_check_interval: "1h"
+  parity_check_interval: "6h"
+  max_acceptable_drift: 0.10
+  breakaway_armed: false
+
+# -----------------------------------------------------------------------------
+# Tags
+# -----------------------------------------------------------------------------
+tags:
+  - first_mirror_instance
+  - shop_drawings
+  - gcp
+  - capability_reflection
+  - construction_documents

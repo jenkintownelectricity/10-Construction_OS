@@ -1,0 +1,125 @@
+# ============================================================================
+# CAPABILITY SLICE DEFINITION — REGISTRY
+# Command C: Capability Slice Architecture
+# Kernel: KERN-INTEGRATION-MIRROR-NUCLEUS
+# ============================================================================
+# This slice tracks mirror and slice lifecycle state changes, maintaining the
+# authoritative record of what exists, what is active, and what has been
+# decommissioned across the integration mirror ecosystem.
+# ============================================================================
+
+slice_id: registry
+name: "Mirror & Slice Lifecycle Registry"
+version: "1.0.0"
+
+purpose: |
+  The registry slice maintains the authoritative catalog of all integration
+  mirrors, their constituent capability slices, and the lifecycle state of
+  each entity. It records when mirrors are instantiated, which slices are
+  activated within them, version histories of slice definitions, and the
+  complete state transition log for every managed object. In a construction
+  platform context, the registry tracks which project mirrors exist (e.g.,
+  a GCP shop drawing mirror for Project Alpha), which capabilities are
+  enabled for each project, and how those capabilities have evolved over
+  the project lifecycle. The registry is the single source of truth for
+  answering "what mirrors exist, what can they do, and what state are they
+  in right now."
+
+status:
+  gcp_shopdrawing: STAGED
+  default: STAGED
+
+# ---------------------------------------------------------------------------
+# DATA CONTRACTS
+# ---------------------------------------------------------------------------
+
+inputs:
+  - name: mirror_registration_events
+    description: "Events signaling the creation, modification, or removal of mirrors"
+    format: event_stream
+    required: true
+
+  - name: slice_state_transitions
+    description: "State changes for individual slices (STAGED, ACTIVE, SUSPENDED, RETIRED)"
+    format: event_stream
+    required: true
+
+  - name: version_manifest_updates
+    description: "Updated version manifests when slice definitions change"
+    format: yaml_bundle
+    required: true
+
+  - name: health_check_results
+    description: "Periodic health and readiness checks from active slices"
+    format: structured_record
+    required: false
+
+  - name: external_catalog_sync
+    description: "Synchronization data from external service catalogs or CI/CD pipelines"
+    format: structured_record
+    required: false
+
+outputs:
+  - name: mirror_catalog
+    description: "Complete catalog of all registered mirrors with current state and metadata"
+    format: structured_record
+    retention: permanent
+
+  - name: slice_inventory
+    description: "Per-mirror inventory of all slices with activation status and version"
+    format: structured_record
+    retention: permanent
+
+  - name: state_transition_log
+    description: "Append-only log of every state transition for mirrors and slices"
+    format: append_only_log
+    retention: permanent
+
+  - name: registry_snapshots
+    description: "Point-in-time snapshots of the full registry for disaster recovery"
+    format: snapshot_archive
+    retention: "365_days"
+
+  - name: dependency_graph
+    description: "Computed dependency graph showing inter-slice relationships per mirror"
+    format: directed_graph
+    retention: current_state
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY GRAPH
+# ---------------------------------------------------------------------------
+
+required_dependencies: []
+
+optional_dependencies:
+  - governance
+
+# ---------------------------------------------------------------------------
+# CLASSIFICATION & TRANSFER
+# ---------------------------------------------------------------------------
+
+trust_class: CORE_OWNED
+transfer_class: NON_TRANSFERABLE
+detachability_level: NON_DETACHABLE
+
+# ---------------------------------------------------------------------------
+# PARITY & PROMOTION
+# ---------------------------------------------------------------------------
+
+parity_eligibility: false
+promotion_eligibility: false
+classification: MIRROR_ONLY
+
+# ---------------------------------------------------------------------------
+# OPERATIONAL NOTES
+# ---------------------------------------------------------------------------
+
+operational_notes: |
+  The registry slice has no required dependencies because it must be
+  available during kernel bootstrap before other slices are initialized.
+  Governance is an optional dependency — when present, the registry defers
+  to governance for permission checks on registration operations. When
+  governance is absent (e.g., during cold start), the registry operates
+  in permissive mode and logs all operations for retroactive audit. The
+  registry is NON_TRANSFERABLE because it contains the structural metadata
+  of the entire kernel and cannot be meaningfully separated.

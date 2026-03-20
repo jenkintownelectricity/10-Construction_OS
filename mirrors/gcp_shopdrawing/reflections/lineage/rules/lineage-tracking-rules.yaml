@@ -1,0 +1,45 @@
+lineage_tracking_rules:
+  version: "1.0.0"
+  mirror: gcp_shopdrawing
+  slice: lineage
+
+  rules:
+    - rule_id: LTR-001
+      name: "Immutable Records"
+      description: "Once created, lineage records cannot be modified or deleted. Corrections are new CORRECTED/SUPERSEDED records."
+      enforcement: MANDATORY
+
+    - rule_id: LTR-002
+      name: "Connected Chains"
+      description: "Every record (except origin) must reference a valid parent_record_id. No orphan records."
+      enforcement: MANDATORY
+
+    - rule_id: LTR-003
+      name: "Actor Attribution"
+      description: "Every record must identify the actor. Anonymous actions are forbidden."
+      enforcement: MANDATORY
+
+    - rule_id: LTR-004
+      name: "Timestamp Accuracy"
+      description: "Timestamps must be UTC ISO 8601 and within reasonable bounds."
+      enforcement: MANDATORY
+
+    - rule_id: LTR-005
+      name: "Chain Integrity Verification"
+      description: "Chain integrity hash must be recomputable from ordered records."
+      enforcement: MANDATORY
+
+    - rule_id: LTR-006
+      name: "Cross-System Lineage"
+      description: "Boundary crossings must record source system identity and transformation."
+      enforcement: MANDATORY
+
+    - rule_id: LTR-007
+      name: "Hash Preservation"
+      description: "Input and output hashes should be recorded for transformation actions."
+      enforcement: RECOMMENDED
+
+    - rule_id: LTR-008
+      name: "Append-Only Storage"
+      description: "Lineage store is append-only. No DELETE or UPDATE operations permitted."
+      enforcement: MANDATORY

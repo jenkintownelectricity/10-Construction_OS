@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mirror-drift-record.schema.json",
+  "title": "Mirror Drift Record",
+  "description": "Schema for recording drift events between source and mirror systems.",
+  "type": "object",
+  "required": ["record_id", "mirror_id", "source_id", "severity", "category", "description", "recorded_at"],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "pattern": "^drift-[a-f0-9]{12}$",
+      "description": "Unique identifier for this drift record."
+    },
+    "mirror_id": {
+      "type": "string",
+      "description": "Identifier of the mirror exhibiting drift."
+    },
+    "source_id": {
+      "type": "string",
+      "description": "Identifier of the source system."
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"],
+      "description": "Drift severity classification."
+    },
+    "category": {
+      "type": "string",
+      "enum": ["schema", "behavior", "output", "timing", "configuration"],
+      "description": "Category of drift."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the drift."
+    },
+    "deviation": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "default": 0.0,
+      "description": "Numeric deviation score."
+    },
+    "source_value": {
+      "description": "The expected value from the source."
+    },
+    "mirror_value": {
+      "description": "The observed value from the mirror."
+    },
+    "fixture_id": {
+      "type": ["string", "null"],
+      "default": null,
+      "description": "Associated parity fixture ID, if applicable."
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the drift was recorded."
+    },
+    "resolved": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this drift has been resolved."
+    },
+    "resolved_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "default": null,
+      "description": "ISO 8601 timestamp of resolution."
+    }
+  },
+  "additionalProperties": false
+}

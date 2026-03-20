@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-os.dev/schemas/gcp-mirror/validation-result.schema.json",
+  "title": "Validation Result",
+  "description": "Schema for the result of validating a shop drawing submission package. Contains per-record validation outcomes, deficiency citations, and an overall disposition.",
+  "type": "object",
+  "required": [
+    "validation_id",
+    "submission_id",
+    "validated_at",
+    "context",
+    "summary",
+    "record_results"
+  ],
+  "properties": {
+    "validation_id": {
+      "type": "string",
+      "pattern": "^VALD-[0-9]{14}-[A-Z0-9]{6}$",
+      "description": "Unique validation run identifier. Format: VALD-{timestamp}-{random}."
+    },
+    "submission_id": {
+      "type": "string",
+      "description": "The submission ID that was validated."
+    },
+    "validated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the validation run."
+    },
+    "context": {
+      "type": "object",
+      "required": ["project_id", "expected_schema_version"],
+      "properties": {
+        "project_id": { "type": "string" },
+        "expected_schema_version": { "type": "string" },
+        "strict_mode": { "type": "boolean" },
+        "bypassed_rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "rule_id": { "type": "string" },
+              "justification": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "total_records",
+        "records_valid",
+        "records_invalid",
+        "records_warning",
+        "disposition",
+        "deficiency_count"
+      ],
+      "properties": {
+        "total_records": { "type": "integer", "minimum": 0 },
+        "records_valid": { "type": "integer", "minimum": 0 },
+        "records_invalid": { "type": "integer", "minimum": 0 },
+        "records_warning": { "type": "integer", "minimum": 0 },
+        "disposition": {
+          "type": "string",
+          "enum": ["accepted", "rejected", "accepted_with_conditions"]
+        },
+        "deficiency_count": { "type": "integer", "minimum": 0 },
+        "blocking_deficiencies": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "validation_duration_ms": { "type": "integer" }
+      }
+    },
+    "record_results": {
+      "type": "array",
+      "description": "Per-record validation outcomes.",
+      "items": {
+        "type": "object",
+        "required": ["gcp_record_id", "status", "checks"],
+        "properties": {
+          "gcp_record_id": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["valid", "invalid", "valid_with_warnings"]
+          },
+          "checks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["rule_id", "status"],
+              "properties": {
+                "rule_id": { "type": "string" },
+                "rule_name": { "type": "string" },
+                "status": {
+                  "type": "string",
+                  "enum": ["passed", "failed", "warning", "skipped"]
+                },
+                "severity": {
+                  "type": "string",
+                  "enum": ["error", "warning", "info"]
+                },
+                "field_path": { "type": "string" },
+                "message": { "type": "string" },
+                "deficiency_code": { "type": "string" }
+              }
+            }
+          },
+          "deficiencies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "deficiency_code": { "type": "string" },
+                "description": { "type": "string" },
+                "field_path": { "type": "string" },
+                "corrective_instruction": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "cross_reference_results": {
+      "type": "object",
+      "properties": {
+        "total_references_checked": { "type": "integer" },
+        "references_resolved": { "type": "integer" },
+        "references_broken": { "type": "integer" },
+        "broken_references": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source_record_id": { "type": "string" },
+              "reference_field": { "type": "string" },
+              "referenced_mark": { "type": "string" },
+              "resolution_status": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "lineage": {
+      "type": "object",
+      "properties": {
+        "submission_hash": { "type": "string" },
+        "result_hash": { "type": "string" },
+        "engine_version": { "type": "string" },
+        "contract_version": { "type": "string" }
+      }
+    }
+  },
+  "additionalProperties": false
+}

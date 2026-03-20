@@ -1,0 +1,525 @@
+# Reflection Inventory: GCP Shop Drawing Mirror
+# Tracks all reflections across all slices with their current statuses.
+#
+# Status values:
+#   ACTIVE       - Reflection is live, syncing, and contract-validated
+#   DRAFT        - Reflection exists but has not passed contract validation
+#   STALE        - Reflection has not been updated within its freshness window
+#   DEPRECATED   - Reflection is marked for removal (90-day grace period)
+#   FROZEN       - Reflection is locked for promotion extraction
+#   PENDING      - Staged slice; reflection structure defined but not yet populated
+#
+# Last updated: 2026-03-20
+# Inventory version: 1.0.0
+
+mirror_id: gcp_shopdrawing
+inventory_timestamp: "2026-03-20T08:00:00Z"
+kernel_level: "L0.6"
+total_slices: 15
+active_slices: 5
+staged_slices: 10
+
+# =============================================================================
+# ACTIVE SLICES
+# =============================================================================
+
+active_slice_reflections:
+
+  detail_normalization:
+    status: ACTIVE
+    activation_date: "2025-09-15"
+    last_sync: "2026-03-19T06:12:44Z"
+    drift_score: 0.02
+    contract_pass_rate: 100.0
+    reflections:
+      - id: "dn-schema-normalized-detail"
+        name: "Normalized Detail Schema"
+        type: schema
+        path: "reflections/detail_normalization/schemas/normalized-detail.schema.json"
+        status: ACTIVE
+        version: "2.3.1"
+        created: "2025-09-15"
+        last_modified: "2026-03-10"
+        contract_validated: true
+        promotion_candidate: true
+        description: >
+          JSON Schema defining the normalized representation of a shop drawing
+          detail after transformation from GCP native format. Covers geometry
+          metadata, material specifications, dimensional annotations, and
+          cross-reference identifiers.
+
+      - id: "dn-schema-source-format"
+        name: "Source Detail Format Schema"
+        type: schema
+        path: "reflections/detail_normalization/schemas/source-detail-format.schema.json"
+        status: ACTIVE
+        version: "1.8.0"
+        created: "2025-09-15"
+        last_modified: "2026-02-28"
+        contract_validated: true
+        promotion_candidate: false
+        description: >
+          JSON Schema describing the expected format of detail data as received
+          from GCP API. This is an observation schema documenting what GCP
+          sends, not what we require.
+
+      - id: "dn-rules-normalization"
+        name: "Normalization Rule Set"
+        type: rules
+        path: "reflections/detail_normalization/rules/normalization-rules.yaml"
+        status: ACTIVE
+        version: "3.1.0"
+        created: "2025-09-20"
+        last_modified: "2026-03-15"
+        contract_validated: true
+        promotion_candidate: true
+        description: >
+          Rule set governing the transformation of GCP source details into
+          normalized form. Includes field mapping rules, type coercion rules,
+          default value injection, and cross-reference resolution.
+
+      - id: "dn-contract-main"
+        name: "Detail Normalization Contract"
+        type: contract
+        path: "reflections/detail_normalization/contracts/detail-normalization-contract.yaml"
+        status: ACTIVE
+        version: "2.0.0"
+        created: "2025-09-15"
+        last_modified: "2026-01-20"
+        contract_validated: true
+        promotion_candidate: false
+        description: >
+          The governing contract for the detail normalization slice. Defines
+          input expectations, output guarantees, validation requirements, and
+          error handling behavior.
+
+      - id: "dn-fixture-001"
+        name: "Steel Beam Detail Fixture"
+        type: fixture
+        path: "reflections/detail_normalization/fixtures/fixture-001-steel-beam-detail.yaml"
+        status: ACTIVE
+        version: "1.2.0"
+        created: "2025-10-01"
+        last_modified: "2026-02-10"
+        contract_validated: true
+        promotion_candidate: false
+        description: "Test fixture: W14x30 steel beam detail with full annotations."
+
+      - id: "dn-fixture-002"
+        name: "Concrete Column Detail Fixture"
+        type: fixture
+        path: "reflections/detail_normalization/fixtures/fixture-002-concrete-column-detail.yaml"
+        status: ACTIVE
+        version: "1.1.0"
+        created: "2025-10-05"
+        last_modified: "2026-01-15"
+        contract_validated: true
+        promotion_candidate: false
+        description: "Test fixture: 24x24 concrete column detail with rebar schedule."
+
+      - id: "dn-fixture-003"
+        name: "Curtain Wall Panel Detail Fixture"
+        type: fixture
+        path: "reflections/detail_normalization/fixtures/fixture-003-curtain-wall-panel-detail.yaml"
+        status: ACTIVE
+        version: "1.0.0"
+        created: "2025-11-12"
+        last_modified: "2025-11-12"
+        contract_validated: true
+        promotion_candidate: false
+        description: "Test fixture: Curtain wall panel detail with thermal break specs."
+
+  rules_engine:
+    status: ACTIVE
+    activation_date: "2025-10-01"
+    last_sync: "2026-03-19T06:13:01Z"
+    drift_score: 0.03
+    contract_pass_rate: 100.0
+    reflections:
+      - id: "re-schema-rule-definition"
+        name: "Rule Definition Schema"
+        type: schema
+        status: ACTIVE
+        version: "2.0.0"
+        created: "2025-10-01"
+        last_modified: "2026-03-01"
+        contract_validated: true
+        promotion_candidate: false
+        description: >
+          Schema defining the structure of a business rule within the GCP
+          shop drawing context. Covers rule triggers, conditions, actions,
+          severity classifications, and exception handling.
+
+      - id: "re-schema-rule-result"
+        name: "Rule Execution Result Schema"
+        type: schema
+        status: ACTIVE
+        version: "1.5.0"
+        created: "2025-10-01"
+        last_modified: "2026-02-20"
+        contract_validated: true
+        promotion_candidate: false
+        description: >
+          Schema for the structured output of rule execution, including
+          pass/fail status, violation details, and remediation suggestions.
+
+      - id: "re-rules-structural"
+        name: "Structural Integrity Rules"
+        type: rules
+        status: ACTIVE
+        version: "2.2.0"
+        created: "2025-10-10"
+        last_modified: "2026-03-12"
+        contract_validated: true
+        promotion_candidate: false
+        description: >
+          Rules governing structural integrity checks on shop drawing details:
+          member sizing validation, connection adequacy, load path continuity.
+
+      - id: "re-rules-dimensional"
+        name: "Dimensional Compliance Rules"
+        type: rules
+        status: ACTIVE
+        version: "1.8.0"
+        created: "2025-10-15"
+        last_modified: "2026-03-05"
+        contract_validated: true
+        promotion_candidate: false
+        description: >
+          Rules for dimensional compliance: tolerance checks, clearance
+          verification, coordination with adjacent trades.
+
+      - id: "re-contract-main"
+        name: "Rules Engine Contract"
+        type: contract
+        status: ACTIVE
+        version: "1.3.0"
+        created: "2025-10-01"
+        last_modified: "2026-01-25"
+        contract_validated: true
+        promotion_candidate: false
+        description: "Governing contract for the rules engine slice."
+
+  validation:
+    status: ACTIVE
+    activation_date: "2025-10-15"
+    last_sync: "2026-03-19T06:13:18Z"
+    drift_score: 0.01
+    contract_pass_rate: 100.0
+    reflections:
+      - id: "val-schema-violation-report"
+        name: "Violation Report Schema"
+        type: schema
+        status: ACTIVE
+        version: "2.1.0"
+        created: "2025-10-15"
+        last_modified: "2026-03-08"
+        contract_validated: true
+        promotion_candidate: true
+        description: >
+          Schema for structured validation violation reports. Includes
+          violation severity, location reference, rule that triggered the
+          violation, and suggested remediation.
+
+      - id: "val-schema-validation-config"
+        name: "Validation Configuration Schema"
+        type: schema
+        status: ACTIVE
+        version: "1.4.0"
+        created: "2025-10-15"
+        last_modified: "2026-02-15"
+        contract_validated: true
+        promotion_candidate: true
+        description: >
+          Schema for configuring the validation framework: which rule sets
+          to apply, severity thresholds, short-circuit behavior, and
+          reporting format.
+
+      - id: "val-rules-completeness"
+        name: "Completeness Validation Rules"
+        type: rules
+        status: ACTIVE
+        version: "1.6.0"
+        created: "2025-11-01"
+        last_modified: "2026-03-10"
+        contract_validated: true
+        promotion_candidate: false
+        description: >
+          Rules that validate completeness of shop drawing submissions:
+          required fields present, cross-references resolved, attachments
+          accounted for.
+
+      - id: "val-contract-main"
+        name: "Validation Slice Contract"
+        type: contract
+        status: ACTIVE
+        version: "1.2.0"
+        created: "2025-10-15"
+        last_modified: "2026-01-30"
+        contract_validated: true
+        promotion_candidate: false
+        description: "Governing contract for the validation slice."
+
+  artifact_manifest:
+    status: ACTIVE
+    activation_date: "2025-11-01"
+    last_sync: "2026-03-19T06:13:35Z"
+    drift_score: 0.04
+    contract_pass_rate: 98.5
+    reflections:
+      - id: "am-schema-manifest-entry"
+        name: "Manifest Entry Schema"
+        type: schema
+        status: ACTIVE
+        version: "1.7.0"
+        created: "2025-11-01"
+        last_modified: "2026-03-05"
+        contract_validated: true
+        promotion_candidate: false
+        description: >
+          Schema for a single entry in the artifact manifest. Covers
+          artifact identifier, type classification, lifecycle state,
+          content hash, and relationship references.
+
+      - id: "am-schema-manifest-index"
+        name: "Manifest Index Schema"
+        type: schema
+        status: ACTIVE
+        version: "1.3.0"
+        created: "2025-11-01"
+        last_modified: "2026-02-20"
+        contract_validated: true
+        promotion_candidate: false
+        description: >
+          Schema for the manifest index: the top-level structure that
+          organizes all manifest entries by type, status, and slice.
+
+      - id: "am-rules-lifecycle"
+        name: "Artifact Lifecycle Rules"
+        type: rules
+        status: ACTIVE
+        version: "1.4.0"
+        created: "2025-11-10"
+        last_modified: "2026-03-01"
+        contract_validated: true
+        promotion_candidate: false
+        description: >
+          Rules governing artifact lifecycle transitions: creation,
+          activation, deprecation, archival. Includes state machine
+          definition and transition guards.
+
+      - id: "am-contract-main"
+        name: "Artifact Manifest Contract"
+        type: contract
+        status: DRAFT
+        version: "0.9.0"
+        created: "2025-11-01"
+        last_modified: "2026-03-18"
+        contract_validated: false
+        promotion_candidate: false
+        description: >
+          Governing contract for the artifact manifest slice.
+          Currently in draft pending resolution of state machine
+          edge cases in the deprecation-to-archival transition.
+
+  lineage:
+    status: ACTIVE
+    activation_date: "2025-12-01"
+    last_sync: "2026-03-19T06:13:52Z"
+    drift_score: 0.03
+    contract_pass_rate: 100.0
+    reflections:
+      - id: "lin-schema-lineage-node"
+        name: "Lineage Node Schema"
+        type: schema
+        status: ACTIVE
+        version: "1.2.0"
+        created: "2025-12-01"
+        last_modified: "2026-02-28"
+        contract_validated: true
+        promotion_candidate: false
+        description: >
+          Schema for a node in the lineage graph. Each node represents
+          an artifact at a specific version with references to its
+          parents (sources) and children (derivatives).
+
+      - id: "lin-schema-lineage-edge"
+        name: "Lineage Edge Schema"
+        type: schema
+        status: ACTIVE
+        version: "1.1.0"
+        created: "2025-12-01"
+        last_modified: "2026-02-15"
+        contract_validated: true
+        promotion_candidate: false
+        description: >
+          Schema for an edge in the lineage graph. Edges represent
+          transformation relationships between artifacts, including
+          the rule or process that produced the transformation.
+
+      - id: "lin-rules-provenance"
+        name: "Provenance Tracking Rules"
+        type: rules
+        status: ACTIVE
+        version: "1.3.0"
+        created: "2025-12-10"
+        last_modified: "2026-03-10"
+        contract_validated: true
+        promotion_candidate: false
+        description: >
+          Rules governing provenance tracking: when lineage edges must
+          be created, what metadata is required, and how to handle
+          lineage breaks (missing parent references).
+
+      - id: "lin-contract-main"
+        name: "Lineage Slice Contract"
+        type: contract
+        status: ACTIVE
+        version: "1.0.0"
+        created: "2025-12-01"
+        last_modified: "2026-01-15"
+        contract_validated: true
+        promotion_candidate: false
+        description: "Governing contract for the lineage slice."
+
+# =============================================================================
+# STAGED SLICES
+# =============================================================================
+
+staged_slice_reflections:
+
+  governance:
+    status: STAGED
+    planned_activation: "2026-Q2"
+    priority: 1
+    reflections:
+      - id: "gov-schema-access-policy"
+        name: "Access Policy Schema"
+        type: schema
+        status: PENDING
+        description: "Schema for mirror access control policies."
+      - id: "gov-schema-approval-workflow"
+        name: "Approval Workflow Schema"
+        type: schema
+        status: PENDING
+        description: "Schema for multi-step approval workflows."
+
+  registry:
+    status: STAGED
+    planned_activation: "2026-Q2"
+    priority: 2
+    reflections:
+      - id: "reg-schema-registry-entry"
+        name: "Registry Entry Schema"
+        type: schema
+        status: PENDING
+        description: "Schema for artifact registry entries."
+      - id: "reg-schema-naming-convention"
+        name: "Naming Convention Schema"
+        type: schema
+        status: PENDING
+        description: "Schema for enforced naming conventions."
+
+  receipt_audit:
+    status: STAGED
+    planned_activation: "2026-Q3"
+    priority: 3
+    reflections:
+      - id: "ra-schema-receipt-record"
+        name: "Receipt Record Schema"
+        type: schema
+        status: PENDING
+        description: "Schema for tracking receipt acknowledgments."
+
+  artifact_generation:
+    status: STAGED
+    planned_activation: "2026-Q3"
+    priority: 4
+    reflections:
+      - id: "ag-schema-generation-template"
+        name: "Generation Template Schema"
+        type: schema
+        status: PENDING
+        description: "Schema for artifact generation templates."
+
+  execution_orchestration:
+    status: STAGED
+    planned_activation: "2026-Q3"
+    priority: 5
+    reflections:
+      - id: "eo-schema-workflow-definition"
+        name: "Workflow Definition Schema"
+        type: schema
+        status: PENDING
+        description: "Schema for orchestrated workflow definitions."
+
+  review_support:
+    status: STAGED
+    planned_activation: "2026-Q4"
+    priority: 6
+    reflections:
+      - id: "rs-schema-review-cycle"
+        name: "Review Cycle Schema"
+        type: schema
+        status: PENDING
+        description: "Schema for structured review cycles."
+
+  delivery_packaging:
+    status: STAGED
+    planned_activation: "2026-Q4"
+    priority: 7
+    reflections:
+      - id: "dp-schema-package-manifest"
+        name: "Package Manifest Schema"
+        type: schema
+        status: PENDING
+        description: "Schema for delivery package manifests."
+
+  standards_mapping:
+    status: STAGED
+    planned_activation: "2026-Q4"
+    priority: 8
+    reflections:
+      - id: "sm-schema-standard-reference"
+        name: "Standard Reference Schema"
+        type: schema
+        status: PENDING
+        description: "Schema for mapping to industry standards (AISC, ACI, etc.)."
+
+  spec_ingestion:
+    status: STAGED
+    planned_activation: "2027-Q1"
+    priority: 9
+    reflections:
+      - id: "si-schema-spec-format"
+        name: "Specification Format Schema"
+        type: schema
+        status: PENDING
+        description: "Schema for ingested specification formats."
+
+  submittal_analysis:
+    status: STAGED
+    planned_activation: "2027-Q1"
+    priority: 10
+    reflections:
+      - id: "sa-schema-submittal-structure"
+        name: "Submittal Structure Schema"
+        type: schema
+        status: PENDING
+        description: "Schema for analyzed submittal structures."
+
+# =============================================================================
+# INVENTORY SUMMARY
+# =============================================================================
+
+summary:
+  total_reflections: 28
+  active_reflections: 22
+  draft_reflections: 1
+  pending_reflections: 12
+  stale_reflections: 0
+  deprecated_reflections: 0
+  frozen_reflections: 0
+  promotion_candidates: 4
+  contract_validated: 21
+  contract_pending: 1

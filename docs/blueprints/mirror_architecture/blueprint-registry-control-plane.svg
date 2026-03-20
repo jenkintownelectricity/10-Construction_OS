@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 800" width="1100" height="800">
+  <title>Mirror Architecture — Registry Control Plane</title>
+  <defs>
+    <marker id="rcArrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <marker id="rcArrowPurple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7C3AED"/>
+    </marker>
+    <style>
+      text { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
+      .title { font-size: 20px; font-weight: bold; fill: #1F2937; }
+      .subtitle { font-size: 13px; fill: #6B7280; font-style: italic; }
+      .state-label { font-size: 13px; fill: #FFFFFF; font-weight: 700; }
+      .state-desc { font-size: 10px; fill: #E5E7EB; }
+      .section-title { font-size: 15px; fill: #7C3AED; font-weight: bold; }
+      .cp-label { font-size: 12px; fill: #FFFFFF; font-weight: 600; }
+    </style>
+  </defs>
+
+  <rect width="1100" height="800" fill="#F9FAFB" rx="8"/>
+
+  <text x="550" y="35" text-anchor="middle" class="title">Registry Control Plane — Lifecycle State Machine</text>
+  <text x="550" y="55" text-anchor="middle" class="subtitle">Every mirror follows a governed lifecycle. The registry tracks every state transition.</text>
+
+  <!-- ====== STATE MACHINE (top half) ====== -->
+  <text x="550" y="90" text-anchor="middle" class="section-title">Mirror Lifecycle States</text>
+
+  <!-- State: PROPOSED -->
+  <circle cx="100" cy="170" r="42" fill="#6B7280" stroke="#4B5563" stroke-width="2"/>
+  <text x="100" y="168" text-anchor="middle" class="state-label">PROPOSED</text>
+  <text x="100" y="183" text-anchor="middle" class="state-desc">Scope review</text>
+
+  <!-- Arrow: PROPOSED -> CHARTERED -->
+  <line x1="142" y1="170" x2="218" y2="170" stroke="#374151" stroke-width="2.5" marker-end="url(#rcArrow)"/>
+  <text x="180" y="160" text-anchor="middle" font-size="10" fill="#6B7280">Approved</text>
+
+  <!-- State: CHARTERED -->
+  <circle cx="270" cy="170" r="42" fill="#7C3AED" stroke="#6D28D9" stroke-width="2"/>
+  <text x="270" y="168" text-anchor="middle" class="state-label">CHARTERED</text>
+  <text x="270" y="183" text-anchor="middle" class="state-desc">Slices defined</text>
+
+  <!-- Arrow: CHARTERED -> STAGED -->
+  <line x1="312" y1="170" x2="388" y2="170" stroke="#374151" stroke-width="2.5" marker-end="url(#rcArrow)"/>
+  <text x="350" y="160" text-anchor="middle" font-size="10" fill="#6B7280">Loaded</text>
+
+  <!-- State: STAGED -->
+  <circle cx="440" cy="170" r="42" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="440" y="168" text-anchor="middle" class="state-label">STAGED</text>
+  <text x="440" y="183" text-anchor="middle" class="state-desc">Parity testing</text>
+
+  <!-- Arrow: STAGED -> ACTIVE -->
+  <line x1="482" y1="170" x2="558" y2="170" stroke="#374151" stroke-width="2.5" marker-end="url(#rcArrow)"/>
+  <text x="520" y="160" text-anchor="middle" font-size="10" fill="#6B7280">Parity OK</text>
+
+  <!-- State: ACTIVE -->
+  <circle cx="610" cy="170" r="42" fill="#059669" stroke="#047857" stroke-width="3"/>
+  <text x="610" y="168" text-anchor="middle" class="state-label">ACTIVE</text>
+  <text x="610" y="183" text-anchor="middle" class="state-desc">Live &amp; monitored</text>
+
+  <!-- Arrow: ACTIVE -> FROZEN -->
+  <line x1="652" y1="170" x2="728" y2="170" stroke="#374151" stroke-width="2.5" marker-end="url(#rcArrow)"/>
+  <text x="690" y="160" text-anchor="middle" font-size="10" fill="#6B7280">Freeze</text>
+
+  <!-- State: FROZEN -->
+  <circle cx="780" cy="170" r="42" fill="#F59E0B" stroke="#D97706" stroke-width="2"/>
+  <text x="780" y="168" text-anchor="middle" font-size="13" fill="#1F2937" font-weight="700">FROZEN</text>
+  <text x="780" y="183" text-anchor="middle" font-size="10" fill="#451A03">Read-only</text>
+
+  <!-- Arrow: FROZEN -> RETIRED -->
+  <line x1="822" y1="170" x2="898" y2="170" stroke="#374151" stroke-width="2.5" marker-end="url(#rcArrow)"/>
+  <text x="860" y="160" text-anchor="middle" font-size="10" fill="#6B7280">Decommission</text>
+
+  <!-- State: RETIRED -->
+  <circle cx="950" cy="170" r="42" fill="#F43F5E" stroke="#DC2626" stroke-width="2"/>
+  <text x="950" y="168" text-anchor="middle" class="state-label">RETIRED</text>
+  <text x="950" y="183" text-anchor="middle" class="state-desc">Decommissioned</text>
+
+  <!-- Alternate path: ACTIVE -> RETIRED (direct) -->
+  <path d="M 640,205 Q 780,280 920,205" fill="none" stroke="#DC2626" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#rcArrow)"/>
+  <text x="780" y="260" text-anchor="middle" font-size="10" fill="#DC2626">Emergency retire</text>
+
+  <!-- Alternate path: STAGED back to CHARTERED (rejection) -->
+  <path d="M 410,205 Q 355,250 300,205" fill="none" stroke="#F59E0B" stroke-width="1.5" stroke-dasharray="6,4" marker-end="url(#rcArrow)"/>
+  <text x="355" y="240" text-anchor="middle" font-size="10" fill="#D97706">Parity fail</text>
+
+  <!-- ====== CONTROL PLANE (bottom half) ====== -->
+  <line x1="30" y1="300" x2="1070" y2="300" stroke="#E5E7EB" stroke-width="2"/>
+  <text x="550" y="330" text-anchor="middle" class="section-title">Control Plane Functions</text>
+
+  <!-- Slice Enablement -->
+  <rect x="40" y="355" width="180" height="100" rx="12" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="130" y="385" text-anchor="middle" class="cp-label">Slice Enablement</text>
+  <text x="130" y="405" text-anchor="middle" font-size="10" fill="#CCFBF1">Attach / detach slices</text>
+  <text x="130" y="420" text-anchor="middle" font-size="10" fill="#CCFBF1">per mirror instance.</text>
+  <text x="130" y="435" text-anchor="middle" font-size="10" fill="#CCFBF1">Independent toggles.</text>
+
+  <!-- Parity Reviews -->
+  <rect x="250" y="355" width="180" height="100" rx="12" fill="#2563EB" stroke="#1D4ED8" stroke-width="2"/>
+  <text x="340" y="385" text-anchor="middle" class="cp-label">Parity Reviews</text>
+  <text x="340" y="405" text-anchor="middle" font-size="10" fill="#BFDBFE">Schedule fixture runs.</text>
+  <text x="340" y="420" text-anchor="middle" font-size="10" fill="#BFDBFE">Compare behaviors.</text>
+  <text x="340" y="435" text-anchor="middle" font-size="10" fill="#BFDBFE">Approve / reject.</text>
+
+  <!-- Drift Records -->
+  <rect x="460" y="355" width="180" height="100" rx="12" fill="#F59E0B" stroke="#D97706" stroke-width="2"/>
+  <text x="550" y="385" text-anchor="middle" font-size="12" fill="#1F2937" font-weight="600">Drift Records</text>
+  <text x="550" y="405" text-anchor="middle" font-size="10" fill="#451A03">Log all divergence.</text>
+  <text x="550" y="420" text-anchor="middle" font-size="10" fill="#451A03">Track severity &amp; trend.</text>
+  <text x="550" y="435" text-anchor="middle" font-size="10" fill="#451A03">Trigger alerts.</text>
+
+  <!-- Transfer Readiness -->
+  <rect x="670" y="355" width="180" height="100" rx="12" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="760" y="385" text-anchor="middle" class="cp-label">Transfer Readiness</text>
+  <text x="760" y="405" text-anchor="middle" font-size="10" fill="#FDE68A">Assess handoff state.</text>
+  <text x="760" y="420" text-anchor="middle" font-size="10" fill="#FDE68A">Check dependencies.</text>
+  <text x="760" y="435" text-anchor="middle" font-size="10" fill="#FDE68A">Generate bundles.</text>
+
+  <!-- Promotion Reviews -->
+  <rect x="880" y="355" width="180" height="100" rx="12" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="970" y="385" text-anchor="middle" class="cp-label">Promotion Reviews</text>
+  <text x="970" y="405" text-anchor="middle" font-size="10" fill="#D1FAE5">Evaluate candidates.</text>
+  <text x="970" y="420" text-anchor="middle" font-size="10" fill="#D1FAE5">Run kernel integration.</text>
+  <text x="970" y="435" text-anchor="middle" font-size="10" fill="#D1FAE5">Absorb into core.</text>
+
+  <!-- Registry database (cylinder) -->
+  <ellipse cx="550" cy="530" rx="120" ry="20" fill="#374151" stroke="#1F2937" stroke-width="2"/>
+  <rect x="430" y="530" width="240" height="60" fill="#374151" stroke="none"/>
+  <line x1="430" y1="530" x2="430" y2="590" stroke="#1F2937" stroke-width="2"/>
+  <line x1="670" y1="530" x2="670" y2="590" stroke="#1F2937" stroke-width="2"/>
+  <ellipse cx="550" cy="590" rx="120" ry="20" fill="#4B5563" stroke="#1F2937" stroke-width="2"/>
+  <text x="550" y="565" text-anchor="middle" font-size="15" fill="#FFF" font-weight="bold">Mirror Registry</text>
+
+  <!-- Lines from control plane functions to registry -->
+  <line x1="130" y1="455" x2="470" y2="530" stroke="#374151" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="340" y1="455" x2="490" y2="530" stroke="#374151" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="550" y1="455" x2="550" y2="530" stroke="#374151" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="760" y1="455" x2="610" y2="530" stroke="#374151" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <line x1="970" y1="455" x2="630" y2="530" stroke="#374151" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+  <!-- Registry contents -->
+  <rect x="100" y="640" width="900" height="130" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="550" y="665" text-anchor="middle" font-size="14" fill="#1F2937" font-weight="bold">Registry Tracks</text>
+
+  <rect x="120" y="680" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="195" y="702" text-anchor="middle" font-size="11" fill="#374151">Mirror Manifests</text>
+
+  <rect x="290" y="680" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="365" y="702" text-anchor="middle" font-size="11" fill="#374151">Slice Configurations</text>
+
+  <rect x="460" y="680" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="535" y="702" text-anchor="middle" font-size="11" fill="#374151">Reflection Versions</text>
+
+  <rect x="630" y="680" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="705" y="702" text-anchor="middle" font-size="11" fill="#374151">Parity Results</text>
+
+  <rect x="120" y="725" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="195" y="747" text-anchor="middle" font-size="11" fill="#374151">Drift Histories</text>
+
+  <rect x="290" y="725" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="365" y="747" text-anchor="middle" font-size="11" fill="#374151">Transfer Classes</text>
+
+  <rect x="460" y="725" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="535" y="747" text-anchor="middle" font-size="11" fill="#374151">Promotion Candidates</text>
+
+  <rect x="630" y="725" width="150" height="35" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="705" y="747" text-anchor="middle" font-size="11" fill="#374151">Audit Trails</text>
+
+  <rect x="800" y="680" width="180" height="80" rx="6" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="890" y="710" text-anchor="middle" font-size="11" fill="#374151">State Transition</text>
+  <text x="890" y="728" text-anchor="middle" font-size="11" fill="#374151">Logs &amp; Governance</text>
+  <text x="890" y="746" text-anchor="middle" font-size="11" fill="#374151">Decision Records</text>
+</svg>

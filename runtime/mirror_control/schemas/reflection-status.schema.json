@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "reflection-status.schema.json",
+  "title": "Reflection Status",
+  "description": "Schema for tracking the lifecycle status of a mirror reflection.",
+  "type": "object",
+  "required": ["reflection_id", "mirror_id", "slice_id", "status", "updated_at"],
+  "properties": {
+    "reflection_id": {
+      "type": "string",
+      "description": "Unique identifier for the reflection."
+    },
+    "mirror_id": {
+      "type": "string",
+      "description": "Identifier of the mirror that owns this reflection."
+    },
+    "slice_id": {
+      "type": "string",
+      "description": "Identifier of the slice this reflection covers."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["staged", "active", "frozen", "deprecated"],
+      "description": "Current lifecycle status of the reflection."
+    },
+    "reason": {
+      "type": "string",
+      "default": "",
+      "description": "Reason for the current status."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the last status change."
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["to_status", "timestamp"],
+        "properties": {
+          "from_status": {
+            "type": ["string", "null"],
+            "description": "Previous status (null for initial registration)."
+          },
+          "to_status": {
+            "type": "string",
+            "enum": ["staged", "active", "frozen", "deprecated"]
+          },
+          "reason": {
+            "type": "string",
+            "default": ""
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "History of status transitions."
+    }
+  },
+  "additionalProperties": false
+}

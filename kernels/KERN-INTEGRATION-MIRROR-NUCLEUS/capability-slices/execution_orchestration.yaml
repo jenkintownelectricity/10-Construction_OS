@@ -1,0 +1,139 @@
+# ============================================================================
+# CAPABILITY SLICE DEFINITION — EXECUTION ORCHESTRATION
+# Command C: Capability Slice Architecture
+# Kernel: KERN-INTEGRATION-MIRROR-NUCLEUS
+# ============================================================================
+# This slice manages the execution pipeline, coordinating the sequencing,
+# parallelization, retry, and error handling of processing workflows
+# across capability slices.
+# ============================================================================
+
+slice_id: execution_orchestration
+name: "Workflow Execution Orchestration"
+version: "1.0.0"
+
+purpose: |
+  The execution_orchestration slice manages the end-to-end workflow of
+  processing a shop drawing submission through the integration mirror's
+  capability pipeline. It determines the correct processing sequence based
+  on slice dependencies, manages parallel execution where the dependency
+  graph permits, handles retries and circuit-breaking when individual
+  slices fail, and ensures that the overall workflow reaches a terminal
+  state (success, failure, or partial-with-exceptions). The orchestrator
+  does not perform any domain logic itself — it is a pure coordination
+  layer that invokes other slices in the correct order with the correct
+  inputs. In construction workflows, this means orchestrating the flow
+  from submission ingestion through normalization, rule evaluation,
+  validation, artifact generation, and delivery packaging — handling the
+  reality that some steps may need to be re-run (e.g., when a reviewer
+  requests re-evaluation after modifying override rules) and that different
+  submission types may require different pipeline configurations.
+
+status:
+  gcp_shopdrawing: STAGED
+  default: STAGED
+
+# ---------------------------------------------------------------------------
+# DATA CONTRACTS
+# ---------------------------------------------------------------------------
+
+inputs:
+  - name: workflow_trigger
+    description: "Event that initiates a processing workflow (new submission, re-evaluation request)"
+    format: command_message
+    required: true
+
+  - name: pipeline_configuration
+    description: "Configuration defining the processing pipeline for this workflow type"
+    format: yaml_bundle
+    required: true
+
+  - name: slice_readiness_status
+    description: "Current readiness and health status of all slices in the pipeline"
+    format: structured_record
+    required: true
+
+  - name: retry_policies
+    description: "Retry and circuit-breaker policies for each slice invocation"
+    format: policy_rules
+    required: true
+
+  - name: priority_classification
+    description: "Priority level of this workflow for resource allocation decisions"
+    format: priority_record
+    required: false
+
+  - name: deadline_constraints
+    description: "Time constraints for workflow completion (e.g., contractual review deadlines)"
+    format: constraint_record
+    required: false
+
+outputs:
+  - name: workflow_execution_record
+    description: "Complete record of the workflow execution including timing, outcomes, and errors"
+    format: execution_record
+    retention: "project_lifetime"
+
+  - name: slice_invocation_log
+    description: "Detailed log of each slice invocation with inputs, outputs, and duration"
+    format: append_only_log
+    retention: "365_days"
+
+  - name: workflow_status_events
+    description: "Real-time status events for workflow progress monitoring"
+    format: event_stream
+    retention: "30_days"
+
+  - name: failure_diagnosis_reports
+    description: "Diagnostic reports when workflows fail, including root cause analysis"
+    format: diagnostic_report
+    retention: "365_days"
+
+  - name: performance_metrics
+    description: "Workflow-level performance metrics (duration, throughput, retry rates)"
+    format: metrics_record
+    retention: "365_days"
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY GRAPH
+# ---------------------------------------------------------------------------
+
+required_dependencies:
+  - registry
+  - governance
+
+optional_dependencies:
+  - receipt_audit
+  - lineage
+
+# ---------------------------------------------------------------------------
+# CLASSIFICATION & TRANSFER
+# ---------------------------------------------------------------------------
+
+trust_class: CORE_OWNED
+transfer_class: LICENSE_ONLY
+detachability_level: PARTIALLY_DETACHABLE
+
+# ---------------------------------------------------------------------------
+# PARITY & PROMOTION
+# ---------------------------------------------------------------------------
+
+parity_eligibility: true
+promotion_eligibility: false
+classification: MIRROR_ONLY
+
+# ---------------------------------------------------------------------------
+# OPERATIONAL NOTES
+# ---------------------------------------------------------------------------
+
+operational_notes: |
+  Execution orchestration is STAGED in the GCP shop drawing mirror because
+  the initial deployment activates individual slices that are invoked
+  directly. The orchestration layer will be activated once the full pipeline
+  is operational and automated end-to-end processing is required. It
+  requires the registry (to discover and invoke slices) and governance
+  (to validate that the requested pipeline is permitted). This slice is
+  PARTIALLY_DETACHABLE — the workflow engine can be extracted but the
+  slice discovery and invocation mechanisms are tied to the kernel's
+  service infrastructure. It is MIRROR_ONLY because orchestration logic
+  is inherently tied to the specific mirror's pipeline configuration.

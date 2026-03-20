@@ -1,0 +1,136 @@
+# Truth Ownership Matrix
+# Defines which system or domain owns the canonical truth for each data domain.
+# Mirrors reflect truth — they do not own it. This matrix is the authoritative
+# reference for resolving ownership disputes and governing data flow.
+
+truth_ownership:
+
+  detail_canonical_format:
+    owner: construction_os_core
+    description: >
+      The canonical format for construction detail records. This includes field
+      definitions, data types, validation constraints, and structural requirements.
+      Construction OS core is the sole authority on what constitutes a valid detail
+      record. Mirrors may reflect details but may not redefine their format.
+    mirror_access: READ_ONLY
+    governance: kernel-governed
+    modification_authority: core_schema_team
+
+  shop_drawing_source_data:
+    owner: gcp_source_system
+    description: >
+      Raw shop drawing data as produced by the GCP source system. This data
+      originates outside Construction OS and is owned by the source system.
+      Mirrors reflect this data into Construction OS through governed schemas,
+      but the source of truth remains the GCP system. Construction OS does not
+      modify source data — it normalizes reflections of it.
+    mirror_access: REFLECT_ONLY
+    governance: partner-governed
+    modification_authority: gcp_system_owner
+
+  normalization_rules:
+    owner: construction_os_core
+    reflected_to: mirrors
+    description: >
+      Rules that govern how external data formats are normalized into Construction
+      OS canonical format. These rules are owned by core and reflected to mirrors
+      so that mirrors can perform normalization locally. Mirrors execute these rules
+      but may not modify them. Rule updates flow from core to mirrors, never the
+      reverse.
+    mirror_access: EXECUTE_ONLY
+    governance: kernel-governed
+    modification_authority: core_normalization_team
+    reflection_pattern: core_to_mirror_push
+
+  compliance_rules:
+    owner: construction_os_core
+    description: >
+      Rules that enforce regulatory, contractual, and organizational compliance
+      requirements on construction data. These rules are authoritative and
+      non-negotiable. Mirrors must comply with these rules but do not participate
+      in their definition or modification.
+    mirror_access: READ_ONLY
+    governance: kernel-governed
+    modification_authority: core_compliance_team
+
+  validation_logic:
+    owner: construction_os_core
+    reflected_to: mirrors
+    description: >
+      Logic that validates data against schemas, business rules, and integrity
+      constraints. Validation logic is owned by core and reflected to mirrors
+      for local execution. This allows mirrors to validate data at the boundary
+      without round-tripping to core, while ensuring validation rules remain
+      centrally governed.
+    mirror_access: EXECUTE_ONLY
+    governance: kernel-governed
+    modification_authority: core_validation_team
+    reflection_pattern: core_to_mirror_push
+
+  artifact_tracking:
+    owner: shared_governed
+    description: >
+      Tracking of physical and digital artifacts through the construction
+      lifecycle. Ownership is shared between core and mirrors because artifact
+      state changes may originate from either side. Shared governance requires
+      explicit conflict resolution rules and a designated arbiter for disputes.
+    mirror_access: READ_WRITE_GOVERNED
+    governance: shared-governed
+    modification_authority: joint_governance_board
+    conflict_resolution: core_arbiter_final_decision
+
+  lineage_records:
+    owner: construction_os_core
+    description: >
+      Records that trace the origin, transformation, and movement of data
+      through the system. Lineage is a core governance function — it ensures
+      auditability and traceability. Mirrors contribute lineage events (e.g.,
+      "data reflected at timestamp T") but do not own or modify the lineage
+      chain.
+    mirror_access: APPEND_ONLY
+    governance: kernel-governed
+    modification_authority: core_lineage_team
+
+  billing:
+    owner: construction_os_core
+    mirror_access: FORBIDDEN
+    description: >
+      All billing data, logic, configuration, and records. Billing is a core-only
+      domain with no mirror access of any kind. Mirrors must not read, write,
+      reflect, or reference billing data. Any mirror that attempts to access
+      billing data is in violation of its trust boundary.
+    governance: kernel-governed
+    modification_authority: core_billing_team
+    trust_boundary_classification: FORBIDDEN
+
+  tenant_ui:
+    owner: construction_os_core
+    mirror_access: FORBIDDEN
+    description: >
+      All tenant-facing user interface configuration, components, and state.
+      Tenant UI is a core-only domain. Mirrors must not contain, modify, or
+      serve tenant UI components. Partner-specific UIs are the partner's
+      responsibility and exist outside the mirror boundary.
+    governance: kernel-governed
+    modification_authority: core_ui_team
+    trust_boundary_classification: FORBIDDEN
+
+  auth:
+    owner: construction_os_core
+    mirror_access: FORBIDDEN
+    description: >
+      All authentication and authorization data, logic, and configuration.
+      Auth is a core-only domain. Mirrors authenticate through governed service
+      accounts with scoped permissions — they do not access, modify, or replicate
+      core auth infrastructure. The identity boundary ensures complete isolation.
+    governance: kernel-governed
+    modification_authority: core_security_team
+    trust_boundary_classification: FORBIDDEN
+
+# Access Level Definitions:
+#   FORBIDDEN      - No mirror access of any kind. Violation triggers trust boundary alert.
+#   READ_ONLY      - Mirror may read but not modify.
+#   EXECUTE_ONLY   - Mirror may execute logic (e.g., validation) but not modify the logic itself.
+#   REFLECT_ONLY   - Mirror reflects data from external source; does not own or modify it.
+#   APPEND_ONLY    - Mirror may add records but not modify or delete existing ones.
+#   READ_WRITE_GOVERNED - Mirror may read and write under shared governance rules.

@@ -1,0 +1,144 @@
+# ============================================================================
+# CAPABILITY SLICE DEFINITION — SPEC INGESTION
+# Command C: Capability Slice Architecture
+# Kernel: KERN-INTEGRATION-MIRROR-NUCLEUS
+# ============================================================================
+# This slice ingests and parses project specification documents, extracting
+# structured requirements that drive normalization, rule evaluation, and
+# validation across the processing pipeline.
+# ============================================================================
+
+slice_id: spec_ingestion
+name: "Project Specification Ingestion & Parsing"
+version: "1.0.0"
+
+purpose: |
+  The spec_ingestion slice ingests project specification documents (typically
+  organized by CSI MasterFormat divisions) and extracts structured, machine-
+  readable requirements from them. Construction specifications are authored
+  as narrative text documents that contain precise technical requirements
+  buried within prose — material specifications, performance criteria,
+  testing requirements, submittal requirements, and quality assurance
+  procedures. This slice parses these documents, identifies requirement
+  statements, classifies them by type (material, performance, submittal,
+  procedural), links them to applicable CSI sections, and produces
+  structured requirement records that downstream slices can evaluate
+  against. For example, from a specification section that reads "Structural
+  steel shall conform to ASTM A992/A992M, Grade 50, with a minimum yield
+  strength of 50 ksi," the slice extracts a material requirement record
+  with the material standard, grade, and performance threshold as discrete
+  evaluable fields.
+
+status:
+  gcp_shopdrawing: STAGED
+  default: STAGED
+
+# ---------------------------------------------------------------------------
+# DATA CONTRACTS
+# ---------------------------------------------------------------------------
+
+inputs:
+  - name: specification_documents
+    description: "Project specification documents in various formats (PDF, DOCX, structured XML)"
+    format: document_bundle
+    required: true
+
+  - name: csi_masterformat_taxonomy
+    description: "CSI MasterFormat division/section taxonomy for requirement classification"
+    format: taxonomy
+    required: true
+
+  - name: requirement_extraction_rules
+    description: "NLP and pattern-matching rules for extracting requirements from spec prose"
+    format: rule_bundle
+    required: true
+
+  - name: project_addenda
+    description: "Project addenda that modify base specification requirements"
+    format: document_bundle
+    required: false
+
+  - name: substitution_requests
+    description: "Approved substitution requests that alter original material specifications"
+    format: substitution_record
+    required: false
+
+  - name: prior_spec_versions
+    description: "Previous versions of specifications for change tracking"
+    format: document_bundle
+    required: false
+
+outputs:
+  - name: structured_requirements
+    description: "Machine-readable requirement records extracted from specifications"
+    format: requirement_record
+    retention: "project_lifetime"
+
+  - name: requirement_traceability_matrix
+    description: "Matrix tracing each requirement to its source specification section and paragraph"
+    format: traceability_matrix
+    retention: "project_lifetime"
+
+  - name: submittal_requirements_checklist
+    description: "Per-section checklist of what must be included in shop drawing submissions"
+    format: checklist
+    retention: "project_lifetime"
+
+  - name: extraction_confidence_report
+    description: "Per-requirement confidence scores for extraction accuracy"
+    format: structured_report
+    retention: "project_lifetime"
+
+  - name: spec_change_delta
+    description: "When prior versions exist, the delta of requirement changes between versions"
+    format: change_set
+    retention: "project_lifetime"
+
+  - name: unresolvable_requirements
+    description: "Requirements that could not be parsed into machine-evaluable form"
+    format: review_queue_item
+    retention: "90_days"
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY GRAPH
+# ---------------------------------------------------------------------------
+
+required_dependencies: []
+
+optional_dependencies:
+  - standards_mapping
+  - governance
+
+# ---------------------------------------------------------------------------
+# CLASSIFICATION & TRANSFER
+# ---------------------------------------------------------------------------
+
+trust_class: MIRROR_REFLECTED
+transfer_class: WHITE_LABELABLE
+detachability_level: FULLY_DETACHABLE
+
+# ---------------------------------------------------------------------------
+# PARITY & PROMOTION
+# ---------------------------------------------------------------------------
+
+parity_eligibility: true
+promotion_eligibility: true
+classification: CORE_PROMOTABLE
+
+# ---------------------------------------------------------------------------
+# OPERATIONAL NOTES
+# ---------------------------------------------------------------------------
+
+operational_notes: |
+  Spec ingestion is STAGED in the GCP shop drawing mirror because the
+  initial deployment uses pre-parsed specification data. It will be
+  activated when the system needs to ingest new specifications dynamically
+  or when addenda processing is required. This slice has no required
+  dependencies because specification parsing is a self-contained input
+  processing function. Standards mapping is an optional dependency that
+  improves extraction accuracy by providing vocabulary from referenced
+  standards. This slice is FULLY_DETACHABLE and WHITE_LABELABLE because
+  spec parsing logic is project-agnostic and can operate independently.
+  It is CORE_PROMOTABLE because improvements to extraction rules
+  (e.g., better NLP models for requirement identification) benefit all
+  mirrors processing construction specifications.

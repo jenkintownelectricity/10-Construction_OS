@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" width="1000" height="800">
+  <title>Mirror Architecture — System Context Diagram</title>
+  <defs>
+    <marker id="arrowSolid" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <marker id="arrowDashed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7C3AED"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#D97706"/>
+    </marker>
+    <style>
+      text { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
+      .title { font-size: 20px; font-weight: bold; fill: #1F2937; }
+      .subtitle { font-size: 13px; fill: #6B7280; font-style: italic; }
+      .label { font-size: 14px; fill: #FFFFFF; font-weight: 600; }
+      .label-dark { font-size: 14px; fill: #1F2937; font-weight: 600; }
+      .label-small { font-size: 12px; fill: #6B7280; }
+      .label-slice { font-size: 11px; fill: #0D9488; font-weight: 500; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="800" fill="#F9FAFB" rx="8"/>
+
+  <!-- Title -->
+  <text x="500" y="35" text-anchor="middle" class="title">Mirror Architecture — System Context</text>
+  <text x="500" y="55" text-anchor="middle" class="subtitle">Connected by mirrors, never hard-wired. Sold by capability, detachable by design.</text>
+
+  <!-- Shield Boundary (outermost red dashed) -->
+  <rect x="120" y="80" width="760" height="640" rx="20" fill="none" stroke="#DC2626" stroke-width="3" stroke-dasharray="12,6"/>
+  <text x="140" y="105" font-size="13" fill="#DC2626" font-weight="bold">SHIELD BOUNDARY</text>
+
+  <!-- Construction OS Core (center blue) -->
+  <rect x="370" y="300" width="260" height="100" rx="16" fill="#2563EB" stroke="#1D4ED8" stroke-width="2"/>
+  <text x="500" y="340" text-anchor="middle" class="label">Construction OS</text>
+  <text x="500" y="360" text-anchor="middle" class="label">Core Platform</text>
+  <text x="500" y="385" text-anchor="middle" font-size="11" fill="#BFDBFE">Governance | Validation | Generation | Engine</text>
+
+  <!-- Mirror Kernel Nucleus (purple, wrapping core) -->
+  <rect x="280" y="230" width="440" height="240" rx="20" fill="none" stroke="#7C3AED" stroke-width="3"/>
+  <text x="500" y="258" text-anchor="middle" font-size="15" fill="#7C3AED" font-weight="bold">Mirror Kernel Nucleus</text>
+  <text x="500" y="275" text-anchor="middle" font-size="11" fill="#8B5CF6">Lifecycle | Parity | Drift | Registry | Control Plane</text>
+
+  <!-- Mirror Instance: Top Left (GCP Shop Drawing) -->
+  <rect x="150" y="130" width="200" height="80" rx="12" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="250" y="165" text-anchor="middle" class="label">GCP Shop Drawing</text>
+  <text x="250" y="183" text-anchor="middle" font-size="11" fill="#D1FAE5">Mirror Instance</text>
+
+  <!-- Mirror Instance: Top Right (Partner Alpha) -->
+  <rect x="650" y="130" width="200" height="80" rx="12" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="750" y="165" text-anchor="middle" class="label">Partner Alpha</text>
+  <text x="750" y="183" text-anchor="middle" font-size="11" fill="#D1FAE5">Mirror Instance</text>
+
+  <!-- Mirror Instance: Bottom Left -->
+  <rect x="150" y="530" width="200" height="80" rx="12" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="250" y="565" text-anchor="middle" class="label">Internal QA</text>
+  <text x="250" y="583" text-anchor="middle" font-size="11" fill="#D1FAE5">Mirror Instance</text>
+
+  <!-- Mirror Instance: Bottom Right -->
+  <rect x="650" y="530" width="200" height="80" rx="12" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="750" y="565" text-anchor="middle" class="label">Partner Beta</text>
+  <text x="750" y="583" text-anchor="middle" font-size="11" fill="#D1FAE5">Mirror Instance</text>
+
+  <!-- External Systems (orange, outside shield) -->
+  <!-- These are conceptually beyond the boundary but we show them at edges -->
+  <rect x="15" y="280" width="90" height="60" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="60" y="307" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">GCP</text>
+  <text x="60" y="322" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Client</text>
+
+  <rect x="895" y="280" width="90" height="60" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="940" y="307" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Partner</text>
+  <text x="940" y="322" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Systems</text>
+
+  <rect x="15" y="460" width="90" height="60" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="60" y="487" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">CI/CD</text>
+  <text x="60" y="502" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Pipeline</text>
+
+  <rect x="895" y="460" width="90" height="60" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="940" y="487" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">External</text>
+  <text x="940" y="502" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">API</text>
+
+  <!-- Connection: Nucleus to Mirror Instances (dashed purple - control flow) -->
+  <line x1="380" y1="260" x2="310" y2="210" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowDashed)"/>
+  <line x1="620" y1="260" x2="690" y2="210" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowDashed)"/>
+  <line x1="380" y1="460" x2="310" y2="530" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowDashed)"/>
+  <line x1="620" y1="460" x2="690" y2="530" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowDashed)"/>
+
+  <!-- Connection: Mirror to External (solid - data flow through boundary) -->
+  <line x1="150" y1="180" x2="105" y2="290" stroke="#374151" stroke-width="2" marker-end="url(#arrowSolid)"/>
+  <line x1="850" y1="180" x2="895" y2="290" stroke="#374151" stroke-width="2" marker-end="url(#arrowSolid)"/>
+  <line x1="150" y1="560" x2="105" y2="490" stroke="#374151" stroke-width="2" marker-end="url(#arrowSolid)"/>
+  <line x1="850" y1="560" x2="895" y2="490" stroke="#374151" stroke-width="2" marker-end="url(#arrowSolid)"/>
+
+  <!-- Slice indicators on mirrors -->
+  <text x="250" y="200" text-anchor="middle" class="label-slice">5 slices active</text>
+  <text x="750" y="200" text-anchor="middle" class="label-slice">3 slices active</text>
+  <text x="250" y="520" text-anchor="middle" class="label-slice">2 slices active</text>
+  <text x="750" y="520" text-anchor="middle" class="label-slice">4 slices active</text>
+
+  <!-- Legend mini -->
+  <rect x="340" y="700" width="320" height="80" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="355" y="715" width="14" height="14" rx="3" fill="#2563EB"/>
+  <text x="375" y="727" font-size="11" fill="#374151">Core</text>
+  <rect x="415" y="715" width="14" height="14" rx="3" fill="#7C3AED"/>
+  <text x="435" y="727" font-size="11" fill="#374151">Nucleus</text>
+  <rect x="490" y="715" width="14" height="14" rx="3" fill="#059669"/>
+  <text x="510" y="727" font-size="11" fill="#374151">Mirror</text>
+  <rect x="560" y="715" width="14" height="14" rx="3" fill="#D97706"/>
+  <text x="580" y="727" font-size="11" fill="#374151">External</text>
+  <line x1="355" y1="752" x2="395" y2="752" stroke="#DC2626" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="405" y="756" font-size="11" fill="#374151">Shield Boundary</text>
+  <line x1="505" y1="752" x2="545" y2="752" stroke="#374151" stroke-width="2" marker-end="url(#arrowSolid)"/>
+  <text x="555" y="756" font-size="11" fill="#374151">Data Flow</text>
+</svg>

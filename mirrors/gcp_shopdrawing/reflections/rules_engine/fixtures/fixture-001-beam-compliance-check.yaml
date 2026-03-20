@@ -1,0 +1,138 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Fixture 001: Beam Compliance Check
+# Slice: rules_engine
+#
+# A known-good test fixture representing the compliance evaluation of a
+# normalized steel beam detail. The beam passes all rules, producing a
+# "compliant" verdict.
+##############################################################################
+
+fixture:
+  id: "FIXTURE-RE-001"
+  name: "Beam Compliance Check — W24x76 Floor Beam (All Pass)"
+  description: >
+    Evaluates a W24x76 wide-flange floor beam against all applicable
+    structural compliance rules. The beam meets all dimensional, material,
+    connection, and documentation requirements, producing a compliant result.
+  slice: rules_engine
+  created: "2026-03-20"
+  status: active
+
+input_detail:
+  detail_id: "DET-STRC-00000045"
+  canonical_version: "1.0.0"
+  project_ref:
+    project_id: "COS-PRJ-2026-0042"
+    project_name: "Harbor Tower 2026"
+    phase: "shop_drawing"
+  discipline: "structural"
+  element_type:
+    primary_type: "beam"
+    subtype: "wide_flange"
+    designation: "W24x76"
+  geometry:
+    profile:
+      shape: "I_shape"
+      depth_in: 23.92
+      width_in: 8.99
+      thickness_in: 0.44
+      flange_thickness_in: 0.68
+    length_in: 339.0
+    orientation:
+      rotation_deg: 0.0
+      slope_ratio: "0:12"
+  material:
+    category: "structural_steel"
+    specification: "ASTM A992"
+    grade: "Grade 50"
+    finish: "SSPC-SP6 with shop primer"
+    yield_strength_ksi: 50.0
+  dimensions:
+    unit_system: "imperial"
+    primary_dimensions:
+      - label: "Overall Length"
+        value: 339.0
+        unit: "in"
+        tolerance_plus: 0.125
+        tolerance_minus: 0.125
+        critical: true
+      - label: "Camber"
+        value: 0.75
+        unit: "in"
+        critical: true
+  connections:
+    - connection_id: "C-NE-001"
+      location: "near_end"
+      type: "shear"
+      fasteners:
+        bolt_type: "A325N"
+        bolt_diameter_in: 0.75
+        bolt_count: 3
+        hole_type: "standard"
+      connected_to: "DET-STRC-CL5"
+  revisions:
+    - revision_id: "R2"
+      date: "2026-02-15"
+      description: "Added cope at near end per RFI-042"
+      author: "MJones"
+      delta_type: "dimensional_change"
+  normalization_metadata:
+    source_system: "gcp_shopdrawing"
+    source_record_id: "GCP-SD-000000001234"
+    normalized_at: "2026-03-01T14:35:00Z"
+    contract_version: "1.0.0"
+
+rule_set_selector:
+  project_id: "COS-PRJ-2026-0042"
+  jurisdiction_code: "IBC-2021"
+  discipline_code: structural
+
+expected_output:
+  evaluation_id: "EVAL-000000000101"
+  detail_id: "DET-STRC-00000045"
+  overall_verdict: "compliant"
+  summary:
+    total_evaluated: 8
+    passed: 8
+    failed: 0
+    warnings: 0
+    not_evaluable: 0
+    critical_failures: 0
+    evaluation_duration_ms: 45
+  rule_results:
+    - rule_id: "CCR-DIM-001"
+      status: "passed"
+      message: "Depth/span ratio 0.0706 meets minimum 0.0417."
+    - rule_id: "CCR-DIM-003"
+      status: "passed"
+      message: "Fabrication tolerance 0.125 in within limit of 0.25 in."
+    - rule_id: "CCR-MAT-001"
+      status: "passed"
+      message: "Yield strength 50.0 ksi meets minimum 36.0 ksi."
+    - rule_id: "CCR-CONN-001"
+      status: "passed"
+      message: "Bolt edge distance requirements met."
+    - rule_id: "CCR-CONN-002"
+      status: "passed"
+      message: "Bolt spacing meets minimum 2.667 x diameter."
+    - rule_id: "CCR-GEO-001"
+      status: "passed"
+      message: "Camber 0.75 in within range for 339.0 in span."
+    - rule_id: "CCR-DOC-001"
+      status: "passed"
+      message: "Revision history contains 1 entry."
+    - rule_id: "CCR-DOC-002"
+      status: "passed"
+      message: "Fabrication designation W24x76 is assigned."
+
+assertions:
+  - assert: value_equals
+    path: "$.overall_verdict"
+    expected: "compliant"
+  - assert: value_equals
+    path: "$.summary.failed"
+    expected: 0
+  - assert: value_equals
+    path: "$.summary.total_evaluated"
+    expected: 8

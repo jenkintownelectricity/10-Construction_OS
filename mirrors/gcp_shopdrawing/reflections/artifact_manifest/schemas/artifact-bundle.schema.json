@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-os.dev/schemas/gcp-mirror/artifact-bundle.schema.json",
+  "title": "Artifact Bundle",
+  "description": "Schema for a bundle of related artifacts registered atomically in the manifest. A bundle groups artifacts that logically belong together, such as all deliverables in a single submittal package.",
+  "type": "object",
+  "required": [
+    "bundle_id",
+    "project_id",
+    "bundle_type",
+    "created_at",
+    "artifacts"
+  ],
+  "properties": {
+    "bundle_id": {
+      "type": "string",
+      "pattern": "^BDL-[0-9]{14}-[A-Z0-9]{6}$",
+      "description": "Unique bundle identifier. Format: BDL-{timestamp}-{random}."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Construction OS project identifier."
+    },
+    "bundle_type": {
+      "type": "string",
+      "enum": [
+        "submittal_package",
+        "revision_set",
+        "fabrication_release",
+        "inspection_package",
+        "as_built_package",
+        "closeout_package"
+      ],
+      "description": "Classification of the bundle purpose."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "submission_id": {
+      "type": "string",
+      "description": "Associated submission ID, if this bundle is tied to a submittal."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the bundle contents."
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Array of artifact entries in this bundle.",
+      "items": {
+        "$ref": "artifact-manifest-entry.schema.json"
+      }
+    },
+    "bundle_metadata": {
+      "type": "object",
+      "properties": {
+        "total_artifacts": { "type": "integer", "minimum": 1 },
+        "total_size_bytes": { "type": "integer", "minimum": 0 },
+        "disciplines_covered": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "spec_sections_covered": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "bundle_hash": {
+          "type": "string",
+          "description": "SHA-256 hash of all artifact content hashes concatenated."
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["registered", "partially_superseded", "fully_superseded", "archived"],
+      "default": "registered"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" width="1000" height="800">
+  <title>Mirror Architecture — GCP Shop Drawing Mirror Instance</title>
+  <defs>
+    <marker id="gcpArrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <marker id="gcpArrowPurple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7C3AED"/>
+    </marker>
+    <marker id="gcpArrowTeal" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0D9488"/>
+    </marker>
+    <style>
+      text { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
+      .title { font-size: 20px; font-weight: bold; fill: #1F2937; }
+      .subtitle { font-size: 13px; fill: #6B7280; font-style: italic; }
+      .label { font-size: 14px; fill: #FFFFFF; font-weight: 600; }
+      .label-sm { font-size: 12px; fill: #FFFFFF; }
+      .label-dark { font-size: 14px; fill: #1F2937; font-weight: 600; }
+      .slice-title { font-size: 13px; fill: #FFFFFF; font-weight: 700; }
+      .reflection-label { font-size: 10px; fill: #0C4A6E; font-weight: 600; }
+      .reflection-ver { font-size: 9px; fill: #0C4A6E; }
+      .section-title { font-size: 15px; font-weight: bold; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="800" fill="#F8FAFC" rx="8"/>
+
+  <!-- Title -->
+  <text x="500" y="35" text-anchor="middle" class="title">GCP Shop Drawing — Mirror Instance Detail</text>
+  <text x="500" y="55" text-anchor="middle" class="subtitle">Concrete example: five active slices, reflected contracts/schemas/rules/fixtures per slice</text>
+
+  <!-- Shield Boundary -->
+  <rect x="30" y="70" width="940" height="650" rx="16" fill="none" stroke="#DC2626" stroke-width="2.5" stroke-dasharray="10,5"/>
+  <text x="50" y="90" font-size="12" fill="#DC2626" font-weight="bold">SHIELD BOUNDARY — GCP Shop Drawing Mirror</text>
+
+  <!-- Mirror Instance Header -->
+  <rect x="320" y="100" width="360" height="60" rx="14" fill="#059669" stroke="#047857" stroke-width="2.5"/>
+  <text x="500" y="128" text-anchor="middle" class="label">GCP Shop Drawing Mirror</text>
+  <text x="500" y="147" text-anchor="middle" font-size="11" fill="#D1FAE5">State: ACTIVE | 5 slices | Parity: 98.7%</text>
+
+  <!-- Connection to Nucleus (above shield) -->
+  <line x1="500" y1="100" x2="500" y2="75" stroke="#7C3AED" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#gcpArrowPurple)"/>
+  <text x="530" y="85" font-size="10" fill="#7C3AED">Governed by Nucleus</text>
+
+  <!-- ====== FIVE ACTIVE SLICES ====== -->
+
+  <!-- SLICE 1: detail_normalization -->
+  <rect x="50" y="190" width="170" height="40" rx="8" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="135" y="215" text-anchor="middle" class="slice-title">detail_normalization</text>
+
+  <rect x="50" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="90" y="256" text-anchor="middle" class="reflection-label">Contract</text>
+  <text x="90" y="268" text-anchor="middle" class="reflection-ver">v3.1.0</text>
+
+  <rect x="140" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="180" y="256" text-anchor="middle" class="reflection-label">Schema</text>
+  <text x="180" y="268" text-anchor="middle" class="reflection-ver">v3.1.0</text>
+
+  <rect x="50" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="90" y="300" text-anchor="middle" class="reflection-label">Rules</text>
+  <text x="90" y="312" text-anchor="middle" class="reflection-ver">v2.8.0</text>
+
+  <rect x="140" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="180" y="300" text-anchor="middle" class="reflection-label">Fixtures</text>
+  <text x="180" y="312" text-anchor="middle" class="reflection-ver">v3.1.0</text>
+
+  <text x="135" y="340" text-anchor="middle" font-size="10" fill="#059669" font-weight="500">[P] Parity: 99.2%</text>
+
+  <!-- SLICE 2: rules_engine -->
+  <rect x="240" y="190" width="170" height="40" rx="8" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="325" y="215" text-anchor="middle" class="slice-title">rules_engine</text>
+
+  <rect x="240" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="280" y="256" text-anchor="middle" class="reflection-label">Contract</text>
+  <text x="280" y="268" text-anchor="middle" class="reflection-ver">v4.0.1</text>
+
+  <rect x="330" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="370" y="256" text-anchor="middle" class="reflection-label">Schema</text>
+  <text x="370" y="268" text-anchor="middle" class="reflection-ver">v4.0.1</text>
+
+  <rect x="240" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="280" y="300" text-anchor="middle" class="reflection-label">Rules</text>
+  <text x="280" y="312" text-anchor="middle" class="reflection-ver">v4.0.1</text>
+
+  <rect x="330" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="370" y="300" text-anchor="middle" class="reflection-label">Fixtures</text>
+  <text x="370" y="312" text-anchor="middle" class="reflection-ver">v4.0.1</text>
+
+  <text x="325" y="340" text-anchor="middle" font-size="10" fill="#059669" font-weight="500">[P] Parity: 100%</text>
+
+  <!-- SLICE 3: validation -->
+  <rect x="430" y="190" width="170" height="40" rx="8" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="515" y="215" text-anchor="middle" class="slice-title">validation</text>
+
+  <rect x="430" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="470" y="256" text-anchor="middle" class="reflection-label">Contract</text>
+  <text x="470" y="268" text-anchor="middle" class="reflection-ver">v2.5.0</text>
+
+  <rect x="520" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="560" y="256" text-anchor="middle" class="reflection-label">Schema</text>
+  <text x="560" y="268" text-anchor="middle" class="reflection-ver">v2.5.0</text>
+
+  <rect x="430" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="470" y="300" text-anchor="middle" class="reflection-label">Rules</text>
+  <text x="470" y="312" text-anchor="middle" class="reflection-ver">v2.3.0</text>
+
+  <rect x="520" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="560" y="300" text-anchor="middle" class="reflection-label">Fixtures</text>
+  <text x="560" y="312" text-anchor="middle" class="reflection-ver">v2.5.0</text>
+
+  <text x="515" y="340" text-anchor="middle" font-size="10" fill="#059669" font-weight="500">[P] Parity: 99.8%</text>
+
+  <!-- SLICE 4: artifact_manifest -->
+  <rect x="620" y="190" width="170" height="40" rx="8" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="705" y="215" text-anchor="middle" class="slice-title">artifact_manifest</text>
+
+  <rect x="620" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="660" y="256" text-anchor="middle" class="reflection-label">Contract</text>
+  <text x="660" y="268" text-anchor="middle" class="reflection-ver">v1.2.0</text>
+
+  <rect x="710" y="240" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="750" y="256" text-anchor="middle" class="reflection-label">Schema</text>
+  <text x="750" y="268" text-anchor="middle" class="reflection-ver">v1.2.0</text>
+
+  <rect x="620" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="660" y="300" text-anchor="middle" class="reflection-label">Rules</text>
+  <text x="660" y="312" text-anchor="middle" class="reflection-ver">v1.1.0</text>
+
+  <rect x="710" y="284" width="80" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="750" y="300" text-anchor="middle" class="reflection-label">Fixtures</text>
+  <text x="750" y="312" text-anchor="middle" class="reflection-ver">v1.2.0</text>
+
+  <text x="705" y="340" text-anchor="middle" font-size="10" fill="#F59E0B" font-weight="500">[D] Parity: 96.1%</text>
+
+  <!-- SLICE 5: lineage -->
+  <rect x="810" y="190" width="150" height="40" rx="8" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="885" y="215" text-anchor="middle" class="slice-title">lineage</text>
+
+  <rect x="810" y="240" width="72" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="846" y="256" text-anchor="middle" class="reflection-label">Contract</text>
+  <text x="846" y="268" text-anchor="middle" class="reflection-ver">v2.0.0</text>
+
+  <rect x="888" y="240" width="72" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="924" y="256" text-anchor="middle" class="reflection-label">Schema</text>
+  <text x="924" y="268" text-anchor="middle" class="reflection-ver">v2.0.0</text>
+
+  <rect x="810" y="284" width="72" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="846" y="300" text-anchor="middle" class="reflection-label">Rules</text>
+  <text x="846" y="312" text-anchor="middle" class="reflection-ver">v1.9.0</text>
+
+  <rect x="888" y="284" width="72" height="36" rx="4" fill="#38BDF8" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="924" y="300" text-anchor="middle" class="reflection-label">Fixtures</text>
+  <text x="924" y="312" text-anchor="middle" class="reflection-ver">v2.0.0</text>
+
+  <text x="885" y="340" text-anchor="middle" font-size="10" fill="#059669" font-weight="500">[P] Parity: 100%</text>
+
+  <!-- ====== DIVIDER ====== -->
+  <line x1="50" y1="365" x2="950" y2="365" stroke="#E5E7EB" stroke-width="2"/>
+
+  <!-- ====== REFLECTED CONTENT SUMMARY ====== -->
+  <text x="500" y="395" text-anchor="middle" class="section-title" fill="#2563EB">Reflected Content per Slice</text>
+
+  <!-- Summary table -->
+  <rect x="50" y="410" width="900" height="175" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+
+  <!-- Table headers -->
+  <rect x="50" y="410" width="900" height="30" rx="8" fill="#F1F5F9"/>
+  <text x="170" y="430" text-anchor="middle" font-size="12" fill="#374151" font-weight="bold">Slice</text>
+  <text x="350" y="430" text-anchor="middle" font-size="12" fill="#374151" font-weight="bold">Contracts</text>
+  <text x="490" y="430" text-anchor="middle" font-size="12" fill="#374151" font-weight="bold">Schemas</text>
+  <text x="630" y="430" text-anchor="middle" font-size="12" fill="#374151" font-weight="bold">Rules</text>
+  <text x="770" y="430" text-anchor="middle" font-size="12" fill="#374151" font-weight="bold">Fixtures</text>
+  <text x="900" y="430" text-anchor="middle" font-size="12" fill="#374151" font-weight="bold">Parity</text>
+
+  <!-- Row 1 -->
+  <text x="170" y="458" text-anchor="middle" font-size="11" fill="#0D9488" font-weight="600">detail_normalization</text>
+  <text x="350" y="458" text-anchor="middle" font-size="11" fill="#374151">3 contracts</text>
+  <text x="490" y="458" text-anchor="middle" font-size="11" fill="#374151">4 schemas</text>
+  <text x="630" y="458" text-anchor="middle" font-size="11" fill="#374151">12 rules</text>
+  <text x="770" y="458" text-anchor="middle" font-size="11" fill="#374151">28 fixtures</text>
+  <text x="900" y="458" text-anchor="middle" font-size="11" fill="#059669" font-weight="600">99.2%</text>
+
+  <!-- Row 2 -->
+  <text x="170" y="480" text-anchor="middle" font-size="11" fill="#0D9488" font-weight="600">rules_engine</text>
+  <text x="350" y="480" text-anchor="middle" font-size="11" fill="#374151">2 contracts</text>
+  <text x="490" y="480" text-anchor="middle" font-size="11" fill="#374151">3 schemas</text>
+  <text x="630" y="480" text-anchor="middle" font-size="11" fill="#374151">24 rules</text>
+  <text x="770" y="480" text-anchor="middle" font-size="11" fill="#374151">45 fixtures</text>
+  <text x="900" y="480" text-anchor="middle" font-size="11" fill="#059669" font-weight="600">100%</text>
+
+  <!-- Row 3 -->
+  <text x="170" y="502" text-anchor="middle" font-size="11" fill="#0D9488" font-weight="600">validation</text>
+  <text x="350" y="502" text-anchor="middle" font-size="11" fill="#374151">4 contracts</text>
+  <text x="490" y="502" text-anchor="middle" font-size="11" fill="#374151">6 schemas</text>
+  <text x="630" y="502" text-anchor="middle" font-size="11" fill="#374151">18 rules</text>
+  <text x="770" y="502" text-anchor="middle" font-size="11" fill="#374151">52 fixtures</text>
+  <text x="900" y="502" text-anchor="middle" font-size="11" fill="#059669" font-weight="600">99.8%</text>
+
+  <!-- Row 4 -->
+  <text x="170" y="524" text-anchor="middle" font-size="11" fill="#0D9488" font-weight="600">artifact_manifest</text>
+  <text x="350" y="524" text-anchor="middle" font-size="11" fill="#374151">2 contracts</text>
+  <text x="490" y="524" text-anchor="middle" font-size="11" fill="#374151">2 schemas</text>
+  <text x="630" y="524" text-anchor="middle" font-size="11" fill="#374151">8 rules</text>
+  <text x="770" y="524" text-anchor="middle" font-size="11" fill="#374151">15 fixtures</text>
+  <text x="900" y="524" text-anchor="middle" font-size="11" fill="#F59E0B" font-weight="600">96.1%</text>
+
+  <!-- Row 5 -->
+  <text x="170" y="546" text-anchor="middle" font-size="11" fill="#0D9488" font-weight="600">lineage</text>
+  <text x="350" y="546" text-anchor="middle" font-size="11" fill="#374151">2 contracts</text>
+  <text x="490" y="546" text-anchor="middle" font-size="11" fill="#374151">3 schemas</text>
+  <text x="630" y="546" text-anchor="middle" font-size="11" fill="#374151">6 rules</text>
+  <text x="770" y="546" text-anchor="middle" font-size="11" fill="#374151">20 fixtures</text>
+  <text x="900" y="546" text-anchor="middle" font-size="11" fill="#059669" font-weight="600">100%</text>
+
+  <!-- Totals -->
+  <line x1="60" y1="556" x2="940" y2="556" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="170" y="575" text-anchor="middle" font-size="12" fill="#1F2937" font-weight="bold">TOTALS</text>
+  <text x="350" y="575" text-anchor="middle" font-size="12" fill="#1F2937" font-weight="bold">13</text>
+  <text x="490" y="575" text-anchor="middle" font-size="12" fill="#1F2937" font-weight="bold">18</text>
+  <text x="630" y="575" text-anchor="middle" font-size="12" fill="#1F2937" font-weight="bold">68</text>
+  <text x="770" y="575" text-anchor="middle" font-size="12" fill="#1F2937" font-weight="bold">160</text>
+  <text x="900" y="575" text-anchor="middle" font-size="12" fill="#059669" font-weight="bold">98.7%</text>
+
+  <!-- ====== EXCLUDED CONCERNS ====== -->
+  <rect x="50" y="610" width="430" height="100" rx="8" fill="#FFF1F2" stroke="#DC2626" stroke-width="1.5"/>
+  <text x="265" y="635" text-anchor="middle" font-size="13" fill="#9F1239" font-weight="bold">Excluded — App-Local Concerns (Not Mirrored)</text>
+  <text x="70" y="655" font-size="11" fill="#9F1239">&#x2717; GCP-specific authentication &amp; OAuth flows</text>
+  <text x="70" y="672" font-size="11" fill="#9F1239">&#x2717; Client UI rendering &amp; frontend state management</text>
+  <text x="70" y="689" font-size="11" fill="#9F1239">&#x2717; Local caching, session storage, user preferences</text>
+  <text x="70" y="706" font-size="11" fill="#9F1239">&#x2717; Deployment infrastructure &amp; CI/CD pipelines</text>
+
+  <!-- ====== MIRROR METADATA ====== -->
+  <rect x="510" y="610" width="450" height="100" rx="8" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.5"/>
+  <text x="735" y="635" text-anchor="middle" font-size="13" fill="#6D28D9" font-weight="bold">Mirror Metadata</text>
+  <text x="530" y="655" font-size="11" fill="#4C1D95">Mirror ID: gcp-shop-drawing-001</text>
+  <text x="530" y="672" font-size="11" fill="#4C1D95">Chartered: 2025-06-15 | Active since: 2025-08-01</text>
+  <text x="530" y="689" font-size="11" fill="#4C1D95">Transfer Class: WHITE_LABELABLE</text>
+  <text x="530" y="706" font-size="11" fill="#4C1D95">Drift alerts: 1 active (artifact_manifest)</text>
+
+  <!-- Legend -->
+  <rect x="50" y="730" width="900" height="40" rx="6" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+  <rect x="70" y="742" width="12" height="12" rx="3" fill="#0D9488"/>
+  <text x="90" y="753" font-size="11" fill="#374151">Slice</text>
+  <rect x="140" y="742" width="12" height="12" rx="3" fill="#38BDF8"/>
+  <text x="160" y="753" font-size="11" fill="#374151">Reflection</text>
+  <text x="240" y="753" font-size="11" fill="#059669" font-weight="600">[P] = Parity OK</text>
+  <text x="370" y="753" font-size="11" fill="#F59E0B" font-weight="600">[D] = Drift Detected</text>
+  <rect x="520" y="740" width="16" height="16" rx="2" fill="none" stroke="#DC2626" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="545" y="753" font-size="11" fill="#374151">Shield Boundary</text>
+  <rect x="660" y="742" width="12" height="12" rx="3" fill="#7C3AED"/>
+  <text x="680" y="753" font-size="11" fill="#374151">Nucleus Control</text>
+</svg>

@@ -1,0 +1,222 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Fixture 002: Invalid Submission
+# Slice: validation
+#
+# A submission package with multiple validation failures: unsupported schema
+# version, missing required fields, unparseable dimension values, and a
+# broken cross-reference. Exercises the rejection path and deficiency
+# citation generation.
+##############################################################################
+
+fixture:
+  id: "FIXTURE-VL-002"
+  name: "Invalid Submission — Multiple Deficiencies"
+  description: >
+    A deliberately malformed submission package that triggers multiple
+    validation failures. Record 1 has an unparseable dimension value,
+    Record 2 is missing the required material_data.mat_code field, and
+    Record 3 references a mark number not present in the submission or
+    project registry. The submission also declares an unsupported schema
+    version. This fixture exercises rejection handling, per-record error
+    isolation, and deficiency citation generation.
+  slice: validation
+  created: "2026-03-20"
+  status: active
+
+submission_package:
+  submission_id: "SUB-20260316093000-XY99ZZ"
+  project_id: "PRJ-HARBOR-TOWER-2026"
+  submitted_at: "2026-03-16T09:30:00Z"
+  submitter:
+    entity_name: "Metro Detailing Services"
+    role: "detailer"
+    contact_email: "shop@metrodetailing.com"
+  schema_version: "1.9.0"
+  transmittal:
+    transmittal_number: "MDS-HT26-XMIT-003"
+    spec_section: "05 12 00"
+    submittal_type: "initial"
+  records:
+    - gcp_record_id: "GCP-SD-000000020001"
+      element_data:
+        elem_type_code: "BM"
+        elem_subtype: "WF"
+        mark_number: "B44"
+        piece_count: 2
+        sequence_number: 101
+        grid_location: "F2-G2"
+        level_tag: "L5"
+        elevation_raw: "60'-0\""
+      geometry_block:
+        section_designation: "W18X35"
+        depth_raw: "17.7\""
+        width_raw: "6.00\""
+        length_raw: "TWENTY FOUR FEET"
+      material_data:
+        mat_code: "STL-A992-50"
+        grade_raw: "Gr.50"
+      dim_block:
+        unit_flag: "IMP"
+        dims:
+          - dim_label: "Overall Length"
+            dim_value_raw: "TWENTY FOUR FEET"
+            is_critical: true
+      connection_block: []
+      meta:
+        exported_at: "2026-03-10T08:00:00Z"
+        export_version: "1.9.0"
+        source_application: "AutoCAD"
+        checksum: "e5f67890abcdef01234567890abcdef0"
+
+    - gcp_record_id: "GCP-SD-000000020002"
+      element_data:
+        elem_type_code: "CL"
+        elem_subtype: "WF"
+        mark_number: "CL22"
+        piece_count: 1
+        sequence_number: 55
+        grid_location: "G2"
+        level_tag: "L4-L5"
+        elevation_raw: "46'-0\""
+      geometry_block:
+        section_designation: "W14X90"
+        depth_raw: "14.02\""
+        width_raw: "14.520\""
+        length_raw: "14'-0\""
+      material_data: {}
+      dim_block:
+        unit_flag: "IMP"
+        dims:
+          - dim_label: "Overall Length"
+            dim_value_raw: "14'-0\""
+            is_critical: true
+      connection_block: []
+      meta:
+        exported_at: "2026-03-10T08:00:00Z"
+        export_version: "1.9.0"
+        source_application: "AutoCAD"
+        checksum: "f67890abcdef01234567890abcdef012"
+
+    - gcp_record_id: "GCP-SD-000000020003"
+      element_data:
+        elem_type_code: "BM"
+        elem_subtype: "WF"
+        mark_number: "B45"
+        piece_count: 1
+        sequence_number: 102
+        grid_location: "G2-H2"
+        level_tag: "L5"
+        elevation_raw: "60'-0\""
+      geometry_block:
+        section_designation: "W16X31"
+        depth_raw: "15.88\""
+        width_raw: "5.525\""
+        length_raw: "22'-6\""
+      material_data:
+        mat_code: "STL-A992-50"
+        grade_raw: "Gr.50"
+      dim_block:
+        unit_flag: "IMP"
+        dims:
+          - dim_label: "Overall Length"
+            dim_value_raw: "22'-6\""
+            is_critical: true
+      connection_block:
+        - conn_id: "C-NE-001"
+          conn_location_code: "NE"
+          conn_type_code: "SHR_TAB"
+          bolt_data:
+            bolt_type_code: "A325N"
+            bolt_dia_raw: "3/4\""
+            bolt_qty: 3
+            hole_type_code: "STD"
+          connects_to_mark: "CL99"
+      meta:
+        exported_at: "2026-03-10T08:00:00Z"
+        export_version: "1.9.0"
+        source_application: "AutoCAD"
+        checksum: "067890abcdef01234567890abcdef0123"
+
+validation_context:
+  project_id: "COS-PRJ-2026-0042"
+  expected_schema_version: "2.3.0"
+  strict_mode: false
+  bypass_codes: []
+
+expected_result:
+  validation_id: "VALD-20260320093000-VL002A"
+  submission_id: "SUB-20260316093000-XY99ZZ"
+  validated_at: "2026-03-20T09:30:00Z"
+  summary:
+    total_records: 3
+    records_valid: 0
+    records_invalid: 3
+    records_warning: 0
+    disposition: "rejected"
+    deficiency_count: 4
+    blocking_deficiencies:
+      - "VAL_E003"
+      - "VR-FI-003"
+      - "VAL_E002"
+      - "VAL_E006"
+    validation_duration_ms: 62
+  record_results:
+    - gcp_record_id: "GCP-SD-000000020001"
+      status: "invalid"
+      checks:
+        - rule_id: "VR-FI-003"
+          status: "failed"
+          severity: "error"
+          field_path: "$.dim_block.dims[0].dim_value_raw"
+          message: "Dimension value 'TWENTY FOUR FEET' is not parseable as an imperial length."
+          deficiency_code: "VR-FI-003"
+
+    - gcp_record_id: "GCP-SD-000000020002"
+      status: "invalid"
+      checks:
+        - rule_id: "VR-RC-003"
+          status: "failed"
+          severity: "error"
+          field_path: "$.material_data.mat_code"
+          message: "Required field material_data.mat_code is missing or empty."
+          deficiency_code: "VAL_E002"
+
+    - gcp_record_id: "GCP-SD-000000020003"
+      status: "invalid"
+      checks:
+        - rule_id: "VR-XR-001"
+          status: "failed"
+          severity: "error"
+          field_path: "$.connection_block[0].connects_to_mark"
+          message: "Mark 'CL99' does not resolve to any record in this submission or the project registry."
+          deficiency_code: "VAL_E006"
+
+  cross_reference_results:
+    total_references_checked: 1
+    references_resolved: 0
+    references_broken: 1
+    broken_references:
+      - source_record_id: "GCP-SD-000000020003"
+        reference_field: "$.connection_block[0].connects_to_mark"
+        referenced_mark: "CL99"
+        resolution_status: "unresolved"
+
+assertions:
+  - assert: value_equals
+    path: "$.summary.disposition"
+    expected: "rejected"
+    description: "Submission with blocking deficiencies must be rejected."
+
+  - assert: value_equals
+    path: "$.summary.records_invalid"
+    expected: 3
+
+  - assert: value_gte
+    path: "$.summary.deficiency_count"
+    expected: 4
+    description: "At least 4 deficiencies: schema version, unparseable dim, missing mat_code, broken xref."
+
+  - assert: value_equals
+    path: "$.cross_reference_results.references_broken"
+    expected: 1

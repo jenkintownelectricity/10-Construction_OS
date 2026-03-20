@@ -1,0 +1,126 @@
+# ============================================================================
+# CAPABILITY SLICE DEFINITION — RECEIPT AUDIT
+# Command C: Capability Slice Architecture
+# Kernel: KERN-INTEGRATION-MIRROR-NUCLEUS
+# ============================================================================
+# This slice provides tamper-evident audit trails for all data ingestion,
+# transformation, and output events across integration mirrors.
+# ============================================================================
+
+slice_id: receipt_audit
+name: "Receipt & Audit Trail Management"
+version: "1.0.0"
+
+purpose: |
+  The receipt_audit slice creates and maintains tamper-evident audit trails
+  for every significant operation performed within an integration mirror.
+  Each data ingestion, transformation step, validation decision, and artifact
+  output is recorded as a cryptographically chained receipt. These receipts
+  enable full reconstruction of how any output was produced from its inputs,
+  supporting dispute resolution, regulatory compliance, and forensic analysis.
+  In construction technology, this is critical for shop drawing workflows
+  where the chain of custody for submittals must be demonstrable — from
+  initial contractor upload through engineering review, markup, and final
+  approval. The receipt_audit slice ensures that every participant's actions
+  are recorded, timestamped, and non-repudiable.
+
+status:
+  gcp_shopdrawing: STAGED
+  default: STAGED
+
+# ---------------------------------------------------------------------------
+# DATA CONTRACTS
+# ---------------------------------------------------------------------------
+
+inputs:
+  - name: operation_events
+    description: "All significant operations from other slices requiring audit coverage"
+    format: event_stream
+    required: true
+
+  - name: actor_identity_tokens
+    description: "Identity assertions for human and system actors performing operations"
+    format: auth_token
+    required: true
+
+  - name: data_hashes
+    description: "Content hashes of inputs and outputs for integrity verification"
+    format: hash_manifest
+    required: true
+
+  - name: external_timestamps
+    description: "Trusted external timestamps from a time-stamping authority"
+    format: rfc3161_token
+    required: false
+
+  - name: prior_receipt_chain
+    description: "Reference to the previous receipt in the chain for continuity verification"
+    format: chain_reference
+    required: false
+
+outputs:
+  - name: audit_receipts
+    description: "Individual tamper-evident receipts for each audited operation"
+    format: signed_receipt
+    retention: permanent
+
+  - name: receipt_chain
+    description: "Ordered chain of receipts enabling full history reconstruction"
+    format: merkle_chain
+    retention: permanent
+
+  - name: audit_summary_reports
+    description: "Periodic summary reports of audit activity for compliance review"
+    format: audit_report
+    retention: "7_years"
+
+  - name: integrity_verification_results
+    description: "Results of periodic chain integrity checks"
+    format: verification_report
+    retention: "365_days"
+
+  - name: chain_of_custody_exports
+    description: "Exportable chain-of-custody documents for external parties"
+    format: pdf_document
+    retention: "7_years"
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY GRAPH
+# ---------------------------------------------------------------------------
+
+required_dependencies:
+  - registry
+
+optional_dependencies:
+  - governance
+  - lineage
+
+# ---------------------------------------------------------------------------
+# CLASSIFICATION & TRANSFER
+# ---------------------------------------------------------------------------
+
+trust_class: CORE_OWNED
+transfer_class: LICENSE_ONLY
+detachability_level: PARTIALLY_DETACHABLE
+
+# ---------------------------------------------------------------------------
+# PARITY & PROMOTION
+# ---------------------------------------------------------------------------
+
+parity_eligibility: true
+promotion_eligibility: false
+classification: MIRROR_ONLY
+
+# ---------------------------------------------------------------------------
+# OPERATIONAL NOTES
+# ---------------------------------------------------------------------------
+
+operational_notes: |
+  Receipt audit depends on the registry to resolve entity identifiers and
+  validate that operations reference real mirrors and slices. The lineage
+  slice is an optional dependency that enriches receipts with transformation
+  provenance data when available. This slice is PARTIALLY_DETACHABLE — the
+  receipt format and verification logic can be extracted, but the chain
+  anchoring mechanism is tied to the kernel's trust infrastructure. Parity
+  is eligible because receipt completeness can be measured quantitatively
+  (percentage of operations covered, chain integrity score).

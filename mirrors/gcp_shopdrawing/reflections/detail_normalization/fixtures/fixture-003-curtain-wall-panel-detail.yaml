@@ -1,0 +1,301 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Fixture 003: Curtain Wall Panel Detail Normalization
+# Slice: detail_normalization
+#
+# A known-good test fixture representing the normalization of a curtain wall
+# panel assembly from GCP source format to Construction OS canonical format.
+##############################################################################
+
+fixture:
+  id: "FIXTURE-DN-003"
+  name: "Curtain Wall Panel Detail — Type CW-A Glass/Aluminum Panel"
+  description: >
+    A unitized curtain wall panel assembly consisting of an aluminum frame
+    with insulated glass infill. Panel Type CW-A spans from Level 4 to
+    Level 5 on the east facade between grid lines 7 and 8. This fixture
+    exercises aluminum and glass material mapping, multi-component element
+    handling, and architectural discipline normalization.
+  slice: detail_normalization
+  created: "2026-03-20"
+  status: active
+
+source_input:
+  gcp_record_id: "GCP-SD-000000009012"
+  gcp_project_key: "PRJ-HARBOR-TOWER-2026"
+  gcp_schema_version: "2.3.0"
+  doc_type: "SHOP_DWG"
+  sheet_ref:
+    sheet_number: "A-501"
+    sheet_title: "CURTAIN WALL DETAILS - EAST ELEVATION"
+    sheet_revision: "R3"
+    sheet_date: "2026-03-01"
+  element_data:
+    elem_type_code: "PN"
+    elem_subtype: "CW"
+    mark_number: "CWA22"
+    piece_count: 12
+    sequence_number: 88
+    grid_location: "7-8/EAST"
+    level_tag: "L4-L5"
+    elevation_raw: "46'-0\" to 60'-0\""
+  geometry_block:
+    section_designation: "CW-A UNITIZED"
+    depth_raw: "5\""
+    width_raw: "60\""
+    length_raw: "14'-0\""
+    web_thk_raw: ""
+    flg_thk_raw: ""
+    rotation_raw: "0deg"
+    slope_raw: ""
+    camber_raw: ""
+    cope_data: []
+  material_data:
+    mat_code: "ALM-6063-T6"
+    mat_spec_ref: "SPEC-ALM-001"
+    grade_raw: "T6"
+    finish_code: "ANOD-CL1"
+    coating_spec: "Class I Clear Anodize per AA-M12C22A41"
+    fy_raw: "25 ksi"
+    fc_raw: ""
+    weld_electrode: ""
+  dim_block:
+    unit_flag: "IMP"
+    dims:
+      - dim_label: "Panel Height"
+        dim_value_raw: "14'-0\""
+        dim_tol_plus_raw: "1/16\""
+        dim_tol_minus_raw: "1/16\""
+        is_critical: true
+      - dim_label: "Panel Width"
+        dim_value_raw: "5'-0\""
+        dim_tol_plus_raw: "1/16\""
+        dim_tol_minus_raw: "1/16\""
+        is_critical: true
+      - dim_label: "Frame Depth"
+        dim_value_raw: "5\""
+        dim_tol_plus_raw: "1/32\""
+        dim_tol_minus_raw: "1/32\""
+        is_critical: true
+      - dim_label: "Glass Thickness"
+        dim_value_raw: "1\""
+        is_critical: true
+      - dim_label: "Mullion Width"
+        dim_value_raw: "2-1/2\""
+        is_critical: false
+      - dim_label: "Sealant Joint Width"
+        dim_value_raw: "3/4\""
+        dim_tol_plus_raw: "1/8\""
+        dim_tol_minus_raw: "1/8\""
+        is_critical: true
+  connection_block:
+    - conn_id: "C-TP-001"
+      conn_location_code: "TP"
+      conn_type_code: "HOOK_ANCHOR"
+      bolt_data:
+        bolt_type_code: "SS316"
+        bolt_dia_raw: "3/8\""
+        bolt_qty: 2
+        hole_type_code: "LSLT"
+      connects_to_mark: "SLAB-L5"
+    - conn_id: "C-BT-001"
+      conn_location_code: "BT"
+      conn_type_code: "STACK_JOINT"
+      bolt_data: {}
+      weld_data: {}
+      connects_to_mark: "CWA21"
+  annotation_block:
+    - anno_id: "A001"
+      anno_type_code: "NOTE"
+      anno_text: "1\" IGU: 1/4\" CLEAR TEMPERED + 1/2\" AIR + 1/4\" LOW-E TEMPERED"
+      anno_x: 200.0
+      anno_y: 300.0
+    - anno_id: "A002"
+      anno_type_code: "NOTE"
+      anno_text: "THERMAL BREAK AT ALL ALUMINUM-TO-ALUMINUM CONTACTS"
+      anno_x: 200.0
+      anno_y: 320.0
+    - anno_id: "A003"
+      anno_type_code: "CALLOUT"
+      anno_text: "SEE DET 5/A-501 FOR SILL CONDITION"
+      anno_x: 180.0
+      anno_y: 400.0
+  revision_block:
+    - rev_id: "R1"
+      rev_date: "2026-01-10"
+      rev_desc: "Initial issue"
+      rev_by: "LChen"
+      rev_type_code: "INIT"
+    - rev_id: "R2"
+      rev_date: "2026-02-05"
+      rev_desc: "Updated glass makeup per energy model revision"
+      rev_by: "LChen"
+      rev_type_code: "MAT_CHG"
+    - rev_id: "R3"
+      rev_date: "2026-03-01"
+      rev_desc: "Revised anchor detail for structural coordination"
+      rev_by: "TParks"
+      rev_type_code: "CONN_CHG"
+  meta:
+    exported_at: "2026-03-05T09:15:00Z"
+    export_version: "2.3.0"
+    source_application: "SolidWorks"
+    source_application_version: "2025 SP3"
+    checksum: "c3d4e5f678901234567890abcdef0123"
+
+normalization_context:
+  project_id: "COS-PRJ-2026-0042"
+  discipline_code: architectural
+  unit_system: imperial
+  override_rules: []
+
+expected_output:
+  detail_id: "DET-ARCH-00000088"
+  canonical_version: "1.0.0"
+  project_ref:
+    project_id: "COS-PRJ-2026-0042"
+    project_name: "Harbor Tower 2026"
+    phase: "shop_drawing"
+  discipline: "architectural"
+  element_type:
+    primary_type: "panel"
+    subtype: "curtain_wall"
+    designation: "CW-A UNITIZED"
+  geometry:
+    profile:
+      shape: "rectangular"
+      depth_in: 5.0
+      width_in: 60.0
+    length_in: 168.0
+    orientation:
+      rotation_deg: 0.0
+    coordinates:
+      grid_line_x: "7-8"
+      grid_line_y: "EAST"
+      elevation_ft: 46.0
+      level: "L4-L5"
+  material:
+    category: "aluminum"
+    specification: "AA 6063"
+    grade: "Temper T6"
+    finish: "Class I Clear Anodize per AA-M12C22A41"
+    yield_strength_ksi: 25.0
+  dimensions:
+    unit_system: "imperial"
+    primary_dimensions:
+      - label: "Panel Height"
+        value: 168.0
+        unit: "in"
+        tolerance_plus: 0.0625
+        tolerance_minus: 0.0625
+        critical: true
+      - label: "Panel Width"
+        value: 60.0
+        unit: "in"
+        tolerance_plus: 0.0625
+        tolerance_minus: 0.0625
+        critical: true
+      - label: "Frame Depth"
+        value: 5.0
+        unit: "in"
+        tolerance_plus: 0.03125
+        tolerance_minus: 0.03125
+        critical: true
+      - label: "Glass Thickness"
+        value: 1.0
+        unit: "in"
+        critical: true
+      - label: "Mullion Width"
+        value: 2.5
+        unit: "in"
+        critical: false
+      - label: "Sealant Joint Width"
+        value: 0.75
+        unit: "in"
+        tolerance_plus: 0.125
+        tolerance_minus: 0.125
+        critical: true
+  connections:
+    - connection_id: "C-TP-001"
+      location: "top"
+      type: "fixed"
+      fasteners:
+        bolt_type: "SS316"
+        bolt_diameter_in: 0.375
+        bolt_count: 2
+        hole_type: "long_slotted"
+      connected_to: "SLAB-L5"
+    - connection_id: "C-BT-001"
+      location: "bottom"
+      type: "shear"
+      connected_to: "DET-ARCH-CWA21"
+  annotations:
+    - annotation_id: "A001"
+      type: "note"
+      text: "1\" IGU: 1/4\" CLEAR TEMPERED + 1/2\" AIR + 1/4\" LOW-E TEMPERED"
+      position: { x: 200.0, y: 300.0 }
+    - annotation_id: "A002"
+      type: "note"
+      text: "THERMAL BREAK AT ALL ALUMINUM-TO-ALUMINUM CONTACTS"
+      position: { x: 200.0, y: 320.0 }
+    - annotation_id: "A003"
+      type: "callout"
+      text: "SEE DET 5/A-501 FOR SILL CONDITION"
+      position: { x: 180.0, y: 400.0 }
+  revisions:
+    - revision_id: "R1"
+      date: "2026-01-10"
+      description: "Initial issue"
+      author: "LChen"
+      delta_type: "full_redesign"
+    - revision_id: "R2"
+      date: "2026-02-05"
+      description: "Updated glass makeup per energy model revision"
+      author: "LChen"
+      delta_type: "material_change"
+    - revision_id: "R3"
+      date: "2026-03-01"
+      description: "Revised anchor detail for structural coordination"
+      author: "TParks"
+      delta_type: "connection_change"
+  normalization_metadata:
+    source_system: "gcp_shopdrawing"
+    source_record_id: "GCP-SD-000000009012"
+    normalized_at: "2026-03-05T09:20:00Z"
+    contract_version: "1.0.0"
+    mapping_version: "1.0.0"
+    source_hash: "sha256:c3d4e5f678901234567890abcdef0123abcdef0123abcdef0123abcdef0123ab"
+    output_hash: "sha256:2b3c4d5e6f7890123456789abcdef01234567890abcdef01234567890abcdef01"
+    warnings: []
+
+assertions:
+  - assert: value_equals
+    path: "$.element_type.primary_type"
+    expected: "panel"
+
+  - assert: value_equals
+    path: "$.element_type.subtype"
+    expected: "curtain_wall"
+
+  - assert: value_equals
+    path: "$.discipline"
+    expected: "architectural"
+
+  - assert: value_equals
+    path: "$.material.category"
+    expected: "aluminum"
+
+  - assert: value_equals
+    path: "$.geometry.length_in"
+    expected: 168.0
+    description: "14'-0\" must convert to 168.0 inches."
+
+  - assert: value_equals
+    path: "$.dimensions.primary_dimensions[4].value"
+    expected: 2.5
+    description: "2-1/2\" must parse to 2.5 inches."
+
+  - assert: array_length
+    path: "$.revisions"
+    expected: 3
+    description: "All three revisions must be carried forward."

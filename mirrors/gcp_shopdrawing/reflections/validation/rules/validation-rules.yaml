@@ -1,0 +1,254 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Validation Rules
+# Slice: validation
+#
+# Defines the complete set of rules governing the acceptance validation
+# of shop drawing submissions from GCP-hosted systems. Rules cover
+# structural completeness, schema conformance, field-level integrity,
+# and cross-reference consistency.
+##############################################################################
+
+rules:
+  version: "1.0.0"
+  effective_date: "2026-03-20"
+  mirror: gcp_shopdrawing
+  slice: validation
+
+# ─── SUBMISSION ENVELOPE RULES ──────────────────────────────────────────────
+
+submission_envelope_rules:
+  - rule_id: "VR-SE-001"
+    rule_version: "1.0.0"
+    name: "Submission ID Format"
+    description: >
+      Verify the submission_id conforms to the expected format
+      SUB-{14-digit-timestamp}-{6-char-random}.
+    severity: error
+    check_type: pattern_match
+    field_path: "$.submission_id"
+    pattern: "^SUB-[0-9]{14}-[A-Z0-9]{6}$"
+    on_fail: reject_submission
+
+  - rule_id: "VR-SE-002"
+    rule_version: "1.0.0"
+    name: "Project Registration"
+    description: >
+      Verify the project_id in the submission is registered in the
+      Construction OS project registry.
+    severity: error
+    check_type: registry_lookup
+    field_path: "$.project_id"
+    lookup_table: project_registry
+    on_fail: reject_submission
+
+  - rule_id: "VR-SE-003"
+    rule_version: "1.0.0"
+    name: "Schema Version Supported"
+    description: >
+      Verify the declared GCP schema version is in the list of
+      supported versions for the current validation contract.
+    severity: error
+    check_type: version_check
+    field_path: "$.schema_version"
+    supported_versions: ["2.2.0", "2.3.0", "2.4.0"]
+    on_fail: reject_submission
+
+  - rule_id: "VR-SE-004"
+    rule_version: "1.0.0"
+    name: "Submitter Identity Present"
+    description: >
+      Verify the submitter block contains entity_name and role.
+    severity: error
+    check_type: presence_check
+    field_paths:
+      - "$.submitter.entity_name"
+      - "$.submitter.role"
+    on_fail: reject_submission
+
+  - rule_id: "VR-SE-005"
+    rule_version: "1.0.0"
+    name: "Submission Hash Integrity"
+    description: >
+      When a submission_hash is provided, verify it matches the
+      computed SHA-256 hash of the submission payload.
+    severity: error
+    check_type: hash_verification
+    field_path: "$.submission_hash"
+    algorithm: sha256
+    on_fail: reject_submission
+
+# ─── RECORD COMPLETENESS RULES ─────────────────────────────────────────────
+
+record_completeness_rules:
+  - rule_id: "VR-RC-001"
+    rule_version: "1.0.0"
+    name: "Record ID Format"
+    description: >
+      Every record must have a gcp_record_id matching GCP-SD-{12-digits}.
+    severity: error
+    check_type: pattern_match
+    field_path: "$.records[*].gcp_record_id"
+    pattern: "^GCP-SD-[0-9]{12}$"
+    on_fail: reject_record
+
+  - rule_id: "VR-RC-002"
+    rule_version: "1.0.0"
+    name: "Element Data Present"
+    description: >
+      Every record must contain a non-empty element_data block with
+      at minimum elem_type_code, elem_subtype, and mark_number.
+    severity: error
+    check_type: presence_check
+    field_paths:
+      - "$.records[*].element_data.elem_type_code"
+      - "$.records[*].element_data.elem_subtype"
+      - "$.records[*].element_data.mark_number"
+    on_fail: reject_record
+
+  - rule_id: "VR-RC-003"
+    rule_version: "1.0.0"
+    name: "Material Data Present"
+    description: >
+      Every record must contain a material_data block with at
+      minimum a mat_code field.
+    severity: error
+    check_type: presence_check
+    field_paths:
+      - "$.records[*].material_data.mat_code"
+    on_fail: reject_record
+
+  - rule_id: "VR-RC-004"
+    rule_version: "1.0.0"
+    name: "Dimension Block Present"
+    description: >
+      Every record must contain a dim_block with unit_flag and
+      at least one dimension entry.
+    severity: error
+    check_type: composite
+    logic: all
+    sub_checks:
+      - type: presence_check
+        field_path: "$.records[*].dim_block.unit_flag"
+      - type: array_min_length
+        field_path: "$.records[*].dim_block.dims"
+        min_length: 1
+    on_fail: reject_record
+
+  - rule_id: "VR-RC-005"
+    rule_version: "1.0.0"
+    name: "Export Metadata Present"
+    description: >
+      Every record must include a meta block with exported_at
+      timestamp and export_version.
+    severity: error
+    check_type: presence_check
+    field_paths:
+      - "$.records[*].meta.exported_at"
+      - "$.records[*].meta.export_version"
+    on_fail: reject_record
+
+# ─── FIELD INTEGRITY RULES ─────────────────────────────────────────────────
+
+field_integrity_rules:
+  - rule_id: "VR-FI-001"
+    rule_version: "1.0.0"
+    name: "Element Type Code Valid"
+    description: >
+      The elem_type_code must be a recognized GCP element type.
+    severity: error
+    check_type: enum_check
+    field_path: "$.records[*].element_data.elem_type_code"
+    allowed_values: ["BM", "CL", "PN", "CN", "BR", "SL", "WL", "FT", "TR", "PL"]
+    on_fail: reject_record
+
+  - rule_id: "VR-FI-002"
+    rule_version: "1.0.0"
+    name: "Unit Flag Valid"
+    description: >
+      The dim_block unit_flag must be IMP, MET, or DUAL.
+    severity: error
+    check_type: enum_check
+    field_path: "$.records[*].dim_block.unit_flag"
+    allowed_values: ["IMP", "MET", "DUAL"]
+    on_fail: reject_record
+
+  - rule_id: "VR-FI-003"
+    rule_version: "1.0.0"
+    name: "Dimension Values Parseable"
+    description: >
+      All dim_value_raw strings must be parseable as valid dimensional
+      values in the declared unit system.
+    severity: error
+    check_type: parse_check
+    field_path: "$.records[*].dim_block.dims[*].dim_value_raw"
+    parsers:
+      IMP: imperial_length_parser
+      MET: metric_length_parser
+    on_fail: reject_record
+
+  - rule_id: "VR-FI-004"
+    rule_version: "1.0.0"
+    name: "Material Code Resolvable"
+    description: >
+      The mat_code must resolve to a known material mapping entry
+      in the detail_normalization mapping table.
+    severity: warning
+    check_type: lookup_check
+    field_path: "$.records[*].material_data.mat_code"
+    lookup_ref: "../../detail_normalization/rules/normalization-rules.yaml#/material_mapping"
+    on_fail: warn_and_proceed
+
+  - rule_id: "VR-FI-005"
+    rule_version: "1.0.0"
+    name: "Timestamp Format Valid"
+    description: >
+      All timestamp fields must conform to ISO 8601 format.
+    severity: error
+    check_type: format_check
+    field_paths:
+      - "$.submitted_at"
+      - "$.records[*].meta.exported_at"
+    format: "date-time"
+    on_fail: reject_record
+
+# ─── CROSS-REFERENCE RULES ─────────────────────────────────────────────────
+
+cross_reference_rules:
+  - rule_id: "VR-XR-001"
+    rule_version: "1.0.0"
+    name: "Connection Mark Resolution"
+    description: >
+      All connects_to_mark references within the submission must resolve
+      to either a mark_number within the same submission or a previously
+      accepted record in the project.
+    severity: error
+    check_type: reference_resolution
+    source_path: "$.records[*].connection_block[*].connects_to_mark"
+    target_path: "$.records[*].element_data.mark_number"
+    fallback: project_record_registry
+    on_fail: reject_record
+
+  - rule_id: "VR-XR-002"
+    rule_version: "1.0.0"
+    name: "Unique Record IDs"
+    description: >
+      No two records in the same submission may share the same
+      gcp_record_id.
+    severity: error
+    check_type: uniqueness_check
+    field_path: "$.records[*].gcp_record_id"
+    on_fail: reject_submission
+
+  - rule_id: "VR-XR-003"
+    rule_version: "1.0.0"
+    name: "Unique Mark Numbers"
+    description: >
+      No two records in the same submission may share the same
+      mark_number within the same element type.
+    severity: error
+    check_type: composite_uniqueness
+    fields:
+      - "$.records[*].element_data.mark_number"
+      - "$.records[*].element_data.elem_type_code"
+    on_fail: reject_submission
