@@ -12,7 +12,10 @@
     "curb detail",
     "RTU curb flashing",
     "skylight curb detail",
-    "mechanical curb penetration"
+    "mechanical curb penetration",
+    "roof curb detail",
+    "HVAC curb",
+    "curb flashing"
   ],
   "tags": [
     "fn-penetration-seal",

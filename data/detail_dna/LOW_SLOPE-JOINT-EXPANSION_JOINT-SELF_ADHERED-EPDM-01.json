@@ -12,7 +12,9 @@
     "structural joint detail",
     "movement joint",
     "building expansion joint",
-    "roof expansion joint"
+    "roof expansion joint",
+    "expansion joint",
+    "EJ detail"
   ],
   "tags": [
     "fn-expansion-accommodation",

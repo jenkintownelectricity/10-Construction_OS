@@ -11,7 +11,11 @@
     "overflow scupper",
     "through-wall scupper",
     "parapet scupper",
-    "scupper drain detail"
+    "scupper drain detail",
+    "scupper detail",
+    "scupper box",
+    "overflow drain",
+    "secondary drainage"
   ],
   "tags": [
     "fn-drainage",

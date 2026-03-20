@@ -12,7 +12,10 @@
     "drip edge",
     "fascia edge",
     "metal edge detail",
-    "roof perimeter edge"
+    "roof perimeter edge",
+    "edge detail",
+    "perimeter edge metal",
+    "roof edge"
   ],
   "tags": [
     "fn-termination",

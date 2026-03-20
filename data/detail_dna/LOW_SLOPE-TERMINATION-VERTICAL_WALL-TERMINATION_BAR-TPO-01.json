@@ -11,7 +11,10 @@
     "wall termination",
     "vertical flashing",
     "base flashing termination",
-    "TPO wall flash"
+    "TPO wall flash",
+    "wall flashing",
+    "base flashing",
+    "membrane termination at wall"
   ],
   "tags": [
     "fn-termination",
