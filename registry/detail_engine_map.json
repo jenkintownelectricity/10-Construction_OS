@@ -1,0 +1,133 @@
+{
+  "_meta": {
+    "title": "Detail Engine Map",
+    "description": "Registry catalog of Wave 14 detail engine subsystems. Documentation-only — does not affect runtime behavior.",
+    "authority": "Construction_OS_Registry",
+    "wave": "14",
+    "contract_version": "14.0.0"
+  },
+  "subsystems": [
+    {
+      "name": "condition_graph_engine",
+      "display_name": "Condition Graph Engine",
+      "owner_repo": "Construction_Runtime",
+      "path": "runtime/condition_graph/",
+      "contract": "condition_graph_contract.md",
+      "contract_version": "14.1.0",
+      "lifecycle_state": "active",
+      "output_artifacts": [
+        "project_condition_graph.json"
+      ],
+      "dependency_seams": [
+        "kernel_condition_types"
+      ],
+      "description": "Builds project condition graphs representing spatial and functional relationships between construction conditions."
+    },
+    {
+      "name": "detail_resolver_engine",
+      "display_name": "Detail Resolver Engine",
+      "owner_repo": "Construction_Runtime",
+      "path": "runtime/detail_resolver/",
+      "contract": "detail_resolution_contract.md",
+      "contract_version": "14.2.0",
+      "lifecycle_state": "active",
+      "output_artifacts": [
+        "resolved_detail_manifest.json"
+      ],
+      "dependency_seams": [
+        "condition_graph_engine",
+        "kernel_detail_families",
+        "kernel_route_graph"
+      ],
+      "description": "Resolves canonical detail families from project condition graphs and material context."
+    },
+    {
+      "name": "variant_generator",
+      "display_name": "Variant Generator",
+      "owner_repo": "Construction_Runtime",
+      "path": "runtime/detail_variants/",
+      "contract": "variant_generation_contract.md",
+      "contract_version": "14.3.0",
+      "lifecycle_state": "active",
+      "output_artifacts": [
+        "detail_variant_payload.json",
+        "variant_manifest.json"
+      ],
+      "dependency_seams": [
+        "detail_resolver_engine",
+        "kernel_detail_families"
+      ],
+      "description": "Generates derived parameterized detail variants from canonical detail families."
+    },
+    {
+      "name": "detail_map_engine",
+      "display_name": "Detail Map Engine",
+      "owner_repo": "Construction_Runtime",
+      "path": "runtime/detail_map/",
+      "contract": "detail_map_contract.md",
+      "contract_version": "14.4.0",
+      "lifecycle_state": "active",
+      "output_artifacts": [
+        "detail_paths.json",
+        "detail_navigation_summary.json"
+      ],
+      "dependency_seams": [
+        "kernel_route_graph"
+      ],
+      "description": "Navigates the frozen detail relationship graph for path computation and adjacency queries."
+    },
+    {
+      "name": "field_condition_scanner",
+      "display_name": "Field Condition Scanner",
+      "owner_repo": "Construction_Runtime",
+      "path": "runtime/field_scan/",
+      "contract": "field_scan_contract.md",
+      "contract_version": "14.5.0",
+      "lifecycle_state": "active",
+      "output_artifacts": [
+        "detected_condition.json"
+      ],
+      "dependency_seams": [
+        "kernel_condition_types"
+      ],
+      "description": "Processes field condition inputs to produce advisory-only detected conditions."
+    },
+    {
+      "name": "installation_sequence_engine",
+      "display_name": "Installation Sequence Engine",
+      "owner_repo": "Construction_Runtime",
+      "path": "runtime/installation_sequence/",
+      "contract": "sequence_contract.md",
+      "contract_version": "14.6.0",
+      "lifecycle_state": "active",
+      "output_artifacts": [
+        "installation_sequence_manifest.json"
+      ],
+      "dependency_seams": [
+        "detail_resolver_engine",
+        "kernel_route_graph"
+      ],
+      "description": "Generates derived installation sequencing from resolved details and route relationships."
+    },
+    {
+      "name": "shop_drawing_prep",
+      "display_name": "Shop Drawing Preparation Layer",
+      "owner_repo": "Construction_Runtime",
+      "path": "runtime/shop_drawing_prep/",
+      "contract": "shop_prep_contract.md",
+      "contract_version": "14.7.0",
+      "lifecycle_state": "active",
+      "output_artifacts": [
+        "project_shop_drawing_manifest.json",
+        "sheet_index.json",
+        "drawing_package_manifest.json"
+      ],
+      "dependency_seams": [
+        "detail_resolver_engine",
+        "variant_generator",
+        "installation_sequence_engine"
+      ],
+      "description": "Prepares manifests and package structure for downstream rendering."
+    }
+  ]
+}
