@@ -1,0 +1,41 @@
+{
+  "detail_id": "LOW_SLOPE-EDGE-ROOF_TO_EDGE-METAL_EDGE-TPO-01",
+  "system": "LOW_SLOPE",
+  "class": "EDGE",
+  "condition": "ROOF_TO_EDGE",
+  "variant": "METAL_EDGE",
+  "assembly_family": "TPO",
+  "display_name": "TPO Metal Edge Termination",
+  "description": "Standard roof edge detail for TPO membrane systems. Membrane terminates into a formed metal edge profile (gravel stop or drip edge). Metal edge is mechanically fastened to substrate with membrane welded to metal flange.",
+  "synonyms": [
+    "gravel stop",
+    "drip edge",
+    "fascia edge",
+    "metal edge detail",
+    "roof perimeter edge"
+  ],
+  "tags": [
+    "fn-termination",
+    "fn-waterproofing",
+    "fn-flashing",
+    "geo-linear",
+    "geo-horizontal",
+    "sub-plywood",
+    "sub-metal-deck",
+    "att-mechanically-fastened",
+    "att-heat-welded",
+    "acc-metal-edge",
+    "perf-high-wind",
+    "perf-uv-exposed"
+  ],
+  "compatible_material_classes": [
+    "TPO"
+  ],
+  "risk_tags": [
+    "WIND_UPLIFT",
+    "UV_EXPOSURE",
+    "THERMAL_MOVEMENT",
+    "INSTALLATION_SEQUENCE_CRITICAL"
+  ],
+  "kernel_version": "13A"
+}

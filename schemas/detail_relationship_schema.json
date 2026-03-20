@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "detail_relationship_schema.json",
+  "title": "Detail Relationship Schema",
+  "description": "Schema for detail-to-detail relationships in the Detail Route Graph. Governs dependency, adjacency, and sequencing between detail families.",
+  "type": "object",
+  "required": [
+    "source_detail_id",
+    "target_detail_id",
+    "relationship_type"
+  ],
+  "properties": {
+    "source_detail_id": {
+      "type": "string",
+      "description": "The originating detail family ID.",
+      "pattern": "^[A-Z_]+-[A-Z_]+-[A-Z_]+-[A-Z_]+-[A-Z_]+-[0-9]{2}$"
+    },
+    "target_detail_id": {
+      "type": "string",
+      "description": "The destination detail family ID.",
+      "pattern": "^[A-Z_]+-[A-Z_]+-[A-Z_]+-[A-Z_]+-[A-Z_]+-[0-9]{2}$"
+    },
+    "relationship_type": {
+      "type": "string",
+      "description": "The type of relationship between detail families.",
+      "enum": [
+        "depends_on",
+        "adjacent_to",
+        "blocks",
+        "requires_continuity_with",
+        "substitutable_with",
+        "terminates_into",
+        "overlaps_with",
+        "precedes",
+        "follows"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable explanation of the relationship."
+    },
+    "directionality": {
+      "type": "string",
+      "description": "Whether the relationship is directional or bidirectional.",
+      "enum": ["directional", "bidirectional"],
+      "default": "directional"
+    },
+    "criticality": {
+      "type": "string",
+      "description": "How critical the relationship is to system integrity.",
+      "enum": ["required", "recommended", "informational"],
+      "default": "required"
+    }
+  },
+  "additionalProperties": false,
+  "_cycle_protection": {
+    "description": "Graph cycle protection rules. Enforced at validation time.",
+    "acyclic_relationship_types": ["depends_on", "precedes"],
+    "allowed_cyclic_relationship_types": ["adjacent_to", "substitutable_with", "overlaps_with"],
+    "note": "depends_on and precedes MUST form a DAG. Cycles in these types are validation errors."
+  }
+}

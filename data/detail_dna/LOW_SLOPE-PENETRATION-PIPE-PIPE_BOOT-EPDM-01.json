@@ -1,0 +1,40 @@
+{
+  "detail_id": "LOW_SLOPE-PENETRATION-PIPE-PIPE_BOOT-EPDM-01",
+  "system": "LOW_SLOPE",
+  "class": "PENETRATION",
+  "condition": "PIPE",
+  "variant": "PIPE_BOOT",
+  "assembly_family": "EPDM",
+  "display_name": "EPDM Pipe Penetration with Pipe Boot",
+  "description": "Standard pipe penetration detail for EPDM membrane systems. Prefabricated EPDM pipe boot is bonded to the field membrane around circular penetrations. Includes clamping ring at pipe interface.",
+  "synonyms": [
+    "roof pipe penetration",
+    "pipe flashing",
+    "pipe boot detail",
+    "vent pipe flashing",
+    "plumbing penetration"
+  ],
+  "tags": [
+    "fn-penetration-seal",
+    "fn-waterproofing",
+    "geo-circular",
+    "sub-metal-deck",
+    "sub-concrete",
+    "att-adhered",
+    "att-clamped",
+    "acc-pipe-boot",
+    "acc-sealant",
+    "perf-ponding-prone",
+    "perf-warranty-critical"
+  ],
+  "compatible_material_classes": [
+    "EPDM"
+  ],
+  "risk_tags": [
+    "PONDING_RISK",
+    "THERMAL_MOVEMENT",
+    "INSTALLATION_SEQUENCE_CRITICAL",
+    "WARRANTY_BOUNDARY"
+  ],
+  "kernel_version": "13A"
+}

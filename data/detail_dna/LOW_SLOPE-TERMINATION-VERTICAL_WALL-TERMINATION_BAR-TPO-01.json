@@ -1,0 +1,40 @@
+{
+  "detail_id": "LOW_SLOPE-TERMINATION-VERTICAL_WALL-TERMINATION_BAR-TPO-01",
+  "system": "LOW_SLOPE",
+  "class": "TERMINATION",
+  "condition": "VERTICAL_WALL",
+  "variant": "TERMINATION_BAR",
+  "assembly_family": "TPO",
+  "display_name": "TPO Vertical Wall Termination with Termination Bar",
+  "description": "Standard vertical wall termination detail for TPO membrane systems. Membrane extends up wall surface, mechanically secured with continuous termination bar, and sealed with compatible sealant.",
+  "synonyms": [
+    "wall termination",
+    "vertical flashing",
+    "base flashing termination",
+    "TPO wall flash"
+  ],
+  "tags": [
+    "fn-termination",
+    "fn-waterproofing",
+    "fn-flashing",
+    "geo-vertical",
+    "sub-concrete",
+    "sub-cmu",
+    "sub-masonry",
+    "att-mechanically-fastened",
+    "acc-termination-bar",
+    "acc-sealant",
+    "acc-cant-strip",
+    "perf-warranty-critical"
+  ],
+  "compatible_material_classes": [
+    "TPO"
+  ],
+  "risk_tags": [
+    "SUBSTRATE_ADHESION",
+    "WIND_UPLIFT",
+    "INSTALLATION_SEQUENCE_CRITICAL",
+    "WARRANTY_BOUNDARY"
+  ],
+  "kernel_version": "13A"
+}

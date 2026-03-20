@@ -1,0 +1,101 @@
+{
+  "$schema": "../schemas/detail_dna_schema.json",
+  "_meta": {
+    "title": "Detail DNA Tag Taxonomy",
+    "description": "Governed tag groups for Detail DNA classification and search. Tags are grouped by function and referenced by detail families.",
+    "authority": "Construction_Kernel",
+    "wave": "13A"
+  },
+  "tag_groups": {
+    "functional": {
+      "description": "Tags describing the functional purpose of a detail.",
+      "tags": [
+        { "tag_id": "fn-waterproofing", "label": "Waterproofing" },
+        { "tag_id": "fn-air-sealing", "label": "Air Sealing" },
+        { "tag_id": "fn-vapor-control", "label": "Vapor Control" },
+        { "tag_id": "fn-drainage", "label": "Drainage" },
+        { "tag_id": "fn-termination", "label": "Termination" },
+        { "tag_id": "fn-transition", "label": "Transition" },
+        { "tag_id": "fn-penetration-seal", "label": "Penetration Seal" },
+        { "tag_id": "fn-flashing", "label": "Flashing" },
+        { "tag_id": "fn-protection", "label": "Protection" },
+        { "tag_id": "fn-insulation-retention", "label": "Insulation Retention" },
+        { "tag_id": "fn-expansion-accommodation", "label": "Expansion Accommodation" },
+        { "tag_id": "fn-anchorage", "label": "Anchorage" }
+      ]
+    },
+    "geometry": {
+      "description": "Tags describing the geometric characteristics of a detail.",
+      "tags": [
+        { "tag_id": "geo-horizontal", "label": "Horizontal" },
+        { "tag_id": "geo-vertical", "label": "Vertical" },
+        { "tag_id": "geo-sloped", "label": "Sloped" },
+        { "tag_id": "geo-inside-corner", "label": "Inside Corner" },
+        { "tag_id": "geo-outside-corner", "label": "Outside Corner" },
+        { "tag_id": "geo-circular", "label": "Circular" },
+        { "tag_id": "geo-linear", "label": "Linear" },
+        { "tag_id": "geo-planar", "label": "Planar" },
+        { "tag_id": "geo-curvilinear", "label": "Curvilinear" }
+      ]
+    },
+    "substrate": {
+      "description": "Tags describing the substrate conditions the detail addresses.",
+      "tags": [
+        { "tag_id": "sub-concrete", "label": "Concrete" },
+        { "tag_id": "sub-cmu", "label": "CMU" },
+        { "tag_id": "sub-metal-deck", "label": "Metal Deck" },
+        { "tag_id": "sub-plywood", "label": "Plywood" },
+        { "tag_id": "sub-gypsum", "label": "Gypsum" },
+        { "tag_id": "sub-steel", "label": "Steel" },
+        { "tag_id": "sub-masonry", "label": "Masonry" },
+        { "tag_id": "sub-existing-membrane", "label": "Existing Membrane" }
+      ]
+    },
+    "attachment": {
+      "description": "Tags describing how the detail is attached or secured.",
+      "tags": [
+        { "tag_id": "att-mechanically-fastened", "label": "Mechanically Fastened" },
+        { "tag_id": "att-adhered", "label": "Adhered" },
+        { "tag_id": "att-self-adhered", "label": "Self-Adhered" },
+        { "tag_id": "att-torch-applied", "label": "Torch Applied" },
+        { "tag_id": "att-hot-mopped", "label": "Hot Mopped" },
+        { "tag_id": "att-cold-applied", "label": "Cold Applied" },
+        { "tag_id": "att-heat-welded", "label": "Heat Welded" },
+        { "tag_id": "att-clamped", "label": "Clamped" },
+        { "tag_id": "att-embedded", "label": "Embedded" }
+      ]
+    },
+    "accessory": {
+      "description": "Tags describing accessory components involved in the detail.",
+      "tags": [
+        { "tag_id": "acc-termination-bar", "label": "Termination Bar" },
+        { "tag_id": "acc-metal-edge", "label": "Metal Edge" },
+        { "tag_id": "acc-coping", "label": "Coping" },
+        { "tag_id": "acc-counterflashing", "label": "Counterflashing" },
+        { "tag_id": "acc-reglet", "label": "Reglet" },
+        { "tag_id": "acc-pipe-boot", "label": "Pipe Boot" },
+        { "tag_id": "acc-pitch-pocket", "label": "Pitch Pocket" },
+        { "tag_id": "acc-drain-ring", "label": "Drain Ring" },
+        { "tag_id": "acc-expansion-joint-cover", "label": "Expansion Joint Cover" },
+        { "tag_id": "acc-sealant", "label": "Sealant" },
+        { "tag_id": "acc-cant-strip", "label": "Cant Strip" },
+        { "tag_id": "acc-walkway-pad", "label": "Walkway Pad" }
+      ]
+    },
+    "performance": {
+      "description": "Tags describing performance requirements or risk factors.",
+      "tags": [
+        { "tag_id": "perf-fire-rated", "label": "Fire Rated" },
+        { "tag_id": "perf-high-wind", "label": "High Wind Zone" },
+        { "tag_id": "perf-ponding-prone", "label": "Ponding Prone" },
+        { "tag_id": "perf-thermal-bridge", "label": "Thermal Bridge" },
+        { "tag_id": "perf-uv-exposed", "label": "UV Exposed" },
+        { "tag_id": "perf-chemical-exposure", "label": "Chemical Exposure" },
+        { "tag_id": "perf-traffic-rated", "label": "Traffic Rated" },
+        { "tag_id": "perf-below-grade", "label": "Below Grade" },
+        { "tag_id": "perf-warranty-critical", "label": "Warranty Critical" },
+        { "tag_id": "perf-code-critical", "label": "Code Critical" }
+      ]
+    }
+  }
+}

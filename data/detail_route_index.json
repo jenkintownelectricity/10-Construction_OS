@@ -1,0 +1,107 @@
+{
+  "_meta": {
+    "title": "Detail Route Index",
+    "description": "Canonical route graph defining relationships between detail families. Validated for DAG compliance on depends_on and precedes edges. No circular dependencies permitted.",
+    "authority": "Construction_Kernel",
+    "wave": "13A",
+    "schema": "../schemas/detail_relationship_schema.json"
+  },
+  "routes": [
+    {
+      "source_detail_id": "LOW_SLOPE-TERMINATION-PARAPET-COUNTERFLASHING-EPDM-01",
+      "target_detail_id": "LOW_SLOPE-TRANSITION-ROOF_TO_WALL-REGLET-PVC-01",
+      "relationship_type": "adjacent_to",
+      "description": "Parapet termination is adjacent to roof-to-wall transition at the base of the parapet.",
+      "directionality": "bidirectional",
+      "criticality": "recommended"
+    },
+    {
+      "source_detail_id": "LOW_SLOPE-TERMINATION-PARAPET-COUNTERFLASHING-EPDM-01",
+      "target_detail_id": "LOW_SLOPE-EDGE-ROOF_TO_EDGE-METAL_EDGE-TPO-01",
+      "relationship_type": "adjacent_to",
+      "description": "Parapet termination may be adjacent to edge metal at parapet corners or transitions to non-parapet edges.",
+      "directionality": "bidirectional",
+      "criticality": "informational"
+    },
+    {
+      "source_detail_id": "LOW_SLOPE-TERMINATION-PARAPET-COUNTERFLASHING-EPDM-01",
+      "target_detail_id": "LOW_SLOPE-TERMINATION-VERTICAL_WALL-TERMINATION_BAR-TPO-01",
+      "relationship_type": "substitutable_with",
+      "description": "Parapet counterflashing and vertical wall termination bar are alternative approaches to the same termination condition, differing in cladding method.",
+      "directionality": "bidirectional",
+      "criticality": "informational"
+    },
+    {
+      "source_detail_id": "LOW_SLOPE-DRAINAGE-DRAIN-COPING-TPO-01",
+      "target_detail_id": "LOW_SLOPE-PENETRATION-PIPE-PIPE_BOOT-EPDM-01",
+      "relationship_type": "requires_continuity_with",
+      "description": "Roof drain and pipe penetration both require unbroken membrane continuity in the field area surrounding them.",
+      "directionality": "bidirectional",
+      "criticality": "required"
+    },
+    {
+      "source_detail_id": "LOW_SLOPE-DRAINAGE-DRAIN-COPING-TPO-01",
+      "target_detail_id": "LOW_SLOPE-DRAINAGE-SCUPPER-METAL_EDGE-SBS-01",
+      "relationship_type": "requires_continuity_with",
+      "description": "Primary drain and overflow scupper work as a coordinated drainage pair. Both must be present for code compliance.",
+      "directionality": "bidirectional",
+      "criticality": "required"
+    },
+    {
+      "source_detail_id": "LOW_SLOPE-EDGE-ROOF_TO_EDGE-METAL_EDGE-TPO-01",
+      "target_detail_id": "LOW_SLOPE-DRAINAGE-SCUPPER-METAL_EDGE-SBS-01",
+      "relationship_type": "terminates_into",
+      "description": "Edge metal terminates into scupper openings at overflow locations.",
+      "directionality": "directional",
+      "criticality": "required"
+    },
+    {
+      "source_detail_id": "LOW_SLOPE-JOINT-EXPANSION_JOINT-SELF_ADHERED-EPDM-01",
+      "target_detail_id": "LOW_SLOPE-TERMINATION-PARAPET-COUNTERFLASHING-EPDM-01",
+      "relationship_type": "terminates_into",
+      "description": "Expansion joints terminate into parapets where structural joints meet the building perimeter.",
+      "directionality": "directional",
+      "criticality": "required"
+    },
+    {
+      "source_detail_id": "LOW_SLOPE-JOINT-EXPANSION_JOINT-SELF_ADHERED-EPDM-01",
+      "target_detail_id": "LOW_SLOPE-EDGE-ROOF_TO_EDGE-METAL_EDGE-TPO-01",
+      "relationship_type": "terminates_into",
+      "description": "Expansion joints terminate into edge metal where structural joints meet the building perimeter at non-parapet edges.",
+      "directionality": "directional",
+      "criticality": "required"
+    },
+    {
+      "source_detail_id": "LOW_SLOPE-TRANSITION-ROOF_TO_WALL-REGLET-PVC-01",
+      "target_detail_id": "LOW_SLOPE-PENETRATION-CURB-COUNTERFLASHING-TPO-01",
+      "relationship_type": "adjacent_to",
+      "description": "Roof-to-wall transitions are adjacent to curb penetrations where equipment curbs meet wall lines.",
+      "directionality": "bidirectional",
+      "criticality": "recommended"
+    },
+    {
+      "source_detail_id": "LOW_SLOPE-PENETRATION-CURB-COUNTERFLASHING-TPO-01",
+      "target_detail_id": "LOW_SLOPE-PENETRATION-PIPE-PIPE_BOOT-EPDM-01",
+      "relationship_type": "adjacent_to",
+      "description": "Curb penetrations may be adjacent to pipe penetrations where piping connects to curb-mounted equipment.",
+      "directionality": "bidirectional",
+      "criticality": "informational"
+    },
+    {
+      "source_detail_id": "LOW_SLOPE-TERMINATION-VERTICAL_WALL-TERMINATION_BAR-TPO-01",
+      "target_detail_id": "LOW_SLOPE-TRANSITION-ROOF_TO_WALL-REGLET-PVC-01",
+      "relationship_type": "substitutable_with",
+      "description": "Termination bar and reglet are alternative termination methods at roof-to-wall conditions.",
+      "directionality": "bidirectional",
+      "criticality": "informational"
+    },
+    {
+      "source_detail_id": "LOW_SLOPE-PENETRATION-PIPE-PIPE_BOOT-EPDM-01",
+      "target_detail_id": "LOW_SLOPE-DRAINAGE-DRAIN-COPING-TPO-01",
+      "relationship_type": "overlaps_with",
+      "description": "Pipe penetrations near drains may have overlapping membrane reinforcement zones.",
+      "directionality": "bidirectional",
+      "criticality": "informational"
+    }
+  ]
+}

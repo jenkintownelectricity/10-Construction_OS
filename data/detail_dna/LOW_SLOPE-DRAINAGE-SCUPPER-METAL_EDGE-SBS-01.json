@@ -1,0 +1,43 @@
+{
+  "detail_id": "LOW_SLOPE-DRAINAGE-SCUPPER-METAL_EDGE-SBS-01",
+  "system": "LOW_SLOPE",
+  "class": "DRAINAGE",
+  "condition": "SCUPPER",
+  "variant": "METAL_EDGE",
+  "assembly_family": "SBS",
+  "display_name": "SBS Scupper with Metal Edge",
+  "description": "Standard overflow scupper detail for SBS modified bitumen membrane systems. Metal scupper box is set through parapet wall, membrane is torch-applied to scupper flanges, and metal edge trim provides weather protection.",
+  "synonyms": [
+    "overflow scupper",
+    "through-wall scupper",
+    "parapet scupper",
+    "scupper drain detail"
+  ],
+  "tags": [
+    "fn-drainage",
+    "fn-waterproofing",
+    "fn-flashing",
+    "geo-horizontal",
+    "geo-linear",
+    "sub-concrete",
+    "sub-cmu",
+    "att-torch-applied",
+    "acc-metal-edge",
+    "acc-sealant",
+    "perf-ponding-prone",
+    "perf-code-critical"
+  ],
+  "compatible_material_classes": [
+    "SBS",
+    "APP",
+    "Bitumen"
+  ],
+  "risk_tags": [
+    "PONDING_RISK",
+    "DRAINAGE_CRITICAL",
+    "MULTI_TRADE_COORDINATION",
+    "CODE_COMPLIANCE_CRITICAL",
+    "STRUCTURAL_ATTACHMENT"
+  ],
+  "kernel_version": "13A"
+}

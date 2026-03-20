@@ -1,0 +1,43 @@
+{
+  "detail_id": "LOW_SLOPE-PENETRATION-CURB-COUNTERFLASHING-TPO-01",
+  "system": "LOW_SLOPE",
+  "class": "PENETRATION",
+  "condition": "CURB",
+  "variant": "COUNTERFLASHING",
+  "assembly_family": "TPO",
+  "display_name": "TPO Curb Penetration with Counterflashing",
+  "description": "Standard curb-mounted equipment penetration detail for TPO membrane systems. Membrane wraps curb faces, terminated at top with metal counterflashing. Addresses HVAC units, skylights, and other curb-mounted equipment.",
+  "synonyms": [
+    "equipment curb flashing",
+    "curb detail",
+    "RTU curb flashing",
+    "skylight curb detail",
+    "mechanical curb penetration"
+  ],
+  "tags": [
+    "fn-penetration-seal",
+    "fn-waterproofing",
+    "fn-flashing",
+    "geo-vertical",
+    "geo-horizontal",
+    "sub-metal-deck",
+    "sub-plywood",
+    "att-heat-welded",
+    "acc-counterflashing",
+    "acc-cant-strip",
+    "acc-sealant",
+    "perf-high-wind",
+    "perf-warranty-critical"
+  ],
+  "compatible_material_classes": [
+    "TPO"
+  ],
+  "risk_tags": [
+    "WIND_UPLIFT",
+    "THERMAL_MOVEMENT",
+    "MULTI_TRADE_COORDINATION",
+    "INSTALLATION_SEQUENCE_CRITICAL",
+    "WARRANTY_BOUNDARY"
+  ],
+  "kernel_version": "13A"
+}
