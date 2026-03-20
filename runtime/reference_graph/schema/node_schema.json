@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "node_schema.json",
+  "title": "Reference Graph Node Schema",
+  "description": "Schema for nodes in the Construction Reference Graph. Wave 17A.",
+  "type": "object",
+  "required": [
+    "graph_id",
+    "object_type",
+    "scope",
+    "partition",
+    "source_system",
+    "source_reference",
+    "authority_type",
+    "created_timestamp",
+    "status"
+  ],
+  "properties": {
+    "graph_id": {
+      "type": "string",
+      "description": "Stable, deterministic identity. Format: CRG-{TYPE}-{NUMBER}.",
+      "pattern": "^CRG-[A-Z]+-[0-9]{6}$"
+    },
+    "object_type": {
+      "type": "string",
+      "description": "The type of governed object this node represents.",
+      "enum": [
+        "DETAIL", "VARIANT", "INSTRUCTION_SET", "MANIFEST",
+        "RENDER_JOB", "DRAWING", "PDF", "DXF", "SVG",
+        "MARKUP", "ANNOTATION", "OBSERVATION",
+        "CONDITION", "PROJECT", "ARTIFACT",
+        "ARTIFACT_REGION", "PAGE_REFERENCE"
+      ]
+    },
+    "scope": {
+      "type": "string",
+      "description": "Scope identifier (global, project ID, etc.).",
+      "minLength": 1
+    },
+    "partition": {
+      "type": "string",
+      "description": "Graph partition this node belongs to.",
+      "enum": [
+        "global_kernel_partition",
+        "global_runtime_partition",
+        "project_partition",
+        "artifact_partition",
+        "observation_partition"
+      ]
+    },
+    "source_system": {
+      "type": "string",
+      "description": "The originating system that owns this object.",
+      "minLength": 1
+    },
+    "source_reference": {
+      "type": "string",
+      "description": "The original reference/ID in the source system.",
+      "minLength": 1
+    },
+    "authority_type": {
+      "type": "string",
+      "description": "The authority classification of this node.",
+      "enum": [
+        "kernel_canonical",
+        "runtime_derived",
+        "project_instance",
+        "external_unverified"
+      ]
+    },
+    "created_timestamp": {
+      "type": "string",
+      "description": "UTC timestamp of node creation.",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "description": "Lifecycle status of this node.",
+      "enum": ["active", "superseded", "archived", "invalid"]
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata for this node."
+    }
+  },
+  "additionalProperties": false,
+  "_identity_rules": {
+    "id_format": "CRG-{TYPE}-{NUMBER}",
+    "uniqueness_key": "source_system + source_reference + object_type + scope",
+    "collision_behavior": "fail_closed",
+    "idempotent_replay": "return_existing_if_identical_payload"
+  }
+}

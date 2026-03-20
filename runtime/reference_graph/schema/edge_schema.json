@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "edge_schema.json",
+  "title": "Reference Graph Edge Schema",
+  "description": "Schema for edges in the Construction Reference Graph. Wave 17A.",
+  "type": "object",
+  "required": [
+    "edge_id",
+    "relation_type",
+    "from_id",
+    "to_id",
+    "from_type",
+    "to_type",
+    "status"
+  ],
+  "properties": {
+    "edge_id": {
+      "type": "string",
+      "description": "Deterministic edge identity derived from SHA-256 of (relation_type, from_id, to_id)."
+    },
+    "relation_type": {
+      "type": "string",
+      "description": "The type of relationship this edge represents.",
+      "enum": [
+        "instance_of", "belongs_to_project", "references_canonical", "scoped_under",
+        "derived_from", "produced_by", "rendered_from", "supersedes",
+        "revision_of", "generated_from",
+        "appears_in", "annotates", "region_of", "page_of", "attached_to",
+        "observed_in", "documents", "verifies", "flags", "supports", "invalidates",
+        "related_to", "installed_before", "installed_after",
+        "alternative_to", "prerequisite_for"
+      ]
+    },
+    "from_id": {
+      "type": "string",
+      "description": "Graph ID of the source node.",
+      "pattern": "^CRG-[A-Z]+-[0-9]{6}$"
+    },
+    "to_id": {
+      "type": "string",
+      "description": "Graph ID of the target node.",
+      "pattern": "^CRG-[A-Z]+-[0-9]{6}$"
+    },
+    "from_type": {
+      "type": "string",
+      "description": "Object type of the source node."
+    },
+    "to_type": {
+      "type": "string",
+      "description": "Object type of the target node."
+    },
+    "source_basis": {
+      "type": "string",
+      "description": "Describes what runtime fact generated this edge."
+    },
+    "is_advisory": {
+      "type": "boolean",
+      "description": "True if this is an advisory (non-deterministic) edge.",
+      "default": false
+    },
+    "created_timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "superseded", "archived", "invalid"]
+    },
+    "metadata": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "_relation_categories": {
+    "identity": ["instance_of", "belongs_to_project", "references_canonical", "scoped_under"],
+    "lineage": ["derived_from", "produced_by", "rendered_from", "supersedes", "revision_of", "generated_from"],
+    "artifact": ["appears_in", "annotates", "region_of", "page_of", "attached_to"],
+    "observation": ["observed_in", "documents", "verifies", "flags", "supports", "invalidates"],
+    "navigation": ["related_to", "installed_before", "installed_after", "alternative_to", "prerequisite_for"]
+  },
+  "_validation_rules": {
+    "advisory_cannot_overwrite_deterministic": true,
+    "duplicate_insertion_fails_closed": true,
+    "relation_type_must_be_valid_for_from_to_pair": true
+  }
+}
