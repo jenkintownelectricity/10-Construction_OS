@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import type { AISettings, ProviderId } from "./provider-types";
+import type { AISettings, ProviderId, ProviderSettings } from "./provider-types";
 import { DEFAULT_ROUTING_POLICY } from "./provider-routing";
 
 const SETTINGS_PATH = path.join(process.cwd(), "ai-settings.json");
@@ -39,18 +39,15 @@ const DEFAULT_SETTINGS: AISettings = {
   routing: DEFAULT_ROUTING_POLICY,
 };
 
-let cachedSettings: AISettings | null = null;
-
+// Always read from disk — no stale cache
 export function loadSettings(): AISettings {
-  if (cachedSettings) return cachedSettings;
-
   try {
     if (fs.existsSync(SETTINGS_PATH)) {
       const raw = JSON.parse(fs.readFileSync(SETTINGS_PATH, "utf-8")) as PersistedSettings;
-      cachedSettings = {
+      return {
         defaultProvider: (raw.defaultProvider as ProviderId) ?? DEFAULT_SETTINGS.defaultProvider,
         fallbackProvider: (raw.fallbackProvider as ProviderId) ?? DEFAULT_SETTINGS.fallbackProvider,
-        activePreset: raw.activePreset as AISettings["activePreset"] ?? DEFAULT_SETTINGS.activePreset,
+        activePreset: (raw.activePreset as AISettings["activePreset"]) ?? DEFAULT_SETTINGS.activePreset,
         defaultTemperature: raw.defaultTemperature ?? DEFAULT_SETTINGS.defaultTemperature,
         defaultMaxTokens: raw.defaultMaxTokens ?? DEFAULT_SETTINGS.defaultMaxTokens,
         timeoutMs: raw.timeoutMs ?? DEFAULT_SETTINGS.timeoutMs,
@@ -63,28 +60,52 @@ export function loadSettings(): AISettings {
         },
         routing: DEFAULT_ROUTING_POLICY,
       };
-      return cachedSettings;
     }
   } catch {
     // Fall through to defaults
   }
-
-  cachedSettings = { ...DEFAULT_SETTINGS };
-  return cachedSettings;
+  return { ...DEFAULT_SETTINGS, providers: { ...DEFAULT_SETTINGS.providers } };
 }
 
 export function saveSettings(updates: Partial<Omit<AISettings, "routing">>): AISettings {
   const current = loadSettings();
+
+  // Deep-merge providers: preserve existing fields, only override what's provided
+  let mergedProviders = current.providers;
+  if (updates.providers) {
+    mergedProviders = { ...current.providers };
+    for (const [id, partial] of Object.entries(updates.providers)) {
+      const pid = id as ProviderId;
+      if (mergedProviders[pid] && partial) {
+        mergedProviders[pid] = { ...mergedProviders[pid] };
+        if (typeof partial.enabled === "boolean") mergedProviders[pid].enabled = partial.enabled;
+        if (typeof partial.defaultModel === "string") mergedProviders[pid].defaultModel = partial.defaultModel;
+        if (partial.baseUrl !== undefined) mergedProviders[pid].baseUrl = partial.baseUrl || undefined;
+      }
+    }
+  }
+
   const merged: AISettings = {
-    ...current,
-    ...updates,
-    providers: updates.providers
-      ? { ...current.providers, ...updates.providers }
-      : current.providers,
+    defaultProvider: updates.defaultProvider ?? current.defaultProvider,
+    fallbackProvider: updates.fallbackProvider ?? current.fallbackProvider,
+    activePreset: updates.activePreset ?? current.activePreset,
+    defaultTemperature: updates.defaultTemperature ?? current.defaultTemperature,
+    defaultMaxTokens: updates.defaultMaxTokens ?? current.defaultMaxTokens,
+    timeoutMs: updates.timeoutMs ?? current.timeoutMs,
+    streamingEnabled: updates.streamingEnabled ?? current.streamingEnabled,
+    providers: mergedProviders,
     routing: current.routing,
   };
 
-  // Persist without keys
+  // Read existing file to preserve keys
+  let existingKeys: Record<string, string> | undefined;
+  try {
+    if (fs.existsSync(SETTINGS_PATH)) {
+      const existing = JSON.parse(fs.readFileSync(SETTINGS_PATH, "utf-8")) as PersistedSettings;
+      existingKeys = existing.keys;
+    }
+  } catch { /* ignore */ }
+
   const persisted: PersistedSettings = {
     defaultProvider: merged.defaultProvider,
     fallbackProvider: merged.fallbackProvider,
@@ -94,10 +115,10 @@ export function saveSettings(updates: Partial<Omit<AISettings, "routing">>): AIS
     timeoutMs: merged.timeoutMs,
     streamingEnabled: merged.streamingEnabled,
     providers: merged.providers,
+    ...(existingKeys ? { keys: existingKeys } : {}),
   };
 
   fs.writeFileSync(SETTINGS_PATH, JSON.stringify(persisted, null, 2), "utf-8");
-  cachedSettings = merged;
   return merged;
 }
 
@@ -173,8 +194,6 @@ export function setProviderKey(provider: ProviderId, key: string): void {
   } catch {
     // Key is in memory at minimum
   }
-
-  cachedSettings = null; // force reload
 }
 
 export function clearProviderKey(provider: ProviderId): void {
@@ -192,8 +211,6 @@ export function clearProviderKey(provider: ProviderId): void {
   } catch {
     // ignore
   }
-
-  cachedSettings = null;
 }
 
 export function getMaskedKey(provider: ProviderId): string {

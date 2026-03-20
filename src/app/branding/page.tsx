@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useBranding } from "@/components/branding/BrandingProvider";
 
 function ColorInput({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
@@ -22,7 +22,7 @@ function ColorInput({ label, value, onChange }: { label: string; value: string; 
 }
 
 export default function BrandingPage() {
-  const { branding, updateBranding } = useBranding();
+  const { branding, updateBranding, loading } = useBranding();
   const [appName, setAppName] = useState(branding.appName);
   const [companyName, setCompanyName] = useState(branding.companyName);
   const [logoUrl, setLogoUrl] = useState(branding.logoUrl);
@@ -31,17 +31,40 @@ export default function BrandingPage() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
 
+  // Re-sync local state when branding loads from server
+  useEffect(() => {
+    if (!loading) {
+      setAppName(branding.appName);
+      setCompanyName(branding.companyName);
+      setLogoUrl(branding.logoUrl);
+      setColors(branding.colors);
+      setDensity(branding.density);
+    }
+  }, [loading, branding]);
+
   async function handleSave() {
     setSaving(true);
     setSaved(false);
-    await updateBranding({ appName, companyName, logoUrl, colors, density });
+    try {
+      await updateBranding({ appName, companyName, logoUrl, colors, density });
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch {
+      // error handling
+    }
     setSaving(false);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
   }
 
   function updateColor(key: keyof typeof colors, value: string) {
     setColors({ ...colors, [key]: value });
+  }
+
+  if (loading) {
+    return (
+      <div className="max-w-4xl mx-auto py-8 px-6">
+        <div className="card animate-pulse h-96" />
+      </div>
+    );
   }
 
   return (
@@ -86,6 +109,17 @@ export default function BrandingPage() {
               placeholder="https://example.com/logo.svg"
               className="input-field"
             />
+            {logoUrl && (
+              <div className="mt-2 p-2 border rounded inline-block" style={{ borderColor: "var(--wl-border)" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={logoUrl}
+                  alt="Logo preview"
+                  className="h-10 w-auto"
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -131,6 +165,10 @@ export default function BrandingPage() {
         <h2 className="text-lg font-semibold mb-4">Live Preview</h2>
         <div className="rounded-lg overflow-hidden border" style={{ borderColor: colors.border }}>
           <div className="px-4 py-2 flex items-center gap-3" style={{ backgroundColor: colors.primary }}>
+            {logoUrl && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={logoUrl} alt="" className="h-6 w-auto" onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
+            )}
             <span className="text-white font-semibold">{appName}</span>
             <span className="text-white/50 text-xs ml-auto">{companyName}</span>
           </div>

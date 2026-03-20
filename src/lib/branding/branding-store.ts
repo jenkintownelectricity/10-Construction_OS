@@ -5,22 +5,16 @@ import { DEFAULT_BRANDING } from "./branding-types";
 
 const BRANDING_PATH = path.join(process.cwd(), "branding.json");
 
-let cached: BrandingConfig | null = null;
-
 export function loadBranding(): BrandingConfig {
-  if (cached) return cached;
   try {
     if (fs.existsSync(BRANDING_PATH)) {
       const raw = JSON.parse(fs.readFileSync(BRANDING_PATH, "utf-8"));
-      const result: BrandingConfig = { ...DEFAULT_BRANDING, ...raw, colors: { ...DEFAULT_BRANDING.colors, ...raw.colors } };
-      cached = result;
-      return result;
+      return { ...DEFAULT_BRANDING, ...raw, colors: { ...DEFAULT_BRANDING.colors, ...raw.colors } };
     }
   } catch {
     // fall through
   }
-  cached = { ...DEFAULT_BRANDING };
-  return cached;
+  return { ...DEFAULT_BRANDING };
 }
 
 export function saveBranding(updates: Partial<BrandingConfig>): BrandingConfig {
@@ -31,6 +25,5 @@ export function saveBranding(updates: Partial<BrandingConfig>): BrandingConfig {
     colors: updates.colors ? { ...current.colors, ...updates.colors } : current.colors,
   };
   fs.writeFileSync(BRANDING_PATH, JSON.stringify(merged, null, 2), "utf-8");
-  cached = merged;
   return merged;
 }

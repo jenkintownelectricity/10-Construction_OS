@@ -4,6 +4,8 @@ import { loadSettings, hasKey, getMaskedKey } from "@/lib/ai/settings-store";
 import { getHealth } from "@/lib/ai/provider-health";
 import type { ProviderId, ProviderConfig } from "@/lib/ai/provider-types";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const settings = loadSettings();
   const registry = getAllProviders();

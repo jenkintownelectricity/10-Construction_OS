@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { loadBranding, saveBranding } from "@/lib/branding/branding-store";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const branding = loadBranding();
   return NextResponse.json({ branding });

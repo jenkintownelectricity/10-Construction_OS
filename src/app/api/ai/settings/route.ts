@@ -11,6 +11,8 @@ import type { ProviderId } from "@/lib/ai/provider-types";
 
 const VALID_PROVIDERS = new Set(["openai", "anthropic", "gemini", "groq"]);
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   const settings = loadSettings();
 
@@ -63,7 +65,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ ok: true, provider, cleared: true });
     }
 
-    // Handle general settings update
+    // Handle general settings update — build partial update object
     const updates: Record<string, unknown> = {};
     if (body.defaultProvider && VALID_PROVIDERS.has(body.defaultProvider)) updates.defaultProvider = body.defaultProvider;
     if (body.fallbackProvider && VALID_PROVIDERS.has(body.fallbackProvider)) updates.fallbackProvider = body.fallbackProvider;
@@ -73,17 +75,19 @@ export async function PUT(request: NextRequest) {
     if (typeof body.timeoutMs === "number") updates.timeoutMs = Math.max(5000, Math.min(120000, body.timeoutMs));
     if (typeof body.streamingEnabled === "boolean") updates.streamingEnabled = body.streamingEnabled;
 
-    // Provider-specific settings (without keys)
-    if (body.providers) {
-      const providerUpdates: Record<string, unknown> = {};
+    // Provider-specific settings: pass through partial fields directly
+    if (body.providers && typeof body.providers === "object") {
+      const providerUpdates: Record<string, Record<string, unknown>> = {};
       for (const [id, config] of Object.entries(body.providers)) {
         if (VALID_PROVIDERS.has(id) && typeof config === "object" && config) {
           const c = config as Record<string, unknown>;
-          providerUpdates[id] = {
-            enabled: typeof c.enabled === "boolean" ? c.enabled : undefined,
-            defaultModel: typeof c.defaultModel === "string" ? c.defaultModel : undefined,
-            baseUrl: typeof c.baseUrl === "string" ? c.baseUrl : undefined,
-          };
+          const partial: Record<string, unknown> = {};
+          if (typeof c.enabled === "boolean") partial.enabled = c.enabled;
+          if (typeof c.defaultModel === "string") partial.defaultModel = c.defaultModel;
+          if (c.baseUrl !== undefined) partial.baseUrl = typeof c.baseUrl === "string" ? c.baseUrl : undefined;
+          if (Object.keys(partial).length > 0) {
+            providerUpdates[id] = partial;
+          }
         }
       }
       if (Object.keys(providerUpdates).length > 0) {
