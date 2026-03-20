@@ -1,0 +1,95 @@
+{
+  "catalog_id": "wave18_artifact_renderer",
+  "catalog_version": "18.0",
+  "wave": "18",
+  "title": "Artifact Renderer Pipeline Catalog",
+  "description": "Deterministic artifact rendering pipeline: Detail DNA -> Instruction Set -> DXF/SVG/PDF. All outputs carry SHA-256 lineage hashes.",
+  "authority": "Construction_Runtime",
+  "kernel_policy": "read_only",
+  "modules": [
+    {
+      "module_id": "artifact_contract",
+      "path": "runtime/artifact_renderer/artifact_contract.py",
+      "purpose": "Rendering contract definitions: manifest, output, result, capability",
+      "contract_version": "18.0"
+    },
+    {
+      "module_id": "geometry_primitives",
+      "path": "runtime/artifact_renderer/geometry_primitives.py",
+      "purpose": "Canonical geometry primitive types: LINE, ARC, POLYLINE, RECTANGLE, TEXT, HATCH, DIMENSION, CALLOUT",
+      "primitive_count": 8
+    },
+    {
+      "module_id": "instruction_builder",
+      "path": "runtime/artifact_renderer/instruction_builder.py",
+      "purpose": "Translates Detail DNA into typed instruction sets of geometry primitives",
+      "input": "Detail DNA + variant parameters",
+      "output": "Instruction set with primitives, layers, metadata"
+    },
+    {
+      "module_id": "renderer_pipeline",
+      "path": "runtime/artifact_renderer/renderer_pipeline.py",
+      "purpose": "Orchestrates deterministic rendering: manifest -> instructions -> renderers -> artifacts",
+      "entry_point": "render_artifacts(manifest)",
+      "stages": ["instruction_build", "format_rendering", "lineage_tracking"]
+    },
+    {
+      "module_id": "renderer_registry",
+      "path": "runtime/artifact_renderer/renderer_registry.py",
+      "purpose": "Central catalog of registered renderers with capability declarations",
+      "pattern": "Registry + Protocol"
+    },
+    {
+      "module_id": "dxf_renderer",
+      "path": "runtime/artifact_renderer/dxf_renderer.py",
+      "purpose": "DXF renderer: primitives -> AutoCAD R2000 DXF (inches, INSUNITS=1)",
+      "output_format": "DXF",
+      "renderer_id": "artifact_dxf_renderer_v18"
+    },
+    {
+      "module_id": "svg_renderer",
+      "path": "runtime/artifact_renderer/svg_renderer.py",
+      "purpose": "SVG renderer: primitives -> SVG markup with layer groups",
+      "output_format": "SVG",
+      "renderer_id": "artifact_svg_renderer_v18"
+    },
+    {
+      "module_id": "pdf_renderer",
+      "path": "runtime/artifact_renderer/pdf_renderer.py",
+      "purpose": "PDF renderer: primitives -> SVG -> PDF content stream",
+      "output_format": "PDF",
+      "renderer_id": "artifact_pdf_renderer_v18"
+    },
+    {
+      "module_id": "artifact_lineage",
+      "path": "runtime/artifact_renderer/artifact_lineage.py",
+      "purpose": "SHA-256 lineage tracking: content hashes, lineage records, bundle verification",
+      "hash_algorithm": "SHA-256",
+      "lineage_version": "18.0"
+    },
+    {
+      "module_id": "renderer_errors",
+      "path": "runtime/artifact_renderer/renderer_errors.py",
+      "purpose": "Classified error taxonomy for all rendering failures. Fail-closed.",
+      "error_types": 9
+    }
+  ],
+  "supported_primitives": ["LINE", "ARC", "POLYLINE", "RECTANGLE", "TEXT", "HATCH", "DIMENSION", "CALLOUT"],
+  "supported_output_formats": ["DXF", "SVG", "PDF"],
+  "test_count": 148,
+  "test_path": "tests/wave18/",
+  "pipeline": {
+    "flow": "Detail DNA -> Instruction Set -> Renderers -> DXF/SVG/PDF",
+    "determinism": "All renderers produce identical output for identical input",
+    "lineage": "Every artifact carries SHA-256 content hash and source lineage",
+    "fail_closed": true
+  },
+  "governance_rules": [
+    "Kernel is never mutated by renderers",
+    "Renderers consume primitives only — no classification or resolution logic",
+    "All outputs are deterministic",
+    "All rendering failures are classified errors",
+    "Artifacts emit metadata + SHA-256 lineage",
+    "Validators fail closed"
+  ]
+}

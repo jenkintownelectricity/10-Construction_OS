@@ -1,0 +1,90 @@
+{
+  "catalog_id": "wave19_atlas_ui",
+  "catalog_version": "19.0",
+  "wave": "19",
+  "title": "Construction Atlas UI Catalog",
+  "description": "Graph navigation interface for construction details, assemblies, conditions, and artifacts. Read-only visualization.",
+  "authority": "Construction_Runtime",
+  "ui_framework": "Next.js 14 + React 18 + Tailwind CSS + React Flow + Zustand",
+  "location": "GPC_Shop_Drawings/atlas/",
+  "routes": [
+    {
+      "path": "/atlas/detail",
+      "purpose": "Detail graph explorer with SVG preview, variants, installation sequence, artifact downloads",
+      "node_filter": "detail"
+    },
+    {
+      "path": "/atlas/assembly",
+      "purpose": "Assembly graph explorer with component lists",
+      "node_filter": "assembly"
+    },
+    {
+      "path": "/atlas/condition",
+      "purpose": "Condition graph explorer with severity, status, and detail resolution links",
+      "node_filter": "condition"
+    },
+    {
+      "path": "/atlas/artifact",
+      "purpose": "Artifact explorer with lineage, content hash, download, and source detail navigation",
+      "node_filter": "artifact"
+    }
+  ],
+  "components": [
+    {
+      "module_id": "atlas_canvas",
+      "path": "atlas/src/components/atlas_canvas/",
+      "purpose": "React Flow graph canvas with custom node rendering, minimap, and controls",
+      "files": ["AtlasCanvas.tsx", "AtlasGraphNode.tsx"]
+    },
+    {
+      "module_id": "graph_explorer",
+      "path": "atlas/src/components/graph_explorer/",
+      "purpose": "Left sidebar: search, type filters, route navigation, node list",
+      "files": ["GraphExplorer.tsx"]
+    },
+    {
+      "module_id": "detail_viewer",
+      "path": "atlas/src/components/detail_viewer/",
+      "purpose": "Full detail view: SVG preview, variants, installation sequence, artifact downloads",
+      "files": ["DetailViewer.tsx"]
+    },
+    {
+      "module_id": "artifact_viewer",
+      "path": "atlas/src/components/artifact_viewer/",
+      "purpose": "Artifact detail view: lineage, content hash, source detail link, download",
+      "files": ["ArtifactViewer.tsx"]
+    },
+    {
+      "module_id": "detail_panel",
+      "path": "atlas/src/components/detail_panel/",
+      "purpose": "Right panel: node properties, type-specific displays (severity, components, findings)",
+      "files": ["DetailPanel.tsx"]
+    },
+    {
+      "module_id": "relationship_panel",
+      "path": "atlas/src/components/relationship_panel/",
+      "purpose": "Right panel: connected nodes with edge labels and navigation",
+      "files": ["RelationshipPanel.tsx"]
+    }
+  ],
+  "node_types": ["detail", "assembly", "condition", "artifact", "observation"],
+  "edge_types": ["resolves_to", "belongs_to", "generates", "depends_on", "observes", "produces", "references"],
+  "state_management": {
+    "library": "zustand",
+    "store": "atlas/src/store/atlas-store.ts",
+    "capabilities": [
+      "Graph data management",
+      "Node selection and hover state",
+      "Node type filtering",
+      "Text search across nodes",
+      "Connected node traversal",
+      "Route-based filtering"
+    ]
+  },
+  "governance_rules": [
+    "Atlas UI is read-only — no mutations to kernel or runtime data",
+    "All data sourced from Construction_Runtime reference graph",
+    "Node types match reference graph node taxonomy",
+    "Artifact lineage displayed but never modified"
+  ]
+}
