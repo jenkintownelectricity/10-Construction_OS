@@ -1,0 +1,181 @@
+{
+  "catalog_id": "ai_control_plane",
+  "catalog_version": "1.0.0",
+  "wave": "AI Control Plane Integration",
+  "date": "2026-03-20",
+  "authority": "Construction_OS_Registry",
+  "status": "active",
+  "subsystem": {
+    "subsystem_id": "ai_control_plane",
+    "subsystem_name": "AI Control Plane",
+    "repository": "Construction_Atlas_UI",
+    "repository_location": "src/lib/ai/",
+    "purpose": "Unified AI provider abstraction, routing, health monitoring, and secure configuration for construction intelligence surfaces",
+    "lifecycle_state": "active"
+  },
+  "providers": [
+    {
+      "provider_id": "openai",
+      "provider_name": "OpenAI",
+      "adapter_path": "src/lib/ai/providers/openai.ts",
+      "models": [
+        { "model_id": "gpt-4o", "name": "GPT-4o", "context_window": 128000 },
+        { "model_id": "gpt-4o-mini", "name": "GPT-4o Mini", "context_window": 128000 },
+        { "model_id": "gpt-4-turbo", "name": "GPT-4 Turbo", "context_window": 128000 },
+        { "model_id": "o1", "name": "o1", "context_window": 200000 }
+      ],
+      "supports_base_url": true,
+      "sdk_package": "openai"
+    },
+    {
+      "provider_id": "anthropic",
+      "provider_name": "Anthropic",
+      "adapter_path": "src/lib/ai/providers/anthropic.ts",
+      "models": [
+        { "model_id": "claude-opus-4-6", "name": "Claude Opus 4.6", "context_window": 200000 },
+        { "model_id": "claude-sonnet-4-6", "name": "Claude Sonnet 4.6", "context_window": 200000 },
+        { "model_id": "claude-haiku-4-5-20251001", "name": "Claude Haiku 4.5", "context_window": 200000 }
+      ],
+      "supports_base_url": false,
+      "sdk_package": "@anthropic-ai/sdk"
+    },
+    {
+      "provider_id": "gemini",
+      "provider_name": "Google Gemini",
+      "adapter_path": "src/lib/ai/providers/gemini.ts",
+      "models": [
+        { "model_id": "gemini-2.0-flash", "name": "Gemini 2.0 Flash", "context_window": 1048576 },
+        { "model_id": "gemini-2.5-pro", "name": "Gemini 2.5 Pro", "context_window": 1048576 },
+        { "model_id": "gemini-2.5-flash", "name": "Gemini 2.5 Flash", "context_window": 1048576 }
+      ],
+      "supports_base_url": false,
+      "sdk_package": "@google/generative-ai"
+    },
+    {
+      "provider_id": "groq",
+      "provider_name": "Groq",
+      "adapter_path": "src/lib/ai/providers/groq.ts",
+      "models": [
+        { "model_id": "llama-3.3-70b-versatile", "name": "Llama 3.3 70B", "context_window": 131072 },
+        { "model_id": "llama-3.1-8b-instant", "name": "Llama 3.1 8B", "context_window": 131072 },
+        { "model_id": "mixtral-8x7b-32768", "name": "Mixtral 8x7B", "context_window": 32768 }
+      ],
+      "supports_base_url": false,
+      "sdk_package": "groq-sdk"
+    }
+  ],
+  "capability_classes": [
+    { "id": "detail_explainer", "description": "Explain construction details, assemblies, and specifications" },
+    { "id": "observation_classifier", "description": "Classify field observations into condition categories" },
+    { "id": "related_detail_suggester", "description": "Suggest related construction details based on context" },
+    { "id": "manufacturer_note_drafter", "description": "Draft manufacturer notes and installation guidance" },
+    { "id": "assembly_summarizer", "description": "Summarize complex assembly configurations" },
+    { "id": "field_note_cleaner", "description": "Clean and standardize field observation notes" },
+    { "id": "artifact_summary", "description": "Generate summaries of construction artifacts" },
+    { "id": "premium_reasoning", "description": "High-quality reasoning for complex analysis tasks" },
+    { "id": "fast_classification", "description": "Rapid classification for real-time feedback" }
+  ],
+  "routing_presets": [
+    { "id": "fast", "description": "Fastest inference speed, lower cost", "preferred_providers": ["groq", "gemini", "openai"] },
+    { "id": "low_cost", "description": "Lowest cost per token", "preferred_providers": ["groq", "gemini", "openai"] },
+    { "id": "balanced", "description": "Balance of quality, speed, and cost", "preferred_providers": ["openai", "anthropic", "gemini"] },
+    { "id": "premium_reasoning", "description": "Highest quality reasoning and analysis", "preferred_providers": ["anthropic", "openai", "gemini"] },
+    { "id": "multimodal_ready", "description": "Multimodal input support scaffold", "preferred_providers": ["gemini", "openai", "anthropic"] }
+  ],
+  "fallback_policy": {
+    "present": true,
+    "type": "ordered_chain",
+    "chain": ["openai", "anthropic", "gemini", "groq"],
+    "per_capability_fallbacks": true,
+    "silent_switching": false,
+    "fallback_logging": true
+  },
+  "health_model": {
+    "present": true,
+    "states": ["healthy", "degraded", "unavailable", "misconfigured"],
+    "circuit_breaker": {
+      "enabled": true,
+      "threshold": 5,
+      "description": "Opens after 5 consecutive failures per provider"
+    },
+    "degraded_detection": {
+      "enabled": true,
+      "latency_threshold_ms": 5000
+    },
+    "health_endpoint": "/api/ai/health"
+  },
+  "error_model": {
+    "normalized": true,
+    "error_types": [
+      "auth_error",
+      "config_error",
+      "timeout_error",
+      "quota_error",
+      "provider_error",
+      "validation_error",
+      "unavailable_error"
+    ],
+    "fields": ["provider", "errorType", "message", "retryable", "statusCode", "rawCategory"]
+  },
+  "api_routes": [
+    { "path": "/api/ai/providers", "method": "GET", "purpose": "List all providers with status" },
+    { "path": "/api/ai/models", "method": "GET", "purpose": "List models per provider" },
+    { "path": "/api/ai/test", "method": "POST", "purpose": "Test provider connection" },
+    { "path": "/api/ai/chat", "method": "POST", "purpose": "Execute AI request through unified abstraction" },
+    { "path": "/api/ai/health", "method": "GET", "purpose": "Get provider health status" },
+    { "path": "/api/ai/settings", "methods": ["GET", "PUT"], "purpose": "Read/write AI configuration" }
+  ],
+  "ui_routes": [
+    { "path": "/settings/ai", "purpose": "AI provider configuration and routing settings" },
+    { "path": "/branding", "purpose": "White-label branding configuration" }
+  ],
+  "consumer_surfaces": [
+    { "surface": "Atlas", "status": "ready", "description": "Primary construction atlas interface" },
+    { "surface": "Workspace", "status": "planned", "description": "Workspace-level AI assistance" },
+    { "surface": "Project", "status": "planned", "description": "Project-scoped AI features" },
+    { "surface": "Manufacturer", "status": "planned", "description": "Manufacturer data intelligence" },
+    { "surface": "Observation", "status": "planned", "description": "Field observation AI processing" }
+  ],
+  "security": {
+    "key_storage": "server_side_only",
+    "key_persistence": ["environment_variables", "server_side_json_file"],
+    "key_display": "masked_first4_last4",
+    "client_side_keys": false,
+    "browser_storage_keys": false,
+    "auth_model": "single_user_no_login",
+    "git_excluded_files": ["ai-settings.json"]
+  },
+  "white_label": {
+    "integrated": true,
+    "branding_fields": ["appName", "companyName", "logoUrl", "colors", "density"],
+    "color_tokens": ["primary", "secondary", "accent", "surface", "surfaceAlt", "border", "text", "textMuted"],
+    "live_updates": true
+  },
+  "modules": [
+    { "module": "src/lib/ai/provider-types.ts", "purpose": "Type definitions for AI control plane" },
+    { "module": "src/lib/ai/provider-registry.ts", "purpose": "Static provider and model registry" },
+    { "module": "src/lib/ai/provider-service.ts", "purpose": "Unified request execution with routing and health" },
+    { "module": "src/lib/ai/provider-health.ts", "purpose": "Provider health tracking and circuit breaker" },
+    { "module": "src/lib/ai/provider-errors.ts", "purpose": "Error normalization across providers" },
+    { "module": "src/lib/ai/provider-routing.ts", "purpose": "Capability-based routing and fallback resolution" },
+    { "module": "src/lib/ai/provider-audit.ts", "purpose": "Routing decision and error audit logging" },
+    { "module": "src/lib/ai/normalize-response.ts", "purpose": "Response normalization across providers" },
+    { "module": "src/lib/ai/settings-store.ts", "purpose": "Server-side settings and key management" },
+    { "module": "src/lib/ai/providers/openai.ts", "purpose": "OpenAI SDK adapter" },
+    { "module": "src/lib/ai/providers/anthropic.ts", "purpose": "Anthropic SDK adapter" },
+    { "module": "src/lib/ai/providers/gemini.ts", "purpose": "Google Gemini SDK adapter" },
+    { "module": "src/lib/ai/providers/groq.ts", "purpose": "Groq SDK adapter" }
+  ],
+  "governance_rules": [
+    "No API keys in client code",
+    "No raw keys in browser storage",
+    "No active login/auth flow",
+    "All provider calls through unified server abstraction",
+    "Provider SDKs behind adapters",
+    "Errors normalized across providers",
+    "Provider health tracked with circuit breaker",
+    "Fallback routing explicit with logged decisions",
+    "White-label theming applies to AI settings",
+    "Test routes never echo secrets"
+  ]
+}
