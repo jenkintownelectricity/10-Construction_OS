@@ -12,7 +12,9 @@
     "pipe flashing",
     "pipe boot detail",
     "vent pipe flashing",
-    "plumbing penetration"
+    "plumbing penetration",
+    "pipe jack",
+    "roof vent flashing"
   ],
   "tags": [
     "fn-penetration-seal",

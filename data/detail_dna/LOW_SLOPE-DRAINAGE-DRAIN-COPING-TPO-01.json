@@ -11,7 +11,10 @@
     "interior roof drain",
     "roof drain detail",
     "drain flashing",
-    "primary drain connection"
+    "primary drain connection",
+    "roof drain",
+    "drain sump detail",
+    "main roof drain"
   ],
   "tags": [
     "fn-drainage",

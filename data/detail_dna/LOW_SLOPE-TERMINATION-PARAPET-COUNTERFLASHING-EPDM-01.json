@@ -11,7 +11,10 @@
     "parapet cap detail",
     "parapet flashing",
     "wall flashing termination",
-    "EPDM parapet counterflashing"
+    "EPDM parapet counterflashing",
+    "parapet detail",
+    "base flashing at parapet",
+    "parapet wall flashing"
   ],
   "tags": [
     "fn-termination",

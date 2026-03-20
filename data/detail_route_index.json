@@ -24,14 +24,6 @@
       "criticality": "informational"
     },
     {
-      "source_detail_id": "LOW_SLOPE-TERMINATION-PARAPET-COUNTERFLASHING-EPDM-01",
-      "target_detail_id": "LOW_SLOPE-TERMINATION-VERTICAL_WALL-TERMINATION_BAR-TPO-01",
-      "relationship_type": "substitutable_with",
-      "description": "Parapet counterflashing and vertical wall termination bar are alternative approaches to the same termination condition, differing in cladding method.",
-      "directionality": "bidirectional",
-      "criticality": "informational"
-    },
-    {
       "source_detail_id": "LOW_SLOPE-DRAINAGE-DRAIN-COPING-TPO-01",
       "target_detail_id": "LOW_SLOPE-PENETRATION-PIPE-PIPE_BOOT-EPDM-01",
       "relationship_type": "requires_continuity_with",

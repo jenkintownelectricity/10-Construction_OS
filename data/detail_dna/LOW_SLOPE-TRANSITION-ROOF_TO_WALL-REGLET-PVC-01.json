@@ -11,7 +11,11 @@
     "roof to wall flashing",
     "base flashing with reglet",
     "wall transition detail",
-    "masonry reglet termination"
+    "masonry reglet termination",
+    "roof-to-wall detail",
+    "reglet flashing",
+    "reglet detail",
+    "base flashing"
   ],
   "tags": [
     "fn-transition",
