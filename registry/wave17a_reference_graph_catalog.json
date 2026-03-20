@@ -1,0 +1,148 @@
+{
+  "wave": "17A",
+  "title": "Construction Reference Graph — Platform-Wide Object Graph",
+  "status": "delivered",
+  "catalog_version": "v1",
+  "authority": "Construction_OS_Registry",
+  "description": "Wave 17A establishes the Construction Reference Graph, expanding the Wave 15 detail graph into a platform-wide object graph providing canonical identity, lineage, typed linkage, and reference resolution for all governed Construction OS objects.",
+  "subsystems": [
+    {
+      "subsystem_id": "reference_graph",
+      "subsystem_name": "Construction_Reference_Graph",
+      "repository_location": "Construction_Runtime/runtime/reference_graph/",
+      "purpose": "Provides canonical identity, lineage, typed linkage, and reference resolution for governed Construction OS objects including conditions, details, variants, instruction sets, manifests, drawings, markups, observations, and project instances.",
+      "modules": [
+        {
+          "module": "runtime/reference_graph/identity_allocator",
+          "purpose": "Allocates stable, deterministic CRG-{TYPE}-{NUMBER} identities with collision detection and idempotent replay."
+        },
+        {
+          "module": "runtime/reference_graph/node_registry",
+          "purpose": "Registers and manages all reference graph nodes with partition compliance and lifecycle state management."
+        },
+        {
+          "module": "runtime/reference_graph/edge_registry",
+          "purpose": "Registers and manages typed edges with relation type validation and advisory/deterministic boundary enforcement."
+        },
+        {
+          "module": "runtime/reference_graph/graph_builder",
+          "purpose": "Builds reference graphs from atomic registration bundles supporting full_rebuild, incremental_append, and idempotent_replay modes."
+        },
+        {
+          "module": "runtime/reference_graph/lineage_engine",
+          "purpose": "Traces and validates lineage chains through the reference graph."
+        },
+        {
+          "module": "runtime/reference_graph/resolution_engine",
+          "purpose": "Provides deterministic object resolution with modes: deterministic, scoped_deterministic, advisory, unresolved."
+        },
+        {
+          "module": "runtime/reference_graph/query_engine",
+          "purpose": "Graph traversal and query operations including BFS, DFS, shortest path, and component analysis."
+        },
+        {
+          "module": "runtime/reference_graph/validator",
+          "purpose": "Comprehensive validation of node integrity, edge integrity, partition compliance, relationship rules, and kernel immutability."
+        },
+        {
+          "module": "runtime/reference_graph/orphan_detector",
+          "purpose": "Detects orphaned nodes and disconnected subgraph components."
+        },
+        {
+          "module": "runtime/reference_graph/update_engine",
+          "purpose": "Manages atomic graph updates with transaction bundle validation and post-update verification."
+        },
+        {
+          "module": "runtime/reference_graph/serializer",
+          "purpose": "Serializes and deserializes reference graph state to/from JSON with checksum verification."
+        }
+      ],
+      "schemas": [
+        "runtime/reference_graph/schema/node_schema.json",
+        "runtime/reference_graph/schema/edge_schema.json",
+        "runtime/reference_graph/schema/partition_schema.json"
+      ],
+      "contracts": [
+        "runtime/reference_graph/contracts/reference_graph_contract.md",
+        "runtime/reference_graph/contracts/update_policy.md",
+        "runtime/reference_graph/contracts/migration_policy.md"
+      ],
+      "supported_node_types": [
+        "DETAIL", "VARIANT", "INSTRUCTION_SET", "MANIFEST",
+        "RENDER_JOB", "DRAWING", "PDF", "DXF", "SVG",
+        "MARKUP", "ANNOTATION", "OBSERVATION",
+        "CONDITION", "PROJECT", "ARTIFACT",
+        "ARTIFACT_REGION", "PAGE_REFERENCE"
+      ],
+      "supported_edge_types": {
+        "identity": ["instance_of", "belongs_to_project", "references_canonical", "scoped_under"],
+        "lineage": ["derived_from", "produced_by", "rendered_from", "supersedes", "revision_of", "generated_from"],
+        "artifact": ["appears_in", "annotates", "region_of", "page_of", "attached_to"],
+        "observation": ["observed_in", "documents", "verifies", "flags", "supports", "invalidates"],
+        "navigation": ["related_to", "installed_before", "installed_after", "alternative_to", "prerequisite_for"]
+      },
+      "partition_types": [
+        "global_kernel_partition",
+        "global_runtime_partition",
+        "project_partition",
+        "artifact_partition",
+        "observation_partition"
+      ],
+      "integration_dependencies": {
+        "kernel_schemas": [
+          "Construction_Kernel/schemas/detail_dna_schema.json",
+          "Construction_Kernel/schemas/detail_relationship_schema.json"
+        ],
+        "wave15_subsystems": [
+          "runtime/detail_graph/",
+          "runtime/detail_index/"
+        ]
+      },
+      "wave_origin": "17A",
+      "migration_origin": "Wave 15 detail_graph",
+      "consumer_repos": ["Construction_Atlas_UI"],
+      "producer_repos": ["Construction_Runtime"],
+      "future_producer_repos": ["Construction_Observation_Runtime"]
+    }
+  ],
+  "topology": {
+    "truth_source": "Construction_Kernel (frozen, read-only)",
+    "execution_layer": "Construction_Runtime",
+    "catalog_layer": "Construction_OS_Registry",
+    "verification_layer": "ValidKernelOS_VKBUS"
+  },
+  "vkbus_observers": {
+    "observer_module": "bus/observers/reference_graph_observer.py",
+    "observer_class": "ReferenceGraphObserver",
+    "outputs": [
+      "reference_graph_integrity_report.json",
+      "reference_graph_boundary_audit.md",
+      "reference_graph_lineage_report.json",
+      "reference_graph_migration_audit.md"
+    ]
+  },
+  "test_inventory": {
+    "identity_allocator_tests": 14,
+    "node_registry_tests": 14,
+    "edge_registry_tests": 15,
+    "graph_builder_tests": 14,
+    "resolution_and_lineage_tests": 18,
+    "validator_tests": 5,
+    "update_engine_tests": 7,
+    "serializer_tests": 5,
+    "migration_tests": 7,
+    "total": 103
+  },
+  "governance_rules": {
+    "kernel_is_read_only": true,
+    "runtime_consumes_truth": true,
+    "runtime_does_not_redefine_kernel_semantics": true,
+    "advisory_never_overrides_deterministic": true,
+    "all_outputs_deterministic": true,
+    "all_validators_fail_closed": true,
+    "atomic_bundle_writes_enforced": true,
+    "hard_deletion_of_lineage_prohibited": true,
+    "registry_is_catalog_only": true,
+    "vkbus_is_observer_only": true
+  }
+}
