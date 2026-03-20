@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "condition_node_schema.json",
+  "title": "Condition Node Schema",
+  "description": "Schema for nodes in the project condition graph. Each node represents a specific construction condition on a project.",
+  "type": "object",
+  "required": ["node_id", "condition_type", "label", "position_ref", "metadata"],
+  "properties": {
+    "node_id": {
+      "type": "string",
+      "description": "Unique identifier for this condition node within the graph.",
+      "pattern": "^CN-[A-Z_]+-[0-9]{4}$"
+    },
+    "condition_type": {
+      "type": "string",
+      "description": "The type of construction condition. Must map to a supported kernel condition type.",
+      "enum": [
+        "ROOF_FIELD",
+        "PARAPET",
+        "EDGE",
+        "DRAIN",
+        "SCUPPER",
+        "CURB",
+        "PIPE_PENETRATION",
+        "EXPANSION_JOINT"
+      ]
+    },
+    "label": {
+      "type": "string",
+      "description": "Human-readable label for this condition.",
+      "minLength": 1
+    },
+    "position_ref": {
+      "type": "string",
+      "description": "Reference to position or location on the project (e.g., grid line, area ID)."
+    },
+    "material_context": {
+      "type": "string",
+      "description": "Optional material context hint for this condition."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata for this condition node.",
+      "properties": {
+        "source": {"type": "string"},
+        "added_by": {"type": "string"},
+        "added_timestamp": {"type": "string", "format": "date-time"}
+      }
+    }
+  },
+  "additionalProperties": false
+}
