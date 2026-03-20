@@ -33,10 +33,19 @@ export function GlobalAISettings({ onUpdate }: { onUpdate: () => void }) {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    // Load from localStorage first (instant), then sync with server
+    try {
+      const stored = localStorage.getItem("atlas-ai-settings");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        setSettings(parsed);
+      }
+    } catch {}
+
     fetch("/api/ai/settings")
       .then((r) => r.json())
       .then((data) => {
-        setSettings({
+        const serverSettings = {
           defaultProvider: data.defaultProvider,
           fallbackProvider: data.fallbackProvider,
           activePreset: data.activePreset,
@@ -44,7 +53,8 @@ export function GlobalAISettings({ onUpdate }: { onUpdate: () => void }) {
           defaultMaxTokens: data.defaultMaxTokens,
           timeoutMs: data.timeoutMs,
           streamingEnabled: data.streamingEnabled,
-        });
+        };
+        setSettings(serverSettings);
       })
       .catch(() => {});
   }, []);
@@ -57,6 +67,8 @@ export function GlobalAISettings({ onUpdate }: { onUpdate: () => void }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(settings),
     });
+    // Persist to localStorage for Vercel (serverless has no persistent filesystem)
+    try { localStorage.setItem("atlas-ai-settings", JSON.stringify(settings)); } catch {}
     setSaving(false);
     onUpdate();
   }
