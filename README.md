@@ -38,9 +38,12 @@ Construction_Atlas may define spatial selectors, anchors, navigable spatial obje
 
 | Dependency | Relationship |
 |------------|-------------|
-| **Construction_Atlas** (formerly Construction_Atlas_UI) | Consumes atlas navigation context — spatial selectors, anchors, navigable objects, context resolution |
-| **Construction_Runtime** | Interacts with runtime for artifact generation, validation results, and execution output |
-| **ValidKernelOS_VKBUS** | Connected via interaction transport for event propagation and architecture observability |
+| **Construction_Atlas** | Consumes navigation context — spatial selectors, anchors, navigable objects |
+| **Construction_Runtime** | Interacts with execution layer for artifact generation |
+
+## Boundary Statement
+
+Construction_Application_OS is the **sole UI authority** for Construction OS. It owns all UI rendering, workspace shells, panel systems, event orchestration, atlas navigation interfaces, inspectors, overlays, and assistant interaction surfaces.
 
 ## Stack Position
 
