@@ -1,6 +1,6 @@
 # Construction_Reference_Intelligence
 
-Reference intelligence layer + construction architecture guidance relay for the construction-domain kernel family.
+Construction_Reference_Intelligence is the immutable reference intelligence layer for the construction-domain kernel family and additionally serves as the construction-family architecture guidance, observation, and relay layer.
 
 ## Construction OS Core Architecture (FROZEN)
 
@@ -10,10 +10,10 @@ Universal_Truth_Kernel
 ├── ValidKernel-Governance
 └── Construction_Kernel
      ├── Construction_Atlas (formerly Construction_Atlas_UI)
-     │        ↓
-     Construction_Runtime
-              ↓
-     Construction_Application_OS
+     ├── Construction_Runtime
+     └── Construction_Application_OS
+
+Flow: Construction_Atlas → Construction_Runtime → Construction_Application_OS
 
 Infrastructure / Guidance Authorities:
   Construction_OS_Registry              → Construction OS topology authority
@@ -77,7 +77,7 @@ Neither relay layer replaces doctrine owners or registries.
 
 | Dependency | Relationship |
 |------------|-------------|
-| **Construction-domain truths** | Derives intelligence from construction-domain truth kernels |
+| **Construction-domain truths** | Derives intelligence from registered construction-domain truth kernels and their outputs |
 | **Construction OS repos** | Observes architecture context from Construction OS repositories |
 
 ## What This Repo Does NOT Own
@@ -96,7 +96,7 @@ This repo does **not** own canonical kernel truth schemas. Those belong to the f
 
 This repo is the **intelligence layer** in a six-repo construction-kernel family. The five canonical truth kernels listed above produce and maintain domain truth. This repo aggregates, cross-references, and preserves reference intelligence derived from and linked to those truths.
 
-All six repos are registered in **ValidKernel_Registry**, which governs kernel identity, versioning, and cross-repo validation.
+Where registered, these repositories are tracked in **ValidKernel_Registry**, which governs kernel identity, versioning, and cross-repo validation.
 
 ## Initial Domain Focus
 
@@ -115,6 +115,7 @@ Drift Sentinel is an observational and advisory architecture drift detection cap
 - Architecture wording contradictions
 - Stale lineage references
 - Boundary violations
+- Rename-lineage loss detection
 
 ### Drift Sentinel Operation Rules
 
