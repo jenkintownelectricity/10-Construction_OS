@@ -4,8 +4,17 @@
   "description": "Canonical inventory of repositories confirmed as part of the Construction OS platform.",
   "last_updated": "2026-03-21",
   "architecture_status": "FROZEN",
-  "atlas_status": "CORE_CONTEXT_LAYER",
+  "atlas_status": "CORE_CONTEXT_LAYER_PURIFIED",
   "ui_authority": "Construction_Application_OS",
+  "atlas_purification": {
+    "date": "2026-03-21",
+    "method": "Option A — Atlas purified to spatial context layer only",
+    "drift_corrected": "Prior UI/application implementation (React/Next.js SPA, AI control plane, branding, 10+ tools) removed from Atlas",
+    "ui_migrated_to": "Construction_Application_OS",
+    "atlas_now_contains": "Spatial object graph types, context resolution types, spatial selectors, anchors, navigable objects",
+    "no_topology_role_change": true,
+    "no_role_weakening": true
+  },
   "frozen_topology": {
     "root_reference_layer": [
       "Universal_Truth_Kernel"
@@ -51,14 +60,16 @@
       "repo_name": "Construction_Application_OS",
       "layer": "interfaces",
       "primary_area": "interfaces",
-      "role_summary": "Sole UI operating surface of Construction OS. Workspace shell, panel system, event orchestration, atlas navigation interface, inspectors, overlays, and assistant interaction.",
+      "role_summary": "Sole UI operating surface of Construction OS. Workspace shell, panel system, event orchestration, atlas navigation interface, inspectors, overlays, assistant interaction, AI control plane (migrated from Atlas 2026-03-21), and branding system (migrated from Atlas 2026-03-21).",
       "ui_authority": true,
       "tags": [
         "application-os",
         "sole-ui-surface",
         "workspace-shell",
         "panel-system",
-        "interfaces"
+        "interfaces",
+        "ai-control-plane",
+        "branding"
       ]
     },
     {
@@ -66,15 +77,18 @@
       "formerly": "Construction_Atlas_UI",
       "layer": "context",
       "primary_area": "spatial-context",
-      "role_summary": "Core spatial construction context layer binding geometry and construction meaning. Resolves spatial conditions: object existence, placement, adjacency, and applicable rules. NOT a UI surface.",
+      "role_summary": "Purified spatial construction context layer binding geometry and construction meaning. Resolves spatial conditions: object existence, placement, adjacency, and applicable rules. NOT a UI surface. Purified 2026-03-21 via Option A — all UI/application drift removed.",
       "rename_lineage": "Construction_Atlas_UI → Construction_Atlas (V2)",
+      "purification_date": "2026-03-21",
+      "purification_method": "Option A",
       "tags": [
         "spatial-context",
         "object-graph",
         "zones",
         "adjacency",
         "context-layer",
-        "truth"
+        "truth",
+        "purified"
       ]
     },
     {

@@ -25,10 +25,11 @@ Infrastructure Authorities:
 ```
 
 > **Architecture Status:** FROZEN
-> **Atlas Status:** Core spatial construction context layer — NOT a UI surface, NOT an execution layer
-> **UI Authority:** Construction_Application_OS is the sole UI surface of Construction OS
+> **Atlas Status:** Purified spatial context layer (Option A correction applied 2026-03-21) — NOT a UI surface, NOT an execution layer. All prior UI/application drift removed.
+> **UI Authority:** Construction_Application_OS is the sole UI surface of Construction OS (now includes AI control plane and branding system migrated from Atlas)
 > **VKBUS Role:** ValidKernelOS_VKBUS is the governed guidance, observation, and relay layer
 > **Rename Lineage:** Construction_Atlas_UI → Construction_Atlas (V2) — separation of spatial context truth layer and UI surface. This lineage reference is permanent.
+> **Purification Record:** Atlas drift corrected 2026-03-21 via Option A. UI/application implementation (React/Next.js pages, AI control plane, branding, construction tools) removed from Atlas and migrated to Construction_Application_OS. No topology role change. No role weakening.
 
 ## Root Reference Layer
 
