@@ -32,6 +32,17 @@ Construction_Application_OS owns:
 
 Construction_Atlas may define spatial selectors, anchors, navigable spatial objects, and context resolution that this application consumes and renders.
 
+## Explicit Dependencies
+
+| Dependency | Relationship |
+|------------|-------------|
+| **Construction_Atlas** | Consumes navigation context — spatial selectors, anchors, navigable objects |
+| **Construction_Runtime** | Interacts with execution layer for artifact generation |
+
+## Boundary Statement
+
+Construction_Application_OS is the **sole UI authority** for Construction OS. It owns all UI rendering, workspace shells, panel systems, event orchestration, atlas navigation interfaces, inspectors, overlays, and assistant interaction surfaces.
+
 ## Stack Position
 
 ```
