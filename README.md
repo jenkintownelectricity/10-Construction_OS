@@ -1,13 +1,31 @@
 # Construction Runtime v0.2 — Hardened Execution Engine
 
-**Construction_Runtime** is the execution layer for **Construction_Kernel**.
+**Construction_Runtime** is the deterministic execution layer for **Construction_Kernel**.
 
 It executes workflows based on Construction_Kernel truth boundaries.
 
 > **Construction_Runtime does not define construction truth.**
 > **Construction_Runtime executes against truth boundaries defined in Construction_Kernel.**
 
-## Architecture
+## Construction OS Core Architecture (FROZEN)
+
+```
+Universal_Truth_Kernel
+├── ValidKernel_Geometry_Kernel
+├── ValidKernel-Governance
+└── Construction_Kernel
+     ├── Construction_Atlas (formerly Construction_Atlas_UI)
+     │        ↓
+     Construction_Runtime               ← YOU ARE HERE
+              ↓
+     Construction_Application_OS
+```
+
+> **Architecture Status:** FROZEN
+> **Construction_Atlas** (formerly Construction_Atlas_UI) provides spatial construction context that the Runtime consumes for artifact generation.
+> **UI Authority:** Construction_Application_OS is the sole UI surface of Construction OS.
+
+## Pipeline Architecture
 
 ```
 Universal_Truth_Kernel
@@ -16,7 +34,7 @@ Construction_Kernel
         ↓
 Construction_Runtime (v0.2)
         ↓
-Construction Applications
+Construction_Application_OS
 ```
 
 ## v0.2 Pipeline
