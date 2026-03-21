@@ -14,6 +14,18 @@ Canonical spatial construction context layer binding geometry and construction m
 | **Reason** | Separation of spatial context truth layer and UI surface |
 | **Status** | Permanent rename — lineage annotation required in all architecture and registry documentation |
 
+## Purification Record
+
+| Field | Value |
+|-------|-------|
+| **Purification** | Option A — Atlas purified to spatial context layer only |
+| **Date** | 2026-03-21 |
+| **Drift Corrected** | Prior UI/application implementation (React/Next.js pages, AI control plane, branding system, construction tools) removed |
+| **UI Migrated To** | Construction_Application_OS (sole UI surface) |
+| **AI Control Plane Migrated To** | Construction_Application_OS |
+| **Branding System Migrated To** | Construction_Application_OS |
+| **Spatial Context Preserved** | Spatial object graph types, context resolution types, spatial selectors, anchors, navigable objects |
+
 ## Construction OS Core Architecture (FROZEN)
 
 ```
@@ -29,7 +41,7 @@ Universal_Truth_Kernel
 ```
 
 > **Architecture Status:** FROZEN
-> **Atlas Role:** Core spatial construction context layer — NOT a UI surface. NOT an execution layer. UI-aware but UI-independent.
+> **Atlas Role:** Core spatial construction context layer — NOT a UI surface. NOT an execution layer.
 > **UI Authority:** Construction_Application_OS is the sole UI surface of Construction OS.
 
 ## Purpose
@@ -49,12 +61,11 @@ Construction_Atlas is a **truth/context layer** that resolves spatial constructi
 - Interface context
 - Spatial anchors and selectors
 
-## Atlas May Define
+## Atlas Defines
 
-- Spatial selectors
-- Anchors
-- Navigable spatial objects
-- Context resolution
+- Spatial object types and graph structure (`src/graph/`)
+- Context resolution types (`src/context/`)
+- Spatial selectors, anchors, and navigable objects (`src/selectors/`)
 
 ## Atlas Must NOT Contain
 
@@ -64,9 +75,32 @@ Construction_Atlas is a **truth/context layer** that resolves spatial constructi
 - Panel orchestration
 - Runtime artifact generation
 - Execution pipeline logic
+- AI control plane
+- Branding or application configuration
+- Application settings or persistence
 
 All UI rendering is owned exclusively by Construction_Application_OS.
 All artifact generation is owned exclusively by Construction_Runtime.
+
+## Project Structure
+
+```
+Construction_Atlas/
+├── README.md                           ← This file
+├── package.json                        ← Spatial context layer metadata
+├── tsconfig.json                       ← TypeScript configuration
+├── src/
+│   ├── index.ts                        ← Public type exports
+│   ├── graph/
+│   │   └── spatial-object-graph.ts     ← Spatial object graph types
+│   ├── context/
+│   │   └── context-resolution.ts       ← Context resolution types
+│   └── selectors/
+│       └── spatial-selectors.ts        ← Selectors, anchors, navigable objects
+├── schemas/                            ← JSON schemas (future)
+└── docs/
+    └── system/                         ← System documentation
+```
 
 ## Dependencies
 
@@ -88,6 +122,7 @@ All artifact generation is owned exclusively by Construction_Runtime.
 Construction_Atlas is the **spatial context layer**. It is:
 - **NOT** a UI surface
 - **NOT** an execution layer
+- **NOT** an application shell
 
 All UI rendering is owned exclusively by Construction_Application_OS.
 All execution is owned by Construction_Runtime.
