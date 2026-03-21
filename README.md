@@ -77,4 +77,14 @@ All UI rendering is owned exclusively by Construction_Application_OS.
 | Consumer | Relationship |
 |----------|-------------|
 | **Construction_Runtime** | Consumes spatial context for deterministic artifact generation |
-| **Construction_Application_OS** | Consumes spatial selectors, anchors, and navigable objects for UI rendering |
+| **Construction_Application_OS** | Consumes navigation context — spatial selectors, anchors, and navigable objects for UI rendering |
+| **Construction_Reference_Intelligence** | Observes architecture context for intelligence derivation and guidance relay |
+
+## Boundary Statement
+
+Construction_Atlas is the **spatial context layer**. It is:
+- **NOT** a UI surface
+- **NOT** an execution layer
+
+All UI rendering is owned exclusively by Construction_Application_OS.
+All execution is owned by Construction_Runtime.
