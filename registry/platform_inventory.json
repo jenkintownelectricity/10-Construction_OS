@@ -7,8 +7,10 @@
   "atlas_status": "CORE_CONTEXT_LAYER",
   "ui_authority": "Construction_Application_OS",
   "frozen_topology": {
-    "spine": [
-      "Universal_Truth_Kernel",
+    "root_reference_layer": [
+      "Universal_Truth_Kernel"
+    ],
+    "writable_frozen_spine": [
       "ValidKernel_Geometry_Kernel",
       "ValidKernel-Governance",
       "Construction_Kernel",
@@ -20,6 +22,19 @@
       "Construction_OS_Registry",
       "ValidKernel_Registry",
       "ValidKernelOS_VKBUS"
+    ],
+    "dependency_edges": [
+      {"source": "Construction_Kernel", "target": "ValidKernel_Geometry_Kernel", "relationship": "consumes-spatial-primitives"},
+      {"source": "Construction_Atlas", "target": "Construction_Kernel", "relationship": "consumes-construction-ontology"},
+      {"source": "Construction_Atlas", "target": "ValidKernel_Geometry_Kernel", "relationship": "consumes-spatial-primitives"},
+      {"source": "Construction_Runtime", "target": "Construction_Atlas", "relationship": "consumes-spatial-context"},
+      {"source": "Construction_Application_OS", "target": "Construction_Atlas", "relationship": "consumes-atlas-navigation-context"},
+      {"source": "Construction_Application_OS", "target": "Construction_Runtime", "relationship": "interacts-with-runtime"}
+    ],
+    "vkbus_guidance_observation_paths": [
+      {"path": "ValidKernelOS_VKBUS <-> Construction_Atlas", "direction": "bidirectional", "purpose": "spatial context state observation"},
+      {"path": "ValidKernelOS_VKBUS <-> Construction_Runtime", "direction": "bidirectional", "purpose": "execution state observation"},
+      {"path": "ValidKernelOS_VKBUS <-> Construction_Application_OS", "direction": "bidirectional", "purpose": "UI event observation"}
     ]
   },
   "rename_lineage": [

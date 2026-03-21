@@ -25,9 +25,25 @@ Infrastructure Authorities:
 ```
 
 > **Architecture Status:** FROZEN
-> **Atlas Status:** Core spatial construction context layer
-> **UI Authority:** Construction_Application_OS is the sole UI surface of Construction OS.
+> **Atlas Status:** Core spatial construction context layer — NOT a UI surface, NOT an execution layer
+> **UI Authority:** Construction_Application_OS is the sole UI surface of Construction OS
+> **VKBUS Role:** ValidKernelOS_VKBUS is the governed guidance, observation, and relay layer
 > **Rename Lineage:** Construction_Atlas_UI → Construction_Atlas (V2) — separation of spatial context truth layer and UI surface. This lineage reference is permanent.
+
+## Root Reference Layer
+
+Universal_Truth_Kernel is the upstream root authority. It is reference-only and must not be modified by downstream architecture passes.
+
+## Dependency Edges
+
+| Source | Target | Relationship |
+|--------|--------|-------------|
+| Construction_Kernel | ValidKernel_Geometry_Kernel | Consumes spatial primitives |
+| Construction_Atlas | Construction_Kernel | Consumes construction ontology |
+| Construction_Atlas | ValidKernel_Geometry_Kernel | Consumes spatial primitives |
+| Construction_Runtime | Construction_Atlas | Consumes spatial context |
+| Construction_Application_OS | Construction_Atlas | Consumes atlas navigation context |
+| Construction_Application_OS | Construction_Runtime | Interacts with runtime |
 
 ## Platform Inventory
 
