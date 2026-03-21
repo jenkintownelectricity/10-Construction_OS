@@ -1,6 +1,36 @@
 # Construction Application OS
 
-A workstation-grade construction management UI built with React, TypeScript, and Dockview. Construction OS provides a multi-panel cockpit environment where every panel stays synchronized through a centralized Truth Echo orchestration system.
+The **sole UI operating surface** of Construction OS. A workstation-grade construction management UI built with React, TypeScript, and Dockview. Construction OS provides a multi-panel cockpit environment where every panel stays synchronized through a centralized Truth Echo orchestration system.
+
+## Construction OS Core Architecture (FROZEN)
+
+```
+Universal_Truth_Kernel
+├── ValidKernel_Geometry_Kernel
+├── ValidKernel-Governance
+└── Construction_Kernel
+     ├── Construction_Atlas (formerly Construction_Atlas_UI)
+     │        ↓
+     Construction_Runtime
+              ↓
+     Construction_Application_OS        ← YOU ARE HERE (Sole UI Surface)
+```
+
+> **Architecture Status:** FROZEN
+> **UI Authority:** This repository is the sole UI surface of Construction OS. All UI rendering, workspace shells, panel systems, event orchestration, atlas navigation interfaces, inspectors, overlays, and assistant interaction surfaces are owned exclusively by this repository.
+> **Construction_Atlas** (formerly Construction_Atlas_UI) is a spatial context truth layer. It provides spatial selectors, anchors, navigable spatial objects, and context resolution — but must NOT contain React components, UI rendering logic, workspace layout systems, or panel orchestration.
+
+## UI Ownership
+
+Construction_Application_OS owns:
+- Workspace shell
+- Panel system
+- Event orchestration
+- Atlas navigation interface
+- Inspectors and overlays
+- Assistant interaction
+
+Construction_Atlas may define spatial selectors, anchors, navigable spatial objects, and context resolution that this application consumes and renders.
 
 ## Stack Position
 
@@ -20,8 +50,6 @@ Construction_Kernel
 Construction_Runtime
   ↓
 Construction_Application_OS          ← YOU ARE HERE (Layer 7 — Application)
-  ↓
-Construction Applications
 ```
 
 ## Tech Stack
