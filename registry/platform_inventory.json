@@ -2,19 +2,64 @@
   "registry_version": "v1",
   "registry_type": "construction_os_platform_inventory",
   "description": "Canonical inventory of repositories confirmed as part of the Construction OS platform.",
-  "last_updated": "2026-03-19",
+  "last_updated": "2026-03-21",
+  "architecture_status": "FROZEN",
+  "atlas_status": "CORE_CONTEXT_LAYER",
+  "ui_authority": "Construction_Application_OS",
+  "frozen_topology": {
+    "spine": [
+      "Universal_Truth_Kernel",
+      "ValidKernel_Geometry_Kernel",
+      "ValidKernel-Governance",
+      "Construction_Kernel",
+      "Construction_Atlas",
+      "Construction_Runtime",
+      "Construction_Application_OS"
+    ],
+    "infrastructure": [
+      "Construction_OS_Registry",
+      "ValidKernel_Registry",
+      "ValidKernelOS_VKBUS"
+    ]
+  },
+  "rename_lineage": [
+    {
+      "previous_name": "Construction_Atlas_UI",
+      "current_name": "Construction_Atlas",
+      "version": "V2",
+      "reason": "Separation of spatial context truth layer and UI surface",
+      "status": "permanent"
+    }
+  ],
   "entries": [
     {
       "repo_name": "Construction_Application_OS",
       "layer": "interfaces",
       "primary_area": "interfaces",
-      "role_summary": "Specification and coordination layer defining apps, workflows, role models, and runtime/kernel mappings for the Construction OS platform.",
+      "role_summary": "Sole UI operating surface of Construction OS. Workspace shell, panel system, event orchestration, atlas navigation interface, inspectors, overlays, and assistant interaction.",
+      "ui_authority": true,
       "tags": [
-        "application-coordination",
-        "specification",
-        "workflows",
-        "role-model",
+        "application-os",
+        "sole-ui-surface",
+        "workspace-shell",
+        "panel-system",
         "interfaces"
+      ]
+    },
+    {
+      "repo_name": "Construction_Atlas",
+      "formerly": "Construction_Atlas_UI",
+      "layer": "context",
+      "primary_area": "spatial-context",
+      "role_summary": "Core spatial construction context layer binding geometry and construction meaning. Resolves spatial conditions: object existence, placement, adjacency, and applicable rules. NOT a UI surface.",
+      "rename_lineage": "Construction_Atlas_UI → Construction_Atlas (V2)",
+      "tags": [
+        "spatial-context",
+        "object-graph",
+        "zones",
+        "adjacency",
+        "context-layer",
+        "truth"
       ]
     },
     {

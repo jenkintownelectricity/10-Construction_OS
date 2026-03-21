@@ -1,8 +1,32 @@
 # Construction OS Registry
 
-Canonical platform inventory for the Construction OS architecture.
+Canonical platform inventory and topology authority for the Construction OS architecture.
 
 This registry catalogs all repositories that are confirmed members of the Construction OS platform, their layer assignments, and their architectural roles.
+
+## Construction OS Core Architecture (FROZEN)
+
+```
+Universal_Truth_Kernel
+├── ValidKernel_Geometry_Kernel
+├── ValidKernel-Governance
+└── Construction_Kernel
+     ├── Construction_Atlas (formerly Construction_Atlas_UI)
+     │        ↓
+     Construction_Runtime
+              ↓
+     Construction_Application_OS
+
+Infrastructure Authorities:
+  Construction_OS_Registry              ← YOU ARE HERE (Construction OS topology authority)
+  ValidKernel_Registry                  → Global kernel lineage authority
+  ValidKernelOS_VKBUS                   → Canonical interaction transport layer
+```
+
+> **Architecture Status:** FROZEN
+> **Atlas Status:** Core spatial construction context layer
+> **UI Authority:** Construction_Application_OS is the sole UI surface of Construction OS.
+> **Rename Lineage:** Construction_Atlas_UI → Construction_Atlas (V2) — separation of spatial context truth layer and UI surface. This lineage reference is permanent.
 
 ## Platform Inventory
 
