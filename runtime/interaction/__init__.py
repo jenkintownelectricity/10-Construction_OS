@@ -1,11 +1,7 @@
 """
-Construction_Runtime — public API.
+Interaction layer — public entrypoints for runtime engines.
 
-Import runtime bridge functions here so external consumers can write:
-
-    from runtime import evaluate_condition_graph
-
-Engine internals must never be imported directly by other repositories.
+External consumers import from here, never from engine internals.
 """
 
 from runtime.interaction.runtime_bridge import (
