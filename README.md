@@ -25,6 +25,7 @@ Universal_Truth_Kernel
 > **Architecture Status:** FROZEN
 > **Construction_Atlas** (formerly Construction_Atlas_UI) provides spatial construction context that the Runtime consumes for artifact generation.
 > **UI Authority:** Construction_Application_OS is the sole UI surface of Construction OS.
+> **Runtime Boundary:** Construction_Runtime is an execution-only layer. It does not own UI responsibility.
 
 ## Explicit Dependencies
 
@@ -32,6 +33,13 @@ Universal_Truth_Kernel
 |------------|-------------|
 | **Construction_Kernel** | Executes against truth boundaries |
 | **Construction_Atlas** | Consumes spatial context for artifact generation |
+
+## Architectural Boundaries
+
+- Construction_Runtime is an **execution-only layer**
+- Construction_Runtime **consumes Atlas spatial context** for artifact generation
+- Construction_Runtime **does not own UI responsibility** — all UI is owned by Construction_Application_OS
+- Construction_Runtime **does not define construction truth** — truth is defined by Construction_Kernel
 
 ## Pipeline Architecture
 
