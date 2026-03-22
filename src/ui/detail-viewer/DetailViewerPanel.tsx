@@ -19,6 +19,8 @@ import { getSampleRoofingDraft } from '../assembly-builder/roofingSourceAdapter'
 import { getSampleFireproofingDraft } from '../assembly-builder/fireproofingSourceAdapter';
 import { formStateToDraft } from '../assembly-builder/assemblyDraftValidator';
 import { generateDetailPreview } from './detailGenerationAdapter';
+import { eventBus } from '../events/EventBus';
+import { generationStore } from '../stores/generationStore';
 import type { DetailPreviewResult, ViewerTab, DetailCategory } from './types';
 import type { CanonicalAssemblyDraft } from '../assembly-builder/types';
 
@@ -140,6 +142,17 @@ export function DetailViewerPanel() {
     setPreviewResult(result);
     setIsGenerating(false);
     setActiveTab('preview');
+
+    // Store result and emit generation.completed for Atlas loop
+    generationStore.setResult(result);
+    eventBus.emit('generation.completed', {
+      objectId: result.detail_id,
+      status: result.success ? 'success' : 'generation_error',
+      dxfFilename: result.dxf_available ? result.artifact_filename : null,
+      generatorSeam: result.generator_seam,
+      diagnostics: [...result.diagnostics],
+      timestamp: Date.now(),
+    });
   }, []);
 
   const handleGenerateFireproofing = useCallback(() => {
@@ -150,6 +163,17 @@ export function DetailViewerPanel() {
     setPreviewResult(result);
     setIsGenerating(false);
     setActiveTab(result.success ? 'preview' : 'diagnostics');
+
+    // Store result and emit generation.completed (will be fail-closed)
+    generationStore.setResult(result);
+    eventBus.emit('generation.completed', {
+      objectId: result.detail_id,
+      status: result.generation_status === 'unsupported' ? 'generation_error' : (result.success ? 'success' : 'validation_failed'),
+      dxfFilename: null,
+      generatorSeam: result.generator_seam,
+      diagnostics: [...result.diagnostics],
+      timestamp: Date.now(),
+    });
   }, []);
 
   const handleClear = useCallback(() => {
