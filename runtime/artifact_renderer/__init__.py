@@ -43,6 +43,11 @@ from runtime.artifact_renderer.renderer_registry import (
     get_renderer,
 )
 from runtime.artifact_renderer.dxf_renderer import DxfRenderer
+from runtime.artifact_renderer.dxf_renderer import (
+    AssemblyDXFGenerator,
+    generate_assembly_dxf,
+    render_dxf_from_instruction_set,
+)
 from runtime.artifact_renderer.svg_renderer import SvgRenderer
 from runtime.artifact_renderer.pdf_renderer import PdfRenderer
 from runtime.artifact_renderer.artifact_lineage import (
