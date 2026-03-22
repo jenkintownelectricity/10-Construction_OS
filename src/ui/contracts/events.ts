@@ -98,6 +98,21 @@ export interface TaskCreatedPayload {
   readonly source: PanelId;
 }
 
+export interface GenerationRequestedPayload {
+  readonly objectId: string;
+  readonly category: string;
+  readonly source: PanelId;
+}
+
+export interface GenerationCompletedPayload {
+  readonly objectId: string;
+  readonly status: 'success' | 'validation_failed' | 'generation_error';
+  readonly dxfFilename: string | null;
+  readonly generatorSeam: string | null;
+  readonly diagnostics: readonly string[];
+  readonly timestamp: number;
+}
+
 export interface WorkspaceModeChangedPayload {
   readonly mode: WorkspaceMode;
   readonly previousMode: WorkspaceMode;
@@ -151,6 +166,8 @@ export interface EventMap {
   'workspace.mode.changed': WorkspaceModeChangedPayload;
   'panel.follow.changed': PanelFollowChangedPayload;
   'companion.pinned': CompanionPinnedPayload;
+  'generation.requested': GenerationRequestedPayload;
+  'generation.completed': GenerationCompletedPayload;
   'truth-echo.propagated': TruthEchoPropagatedPayload;
   'truth-echo.failed': TruthEchoFailedPayload;
 }
