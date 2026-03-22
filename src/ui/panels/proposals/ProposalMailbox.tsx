@@ -106,7 +106,7 @@ export function ProposalMailbox() {
   ];
 
   return (
-    <PanelShell panelId="proposals" title="Proposal Mailbox" isMock={mockProposalAdapter.isMock}>
+    <PanelShell panelId="proposals" title="Proposal Mailbox" isMock={mockProposalAdapter.isMock} badgeCount={pendingCount > 0 ? pendingCount : undefined}>
       {/* Error */}
       {error && (
         <div style={{

@@ -4,6 +4,13 @@
  * Dockview-based multi-panel workspace with docking, resize, and movement.
  * Implements HERO_COCKPIT_DEFAULT preset and Command Deck activation.
  * No page-based navigation — panels are live systems.
+ *
+ * Cockpit Upgrade (VKGL04R):
+ * - Authority HUD in top header (awareness only)
+ * - Bottom Dock consolidation for lower panels
+ * - Command Palette (CMD+K / CTRL+K)
+ * - Dev Control Isolation (dev tools toggle)
+ * - Visual hierarchy: Work panel visually dominant
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -24,9 +31,14 @@ import { ProposalMailbox } from '../panels/proposals/ProposalMailbox';
 import { RuntimeDiagnosticsPanel } from '../panels/diagnostics/RuntimeDiagnosticsPanel';
 import { AssistantConsole } from '../panels/assistant/AssistantConsole';
 import { DeckPicker } from '../decks/DeckPicker';
+import { AuthorityHUD } from '../components/AuthorityHUD';
+import { CommandPalette } from '../components/CommandPalette';
+import { BottomDock } from '../layout/BottomDock';
+import { DevToolsPanel } from '../devtools/DevToolsPanel';
 import { initTruthEcho, destroyTruthEcho } from '../orchestration/TruthEcho';
 import { detectDeviceClass, getDeviceLayout } from '../orchestration/DeviceOrchestrator';
 import { activeObjectStore } from '../stores/activeObjectStore';
+import { useActiveObject } from '../stores/useSyncExternalStore';
 import { tokens } from '../theme/tokens';
 import type { DeviceClass, PanelId } from '../contracts/events';
 
@@ -54,13 +66,16 @@ const PANEL_COMPONENTS: Record<string, React.FC<IDockviewPanelProps>> = {
   assistant: AssistantWrapper,
 };
 
+// ─── Top row panels (in Dockview) ────────────────────────────────────────
+// Bottom panels are now in the BottomDock component.
+
+const TOP_PANELS: PanelId[] = ['explorer', 'work', 'reference'];
+
 // ─── Workspace Presets ──────────────────────────────────────────────────────
 
 type PresetName = 'HERO_COCKPIT_DEFAULT';
 
 function applyPreset(api: DockviewReadyEvent['api'], preset: PresetName, deviceClass: DeviceClass) {
-  const layout = getDeviceLayout(deviceClass);
-
   // Clear existing panels
   api.panels.forEach((p) => api.removePanel(p));
 
@@ -68,44 +83,16 @@ function applyPreset(api: DockviewReadyEvent['api'], preset: PresetName, deviceC
     if (deviceClass === 'phone') {
       // Phone: single primary + companion accessible
       api.addPanel({ id: 'work', component: 'work', title: 'WORK' });
-      // Companion panel available but not visible by default
       activeObjectStore.setPinnedCompanion('explorer');
     } else if (deviceClass === 'tablet') {
       // Tablet: 2 panels
       const workPanel = api.addPanel({ id: 'work', component: 'work', title: 'WORK' });
       api.addPanel({ id: 'explorer', component: 'explorer', title: 'EXPLORER', position: { referencePanel: workPanel, direction: 'left' } });
-    } else if (deviceClass === 'laptop') {
-      // Laptop: 3 panels
-      const workPanel = api.addPanel({ id: 'work', component: 'work', title: 'WORK' });
-      api.addPanel({ id: 'explorer', component: 'explorer', title: 'EXPLORER', position: { referencePanel: workPanel, direction: 'left' } });
-      api.addPanel({ id: 'reference', component: 'reference', title: 'REFERENCE', position: { referencePanel: workPanel, direction: 'right' } });
     } else {
-      // Desktop / Ultrawide: full cockpit with governance panels
-      // Top row: Explorer | Work | Reference
+      // Laptop / Desktop / Ultrawide: Top 3 panels in dockview + bottom dock
       const workPanel = api.addPanel({ id: 'work', component: 'work', title: 'WORK' });
       api.addPanel({ id: 'explorer', component: 'explorer', title: 'EXPLORER', position: { referencePanel: workPanel, direction: 'left' } });
       api.addPanel({ id: 'reference', component: 'reference', title: 'REFERENCE', position: { referencePanel: workPanel, direction: 'right' } });
-
-      // Middle row: Awareness | Diagnostics | Proposals
-      api.addPanel({ id: 'awareness', component: 'awareness', title: 'AWARENESS', position: { referencePanel: workPanel, direction: 'below' } });
-      const awarenessPanel = api.panels.find((p) => p.id === 'awareness');
-      if (awarenessPanel) {
-        api.addPanel({ id: 'diagnostics', component: 'diagnostics', title: 'DIAGNOSTICS', position: { referencePanel: awarenessPanel, direction: 'right' } });
-        const diagnosticsPanel = api.panels.find((p) => p.id === 'diagnostics');
-        if (diagnosticsPanel) {
-          api.addPanel({ id: 'proposals', component: 'proposals', title: 'PROPOSALS', position: { referencePanel: diagnosticsPanel, direction: 'right' } });
-        }
-      }
-
-      // Bottom row: Spatial | System | Assistant
-      if (awarenessPanel) {
-        api.addPanel({ id: 'spatial', component: 'spatial', title: 'SPATIAL', position: { referencePanel: awarenessPanel, direction: 'below' } });
-      }
-      const spatialPanel = api.panels.find((p) => p.id === 'spatial');
-      if (spatialPanel) {
-        api.addPanel({ id: 'system', component: 'system', title: 'SYSTEM', position: { referencePanel: spatialPanel, direction: 'right' } });
-        api.addPanel({ id: 'assistant', component: 'assistant', title: 'ASSISTANT', position: { referencePanel: spatialPanel, direction: 'right' } });
-      }
     }
   }
 }
@@ -164,6 +151,10 @@ export function WorkspaceShell() {
   const apiRef = useRef<DockviewReadyEvent['api'] | null>(null);
   const [isPhoneMode, setIsPhoneMode] = useState(deviceClass === 'phone');
   const [phonePanel, setPhonePanel] = useState<PanelId>('work');
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const { devToolsVisible } = useActiveObject();
+
+  const showBottomDock = deviceClass !== 'phone' && deviceClass !== 'tablet';
 
   // Initialize Truth Echo
   useEffect(() => {
@@ -179,7 +170,6 @@ export function WorkspaceShell() {
         setDeviceClass(newClass);
         activeObjectStore.setDeviceClass(newClass);
         setIsPhoneMode(newClass === 'phone');
-        // Re-apply layout on device class change
         if (apiRef.current) {
           applyPreset(apiRef.current, 'HERO_COCKPIT_DEFAULT', newClass);
         }
@@ -190,6 +180,21 @@ export function WorkspaceShell() {
     return () => window.removeEventListener('resize', handleResize);
   }, [deviceClass]);
 
+  // Command Palette keyboard shortcut (CMD+K / CTRL+K)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setCommandPaletteOpen((prev) => !prev);
+      }
+      if (e.key === 'Escape' && commandPaletteOpen) {
+        setCommandPaletteOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [commandPaletteOpen]);
+
   const handleReady = useCallback((event: DockviewReadyEvent) => {
     apiRef.current = event.api;
     applyPreset(event.api, 'HERO_COCKPIT_DEFAULT', deviceClass);
@@ -198,32 +203,27 @@ export function WorkspaceShell() {
   const handlePhoneSwitch = useCallback((panelId: PanelId) => {
     setPhonePanel(panelId);
     if (apiRef.current) {
-      // Remove all panels and add the selected one
       apiRef.current.panels.forEach((p) => apiRef.current!.removePanel(p));
       apiRef.current.addPanel({ id: panelId, component: panelId, title: panelId.toUpperCase() });
     }
   }, []);
 
   // ─── Deck Layout Application ──────────────────────────────────────────────
-  // Called by DeckActivation to apply a deck's panel layout atomically.
 
   const applyDeckLayout = useCallback((visiblePanels: readonly PanelId[], promotedPanel: PanelId) => {
     if (!apiRef.current) return;
     const api = apiRef.current;
 
-    // Clear all existing panels
     api.panels.forEach((p) => api.removePanel(p));
 
     if (visiblePanels.length === 0) return;
 
-    // Add promoted panel first (it becomes the anchor)
     const promoted = api.addPanel({
       id: promotedPanel,
       component: promotedPanel,
       title: promotedPanel.toUpperCase(),
     });
 
-    // Add remaining panels relative to promoted
     const remaining = visiblePanels.filter((p) => p !== promotedPanel);
     let lastLeft = promoted;
     let lastRight = promoted;
@@ -231,7 +231,6 @@ export function WorkspaceShell() {
 
     for (let i = 0; i < remaining.length; i++) {
       const panelId = remaining[i];
-      // Alternate placement: right, left, below
       if (i % 3 === 0) {
         lastRight = api.addPanel({
           id: panelId,
@@ -258,9 +257,13 @@ export function WorkspaceShell() {
     }
   }, []);
 
+  const handleToggleDevTools = useCallback(() => {
+    activeObjectStore.setDevToolsVisible(!devToolsVisible);
+  }, [devToolsVisible]);
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: tokens.color.bgDeep, minHeight: 0 }}>
-      {/* Status Bar */}
+      {/* Status Bar with Authority HUD */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
@@ -288,18 +291,48 @@ export function WorkspaceShell() {
           }}>
             WORKSTATION
           </span>
+          {/* Authority HUD — awareness only */}
+          <AuthorityHUD />
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: tokens.space.sm }}>
           <DeckPicker applyLayout={applyDeckLayout} />
-          <span style={{
-            fontSize: tokens.font.sizeXs,
-            color: tokens.color.mock,
-            background: 'rgba(249,115,22,0.1)',
-            padding: '1px 8px',
-            borderRadius: tokens.radius.sm,
-          }}>
-            MOCK ADAPTERS
-          </span>
+          {/* Command Palette trigger */}
+          <button
+            onClick={() => setCommandPaletteOpen(true)}
+            style={{
+              padding: `${tokens.space.xs} ${tokens.space.sm}`,
+              background: tokens.color.bgElevated,
+              color: tokens.color.fgMuted,
+              border: `1px solid ${tokens.color.border}`,
+              borderRadius: tokens.radius.sm,
+              cursor: 'pointer',
+              fontSize: tokens.font.sizeXs,
+              fontFamily: tokens.font.familyMono,
+              display: 'flex',
+              alignItems: 'center',
+              gap: tokens.space.xs,
+            }}
+            title="Command Palette (Ctrl+K / Cmd+K)"
+          >
+            {'\u2318'}K
+          </button>
+          {/* Dev Tools toggle — isolated from panel headers */}
+          <button
+            onClick={handleToggleDevTools}
+            style={{
+              padding: `${tokens.space.xs} ${tokens.space.sm}`,
+              background: devToolsVisible ? `${tokens.color.mock}15` : tokens.color.bgElevated,
+              color: devToolsVisible ? tokens.color.mock : tokens.color.fgMuted,
+              border: `1px solid ${devToolsVisible ? tokens.color.mock + '40' : tokens.color.border}`,
+              borderRadius: tokens.radius.sm,
+              cursor: 'pointer',
+              fontSize: tokens.font.sizeXs,
+              fontFamily: tokens.font.familyMono,
+            }}
+            title="Toggle Dev Tools"
+          >
+            DEV
+          </button>
           <span style={{
             fontSize: tokens.font.sizeXs,
             color: tokens.color.fgMuted,
@@ -310,7 +343,7 @@ export function WorkspaceShell() {
         </div>
       </div>
 
-      {/* Workspace */}
+      {/* Main Workspace — Dockview (top panels: Explorer | Work | Reference) */}
       <div style={{ flex: 1, overflow: 'hidden', minHeight: 0 }}>
         <DockviewReact
           className="dockview-theme-dark"
@@ -319,10 +352,21 @@ export function WorkspaceShell() {
         />
       </div>
 
+      {/* Bottom Dock — consolidated lower panels */}
+      {showBottomDock && <BottomDock />}
+
       {/* Phone Companion Switcher */}
       {isPhoneMode && (
         <CompanionSwitcher onSwitch={handlePhoneSwitch} currentPanel={phonePanel} />
       )}
+
+      {/* Command Palette Overlay */}
+      {commandPaletteOpen && (
+        <CommandPalette onClose={() => setCommandPaletteOpen(false)} />
+      )}
+
+      {/* Dev Tools Panel — isolated from panel chrome */}
+      <DevToolsPanel />
     </div>
   );
 }

@@ -12,6 +12,11 @@
  * FAIL_CLOSED events are prominently visible with error styling.
  * Pipeline stages are displayed as an ordered status strip.
  *
+ * Kinetic Diagnostics / Threaded Failure View:
+ *   - List mode: flat event list (default)
+ *   - Threaded mode: causal chain view showing dependency relationships
+ *   - Stage focus: click failure to focus relevant stage
+ *
  * Data source: RuntimeDiagnosticsAdapter (bounded UI facade)
  * FAIL_CLOSED: Missing or invalid data displays explicit error state.
  */
@@ -19,6 +24,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { PanelShell } from '../PanelShell';
 import { tokens } from '../../theme/tokens';
+import { eventBus } from '../../events/EventBus';
+import { activeObjectStore } from '../../stores/activeObjectStore';
 import { mockRuntimeDiagnosticsAdapter } from '../../adapters/runtimeDiagnosticsAdapter';
 import type {
   RuntimeDiagnosticsState,
@@ -28,12 +35,15 @@ import type {
 } from '../../contracts/cockpit-types';
 
 type DiagnosticsTab = 'pipeline' | 'events' | 'artifacts';
+type EventViewMode = 'list' | 'threaded';
 
 export function RuntimeDiagnosticsPanel() {
   const [state, setState] = useState<RuntimeDiagnosticsState | null>(null);
   const [activeTab, setActiveTab] = useState<DiagnosticsTab>('pipeline');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [eventViewMode, setEventViewMode] = useState<EventViewMode>('list');
+  const [focusedStage, setFocusedStage] = useState<string | null>(null);
 
   const loadState = useCallback(async () => {
     try {
@@ -57,6 +67,25 @@ export function RuntimeDiagnosticsPanel() {
     (e) => e.event_type === 'ValidationFailed' || e.event_type === 'RuntimeError'
   ) ?? [];
 
+  // Handle clicking a failure to focus relevant stage/object
+  const handleFailureFocus = useCallback((event: RuntimeDiagnosticEvent) => {
+    setFocusedStage(event.pipeline_stage);
+    setActiveTab('pipeline');
+
+    // If the failure payload contains an object_id, try to focus it
+    const payload = event.payload;
+    if (payload.type === 'ValidationFailed' && 'object_id' in payload) {
+      const objectId = (payload as { object_id: string }).object_id;
+      if (objectId) {
+        eventBus.emit('object.selected', {
+          object: { id: objectId, name: objectId, type: 'element' },
+          source: 'diagnostics',
+          basis: 'mock',
+        });
+      }
+    }
+  }, []);
+
   const tabs: { key: DiagnosticsTab; label: string; count?: number }[] = [
     { key: 'pipeline', label: 'Pipeline' },
     { key: 'events', label: 'Events', count: state?.events.length ?? 0 },
@@ -64,7 +93,12 @@ export function RuntimeDiagnosticsPanel() {
   ];
 
   return (
-    <PanelShell panelId="diagnostics" title="Runtime Diagnostics" isMock={mockRuntimeDiagnosticsAdapter.isMock}>
+    <PanelShell
+      panelId="diagnostics"
+      title="Runtime Diagnostics"
+      isMock={mockRuntimeDiagnosticsAdapter.isMock}
+      badgeCount={failEvents.length > 0 ? failEvents.length : undefined}
+    >
       {/* Connection Status */}
       <div style={{
         display: 'flex',
@@ -91,13 +125,14 @@ export function RuntimeDiagnosticsPanel() {
         </span>
       </div>
 
-      {/* FAIL_CLOSED Banner — prominent when failures exist */}
+      {/* FAIL_CLOSED Banner — refined accent-card treatment */}
       {failEvents.length > 0 && (
         <div style={{
           padding: tokens.space.sm,
           marginBottom: tokens.space.sm,
-          background: 'rgba(239,68,68,0.12)',
-          border: `1px solid ${tokens.color.error}`,
+          background: tokens.color.bgBase,
+          border: `1px solid ${tokens.color.border}`,
+          borderLeft: `3px solid ${tokens.color.error}`,
           borderRadius: tokens.radius.sm,
           fontSize: tokens.font.sizeXs,
           color: tokens.color.error,
@@ -170,7 +205,12 @@ export function RuntimeDiagnosticsPanel() {
           {activeTab === 'pipeline' && (
             <div>
               {state.pipeline_stages.map((stage, i) => (
-                <PipelineStageRow key={i} stage={stage} />
+                <PipelineStageRow
+                  key={i}
+                  stage={stage}
+                  isFocused={focusedStage === stage.stage}
+                  onClick={() => setFocusedStage(focusedStage === stage.stage ? null : stage.stage)}
+                />
               ))}
             </div>
           )}
@@ -178,14 +218,43 @@ export function RuntimeDiagnosticsPanel() {
           {/* Events View */}
           {activeTab === 'events' && (
             <div>
+              {/* View Mode Toggle */}
+              <div style={{
+                display: 'flex',
+                gap: tokens.space.xs,
+                marginBottom: tokens.space.sm,
+              }}>
+                <ViewModeButton
+                  label="List"
+                  active={eventViewMode === 'list'}
+                  onClick={() => setEventViewMode('list')}
+                />
+                <ViewModeButton
+                  label="Threaded"
+                  active={eventViewMode === 'threaded'}
+                  onClick={() => setEventViewMode('threaded')}
+                />
+              </div>
+
               {state.events.length === 0 ? (
                 <div style={{ color: tokens.color.fgMuted, fontSize: tokens.font.sizeSm, padding: tokens.space.sm }}>
                   No runtime events received.
                 </div>
-              ) : (
+              ) : eventViewMode === 'list' ? (
+                // List mode — flat event list
                 state.events.map((evt) => (
-                  <EventRow key={evt.event_id} event={evt} />
+                  <EventRow
+                    key={evt.event_id}
+                    event={evt}
+                    onFailureClick={handleFailureFocus}
+                  />
                 ))
+              ) : (
+                // Threaded mode — causal chain view
+                <ThreadedEventView
+                  events={state.events}
+                  onFailureClick={handleFailureFocus}
+                />
               )}
             </div>
           )}
@@ -245,9 +314,32 @@ export function RuntimeDiagnosticsPanel() {
   );
 }
 
+// ─── View Mode Button ─────────────────────────────────────────────────────
+
+function ViewModeButton({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        padding: `${tokens.space.xs} ${tokens.space.sm}`,
+        background: active ? tokens.color.bgActive : tokens.color.bgBase,
+        color: active ? tokens.color.fgPrimary : tokens.color.fgMuted,
+        border: `1px solid ${active ? tokens.color.borderActive : tokens.color.border}`,
+        borderRadius: tokens.radius.sm,
+        cursor: 'pointer',
+        fontSize: tokens.font.sizeXs,
+        fontFamily: tokens.font.family,
+        fontWeight: active ? tokens.font.weightSemibold : tokens.font.weightNormal,
+      }}
+    >
+      {label}
+    </button>
+  );
+}
+
 // ─── Pipeline Stage Row ────────────────────────────────────────────────────
 
-function PipelineStageRow({ stage }: { stage: PipelineStageStatus }) {
+function PipelineStageRow({ stage, isFocused, onClick }: { stage: PipelineStageStatus; isFocused: boolean; onClick: () => void }) {
   const statusColor: Record<string, string> = {
     idle: tokens.color.fgMuted,
     active: tokens.color.info,
@@ -267,17 +359,23 @@ function PipelineStageRow({ stage }: { stage: PipelineStageStatus }) {
   const isFail = stage.status === 'failed' || stage.status === 'error';
 
   return (
-    <div style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: tokens.space.sm,
-      padding: `${tokens.space.sm} ${tokens.space.sm}`,
-      marginBottom: '1px',
-      background: isFail ? 'rgba(239,68,68,0.08)' : tokens.color.bgBase,
-      borderRadius: tokens.radius.sm,
-      fontSize: tokens.font.sizeXs,
-      lineHeight: tokens.font.lineNormal,
-    }}>
+    <div
+      onClick={onClick}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: tokens.space.sm,
+        padding: `${tokens.space.sm} ${tokens.space.sm}`,
+        marginBottom: '1px',
+        background: isFocused ? tokens.color.bgActive : isFail ? 'rgba(239,68,68,0.08)' : tokens.color.bgBase,
+        borderRadius: tokens.radius.sm,
+        borderLeft: isFocused ? `2px solid ${tokens.color.accentPrimary}` : '2px solid transparent',
+        fontSize: tokens.font.sizeXs,
+        lineHeight: tokens.font.lineNormal,
+        cursor: 'pointer',
+        transition: `background ${tokens.transition.fast}`,
+      }}
+    >
       <span style={{
         width: '16px',
         textAlign: 'center',
@@ -323,11 +421,10 @@ const EVENT_TYPE_COLORS: Record<RuntimeEventType, string> = {
   RuntimeError: tokens.color.error,
 };
 
-function EventRow({ event }: { event: RuntimeDiagnosticEvent }) {
+function EventRow({ event, onFailureClick }: { event: RuntimeDiagnosticEvent; onFailureClick: (e: RuntimeDiagnosticEvent) => void }) {
   const color = EVENT_TYPE_COLORS[event.event_type] ?? tokens.color.fgMuted;
   const isFail = event.event_type === 'ValidationFailed' || event.event_type === 'RuntimeError';
 
-  // Extract display message from payload
   let message = '';
   const p = event.payload;
   switch (p.type) {
@@ -349,15 +446,19 @@ function EventRow({ event }: { event: RuntimeDiagnosticEvent }) {
   }
 
   return (
-    <div style={{
-      padding: tokens.space.sm,
-      marginBottom: tokens.space.sm,
-      background: isFail ? 'rgba(239,68,68,0.08)' : tokens.color.bgBase,
-      borderRadius: tokens.radius.sm,
-      borderLeft: `3px solid ${color}`,
-      fontSize: tokens.font.sizeXs,
-      lineHeight: tokens.font.lineNormal,
-    }}>
+    <div
+      onClick={isFail ? () => onFailureClick(event) : undefined}
+      style={{
+        padding: tokens.space.sm,
+        marginBottom: tokens.space.sm,
+        background: isFail ? 'rgba(239,68,68,0.08)' : tokens.color.bgBase,
+        borderRadius: tokens.radius.sm,
+        borderLeft: `3px solid ${color}`,
+        fontSize: tokens.font.sizeXs,
+        lineHeight: tokens.font.lineNormal,
+        cursor: isFail ? 'pointer' : 'default',
+      }}
+    >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{
           color,
@@ -382,6 +483,128 @@ function EventRow({ event }: { event: RuntimeDiagnosticEvent }) {
       <div style={{ marginTop: '2px', color: tokens.color.fgMuted, fontFamily: tokens.font.familyMono }}>
         Stage: {event.pipeline_stage} | {new Date(event.timestamp).toLocaleTimeString()}
       </div>
+      {isFail && (
+        <div style={{ marginTop: '4px', fontSize: tokens.font.sizeXs, color: tokens.color.accentPrimary }}>
+          Click to focus stage
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─── Threaded Event View ──────────────────────────────────────────────────
+// Groups events by pipeline stage and shows causal chain where failures
+// block subsequent stages.
+
+function ThreadedEventView({
+  events,
+  onFailureClick,
+}: {
+  events: readonly RuntimeDiagnosticEvent[];
+  onFailureClick: (e: RuntimeDiagnosticEvent) => void;
+}) {
+  // Group events by pipeline stage, preserving order
+  const stageOrder: string[] = [];
+  const stageGroups = new Map<string, RuntimeDiagnosticEvent[]>();
+
+  for (const event of events) {
+    if (!stageGroups.has(event.pipeline_stage)) {
+      stageOrder.push(event.pipeline_stage);
+      stageGroups.set(event.pipeline_stage, []);
+    }
+    stageGroups.get(event.pipeline_stage)!.push(event);
+  }
+
+  // Identify causal chains: a failed stage blocks all subsequent stages
+  const failedStages = new Set<string>();
+  for (const stage of stageOrder) {
+    const stageEvents = stageGroups.get(stage) ?? [];
+    if (stageEvents.some((e) => e.event_type === 'ValidationFailed' || e.event_type === 'RuntimeError')) {
+      failedStages.add(stage);
+    }
+  }
+
+  // Build blocked relationships
+  let blockedBy: string | null = null;
+  const stageBlockedBy = new Map<string, string>();
+  for (const stage of stageOrder) {
+    if (blockedBy && !failedStages.has(stage)) {
+      stageBlockedBy.set(stage, blockedBy);
+    }
+    if (failedStages.has(stage)) {
+      blockedBy = stage;
+    }
+  }
+
+  return (
+    <div>
+      {stageOrder.map((stage) => {
+        const stageEvents = stageGroups.get(stage) ?? [];
+        const isFailed = failedStages.has(stage);
+        const isBlocked = stageBlockedBy.has(stage);
+        const blockedByStage = stageBlockedBy.get(stage);
+
+        return (
+          <div key={stage} style={{ marginBottom: tokens.space.md }}>
+            {/* Stage Header */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: tokens.space.sm,
+              padding: `${tokens.space.sm} ${tokens.space.sm}`,
+              background: isFailed ? `${tokens.color.error}10` : tokens.color.bgElevated,
+              borderRadius: tokens.radius.sm,
+              borderLeft: `3px solid ${isFailed ? tokens.color.error : isBlocked ? tokens.color.warning : tokens.color.fgMuted}`,
+              marginBottom: tokens.space.xs,
+            }}>
+              <span style={{
+                fontFamily: tokens.font.familyMono,
+                fontWeight: tokens.font.weightSemibold,
+                color: isFailed ? tokens.color.error : tokens.color.fgPrimary,
+                fontSize: tokens.font.sizeXs,
+              }}>
+                {stage}
+              </span>
+              <span style={{
+                fontSize: tokens.font.sizeXs,
+                color: isFailed ? tokens.color.error : isBlocked ? tokens.color.warning : tokens.color.fgMuted,
+                fontWeight: tokens.font.weightMedium,
+              }}>
+                {isFailed ? 'FAILED' : isBlocked ? 'BLOCKED' : `${stageEvents.length} events`}
+              </span>
+            </div>
+
+            {/* Blocked indicator — causal chain */}
+            {isBlocked && blockedByStage && (
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: tokens.space.xs,
+                padding: `${tokens.space.xs} ${tokens.space.md}`,
+                fontSize: tokens.font.sizeXs,
+                color: tokens.color.warning,
+                marginBottom: tokens.space.xs,
+              }}>
+                <span>{'\u2514'}</span>
+                <span style={{ fontFamily: tokens.font.familyMono }}>
+                  {blockedByStage} failed {'\u2192'} {stage} blocked
+                </span>
+              </div>
+            )}
+
+            {/* Stage Events */}
+            <div style={{ paddingLeft: tokens.space.md }}>
+              {stageEvents.map((evt) => (
+                <EventRow
+                  key={evt.event_id}
+                  event={evt}
+                  onFailureClick={onFailureClick}
+                />
+              ))}
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
