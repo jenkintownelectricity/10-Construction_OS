@@ -137,7 +137,7 @@ export function ProposalMailbox() {
             onClick={() => setFilter(f.key)}
             style={{
               flex: 1,
-              padding: `${tokens.space.xs} ${tokens.space.sm}`,
+              padding: `${tokens.space.sm} ${tokens.space.sm}`,
               background: filter === f.key ? tokens.color.bgActive : tokens.color.bgElevated,
               color: filter === f.key ? tokens.color.fgPrimary : tokens.color.fgSecondary,
               border: 'none',
@@ -145,6 +145,7 @@ export function ProposalMailbox() {
               fontSize: tokens.font.sizeXs,
               fontFamily: tokens.font.family,
               fontWeight: filter === f.key ? tokens.font.weightSemibold : tokens.font.weightNormal,
+              lineHeight: tokens.font.lineTight,
             }}
           >
             {f.label}
@@ -211,9 +212,10 @@ function ProposalCard({
       borderRadius: tokens.radius.sm,
       borderLeft: `3px solid ${statusColor[proposal.status]}`,
       fontSize: tokens.font.sizeXs,
+      lineHeight: tokens.font.lineNormal,
     }}>
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: tokens.space.xs }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: tokens.space.sm }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: tokens.space.sm }}>
           <span style={{
             color: statusColor[proposal.status],
@@ -237,7 +239,7 @@ function ProposalCard({
       </div>
 
       {/* Source & Type */}
-      <div style={{ color: tokens.color.fgSecondary, marginBottom: tokens.space.xs }}>
+      <div style={{ color: tokens.color.fgSecondary, marginBottom: tokens.space.sm }}>
         <span style={{ fontWeight: tokens.font.weightMedium }}>Source:</span> {proposal.source}
         <span style={{ marginLeft: tokens.space.md, fontWeight: tokens.font.weightMedium }}>Type:</span> {proposal.proposal_type}
       </div>
@@ -321,7 +323,7 @@ function ActionButton({
       disabled={disabled}
       title={title}
       style={{
-        padding: `${tokens.space.xs} ${tokens.space.md}`,
+        padding: `${tokens.space.sm} ${tokens.space.md}`,
         background: `${color}15`,
         color: disabled ? tokens.color.fgMuted : color,
         border: `1px solid ${disabled ? tokens.color.border : color}`,

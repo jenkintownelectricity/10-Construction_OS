@@ -86,7 +86,7 @@ export function AssistantConsole() {
     <PanelShell panelId="assistant" title="Assistant Console" isMock={mockAssistantAdapter.isMock}>
       {/* Authority Notice */}
       <div style={{
-        padding: `${tokens.space.xs} ${tokens.space.sm}`,
+        padding: `${tokens.space.sm} ${tokens.space.sm}`,
         marginBottom: tokens.space.sm,
         background: tokens.color.bgBase,
         borderRadius: tokens.radius.sm,
@@ -94,6 +94,7 @@ export function AssistantConsole() {
         color: tokens.color.fgMuted,
         fontFamily: tokens.font.familyMono,
         textAlign: 'center',
+        lineHeight: tokens.font.lineNormal,
       }}>
         RING 3 — READ-ONLY | NO EXECUTION AUTHORITY | PROPOSALS ROUTE TO MAILBOX
       </div>
@@ -199,9 +200,10 @@ function ResponseCard({ response }: { response: AssistantResponse }) {
       borderRadius: tokens.radius.sm,
       borderLeft: `3px solid ${config.color}`,
       fontSize: tokens.font.sizeXs,
+      lineHeight: tokens.font.lineNormal,
     }}>
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: tokens.space.xs }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: tokens.space.sm }}>
         <span style={{
           color: config.color,
           fontWeight: tokens.font.weightSemibold,

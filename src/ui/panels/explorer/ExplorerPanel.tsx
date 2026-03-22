@@ -89,13 +89,14 @@ export function ExplorerPanel() {
             display: 'flex',
             alignItems: 'center',
             gap: tokens.space.xs,
-            padding: `3px ${tokens.space.sm}`,
+            padding: `${tokens.space.sm} ${tokens.space.sm}`,
             paddingLeft: `${depth * 16 + 8}px`,
             cursor: 'pointer',
             background: isActive ? tokens.color.bgActive : 'transparent',
             borderLeft: isActive ? `2px solid ${tokens.color.echoActive}` : '2px solid transparent',
             color: isActive ? tokens.color.fgPrimary : tokens.color.fgSecondary,
             fontSize: tokens.font.sizeSm,
+            lineHeight: tokens.font.lineNormal,
             transition: `background ${tokens.transition.fast}`,
             userSelect: 'none',
           }}
@@ -107,12 +108,12 @@ export function ExplorerPanel() {
           }}
         >
           {hasChildren && (
-            <span style={{ fontSize: '8px', color: tokens.color.fgMuted, width: '10px' }}>
+            <span style={{ fontSize: tokens.font.sizeXs, color: tokens.color.fgMuted, width: '10px' }}>
               {isExpanded ? '\u25BC' : '\u25B6'}
             </span>
           )}
           {!hasChildren && <span style={{ width: '10px' }} />}
-          <span style={{ color: isActive ? tokens.color.echoActive : tokens.color.fgMuted, fontSize: '10px' }}>
+          <span style={{ color: isActive ? tokens.color.echoActive : tokens.color.fgMuted, fontSize: tokens.font.sizeXs }}>
             {typeIcon[node.type] ?? '\u25CB'}
           </span>
           <span style={{ fontWeight: isActive ? tokens.font.weightSemibold : tokens.font.weightNormal }}>
@@ -138,7 +139,7 @@ export function ExplorerPanel() {
           onChange={(e) => setSearchQuery(e.target.value)}
           style={{
             width: '100%',
-            padding: `${tokens.space.xs} ${tokens.space.sm}`,
+            padding: `${tokens.space.sm} ${tokens.space.sm}`,
             background: tokens.color.bgBase,
             border: `1px solid ${tokens.color.border}`,
             borderRadius: tokens.radius.sm,

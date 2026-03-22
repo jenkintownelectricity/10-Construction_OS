@@ -142,7 +142,7 @@ export function DeckPicker({ applyLayout }: DeckPickerProps) {
         <span style={{ color: activeDeck ? tokens.color.fgPrimary : tokens.color.fgMuted, maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {activeDeck ? activeDeck.deck_name : 'None'}
         </span>
-        <span style={{ fontSize: '8px', opacity: 0.5 }}>{isOpen ? '\u25B2' : '\u25BC'}</span>
+        <span style={{ fontSize: tokens.font.sizeXs, opacity: 0.5 }}>{isOpen ? '\u25B2' : '\u25BC'}</span>
       </button>
 
       {/* Activation Result Notification */}
@@ -403,7 +403,7 @@ function DeckItem({
 
       {/* Arrangement badge */}
       <span style={{
-        fontSize: '9px',
+        fontSize: tokens.font.sizeXs,
         color: tokens.color.fgMuted,
         background: tokens.color.bgBase,
         padding: '0 4px',
@@ -422,7 +422,7 @@ function DeckItem({
             border: 'none',
             cursor: 'pointer',
             color: tokens.color.fgMuted,
-            fontSize: '10px',
+            fontSize: tokens.font.sizeXs,
             padding: '0 2px',
           }}
         >
@@ -438,7 +438,7 @@ function DeckItem({
             border: 'none',
             cursor: 'pointer',
             color: tokens.color.error,
-            fontSize: '10px',
+            fontSize: tokens.font.sizeXs,
             padding: '0 2px',
           }}
         >

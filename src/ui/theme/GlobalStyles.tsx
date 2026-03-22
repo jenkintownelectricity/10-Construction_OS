@@ -1,5 +1,8 @@
 /**
  * Construction OS — Global Styles
+ *
+ * Includes cockpit typography scale, density modes, and layout rules.
+ * Root font-size: 16px. No cockpit text smaller than 0.85rem (~13.6px).
  */
 
 import { tokens } from './tokens';
@@ -8,6 +11,7 @@ export function GlobalStyles() {
   return (
     <style>{`
       :root {
+        /* ─── Color tokens ────────────────────────────────────────── */
         --cos-bg-deep: ${tokens.color.bgDeep};
         --cos-bg-base: ${tokens.color.bgBase};
         --cos-bg-surface: ${tokens.color.bgSurface};
@@ -30,10 +34,24 @@ export function GlobalStyles() {
         --cos-mock: ${tokens.color.mock};
         --cos-font: ${tokens.font.family};
         --cos-font-mono: ${tokens.font.familyMono};
+
+        /* ─── Cockpit typography scale ────────────────────────────── */
+        --font-xs: ${tokens.font.sizeXs};
+        --font-sm: ${tokens.font.sizeSm};
+        --font-md: ${tokens.font.sizeMd};
+        --font-lg: ${tokens.font.sizeLg};
+        --line-tight: ${tokens.font.lineTight};
+        --line-normal: ${tokens.font.lineNormal};
+        --space-row-y: ${tokens.space.rowY};
+        --space-row-x: ${tokens.space.rowX};
       }
 
       *, *::before, *::after {
         box-sizing: border-box;
+      }
+
+      html {
+        font-size: 16px;
       }
 
       html, body, #root {
@@ -46,12 +64,77 @@ export function GlobalStyles() {
         background: var(--cos-bg-deep);
         color: var(--cos-fg-primary);
         font-size: ${tokens.font.sizeBase};
-        line-height: 1.5;
+        line-height: var(--line-normal);
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
 
-      /* Dockview theme overrides for Construction OS */
+      /* ─── Density Modes ──────────────────────────────────────── */
+      body.readable {
+        font-size: 1.1rem;
+      }
+      body.compact {
+        font-size: 0.95rem;
+      }
+
+      /* ─── Cockpit Typography Classes ─────────────────────────── */
+      .panel-title, .panel-header, .panel-tab-title {
+        font-size: var(--font-md);
+        font-weight: 600;
+        line-height: var(--line-tight);
+      }
+
+      .panel-content, .panel-body, .panel-text, .panel-label,
+      .panel-value, .tree-node, .list-item, .table-cell,
+      .proposal-text, .assistant-text, .reference-text,
+      .awareness-text, .spatial-text, .system-text {
+        font-size: var(--font-sm);
+        line-height: var(--line-normal);
+      }
+
+      .status-line, .meta-text, .caption, .badge, .chip,
+      .table-row, .diagnostics-row, .tree-meta,
+      .panel-subtitle, .small-text {
+        font-size: var(--font-xs);
+        line-height: var(--line-normal);
+      }
+
+      button, .btn, .tab, .pill, .action-chip {
+        font-size: 0.85rem;
+        line-height: 1.2;
+      }
+
+      .panel-row, .table-row, .list-row, .tree-row,
+      .diagnostics-row, .proposal-row {
+        padding: var(--space-row-y) var(--space-row-x);
+        line-height: var(--line-normal);
+      }
+
+      /* ─── Workspace Layout (prevents lower panel compression) ─ */
+      .workspace-shell {
+        display: grid;
+        grid-template-rows: 56px 1fr 320px;
+        min-height: 0;
+      }
+
+      .workspace-main, .workspace-center, .workspace-content {
+        min-height: 0;
+      }
+
+      .workspace-bottom, .workspace-lower-panels {
+        min-height: 320px;
+      }
+
+      .app-shell, .cockpit-shell, .cockpit-layout {
+        min-height: 0;
+      }
+
+      .grid-cell, .panel-container, .workspace-panel {
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      /* ─── Dockview Theme Overrides ───────────────────────────── */
       .dockview-theme-dark {
         --dv-activegroup-visiblepanel-tab-background-color: var(--cos-bg-elevated);
         --dv-activegroup-hiddenpanel-tab-background-color: var(--cos-bg-surface);
@@ -63,9 +146,11 @@ export function GlobalStyles() {
         --dv-separator-border: var(--cos-border);
         --dv-paneview-header-border-color: var(--cos-border);
         --dv-group-view-background-color: var(--cos-bg-base);
+        --dv-activegroup-visiblepanel-tab-font-size: var(--font-xs);
+        --dv-activegroup-hiddenpanel-tab-font-size: var(--font-xs);
       }
 
-      /* Scrollbar styling */
+      /* ─── Scrollbar Styling ──────────────────────────────────── */
       ::-webkit-scrollbar {
         width: 6px;
         height: 6px;
@@ -81,7 +166,7 @@ export function GlobalStyles() {
         background: var(--cos-fg-muted);
       }
 
-      /* Truth Echo animation */
+      /* ─── Truth Echo Animation ───────────────────────────────── */
       @keyframes truthEchoPulse {
         0% { box-shadow: 0 0 0 0 var(--cos-echo-pulse); }
         50% { box-shadow: 0 0 0 3px var(--cos-echo-trace); }

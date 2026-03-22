@@ -2,6 +2,9 @@
  * Construction OS — Panel Shell
  * Common wrapper for all panel systems. Provides Truth Echo visual feedback,
  * source basis indicator, and consistent panel chrome.
+ *
+ * Typography: panel titles use sizeMd, body content uses sizeSm,
+ * meta/status uses sizeXs. All >= 0.85rem.
  */
 
 import { type ReactNode, useEffect, useState } from 'react';
@@ -50,21 +53,22 @@ export function PanelShell({ panelId, title, children, basis = 'mock', isMock = 
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: `${tokens.space.xs} ${tokens.space.md}`,
+          padding: `${tokens.space.sm} ${tokens.space.md}`,
           background: tokens.color.bgElevated,
           borderBottom: `1px solid ${tokens.color.border}`,
-          minHeight: '32px',
+          minHeight: '40px',
           gap: tokens.space.sm,
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: tokens.space.sm }}>
           <span
             style={{
-              fontSize: tokens.font.sizeSm,
+              fontSize: tokens.font.sizeMd,
               fontWeight: tokens.font.weightSemibold,
               color: tokens.color.fgPrimary,
               textTransform: 'uppercase',
               letterSpacing: '0.05em',
+              lineHeight: tokens.font.lineTight,
             }}
           >
             {title}
@@ -72,8 +76,8 @@ export function PanelShell({ panelId, title, children, basis = 'mock', isMock = 
           {isEchoSource && (
             <span
               style={{
-                width: '6px',
-                height: '6px',
+                width: '8px',
+                height: '8px',
                 borderRadius: '50%',
                 background: tokens.color.echoActive,
                 boxShadow: `0 0 6px ${tokens.color.echoActive}`,
@@ -88,9 +92,10 @@ export function PanelShell({ panelId, title, children, basis = 'mock', isMock = 
                 fontSize: tokens.font.sizeXs,
                 color: tokens.color.mock,
                 background: 'rgba(249,115,22,0.1)',
-                padding: '1px 6px',
+                padding: '2px 8px',
                 borderRadius: tokens.radius.sm,
                 fontWeight: tokens.font.weightMedium,
+                lineHeight: tokens.font.lineNormal,
               }}
             >
               MOCK
@@ -100,9 +105,10 @@ export function PanelShell({ panelId, title, children, basis = 'mock', isMock = 
             style={{
               fontSize: tokens.font.sizeXs,
               color: tokens.color[basis] ?? tokens.color.fgMuted,
-              padding: '1px 6px',
+              padding: '2px 8px',
               borderRadius: tokens.radius.sm,
               background: `${tokens.color[basis] ?? tokens.color.fgMuted}15`,
+              lineHeight: tokens.font.lineNormal,
             }}
           >
             {basis}
@@ -121,6 +127,7 @@ export function PanelShell({ panelId, title, children, basis = 'mock', isMock = 
             background: tokens.color.echoTrace,
             borderBottom: `1px solid ${tokens.color.borderSubtle}`,
             fontSize: tokens.font.sizeXs,
+            lineHeight: tokens.font.lineNormal,
             color: tokens.color.fgSecondary,
           }}
         >
@@ -143,10 +150,11 @@ export function PanelShell({ panelId, title, children, basis = 'mock', isMock = 
       {echoFailure && (
         <div
           style={{
-            padding: `${tokens.space.xs} ${tokens.space.md}`,
+            padding: `${tokens.space.sm} ${tokens.space.md}`,
             background: 'rgba(239,68,68,0.1)',
             borderBottom: `1px solid ${tokens.color.error}`,
             fontSize: tokens.font.sizeXs,
+            lineHeight: tokens.font.lineNormal,
             color: tokens.color.error,
           }}
         >
@@ -155,7 +163,7 @@ export function PanelShell({ panelId, title, children, basis = 'mock', isMock = 
       )}
 
       {/* Panel Content */}
-      <div style={{ flex: 1, overflow: 'auto', padding: tokens.space.md }}>
+      <div style={{ flex: 1, overflow: 'auto', padding: tokens.space.md, lineHeight: tokens.font.lineNormal }}>
         {children}
       </div>
     </div>
