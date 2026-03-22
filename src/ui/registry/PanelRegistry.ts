@@ -115,6 +115,16 @@ export const PANEL_DEFINITIONS: Record<PanelId, PanelDefinition> = {
     ownedState: ['responses', 'query', 'submitting'],
     defaultSizeWeight: 250,
   },
+  'detail-viewer': {
+    id: 'detail-viewer',
+    title: 'Detail Viewer',
+    description: 'Runtime-derived detail artifact viewer — SVG preview, DXF download, artifact metadata, fail-closed diagnostics',
+    subscribesTo: ['truth-echo.propagated', 'generation.completed'],
+    emits: ['artifact.requested'],
+    truthEchoSubscriber: true,
+    ownedState: ['previewResult', 'activeTab', 'selectedCategory'],
+    defaultSizeWeight: 400,
+  },
 };
 
-export const ALL_PANELS: PanelId[] = ['explorer', 'work', 'reference', 'spatial', 'system', 'awareness', 'proposals', 'diagnostics', 'assistant'];
+export const ALL_PANELS: PanelId[] = ['explorer', 'work', 'reference', 'spatial', 'system', 'awareness', 'proposals', 'diagnostics', 'assistant', 'detail-viewer'];

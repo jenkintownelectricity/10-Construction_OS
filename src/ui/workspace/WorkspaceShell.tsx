@@ -36,6 +36,7 @@ import { ProposalMailbox } from '../panels/proposals/ProposalMailbox';
 import { RuntimeDiagnosticsPanel } from '../panels/diagnostics/RuntimeDiagnosticsPanel';
 import { AssistantConsole } from '../panels/assistant/AssistantConsole';
 import { AssemblyBuilderPanel } from '../assembly-builder/AssemblyBuilderPanel';
+import { DetailViewerPanel } from '../detail-viewer/DetailViewerPanel';
 import { DeckPicker } from '../decks/DeckPicker';
 import { AuthorityHUD } from '../components/AuthorityHUD';
 import { CommandPalette } from '../components/CommandPalette';
@@ -65,6 +66,7 @@ function ProposalsWrapper(_props: IDockviewPanelProps) { return <ProposalMailbox
 function DiagnosticsWrapper(_props: IDockviewPanelProps) { return <RuntimeDiagnosticsPanel />; }
 function AssistantWrapper(_props: IDockviewPanelProps) { return <AssistantConsole />; }
 function AssemblyBuilderWrapper(_props: IDockviewPanelProps) { return <AssemblyBuilderPanel />; }
+function DetailViewerWrapper(_props: IDockviewPanelProps) { return <DetailViewerPanel />; }
 
 const PANEL_COMPONENTS: Record<string, React.FC<IDockviewPanelProps>> = {
   explorer: ExplorerWrapper,
@@ -77,6 +79,7 @@ const PANEL_COMPONENTS: Record<string, React.FC<IDockviewPanelProps>> = {
   diagnostics: DiagnosticsWrapper,
   assistant: AssistantWrapper,
   'assembly-builder': AssemblyBuilderWrapper,
+  'detail-viewer': DetailViewerWrapper,
 };
 
 // ─── Workspace Presets ──────────────────────────────────────────────────────
@@ -91,9 +94,10 @@ function applyWorkspaceLayout(api: DockviewReadyEvent['api'], deviceClass: Devic
     const workPanel = api.addPanel({ id: 'work', component: 'work', title: 'WORK' });
     api.addPanel({ id: 'explorer', component: 'explorer', title: 'EXPLORER', position: { referencePanel: workPanel, direction: 'left' } });
   } else {
-    // Laptop/Desktop/Ultrawide: workspace-dominant with Explorer | Work+AssemblyBuilder | Reference
+    // Laptop/Desktop/Ultrawide: workspace-dominant with Explorer | Work+AssemblyBuilder+DetailViewer | Reference
     const workPanel = api.addPanel({ id: 'work', component: 'work', title: 'WORK' });
     api.addPanel({ id: 'assembly-builder', component: 'assembly-builder', title: 'ASSEMBLY BUILDER', position: { referencePanel: workPanel, direction: 'within' } });
+    api.addPanel({ id: 'detail-viewer', component: 'detail-viewer', title: 'DETAIL VIEWER', position: { referencePanel: workPanel, direction: 'within' } });
     api.addPanel({ id: 'explorer', component: 'explorer', title: 'EXPLORER', position: { referencePanel: workPanel, direction: 'left' } });
     api.addPanel({ id: 'reference', component: 'reference', title: 'REFERENCE', position: { referencePanel: workPanel, direction: 'right' } });
   }
