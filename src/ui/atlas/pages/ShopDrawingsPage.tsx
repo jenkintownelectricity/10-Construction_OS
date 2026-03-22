@@ -152,7 +152,7 @@ export function ShopDrawingsPage({ onNavigate }: ShopDrawingsPageProps) {
                 // Set source context for the generation loop
                 generationStore.setSourceContext({
                   submittalId: selected.id,
-                  submittalTitle: selected.title,
+                  title: selected.title,
                   manufacturer: selected.manufacturer,
                   spec: selected.spec,
                   project: selected.project,

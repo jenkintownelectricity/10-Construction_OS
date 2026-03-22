@@ -15,14 +15,13 @@
 
 import { useCallback, useState } from 'react';
 import { tokens } from '../theme/tokens';
-import { getSampleRoofingDraft } from '../assembly-builder/roofingSourceAdapter';
 import { getSampleFireproofingDraft } from '../assembly-builder/fireproofingSourceAdapter';
-import { formStateToDraft } from '../assembly-builder/assemblyDraftValidator';
 import { generateDetailPreview } from './detailGenerationAdapter';
+import { validateSourceContext } from './validateSourceContext';
+import { mapContextToRoofingDraft } from './contextToRoofingDraft';
 import { eventBus } from '../events/EventBus';
-import { generationStore } from '../stores/generationStore';
+import { generationStore, type LatestResult } from '../stores/generationStore';
 import type { DetailPreviewResult, ViewerTab, DetailCategory } from './types';
-import type { CanonicalAssemblyDraft } from '../assembly-builder/types';
 
 // ─── Styles ──────────────────────────────────────────────────────────
 
@@ -132,19 +131,62 @@ export function DetailViewerPanel() {
   const [selectedCategory, setSelectedCategory] = useState<DetailCategory>('roofing');
   const [isGenerating, setIsGenerating] = useState(false);
 
-  // ─── Generate detail from sample assembly ──────────────────────────
+  // ─── Generate roofing detail from sourceContext ──────────────────
 
   const handleGenerateRoofing = useCallback(() => {
     setIsGenerating(true);
     setSelectedCategory('roofing');
-    const { draft } = getSampleRoofingDraft();
-    const result = generateDetailPreview(draft, 'roofing');
+
+    // Step 1: Begin request (idle → validating)
+    generationStore.beginRequest();
+
+    // Step 2: Validate source context
+    const sourceContext = generationStore.getState().sourceContext;
+    const validation = validateSourceContext(sourceContext);
+    if (!validation.valid) {
+      generationStore.completeError(validation.errorCode!, validation.errorMessage!);
+      setIsGenerating(false);
+      setPreviewResult(null);
+      setActiveTab('diagnostics');
+      return;
+    }
+
+    // Step 3: Map context to draft (validating → mapping)
+    generationStore.advanceToMapping();
+    const mapping = mapContextToRoofingDraft(sourceContext!);
+    if (!mapping.success) {
+      generationStore.completeError(mapping.errorCode!, mapping.errorMessage!);
+      setIsGenerating(false);
+      setPreviewResult(null);
+      setActiveTab('diagnostics');
+      return;
+    }
+
+    // Step 4: Generate detail (mapping → generating)
+    generationStore.advanceToGenerating();
+    const result = generateDetailPreview(mapping.draft!, 'roofing');
     setPreviewResult(result);
     setIsGenerating(false);
-    setActiveTab('preview');
 
-    // Store result and emit generation.completed for Atlas loop
-    generationStore.setResult(result);
+    if (result.success) {
+      setActiveTab('preview');
+      // Step 5: Store result (generating → success)
+      const latestResult: LatestResult = {
+        sourceSubmittalId: sourceContext!.submittalId,
+        detailId: result.detail_id,
+        artifactType: result.artifact_type,
+        filename: result.artifact_filename,
+        success: true,
+        generationStatus: result.generation_status,
+        artifactIds: [result.svg_artifact_id, result.dxf_artifact_id].filter(Boolean),
+      };
+      generationStore.completeSuccess(latestResult);
+    } else {
+      setActiveTab('diagnostics');
+      generationStore.completeError('GENERATION_FAILED', result.diagnostics.join('; '));
+    }
+
+    // Step 6: Emit generation.completed for Atlas auto-navigate
     eventBus.emit('generation.completed', {
       objectId: result.detail_id,
       status: result.success ? 'success' : 'generation_error',
@@ -155,20 +197,30 @@ export function DetailViewerPanel() {
     });
   }, []);
 
+  // ─── Generate fireproofing (FAIL_CLOSED) ──────────────────────────
+
   const handleGenerateFireproofing = useCallback(() => {
     setIsGenerating(true);
     setSelectedCategory('fireproofing');
+    generationStore.beginRequest();
+    generationStore.advanceToMapping();
+    generationStore.advanceToGenerating();
+
     const { draft } = getSampleFireproofingDraft();
     const result = generateDetailPreview(draft, 'fireproofing');
     setPreviewResult(result);
     setIsGenerating(false);
     setActiveTab(result.success ? 'preview' : 'diagnostics');
 
-    // Store result and emit generation.completed (will be fail-closed)
-    generationStore.setResult(result);
+    // Always fail-closed for fireproofing
+    generationStore.completeError(
+      'UNSUPPORTED_CATEGORY',
+      result.diagnostics.join('; '),
+    );
+
     eventBus.emit('generation.completed', {
       objectId: result.detail_id,
-      status: result.generation_status === 'unsupported' ? 'generation_error' : (result.success ? 'success' : 'validation_failed'),
+      status: 'generation_error',
       dxfFilename: null,
       generatorSeam: result.generator_seam,
       diagnostics: [...result.diagnostics],
@@ -313,10 +365,10 @@ export function DetailViewerPanel() {
               No detail artifact loaded
             </span>
             <span style={{ fontSize: tokens.font.sizeSm }}>
-              Use "Generate Roofing Detail" to produce an artifact from the sample assembly draft.
+              Use "Generate Roofing Detail" to produce an artifact from the selected Shop Drawings context.
             </span>
             <span style={{ fontSize: tokens.font.sizeXs, fontStyle: 'italic' }}>
-              Flow: assembly draft → generate detail → receive artifact → view here
+              Flow: Shop Drawings selection → validate → map to draft → generate detail → view here
             </span>
           </div>
         )}
