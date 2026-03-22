@@ -19,6 +19,9 @@ import { mockAwarenessAdapter } from './awarenessAdapter';
 import { mockProposalAdapter } from './proposalAdapter';
 import { mockRuntimeDiagnosticsAdapter } from './runtimeDiagnosticsAdapter';
 import { mockAssistantAdapter } from './assistantAdapter';
+import { dxfGenerationAdapter } from './dxfGenerationAdapter';
+
+export { dxfGenerationAdapter } from './dxfGenerationAdapter';
 
 export const adapters: AdapterRegistry = {
   truth: mockTruthSource,

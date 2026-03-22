@@ -3,9 +3,9 @@
  *
  * Primary live work surface — detail, drawing, artifact workspace shell.
  * Center-of-gravity layout. Bounded local commands.
- * Emits: object.selected, validation.requested, artifact.requested, compare.requested
+ * Emits: object.selected, validation.requested, artifact.requested, compare.requested, generation.requested, generation.completed
  * Subscribes to: truth-echo.propagated, object.selected, validation.updated, workspace.mode.changed
- * State owned: activeTab, draftState, localCommands
+ * State owned: activeTab, draftState, localCommands, generationResult
  *
  * Division 07 Contextual Overlay: Split-view comparison mode.
  * Visual hierarchy: Work panel is visually dominant via emphasis styling.
@@ -15,14 +15,40 @@ import { useCallback, useEffect, useState } from 'react';
 import { PanelShell } from '../PanelShell';
 import { eventBus } from '../../events/EventBus';
 import { adapters } from '../../adapters';
+import { dxfGenerationAdapter } from '../../adapters/dxfGenerationAdapter';
 import { useActiveObject } from '../../stores/useSyncExternalStore';
 import { activeObjectStore } from '../../stores/activeObjectStore';
 import { tokens } from '../../theme/tokens';
 import { useValidationWorker } from '../../workers/useValidationWorker';
 import { ContextualOverlay } from '../../components/ContextualOverlay';
 import type { ValidationResult } from '../../contracts/adapters';
+import type { GenerationResult } from '../../contracts/assemblyDraft';
+import { validateAssemblyDraft } from '../../contracts/assemblyDraft';
+import type { CanonicalAssemblyDraft, AssemblyCategory } from '../../contracts/assemblyDraft';
 
 type WorkTab = 'detail' | 'drawing' | 'validation' | 'artifact' | 'spatial';
+
+/**
+ * Extract a CanonicalAssemblyDraft from an ActiveObjectIdentity if it
+ * carries assembly metadata with layers. Returns null if the active
+ * object is not a valid assembly draft.
+ */
+function extractAssemblyDraft(
+  obj: { id: string; name: string; type: string; metadata?: Record<string, unknown> },
+): CanonicalAssemblyDraft | null {
+  if (obj.type !== 'assembly' || !obj.metadata) return null;
+  const meta = obj.metadata;
+  if (!meta.category || !meta.layers || typeof meta.layers !== 'object') return null;
+
+  return {
+    id: obj.id,
+    name: obj.name,
+    type: 'assembly',
+    category: meta.category as AssemblyCategory,
+    layers: meta.layers as CanonicalAssemblyDraft['layers'],
+    project: meta.project as CanonicalAssemblyDraft['project'],
+  };
+}
 
 export function WorkPanel() {
   const { activeObject, workspaceMode, compareObject, overlayActive } = useActiveObject();
@@ -30,12 +56,18 @@ export function WorkPanel() {
   const [validationResult, setValidationResult] = useState<ValidationResult | null>(null);
   const { validate: workerValidate, result: workerResult, isRunning: workerRunning } = useValidationWorker();
 
+  // ── Generation state ─────────────────────────────────────────────────
+  const [generationResult, setGenerationResult] = useState<GenerationResult | null>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+
   // Fetch validation status when active object changes
   useEffect(() => {
     if (!activeObject) return;
     adapters.validation.getValidationStatus(activeObject.id).then((result) => {
       if (result.data) setValidationResult(result.data);
     });
+    // Reset generation result on object change
+    setGenerationResult(null);
   }, [activeObject?.id]);
 
   // Update from worker results
@@ -81,6 +113,67 @@ export function WorkPanel() {
     activeObjectStore.setOverlayActive(false);
   }, []);
 
+  // ── Generate Detail handler ──────────────────────────────────────────
+  const handleGenerateDetail = useCallback(async () => {
+    if (!activeObject) return;
+
+    const draft = extractAssemblyDraft(activeObject);
+    if (!draft) return;
+
+    // Pre-flight validation (fail-closed)
+    const preValidation = validateAssemblyDraft(draft);
+    if (!preValidation.valid) {
+      const failResult: GenerationResult = {
+        status: 'validation_failed',
+        draftId: draft.id,
+        generatorSeam: null,
+        dxfFilename: null,
+        dxfPath: null,
+        diagnostics: preValidation.errors,
+        timestamp: Date.now(),
+      };
+      setGenerationResult(failResult);
+      setActiveTab('artifact');
+      eventBus.emit('generation.completed', {
+        objectId: draft.id,
+        status: 'validation_failed',
+        dxfFilename: null,
+        generatorSeam: null,
+        diagnostics: preValidation.errors.map((e) => e.message),
+        timestamp: Date.now(),
+      });
+      return;
+    }
+
+    setIsGenerating(true);
+    setGenerationResult(null);
+
+    eventBus.emit('generation.requested', {
+      objectId: draft.id,
+      category: draft.category,
+      source: 'work',
+    });
+
+    const result = await dxfGenerationAdapter.generateDetail(draft);
+
+    setGenerationResult(result);
+    setIsGenerating(false);
+    setActiveTab('artifact');
+
+    eventBus.emit('generation.completed', {
+      objectId: draft.id,
+      status: result.status === 'success' ? 'success' : result.status === 'validation_failed' ? 'validation_failed' : 'generation_error',
+      dxfFilename: result.dxfFilename,
+      generatorSeam: result.generatorSeam,
+      diagnostics: result.diagnostics.map((d) => d.message),
+      timestamp: Date.now(),
+    });
+  }, [activeObject]);
+
+  // ── Derived state ────────────────────────────────────────────────────
+  const assemblyDraft = activeObject ? extractAssemblyDraft(activeObject) : null;
+  const isAssembly = activeObject?.type === 'assembly' && !!assemblyDraft;
+
   const tabs: { key: WorkTab; label: string }[] = [
     { key: 'detail', label: 'Detail' },
     { key: 'drawing', label: 'Drawing' },
@@ -92,7 +185,7 @@ export function WorkPanel() {
   const validationBadge = validationResult?.issues?.length ?? 0;
 
   return (
-    <PanelShell panelId="work" title="Work" basis="mock" badgeCount={validationBadge > 0 ? validationBadge : undefined}>
+    <PanelShell panelId="work" title="Work" basis={isAssembly ? 'draft' : 'mock'} badgeCount={validationBadge > 0 ? validationBadge : undefined}>
       {/* Contextual Overlay — Division 07 split-view */}
       {overlayActive && activeObject ? (
         <ContextualOverlay activeObject={activeObject} onClose={handleCloseOverlay} />
@@ -151,8 +244,47 @@ export function WorkPanel() {
                     <div style={{ display: 'flex', gap: tokens.space.md, fontSize: tokens.font.sizeSm }}>
                       <span style={{ color: tokens.color.fgMuted }}>ID: <code style={{ fontFamily: tokens.font.familyMono, color: tokens.color.fgSecondary }}>{activeObject.id}</code></span>
                       <span style={{ color: tokens.color.fgMuted }}>Type: <span style={{ color: tokens.color.accentPrimary }}>{activeObject.type}</span></span>
+                      {assemblyDraft && (
+                        <span style={{ color: tokens.color.fgMuted }}>Category: <span style={{ color: tokens.color.accentPrimary }}>{assemblyDraft.category}</span></span>
+                      )}
                     </div>
                   </div>
+
+                  {/* Assembly Layer Summary */}
+                  {assemblyDraft && (
+                    <div style={{
+                      padding: tokens.space.md,
+                      background: tokens.color.bgBase,
+                      borderRadius: tokens.radius.sm,
+                      border: `1px solid ${tokens.color.border}`,
+                      marginBottom: tokens.space.md,
+                      fontSize: tokens.font.sizeSm,
+                    }}>
+                      <div style={{ fontWeight: tokens.font.weightSemibold, marginBottom: tokens.space.sm }}>Assembly Layers</div>
+                      {assemblyDraft.layers.membrane_1 && (
+                        <div style={{ marginBottom: '2px' }}><span style={{ color: tokens.color.fgMuted }}>Membrane:</span> {assemblyDraft.layers.membrane_1}</div>
+                      )}
+                      {assemblyDraft.layers.coverboard_1 && (
+                        <div style={{ marginBottom: '2px' }}><span style={{ color: tokens.color.fgMuted }}>Coverboard:</span> {assemblyDraft.layers.coverboard_1}</div>
+                      )}
+                      {assemblyDraft.layers.insulation_layer_1 && (
+                        <div style={{ marginBottom: '2px' }}><span style={{ color: tokens.color.fgMuted }}>Insulation 1:</span> {assemblyDraft.layers.insulation_layer_1}</div>
+                      )}
+                      {assemblyDraft.layers.insulation_layer_2 && (
+                        <div style={{ marginBottom: '2px' }}><span style={{ color: tokens.color.fgMuted }}>Insulation 2:</span> {assemblyDraft.layers.insulation_layer_2}</div>
+                      )}
+                      {assemblyDraft.layers.vapor_barrier && (
+                        <div style={{ marginBottom: '2px' }}><span style={{ color: tokens.color.fgMuted }}>Vapor Barrier:</span> {assemblyDraft.layers.vapor_barrier}</div>
+                      )}
+                      <div><span style={{ color: tokens.color.fgMuted }}>Deck:</span> {assemblyDraft.layers.deck_slope}</div>
+                      {assemblyDraft.layers.manufacturer && (
+                        <div style={{ marginTop: tokens.space.sm, color: tokens.color.fgMuted }}>
+                          Manufacturer: <span style={{ color: tokens.color.fgSecondary }}>{assemblyDraft.layers.manufacturer}</span>
+                          {assemblyDraft.layers.system && <> / {assemblyDraft.layers.system}</>}
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Workspace mode indicator */}
                   {workspaceMode !== 'default' && (
@@ -189,6 +321,29 @@ export function WorkPanel() {
                     >
                       {workerRunning ? 'Validating...' : 'Validate (Worker)'}
                     </button>
+
+                    {/* Generate Detail — only for assembly objects with layer data */}
+                    {isAssembly && (
+                      <button
+                        onClick={handleGenerateDetail}
+                        disabled={isGenerating}
+                        style={{
+                          padding: `${tokens.space.sm} ${tokens.space.md}`,
+                          background: tokens.color.success,
+                          color: '#fff',
+                          border: 'none',
+                          borderRadius: tokens.radius.sm,
+                          cursor: isGenerating ? 'wait' : 'pointer',
+                          fontSize: tokens.font.sizeSm,
+                          fontFamily: tokens.font.family,
+                          fontWeight: tokens.font.weightSemibold,
+                          opacity: isGenerating ? 0.6 : 1,
+                        }}
+                      >
+                        {isGenerating ? 'Generating...' : 'Generate Detail'}
+                      </button>
+                    )}
+
                     <button
                       onClick={handleRequestCompare}
                       style={{
@@ -283,10 +438,141 @@ export function WorkPanel() {
               )}
 
               {activeTab === 'artifact' && (
-                <div style={{ color: tokens.color.fgMuted, fontSize: tokens.font.sizeSm }}>
-                  <div style={{ padding: tokens.space.lg, textAlign: 'center', border: `1px dashed ${tokens.color.border}`, borderRadius: tokens.radius.md }}>
-                    Artifact generation workspace — adapter seam ready.
-                  </div>
+                <div>
+                  <h3 style={{ fontSize: tokens.font.sizeMd, fontWeight: tokens.font.weightSemibold, marginBottom: tokens.space.md }}>
+                    DXF Generation
+                  </h3>
+
+                  {isGenerating && (
+                    <div style={{
+                      padding: tokens.space.md,
+                      background: tokens.color.accentPrimary + '15',
+                      border: `1px solid ${tokens.color.accentPrimary}`,
+                      borderRadius: tokens.radius.sm,
+                      fontSize: tokens.font.sizeSm,
+                      color: tokens.color.accentPrimary,
+                    }}>
+                      Generating DXF detail via AssemblyDXFGenerator...
+                    </div>
+                  )}
+
+                  {!isGenerating && !generationResult && (
+                    <div style={{ color: tokens.color.fgMuted, fontSize: tokens.font.sizeSm }}>
+                      {isAssembly ? (
+                        <div style={{ padding: tokens.space.lg, textAlign: 'center', border: `1px dashed ${tokens.color.border}`, borderRadius: tokens.radius.md }}>
+                          Select "Generate Detail" on the Detail tab to create a real DXF from this assembly draft.
+                        </div>
+                      ) : (
+                        <div style={{ padding: tokens.space.lg, textAlign: 'center', border: `1px dashed ${tokens.color.border}`, borderRadius: tokens.radius.md }}>
+                          Generation is available for assembly objects with layer data.
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {generationResult && (
+                    <div>
+                      {/* Status badge */}
+                      <div style={{
+                        display: 'inline-block',
+                        padding: `${tokens.space.sm} ${tokens.space.sm}`,
+                        borderRadius: tokens.radius.sm,
+                        background: generationResult.status === 'success'
+                          ? tokens.color.success + '20'
+                          : tokens.color.error + '20',
+                        color: generationResult.status === 'success'
+                          ? tokens.color.success
+                          : tokens.color.error,
+                        fontSize: tokens.font.sizeSm,
+                        fontWeight: tokens.font.weightSemibold,
+                        marginBottom: tokens.space.md,
+                      }}>
+                        {generationResult.status.toUpperCase().replace(/_/g, ' ')}
+                      </div>
+
+                      {/* Success — download affordance */}
+                      {generationResult.status === 'success' && generationResult.dxfFilename && (
+                        <div style={{
+                          padding: tokens.space.md,
+                          background: tokens.color.success + '10',
+                          border: `1px solid ${tokens.color.success}40`,
+                          borderRadius: tokens.radius.sm,
+                          marginBottom: tokens.space.md,
+                        }}>
+                          <div style={{ fontSize: tokens.font.sizeSm, marginBottom: tokens.space.sm }}>
+                            <span style={{ fontWeight: tokens.font.weightSemibold }}>DXF Output:</span>{' '}
+                            <code style={{ fontFamily: tokens.font.familyMono }}>{generationResult.dxfFilename}</code>
+                          </div>
+                          <div style={{ fontSize: tokens.font.sizeSm, marginBottom: tokens.space.sm, color: tokens.color.fgMuted }}>
+                            <span style={{ fontWeight: tokens.font.weightMedium }}>Generator Seam:</span>{' '}
+                            <code style={{ fontFamily: tokens.font.familyMono }}>{generationResult.generatorSeam}</code>
+                          </div>
+                          <div style={{ fontSize: tokens.font.sizeSm, color: tokens.color.fgMuted }}>
+                            <span style={{ fontWeight: tokens.font.weightMedium }}>Path:</span>{' '}
+                            <code style={{ fontFamily: tokens.font.familyMono }}>{generationResult.dxfPath}</code>
+                          </div>
+                          <a
+                            href={dxfGenerationAdapter.getDownloadUrl(generationResult.dxfFilename)}
+                            download
+                            style={{
+                              display: 'inline-block',
+                              marginTop: tokens.space.md,
+                              padding: `${tokens.space.sm} ${tokens.space.md}`,
+                              background: tokens.color.success,
+                              color: '#fff',
+                              borderRadius: tokens.radius.sm,
+                              fontSize: tokens.font.sizeSm,
+                              fontFamily: tokens.font.family,
+                              fontWeight: tokens.font.weightSemibold,
+                              textDecoration: 'none',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            Download DXF
+                          </a>
+                        </div>
+                      )}
+
+                      {/* Diagnostics */}
+                      {generationResult.diagnostics.length > 0 && (
+                        <div>
+                          <div style={{ fontWeight: tokens.font.weightSemibold, fontSize: tokens.font.sizeSm, marginBottom: tokens.space.sm }}>
+                            Diagnostics ({generationResult.diagnostics.length})
+                          </div>
+                          {generationResult.diagnostics.map((diag, idx) => (
+                            <div key={idx} style={{
+                              padding: tokens.space.sm,
+                              marginBottom: tokens.space.sm,
+                              background: tokens.color.bgBase,
+                              borderRadius: tokens.radius.sm,
+                              borderLeft: `3px solid ${tokens.color.error}`,
+                              fontSize: tokens.font.sizeSm,
+                              lineHeight: tokens.font.lineNormal,
+                            }}>
+                              <span style={{
+                                fontWeight: tokens.font.weightMedium,
+                                fontFamily: tokens.font.familyMono,
+                                color: tokens.color.error,
+                                marginRight: tokens.space.sm,
+                              }}>
+                                {diag.code}
+                              </span>
+                              {diag.message}
+                              {diag.field && (
+                                <span style={{ color: tokens.color.fgMuted, fontFamily: tokens.font.familyMono, marginLeft: tokens.space.sm }}>
+                                  [{diag.field}]
+                                </span>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      <div style={{ marginTop: tokens.space.md, fontSize: tokens.font.sizeXs, color: tokens.color.fgMuted }}>
+                        Draft ID: {generationResult.draftId} | Generated: {new Date(generationResult.timestamp).toLocaleTimeString()}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
