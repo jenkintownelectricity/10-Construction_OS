@@ -1,7 +1,8 @@
 /**
  * Construction OS — Global Styles
  *
- * Includes cockpit typography scale, density modes, and layout rules.
+ * Includes cockpit typography scale, density modes, layout rules,
+ * and visual hierarchy refinement for the enterprise command interface.
  * Root font-size: 16px. No cockpit text smaller than 0.85rem (~13.6px).
  */
 
@@ -44,6 +45,11 @@ export function GlobalStyles() {
         --line-normal: ${tokens.font.lineNormal};
         --space-row-y: ${tokens.space.rowY};
         --space-row-x: ${tokens.space.rowX};
+
+        /* ─── Authority colors ────────────────────────────────────── */
+        --cos-authority-l3: ${tokens.color.authorityL3};
+        --cos-authority-l2: ${tokens.color.authorityL2};
+        --cos-authority-l1: ${tokens.color.authorityL1};
       }
 
       *, *::before, *::after {
@@ -82,6 +88,14 @@ export function GlobalStyles() {
         font-size: var(--font-md);
         font-weight: 600;
         line-height: var(--line-tight);
+      }
+
+      .panel-subtitle {
+        font-size: var(--font-xs);
+        font-weight: 400;
+        line-height: var(--line-normal);
+        color: var(--cos-fg-muted);
+        letter-spacing: 0.03em;
       }
 
       .panel-content, .panel-body, .panel-text, .panel-label,
@@ -176,6 +190,29 @@ export function GlobalStyles() {
       .truth-echo-active {
         animation: truthEchoPulse 600ms ease-out;
         border-color: var(--cos-echo-active) !important;
+      }
+
+      /* ─── Context Collapse Animation ─────────────────────────── */
+      @keyframes contextCollapse {
+        from { opacity: 1; }
+        to { opacity: 0.4; }
+      }
+
+      @keyframes contextExpand {
+        from { opacity: 0.4; }
+        to { opacity: 1; }
+      }
+
+      /* ─── Command Palette Backdrop ───────────────────────────── */
+      @keyframes paletteSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
     `}</style>
   );

@@ -60,7 +60,7 @@ export function ExplorerPanel() {
     });
   }, []);
 
-  const renderNode = (node: ProjectNode, depth: number = 0): React.ReactNode => {
+  const renderNode = (node: ProjectNode, depth: number = 0, isLast: boolean = true): React.ReactNode => {
     const isActive = activeObject?.id === node.id;
     const isExpanded = expandedNodes.has(node.id);
     const hasChildren = node.children && node.children.length > 0;
@@ -99,6 +99,7 @@ export function ExplorerPanel() {
             lineHeight: tokens.font.lineNormal,
             transition: `background ${tokens.transition.fast}`,
             userSelect: 'none',
+            position: 'relative',
           }}
           onMouseEnter={(e) => {
             if (!isActive) e.currentTarget.style.background = tokens.color.bgHover;
@@ -107,8 +108,31 @@ export function ExplorerPanel() {
             if (!isActive) e.currentTarget.style.background = 'transparent';
           }}
         >
+          {/* Tree guide lines */}
+          {depth > 0 && (
+            <span style={{
+              position: 'absolute',
+              left: `${(depth - 1) * 16 + 14}px`,
+              top: 0,
+              bottom: isLast ? '50%' : 0,
+              width: '1px',
+              background: tokens.color.borderSubtle,
+              pointerEvents: 'none',
+            }} />
+          )}
+          {depth > 0 && (
+            <span style={{
+              position: 'absolute',
+              left: `${(depth - 1) * 16 + 14}px`,
+              top: '50%',
+              width: '8px',
+              height: '1px',
+              background: tokens.color.borderSubtle,
+              pointerEvents: 'none',
+            }} />
+          )}
           {hasChildren && (
-            <span style={{ fontSize: tokens.font.sizeXs, color: tokens.color.fgMuted, width: '10px' }}>
+            <span style={{ fontSize: tokens.font.sizeXs, color: tokens.color.fgMuted, width: '10px', zIndex: 1 }}>
               {isExpanded ? '\u25BC' : '\u25B6'}
             </span>
           )}
@@ -123,7 +147,7 @@ export function ExplorerPanel() {
             {node.type}
           </span>
         </div>
-        {hasChildren && isExpanded && node.children!.map((child) => renderNode(child, depth + 1))}
+        {hasChildren && isExpanded && node.children!.map((child, i) => renderNode(child, depth + 1, i === node.children!.length - 1))}
       </div>
     );
   };

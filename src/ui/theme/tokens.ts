@@ -48,6 +48,11 @@ export const tokens = {
     compare: '#a855f7',         // compare mode
     mock: '#f97316',            // mock data indicator
 
+    // Authority levels (awareness-only, NOT logic)
+    authorityL3: '#3b82f6',       // L3 Read-Only (blue)
+    authorityL2: '#a855f7',       // L2 Propose (purple)
+    authorityL1: '#eab308',       // L1 Execute (gold)
+
     // Panel borders
     border: '#1e2538',
     borderActive: '#3b82f6',

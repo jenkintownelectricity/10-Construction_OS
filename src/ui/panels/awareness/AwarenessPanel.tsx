@@ -59,7 +59,7 @@ export function AwarenessPanel() {
   ];
 
   return (
-    <PanelShell panelId="awareness" title="Awareness" isMock={mockAwarenessAdapter.isMock}>
+    <PanelShell panelId="awareness" title="Awareness" isMock={mockAwarenessAdapter.isMock} badgeCount={state?.fail_closed_log.length ?? undefined}>
       {/* Snapshot Status Bar */}
       <div style={{
         display: 'flex',

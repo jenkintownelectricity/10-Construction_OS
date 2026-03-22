@@ -1,10 +1,17 @@
 /**
  * Construction OS — Panel Shell
  * Common wrapper for all panel systems. Provides Truth Echo visual feedback,
- * source basis indicator, and consistent panel chrome.
+ * source basis indicator, context collapse behavior, and consistent panel chrome.
  *
  * Typography: panel titles use sizeMd, body content uses sizeSm,
  * meta/status uses sizeXs. All >= 0.85rem.
+ *
+ * MOCK / dev controls have been moved to the isolated DevTools panel.
+ * Panel headers no longer show MOCK badges directly.
+ *
+ * Context Collapse: When gravity object is active, irrelevant panels
+ * dim to summary state. Relevant panels auto-focus their best mode.
+ * All collapsed views remain recoverable and non-destructive.
  */
 
 import { type ReactNode, useEffect, useState } from 'react';
@@ -18,10 +25,25 @@ interface PanelShellProps {
   children: ReactNode;
   basis?: SourceBasis;
   isMock?: boolean;
+  /** Badge count for waiting content (validation, artifacts, proposals, diagnostics) */
+  badgeCount?: number;
 }
 
-export function PanelShell({ panelId, title, children, basis = 'mock', isMock = true }: PanelShellProps) {
-  const { activeObject, sourcePanel, lastEchoTimestamp, echoFailure } = useActiveObject();
+/** Panels that are always relevant regardless of active object */
+const ALWAYS_RELEVANT: PanelId[] = ['work', 'system'];
+
+/** Panels that are relevant when a specific object type is active */
+const RELEVANCE_MAP: Record<string, PanelId[]> = {
+  element: ['explorer', 'work', 'reference', 'spatial', 'diagnostics', 'awareness'],
+  assembly: ['explorer', 'work', 'reference', 'spatial', 'diagnostics', 'awareness'],
+  zone: ['explorer', 'spatial', 'work', 'awareness'],
+  document: ['explorer', 'work', 'reference'],
+  specification: ['explorer', 'work', 'reference'],
+  project: ['explorer', 'work', 'system', 'awareness'],
+};
+
+export function PanelShell({ panelId, title, children, basis = 'mock', isMock = true, badgeCount }: PanelShellProps) {
+  const { activeObject, sourcePanel, lastEchoTimestamp, echoFailure, workspaceMode } = useActiveObject();
   const [echoFlash, setEchoFlash] = useState(false);
 
   // Truth Echo visual sync — flash when this panel receives echo from another panel
@@ -35,6 +57,15 @@ export function PanelShell({ panelId, title, children, basis = 'mock', isMock = 
 
   const isEchoSource = sourcePanel === panelId;
 
+  // Context Collapse: determine if this panel is relevant to the current gravity object
+  const isContextCollapsed = (() => {
+    if (workspaceMode !== 'focus') return false;
+    if (!activeObject) return false;
+    if (ALWAYS_RELEVANT.includes(panelId)) return false;
+    const relevant = RELEVANCE_MAP[activeObject.type] ?? [];
+    return !relevant.includes(panelId);
+  })();
+
   return (
     <div
       style={{
@@ -44,10 +75,13 @@ export function PanelShell({ panelId, title, children, basis = 'mock', isMock = 
         background: tokens.color.bgSurface,
         borderRadius: tokens.radius.sm,
         overflow: 'hidden',
+        opacity: isContextCollapsed ? 0.4 : 1,
+        transition: `opacity ${tokens.transition.normal}`,
+        position: 'relative',
       }}
       className={echoFlash ? 'truth-echo-active' : ''}
     >
-      {/* Panel Header */}
+      {/* Panel Header — refined visual hierarchy */}
       <div
         style={{
           display: 'flex',
@@ -73,6 +107,16 @@ export function PanelShell({ panelId, title, children, basis = 'mock', isMock = 
           >
             {title}
           </span>
+          {/* Panel sublabel — visually distinct from title */}
+          {isContextCollapsed && (
+            <span style={{
+              fontSize: tokens.font.sizeXs,
+              color: tokens.color.fgMuted,
+              fontStyle: 'italic',
+            }}>
+              collapsed
+            </span>
+          )}
           {isEchoSource && (
             <span
               style={{
@@ -86,19 +130,23 @@ export function PanelShell({ panelId, title, children, basis = 'mock', isMock = 
           )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: tokens.space.xs }}>
-          {isMock && (
-            <span
-              style={{
-                fontSize: tokens.font.sizeXs,
-                color: tokens.color.mock,
-                background: 'rgba(249,115,22,0.1)',
-                padding: '2px 8px',
-                borderRadius: tokens.radius.sm,
-                fontWeight: tokens.font.weightMedium,
-                lineHeight: tokens.font.lineNormal,
-              }}
-            >
-              MOCK
+          {/* Badge dot for waiting content */}
+          {badgeCount != null && badgeCount > 0 && (
+            <span style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              minWidth: '18px',
+              height: '18px',
+              padding: '0 4px',
+              borderRadius: '9px',
+              background: tokens.color.accentPrimary,
+              color: '#fff',
+              fontSize: '0.7rem',
+              fontWeight: tokens.font.weightBold,
+              lineHeight: '1',
+            }}>
+              {badgeCount > 99 ? '99+' : badgeCount}
             </span>
           )}
           <span
@@ -117,7 +165,7 @@ export function PanelShell({ panelId, title, children, basis = 'mock', isMock = 
       </div>
 
       {/* Active Object Bar — shows what this panel is oriented around */}
-      {activeObject && (
+      {activeObject && !isContextCollapsed && (
         <div
           style={{
             display: 'flex',
@@ -146,8 +194,25 @@ export function PanelShell({ panelId, title, children, basis = 'mock', isMock = 
         </div>
       )}
 
+      {/* Context Collapse Summary — shows when panel is collapsed */}
+      {isContextCollapsed && activeObject && (
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: tokens.space.lg,
+          color: tokens.color.fgMuted,
+          fontSize: tokens.font.sizeXs,
+          fontStyle: 'italic',
+          textAlign: 'center',
+          flex: 1,
+        }}>
+          Panel dimmed — not relevant to {activeObject.type}: {activeObject.name}
+        </div>
+      )}
+
       {/* Echo Failure Warning */}
-      {echoFailure && (
+      {echoFailure && !isContextCollapsed && (
         <div
           style={{
             padding: `${tokens.space.sm} ${tokens.space.md}`,
@@ -163,9 +228,11 @@ export function PanelShell({ panelId, title, children, basis = 'mock', isMock = 
       )}
 
       {/* Panel Content */}
-      <div style={{ flex: 1, overflow: 'auto', padding: tokens.space.md, lineHeight: tokens.font.lineNormal }}>
-        {children}
-      </div>
+      {!isContextCollapsed && (
+        <div style={{ flex: 1, overflow: 'auto', padding: tokens.space.md, lineHeight: tokens.font.lineNormal }}>
+          {children}
+        </div>
+      )}
     </div>
   );
 }

@@ -25,6 +25,8 @@ import type {
 
 // ─── State Shape ────────────────────────────────────────────────────────────
 
+export type AuthorityLevel = 'L3' | 'L2' | 'L1';
+
 export interface ActiveObjectState {
   /** Current active object — null means no selection (fail-closed) */
   activeObject: ActiveObjectIdentity | null;
@@ -46,6 +48,12 @@ export interface ActiveObjectState {
   lastEchoTimestamp: number;
   /** Truth Echo failure state */
   echoFailure: string | null;
+  /** Current authority/agency display state (awareness only, NOT logic) */
+  authorityLevel: AuthorityLevel;
+  /** Whether the contextual overlay is open in Work panel */
+  overlayActive: boolean;
+  /** Whether dev tools mode is enabled */
+  devToolsVisible: boolean;
 }
 
 type Listener = () => void;
@@ -64,6 +72,9 @@ function createActiveObjectStore() {
     followingPanels: new Set(['explorer', 'work', 'reference', 'spatial', 'system']),
     lastEchoTimestamp: 0,
     echoFailure: null,
+    authorityLevel: 'L3',
+    overlayActive: false,
+    devToolsVisible: false,
   };
 
   const listeners = new Set<Listener>();
@@ -153,6 +164,21 @@ function createActiveObjectStore() {
       notify();
     },
 
+    setAuthorityLevel(level: AuthorityLevel): void {
+      state = { ...state, authorityLevel: level };
+      notify();
+    },
+
+    setOverlayActive(active: boolean): void {
+      state = { ...state, overlayActive: active };
+      notify();
+    },
+
+    setDevToolsVisible(visible: boolean): void {
+      state = { ...state, devToolsVisible: visible };
+      notify();
+    },
+
     /** Reset to initial state (for testing) */
     reset(): void {
       state = {
@@ -166,6 +192,9 @@ function createActiveObjectStore() {
         followingPanels: new Set(['explorer', 'work', 'reference', 'spatial', 'system']),
         lastEchoTimestamp: 0,
         echoFailure: null,
+        authorityLevel: 'L3',
+        overlayActive: false,
+        devToolsVisible: false,
       };
       notify();
     },
