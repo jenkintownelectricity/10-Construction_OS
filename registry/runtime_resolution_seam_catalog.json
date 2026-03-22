@@ -1,0 +1,107 @@
+{
+  "registry_version": "v1",
+  "registry_type": "runtime_seam_registration",
+  "description": "Registration entry for the Construction_Runtime PatternResolutionResult consumption seam (VKGL04R).",
+  "registered_at": "2026-03-22T00:00:00Z",
+  "seam": {
+    "seam_id": "pattern_resolution_result",
+    "seam_version": "1.0.0",
+    "wave": "VKGL04R",
+    "consumer": {
+      "repo_name": "Construction_Runtime",
+      "component": "resolution_seam",
+      "role": "Deterministic artifact generation from governed PatternResolutionResult outputs",
+      "authority_boundary": {
+        "may_consume": [
+          "Construction_ALEXANDER_Engine.PatternResolutionResult"
+        ],
+        "may_emit": [
+          "Observation events (Cognitive Bus v0.1)",
+          "DXF artifacts",
+          "SVG artifacts",
+          "PDF artifacts",
+          "RenderManifest artifacts",
+          "ArtifactLineageRecord"
+        ],
+        "may_not": [
+          "perform_pattern_reasoning",
+          "classify_families",
+          "select_variants",
+          "mutate_kernel_truth",
+          "auto_approve_resolutions",
+          "emit_proposal_events",
+          "emit_execution_commands",
+          "import_alexander_internals"
+        ]
+      }
+    },
+    "provider": {
+      "repo_name": "Construction_ALEXANDER_Engine",
+      "component": "resolution_pipeline",
+      "ring": 2,
+      "authority": "advisory"
+    },
+    "contract": {
+      "contract_id": "runtime-alexander-consumer-v1",
+      "consumer_schema": "Construction_Runtime/schemas/pattern_resolution_consumer.schema.json",
+      "provider_schema": "Construction_ALEXANDER_Engine/schemas/resolution_result.schema.json",
+      "compatible_versions": ["1.0.0"]
+    },
+    "behavior": {
+      "preflight_validation": true,
+      "fail_closed_statuses": ["UNRESOLVED", "BLOCKED", "CONFLICT"],
+      "artifact_permitted_status": "RESOLVED",
+      "allowed_artifact_types": ["DXF", "SVG", "PDF", "RenderManifest", "ArtifactLineageRecord"],
+      "lineage_stamping": true,
+      "event_emission": {
+        "event_class": "Observation",
+        "event_types": [
+          "resolution_accepted",
+          "resolution_rejected_unresolved",
+          "resolution_rejected_blocked",
+          "resolution_rejected_conflict",
+          "resolution_fail_closed",
+          "resolution_preflight_failed",
+          "artifact_generation_started",
+          "artifact_generation_completed"
+        ]
+      }
+    },
+    "supporting_seams": [
+      {
+        "seam_id": "resolution_evidence_bundle",
+        "origin": "Construction_Reference_Intelligence",
+        "role": "Scoring inputs for pattern resolution"
+      },
+      {
+        "seam_id": "manufacturer_compatibility_lookup",
+        "origin": "Construction_Reference_Intelligence",
+        "role": "Manufacturer compatibility data for constraint enforcement"
+      },
+      {
+        "seam_id": "code_spec_lookup",
+        "origin": "Construction_Reference_Intelligence",
+        "role": "Code/specification compliance for constraint enforcement"
+      },
+      {
+        "seam_id": "resolution_coverage_report",
+        "origin": "Construction_Atlas",
+        "role": "Spatial node type coverage and conflict-prone pair definitions"
+      }
+    ],
+    "cockpit_integration": {
+      "panel": "PatternResolutionPanel",
+      "repo": "Construction_Application_OS",
+      "displays": [
+        "Resolution status (RESOLVED/UNRESOLVED/BLOCKED/CONFLICT)",
+        "Fail reasons with stage and code detail",
+        "Conflict records with severity and resolution strategy",
+        "Constraint violations",
+        "Score breakdown",
+        "Distinction between advisory (ALEXANDER) and executed (Runtime) state",
+        "Artifact types generated",
+        "Lineage record references"
+      ]
+    }
+  }
+}
