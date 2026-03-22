@@ -1,14 +1,19 @@
 /**
  * Construction Atlas — Viewer Page
  *
- * Wraps ShopDrawingsShell with an artifact result banner.
- * Reads latestResult metadata (thin projection) and sourceContext
- * from generationStore. Does NOT hold artifact content (SVG/DXF) —
- * that stays in DetailViewerPanel component state only.
+ * Wraps ShopDrawingsShell with an artifact result banner and
+ * active SVG detail display. Reads latestResult metadata (thin
+ * projection) from generationStore and SVG display payload from
+ * activeArtifactDisplay module.
+ *
+ * When a successful generation payload is present, the SVG detail
+ * is shown via SvgDetailView. Otherwise falls back to
+ * ShopDrawingsShell (OMNI-VIEW viewer).
  *
  * Resets viewerAutoOpenPending on mount.
  *
  * Governance: VKGL04R — No second renderer path.
+ * Display pattern informed by CADless_drawings modal viewer.
  */
 
 import { useCallback, useEffect, useState } from 'react';
@@ -19,6 +24,8 @@ import {
   type GenerationSourceContext,
   type LatestResult,
 } from '../../stores/generationStore';
+import { useActiveArtifact } from '../../viewer/ActiveArtifactDisplay';
+import { SvgDetailView } from '../../viewer/SvgDetailView';
 import type { AtlasRoute } from '../types';
 
 interface ViewerPageProps {
@@ -29,6 +36,8 @@ export function ViewerPage({ onNavigate }: ViewerPageProps) {
   const [latestResult, setLatestResult] = useState<LatestResult | null>(null);
   const [sourceContext, setSourceContext] = useState<GenerationSourceContext | null>(null);
   const [bannerExpanded, setBannerExpanded] = useState(true);
+
+  const activeArtifact = useActiveArtifact();
 
   // Subscribe to generationStore + reset viewerAutoOpenPending on mount
   useEffect(() => {
@@ -121,9 +130,18 @@ export function ViewerPage({ onNavigate }: ViewerPageProps) {
         </div>
       )}
 
-      {/* Shop Drawings Shell (OMNI-VIEW viewer) — full remaining space */}
+      {/* Main content area — SVG detail display or OMNI-VIEW fallback */}
       <div style={{ flex: 1, overflow: 'hidden' }}>
-        <ShopDrawingsShell onSwitchToWorkstation={() => onNavigate('tools')} />
+        {activeArtifact ? (
+          <SvgDetailView
+            svgContent={activeArtifact.svgContent}
+            detailId={activeArtifact.detailId}
+            artifactType={activeArtifact.artifactType}
+            filename={activeArtifact.filename}
+          />
+        ) : (
+          <ShopDrawingsShell onSwitchToWorkstation={() => onNavigate('tools')} />
+        )}
       </div>
     </div>
   );

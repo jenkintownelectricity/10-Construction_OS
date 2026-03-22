@@ -21,6 +21,7 @@ import { validateSourceContext } from './validateSourceContext';
 import { mapContextToRoofingDraft } from './contextToRoofingDraft';
 import { eventBus } from '../events/EventBus';
 import { generationStore, type LatestResult } from '../stores/generationStore';
+import { activeArtifactDisplay } from '../viewer/ActiveArtifactDisplay';
 import type { DetailPreviewResult, ViewerTab, DetailCategory } from './types';
 
 // ─── Styles ──────────────────────────────────────────────────────────
@@ -181,9 +182,20 @@ export function DetailViewerPanel() {
         artifactIds: [result.svg_artifact_id, result.dxf_artifact_id].filter(Boolean),
       };
       generationStore.completeSuccess(latestResult);
+
+      // Step 5b: Publish SVG to active artifact display for Viewer rendering
+      activeArtifactDisplay.setPayload({
+        svgContent: result.svg_content,
+        detailId: result.detail_id,
+        sourceSubmittalId: sourceContext!.submittalId,
+        artifactType: result.artifact_type,
+        filename: result.artifact_filename,
+      });
     } else {
       setActiveTab('diagnostics');
       generationStore.completeError('GENERATION_FAILED', result.diagnostics.join('; '));
+      // Clear active artifact on failure
+      activeArtifactDisplay.clear();
     }
 
     // Step 6: Emit generation.completed for Atlas auto-navigate
@@ -217,6 +229,8 @@ export function DetailViewerPanel() {
       'UNSUPPORTED_CATEGORY',
       result.diagnostics.join('; '),
     );
+    // Clear active artifact on fail-closed
+    activeArtifactDisplay.clear();
 
     eventBus.emit('generation.completed', {
       objectId: result.detail_id,
@@ -231,6 +245,7 @@ export function DetailViewerPanel() {
   const handleClear = useCallback(() => {
     setPreviewResult(null);
     setActiveTab('preview');
+    activeArtifactDisplay.clear();
   }, []);
 
   const handleDownloadDxf = useCallback(() => {
