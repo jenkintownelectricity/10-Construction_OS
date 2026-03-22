@@ -68,3 +68,31 @@ The Kernel governs system-level orchestration. The cache operates within the bou
 2. **Compiles from truth-derived sources.** Every element in a frozen snapshot originates from a source that is itself derived from or validated against root truth. The cache does not fabricate or infer awareness independently.
 3. **Fail-closed on invalid compilation.** If any step in the thaw-compile-validate-refreeze lifecycle encounters an invalid state, inconsistency, or unresolvable conflict, the compilation fails closed. The previous valid frozen snapshot remains in effect. No partially compiled or unvalidated snapshot is ever promoted to active status.
 4. **Lineage preservation.** Every element in a frozen snapshot carries a full lineage chain tracing it back through the compilation history to its original source. Lineage is never truncated, rewritten, or discarded.
+
+---
+
+## v0.1 Runtime Components
+
+### awareness/config.py
+Configuration constants: paths, schema version, allowed event classes, required event fields, payload size limits. All values are deterministic local defaults. No external config sources.
+
+### awareness/snapshot_model.py
+Immutable frozen snapshot model. Provides `compute_snapshot_hash()` for deterministic SHA-256 content hashing and `make_snapshot()` to create frozen snapshot artifacts with metadata, entries, and source summary.
+
+### awareness/thaw_manager.py
+Thaw/freeze lifecycle manager. Enforces single-session constraint: only one thaw session at a time. Provides `thaw()`, `add_validated()`, `get_session_data()`, and `freeze()`. Fails closed on lifecycle violations.
+
+### awareness/ingest_pipeline.py
+Ingestion pipeline for admitted Cognitive Bus records. Reads JSON files from `state/events/`, filters for admission records (`record_type: admitted`, `admission_decision: admitted`), extracts inner event dicts. Skips non-JSON, non-admission, and malformed files.
+
+### awareness/validation_gate.py
+Validation gate for ingested events. Checks required fields, valid event classes, schema version, and payload structure. Returns `(valid, rejected)` tuple. Fail closed: any malformed record is rejected.
+
+### awareness/freeze_compiler.py
+Freeze compiler. Takes validated events and compiles them into a frozen snapshot artifact via `FreezeCompiler.compile()`. Builds snapshot entries and source summary (counts by event class and source component). Always produces a valid snapshot, even for empty input.
+
+### awareness/snapshot_store.py
+Append-only snapshot store. Writes frozen snapshots as immutable JSON files to `state/snapshots/`. Enforces: snapshot must be frozen, must have an ID, and cannot overwrite existing snapshots. No update, no delete.
+
+### awareness/snapshot_reader.py
+Read-only snapshot reader. Lists available snapshots and retrieves by ID. Validates on read: must be valid JSON, must be a dict, must be frozen, and snapshot ID must match filename. Fails closed on any malformation.
