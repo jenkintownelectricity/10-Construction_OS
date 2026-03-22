@@ -214,6 +214,45 @@ export function GlobalStyles() {
           transform: translateY(0);
         }
       }
+
+      /* ─── Motion Doctrine ──────────────────────────────────── */
+      /* Allowed: slide, fan-out, scale, rise                    */
+      /* Forbidden: spin, bounce, decorative motion              */
+      /* Timing: 150-220ms, ease-out or spring, no jitter        */
+      .gravity-slide {
+        transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+        transition-duration: 180ms;
+      }
+
+      .gravity-rise {
+        transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+                    opacity 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .gravity-scale {
+        transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      /* Glass morph utility — secondary panels only */
+      .glass-morph {
+        background: rgba(22,26,34,0.65);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255,255,255,0.06);
+      }
+
+      .glass-morph-card {
+        background: rgba(30,37,56,0.55);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.04);
+      }
+
+      /* ─── Edge panel idle strips ──────────────────────────── */
+      .edge-strip {
+        transition: width 180ms cubic-bezier(0.16, 1, 0.3, 1),
+                    background 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
     `}</style>
   );
 }

@@ -1,16 +1,21 @@
 /**
- * Construction OS — Workspace Shell
+ * Construction OS — Gravity Glass Workspace Shell
  *
- * Dockview-based multi-panel workspace with docking, resize, and movement.
- * Implements HERO_COCKPIT_DEFAULT preset and Command Deck activation.
- * No page-based navigation — panels are live systems.
+ * Gravity-reactive workstation with:
+ * - Center workspace always dominant
+ * - Reactive edge panels (left=docs, right=visual)
+ * - Proximity field model for cursor intent
+ * - Glass morph secondary panels
+ * - Workspace bias controls (+/- and ←/→)
+ * - Hover peek preview
+ * - Gravity deck fan-out
+ * - Bottom command dock (proximity-reactive)
+ * - Command palette (CMD+K / CTRL+K)
+ * - Authority HUD
+ * - Dev tools isolation
  *
- * Cockpit Upgrade (VKGL04R):
- * - Authority HUD in top header (awareness only)
- * - Bottom Dock consolidation for lower panels
- * - Command Palette (CMD+K / CTRL+K)
- * - Dev Control Isolation (dev tools toggle)
- * - Visual hierarchy: Work panel visually dominant
+ * No freeform manual resizing. Deterministic bias steps.
+ * FAIL_CLOSED: Invalid proximity state → idle layout.
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -35,8 +40,13 @@ import { AuthorityHUD } from '../components/AuthorityHUD';
 import { CommandPalette } from '../components/CommandPalette';
 import { BottomDock } from '../layout/BottomDock';
 import { DevToolsPanel } from '../devtools/DevToolsPanel';
+import { WorkspaceBiasControls, getDefaultBias, type BiasState } from '../gravity/WorkspaceBias';
+import { EdgePanel } from '../gravity/EdgePanel';
+import { GravityDeckFan } from '../gravity/GravityDeckFan';
+import { proximityField } from '../gravity/ProximityField';
+import { PROXIMITY, type ProximityFieldSnapshot } from '../gravity/ProximityConstants';
 import { initTruthEcho, destroyTruthEcho } from '../orchestration/TruthEcho';
-import { detectDeviceClass, getDeviceLayout } from '../orchestration/DeviceOrchestrator';
+import { detectDeviceClass } from '../orchestration/DeviceOrchestrator';
 import { activeObjectStore } from '../stores/activeObjectStore';
 import { useActiveObject } from '../stores/useSyncExternalStore';
 import { tokens } from '../theme/tokens';
@@ -66,34 +76,22 @@ const PANEL_COMPONENTS: Record<string, React.FC<IDockviewPanelProps>> = {
   assistant: AssistantWrapper,
 };
 
-// ─── Top row panels (in Dockview) ────────────────────────────────────────
-// Bottom panels are now in the BottomDock component.
-
-const TOP_PANELS: PanelId[] = ['explorer', 'work', 'reference'];
-
 // ─── Workspace Presets ──────────────────────────────────────────────────────
 
-type PresetName = 'HERO_COCKPIT_DEFAULT';
-
-function applyPreset(api: DockviewReadyEvent['api'], preset: PresetName, deviceClass: DeviceClass) {
-  // Clear existing panels
+function applyWorkspaceLayout(api: DockviewReadyEvent['api'], deviceClass: DeviceClass) {
   api.panels.forEach((p) => api.removePanel(p));
 
-  if (preset === 'HERO_COCKPIT_DEFAULT') {
-    if (deviceClass === 'phone') {
-      // Phone: single primary + companion accessible
-      api.addPanel({ id: 'work', component: 'work', title: 'WORK' });
-      activeObjectStore.setPinnedCompanion('explorer');
-    } else if (deviceClass === 'tablet') {
-      // Tablet: 2 panels
-      const workPanel = api.addPanel({ id: 'work', component: 'work', title: 'WORK' });
-      api.addPanel({ id: 'explorer', component: 'explorer', title: 'EXPLORER', position: { referencePanel: workPanel, direction: 'left' } });
-    } else {
-      // Laptop / Desktop / Ultrawide: Top 3 panels in dockview + bottom dock
-      const workPanel = api.addPanel({ id: 'work', component: 'work', title: 'WORK' });
-      api.addPanel({ id: 'explorer', component: 'explorer', title: 'EXPLORER', position: { referencePanel: workPanel, direction: 'left' } });
-      api.addPanel({ id: 'reference', component: 'reference', title: 'REFERENCE', position: { referencePanel: workPanel, direction: 'right' } });
-    }
+  if (deviceClass === 'phone') {
+    api.addPanel({ id: 'work', component: 'work', title: 'WORK' });
+    activeObjectStore.setPinnedCompanion('explorer');
+  } else if (deviceClass === 'tablet') {
+    const workPanel = api.addPanel({ id: 'work', component: 'work', title: 'WORK' });
+    api.addPanel({ id: 'explorer', component: 'explorer', title: 'EXPLORER', position: { referencePanel: workPanel, direction: 'left' } });
+  } else {
+    // Laptop/Desktop/Ultrawide: workspace-dominant with Explorer | Work | Reference
+    const workPanel = api.addPanel({ id: 'work', component: 'work', title: 'WORK' });
+    api.addPanel({ id: 'explorer', component: 'explorer', title: 'EXPLORER', position: { referencePanel: workPanel, direction: 'left' } });
+    api.addPanel({ id: 'reference', component: 'reference', title: 'REFERENCE', position: { referencePanel: workPanel, direction: 'right' } });
   }
 }
 
@@ -114,29 +112,17 @@ function CompanionSwitcher({ onSwitch, currentPanel }: { onSwitch: (panel: Panel
 
   return (
     <div style={{
-      display: 'flex',
-      gap: '1px',
-      background: tokens.color.border,
-      borderRadius: tokens.radius.sm,
-      overflow: 'hidden',
-      padding: 0,
+      display: 'flex', gap: '1px', background: tokens.color.border,
+      borderRadius: tokens.radius.sm, overflow: 'hidden', padding: 0,
     }}>
       {panels.map((p) => (
-        <button
-          key={p.id}
-          onClick={() => onSwitch(p.id)}
-          style={{
-            flex: 1,
-            padding: `${tokens.space.sm} ${tokens.space.xs}`,
-            background: currentPanel === p.id ? tokens.color.bgActive : tokens.color.bgElevated,
-            color: currentPanel === p.id ? tokens.color.accentPrimary : tokens.color.fgMuted,
-            border: 'none',
-            cursor: 'pointer',
-            fontSize: tokens.font.sizeXs,
-            fontWeight: tokens.font.weightSemibold,
-            fontFamily: tokens.font.family,
-          }}
-        >
+        <button key={p.id} onClick={() => onSwitch(p.id)} style={{
+          flex: 1, padding: `${tokens.space.sm} ${tokens.space.xs}`,
+          background: currentPanel === p.id ? tokens.color.bgActive : tokens.color.bgElevated,
+          color: currentPanel === p.id ? tokens.color.accentPrimary : tokens.color.fgMuted,
+          border: 'none', cursor: 'pointer', fontSize: tokens.font.sizeXs,
+          fontWeight: tokens.font.weightSemibold, fontFamily: tokens.font.family,
+        }}>
           {p.label}
         </button>
       ))}
@@ -152,17 +138,34 @@ export function WorkspaceShell() {
   const [isPhoneMode, setIsPhoneMode] = useState(deviceClass === 'phone');
   const [phonePanel, setPhonePanel] = useState<PanelId>('work');
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [bias, setBias] = useState<BiasState>(getDefaultBias);
+  const [proxSnapshot, setProxSnapshot] = useState<ProximityFieldSnapshot | null>(null);
   const { devToolsVisible } = useActiveObject();
 
-  const showBottomDock = deviceClass !== 'phone' && deviceClass !== 'tablet';
+  const showGravityLayout = deviceClass !== 'phone' && deviceClass !== 'tablet';
 
-  // Initialize Truth Echo
+  // ─── Initialize systems ──────────────────────────────────────────────
   useEffect(() => {
     initTruthEcho();
-    return () => destroyTruthEcho();
-  }, []);
+    if (showGravityLayout) {
+      proximityField.start();
+    }
+    return () => {
+      destroyTruthEcho();
+      proximityField.stop();
+    };
+  }, [showGravityLayout]);
 
-  // Device class detection
+  // ─── Proximity field subscription ────────────────────────────────────
+  useEffect(() => {
+    if (!showGravityLayout) return;
+    const unsub = proximityField.subscribe((snapshot) => {
+      setProxSnapshot(snapshot);
+    });
+    return unsub;
+  }, [showGravityLayout]);
+
+  // ─── Device class detection ──────────────────────────────────────────
   useEffect(() => {
     const handleResize = () => {
       const newClass = detectDeviceClass();
@@ -171,7 +174,7 @@ export function WorkspaceShell() {
         activeObjectStore.setDeviceClass(newClass);
         setIsPhoneMode(newClass === 'phone');
         if (apiRef.current) {
-          applyPreset(apiRef.current, 'HERO_COCKPIT_DEFAULT', newClass);
+          applyWorkspaceLayout(apiRef.current, newClass);
         }
       }
     };
@@ -180,7 +183,7 @@ export function WorkspaceShell() {
     return () => window.removeEventListener('resize', handleResize);
   }, [deviceClass]);
 
-  // Command Palette keyboard shortcut (CMD+K / CTRL+K)
+  // ─── Command Palette keyboard shortcut ───────────────────────────────
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -195,9 +198,15 @@ export function WorkspaceShell() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [commandPaletteOpen]);
 
+  // ─── Sync bias to store ──────────────────────────────────────────────
+  const handleBiasChange = useCallback((newBias: BiasState) => {
+    setBias(newBias);
+    activeObjectStore.setWorkspaceBias(newBias);
+  }, []);
+
   const handleReady = useCallback((event: DockviewReadyEvent) => {
     apiRef.current = event.api;
-    applyPreset(event.api, 'HERO_COCKPIT_DEFAULT', deviceClass);
+    applyWorkspaceLayout(event.api, deviceClass);
   }, [deviceClass]);
 
   const handlePhoneSwitch = useCallback((panelId: PanelId) => {
@@ -208,51 +217,23 @@ export function WorkspaceShell() {
     }
   }, []);
 
-  // ─── Deck Layout Application ──────────────────────────────────────────────
-
   const applyDeckLayout = useCallback((visiblePanels: readonly PanelId[], promotedPanel: PanelId) => {
     if (!apiRef.current) return;
     const api = apiRef.current;
-
     api.panels.forEach((p) => api.removePanel(p));
-
     if (visiblePanels.length === 0) return;
-
-    const promoted = api.addPanel({
-      id: promotedPanel,
-      component: promotedPanel,
-      title: promotedPanel.toUpperCase(),
-    });
-
+    const promoted = api.addPanel({ id: promotedPanel, component: promotedPanel, title: promotedPanel.toUpperCase() });
     const remaining = visiblePanels.filter((p) => p !== promotedPanel);
-    let lastLeft = promoted;
     let lastRight = promoted;
     let lastBelow = promoted;
-
     for (let i = 0; i < remaining.length; i++) {
       const panelId = remaining[i];
       if (i % 3 === 0) {
-        lastRight = api.addPanel({
-          id: panelId,
-          component: panelId,
-          title: panelId.toUpperCase(),
-          position: { referencePanel: lastRight, direction: 'right' },
-        });
+        lastRight = api.addPanel({ id: panelId, component: panelId, title: panelId.toUpperCase(), position: { referencePanel: lastRight, direction: 'right' } });
       } else if (i % 3 === 1) {
-        lastLeft = api.addPanel({
-          id: panelId,
-          component: panelId,
-          title: panelId.toUpperCase(),
-          position: { referencePanel: promoted, direction: 'below' },
-        });
-        lastBelow = lastLeft;
+        lastBelow = api.addPanel({ id: panelId, component: panelId, title: panelId.toUpperCase(), position: { referencePanel: promoted, direction: 'below' } });
       } else {
-        api.addPanel({
-          id: panelId,
-          component: panelId,
-          title: panelId.toUpperCase(),
-          position: { referencePanel: lastBelow, direction: 'right' },
-        });
+        api.addPanel({ id: panelId, component: panelId, title: panelId.toUpperCase(), position: { referencePanel: lastBelow, direction: 'right' } });
       }
     }
   }, []);
@@ -261,62 +242,61 @@ export function WorkspaceShell() {
     activeObjectStore.setDevToolsVisible(!devToolsVisible);
   }, [devToolsVisible]);
 
+  // ─── Proximity-derived state ─────────────────────────────────────────
+  const leftEdge = proxSnapshot?.left ?? { edge: 'left' as const, proximity: 0, state: 'idle' as const, intentTimestamp: null, lockedAt: null };
+  const rightEdge = proxSnapshot?.right ?? { edge: 'right' as const, proximity: 0, state: 'idle' as const, intentTimestamp: null, lockedAt: null };
+  const bottomEdge = proxSnapshot?.bottom ?? { edge: 'bottom' as const, proximity: 0, state: 'idle' as const, intentTimestamp: null, lockedAt: null };
+  const leftActive = leftEdge.state === 'expanding' || leftEdge.state === 'preview' || leftEdge.state === 'locked';
+  const rightActive = rightEdge.state === 'expanding' || rightEdge.state === 'preview' || rightEdge.state === 'locked';
+  const deckFanExpanded = leftEdge.state === 'preview' || leftEdge.state === 'locked';
+
+  // Bottom dock proximity state
+  const bottomProximity = bottomEdge.proximity;
+  const bottomActive = bottomEdge.state === 'expanding' || bottomEdge.state === 'preview' || bottomEdge.state === 'locked';
+
+  // ─── Workspace sizing from bias ──────────────────────────────────────
+  const workspaceMarginLeft = leftActive ? PROXIMITY.edgePreviewWidth : 0;
+  const workspaceMarginRight = rightActive ? PROXIMITY.edgePreviewWidth : 0;
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: tokens.color.bgDeep, minHeight: 0 }}>
-      {/* Status Bar with Authority HUD */}
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: tokens.color.bgDeep, minHeight: 0, position: 'relative', overflow: 'hidden' }}>
+      {/* ─── Status Bar with Authority HUD + Bias Controls ─── */}
       <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: `${tokens.space.sm} ${tokens.space.md}`,
-        background: tokens.color.bgBase,
-        borderBottom: `1px solid ${tokens.color.border}`,
-        minHeight: '40px',
-        flexShrink: 0,
+        background: tokens.color.bgBase, borderBottom: `1px solid ${tokens.color.border}`,
+        minHeight: '40px', flexShrink: 0, zIndex: 200,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: tokens.space.md }}>
           <span style={{
-            fontSize: tokens.font.sizeMd,
-            fontWeight: tokens.font.weightBold,
-            color: tokens.color.fgPrimary,
-            letterSpacing: '0.08em',
-            lineHeight: tokens.font.lineTight,
+            fontSize: tokens.font.sizeMd, fontWeight: tokens.font.weightBold,
+            color: tokens.color.fgPrimary, letterSpacing: '0.08em', lineHeight: tokens.font.lineTight,
           }}>
             CONSTRUCTION OS
           </span>
-          <span style={{
-            fontSize: tokens.font.sizeXs,
-            color: tokens.color.fgMuted,
-            fontFamily: tokens.font.familyMono,
-          }}>
+          <span style={{ fontSize: tokens.font.sizeXs, color: tokens.color.fgMuted, fontFamily: tokens.font.familyMono }}>
             WORKSTATION
           </span>
-          {/* Authority HUD — awareness only */}
           <AuthorityHUD />
+          {/* Workspace Bias Controls */}
+          {showGravityLayout && (
+            <WorkspaceBiasControls bias={bias} onBiasChange={handleBiasChange} />
+          )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: tokens.space.sm }}>
           <DeckPicker applyLayout={applyDeckLayout} />
-          {/* Command Palette trigger */}
           <button
             onClick={() => setCommandPaletteOpen(true)}
             style={{
-              padding: `${tokens.space.xs} ${tokens.space.sm}`,
-              background: tokens.color.bgElevated,
-              color: tokens.color.fgMuted,
-              border: `1px solid ${tokens.color.border}`,
-              borderRadius: tokens.radius.sm,
-              cursor: 'pointer',
-              fontSize: tokens.font.sizeXs,
-              fontFamily: tokens.font.familyMono,
-              display: 'flex',
-              alignItems: 'center',
-              gap: tokens.space.xs,
+              padding: `${tokens.space.xs} ${tokens.space.sm}`, background: tokens.color.bgElevated,
+              color: tokens.color.fgMuted, border: `1px solid ${tokens.color.border}`,
+              borderRadius: tokens.radius.sm, cursor: 'pointer', fontSize: tokens.font.sizeXs,
+              fontFamily: tokens.font.familyMono, display: 'flex', alignItems: 'center', gap: tokens.space.xs,
             }}
             title="Command Palette (Ctrl+K / Cmd+K)"
           >
             {'\u2318'}K
           </button>
-          {/* Dev Tools toggle — isolated from panel headers */}
           <button
             onClick={handleToggleDevTools}
             style={{
@@ -324,36 +304,76 @@ export function WorkspaceShell() {
               background: devToolsVisible ? `${tokens.color.mock}15` : tokens.color.bgElevated,
               color: devToolsVisible ? tokens.color.mock : tokens.color.fgMuted,
               border: `1px solid ${devToolsVisible ? tokens.color.mock + '40' : tokens.color.border}`,
-              borderRadius: tokens.radius.sm,
-              cursor: 'pointer',
-              fontSize: tokens.font.sizeXs,
+              borderRadius: tokens.radius.sm, cursor: 'pointer', fontSize: tokens.font.sizeXs,
               fontFamily: tokens.font.familyMono,
             }}
             title="Toggle Dev Tools"
           >
             DEV
           </button>
-          <span style={{
-            fontSize: tokens.font.sizeXs,
-            color: tokens.color.fgMuted,
-            fontFamily: tokens.font.familyMono,
-          }}>
+          <span style={{ fontSize: tokens.font.sizeXs, color: tokens.color.fgMuted, fontFamily: tokens.font.familyMono }}>
             {deviceClass.toUpperCase()}
           </span>
         </div>
       </div>
 
-      {/* Main Workspace — Dockview (top panels: Explorer | Work | Reference) */}
-      <div style={{ flex: 1, overflow: 'hidden', minHeight: 0 }}>
-        <DockviewReact
-          className="dockview-theme-dark"
-          onReady={handleReady}
-          components={PANEL_COMPONENTS}
-        />
+      {/* ─── Main Workspace Area ─── */}
+      <div style={{
+        flex: 1, position: 'relative', overflow: 'hidden', minHeight: 0,
+      }}>
+        {/* Gravity Deck Fan-Out (left edge inner) */}
+        {showGravityLayout && (
+          <GravityDeckFan
+            expanded={deckFanExpanded}
+            proximity={leftEdge.proximity}
+          />
+        )}
+
+        {/* Left Edge Panel — Documents/Specs/References */}
+        {showGravityLayout && (
+          <EdgePanel
+            edge="left"
+            edgeState={leftEdge.state}
+            proximity={leftEdge.proximity}
+            title="Documents / References"
+          >
+            <ReferencePanel />
+          </EdgePanel>
+        )}
+
+        {/* Right Edge Panel — Drawings/Spatial/Visual */}
+        {showGravityLayout && (
+          <EdgePanel
+            edge="right"
+            edgeState={rightEdge.state}
+            proximity={rightEdge.proximity}
+            title="Drawings / Spatial"
+          >
+            <SpatialPanel />
+          </EdgePanel>
+        )}
+
+        {/* Center Workspace — always dominant */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          bottom: 0,
+          left: showGravityLayout ? `${Math.max(PROXIMITY.edgeIdleWidth, workspaceMarginLeft)}px` : 0,
+          right: showGravityLayout ? `${Math.max(PROXIMITY.edgeIdleWidth, workspaceMarginRight)}px` : 0,
+          transition: `left ${PROXIMITY.expandDuration}ms ${PROXIMITY.easing}, right ${PROXIMITY.expandDuration}ms ${PROXIMITY.easing}`,
+          overflow: 'hidden',
+          zIndex: 50,
+        }}>
+          <DockviewReact
+            className="dockview-theme-dark"
+            onReady={handleReady}
+            components={PANEL_COMPONENTS}
+          />
+        </div>
       </div>
 
-      {/* Bottom Dock — consolidated lower panels */}
-      {showBottomDock && <BottomDock />}
+      {/* ─── Bottom Command Dock ─── */}
+      <BottomDock bottomProximity={bottomProximity} bottomActive={bottomActive} />
 
       {/* Phone Companion Switcher */}
       {isPhoneMode && (
@@ -365,7 +385,7 @@ export function WorkspaceShell() {
         <CommandPalette onClose={() => setCommandPaletteOpen(false)} />
       )}
 
-      {/* Dev Tools Panel — isolated from panel chrome */}
+      {/* Dev Tools Panel */}
       <DevToolsPanel />
     </div>
   );

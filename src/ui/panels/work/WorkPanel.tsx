@@ -22,7 +22,7 @@ import { useValidationWorker } from '../../workers/useValidationWorker';
 import { ContextualOverlay } from '../../components/ContextualOverlay';
 import type { ValidationResult } from '../../contracts/adapters';
 
-type WorkTab = 'detail' | 'drawing' | 'validation' | 'artifact';
+type WorkTab = 'detail' | 'drawing' | 'validation' | 'artifact' | 'spatial';
 
 export function WorkPanel() {
   const { activeObject, workspaceMode, compareObject, overlayActive } = useActiveObject();
@@ -86,6 +86,7 @@ export function WorkPanel() {
     { key: 'drawing', label: 'Drawing' },
     { key: 'validation', label: 'Validation' },
     { key: 'artifact', label: 'Artifacts' },
+    { key: 'spatial', label: 'Spatial' },
   ];
 
   const validationBadge = validationResult?.issues?.length ?? 0;
@@ -285,6 +286,17 @@ export function WorkPanel() {
                 <div style={{ color: tokens.color.fgMuted, fontSize: tokens.font.sizeSm }}>
                   <div style={{ padding: tokens.space.lg, textAlign: 'center', border: `1px dashed ${tokens.color.border}`, borderRadius: tokens.radius.md }}>
                     Artifact generation workspace — adapter seam ready.
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'spatial' && (
+                <div style={{ color: tokens.color.fgMuted, fontSize: tokens.font.sizeSm }}>
+                  <div style={{ padding: tokens.space.lg, textAlign: 'center', border: `1px dashed ${tokens.color.border}`, borderRadius: tokens.radius.md }}>
+                    Spatial view — zone and location context for the active object.
+                    <div style={{ marginTop: tokens.space.sm, fontSize: tokens.font.sizeXs }}>
+                      Use the right edge panel or spatial dock tab for full spatial navigation.
+                    </div>
                   </div>
                 </div>
               )}

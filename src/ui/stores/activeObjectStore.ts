@@ -54,6 +54,14 @@ export interface ActiveObjectState {
   overlayActive: boolean;
   /** Whether dev tools mode is enabled */
   devToolsVisible: boolean;
+  /** Workspace bias — share and horizontal balance */
+  workspaceBias: { workspaceShare: number; horizontalBias: number };
+  /** Number of workspace tiles open */
+  tileCount: number;
+  /** Hover peek target (null = no peek) */
+  peekTarget: string | null;
+  /** Whether peek is locked */
+  peekLocked: boolean;
 }
 
 type Listener = () => void;
@@ -75,6 +83,10 @@ function createActiveObjectStore() {
     authorityLevel: 'L3',
     overlayActive: false,
     devToolsVisible: false,
+    workspaceBias: { workspaceShare: 65, horizontalBias: 0 },
+    tileCount: 1,
+    peekTarget: null,
+    peekLocked: false,
   };
 
   const listeners = new Set<Listener>();
@@ -179,6 +191,21 @@ function createActiveObjectStore() {
       notify();
     },
 
+    setWorkspaceBias(bias: { workspaceShare: number; horizontalBias: number }): void {
+      state = { ...state, workspaceBias: bias };
+      notify();
+    },
+
+    setTileCount(count: number): void {
+      state = { ...state, tileCount: count };
+      notify();
+    },
+
+    setPeekTarget(target: string | null, locked?: boolean): void {
+      state = { ...state, peekTarget: target, peekLocked: locked ?? false };
+      notify();
+    },
+
     /** Reset to initial state (for testing) */
     reset(): void {
       state = {
@@ -195,6 +222,10 @@ function createActiveObjectStore() {
         authorityLevel: 'L3',
         overlayActive: false,
         devToolsVisible: false,
+        workspaceBias: { workspaceShare: 65, horizontalBias: 0 },
+        tileCount: 1,
+        peekTarget: null,
+        peekLocked: false,
       };
       notify();
     },

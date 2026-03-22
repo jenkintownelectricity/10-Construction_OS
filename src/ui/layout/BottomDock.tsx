@@ -1,17 +1,22 @@
 /**
- * Construction OS — Bottom Dock
+ * Construction OS — Bottom Command Dock
  *
- * Replaces crowded simultaneous lower panels with a docked bottom drawer.
+ * Replaces crowded simultaneous lower panels with a proximity-reactive bottom dock.
  * Tabs: Awareness | Diagnostics | Proposals | Spatial | Assistant | System
  *
- * - One open at a time by default
- * - Preserves panel state when switching tabs
+ * Behavior:
+ * - Idle height: 24-32px (thin strip)
+ * - Expands aggressively on cursor proximity
+ * - Auto-collapses on cursor exit unless pinned
  * - Supports expand / collapse / pin
- * - Non-destructive: collapsed panels remain recoverable
+ * - Preserves panel state when switching tabs
+ * - Glass morph styling when expanded
  */
 
 import { useCallback, useState } from 'react';
 import { tokens } from '../theme/tokens';
+import { PROXIMITY } from '../gravity/ProximityConstants';
+import { glassMorphDockStyle } from '../gravity/GlassMorph';
 import { AwarenessPanel } from '../panels/awareness/AwarenessPanel';
 import { RuntimeDiagnosticsPanel } from '../panels/diagnostics/RuntimeDiagnosticsPanel';
 import { ProposalMailbox } from '../panels/proposals/ProposalMailbox';
@@ -21,13 +26,7 @@ import { SystemPanel } from '../panels/system/SystemPanel';
 
 export type DockTab = 'awareness' | 'diagnostics' | 'proposals' | 'spatial' | 'assistant' | 'system';
 
-interface DockTabConfig {
-  id: DockTab;
-  label: string;
-  badge?: number;
-}
-
-const DOCK_TABS: DockTabConfig[] = [
+const DOCK_TABS: { id: DockTab; label: string }[] = [
   { id: 'awareness', label: 'Awareness' },
   { id: 'diagnostics', label: 'Diagnostics' },
   { id: 'proposals', label: 'Proposals' },
@@ -36,46 +35,61 @@ const DOCK_TABS: DockTabConfig[] = [
   { id: 'system', label: 'System' },
 ];
 
-export function BottomDock() {
+interface BottomDockProps {
+  /** Proximity value from bottom edge (0-1) */
+  bottomProximity?: number;
+  /** Whether bottom edge is in active proximity state */
+  bottomActive?: boolean;
+}
+
+export function BottomDock({ bottomProximity = 0, bottomActive = false }: BottomDockProps) {
   const [activeTab, setActiveTab] = useState<DockTab>('awareness');
   const [expanded, setExpanded] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
   const [pinned, setPinned] = useState(false);
+  const [userOpened, setUserOpened] = useState(false);
 
   const handleToggleExpand = useCallback(() => {
-    if (collapsed) {
-      setCollapsed(false);
-    } else {
-      setExpanded((prev) => !prev);
-    }
-  }, [collapsed]);
-
-  const handleToggleCollapse = useCallback(() => {
-    setCollapsed((prev) => !prev);
-    if (!collapsed) setExpanded(false);
-  }, [collapsed]);
+    setExpanded((prev) => !prev);
+    setUserOpened(true);
+  }, []);
 
   const handleTogglePin = useCallback(() => {
     setPinned((prev) => !prev);
   }, []);
 
   const handleTabClick = useCallback((tab: DockTab) => {
-    if (collapsed) setCollapsed(false);
     setActiveTab(tab);
-  }, [collapsed]);
+    setUserOpened(true);
+  }, []);
 
-  const dockHeight = collapsed ? '36px' : expanded ? '55vh' : '280px';
+  // Determine effective open state
+  const isOpen = pinned || userOpened || expanded || bottomActive;
+  const isExpanded = expanded;
+
+  // Calculate dock height
+  const dockHeight = (() => {
+    if (!isOpen) {
+      // Idle: thin strip, grows slightly with proximity
+      return PROXIMITY.dockIdleHeight + (bottomProximity * 16);
+    }
+    if (isExpanded) {
+      return PROXIMITY.dockExpandedHeight;
+    }
+    return PROXIMITY.dockPreviewHeight;
+  })();
+
+  const easing = PROXIMITY.easing;
 
   return (
     <div style={{
       display: 'flex',
       flexDirection: 'column',
-      height: dockHeight,
-      minHeight: collapsed ? '36px' : '120px',
-      maxHeight: expanded ? '55vh' : '380px',
-      background: tokens.color.bgSurface,
-      borderTop: `1px solid ${tokens.color.border}`,
-      transition: `height ${tokens.transition.normal}`,
+      height: `${dockHeight}px`,
+      minHeight: `${PROXIMITY.dockIdleHeight}px`,
+      ...(isOpen ? glassMorphDockStyle : {}),
+      background: isOpen ? glassMorphDockStyle.background : tokens.color.bgBase,
+      borderTop: `1px solid ${isOpen ? 'rgba(255,255,255,0.06)' : tokens.color.border}`,
+      transition: `height ${PROXIMITY.expandDuration}ms ${easing}, background ${PROXIMITY.expandDuration}ms ${easing}`,
       overflow: 'hidden',
       flexShrink: 0,
     }}>
@@ -83,35 +97,23 @@ export function BottomDock() {
       <div style={{
         display: 'flex',
         alignItems: 'center',
-        minHeight: '36px',
-        background: tokens.color.bgElevated,
-        borderBottom: collapsed ? 'none' : `1px solid ${tokens.color.border}`,
+        minHeight: `${PROXIMITY.dockIdleHeight}px`,
+        background: isOpen ? 'rgba(255,255,255,0.02)' : 'transparent',
+        borderBottom: isOpen ? '1px solid rgba(255,255,255,0.04)' : 'none',
         flexShrink: 0,
       }}>
-        {/* Tab Buttons */}
-        <div style={{
-          display: 'flex',
-          flex: 1,
-          gap: '1px',
-          overflow: 'hidden',
-        }}>
+        <div style={{ display: 'flex', flex: 1, gap: '1px', overflow: 'hidden' }}>
           {DOCK_TABS.map((tab) => (
             <button
               key={tab.id}
               onClick={() => handleTabClick(tab.id)}
               style={{
                 flex: 1,
-                padding: `${tokens.space.sm} ${tokens.space.sm}`,
-                background: activeTab === tab.id && !collapsed
-                  ? tokens.color.bgActive
-                  : 'transparent',
-                color: activeTab === tab.id && !collapsed
-                  ? tokens.color.fgPrimary
-                  : tokens.color.fgMuted,
+                padding: `${tokens.space.xs} ${tokens.space.sm}`,
+                background: activeTab === tab.id && isOpen ? tokens.color.bgActive : 'transparent',
+                color: activeTab === tab.id && isOpen ? tokens.color.fgPrimary : tokens.color.fgMuted,
                 border: 'none',
-                borderBottom: activeTab === tab.id && !collapsed
-                  ? `2px solid ${tokens.color.accentPrimary}`
-                  : '2px solid transparent',
+                borderBottom: activeTab === tab.id && isOpen ? `2px solid ${tokens.color.accentPrimary}` : '2px solid transparent',
                 cursor: 'pointer',
                 fontSize: tokens.font.sizeXs,
                 fontWeight: activeTab === tab.id ? tokens.font.weightSemibold : tokens.font.weightNormal,
@@ -125,112 +127,53 @@ export function BottomDock() {
             </button>
           ))}
         </div>
-
-        {/* Dock Controls */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '2px',
-          padding: `0 ${tokens.space.sm}`,
-          flexShrink: 0,
-        }}>
-          <DockControlButton
-            label={pinned ? '\u25C9' : '\u25CB'}
-            title={pinned ? 'Unpin dock' : 'Pin dock'}
-            active={pinned}
-            onClick={handleTogglePin}
-          />
-          <DockControlButton
-            label={expanded ? '\u25BC' : '\u25B2'}
-            title={expanded ? 'Shrink dock' : 'Expand dock'}
-            active={expanded}
-            onClick={handleToggleExpand}
-          />
-          <DockControlButton
-            label={collapsed ? '\u25B2' : '\u25BC'}
-            title={collapsed ? 'Show dock' : 'Collapse dock'}
-            active={false}
-            onClick={handleToggleCollapse}
-          />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '2px', padding: `0 ${tokens.space.sm}`, flexShrink: 0 }}>
+          <DockBtn label={pinned ? '\u25C9' : '\u25CB'} title={pinned ? 'Unpin' : 'Pin'} active={pinned} onClick={handleTogglePin} />
+          <DockBtn label={isExpanded ? '\u25BC' : '\u25B2'} title={isExpanded ? 'Shrink' : 'Expand'} active={isExpanded} onClick={handleToggleExpand} />
+          {userOpened && !pinned && (
+            <DockBtn label={'\u25BC'} title="Collapse" active={false} onClick={() => setUserOpened(false)} />
+          )}
         </div>
       </div>
 
-      {/* Dock Content — all panels rendered but only active one visible */}
-      {!collapsed && (
+      {/* Dock Content */}
+      {isOpen && (
         <div style={{ flex: 1, overflow: 'hidden', position: 'relative', minHeight: 0 }}>
-          <DockPanelContainer visible={activeTab === 'awareness'}>
-            <AwarenessPanel />
-          </DockPanelContainer>
-          <DockPanelContainer visible={activeTab === 'diagnostics'}>
-            <RuntimeDiagnosticsPanel />
-          </DockPanelContainer>
-          <DockPanelContainer visible={activeTab === 'proposals'}>
-            <ProposalMailbox />
-          </DockPanelContainer>
-          <DockPanelContainer visible={activeTab === 'spatial'}>
-            <SpatialPanel />
-          </DockPanelContainer>
-          <DockPanelContainer visible={activeTab === 'assistant'}>
-            <AssistantConsole />
-          </DockPanelContainer>
-          <DockPanelContainer visible={activeTab === 'system'}>
-            <SystemPanel />
-          </DockPanelContainer>
+          <DockPane visible={activeTab === 'awareness'}><AwarenessPanel /></DockPane>
+          <DockPane visible={activeTab === 'diagnostics'}><RuntimeDiagnosticsPanel /></DockPane>
+          <DockPane visible={activeTab === 'proposals'}><ProposalMailbox /></DockPane>
+          <DockPane visible={activeTab === 'spatial'}><SpatialPanel /></DockPane>
+          <DockPane visible={activeTab === 'assistant'}><AssistantConsole /></DockPane>
+          <DockPane visible={activeTab === 'system'}><SystemPanel /></DockPane>
         </div>
       )}
     </div>
   );
 }
 
-// ─── Dock Panel Container ──────────────────────────────────────────────────
-// Preserves panel state by keeping all panels mounted but hiding inactive ones.
-
-function DockPanelContainer({ visible, children }: { visible: boolean; children: React.ReactNode }) {
+function DockPane({ visible, children }: { visible: boolean; children: React.ReactNode }) {
   return (
     <div style={{
-      position: 'absolute',
-      inset: 0,
+      position: 'absolute', inset: 0,
       display: visible ? 'flex' : 'none',
-      flexDirection: 'column',
-      overflow: 'hidden',
+      flexDirection: 'column', overflow: 'hidden',
     }}>
       {children}
     </div>
   );
 }
 
-// ─── Dock Control Button ───────────────────────────────────────────────────
-
-function DockControlButton({
-  label,
-  title,
-  active,
-  onClick,
-}: {
-  label: string;
-  title: string;
-  active: boolean;
-  onClick: () => void;
+function DockBtn({ label, title, active, onClick }: {
+  label: string; title: string; active: boolean; onClick: () => void;
 }) {
   return (
-    <button
-      onClick={onClick}
-      title={title}
-      style={{
-        width: '24px',
-        height: '24px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: active ? tokens.color.bgActive : 'transparent',
-        color: active ? tokens.color.fgPrimary : tokens.color.fgMuted,
-        border: 'none',
-        borderRadius: tokens.radius.sm,
-        cursor: 'pointer',
-        fontSize: tokens.font.sizeXs,
-        padding: 0,
-      }}
-    >
+    <button onClick={onClick} title={title} style={{
+      width: '24px', height: '22px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+      background: active ? tokens.color.bgActive : 'transparent',
+      color: active ? tokens.color.fgPrimary : tokens.color.fgMuted,
+      border: 'none', borderRadius: tokens.radius.sm, cursor: 'pointer',
+      fontSize: tokens.font.sizeXs, padding: 0,
+    }}>
       {label}
     </button>
   );
