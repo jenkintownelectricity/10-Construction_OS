@@ -1,0 +1,92 @@
+{
+  "registry_version": "v1",
+  "registry_type": "engine_registration",
+  "description": "Registration entry for Construction_ALEXANDER_Engine in the Construction OS Registry.",
+  "registered_at": "2026-03-22T00:00:00Z",
+  "engine": {
+    "repo_name": "Construction_ALEXANDER_Engine",
+    "engine_type": "ring_2_pattern_intelligence",
+    "layer": "reasoning",
+    "primary_area": "pattern-resolution",
+    "ring": 2,
+    "role_summary": "Ring 2 pattern intelligence engine that consumes governed pattern truth from Construction_Pattern_Language_OS and resolves ConditionSignature inputs into deterministic advisory PatternFamily / Pattern / PatternVariant / ArtifactIntent proposal outputs. Advisory only — no truth ownership, no kernel mutation, no artifact rendering, no execution commands.",
+    "authority_boundary": {
+      "may_consume": [
+        "Construction_Pattern_Language_OS",
+        "Construction_Atlas",
+        "Construction_Reference_Intelligence"
+      ],
+      "may_emit": [
+        "proposals",
+        "observations",
+        "anomalies",
+        "resolution_results"
+      ],
+      "may_not": [
+        "define_canonical_truth",
+        "mutate_any_kernel",
+        "render_artifacts",
+        "bypass_cognitive_bus",
+        "emit_execution_commands",
+        "introduce_intelligence_into_runtime"
+      ]
+    },
+    "cognitive_bus_integration": {
+      "source_component": "Construction_ALEXANDER_Engine",
+      "source_repo": "Construction_ALEXANDER_Engine",
+      "schema_version": "0.1",
+      "allowed_event_classes": ["Proposal", "Observation"],
+      "forbidden_event_classes": ["ExternallyValidatedEvent"]
+    },
+    "resolution_pipeline": {
+      "stages": [
+        "condition_intake",
+        "normalization",
+        "family_classification",
+        "pattern_resolution",
+        "variant_selection",
+        "constraint_enforcement",
+        "conflict_detection",
+        "scoring"
+      ],
+      "input_schema": "condition_signature.schema.json",
+      "output_schema": "resolution_result.schema.json"
+    },
+    "consumer_contracts": [
+      {
+        "source": "Construction_Pattern_Language_OS",
+        "contract_type": "pattern_kernel_consumer",
+        "consumed_entities": [
+          "PatternFamily",
+          "Pattern",
+          "PatternVariant",
+          "ArtifactIntent",
+          "ConstraintProfile",
+          "PatternRelationship"
+        ]
+      }
+    ],
+    "fail_closed_policy": {
+      "enforcement": "strict",
+      "invalid_input": "reject",
+      "missing_truth": "block",
+      "ambiguous_context": "block",
+      "conflicting_patterns": "conflict"
+    },
+    "upstream_dependencies": [
+      {"repo": "Construction_Pattern_Language_OS", "relationship": "consumes-pattern-truth"},
+      {"repo": "Construction_Atlas", "relationship": "consumes-spatial-context"},
+      {"repo": "Construction_Reference_Intelligence", "relationship": "consumes-reference-intelligence"},
+      {"repo": "Construction_Cognitive_Bus", "relationship": "emits-events-through-bus"}
+    ],
+    "tags": [
+      "engine",
+      "ring-2",
+      "pattern-intelligence",
+      "advisory",
+      "resolution",
+      "fail-closed",
+      "deterministic"
+    ]
+  }
+}

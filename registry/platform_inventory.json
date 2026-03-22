@@ -294,6 +294,34 @@
         "domain-kernel",
         "hardened"
       ]
+    },
+    {
+      "repo_name": "Construction_ALEXANDER_Engine",
+      "layer": "reasoning",
+      "primary_area": "pattern-resolution",
+      "ring": 2,
+      "engine_type": "ring_2_pattern_intelligence",
+      "role_summary": "Ring 2 pattern intelligence engine that consumes governed pattern truth from Construction_Pattern_Language_OS and resolves ConditionSignature inputs into deterministic advisory PatternFamily / Pattern / PatternVariant / ArtifactIntent proposal outputs. Advisory only — no truth ownership, no kernel mutation, no artifact rendering, no execution commands.",
+      "registered_at": "2026-03-22T00:00:00Z",
+      "consumer_contracts": [
+        {"source": "Construction_Pattern_Language_OS", "relationship": "consumes-pattern-truth"},
+        {"source": "Construction_Atlas", "relationship": "consumes-spatial-context"},
+        {"source": "Construction_Reference_Intelligence", "relationship": "consumes-reference-intelligence"}
+      ],
+      "cognitive_bus_integration": {
+        "source_component": "Construction_ALEXANDER_Engine",
+        "allowed_event_classes": ["Proposal", "Observation"],
+        "forbidden_event_classes": ["ExternallyValidatedEvent"]
+      },
+      "tags": [
+        "engine",
+        "ring-2",
+        "pattern-intelligence",
+        "advisory",
+        "resolution",
+        "fail-closed",
+        "deterministic"
+      ]
     }
   ],
   "exclusions": [
