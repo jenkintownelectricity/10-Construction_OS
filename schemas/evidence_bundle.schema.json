@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "evidence_bundle.schema.json",
+  "title": "Evidence Bundle for Resolution Scoring",
+  "description": "Structured evidence bundle providing scoring inputs for the ALEXANDER → Runtime pattern resolution seam. Aggregates manufacturer compatibility, code compliance, and specification data for a given condition/pattern context.",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "bundle_id",
+    "schema_version",
+    "timestamp_utc",
+    "condition_id",
+    "evidence_type",
+    "entries"
+  ],
+  "properties": {
+    "bundle_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for this evidence bundle"
+    },
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "timestamp_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "condition_id": {
+      "type": "string",
+      "description": "ConditionSignature ID this bundle relates to"
+    },
+    "pattern_id": {
+      "type": ["string", "null"],
+      "description": "Pattern ID if bundle is pattern-specific"
+    },
+    "variant_id": {
+      "type": ["string", "null"],
+      "description": "Variant ID if bundle is variant-specific"
+    },
+    "evidence_type": {
+      "type": "string",
+      "enum": [
+        "manufacturer_compatibility",
+        "code_compliance",
+        "specification_lookup",
+        "field_observation",
+        "composite"
+      ]
+    },
+    "entries": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidence_entry" },
+      "minItems": 1
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "established"]
+    },
+    "source_component": {
+      "type": "string",
+      "const": "Construction_Reference_Intelligence"
+    },
+    "correlation_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "evidence_entry": {
+      "type": "object",
+      "required": ["entry_id", "source_type", "summary"],
+      "properties": {
+        "entry_id": { "type": "string" },
+        "source_type": {
+          "type": "string",
+          "enum": [
+            "manufacturer_data",
+            "building_code",
+            "industry_standard",
+            "field_report",
+            "test_result",
+            "compatibility_matrix"
+          ]
+        },
+        "source_ref": { "type": "string" },
+        "summary": { "type": "string" },
+        "applicable": { "type": "boolean" },
+        "result": {
+          "type": "string",
+          "enum": ["compatible", "incompatible", "conditional", "unknown", "compliant", "non_compliant"]
+        },
+        "details": { "type": "object" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

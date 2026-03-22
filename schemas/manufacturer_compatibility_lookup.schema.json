@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "manufacturer_compatibility_lookup.schema.json",
+  "title": "Manufacturer Compatibility Lookup Contract",
+  "description": "Contract for querying manufacturer compatibility data for the pattern resolution seam. Provides structured compatibility results between materials, products, and systems from manufacturer reference data.",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "lookup_id",
+    "schema_version",
+    "timestamp_utc",
+    "query",
+    "results"
+  ],
+  "properties": {
+    "lookup_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "timestamp_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "query": {
+      "type": "object",
+      "required": ["manufacturer_refs"],
+      "properties": {
+        "manufacturer_refs": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "material_refs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "system_type": { "type": "string" },
+        "pattern_family_id": { "type": ["string", "null"] },
+        "variant_id": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["manufacturer_ref", "compatibility_status"],
+        "properties": {
+          "manufacturer_ref": { "type": "string" },
+          "compatibility_status": {
+            "type": "string",
+            "enum": ["compatible", "incompatible", "conditional", "unknown"]
+          },
+          "conditions": { "type": "string" },
+          "material_options": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "confidence": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "established"]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "source_component": {
+      "type": "string",
+      "const": "Construction_Reference_Intelligence"
+    }
+  },
+  "additionalProperties": false
+}

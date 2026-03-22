@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "code_spec_lookup.schema.json",
+  "title": "Code/Specification Lookup Contract",
+  "description": "Contract for querying building code and specification compliance data for the pattern resolution seam. Provides structured compliance results against applicable codes and standards.",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "lookup_id",
+    "schema_version",
+    "timestamp_utc",
+    "query",
+    "results"
+  ],
+  "properties": {
+    "lookup_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "timestamp_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "query": {
+      "type": "object",
+      "required": ["condition_type"],
+      "properties": {
+        "condition_type": { "type": "string" },
+        "code_requirements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code_reference": { "type": "string" },
+              "section": { "type": "string" },
+              "requirement": { "type": "string" }
+            }
+          }
+        },
+        "climate_context": {
+          "type": "object",
+          "properties": {
+            "wind_zone": { "type": "integer", "enum": [1, 2, 3] },
+            "moisture_exposure": { "type": "string", "enum": ["low", "moderate", "high", "severe"] },
+            "climate_zone": { "type": "string" },
+            "freeze_thaw": { "type": "boolean" }
+          }
+        },
+        "pattern_id": { "type": ["string", "null"] },
+        "variant_id": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code_reference", "compliance_status"],
+        "properties": {
+          "code_reference": { "type": "string" },
+          "section": { "type": "string" },
+          "compliance_status": {
+            "type": "string",
+            "enum": ["compliant", "non_compliant", "conditional", "not_applicable", "unknown"]
+          },
+          "requirement_summary": { "type": "string" },
+          "conditions": { "type": "string" },
+          "evidence_refs": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "confidence": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "established"]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "source_component": {
+      "type": "string",
+      "const": "Construction_Reference_Intelligence"
+    }
+  },
+  "additionalProperties": false
+}
