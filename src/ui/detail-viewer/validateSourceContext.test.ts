@@ -110,4 +110,56 @@ describe('validateSourceContext', () => {
     const result = validateSourceContext({ ...VALID_CONTEXT, spec: '07 55 56' });
     expect(result.valid).toBe(true);
   });
+
+  // ─── New submittal contexts validate correctly ──────────────────
+
+  it('accepts GAF TPO submittal (SD-007, 07 54 23)', () => {
+    const result = validateSourceContext({
+      submittalId: 'SD-007',
+      title: 'TPO Roof Assembly — Building A',
+      manufacturer: 'GAF',
+      spec: '07 54 23',
+      project: 'Riverside Commerce Center',
+    });
+    expect(result.valid).toBe(true);
+  });
+
+  it('accepts Johns Manville PVC submittal (SD-008, 07 54 19)', () => {
+    const result = validateSourceContext({
+      submittalId: 'SD-008',
+      title: 'PVC Membrane Roofing — Tower Podium',
+      manufacturer: 'Johns Manville',
+      spec: '07 54 19',
+      project: 'Metro Station',
+    });
+    expect(result.valid).toBe(true);
+  });
+
+  it('accepts Henry Company SBS submittal (SD-009, 07 52 13)', () => {
+    const result = validateSourceContext({
+      submittalId: 'SD-009',
+      title: 'SBS Modified Bitumen Roof — Mechanical Area',
+      manufacturer: 'Henry Company',
+      spec: '07 52 13',
+      project: 'Heritage Plaza',
+    });
+    expect(result.valid).toBe(true);
+  });
+
+  it('accepts GAF protected membrane submittal (SD-010, 07 55 56)', () => {
+    const result = validateSourceContext({
+      submittalId: 'SD-010',
+      title: 'Protected Membrane Roof — Green Roof Area',
+      manufacturer: 'GAF',
+      spec: '07 55 56',
+      project: 'Airport Terminal',
+    });
+    expect(result.valid).toBe(true);
+  });
+
+  it('FAIL_CLOSED on expansion joints spec (07 95 13) even after coverage expansion', () => {
+    const result = validateSourceContext({ ...VALID_CONTEXT, spec: '07 95 13' });
+    expect(result.valid).toBe(false);
+    expect(result.errorCode).toBe('NON_ROOFING_SPEC');
+  });
 });

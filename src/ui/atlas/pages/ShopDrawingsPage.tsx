@@ -50,6 +50,10 @@ const SUBMITTALS: Submittal[] = [
   { id: 'SD-004', title: 'Window Assemblies \u2014 Type A through E', spec: '08 51 13', manufacturer: 'Marvin Windows', rev: 'Rev 1', status: 'Rejected', project: 'Heritage Plaza', pages: 32, size: '15.3 MB', submitted: '2026-03-05', reviewer: 'Michael Torres' },
   { id: 'SD-005', title: 'Expansion Joint Covers \u2014 All Locations', spec: '07 95 13', manufacturer: 'Inpro Corporation', rev: 'Rev 2', status: 'Revised', project: 'Metro Station', pages: 8, size: '4.1 MB', submitted: '2026-03-09', reviewer: 'Rachel Kim' },
   { id: 'SD-006', title: 'Below-Grade Waterproofing \u2014 Foundation Walls', spec: '07 11 13', manufacturer: 'Sika Corporation', rev: 'Rev 1', status: 'Approved', project: 'Airport Terminal', pages: 14, size: '7.6 MB', submitted: '2026-03-06', reviewer: 'James Park' },
+  { id: 'SD-007', title: 'TPO Roof Assembly \u2014 Building A', spec: '07 54 23', manufacturer: 'GAF', rev: 'Rev 1', status: 'In Review', project: 'Riverside Commerce Center', pages: 16, size: '7.8 MB', submitted: '2026-03-14', reviewer: 'Michael Torres' },
+  { id: 'SD-008', title: 'PVC Membrane Roofing \u2014 Tower Podium', spec: '07 54 19', manufacturer: 'Johns Manville', rev: 'Rev 2', status: 'Approved', project: 'Metro Station', pages: 20, size: '9.4 MB', submitted: '2026-03-11', reviewer: 'Rachel Kim' },
+  { id: 'SD-009', title: 'SBS Modified Bitumen Roof \u2014 Mechanical Area', spec: '07 52 13', manufacturer: 'Henry Company', rev: 'Rev 1', status: 'Submitted', project: 'Heritage Plaza', pages: 14, size: '6.8 MB', submitted: '2026-03-15', reviewer: '' },
+  { id: 'SD-010', title: 'Protected Membrane Roof \u2014 Green Roof Area', spec: '07 55 56', manufacturer: 'GAF', rev: 'Rev 1', status: 'In Review', project: 'Airport Terminal', pages: 22, size: '10.2 MB', submitted: '2026-03-16', reviewer: 'James Park' },
 ];
 
 const WORKFLOW_STEPS = ['Submitted', 'In Review', 'Approved', 'Rejected'];
