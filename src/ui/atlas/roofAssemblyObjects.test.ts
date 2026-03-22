@@ -18,6 +18,8 @@
 import { describe, it, expect } from 'vitest';
 import {
   ROOF_ASSEMBLY_OBJECTS,
+  BUILDINGS,
+  LEVELS,
   validateRoofAssemblyObject,
   projectToSourceContext,
   type RoofAssemblyObject,
@@ -158,5 +160,51 @@ describe('projectToSourceContext', () => {
     } as unknown as RoofAssemblyObject;
     const ctx = projectToSourceContext(invalid);
     expect(ctx).toBeNull();
+  });
+});
+
+// ─── Building and Level metadata ─────────────────────────────────────
+
+describe('BUILDINGS — static data', () => {
+  it('has at least 1 building', () => {
+    expect(BUILDINGS.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('all buildings have non-empty id and name', () => {
+    for (const b of BUILDINGS) {
+      expect(b.id.trim().length).toBeGreaterThan(0);
+      expect(b.name.trim().length).toBeGreaterThan(0);
+    }
+  });
+
+  it('all buildings have unique ids', () => {
+    const ids = BUILDINGS.map((b) => b.id);
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+});
+
+describe('LEVELS — static data', () => {
+  it('has at least 1 level', () => {
+    expect(LEVELS.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('all levels have non-empty id, buildingId, and name', () => {
+    for (const l of LEVELS) {
+      expect(l.id.trim().length).toBeGreaterThan(0);
+      expect(l.buildingId.trim().length).toBeGreaterThan(0);
+      expect(l.name.trim().length).toBeGreaterThan(0);
+    }
+  });
+
+  it('all levels reference a valid buildingId', () => {
+    const buildingIds = new Set(BUILDINGS.map((b) => b.id));
+    for (const l of LEVELS) {
+      expect(buildingIds.has(l.buildingId)).toBe(true);
+    }
+  });
+
+  it('all levels have unique ids', () => {
+    const ids = LEVELS.map((l) => l.id);
+    expect(new Set(ids).size).toBe(ids.length);
   });
 });

@@ -1,13 +1,17 @@
 /**
  * Construction Atlas — Atlas Page
  *
- * Interactive reference graph view with install sequence.
- * Presentation shell with static node layout.
- * Ready for React Flow integration.
+ * Building roof map surface + interactive reference graph.
+ * Atlas spatial surface Level 1: clickable roof assembly map
+ * that launches the governed roofing generation loop.
+ *
+ * Governance: VKGL04R — Ring 3 TOUCH-ALLOWED
  */
 
 import { useState } from 'react';
 import { DEFAULT_BRANDING } from '../../../lib/branding/branding-types';
+import { BuildingRoofMap } from '../BuildingRoofMap';
+import type { AtlasRoute } from '../types';
 
 const c = DEFAULT_BRANDING.colors;
 
@@ -50,13 +54,24 @@ const INSTALL_SEQUENCE = [
   { num: 8, label: 'Parapet Wall Assembly', desc: 'Complete cap flashing and coping' },
 ];
 
-export function AtlasPage() {
+interface AtlasPageProps {
+  onNavigate?: (route: AtlasRoute) => void;
+}
+
+export function AtlasPage({ onNavigate }: AtlasPageProps = {}) {
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
+
+  const handleNavigate = onNavigate ?? (() => {});
 
   return (
     <div>
       <h1 style={{ fontSize: '24px', fontWeight: 700, color: c.text, margin: 0 }}>Atlas</h1>
-      <p style={{ color: c.textMuted, margin: '4px 0 24px', fontSize: '14px' }}>Interactive detail graph, relationships, and installation sequences</p>
+      <p style={{ color: c.textMuted, margin: '4px 0 24px', fontSize: '14px' }}>Building roof map, detail graph, and installation sequences</p>
+
+      {/* Building Roof Map Surface */}
+      <div style={{ ...cardStyle, marginBottom: '24px' }}>
+        <BuildingRoofMap onNavigate={handleNavigate} />
+      </div>
 
       <div style={{ display: 'flex', gap: '24px' }}>
         {/* Graph */}

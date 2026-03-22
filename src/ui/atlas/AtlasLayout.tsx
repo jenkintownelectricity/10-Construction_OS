@@ -93,7 +93,7 @@ export function AtlasLayout() {
           fontSize: '14px',
         }}>
           {activeRoute === 'dashboard' && <DashboardPage onNavigate={handleNavigate} />}
-          {activeRoute === 'atlas' && <AtlasPage />}
+          {activeRoute === 'atlas' && <AtlasPage onNavigate={handleNavigate} />}
           {activeRoute === 'projects' && <PlaceholderPage title="Projects" description="Active project tracking and management" />}
           {activeRoute === 'details' && <PlaceholderPage title="Details" description="Construction detail families and variants" />}
           {activeRoute === 'shop-drawings' && <ShopDrawingsPage onNavigate={handleNavigate} />}

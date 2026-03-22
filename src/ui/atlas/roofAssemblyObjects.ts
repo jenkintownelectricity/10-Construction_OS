@@ -10,10 +10,28 @@
  *   - Uses UI canvas pixel coordinates (origin top-left)
  *   - Uses manufacturer/spec from the locked supported set
  *
+ * Building and Level metadata are UI-only spatial context.
+ * They are NOT kernel truth, NOT Atlas schema, NOT persisted.
+ *
  * Governance: VKGL04R — Ring 3 TOUCH-ALLOWED
  */
 
 import type { GenerationSourceContext } from '../stores/generationStore';
+
+// ─── Building (UI-only spatial metadata) ─────────────────────────────
+
+export interface Building {
+  readonly id: string;
+  readonly name: string;
+}
+
+// ─── Level (UI-only spatial metadata) ────────────────────────────────
+
+export interface Level {
+  readonly id: string;
+  readonly buildingId: string;
+  readonly name: string;
+}
 
 // ─── Roof Assembly Object Schema (locked) ────────────────────────────
 
@@ -175,4 +193,16 @@ export const ROOF_ASSEMBLY_OBJECTS: readonly RoofAssemblyObject[] = [
     project: 'Heritage Plaza',
     geometry: { kind: 'rect', x: 240, y: 125, width: 140, height: 30 },
   },
+];
+
+// ─── Static Building Data (UI-only) ─────────────────────────────────
+
+export const BUILDINGS: readonly Building[] = [
+  { id: 'BLD-001', name: 'Heritage Plaza' },
+];
+
+// ─── Static Level Data (UI-only) ────────────────────────────────────
+
+export const LEVELS: readonly Level[] = [
+  { id: 'LVL-ROOF', buildingId: 'BLD-001', name: 'Roof Level' },
 ];
