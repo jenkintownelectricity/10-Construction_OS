@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Construction Cognitive Bus Event Envelope v0.1",
+  "description": "Canonical event envelope for the governed cognitive event/admission layer.",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_class",
+    "event_type",
+    "schema_version",
+    "source_component",
+    "source_repo",
+    "timestamp",
+    "payload"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for this event."
+    },
+    "event_class": {
+      "type": "string",
+      "enum": ["Observation", "Proposal", "ExternallyValidatedEvent"],
+      "description": "Classification of the event. ExternallyValidatedEvent means validated by an upstream governed source, not by the bus."
+    },
+    "event_type": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Specific type descriptor within the event class."
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^0\\.1$",
+      "description": "Version of the event envelope schema."
+    },
+    "source_component": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identifier of the component that emitted this event."
+    },
+    "source_repo": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Repository origin of the emitting component."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of event creation."
+    },
+    "payload": {
+      "type": "object",
+      "description": "Event-class-specific content."
+    },
+    "authority_status": {
+      "type": "string",
+      "description": "Authority status of the event. For ExternallyValidatedEvent, must identify the upstream governed system that validated it."
+    },
+    "validation_status": {
+      "type": "string",
+      "description": "Validation status assigned during admission processing."
+    }
+  },
+  "additionalProperties": false
+}

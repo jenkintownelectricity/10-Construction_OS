@@ -1,0 +1,8 @@
+# Runtime state (append-only logs are local, not committed)
+state/events/*.json
+state/rejections/*.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo

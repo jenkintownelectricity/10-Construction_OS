@@ -6,6 +6,7 @@
 - **Organization**: jenkintownelectricity
 - **Layer**: Cognitive Layer
 - **Primary Role**: Cognitive event/admission layer
+- **Runtime Version**: v0.1
 
 ## Purpose
 
@@ -33,6 +34,51 @@ Construction_Cognitive_Bus does not hold truth, does not govern runtime, and doe
 - **NOT a registry** — it does not serve as a system of record for entities, identities, or configurations
 - **NOT runtime** — it does not execute workloads, manage processes, or orchestrate services
 - **NOT the awareness cache** — it does not maintain cognitive state, working memory, or awareness context
+- **NOT a distributed streaming system** — v0.1 is local, deterministic, and self-contained
+
+## v0.1 Runtime Components
+
+| Component | File | Purpose |
+|---|---|---|
+| Event Envelope Schema | `schemas/event-envelope.schema.json` | Canonical event structure definition |
+| Admission Gate | `bus/admission_gate.py` | Schema, emitter, class, field, and size validation pipeline |
+| Emitter Policy | `bus/emitter_policy.py` | Emitter allow/deny enforcement |
+| Event Log | `bus/event_log.py` | Append-only admitted event storage |
+| Rejection Log | `bus/rejection_log.py` | Append-only rejection record storage |
+| Router | `bus/router.py` | Routing decision generation (no delivery) |
+| Replay Reader | `bus/replay.py` | Deterministic replay with filtering |
+| Configuration | `bus/config.py` | Local constants: paths, limits, allowed emitters/classes |
+| Models | `bus/models.py` | Record types, content hashing, routing decisions |
+
+## Admission Pipeline
+
+```
+receive_event(event)
+  → validate required fields
+  → validate schema version
+  → validate event_class
+  → validate emitter policy
+  → validate payload type and size
+  → validate ExternallyValidatedEvent authority_status
+  → admit → append to event log → produce routing decision
+  or
+  → reject → append to rejection log
+```
+
+## Fail-Closed Guarantees
+
+- Schema invalid → reject
+- Emitter not allowed → reject
+- Event class invalid → reject
+- Required fields missing → reject
+- Payload too large → reject
+- Policy uncertain → reject
+- Malformed replay record → RuntimeError
+- No silent failures
+
+## Dependencies
+
+Python 3.10+ standard library only. Zero third-party dependencies.
 
 ## Interactions with Other Repositories
 
@@ -59,4 +105,4 @@ Construction_Cognitive_Bus does not participate in runtime orchestration. It doe
 1. **Validates structure, not truth content** — the bus confirms that events conform to their declared schemas; it makes no assertion about whether the content of an event is correct or true.
 2. **Append-only record** — all events, whether admitted or rejected, are appended to the ledger and never mutated. The historical record is immutable.
 3. **Fail-closed** — when the bus encounters ambiguous state, unrecognized emitters, or invalid schemas, it rejects the event. It does not silently pass uncertain events through.
-4. **Lineage preservation** — every event carries a lineage chain, and the bus preserves and extends that lineage through admission and routing, ensuring full traceability.
+4. **Lineage preservation** — every event carries provenance through source_component and source_repo, and the bus preserves this through admission and routing, ensuring full traceability.
