@@ -103,6 +103,28 @@ export function validateGraph(
   return { valid: true };
 }
 
+// ─── Deterministic Inverse Relationship Table ────────────────────────
+
+/**
+ * Maps each relationship kind to its directional inverse.
+ * Symmetric kinds map to themselves. Directional kinds swap.
+ * Used at query time only — stored edges remain canonical.
+ */
+const INVERSE_KIND: Readonly<Record<RelationshipKind, RelationshipKind>> = {
+  'adjacent': 'adjacent',
+  'up-slope': 'down-slope',
+  'down-slope': 'up-slope',
+  'service-linked': 'service-linked',
+};
+
+/**
+ * Get the inverse relationship kind for an incoming edge.
+ * FAIL_CLOSED: returns null for unknown kinds.
+ */
+export function getInverseKind(kind: RelationshipKind): RelationshipKind | null {
+  return INVERSE_KIND[kind] ?? null;
+}
+
 // ─── Related Assembly Query ─────────────────────────────────────────
 
 export interface RelatedAssembly {
@@ -113,7 +135,11 @@ export interface RelatedAssembly {
 
 /**
  * Get related assemblies for a given assembly object ID.
- * Traverses edges in both directions (undirected neighbor lookup).
+ *
+ * Traverses edges bidirectionally with deterministic inverse inference:
+ *   - Outgoing edges (fromNodeId matches): use stored kind
+ *   - Incoming edges (toNodeId matches): use inverse kind from INVERSE_KIND table
+ *
  * Returns empty array for unknown or unconnected objects.
  */
 export function getRelatedAssemblies(assemblyObjectId: string): readonly RelatedAssembly[] {
@@ -125,14 +151,19 @@ export function getRelatedAssemblies(assemblyObjectId: string): readonly Related
 
   for (const edge of GRAPH_EDGES) {
     let neighborNodeId: string | null = null;
+    let effectiveKind: RelationshipKind | null = null;
 
     if (edge.fromNodeId === node.nodeId) {
+      // Outgoing edge: use stored kind
       neighborNodeId = edge.toNodeId;
+      effectiveKind = edge.kind;
     } else if (edge.toNodeId === node.nodeId) {
+      // Incoming edge: use inverse kind
       neighborNodeId = edge.fromNodeId;
+      effectiveKind = getInverseKind(edge.kind);
     }
 
-    if (neighborNodeId) {
+    if (neighborNodeId && effectiveKind) {
       const neighborNode = GRAPH_NODES.find((n) => n.nodeId === neighborNodeId);
       if (neighborNode) {
         const assemblyObj = ROOF_ASSEMBLY_OBJECTS.find(
@@ -141,7 +172,7 @@ export function getRelatedAssemblies(assemblyObjectId: string): readonly Related
         if (assemblyObj) {
           related.push({
             assemblyObject: assemblyObj,
-            relationshipKind: edge.kind,
+            relationshipKind: effectiveKind,
             edgeId: edge.edgeId,
           });
         }

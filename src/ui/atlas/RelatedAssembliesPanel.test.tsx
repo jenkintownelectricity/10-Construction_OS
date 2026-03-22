@@ -153,3 +153,20 @@ describe('RelatedAssembliesPanel — click behavior', () => {
     expect(generationStore.getState().sourceContext!.submittalId).toBe('RA-003');
   });
 });
+
+describe('RelatedAssembliesPanel — inverse relationship display', () => {
+  it('shows Up-Slope when querying target of a down-slope edge (RA-003)', () => {
+    const onNavigate = vi.fn();
+    render(<RelatedAssembliesPanel selectedAssemblyId="RA-003" onNavigate={onNavigate} />);
+    // GE-002: RA-001 → down-slope → RA-003; RA-003 should see RA-001 as Up-Slope
+    // Multiple Up-Slope badges may exist; use getAllByText
+    expect(screen.getAllByText('Up-Slope').length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('shows Down-Slope when querying target of an up-slope edge (RA-004)', () => {
+    const onNavigate = vi.fn();
+    render(<RelatedAssembliesPanel selectedAssemblyId="RA-004" onNavigate={onNavigate} />);
+    // GE-005: RA-003 → up-slope → RA-004; RA-004 should see RA-003 as Down-Slope
+    expect(screen.getByText('Down-Slope')).toBeDefined();
+  });
+});

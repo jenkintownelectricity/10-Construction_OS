@@ -24,6 +24,7 @@ import {
   GRAPH_EDGES,
   validateGraph,
   getRelatedAssemblies,
+  getInverseKind,
   type AssemblyGraphNode,
   type AssemblyGraphEdge,
 } from './roofAssemblyGraph';
@@ -191,11 +192,88 @@ describe('getRelatedAssemblies', () => {
   it('related assemblies derive data from roofAssemblyObjects, not graph nodes', () => {
     const related = getRelatedAssemblies('RA-001');
     for (const rel of related) {
-      // Each related assemblyObject should have full data from roofAssemblyObjects
       expect(rel.assemblyObject.label).toBeTruthy();
       expect(rel.assemblyObject.manufacturer).toBeTruthy();
       expect(rel.assemblyObject.spec).toBeTruthy();
       expect(rel.assemblyObject.assemblyType).toBe('roofing');
     }
+  });
+});
+
+// ─── Inverse Relationship Inference ──────────────────────────────────
+
+describe('getInverseKind — deterministic inverse table', () => {
+  it('adjacent → adjacent (symmetric)', () => {
+    expect(getInverseKind('adjacent')).toBe('adjacent');
+  });
+
+  it('up-slope → down-slope', () => {
+    expect(getInverseKind('up-slope')).toBe('down-slope');
+  });
+
+  it('down-slope → up-slope', () => {
+    expect(getInverseKind('down-slope')).toBe('up-slope');
+  });
+
+  it('service-linked → service-linked (symmetric)', () => {
+    expect(getInverseKind('service-linked')).toBe('service-linked');
+  });
+
+  it('returns null for unknown kind', () => {
+    expect(getInverseKind('unknown' as never)).toBeNull();
+  });
+});
+
+describe('getRelatedAssemblies — inverse inference', () => {
+  it('down-slope stored edge returns up-slope when queried from target', () => {
+    // GE-002: GN-001 (RA-001) → down-slope → GN-003 (RA-003)
+    // Querying RA-003 should show RA-001 as up-slope
+    const related = getRelatedAssemblies('RA-003');
+    const fromMainRoof = related.find((r) => r.assemblyObject.objectId === 'RA-001');
+    expect(fromMainRoof).toBeDefined();
+    expect(fromMainRoof!.relationshipKind).toBe('up-slope');
+    expect(fromMainRoof!.edgeId).toBe('GE-002');
+  });
+
+  it('up-slope stored edge returns down-slope when queried from target', () => {
+    // GE-005: GN-003 (RA-003) → up-slope → GN-004 (RA-004)
+    // Querying RA-004 should show RA-003 as down-slope
+    const related = getRelatedAssemblies('RA-004');
+    const fromPodium = related.find((r) => r.assemblyObject.objectId === 'RA-003');
+    expect(fromPodium).toBeDefined();
+    expect(fromPodium!.relationshipKind).toBe('down-slope');
+    expect(fromPodium!.edgeId).toBe('GE-005');
+  });
+
+  it('adjacent stored edge remains adjacent when queried from target (symmetric)', () => {
+    // GE-001: GN-001 (RA-001) → adjacent → GN-002 (RA-002)
+    // Querying RA-002 should show RA-001 as adjacent
+    const related = getRelatedAssemblies('RA-002');
+    const fromMainRoof = related.find((r) => r.assemblyObject.objectId === 'RA-001');
+    expect(fromMainRoof).toBeDefined();
+    expect(fromMainRoof!.relationshipKind).toBe('adjacent');
+  });
+
+  it('service-linked stored edge remains service-linked when queried from target (symmetric)', () => {
+    // GE-003: GN-002 (RA-002) → service-linked → GN-004 (RA-004)
+    // Querying RA-004 should show RA-002 as service-linked
+    const related = getRelatedAssemblies('RA-004');
+    const fromMech = related.find((r) => r.assemblyObject.objectId === 'RA-002');
+    expect(fromMech).toBeDefined();
+    expect(fromMech!.relationshipKind).toBe('service-linked');
+  });
+
+  it('outgoing edges still use stored kind (not inverted)', () => {
+    // GE-002: GN-001 (RA-001) → down-slope → GN-003 (RA-003)
+    // Querying RA-001 should show RA-003 as down-slope (stored, not inverted)
+    const related = getRelatedAssemblies('RA-001');
+    const toPodium = related.find((r) => r.assemblyObject.objectId === 'RA-003');
+    expect(toPodium).toBeDefined();
+    expect(toPodium!.relationshipKind).toBe('down-slope');
+  });
+
+  it('no duplicate reverse edges exist in stored graph data', () => {
+    // Verify that the stored GRAPH_EDGES count hasn't changed (still 5)
+    expect(GRAPH_EDGES.length).toBe(5);
   });
 });
