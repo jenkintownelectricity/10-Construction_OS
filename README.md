@@ -23,6 +23,39 @@ Construction_Intelligence_Workers sits beside the governed construction stack as
 | `material_intelligence` | Analyzes material references, identifies products, classifies by assembly fit |
 | `compliance_signal` | Generates compliance signals by comparing extracted data against governed constraints |
 
+## Bus Adapters (v0.1)
+
+Worker bus adapters provide structured event emission to the Construction Cognitive Bus. Workers may emit **Observation** and **Proposal** events only. Workers must never emit `ExternallyValidatedEvent`.
+
+### Adapter Modules
+
+| Module | Purpose |
+|---|---|
+| `workers/config.py` | Worker identity constants, schema version, allowed event classes |
+| `workers/schema_builder.py` | Builds valid event envelope dicts with all required fields |
+| `workers/event_adapter.py` | Submits built envelopes to the Cognitive Bus admission gate |
+| `workers/observation_emitter.py` | Convenience wrapper for Observation events |
+| `workers/proposal_emitter.py` | Convenience wrapper for Proposal events |
+
+### Usage
+
+```python
+from workers.observation_emitter import ObservationEmitter
+from workers.proposal_emitter import ProposalEmitter
+
+# Emit an observation
+result = ObservationEmitter.emit("material.detected", {"material": "steel", "confidence": 0.95})
+
+# Emit a proposal
+result = ProposalEmitter.emit("assembly.suggestion", {"assembly_id": "A-001", "action": "review"})
+
+# Check admission result
+if result["admitted"]:
+    print("Event admitted:", result["admission_path"])
+else:
+    print("Event rejected:", result["reason"])
+```
+
 ## Stack Position
 
 This repository operates beside the construction stack (Layers 0-7). It consumes governed definitions from upstream layers and delivers proposals into governed validation surfaces. It does not participate in truth definition or runtime governance.

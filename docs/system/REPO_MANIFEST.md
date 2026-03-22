@@ -54,6 +54,20 @@ Workers read frozen compiled awareness from the Awareness Cache as contextual in
 ### Construction_Assistant
 Workers do not direct or control the assistant. Worker outputs reach the assistant indirectly — only after passing through bus admission and awareness compilation. There is no direct communication channel from workers to the assistant.
 
+## Components
+
+### Bus Adapters v0.1
+
+| Component | Path | Purpose |
+|---|---|---|
+| Worker Config | `workers/config.py` | Identity constants, schema version, allowed/denied event classes |
+| Schema Builder | `workers/schema_builder.py` | Builds valid Cognitive Bus event envelopes; refuses ExternallyValidatedEvent |
+| Event Adapter | `workers/event_adapter.py` | Submits envelopes to Cognitive Bus admission gate (local call) |
+| Observation Emitter | `workers/observation_emitter.py` | Convenience wrapper: build + submit Observation events |
+| Proposal Emitter | `workers/proposal_emitter.py` | Convenience wrapper: build + submit Proposal events |
+| Format Tests | `tests/test_worker_event_format.py` | Validates envelope structure, field presence, uniqueness, size limits |
+| Submission Tests | `tests/test_worker_bus_submission.py` | Validates bus admission/rejection for valid and invalid events |
+
 ## Non-Authority Guarantees
 
 1. **Emit proposals/observations/signals only** — workers produce non-authoritative cognitive outputs exclusively
