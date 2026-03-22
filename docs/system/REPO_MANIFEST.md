@@ -50,6 +50,17 @@ Construction_Cognitive_Bus does not hold truth, does not govern runtime, and doe
 | Configuration | `bus/config.py` | Local constants: paths, limits, allowed emitters/classes |
 | Models | `bus/models.py` | Record types, content hashing, routing decisions |
 
+## Emitter Input vs Bus-Derived Metadata
+
+The incoming event envelope contains emitter-supplied fields only: `event_id`, `event_class`, `event_type`, `schema_version`, `source_component`, `source_repo`, `timestamp`, `payload`, and optionally `authority_status` and `validation_status`.
+
+The following are **bus-derived metadata**, computed at admission time and stored in admission/rejection records — they are NOT emitter-supplied input:
+- `content_hash` — deterministic SHA-256 of event content, computed by the bus
+- `admission_timestamp` — time the bus processed the event
+- `admission_decision` — the bus's admit/reject verdict
+
+`ExternallyValidatedEvent` requires `authority_status` to identify the upstream governed system that validated it. The bus still does not validate domain truth — it only confirms that the upstream authority context is declared.
+
 ## Admission Pipeline
 
 ```
@@ -92,7 +103,7 @@ Construction_Cognitive_Bus receives intelligence signals from CRI as cognitive e
 As a non-authority service, Construction_Cognitive_Bus defers to ValidKernel for all questions of truth and governance. The bus validates event structure but never asserts truth. When kernel-level decisions are required, they are the province of ValidKernel, not the bus.
 
 ### 4. Construction Awareness Cache
-The awareness cache maintains cognitive state and working memory. Construction_Cognitive_Bus routes admitted events toward the awareness cache as a downstream consumer but does not itself maintain awareness state. The bus is a transport and admission layer, not a state holder.
+The awareness cache maintains cognitive state and working memory. Construction_Cognitive_Bus routes admitted events toward the awareness cache as a downstream consumer but does not itself maintain awareness state. The bus is a cognitive event/admission layer, not a state holder.
 
 ### 5. Registry Services
 Construction_Cognitive_Bus is not a registry. It may consume registry information (such as emitter registration and trust levels) to perform emitter trust verification during admission, but it does not serve as the authoritative source for that registration data.

@@ -17,6 +17,8 @@ def _clean_state():
     for d in (EVENTS_DIR, REJECTIONS_DIR):
         if os.path.exists(d):
             shutil.rmtree(d)
+        os.makedirs(d, exist_ok=True)
+        open(os.path.join(d, ".gitkeep"), "a").close()
 
 
 class TestRejectionBehavior(unittest.TestCase):

@@ -178,5 +178,5 @@ Construction_Cognitive_Bus provides the following non-authority guarantees:
 2. **NOT truth** — the bus validates structure, not truth. An admitted event is structurally valid and from a trusted emitter. It is not certified as true.
 3. **NOT a registry** — the bus consumes registration and trust data but does not serve as the authoritative source for that data.
 4. **NOT runtime** — the bus does not execute workloads, manage processes, or orchestrate services. It admits and routes events.
-5. **NOT the awareness cache** — the bus does not maintain cognitive state, working memory, or awareness context. It is a transport and admission layer.
+5. **NOT the awareness cache** — the bus does not maintain cognitive state, working memory, or awareness context. It is a cognitive event/admission layer.
 6. **Validates structure, not truth content** — schema validation confirms well-formedness. It does not confirm correctness, accuracy, or truthfulness of event payloads.

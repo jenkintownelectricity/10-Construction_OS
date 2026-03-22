@@ -16,9 +16,12 @@ Governed cognitive event/admission layer for Construction OS.
 
 ## Quickstart
 
+Emitters submit an **incoming event envelope** — the bus validates it and produces an **admission record** containing bus-derived metadata.
+
 ```python
 from bus.admission_gate import receive_event
 
+# Incoming event envelope (emitter-supplied fields only)
 event = {
     "event_id": "evt-001",
     "event_class": "Observation",
@@ -34,6 +37,8 @@ result = receive_event(event)
 print(result)
 # {'admitted': True, 'reason': 'admitted', 'admission_path': '...', 'content_hash': '...', 'routing': {...}}
 ```
+
+The admitted record stored on disk includes the original event plus bus-derived metadata: `content_hash` (deterministic SHA-256 of event content, computed by the bus at admission time — not emitter-supplied), `admission_timestamp`, and `admission_decision`. Replay reads these admitted records, not raw emitter submissions.
 
 ## Event Classes
 

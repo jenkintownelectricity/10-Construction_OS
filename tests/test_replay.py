@@ -17,6 +17,8 @@ def _clean_state():
     for d in (EVENTS_DIR, REJECTIONS_DIR):
         if os.path.exists(d):
             shutil.rmtree(d)
+        os.makedirs(d, exist_ok=True)
+        open(os.path.join(d, ".gitkeep"), "a").close()
 
 
 def _valid_event(event_id="evt-r-001", event_class="Observation", source_component="Construction_Intelligence_Workers"):
