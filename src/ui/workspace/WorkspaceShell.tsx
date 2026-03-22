@@ -140,7 +140,11 @@ function CompanionSwitcher({ onSwitch, currentPanel }: { onSwitch: (panel: Panel
 
 // ─── Workspace Shell ────────────────────────────────────────────────────────
 
-export function WorkspaceShell() {
+interface WorkspaceShellProps {
+  onSwitchToShopDrawings?: () => void;
+}
+
+export function WorkspaceShell({ onSwitchToShopDrawings }: WorkspaceShellProps = {}) {
   const [deviceClass, setDeviceClass] = useState<DeviceClass>(detectDeviceClass);
   const apiRef = useRef<DockviewReadyEvent['api'] | null>(null);
   const [isPhoneMode, setIsPhoneMode] = useState(deviceClass === 'phone');
@@ -305,6 +309,24 @@ export function WorkspaceShell() {
           )}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: tokens.space.sm }}>
+          {onSwitchToShopDrawings && (
+            <button
+              onClick={onSwitchToShopDrawings}
+              style={{
+                padding: `${tokens.space.xs} ${tokens.space.sm}`,
+                background: tokens.color.bgElevated,
+                color: tokens.color.fgMuted,
+                border: `1px solid ${tokens.color.border}`,
+                borderRadius: tokens.radius.sm,
+                cursor: 'pointer',
+                fontSize: tokens.font.sizeXs,
+                fontFamily: tokens.font.familyMono,
+              }}
+              title="Switch to Shop Drawings view"
+            >
+              SHOP DRAWINGS
+            </button>
+          )}
           <DeckPicker applyLayout={applyDeckLayout} />
           <button
             onClick={() => setCommandPaletteOpen(true)}
