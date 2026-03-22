@@ -3,6 +3,9 @@
  *
  * Premium workstation aesthetic. Dark, structured, technically potent.
  * NOT generic admin SaaS. NOT a toy AI app. NOT a dashboard.
+ *
+ * Typography scale: readable cockpit scale (html root = 16px).
+ * No font size smaller than 0.85rem (13.6px) in cockpit panels.
  */
 
 export const tokens = {
@@ -52,19 +55,22 @@ export const tokens = {
   },
 
   // ─── Typography ─────────────────────────────────────────────────────
+  // Readable cockpit scale. All sizes >= 0.85rem (13.6px at 16px root).
   font: {
     family: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
     familyMono: "'JetBrains Mono', 'Fira Code', 'SF Mono', monospace",
-    sizeXs: '0.6875rem',     // 11px
-    sizeSm: '0.75rem',       // 12px
-    sizeBase: '0.8125rem',   // 13px
-    sizeMd: '0.875rem',      // 14px
-    sizeLg: '1rem',          // 16px
-    sizeXl: '1.25rem',       // 20px
+    sizeXs: '0.85rem',       // ~13.6px — rows, status, meta, badges
+    sizeSm: '0.95rem',       // ~15.2px — panel body, content, lists
+    sizeBase: '1rem',        // 16px — base readable size
+    sizeMd: '1.05rem',       // ~16.8px — panel titles, headings
+    sizeLg: '1.25rem',       // 20px — section headings
+    sizeXl: '1.5rem',        // 24px — page headings
     weightNormal: '400',
     weightMedium: '500',
     weightSemibold: '600',
     weightBold: '700',
+    lineNormal: '1.4',       // line-height for content/lists/diagnostics
+    lineTight: '1.25',       // line-height for headings/titles
   },
 
   // ─── Spacing ────────────────────────────────────────────────────────
@@ -75,6 +81,8 @@ export const tokens = {
     lg: '16px',
     xl: '24px',
     xxl: '32px',
+    rowY: '8px',              // vertical row padding
+    rowX: '12px',             // horizontal row padding
   },
 
   // ─── Borders & Radii ───────────────────────────────────────────────

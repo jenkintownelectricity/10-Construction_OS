@@ -259,23 +259,25 @@ export function WorkspaceShell() {
   }, []);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: tokens.color.bgDeep }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: tokens.color.bgDeep, minHeight: 0 }}>
       {/* Status Bar */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: `${tokens.space.xs} ${tokens.space.md}`,
+        padding: `${tokens.space.sm} ${tokens.space.md}`,
         background: tokens.color.bgBase,
         borderBottom: `1px solid ${tokens.color.border}`,
-        minHeight: '28px',
+        minHeight: '40px',
+        flexShrink: 0,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: tokens.space.md }}>
           <span style={{
-            fontSize: tokens.font.sizeSm,
+            fontSize: tokens.font.sizeMd,
             fontWeight: tokens.font.weightBold,
             color: tokens.color.fgPrimary,
             letterSpacing: '0.08em',
+            lineHeight: tokens.font.lineTight,
           }}>
             CONSTRUCTION OS
           </span>
@@ -309,7 +311,7 @@ export function WorkspaceShell() {
       </div>
 
       {/* Workspace */}
-      <div style={{ flex: 1, overflow: 'hidden' }}>
+      <div style={{ flex: 1, overflow: 'hidden', minHeight: 0 }}>
         <DockviewReact
           className="dockview-theme-dark"
           onReady={handleReady}

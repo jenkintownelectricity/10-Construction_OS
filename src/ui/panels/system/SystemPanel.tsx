@@ -90,7 +90,7 @@ export function SystemPanel() {
             onClick={() => setActiveTab(tab.key)}
             style={{
               flex: 1,
-              padding: `${tokens.space.xs} ${tokens.space.sm}`,
+              padding: `${tokens.space.sm} ${tokens.space.sm}`,
               background: activeTab === tab.key ? tokens.color.bgActive : tokens.color.bgElevated,
               color: activeTab === tab.key ? tokens.color.fgPrimary : tokens.color.fgSecondary,
               border: 'none',
@@ -98,6 +98,7 @@ export function SystemPanel() {
               fontSize: tokens.font.sizeXs,
               fontFamily: tokens.font.family,
               fontWeight: activeTab === tab.key ? tokens.font.weightSemibold : tokens.font.weightNormal,
+              lineHeight: tokens.font.lineTight,
             }}
           >
             {tab.label}
@@ -114,12 +115,13 @@ export function SystemPanel() {
           {alerts.slice(0, 3).map((alert) => (
             <div key={alert.id} style={{
               padding: tokens.space.sm,
-              marginBottom: tokens.space.xs,
+              marginBottom: tokens.space.sm,
               background: `${tokens.color[alert.type]}10`,
               borderLeft: `3px solid ${tokens.color[alert.type]}`,
               borderRadius: tokens.radius.sm,
               fontSize: tokens.font.sizeXs,
               color: tokens.color[alert.type],
+              lineHeight: tokens.font.lineNormal,
             }}>
               {alert.message}
             </div>
@@ -136,11 +138,12 @@ export function SystemPanel() {
             validations.map((v, i) => (
               <div key={i} style={{
                 padding: tokens.space.sm,
-                marginBottom: tokens.space.xs,
+                marginBottom: tokens.space.sm,
                 background: tokens.color.bgBase,
                 borderRadius: tokens.radius.sm,
                 borderLeft: `3px solid ${v.status === 'passed' ? tokens.color.success : v.status === 'failed' ? tokens.color.error : tokens.color.warning}`,
                 fontSize: tokens.font.sizeXs,
+                lineHeight: tokens.font.lineNormal,
               }}>
                 <span style={{ fontWeight: tokens.font.weightMedium }}>{v.objectId}</span> — {v.status.toUpperCase()}
                 {v.issues.length > 0 && <span style={{ color: tokens.color.fgMuted }}> ({v.issues.length} issues)</span>}
@@ -154,7 +157,7 @@ export function SystemPanel() {
         <div>
           {activeObject && (
             <button onClick={handleCreateTask} style={{
-              padding: `${tokens.space.xs} ${tokens.space.md}`,
+              padding: `${tokens.space.sm} ${tokens.space.md}`,
               marginBottom: tokens.space.md,
               background: tokens.color.bgElevated,
               color: tokens.color.fgSecondary,
@@ -173,10 +176,11 @@ export function SystemPanel() {
             tasks.map((t, i) => (
               <div key={i} style={{
                 padding: tokens.space.sm,
-                marginBottom: tokens.space.xs,
+                marginBottom: tokens.space.sm,
                 background: tokens.color.bgBase,
                 borderRadius: tokens.radius.sm,
                 fontSize: tokens.font.sizeXs,
+                lineHeight: tokens.font.lineNormal,
               }}>
                 <span style={{ fontWeight: tokens.font.weightMedium }}>{t.title}</span>
                 <span style={{ color: tokens.color.fgMuted, marginLeft: tokens.space.sm }}>{t.objectId}</span>
@@ -194,10 +198,11 @@ export function SystemPanel() {
             proposals.map((p, i) => (
               <div key={i} style={{
                 padding: tokens.space.sm,
-                marginBottom: tokens.space.xs,
+                marginBottom: tokens.space.sm,
                 background: tokens.color.bgBase,
                 borderRadius: tokens.radius.sm,
                 fontSize: tokens.font.sizeXs,
+                lineHeight: tokens.font.lineNormal,
               }}>
                 <span style={{ fontWeight: tokens.font.weightMedium }}>{p.title}</span>
                 <div style={{ color: tokens.color.fgMuted, marginTop: '2px' }}>{p.description}</div>
@@ -214,11 +219,12 @@ export function SystemPanel() {
           ) : (
             activityLog.map((entry, i) => (
               <div key={i} style={{
-                padding: `${tokens.space.xs} ${tokens.space.sm}`,
+                padding: `${tokens.space.sm} ${tokens.space.sm}`,
                 marginBottom: '1px',
                 background: i % 2 === 0 ? tokens.color.bgBase : 'transparent',
                 fontSize: tokens.font.sizeXs,
                 fontFamily: tokens.font.familyMono,
+                lineHeight: tokens.font.lineNormal,
                 display: 'flex',
                 gap: tokens.space.sm,
               }}>

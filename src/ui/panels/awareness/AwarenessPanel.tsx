@@ -65,12 +65,13 @@ export function AwarenessPanel() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: `${tokens.space.xs} ${tokens.space.sm}`,
+        padding: `${tokens.space.sm} ${tokens.space.sm}`,
         marginBottom: tokens.space.sm,
         background: tokens.color.bgBase,
         borderRadius: tokens.radius.sm,
         fontSize: tokens.font.sizeXs,
         fontFamily: tokens.font.familyMono,
+        lineHeight: tokens.font.lineNormal,
       }}>
         <span style={{ color: tokens.color.fgMuted }}>
           {state?.snapshot_id ? `SNAPSHOT ${state.snapshot_id}` : 'NO SNAPSHOT'}
@@ -145,7 +146,7 @@ export function AwarenessPanel() {
                 onClick={() => setActiveTab(tab.key)}
                 style={{
                   flex: 1,
-                  padding: `${tokens.space.xs} ${tokens.space.sm}`,
+                  padding: `${tokens.space.sm} ${tokens.space.sm}`,
                   background: activeTab === tab.key ? tokens.color.bgActive : tokens.color.bgElevated,
                   color: activeTab === tab.key
                     ? (tab.key === 'fail_closed' && tab.count > 0 ? tokens.color.error : tokens.color.fgPrimary)
@@ -155,6 +156,7 @@ export function AwarenessPanel() {
                   fontSize: tokens.font.sizeXs,
                   fontFamily: tokens.font.family,
                   fontWeight: activeTab === tab.key ? tokens.font.weightSemibold : tokens.font.weightNormal,
+                  lineHeight: tokens.font.lineTight,
                 }}
               >
                 {tab.label}
@@ -176,11 +178,12 @@ export function AwarenessPanel() {
                 state.active_conditions.map((c, i) => (
                   <div key={i} style={{
                     padding: tokens.space.sm,
-                    marginBottom: tokens.space.xs,
+                    marginBottom: tokens.space.sm,
                     background: tokens.color.bgBase,
                     borderRadius: tokens.radius.sm,
                     borderLeft: `3px solid ${tokens.color.info}`,
                     fontSize: tokens.font.sizeXs,
+                    lineHeight: tokens.font.lineNormal,
                   }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span style={{ fontWeight: tokens.font.weightSemibold, color: tokens.color.fgPrimary, fontFamily: tokens.font.familyMono }}>
@@ -219,7 +222,7 @@ export function AwarenessPanel() {
                   {/* Pending */}
                   {state.pending_artifacts.length > 0 && (
                     <div style={{ marginBottom: tokens.space.md }}>
-                      <div style={{ fontSize: tokens.font.sizeXs, color: tokens.color.warning, fontWeight: tokens.font.weightSemibold, marginBottom: tokens.space.xs }}>
+                      <div style={{ fontSize: tokens.font.sizeXs, color: tokens.color.warning, fontWeight: tokens.font.weightSemibold, marginBottom: tokens.space.sm }}>
                         PENDING ({state.pending_artifacts.length})
                       </div>
                       {state.pending_artifacts.map((a, i) => (
@@ -231,7 +234,7 @@ export function AwarenessPanel() {
                   {/* Delivered */}
                   {state.delivered_artifacts.length > 0 && (
                     <div style={{ marginBottom: tokens.space.md }}>
-                      <div style={{ fontSize: tokens.font.sizeXs, color: tokens.color.success, fontWeight: tokens.font.weightSemibold, marginBottom: tokens.space.xs }}>
+                      <div style={{ fontSize: tokens.font.sizeXs, color: tokens.color.success, fontWeight: tokens.font.weightSemibold, marginBottom: tokens.space.sm }}>
                         DELIVERED ({state.delivered_artifacts.length})
                       </div>
                       {state.delivered_artifacts.map((a, i) => (
@@ -243,7 +246,7 @@ export function AwarenessPanel() {
                   {/* Quarantined */}
                   {state.quarantined_artifacts.length > 0 && (
                     <div style={{ marginBottom: tokens.space.md }}>
-                      <div style={{ fontSize: tokens.font.sizeXs, color: tokens.color.error, fontWeight: tokens.font.weightSemibold, marginBottom: tokens.space.xs }}>
+                      <div style={{ fontSize: tokens.font.sizeXs, color: tokens.color.error, fontWeight: tokens.font.weightSemibold, marginBottom: tokens.space.sm }}>
                         QUARANTINED ({state.quarantined_artifacts.length})
                       </div>
                       {state.quarantined_artifacts.map((a, i) => (
@@ -267,11 +270,12 @@ export function AwarenessPanel() {
                 state.open_proposals.map((p, i) => (
                   <div key={i} style={{
                     padding: tokens.space.sm,
-                    marginBottom: tokens.space.xs,
+                    marginBottom: tokens.space.sm,
                     background: tokens.color.bgBase,
                     borderRadius: tokens.radius.sm,
                     borderLeft: `3px solid ${tokens.color.compare}`,
                     fontSize: tokens.font.sizeXs,
+                    lineHeight: tokens.font.lineNormal,
                   }}>
                     <div style={{ fontWeight: tokens.font.weightMedium, color: tokens.color.fgPrimary }}>
                       {p.event_id}
@@ -299,11 +303,12 @@ export function AwarenessPanel() {
                 state.fail_closed_log.map((entry, i) => (
                   <div key={i} style={{
                     padding: tokens.space.sm,
-                    marginBottom: tokens.space.xs,
+                    marginBottom: tokens.space.sm,
                     background: 'rgba(239,68,68,0.05)',
                     borderRadius: tokens.radius.sm,
                     borderLeft: `3px solid ${tokens.color.error}`,
                     fontSize: tokens.font.sizeXs,
+                    lineHeight: tokens.font.lineNormal,
                   }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <span style={{ fontWeight: tokens.font.weightSemibold, color: tokens.color.error }}>
@@ -352,11 +357,12 @@ function ArtifactRow({ artifact }: { artifact: import('../../contracts/cockpit-t
   return (
     <div style={{
       padding: tokens.space.sm,
-      marginBottom: tokens.space.xs,
+      marginBottom: tokens.space.sm,
       background: tokens.color.bgBase,
       borderRadius: tokens.radius.sm,
       borderLeft: `3px solid ${lifecycleColor}`,
       fontSize: tokens.font.sizeXs,
+      lineHeight: tokens.font.lineNormal,
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{ fontWeight: tokens.font.weightMedium, color: tokens.color.fgPrimary, fontFamily: tokens.font.familyMono }}>

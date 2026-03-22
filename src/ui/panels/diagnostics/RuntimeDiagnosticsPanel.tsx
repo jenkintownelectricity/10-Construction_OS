@@ -70,12 +70,13 @@ export function RuntimeDiagnosticsPanel() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: `${tokens.space.xs} ${tokens.space.sm}`,
+        padding: `${tokens.space.sm} ${tokens.space.sm}`,
         marginBottom: tokens.space.sm,
         background: tokens.color.bgBase,
         borderRadius: tokens.radius.sm,
         fontSize: tokens.font.sizeXs,
         fontFamily: tokens.font.familyMono,
+        lineHeight: tokens.font.lineNormal,
       }}>
         <span style={{ color: tokens.color.fgMuted }}>
           RUNTIME SIGNAL STREAM
@@ -146,7 +147,7 @@ export function RuntimeDiagnosticsPanel() {
                 onClick={() => setActiveTab(tab.key)}
                 style={{
                   flex: 1,
-                  padding: `${tokens.space.xs} ${tokens.space.sm}`,
+                  padding: `${tokens.space.sm} ${tokens.space.sm}`,
                   background: activeTab === tab.key ? tokens.color.bgActive : tokens.color.bgElevated,
                   color: activeTab === tab.key ? tokens.color.fgPrimary : tokens.color.fgSecondary,
                   border: 'none',
@@ -154,6 +155,7 @@ export function RuntimeDiagnosticsPanel() {
                   fontSize: tokens.font.sizeXs,
                   fontFamily: tokens.font.family,
                   fontWeight: activeTab === tab.key ? tokens.font.weightSemibold : tokens.font.weightNormal,
+                  lineHeight: tokens.font.lineTight,
                 }}
               >
                 {tab.label}
@@ -204,11 +206,12 @@ export function RuntimeDiagnosticsPanel() {
                   return (
                     <div key={i} style={{
                       padding: tokens.space.sm,
-                      marginBottom: tokens.space.xs,
+                      marginBottom: tokens.space.sm,
                       background: tokens.color.bgBase,
                       borderRadius: tokens.radius.sm,
                       borderLeft: `3px solid ${lifecycleColor}`,
                       fontSize: tokens.font.sizeXs,
+                      lineHeight: tokens.font.lineNormal,
                     }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span style={{ fontWeight: tokens.font.weightMedium, color: tokens.color.fgPrimary, fontFamily: tokens.font.familyMono }}>
@@ -268,11 +271,12 @@ function PipelineStageRow({ stage }: { stage: PipelineStageStatus }) {
       display: 'flex',
       alignItems: 'center',
       gap: tokens.space.sm,
-      padding: `${tokens.space.xs} ${tokens.space.sm}`,
+      padding: `${tokens.space.sm} ${tokens.space.sm}`,
       marginBottom: '1px',
       background: isFail ? 'rgba(239,68,68,0.08)' : tokens.color.bgBase,
       borderRadius: tokens.radius.sm,
       fontSize: tokens.font.sizeXs,
+      lineHeight: tokens.font.lineNormal,
     }}>
       <span style={{
         width: '16px',
@@ -347,11 +351,12 @@ function EventRow({ event }: { event: RuntimeDiagnosticEvent }) {
   return (
     <div style={{
       padding: tokens.space.sm,
-      marginBottom: tokens.space.xs,
+      marginBottom: tokens.space.sm,
       background: isFail ? 'rgba(239,68,68,0.08)' : tokens.color.bgBase,
       borderRadius: tokens.radius.sm,
       borderLeft: `3px solid ${color}`,
       fontSize: tokens.font.sizeXs,
+      lineHeight: tokens.font.lineNormal,
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <span style={{

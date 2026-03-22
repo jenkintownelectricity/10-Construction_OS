@@ -67,13 +67,13 @@ export function ReferencePanel() {
   return (
     <PanelShell panelId="reference" title="Reference" isMock={adapters.reference.isMock}>
       {/* Filter Bar */}
-      <div style={{ display: 'flex', gap: tokens.space.xs, marginBottom: tokens.space.md, flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: tokens.space.sm, marginBottom: tokens.space.md, flexWrap: 'wrap' }}>
         {filters.map((f) => (
           <button
             key={f.key}
             onClick={() => setFilter(f.key)}
             style={{
-              padding: `2px ${tokens.space.sm}`,
+              padding: `${tokens.space.sm} ${tokens.space.sm}`,
               background: filter === f.key ? tokens.color.bgActive : tokens.color.bgElevated,
               color: filter === f.key ? tokens.color.fgPrimary : tokens.color.fgMuted,
               border: `1px solid ${filter === f.key ? tokens.color.borderActive : tokens.color.border}`,
@@ -81,6 +81,7 @@ export function ReferencePanel() {
               cursor: 'pointer',
               fontSize: tokens.font.sizeXs,
               fontFamily: tokens.font.family,
+              lineHeight: tokens.font.lineTight,
             }}
           >
             {f.label}
@@ -109,7 +110,7 @@ export function ReferencePanel() {
                 borderLeft: `3px solid ${basisColor[ref.sourceBasis] ?? tokens.color.fgMuted}`,
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: tokens.space.xs }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: tokens.space.sm }}>
                 <span style={{ fontSize: tokens.font.sizeSm, fontWeight: tokens.font.weightSemibold, color: tokens.color.fgPrimary }}>
                   {ref.title}
                 </span>
@@ -124,7 +125,7 @@ export function ReferencePanel() {
                   {ref.sourceBasis}
                 </span>
               </div>
-              <div style={{ fontSize: tokens.font.sizeXs, color: tokens.color.fgSecondary, marginBottom: tokens.space.xs }}>
+              <div style={{ fontSize: tokens.font.sizeXs, color: tokens.color.fgSecondary, marginBottom: tokens.space.sm, lineHeight: tokens.font.lineNormal }}>
                 {ref.content}
               </div>
               <div style={{ display: 'flex', gap: tokens.space.sm, fontSize: tokens.font.sizeXs, color: tokens.color.fgMuted }}>
@@ -144,17 +145,17 @@ export function ReferencePanel() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: tokens.space.sm }}>
             <div>
-              <div style={{ fontSize: tokens.font.sizeXs, color: tokens.color.fgMuted, marginBottom: tokens.space.xs }}>Object A</div>
+              <div style={{ fontSize: tokens.font.sizeXs, color: tokens.color.fgMuted, marginBottom: tokens.space.sm }}>Object A</div>
               {compareRefs.a.map((r) => (
-                <div key={r.id} style={{ fontSize: tokens.font.sizeXs, padding: tokens.space.xs, background: tokens.color.bgBase, borderRadius: tokens.radius.sm, marginBottom: '2px' }}>
+                <div key={r.id} style={{ fontSize: tokens.font.sizeXs, padding: tokens.space.sm, background: tokens.color.bgBase, borderRadius: tokens.radius.sm, marginBottom: '2px', lineHeight: tokens.font.lineNormal }}>
                   {r.title}
                 </div>
               ))}
             </div>
             <div>
-              <div style={{ fontSize: tokens.font.sizeXs, color: tokens.color.fgMuted, marginBottom: tokens.space.xs }}>Object B</div>
+              <div style={{ fontSize: tokens.font.sizeXs, color: tokens.color.fgMuted, marginBottom: tokens.space.sm }}>Object B</div>
               {compareRefs.b.map((r) => (
-                <div key={r.id} style={{ fontSize: tokens.font.sizeXs, padding: tokens.space.xs, background: tokens.color.bgBase, borderRadius: tokens.radius.sm, marginBottom: '2px' }}>
+                <div key={r.id} style={{ fontSize: tokens.font.sizeXs, padding: tokens.space.sm, background: tokens.color.bgBase, borderRadius: tokens.radius.sm, marginBottom: '2px', lineHeight: tokens.font.lineNormal }}>
                   {r.title}
                 </div>
               ))}

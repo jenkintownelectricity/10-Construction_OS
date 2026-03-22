@@ -80,7 +80,7 @@ export function SpatialPanel() {
             key={layer}
             onClick={() => toggleLayer(layer)}
             style={{
-              padding: `2px ${tokens.space.sm}`,
+              padding: `${tokens.space.sm} ${tokens.space.sm}`,
               background: visible ? tokens.color.bgActive : tokens.color.bgElevated,
               color: visible ? tokens.color.fgPrimary : tokens.color.fgMuted,
               border: `1px solid ${visible ? tokens.color.borderActive : tokens.color.border}`,
@@ -89,6 +89,7 @@ export function SpatialPanel() {
               fontSize: tokens.font.sizeXs,
               fontFamily: tokens.font.family,
               textTransform: 'capitalize',
+              lineHeight: tokens.font.lineTight,
             }}
           >
             {layer}
@@ -181,7 +182,7 @@ export function SpatialPanel() {
 
       {/* Zone List */}
       <div style={{ marginTop: tokens.space.md }}>
-        <div style={{ fontSize: tokens.font.sizeXs, color: tokens.color.fgMuted, marginBottom: tokens.space.xs, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        <div style={{ fontSize: tokens.font.sizeXs, color: tokens.color.fgMuted, marginBottom: tokens.space.sm, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
           Zones
         </div>
         {zones.map((zone) => (
@@ -189,12 +190,13 @@ export function SpatialPanel() {
             key={zone.id}
             onClick={() => handleSelectZone(zone)}
             style={{
-              padding: `${tokens.space.xs} ${tokens.space.sm}`,
+              padding: `${tokens.space.sm} ${tokens.space.sm}`,
               background: activeZoneId === zone.id ? tokens.color.bgActive : 'transparent',
               borderLeft: activeZoneId === zone.id ? `2px solid ${tokens.color.echoActive}` : '2px solid transparent',
               cursor: 'pointer',
               fontSize: tokens.font.sizeSm,
               color: activeZoneId === zone.id ? tokens.color.fgPrimary : tokens.color.fgSecondary,
+              lineHeight: tokens.font.lineNormal,
             }}
           >
             {zone.name}

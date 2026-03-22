@@ -95,7 +95,7 @@ export function WorkPanel() {
             onClick={() => setActiveTab(tab.key)}
             style={{
               flex: 1,
-              padding: `${tokens.space.xs} ${tokens.space.sm}`,
+              padding: `${tokens.space.sm} ${tokens.space.sm}`,
               background: activeTab === tab.key ? tokens.color.bgActive : tokens.color.bgElevated,
               color: activeTab === tab.key ? tokens.color.fgPrimary : tokens.color.fgSecondary,
               border: 'none',
@@ -103,6 +103,7 @@ export function WorkPanel() {
               fontSize: tokens.font.sizeSm,
               fontWeight: activeTab === tab.key ? tokens.font.weightSemibold : tokens.font.weightNormal,
               fontFamily: tokens.font.family,
+              lineHeight: tokens.font.lineTight,
               transition: `all ${tokens.transition.fast}`,
             }}
           >
@@ -155,7 +156,7 @@ export function WorkPanel() {
                   onClick={handleRequestValidation}
                   disabled={workerRunning}
                   style={{
-                    padding: `${tokens.space.xs} ${tokens.space.md}`,
+                    padding: `${tokens.space.sm} ${tokens.space.md}`,
                     background: tokens.color.accentPrimary,
                     color: '#fff',
                     border: 'none',
@@ -171,7 +172,7 @@ export function WorkPanel() {
                 <button
                   onClick={handleRequestCompare}
                   style={{
-                    padding: `${tokens.space.xs} ${tokens.space.md}`,
+                    padding: `${tokens.space.sm} ${tokens.space.md}`,
                     background: tokens.color.bgElevated,
                     color: tokens.color.fgSecondary,
                     border: `1px solid ${tokens.color.border}`,
@@ -196,7 +197,7 @@ export function WorkPanel() {
                 <div>
                   <div style={{
                     display: 'inline-block',
-                    padding: `${tokens.space.xs} ${tokens.space.sm}`,
+                    padding: `${tokens.space.sm} ${tokens.space.sm}`,
                     borderRadius: tokens.radius.sm,
                     background: validationResult.status === 'passed' ? tokens.color.success + '20' : tokens.color.error + '20',
                     color: validationResult.status === 'passed' ? tokens.color.success : tokens.color.error,
@@ -211,11 +212,12 @@ export function WorkPanel() {
                       {validationResult.issues.map((issue) => (
                         <div key={issue.id} style={{
                           padding: tokens.space.sm,
-                          marginBottom: tokens.space.xs,
+                          marginBottom: tokens.space.sm,
                           background: tokens.color.bgBase,
                           borderRadius: tokens.radius.sm,
                           borderLeft: `3px solid ${issue.severity === 'error' ? tokens.color.error : issue.severity === 'warning' ? tokens.color.warning : tokens.color.info}`,
                           fontSize: tokens.font.sizeSm,
+                          lineHeight: tokens.font.lineNormal,
                         }}>
                           <span style={{ fontWeight: tokens.font.weightMedium }}>{issue.severity.toUpperCase()}</span>: {issue.message}
                           {issue.rule && <span style={{ color: tokens.color.fgMuted, fontFamily: tokens.font.familyMono, marginLeft: tokens.space.sm }}>{issue.rule}</span>}
