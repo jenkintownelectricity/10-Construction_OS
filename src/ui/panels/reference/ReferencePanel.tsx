@@ -91,12 +91,48 @@ export function ReferencePanel() {
 
       {/* References */}
       {!activeObject ? (
-        <div style={{ color: tokens.color.fgMuted, fontSize: tokens.font.sizeSm, textAlign: 'center', paddingTop: tokens.space.xl }}>
-          Select an object to view references
+        <div style={{ color: tokens.color.fgMuted, fontSize: tokens.font.sizeSm, paddingTop: tokens.space.lg }}>
+          <div style={{ textAlign: 'center', marginBottom: tokens.space.lg }}>
+            Select an object to view its references
+          </div>
+          <div style={{
+            padding: tokens.space.md,
+            background: tokens.color.bgBase,
+            borderRadius: tokens.radius.sm,
+            border: `1px solid ${tokens.color.borderSubtle}`,
+          }}>
+            <div style={{
+              fontSize: tokens.font.sizeXs,
+              fontWeight: tokens.font.weightSemibold,
+              color: tokens.color.fgSecondary,
+              marginBottom: tokens.space.sm,
+              letterSpacing: '0.03em',
+            }}>
+              REFERENCE SOURCES
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: tokens.space.sm, fontSize: tokens.font.sizeXs, lineHeight: tokens.font.lineNormal }}>
+              <ReferenceSourceHint icon={'\u25C7'} label="Specs" description="Industry standards, code references, and project specifications (AISC, ACI, ASTM)" color={tokens.color.canonical} />
+              <ReferenceSourceHint icon={'\u25A1'} label="Code" description="Design code sections, compliance requirements, and regulatory references" color={tokens.color.accentPrimary} />
+              <ReferenceSourceHint icon={'\u25A0'} label="Docs" description="Project drawings, assembly drawings, shop drawing references, and reports" color={tokens.color.derived} />
+              <ReferenceSourceHint icon={'\u25B2'} label="Citations" description="Calculation reports, verification notes, and provenance documentation" color={tokens.color.warning} />
+            </div>
+          </div>
         </div>
       ) : references.length === 0 ? (
-        <div style={{ color: tokens.color.fgMuted, fontSize: tokens.font.sizeSm }}>
-          No references found for this object.
+        <div style={{
+          color: tokens.color.fgMuted,
+          fontSize: tokens.font.sizeSm,
+          padding: tokens.space.md,
+          background: tokens.color.bgBase,
+          borderRadius: tokens.radius.sm,
+          border: `1px dashed ${tokens.color.border}`,
+          lineHeight: tokens.font.lineNormal,
+        }}>
+          <div style={{ marginBottom: tokens.space.sm }}>No references found for {activeObject.name}.</div>
+          <div style={{ fontSize: tokens.font.sizeXs }}>
+            This object has no linked specs, code references, documents, or citations.
+            References are populated by source adapters when real data is connected.
+          </div>
         </div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: tokens.space.sm }}>
@@ -164,5 +200,19 @@ export function ReferencePanel() {
         </div>
       )}
     </PanelShell>
+  );
+}
+
+// ─── Reference Source Hint ─────────────────────────────────────────────────
+
+function ReferenceSourceHint({ icon, label, description, color }: { icon: string; label: string; description: string; color: string }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'flex-start', gap: tokens.space.sm }}>
+      <span style={{ color, fontSize: tokens.font.sizeXs, flexShrink: 0, marginTop: '2px' }}>{icon}</span>
+      <div>
+        <span style={{ fontWeight: tokens.font.weightSemibold, color: tokens.color.fgSecondary }}>{label}</span>
+        <span style={{ color: tokens.color.fgMuted }}> — {description}</span>
+      </div>
+    </div>
   );
 }

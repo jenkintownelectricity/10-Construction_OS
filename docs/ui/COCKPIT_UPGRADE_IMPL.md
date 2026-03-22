@@ -27,6 +27,7 @@
 | `src/ui/panels/explorer/ExplorerPanel.tsx` | Added subtle tree guide lines for visual hierarchy |
 | `src/ui/panels/awareness/AwarenessPanel.tsx` | Added badge count for FAIL_CLOSED log |
 | `src/ui/panels/proposals/ProposalMailbox.tsx` | Added badge count for pending proposals |
+| `src/ui/panels/reference/ReferencePanel.tsx` | Improved empty state with reference source category explanations |
 | `src/ui/theme/tokens.ts` | Added authority level colors (L3/L2/L1) |
 | `src/ui/theme/GlobalStyles.tsx` | Added authority CSS vars, context collapse animation, command palette animation |
 | `src/ui/stores/activeObjectStore.ts` | Added authorityLevel, overlayActive, devToolsVisible state |
@@ -60,11 +61,20 @@
 
 ### Command Palette
 - Triggered by CMD+K / CTRL+K or header button
-- Searches objects (via truth source adapter), built-in actions
+- Searches across all cockpit domains in parallel:
+  - **Objects**: via truth source adapter (project tree, all nodes)
+  - **Zones**: via truth source adapter (zone-type nodes)
+  - **Conditions**: via awareness adapter (active conditions by signature/type/stage)
+  - **Proposals**: via proposal adapter (by ID, type, reasoning summary, source)
+  - **Diagnostics**: via runtime diagnostics adapter (by event type, stage, message)
+  - **References**: via reference adapter (by title, content, type, source document)
+  - **Decks**: via deck store (by deck name, ID)
 - Supports keyboard navigation (arrows, enter, escape)
-- Actions: Run Validation, Compare Mode, Focus Mode, Review Mode, Default Mode, Open Overlay
-- Footer shows "Ring 3 — Read-Only Actions" — cannot bypass authority boundaries
-- FAIL_CLOSED: Search failure shows safe empty state
+- Empty query shows suggested starting points (Jump to AHU-01, Open CW-1, etc.)
+- No-results state suggests valid query patterns with examples
+- Built-in actions: Run Validation, Compare Mode, Focus Mode, Review Mode, Default Mode, Open Overlay
+- Footer shows "Ring 3 — Navigate / Focus / Filter only" — cannot bypass authority boundaries
+- FAIL_CLOSED: Each domain search fails independently; unavailable domains are silently skipped
 
 ### Bottom Dock
 - Consolidates 6 lower panels: Awareness | Diagnostics | Proposals | Spatial | Assistant | System
@@ -102,12 +112,31 @@
 - All collapsed views remain recoverable — switching back to default mode restores full visibility
 - No destructive hiding: panel state is fully preserved underneath
 
+### Reference Panel Empty State
+- When no object is selected: Shows "REFERENCE SOURCES" card explaining 4 source categories:
+  - Specs: Industry standards, code references, project specifications (AISC, ACI, ASTM)
+  - Code: Design code sections, compliance requirements, regulatory references
+  - Docs: Project drawings, assembly drawings, shop drawing references, reports
+  - Citations: Calculation reports, verification notes, provenance documentation
+- When object selected but no references: Explains that references are populated by source adapters
+- Each source category has an icon and color consistent with the filter bar
+
+### Dock Panel Empty States
+- Each dock panel retains its own existing empty states from its panel implementation
+- Awareness: "No awareness snapshot available" with explanation
+- Diagnostics: "No runtime events received"
+- Proposals: "No proposals match the current filter"
+- Assistant: "No assistant responses yet"
+- System: "No validation events yet" / "No tasks yet" / etc.
+- All empty states remain useful and explain what content will appear
+
 ## FAIL_CLOSED Exceptions
 
 | Component | Scenario | Behavior |
 |-----------|----------|----------|
 | ContextualOverlay | No active object | Overlay not rendered; button disabled |
-| CommandPalette | Search adapter failure | Empty results with "No results found" |
+| CommandPalette | Search domain failure | Domain silently skipped; results from other domains shown |
+| CommandPalette | All domains fail | Helpful empty state with query suggestions |
 | BottomDock | Panel render error | Individual panel shows its own FAIL_CLOSED state |
 | AuthorityHUD | Invalid authority level | Falls back to L3 (Read-Only) |
 | ContextCollapse | Unknown object type | Panel NOT collapsed (safe default) |
