@@ -2,11 +2,11 @@
  * Construction Atlas — Viewer Page
  *
  * Wraps ShopDrawingsShell with an artifact result banner.
- * When a generation result exists in generationStore, shows
- * the artifact metadata and SVG preview above the document viewer.
+ * Reads latestResult metadata (thin projection) and sourceContext
+ * from generationStore. Does NOT hold artifact content (SVG/DXF) —
+ * that stays in DetailViewerPanel component state only.
  *
- * This is NOT a second viewer pipeline — it reads from the same
- * generationStore that DetailViewerPanel writes to.
+ * Resets viewerAutoOpenPending on mount.
  *
  * Governance: VKGL04R — No second renderer path.
  */
@@ -14,9 +14,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { tokens } from '../../theme/tokens';
 import { ShopDrawingsShell } from '../../shop-drawings/ShopDrawingsShell';
-import { generationStore } from '../../stores/generationStore';
-import type { DetailPreviewResult } from '../../detail-viewer/types';
-import type { GenerationSourceContext } from '../../stores/generationStore';
+import {
+  generationStore,
+  type GenerationSourceContext,
+  type LatestResult,
+} from '../../stores/generationStore';
 import type { AtlasRoute } from '../types';
 
 interface ViewerPageProps {
@@ -24,15 +26,17 @@ interface ViewerPageProps {
 }
 
 export function ViewerPage({ onNavigate }: ViewerPageProps) {
-  const [result, setResult] = useState<DetailPreviewResult | null>(null);
+  const [latestResult, setLatestResult] = useState<LatestResult | null>(null);
   const [sourceContext, setSourceContext] = useState<GenerationSourceContext | null>(null);
   const [bannerExpanded, setBannerExpanded] = useState(true);
 
-  // Subscribe to generationStore
+  // Subscribe to generationStore + reset viewerAutoOpenPending on mount
   useEffect(() => {
+    generationStore.resetViewerAutoOpen();
+
     const sync = () => {
       const state = generationStore.getState();
-      setResult(state.lastResult);
+      setLatestResult(state.latestResult);
       setSourceContext(state.sourceContext);
     };
     sync();
@@ -47,24 +51,12 @@ export function ViewerPage({ onNavigate }: ViewerPageProps) {
     onNavigate('shop-drawings');
   }, [onNavigate]);
 
-  const handleDownloadDxf = useCallback(() => {
-    if (result?.dxf_available && result.dxf_content) {
-      const blob = new Blob([result.dxf_content], { type: 'application/dxf' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = result.artifact_filename || 'detail.dxf';
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-  }, [result]);
-
-  const hasSuccessResult = result?.success === true;
+  const hasSuccessResult = latestResult?.success === true;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
-      {/* Artifact Result Banner */}
-      {result && bannerExpanded && (
+      {/* Artifact Result Banner (metadata only — no artifact content) */}
+      {latestResult && bannerExpanded && (
         <div style={{
           flexShrink: 0,
           background: hasSuccessResult ? tokens.color.bgElevated : `${tokens.color.error}10`,
@@ -74,7 +66,7 @@ export function ViewerPage({ onNavigate }: ViewerPageProps) {
           color: tokens.color.fgPrimary,
         }}>
           {/* Banner header row */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: hasSuccessResult ? '8px' : '0' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <span style={{
                 display: 'inline-flex', alignItems: 'center', gap: '4px',
@@ -83,7 +75,7 @@ export function ViewerPage({ onNavigate }: ViewerPageProps) {
                 color: hasSuccessResult ? tokens.color.success : tokens.color.error,
               }}>
                 <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'currentColor' }} />
-                {result.generation_status.replace(/_/g, ' ').toUpperCase()}
+                {latestResult.generationStatus.replace(/_/g, ' ').toUpperCase()}
               </span>
 
               <span style={{ fontSize: '13px', fontWeight: 600 }}>
@@ -92,21 +84,12 @@ export function ViewerPage({ onNavigate }: ViewerPageProps) {
 
               {sourceContext && (
                 <span style={{ fontSize: '11px', color: tokens.color.fgMuted }}>
-                  from {sourceContext.submittalId} — {sourceContext.submittalTitle}
+                  from {sourceContext.submittalId} — {sourceContext.title}
                 </span>
               )}
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              {hasSuccessResult && result.dxf_available && (
-                <button onClick={handleDownloadDxf} style={{
-                  padding: '4px 12px', borderRadius: '4px',
-                  background: tokens.color.accentPrimary, color: '#fff',
-                  border: 'none', fontSize: '11px', fontWeight: 600, cursor: 'pointer',
-                }}>
-                  Download DXF
-                </button>
-              )}
               <button onClick={handleBackToShopDrawings} style={{
                 padding: '4px 12px', borderRadius: '4px',
                 background: 'transparent', color: tokens.color.fgMuted,
@@ -125,42 +108,14 @@ export function ViewerPage({ onNavigate }: ViewerPageProps) {
 
           {/* Artifact metadata row (success only) */}
           {hasSuccessResult && (
-            <div style={{ display: 'flex', gap: '24px', fontSize: '11px', color: tokens.color.fgSecondary, fontFamily: tokens.font.familyMono }}>
-              <span>Detail: {result.detail_id}</span>
-              <span>Type: {result.artifact_type}</span>
-              <span>File: {result.artifact_filename}</span>
-              <span>Seam: {result.generator_seam}</span>
-              <span>SVG: {result.svg_artifact_id}</span>
-              {result.dxf_available && <span>DXF: {result.dxf_artifact_id}</span>}
-            </div>
-          )}
-
-          {/* Diagnostics for failed generation */}
-          {!hasSuccessResult && result.diagnostics.length > 0 && (
-            <div style={{ marginTop: '8px' }}>
-              {result.diagnostics.map((d, i) => (
-                <div key={i} style={{
-                  fontSize: '11px', fontFamily: tokens.font.familyMono,
-                  color: tokens.color.error, padding: '2px 0',
-                }}>
-                  {d}
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* SVG mini-preview for successful generation */}
-          {hasSuccessResult && result.svg_content && (
-            <div style={{
-              marginTop: '8px', padding: '8px',
-              background: '#fff', borderRadius: '4px',
-              maxHeight: '200px', overflow: 'auto',
-              display: 'flex', justifyContent: 'center',
-            }}>
-              <div
-                dangerouslySetInnerHTML={{ __html: result.svg_content }}
-                style={{ maxWidth: '100%', maxHeight: '180px' }}
-              />
+            <div style={{ display: 'flex', gap: '24px', fontSize: '11px', color: tokens.color.fgSecondary, fontFamily: tokens.font.familyMono, marginTop: '8px' }}>
+              <span>Source: {latestResult.sourceSubmittalId}</span>
+              <span>Detail: {latestResult.detailId}</span>
+              <span>Type: {latestResult.artifactType}</span>
+              <span>File: {latestResult.filename}</span>
+              {latestResult.artifactIds && latestResult.artifactIds.length > 0 && (
+                <span>Artifacts: {latestResult.artifactIds.join(', ')}</span>
+              )}
             </div>
           )}
         </div>
