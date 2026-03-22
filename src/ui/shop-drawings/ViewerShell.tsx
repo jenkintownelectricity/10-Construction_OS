@@ -148,6 +148,21 @@ export function ViewerShell({ activeFile, activePage, pages }: ViewerShellProps)
           </div>
         )}
       </div>
+
+      {/* Split Divider — matches OMNI-VIEW #splitdiv (hidden by default) */}
+      <div style={{
+        width: '4px',
+        background: tokens.color.accentPrimary,
+        cursor: 'col-resize',
+        flexShrink: 0,
+        display: 'none', // Hidden until split view is activated
+      }} />
+
+      {/* Secondary Viewport — matches OMNI-VIEW #vpb (hidden by default) */}
+      <div style={{
+        ...viewportStyle,
+        display: 'none', // Hidden until split view is activated
+      }} />
     </div>
   );
 }

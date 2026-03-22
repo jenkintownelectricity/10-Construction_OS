@@ -7,6 +7,8 @@
  *   ┌─────────────────────────────────────────────────────────────────┐
  *   │  Title Bar: CONSTRUCTION OS — Shop Drawings                     │
  *   ├─────────────────────────────────────────────────────────────────┤
+ *   │  Menu Bar: File | Edit | View | Document | Tools                │
+ *   ├─────────────────────────────────────────────────────────────────┤
  *   │  Viewer Toolbar: [Open][Undo/Redo][Zoom][Draw Tools][Edit]      │
  *   ├──────────┬──────┬──────────────────────────────────┬────────────┤
  *   │ Explorer │ Page │              Viewer               │ Properties │
@@ -33,6 +35,7 @@
 import { useCallback, useState } from 'react';
 import { tokens } from '../theme/tokens';
 import { LeftNavigation } from './LeftNavigation';
+import { MenuBar } from './MenuBar';
 import { ThumbnailRail } from './ThumbnailRail';
 import { ViewerToolbar } from './ViewerToolbar';
 import { ViewerShell } from './ViewerShell';
@@ -170,6 +173,9 @@ export function ShopDrawingsShell({ onSwitchToWorkstation }: ShopDrawingsShellPr
         </div>
       </div>
 
+      {/* ─── Menu Bar — matches OMNI-VIEW .menubar ─── */}
+      <MenuBar />
+
       {/* ─── Viewer Toolbar ─── */}
       <ViewerToolbar
         zoom={zoom}
@@ -207,7 +213,11 @@ export function ShopDrawingsShell({ onSwitchToWorkstation }: ShopDrawingsShellPr
         />
 
         {/* Right Properties Panel */}
-        <PropertiesPanel documentProps={documentProps} />
+        <PropertiesPanel
+          documentProps={documentProps}
+          activeTool={activeTool}
+          onToolSelect={setActiveTool}
+        />
       </div>
 
       {/* ─── Status Bar ─── */}

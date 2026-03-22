@@ -31,6 +31,7 @@ const DRAW_TOOLS: ToolGroup = {
     { id: 'rect', title: 'Rectangle (R)', icon: '\u25A1' },
     { id: 'polyline', title: 'Polyline (N)', icon: '\u2F00' },
     { id: 'cloud', title: 'Cloud (C)', icon: '\u2601' },
+    { id: 'cloudplus', title: 'Cloud+ Callout', icon: '\u2601' },
     { id: 'callout', title: 'Callout (Q)', icon: '\u{1F4AC}' },
     { id: 'dimension', title: 'Dimension (L)', icon: '\u21A4' },
     { id: 'count', title: 'Count (G)', icon: '#' },

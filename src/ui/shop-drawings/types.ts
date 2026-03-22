@@ -1,7 +1,7 @@
 /**
  * Shop Drawings Shell — Type definitions
  *
- * Presentation-shell types for the legacy OMNI-VIEW layout port.
+ * Presentation-shell types for the OMNI-VIEW layout port.
  * No runtime, parser, or generation logic. No deprecated adapters.
  */
 
@@ -30,7 +30,7 @@ export type PropertiesPanelTab = 'properties' | 'taxonomy' | 'toolbox';
 /** Viewer tool identifiers — presentation shell only, no behavior */
 export type ViewerTool =
   | 'cursor' | 'pen' | 'highlighter' | 'text' | 'arrow'
-  | 'rect' | 'polyline' | 'cloud' | 'callout' | 'dimension'
+  | 'rect' | 'polyline' | 'cloud' | 'cloudplus' | 'callout' | 'dimension'
   | 'count' | 'stamp' | 'eraser'
   | 'snapshot' | 'redact' | 'fill' | 'format-painter';
 
@@ -45,4 +45,10 @@ export interface DocumentProperties {
   fileName: string;
   pageCount: number;
   fileSize: string;
+}
+
+/** Menu bar item */
+export interface MenuBarItem {
+  label: string;
+  items: { label: string; shortcut?: string; divider?: boolean }[];
 }

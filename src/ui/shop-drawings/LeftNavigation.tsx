@@ -222,6 +222,19 @@ export function LeftNavigation({ onFileSelect, selectedFileId }: LeftNavigationP
       <div style={{ flex: 1, overflowY: 'auto', padding: '2px 0' }}>
         {SAMPLE_TREE.map((file) => renderFile(file))}
       </div>
+      {/* Workspace label — matches OMNI-VIEW #wlabel */}
+      {selectedFileId && (
+        <div style={{
+          padding: '6px 10px',
+          borderTop: `1px solid ${tokens.color.border}`,
+          fontSize: '9px',
+          color: tokens.color.accentPrimary,
+          fontWeight: 700,
+          flexShrink: 0,
+        }}>
+          WORKSPACE ACTIVE
+        </div>
+      )}
     </div>
   );
 }
