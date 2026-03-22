@@ -7,6 +7,9 @@
 
 import { useState } from 'react';
 import { DEFAULT_BRANDING } from '../../../lib/branding/branding-types';
+import { generationStore } from '../../stores/generationStore';
+import { activeObjectStore } from '../../stores/activeObjectStore';
+import { eventBus } from '../../events/EventBus';
 import type { AtlasRoute } from '../types';
 
 const c = DEFAULT_BRANDING.colors;
@@ -143,15 +146,48 @@ export function ShopDrawingsPage({ onNavigate }: ShopDrawingsPageProps) {
             <h2 style={{ fontSize: '22px', fontWeight: 700, color: c.text, margin: '0 0 4px' }}>{selected.title}</h2>
             <div style={{ color: c.textMuted, fontSize: '13px' }}>{selected.spec} \u2014 {selected.manufacturer}</div>
           </div>
-          <button
-            onClick={() => onNavigate('viewer')}
-            style={{
-              padding: '8px 16px', borderRadius: '6px', background: c.primary, color: '#fff',
-              border: 'none', fontWeight: 600, fontSize: '13px', cursor: 'pointer',
-            }}
-          >
-            Open in Viewer
-          </button>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button
+              onClick={() => {
+                // Set source context for the generation loop
+                generationStore.setSourceContext({
+                  submittalId: selected.id,
+                  submittalTitle: selected.title,
+                  manufacturer: selected.manufacturer,
+                  spec: selected.spec,
+                  project: selected.project,
+                });
+                // Set active object so Workstation panels can pick up context
+                activeObjectStore.setActiveObject(
+                  { id: selected.id, type: 'document', name: selected.title },
+                  'explorer',
+                  'canonical',
+                );
+                // Emit object.selected for Truth Echo propagation
+                eventBus.emit('object.selected', {
+                  object: { id: selected.id, type: 'document', name: selected.title },
+                  source: 'explorer',
+                  basis: 'canonical',
+                });
+                onNavigate('tools');
+              }}
+              style={{
+                padding: '8px 16px', borderRadius: '6px', background: c.primary, color: '#fff',
+                border: 'none', fontWeight: 600, fontSize: '13px', cursor: 'pointer',
+              }}
+            >
+              Launch Workstation
+            </button>
+            <button
+              onClick={() => onNavigate('viewer')}
+              style={{
+                padding: '8px 16px', borderRadius: '6px', background: 'transparent', color: c.primary,
+                border: `1px solid ${c.primary}`, fontWeight: 600, fontSize: '13px', cursor: 'pointer',
+              }}
+            >
+              Open in Viewer
+            </button>
+          </div>
         </div>
 
         {/* Metadata grid */}
