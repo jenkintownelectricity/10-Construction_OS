@@ -1,14 +1,13 @@
 /**
  * Construction OS — Application Root
  *
- * Primary shell: Construction Atlas layout with sidebar navigation.
- * The Workstation cockpit and Shop Drawings viewer are embedded as
- * pages within the Atlas layout (Tools and Viewer nav items).
+ * Wave C1: Control Tower layout is the primary shell.
+ * The original Atlas layout is preserved and accessible via the Atlas route.
  */
 
 import { useEffect } from 'react';
 import { GlobalStyles } from './ui/theme/GlobalStyles';
-import { AtlasLayout } from './ui/atlas/AtlasLayout';
+import { ControlTowerLayout } from './layout/ControlTowerLayout';
 import { InteractionProvider } from './ui/providers/InteractionProvider';
 
 export function App() {
@@ -21,7 +20,7 @@ export function App() {
     <>
       <GlobalStyles />
       <InteractionProvider>
-        <AtlasLayout />
+        <ControlTowerLayout />
       </InteractionProvider>
     </>
   );
