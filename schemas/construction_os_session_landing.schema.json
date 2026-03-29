@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "construction_os_session_landing.schema.json",
+  "title": "Construction OS Session Landing Envelope",
+  "description": "Defines the accepted subset of the Fabric session envelope that Construction_Application_OS will consume on landing. This schema mirrors the Fabric session envelope contract (construction_os_session_envelope.schema.json) as an external reference. No field grants Fabric authority over Construction OS internals.",
+  "type": "object",
+  "required": [
+    "envelope_id",
+    "domain_id",
+    "domain_key",
+    "launch_origin",
+    "target_surface",
+    "initial_view",
+    "observer_mode",
+    "branding_ref",
+    "registry_ref",
+    "launch_route",
+    "return_route",
+    "session_scope",
+    "readiness_state",
+    "standalone_valid",
+    "created_from",
+    "notes"
+  ],
+  "properties": {
+    "envelope_id": {
+      "type": "string",
+      "pattern": "^session-envelope-construction-os-[a-z0-9-]+$",
+      "description": "Deterministic session envelope identifier."
+    },
+    "domain_id": {
+      "type": "string",
+      "const": "construction-os",
+      "description": "Must equal construction-os."
+    },
+    "domain_key": {
+      "type": "string",
+      "const": "construction_os",
+      "description": "Must equal construction_os."
+    },
+    "launch_origin": {
+      "type": "string",
+      "enum": ["fabric_domain_surface", "fabric_control_tower", "fabric_tenant_surface"],
+      "description": "Bounded Fabric-origin label."
+    },
+    "target_surface": {
+      "type": "string",
+      "const": "construction_application_os",
+      "description": "Must reference this application surface."
+    },
+    "initial_view": {
+      "type": "string",
+      "enum": ["workspace", "dashboard", "atlas", "inspector"],
+      "description": "UI/view label for landing. No runtime stage or execution command."
+    },
+    "observer_mode": {
+      "type": "boolean",
+      "const": true,
+      "description": "Must be true. Fabric operates in observer-only mode."
+    },
+    "branding_ref": {
+      "type": "string",
+      "description": "Branding configuration reference. Display metadata only."
+    },
+    "registry_ref": {
+      "type": "string",
+      "pattern": "^construction_os_registry::",
+      "description": "Read-only reference to Construction_OS_Registry artifact."
+    },
+    "launch_route": {
+      "type": "string",
+      "pattern": "^/[a-z0-9/_-]+$",
+      "description": "Fabric-side launch route metadata."
+    },
+    "return_route": {
+      "type": "string",
+      "pattern": "^/[a-z0-9/_-]+$",
+      "description": "Fabric return route. Retained as metadata only — no redirect execution."
+    },
+    "session_scope": {
+      "type": "string",
+      "const": "metadata_only",
+      "description": "Must be metadata_only."
+    },
+    "readiness_state": {
+      "type": "string",
+      "enum": ["not_ready", "registry_validated", "launch_ready", "launched", "suspended"],
+      "description": "Fabric-side readiness assessment. Does not determine Construction OS validity."
+    },
+    "standalone_valid": {
+      "type": "boolean",
+      "const": true,
+      "description": "Must be true. Construction OS standalone validity is non-negotiable."
+    },
+    "created_from": {
+      "type": "string",
+      "enum": ["fabric_launch_bridge", "fabric_domain_attachment", "manual_declaration"],
+      "description": "Stable provenance label."
+    },
+    "notes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Bounded governance notes."
+    }
+  },
+  "additionalProperties": false,
+  "$comment": "AUTHORITY BOUNDARY: This schema defines the accepted landing envelope subset only. No field grants Fabric authority over Construction OS kernel truth, runtime execution, atlas conditions, cognitive admission, registry topology, or application state. No identity, auth tokens, secrets, or mutable session state may be included. Construction OS remains standalone-valid and may execute independently of Fabric."
+}

@@ -1,0 +1,153 @@
+{
+  "receipt_id": "construction-os-launch-landing-v0.1",
+  "receipt_type": "construction_os_launch_landing_contract",
+  "version": "0.1.0",
+  "authority": "Armand Lefebvre — Lefebvre Design Solutions LLC",
+  "status": "CONSTRUCTION_APPLICATION_OS_LAUNCH_LANDING_CONTRACT_COMPLETE",
+  "target_repo": {
+    "name": "Construction_Application_OS",
+    "owner": "jenkintownelectricity",
+    "branch": "claude/define-governance-control-plane-0sgZd",
+    "access": "write"
+  },
+  "observer_repos": [
+    {
+      "name": "Governed-Multi-Domain-OS-Fabric",
+      "owner": "jenkintownelectricity",
+      "access": "read-only",
+      "mutated": false,
+      "purpose": "Session envelope schema and handoff doctrine reference only"
+    },
+    {
+      "name": "Construction_OS_Registry",
+      "owner": "jenkintownelectricity",
+      "access": "read-only",
+      "mutated": false,
+      "purpose": "Registry reference validation only"
+    }
+  ],
+  "fabric_schema_reference": {
+    "path": "governed-multi-domain-os-fabric/schemas/construction_os_session_envelope.schema.json",
+    "usage": "External contract definition reference only. Not imported as runtime module."
+  },
+  "files_created": [
+    "docs/CONSTRUCTION_OS_FABRIC_LANDING_v0.1.md",
+    "schemas/construction_os_session_landing.schema.json",
+    "src/landing/loadFabricSessionEnvelope.ts",
+    "src/landing/validateFabricSessionEnvelope.ts",
+    "src/landing/resolveLandingSurface.ts",
+    "src/landing/constructionOsLandingContract.ts",
+    "receipts/CONSTRUCTION_OS_LAUNCH_LANDING_RECEIPT.json"
+  ],
+  "files_modified": [],
+  "commits": [
+    {
+      "phase": 1,
+      "message": "CONSTRUCTION LANDING PHASE 1 — landing doctrine",
+      "artifacts": ["docs/CONSTRUCTION_OS_FABRIC_LANDING_v0.1.md"]
+    },
+    {
+      "phase": 2,
+      "message": "CONSTRUCTION LANDING PHASE 2 — landing schema",
+      "artifacts": ["schemas/construction_os_session_landing.schema.json"]
+    },
+    {
+      "phase": 3,
+      "message": "CONSTRUCTION LANDING PHASE 3 — envelope loader",
+      "artifacts": ["src/landing/loadFabricSessionEnvelope.ts"]
+    },
+    {
+      "phase": 4,
+      "message": "CONSTRUCTION LANDING PHASE 4 — envelope validator",
+      "artifacts": ["src/landing/validateFabricSessionEnvelope.ts"]
+    },
+    {
+      "phase": 5,
+      "message": "CONSTRUCTION LANDING PHASE 5 — surface resolver",
+      "artifacts": ["src/landing/resolveLandingSurface.ts"]
+    },
+    {
+      "phase": 6,
+      "message": "CONSTRUCTION LANDING PHASE 6 — landing contract",
+      "artifacts": ["src/landing/constructionOsLandingContract.ts"]
+    },
+    {
+      "phase": 7,
+      "message": "CONSTRUCTION LANDING PHASE 7 — landing receipt",
+      "artifacts": ["receipts/CONSTRUCTION_OS_LAUNCH_LANDING_RECEIPT.json"]
+    }
+  ],
+  "schema_created": {
+    "name": "construction_os_session_landing.schema.json",
+    "path": "schemas/construction_os_session_landing.schema.json",
+    "fields": ["envelope_id", "domain_id", "domain_key", "launch_origin", "target_surface", "initial_view", "observer_mode", "branding_ref", "registry_ref", "launch_route", "return_route", "session_scope", "readiness_state", "standalone_valid", "created_from", "notes"],
+    "additional_properties": false,
+    "observer_mode_locked": true,
+    "session_scope_locked": "metadata_only",
+    "standalone_valid_locked": true,
+    "identity_auth_secret_fields": "none"
+  },
+  "loader_created": {
+    "name": "loadFabricSessionEnvelope",
+    "path": "src/landing/loadFabricSessionEnvelope.ts",
+    "input": "raw JSON string",
+    "output": "FabricSessionLandingEnvelope",
+    "process_env_usage": false,
+    "fabric_runtime_import": false,
+    "fail_closed": true
+  },
+  "validator_created": {
+    "name": "validateFabricSessionEnvelope",
+    "path": "src/landing/validateFabricSessionEnvelope.ts",
+    "rejects_unknown_fields": true,
+    "rejects_forbidden_identity_fields": true,
+    "enforces_observer_mode_true": true,
+    "enforces_session_scope_metadata_only": true,
+    "enforces_standalone_valid_true": true,
+    "fabric_runtime_import": false,
+    "fail_closed": true
+  },
+  "resolver_created": {
+    "name": "resolveLandingSurface",
+    "path": "src/landing/resolveLandingSurface.ts",
+    "allowed_views": ["workspace", "dashboard", "atlas", "inspector"],
+    "unknown_view_behavior": "FAIL_CLOSED",
+    "deterministic": true
+  },
+  "contract_created": {
+    "name": "processLanding",
+    "path": "src/landing/constructionOsLandingContract.ts",
+    "orchestrates": ["loadFabricSessionEnvelope", "validateFabricSessionEnvelope", "resolveLandingSurface"],
+    "output": "ConstructionOsLandingResult",
+    "metadata_only": true,
+    "preserves_return_route": true,
+    "runtime_invocation": false,
+    "fabric_runtime_import": false,
+    "external_invocation": false,
+    "environment_variable_dependency": false
+  },
+  "unresolved_risks": [
+    {
+      "risk_id": "risk-001",
+      "description": "Landing contract produces a metadata-only result but no Construction Application OS router or shell consumes it yet.",
+      "severity": "low",
+      "mitigation": "Future Construction Application OS pass will wire processLanding into the control-tower entry shell."
+    },
+    {
+      "risk_id": "risk-002",
+      "description": "return_route is preserved as metadata. No actual return-navigation mechanism is implemented.",
+      "severity": "low",
+      "mitigation": "Future Fabric return navigation pass will implement the return handoff using the preserved return_route metadata."
+    }
+  ],
+  "construction_os_standalone_validity_confirmed": true,
+  "observer_repos_untouched_confirmed": true,
+  "metadata_only_landing_confirmed": true,
+  "no_fabric_runtime_imports_confirmed": true,
+  "no_process_env_dependency_confirmed": true,
+  "no_identity_auth_secret_fields_confirmed": true,
+  "no_topology_mutation_confirmed": true,
+  "no_runtime_invocation_confirmed": true,
+  "no_cross_repo_write_confirmed": true,
+  "deterministic_artifacts_confirmed": true
+}
