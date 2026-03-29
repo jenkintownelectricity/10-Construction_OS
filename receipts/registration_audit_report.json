@@ -1,0 +1,149 @@
+{
+  "schema": "construction_os_registration_audit_report",
+  "version": "1.0.0",
+  "pass_id": "registry-induction-topology-pass-construction-os-registry",
+  "pass_timestamp": "2026-03-29T00:00:00Z",
+  "status": "DRAFT",
+  "audit_entries": [
+    {
+      "repo_name": "VTI_TM",
+      "architectural_class": "GOVERNANCE_REFERENCE",
+      "topology_node_type": "GOVERNANCE",
+      "readiness": "READY",
+      "notes": "Governance authority with contracts/, governance/, sentinel/ directories. Clear upstream authority role.",
+      "blockers": [],
+      "induction_status": "INDUCED",
+      "inferred_relations": ["GOVERNS Construction_OS_Registry (explicit)", "GOVERNS Construction_Application_OS (explicit)"]
+    },
+    {
+      "repo_name": "Construction_Application_OS",
+      "architectural_class": "APPLICATION_SURFACE",
+      "topology_node_type": "APPLICATION",
+      "readiness": "READY",
+      "notes": "Sole UI surface. TypeScript/Vite app with apps/, ui/, src/, os/ directories.",
+      "blockers": [],
+      "induction_status": "INDUCED",
+      "inferred_relations": ["READS_FROM Construction_OS_Registry (explicit)", "READS_FROM Construction_Runtime (explicit)", "READS_FROM Construction_Awareness_Cache (explicit)"]
+    },
+    {
+      "repo_name": "Construction_Cognitive_Bus",
+      "architectural_class": "COGNITIVE_BUS",
+      "topology_node_type": "BUS",
+      "readiness": "READY",
+      "notes": "Event bus with bus/, schemas/, state/ directories.",
+      "blockers": [],
+      "induction_status": "INDUCED",
+      "inferred_relations": ["EMITS_TO Construction_Awareness_Cache (explicit)", "COORDINATES Construction_Intelligence_Workers (explicit)"]
+    },
+    {
+      "repo_name": "Construction_Assembly_Kernel",
+      "architectural_class": "DOMAIN_KERNEL",
+      "topology_node_type": "KERNEL",
+      "readiness": "READY",
+      "notes": "Domain kernel with kernel/, contracts/, schemas/, shared/ directories.",
+      "blockers": [],
+      "induction_status": "INDUCED",
+      "inferred_relations": ["REGISTERS_TO Construction_OS_Registry (explicit)"]
+    },
+    {
+      "repo_name": "Construction_Awareness_Cache",
+      "architectural_class": "AWARENESS",
+      "topology_node_type": "CACHE",
+      "readiness": "READY",
+      "notes": "Awareness cache with awareness/, state/ directories.",
+      "blockers": [],
+      "induction_status": "INDUCED",
+      "inferred_relations": ["SUPPORTS Construction_Assistant (explicit)"]
+    },
+    {
+      "repo_name": "Construction_Assistant",
+      "architectural_class": "ASSISTANT",
+      "topology_node_type": "ASSISTANT",
+      "readiness": "READY",
+      "notes": "Assistant with assistant/, interfaces/, maps/ directories.",
+      "blockers": [],
+      "induction_status": "INDUCED",
+      "inferred_relations": ["ADVISES Construction_Application_OS (explicit)"]
+    },
+    {
+      "repo_name": "Construction_Kernel",
+      "architectural_class": "CORE_KERNEL",
+      "topology_node_type": "KERNEL",
+      "readiness": "READY",
+      "notes": "Core kernel with kernel/, kernels/, contracts/, schemas/, data/, runtime/, mirrors/ directories. Rich truth layer.",
+      "blockers": [],
+      "induction_status": "INDUCED",
+      "inferred_relations": ["REGISTERS_TO Construction_OS_Registry (explicit)"]
+    },
+    {
+      "repo_name": "Construction_Workforce_OS",
+      "architectural_class": "DOMAIN_KERNEL",
+      "topology_node_type": "KERNEL",
+      "readiness": "READY",
+      "notes": "Domain kernel with kernel/, governance/, runtime/, canon/, campaign/ directories. Workforce-specific governance.",
+      "blockers": [],
+      "induction_status": "INDUCED",
+      "inferred_relations": ["REGISTERS_TO Construction_OS_Registry (explicit)"]
+    },
+    {
+      "repo_name": "Construction_Intelligence_Workers",
+      "architectural_class": "WORKER_FLEET",
+      "topology_node_type": "WORKERS",
+      "readiness": "READY",
+      "notes": "Worker fleet with workers/, contracts/, maps/ directories.",
+      "blockers": [],
+      "induction_status": "INDUCED",
+      "inferred_relations": ["SUPPORTS Construction_Assistant (explicit)"]
+    },
+    {
+      "repo_name": "Construction_OS_Registry",
+      "architectural_class": "REGISTRY",
+      "topology_node_type": "REGISTRY",
+      "readiness": "READY",
+      "notes": "Self-registration. Write target for this pass. Contains registry/ with platform_inventory.json and wave catalogs.",
+      "blockers": [],
+      "induction_status": "INDUCED",
+      "inferred_relations": ["OBSERVES all 13 other repos (explicit per-repo edges)"]
+    },
+    {
+      "repo_name": "construction_dna",
+      "architectural_class": "DNA_LAYER",
+      "topology_node_type": "DNA",
+      "readiness": "READY",
+      "notes": "pnpm monorepo with packages/ directory. Foundational domain packages.",
+      "blockers": [],
+      "induction_status": "INDUCED",
+      "inferred_relations": ["ENRICHES Construction_Assembly_Kernel (explicit)"]
+    },
+    {
+      "repo_name": "Construction_Pattern_Language_OS",
+      "architectural_class": "PATTERN_SYSTEM",
+      "topology_node_type": "PATTERN",
+      "readiness": "READY",
+      "notes": "Hardened pattern language kernel with validators, schemas, and 53 registered entities per platform_inventory.",
+      "blockers": [],
+      "induction_status": "INDUCED",
+      "inferred_relations": ["ENRICHES Construction_Runtime (explicit)"]
+    },
+    {
+      "repo_name": "Construction_Reference_Intelligence",
+      "architectural_class": "REFERENCE_INTELLIGENCE",
+      "topology_node_type": "REFERENCE",
+      "readiness": "READY",
+      "notes": "Reference intelligence with intelligence/, cri/, contracts/, schemas/, audits/ directories.",
+      "blockers": [],
+      "induction_status": "INDUCED",
+      "inferred_relations": ["SUPPORTS Construction_Runtime (explicit)"]
+    },
+    {
+      "repo_name": "Construction_Runtime",
+      "architectural_class": "RUNTIME",
+      "topology_node_type": "RUNTIME",
+      "readiness": "READY_WITH_NOTES",
+      "notes": "Classification carried forward from prior-run platform_inventory.json. Not directly observed this session due to access scope. Prior evidence confirms execution engine role.",
+      "blockers": ["Direct observation not available in current session"],
+      "induction_status": "INDUCED",
+      "inferred_relations": ["REGISTERS_TO Construction_OS_Registry (explicit)", "EXECUTES Construction_Kernel (explicit)", "EXECUTES Construction_Assembly_Kernel (explicit)", "EXECUTES Construction_Workforce_OS (explicit)"]
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "schema": "construction_os_repo_classification",
+  "version": "1.0.0",
+  "pass_id": "registry-induction-topology-pass-construction-os-registry",
+  "pass_timestamp": "2026-03-29T00:00:00Z",
+  "classifications": [
+    {
+      "repo_name": "VTI_TM",
+      "repo_role": "Governance reference authority for the Construction OS ecosystem",
+      "repo_state": "active",
+      "architectural_class": "GOVERNANCE_REFERENCE",
+      "topology_node_type": "GOVERNANCE",
+      "dependency_posture": "upstream_authority",
+      "registration_readiness": "READY",
+      "unresolved_risks": [],
+      "inference_notes": "Contains GOVERNANCE-AUTHORITY.md, contracts/, governance/, sentinel/. Clear governance role confirmed by live observation."
+    },
+    {
+      "repo_name": "Construction_Application_OS",
+      "repo_role": "Sole UI operating surface of Construction OS",
+      "repo_state": "active",
+      "architectural_class": "APPLICATION_SURFACE",
+      "topology_node_type": "APPLICATION",
+      "dependency_posture": "downstream_consumer",
+      "registration_readiness": "READY",
+      "unresolved_risks": [],
+      "inference_notes": "TypeScript/Vite application with apps/, ui/, src/, os/ directories. Confirmed as sole UI surface in platform_inventory.json. package.json present."
+    },
+    {
+      "repo_name": "Construction_Cognitive_Bus",
+      "repo_role": "Event bus for cognitive signal routing and coordination",
+      "repo_state": "active",
+      "architectural_class": "COGNITIVE_BUS",
+      "topology_node_type": "BUS",
+      "dependency_posture": "middleware_coordinator",
+      "registration_readiness": "READY",
+      "unresolved_risks": [],
+      "inference_notes": "Contains bus/, schemas/, state/, tests/. Clear bus/event-routing role."
+    },
+    {
+      "repo_name": "Construction_Assembly_Kernel",
+      "repo_role": "Domain kernel for construction assembly logic and contracts",
+      "repo_state": "active",
+      "architectural_class": "DOMAIN_KERNEL",
+      "topology_node_type": "KERNEL",
+      "dependency_posture": "domain_truth_provider",
+      "registration_readiness": "READY",
+      "unresolved_risks": [],
+      "inference_notes": "Contains kernel/, contracts/, schemas/, shared/, maps/. Domain kernel with assembly-specific truth artifacts."
+    },
+    {
+      "repo_name": "Construction_Awareness_Cache",
+      "repo_role": "Awareness state cache for cognitive signal persistence",
+      "repo_state": "active",
+      "architectural_class": "AWARENESS",
+      "topology_node_type": "CACHE",
+      "dependency_posture": "state_holder",
+      "registration_readiness": "READY",
+      "unresolved_risks": [],
+      "inference_notes": "Contains awareness/, state/, tests/. Clear cache/awareness role."
+    },
+    {
+      "repo_name": "Construction_Assistant",
+      "repo_role": "AI assistant interface layer for Construction OS",
+      "repo_state": "active",
+      "architectural_class": "ASSISTANT",
+      "topology_node_type": "ASSISTANT",
+      "dependency_posture": "advisory_consumer",
+      "registration_readiness": "READY",
+      "unresolved_risks": [],
+      "inference_notes": "Contains assistant/, interfaces/, maps/, state/, tests/. Clear assistant/advisory role with interface contracts."
+    },
+    {
+      "repo_name": "Construction_Kernel",
+      "repo_role": "Core kernel defining construction truth structures, contracts, and schemas",
+      "repo_state": "active",
+      "architectural_class": "CORE_KERNEL",
+      "topology_node_type": "KERNEL",
+      "dependency_posture": "core_truth_provider",
+      "registration_readiness": "READY",
+      "unresolved_risks": [],
+      "inference_notes": "Contains kernel/, kernels/, contracts/, schemas/, data/, detail_training_corpus/, runtime/, mirrors/, maps/. Rich core kernel with multiple sub-kernel structures. Confirmed in platform_inventory.json as canonical truth layer."
+    },
+    {
+      "repo_name": "Construction_Workforce_OS",
+      "repo_role": "Domain kernel for workforce operations, governance, and campaign logic",
+      "repo_state": "active",
+      "architectural_class": "DOMAIN_KERNEL",
+      "topology_node_type": "KERNEL",
+      "dependency_posture": "domain_truth_provider",
+      "registration_readiness": "READY",
+      "unresolved_risks": [],
+      "inference_notes": "Contains kernel/, governance/, runtime/, canon/, campaign/, brief/, pilot/, roi/. Domain kernel with workforce-specific governance and operational artifacts."
+    },
+    {
+      "repo_name": "Construction_Intelligence_Workers",
+      "repo_role": "Worker fleet specification defining extraction workers and routing rules",
+      "repo_state": "active",
+      "architectural_class": "WORKER_FLEET",
+      "topology_node_type": "WORKERS",
+      "dependency_posture": "execution_fleet",
+      "registration_readiness": "READY",
+      "unresolved_risks": [],
+      "inference_notes": "Contains workers/, contracts/, maps/, state/, tests/. Confirmed in platform_inventory.json as worker fleet for extraction and signal generation."
+    },
+    {
+      "repo_name": "Construction_OS_Registry",
+      "repo_role": "Canonical registry for Construction OS platform inventory, topology, and governance artifacts",
+      "repo_state": "active",
+      "architectural_class": "REGISTRY",
+      "topology_node_type": "REGISTRY",
+      "dependency_posture": "infrastructure_registry",
+      "registration_readiness": "READY",
+      "unresolved_risks": [],
+      "inference_notes": "Contains registry/ with platform_inventory.json and multiple wave catalogs, plus docs/. This is the write target for this pass. Self-registration."
+    },
+    {
+      "repo_name": "construction_dna",
+      "repo_role": "DNA enrichment layer providing foundational construction domain packages",
+      "repo_state": "active",
+      "architectural_class": "DNA_LAYER",
+      "topology_node_type": "DNA",
+      "dependency_posture": "enrichment_provider",
+      "registration_readiness": "READY",
+      "unresolved_risks": [],
+      "inference_notes": "pnpm monorepo workspace with packages/, tsconfig.json, CHANGELOG.md. Foundational domain packages for construction assembly enrichment."
+    },
+    {
+      "repo_name": "Construction_Pattern_Language_OS",
+      "repo_role": "Canonical construction pattern language kernel defining pattern families, variants, and relationships",
+      "repo_state": "active",
+      "architectural_class": "PATTERN_SYSTEM",
+      "topology_node_type": "PATTERN",
+      "dependency_posture": "enrichment_provider",
+      "registration_readiness": "READY",
+      "unresolved_risks": [],
+      "inference_notes": "Contains pattern_language/, pattern_relationships/, artifact_intents/, constraint_profiles/, kernel_manifest/, schemas/, validators/. Extensively registered in platform_inventory.json with entity counts and validator checks. Hardened and frozen."
+    },
+    {
+      "repo_name": "Construction_Reference_Intelligence",
+      "repo_role": "Reference intelligence layer and construction architecture guidance relay",
+      "repo_state": "active",
+      "architectural_class": "REFERENCE_INTELLIGENCE",
+      "topology_node_type": "REFERENCE",
+      "dependency_posture": "support_provider",
+      "registration_readiness": "READY",
+      "unresolved_risks": [],
+      "inference_notes": "Contains intelligence/, cri/, contracts/, schemas/, shared/, audits/, maps/. Confirmed in platform_inventory.json as reference intelligence and guidance relay."
+    },
+    {
+      "repo_name": "Construction_Runtime",
+      "repo_role": "Deterministic execution engine for evidence ingestion, assembly inference, drawing generation, and export",
+      "repo_state": "active",
+      "architectural_class": "RUNTIME",
+      "topology_node_type": "RUNTIME",
+      "dependency_posture": "execution_engine",
+      "registration_readiness": "READY_WITH_NOTES",
+      "unresolved_risks": ["Direct repo observation not available in current session. Classification carried forward from platform_inventory.json."],
+      "inference_notes": "Not activated in current session. Access denied for direct observation. Prior-run evidence from registry/platform_inventory.json confirms role as deterministic execution engine in the execution layer. Structure not directly verified this session."
+    }
+  ]
+}
