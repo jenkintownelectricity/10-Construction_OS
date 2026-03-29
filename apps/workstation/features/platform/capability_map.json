@@ -1,0 +1,78 @@
+{
+  "$schema": "capability_map_v1",
+  "description": "Maps internal capability identifiers to module classes, dependency relationships, and layer classifications. Engineering lens depth limit: feature → capability layer → module class.",
+  "capabilities": [
+    {
+      "capability_id": "cap-material-compatibility",
+      "capability_label": "Material Compatibility",
+      "module_class": "ConstraintPort.MaterialCompatibility",
+      "layer": "intelligence",
+      "dependencies": [],
+      "contract_class": "MaterialConstraintContract",
+      "investor_layer": "Intelligence Layer"
+    },
+    {
+      "capability_id": "cap-spatial-reasoning",
+      "capability_label": "Spatial Reasoning",
+      "module_class": "AssemblyGraph.TopologyResolver",
+      "layer": "intelligence",
+      "dependencies": [],
+      "contract_class": "SpatialReasoningContract",
+      "investor_layer": "Intelligence Layer"
+    },
+    {
+      "capability_id": "cap-deterministic-governance",
+      "capability_label": "Deterministic Governance",
+      "module_class": "GovernanceContract.AuditResolver",
+      "layer": "application",
+      "dependencies": [],
+      "contract_class": "GovernanceAuditContract",
+      "investor_layer": "Application Layer"
+    },
+    {
+      "capability_id": "cap-construction-reasoning",
+      "capability_label": "Construction Reasoning",
+      "module_class": "ReasoningPipeline.ConstructionInference",
+      "layer": "intelligence",
+      "dependencies": ["cap-material-compatibility", "cap-spatial-reasoning", "cap-deterministic-governance"],
+      "contract_class": "ConstructionReasoningContract",
+      "investor_layer": "Intelligence Layer"
+    },
+    {
+      "capability_id": "cap-detail-generation",
+      "capability_label": "Detail Generation",
+      "module_class": "DetailRenderer.OutputPipeline",
+      "layer": "application",
+      "dependencies": ["cap-spatial-reasoning"],
+      "contract_class": "DetailGenerationContract",
+      "investor_layer": "Application Layer"
+    },
+    {
+      "capability_id": "cap-event-routing",
+      "capability_label": "Event Routing",
+      "module_class": "SignalBus.EventRouter",
+      "layer": "infrastructure",
+      "dependencies": [],
+      "contract_class": "EventRoutingContract",
+      "investor_layer": "Infrastructure Layer"
+    },
+    {
+      "capability_id": "cap-shop-drawing-production",
+      "capability_label": "Shop Drawing Production",
+      "module_class": "ShopDrawingRenderer.DocumentOutput",
+      "layer": "application",
+      "dependencies": ["cap-detail-generation", "cap-spatial-reasoning"],
+      "contract_class": "ShopDrawingContract",
+      "investor_layer": "Application Layer"
+    },
+    {
+      "capability_id": "cap-parallel-execution",
+      "capability_label": "Parallel Execution",
+      "module_class": "WorkerFleet.ExecutionPool",
+      "layer": "infrastructure",
+      "dependencies": ["cap-event-routing"],
+      "contract_class": "ParallelExecutionContract",
+      "investor_layer": "Infrastructure Layer"
+    }
+  ]
+}
