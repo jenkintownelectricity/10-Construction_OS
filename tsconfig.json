@@ -22,7 +22,7 @@
     },
     "baseUrl": "."
   },
-  "include": ["src"],
+  "include": ["src", "apps"],
   "exclude": [
     "src/**/*.test.ts",
     "src/**/*.test.tsx",

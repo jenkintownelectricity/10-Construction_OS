@@ -18,7 +18,8 @@ export type ControlTowerRoute =
   | 'registry'
   | 'signals'
   | 'receipts'
-  | 'branding';
+  | 'branding'
+  | 'mirror-builder';
 
 export interface ControlTowerNavItem {
   id: ControlTowerRoute;
@@ -28,6 +29,7 @@ export interface ControlTowerNavItem {
 
 export const CONTROL_TOWER_NAV: ControlTowerNavItem[] = [
   { id: 'dashboard', label: 'Dashboard', icon: '\u2630' },
+  { id: 'mirror-builder', label: 'Mirror Builder', icon: '\u25C9' },
   { id: 'foundry', label: 'Foundry', icon: '\u2692' },
   { id: 'truth-spine', label: 'Truth Spine', icon: '\u25C8' },
   { id: 'atlas', label: 'Atlas', icon: '\u25C7' },

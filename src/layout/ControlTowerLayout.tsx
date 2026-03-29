@@ -25,13 +25,19 @@ import { RegistryPage } from '../pages/registry/RegistryPage';
 import { SignalsPage } from '../pages/signals/SignalsPage';
 import { ReceiptsPage } from '../pages/receipts/ReceiptsPage';
 import { BrandingPage } from '../pages/branding/BrandingPage';
+import { MirrorBuilderPage } from '../pages/mirror-builder/MirrorBuilderPage';
 
 const t = tokens;
+
+/** Routes that use full-viewport layout (no padding, no scroll). */
+const FULL_VIEWPORT_ROUTES: ControlTowerRoute[] = ['mirror-builder'];
 
 function renderPage(route: ControlTowerRoute) {
   switch (route) {
     case 'dashboard':
       return <ConstructionDashboard />;
+    case 'mirror-builder':
+      return <MirrorBuilderPage />;
     case 'foundry':
       return <ConstructionFoundry />;
     case 'truth-spine':
@@ -68,6 +74,8 @@ function renderPage(route: ControlTowerRoute) {
 export function ControlTowerLayout() {
   const [activeRoute, setActiveRoute] = useState<ControlTowerRoute>('dashboard');
 
+  const isFullViewport = FULL_VIEWPORT_ROUTES.includes(activeRoute);
+
   return (
     <div
       style={{
@@ -84,8 +92,8 @@ export function ControlTowerLayout() {
       <main
         style={{
           flex: 1,
-          overflow: 'auto',
-          padding: '24px 32px',
+          overflow: isFullViewport ? 'hidden' : 'auto',
+          padding: isFullViewport ? 0 : '24px 32px',
           background: t.color.bgBase,
         }}
       >
