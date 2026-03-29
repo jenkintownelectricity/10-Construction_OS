@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from "react";
+import { useSyncExternalStore, type CSSProperties } from "react";
 import { useLens, subscribe, getSnapshot, getFeatureCatalog, getCapability, MIRROR_STATES } from "../../lib/mirror";
 
 const PRICING_VALUES: Record<string, number> = {
@@ -133,7 +133,7 @@ export function PricingValuePanel() {
   );
 }
 
-const panelStyle: React.CSSProperties = {
+const panelStyle: CSSProperties = {
   display: "flex",
   flexDirection: "column",
   gap: 8,
@@ -144,7 +144,7 @@ const panelStyle: React.CSSProperties = {
   minWidth: 240,
 };
 
-const headerStyle: React.CSSProperties = {
+const headerStyle: CSSProperties = {
   fontSize: 10,
   fontFamily: "monospace",
   color: "#64748b",
@@ -153,27 +153,27 @@ const headerStyle: React.CSSProperties = {
   marginBottom: 4,
 };
 
-const rowStyle: React.CSSProperties = {
+const rowStyle: CSSProperties = {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
   padding: "3px 0",
 };
 
-const sectionStyle: React.CSSProperties = {
+const sectionStyle: CSSProperties = {
   padding: "6px 8px",
   background: "#1e293b",
   borderRadius: 4,
 };
 
-const labelStyle: React.CSSProperties = {
+const labelStyle: CSSProperties = {
   fontSize: 9,
   color: "#64748b",
   fontFamily: "monospace",
   marginBottom: 2,
 };
 
-const emptyStyle: React.CSSProperties = {
+const emptyStyle: CSSProperties = {
   color: "#475569",
   fontSize: 10,
   fontFamily: "monospace",

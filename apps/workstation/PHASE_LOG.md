@@ -43,34 +43,64 @@
    - Admin: explains registry/mapping inspection
    - Assistant never executes actions autonomously
 
-### File Manifest
+---
 
-| Path | Type | Purpose |
-|------|------|---------|
-| `apps/workstation/features/platform/feature_catalog.json` | Registry | Deterministic feature registry |
-| `apps/workstation/features/platform/capability_map.json` | Registry | Capability-to-module mapping |
-| `apps/workstation/lib/mirror/mirror-state.ts` | Types | Mirror state enum, lens types, interfaces |
-| `apps/workstation/lib/mirror/lens-context.tsx` | Context | React lens provider and hook |
-| `apps/workstation/lib/mirror/feature-store.ts` | Store | Feature selection state with external store pattern |
-| `apps/workstation/lib/mirror/index.ts` | Barrel | Library exports |
-| `apps/workstation/components/system-map/MirrorGraph.tsx` | Component | SVG mirror graph viewport |
-| `apps/workstation/components/system-map/MirrorNode.tsx` | Component | Mirror node rendering |
-| `apps/workstation/components/system-map/MirrorEdge.tsx` | Component | Mirror edge rendering |
-| `apps/workstation/components/system-map/index.ts` | Barrel | System map exports |
-| `apps/workstation/components/control-tower/ControlTowerTopBar.tsx` | Component | Header row with lens toggle |
-| `apps/workstation/components/control-tower/LensToggle.tsx` | Component | Buyer/Investor/Engineering/Admin toggle |
-| `apps/workstation/components/control-tower/MirrorBuilder.tsx` | Component | Root layout for Mirror Builder |
-| `apps/workstation/components/control-tower/FeatureBuilderPanel.tsx` | Component | Feature add buttons with build feedback |
-| `apps/workstation/components/control-tower/PricingValuePanel.tsx` | Component | Lens-adaptive pricing/value inspector |
-| `apps/workstation/components/control-tower/MirrorAssistantPanel.tsx` | Component | Lens-adaptive contextual assistant |
-| `apps/workstation/components/control-tower/AdminMirror.tsx` | Component | Role-gated admin oversight panel |
-| `apps/workstation/components/control-tower/index.ts` | Barrel | Control tower exports |
+## Phase: Shell Wiring Pass
+
+**Date:** 2026-03-29
+**Authority:** Armand Lefebvre — Lefebvre Design Solutions LLC
+
+### Changes Implemented
+
+1. **Mirror Builder integrated into live workstation shell**
+   - `MirrorBuilderPage` wrapper created at `src/pages/mirror-builder/MirrorBuilderPage.tsx`
+   - Mounted within existing `ControlTowerLayout` routing system
+   - Full-viewport rendering (no padding) for mirror-builder route
+   - No duplicate workstation shell created
+
+2. **Navigation wiring completed**
+   - `mirror-builder` route added to `ControlTowerRoute` union type
+   - Navigation entry added to `CONTROL_TOWER_NAV` (positioned second, after Dashboard)
+   - Sidebar icon: `\u25C9` (fisheye)
+
+3. **Lens / store context integrated**
+   - `LensProvider` mounted inside `MirrorBuilder` component (wraps all child panels)
+   - Feature store (`useSyncExternalStore`) shared across all panels
+   - Lens switching propagates to: MirrorGraph, FeatureBuilderPanel, PricingValuePanel, MirrorAssistantPanel, AdminMirror
+
+4. **Session handling**
+   - Development session stub provided (`DEV_SESSION: { role: 'ADMIN' }`)
+   - AdminMirror respects role gating via `session.role === "ADMIN"`
+   - Stub documented for replacement with production session provider
+
+5. **TypeScript compilation fixed**
+   - `tsconfig.json` include extended to `["src", "apps"]` for `apps/workstation/` compilation
+   - `React.CSSProperties` references replaced with `import type { CSSProperties } from "react"` in PricingValuePanel and AdminMirror
+
+6. **System prepared for future Construction Earth view**
+   - `FULL_VIEWPORT_ROUTES` array in `ControlTowerLayout` supports additional full-viewport routes
+   - Mirror Builder architecture can host additional first-class views
+
+### Files Modified
+
+| Path | Change |
+|------|--------|
+| `src/layout/controlTowerTypes.ts` | Added `'mirror-builder'` route and nav entry |
+| `src/layout/ControlTowerLayout.tsx` | Added mirror-builder route case, full-viewport support |
+| `tsconfig.json` | Extended include to `["src", "apps"]` |
+
+### Files Created
+
+| Path | Purpose |
+|------|--------|
+| `src/pages/mirror-builder/MirrorBuilderPage.tsx` | Page wrapper with dev session stub |
 
 ### Governance Constraints Preserved
 
-- **DomainFoundryOS birthing authority**: No birth receipts, startup packs, kernel family identifiers, or template lineage generated
-- **VTI_TM boundary**: No guided selection execution surfaces created; language patterns referenced only
-- **Construction_OS_Registry**: Untouched; topology naming conventions referenced only
-- **Mirror state enum**: Frozen (AVAILABLE/SELECTED/BUILDING/READY/ACTIVE)
-- **No new frameworks** added; no package manager modifications
-- **No writes** outside Construction_Application_OS
+- No duplicate workstation shell created
+- No parallel control tower surface
+- No conflicting navigation systems
+- No writes outside Construction_Application_OS
+- DomainFoundryOS birthing authority untouched
+- VTI_TM boundary preserved
+- Construction_OS_Registry untouched

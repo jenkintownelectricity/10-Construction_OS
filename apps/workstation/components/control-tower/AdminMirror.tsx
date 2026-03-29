@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from "react";
+import { useSyncExternalStore, type CSSProperties } from "react";
 import { useLens, subscribe, getSnapshot, getFeatureCatalog, getCapabilityMap, MIRROR_STATES, LENS_TYPES } from "../../lib/mirror";
 
 export function AdminMirror() {
@@ -138,7 +138,7 @@ export function AdminMirror() {
   );
 }
 
-const sectionStyle: React.CSSProperties = {
+const sectionStyle: CSSProperties = {
   padding: "8px 10px",
   background: "#1e293b",
   borderRadius: 4,
@@ -147,7 +147,7 @@ const sectionStyle: React.CSSProperties = {
   gap: 6,
 };
 
-const sectionHeaderStyle: React.CSSProperties = {
+const sectionHeaderStyle: CSSProperties = {
   fontSize: 9,
   fontFamily: "monospace",
   color: "#64748b",
