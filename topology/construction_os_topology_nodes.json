@@ -1,0 +1,121 @@
+{
+  "schema": "construction_os_topology_nodes",
+  "version": "1.0.0",
+  "pass_id": "registry-induction-topology-pass-construction-os-registry",
+  "pass_timestamp": "2026-03-29T00:00:00Z",
+  "node_count": 14,
+  "nodes": [
+    {
+      "node_id": "node-vti-tm",
+      "label": "VTI_TM",
+      "node_type": "GOVERNANCE",
+      "architectural_class": "GOVERNANCE_REFERENCE",
+      "topology_band": "top",
+      "audit_source": "LIVE_OBSERVER"
+    },
+    {
+      "node_id": "node-construction-kernel",
+      "label": "Construction_Kernel",
+      "node_type": "KERNEL",
+      "architectural_class": "CORE_KERNEL",
+      "topology_band": "middle",
+      "audit_source": "LIVE_OBSERVER"
+    },
+    {
+      "node_id": "node-construction-assembly-kernel",
+      "label": "Construction_Assembly_Kernel",
+      "node_type": "KERNEL",
+      "architectural_class": "DOMAIN_KERNEL",
+      "topology_band": "middle",
+      "audit_source": "LIVE_OBSERVER"
+    },
+    {
+      "node_id": "node-construction-workforce-os",
+      "label": "Construction_Workforce_OS",
+      "node_type": "KERNEL",
+      "architectural_class": "DOMAIN_KERNEL",
+      "topology_band": "middle",
+      "audit_source": "LIVE_OBSERVER"
+    },
+    {
+      "node_id": "node-construction-os-registry",
+      "label": "Construction_OS_Registry",
+      "node_type": "REGISTRY",
+      "architectural_class": "REGISTRY",
+      "topology_band": "middle",
+      "audit_source": "LIVE_OBSERVER"
+    },
+    {
+      "node_id": "node-construction-runtime",
+      "label": "Construction_Runtime",
+      "node_type": "RUNTIME",
+      "architectural_class": "RUNTIME",
+      "topology_band": "execution_intelligence",
+      "audit_source": "PRIOR_RUN_AUDIT"
+    },
+    {
+      "node_id": "node-construction-cognitive-bus",
+      "label": "Construction_Cognitive_Bus",
+      "node_type": "BUS",
+      "architectural_class": "COGNITIVE_BUS",
+      "topology_band": "execution_intelligence",
+      "audit_source": "LIVE_OBSERVER"
+    },
+    {
+      "node_id": "node-construction-awareness-cache",
+      "label": "Construction_Awareness_Cache",
+      "node_type": "CACHE",
+      "architectural_class": "AWARENESS",
+      "topology_band": "execution_intelligence",
+      "audit_source": "LIVE_OBSERVER"
+    },
+    {
+      "node_id": "node-construction-assistant",
+      "label": "Construction_Assistant",
+      "node_type": "ASSISTANT",
+      "architectural_class": "ASSISTANT",
+      "topology_band": "execution_intelligence",
+      "audit_source": "LIVE_OBSERVER"
+    },
+    {
+      "node_id": "node-construction-intelligence-workers",
+      "label": "Construction_Intelligence_Workers",
+      "node_type": "WORKERS",
+      "architectural_class": "WORKER_FLEET",
+      "topology_band": "execution_intelligence",
+      "audit_source": "LIVE_OBSERVER"
+    },
+    {
+      "node_id": "node-construction-dna",
+      "label": "construction_dna",
+      "node_type": "DNA",
+      "architectural_class": "DNA_LAYER",
+      "topology_band": "knowledge_enrichment",
+      "audit_source": "LIVE_OBSERVER"
+    },
+    {
+      "node_id": "node-construction-pattern-language-os",
+      "label": "Construction_Pattern_Language_OS",
+      "node_type": "PATTERN",
+      "architectural_class": "PATTERN_SYSTEM",
+      "topology_band": "knowledge_enrichment",
+      "audit_source": "LIVE_OBSERVER"
+    },
+    {
+      "node_id": "node-construction-reference-intelligence",
+      "label": "Construction_Reference_Intelligence",
+      "node_type": "REFERENCE",
+      "architectural_class": "REFERENCE_INTELLIGENCE",
+      "topology_band": "knowledge_enrichment",
+      "audit_source": "LIVE_OBSERVER"
+    },
+    {
+      "node_id": "node-construction-application-os",
+      "label": "Construction_Application_OS",
+      "node_type": "APPLICATION",
+      "architectural_class": "APPLICATION_SURFACE",
+      "topology_band": "surface",
+      "audit_source": "LIVE_OBSERVER"
+    }
+  ]
+}
