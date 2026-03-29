@@ -52,55 +52,128 @@
 
 ### Changes Implemented
 
-1. **Mirror Builder integrated into live workstation shell**
-   - `MirrorBuilderPage` wrapper created at `src/pages/mirror-builder/MirrorBuilderPage.tsx`
-   - Mounted within existing `ControlTowerLayout` routing system
-   - Full-viewport rendering (no padding) for mirror-builder route
-   - No duplicate workstation shell created
+1. Mirror Builder integrated into live workstation shell via `MirrorBuilderPage`
+2. Navigation wiring completed with `mirror-builder` route
+3. Lens/store context integrated via `LensProvider` inside `MirrorBuilder`
+4. Session handling via development stub (`DEV_SESSION: { role: 'ADMIN' }`)
+5. TypeScript compilation fixed — `tsconfig.json` include extended to `["src", "apps"]`
+6. Full-viewport route support infrastructure prepared
 
-2. **Navigation wiring completed**
-   - `mirror-builder` route added to `ControlTowerRoute` union type
-   - Navigation entry added to `CONTROL_TOWER_NAV` (positioned second, after Dashboard)
-   - Sidebar icon: `\u25C9` (fisheye)
+---
 
-3. **Lens / store context integrated**
-   - `LensProvider` mounted inside `MirrorBuilder` component (wraps all child panels)
-   - Feature store (`useSyncExternalStore`) shared across all panels
-   - Lens switching propagates to: MirrorGraph, FeatureBuilderPanel, PricingValuePanel, MirrorAssistantPanel, AdminMirror
+## Phase: Full VTI Control Tower Absorption
 
-4. **Session handling**
-   - Development session stub provided (`DEV_SESSION: { role: 'ADMIN' }`)
-   - AdminMirror respects role gating via `session.role === "ADMIN"`
-   - Stub documented for replacement with production session provider
+**Date:** 2026-03-29
+**Authority:** Armand Lefebvre, L0 — Lefebvre Design Solutions LLC
 
-5. **TypeScript compilation fixed**
-   - `tsconfig.json` include extended to `["src", "apps"]` for `apps/workstation/` compilation
-   - `React.CSSProperties` references replaced with `import type { CSSProperties } from "react"` in PricingValuePanel and AdminMirror
+### Mission
 
-6. **System prepared for future Construction Earth view**
-   - `FULL_VIEWPORT_ROUTES` array in `ControlTowerLayout` supports additional full-viewport routes
-   - Mirror Builder architecture can host additional first-class views
+Absorb required VTI control tower feature families into Construction_Application_OS so it becomes the primary customer-facing control tower and operational application shell.
+
+### Absorption Method
+
+Structure-first absorption:
+1. Inspected existing shell architecture (ControlTowerLayout, ConstructionSidebar, routes)
+2. Identified architecture-safe mount points (existing page/route/nav system)
+3. Created shared ControlTowerPage template and StatusBadge component for visual consistency
+4. Adapted 12 VTI feature surfaces into Construction OS structures using design tokens
+5. Mounted all absorbed views into the existing single shell
+6. Restructured navigation into 8 grouped families
+
+### Absorbed Feature Families (12 new pages)
+
+| Feature Family | Page | Route | Nav Group | Status |
+|---------------|------|-------|-----------|--------|
+| Topology | `TopologyPage` | `topology` | Atlas | ACTIVE |
+| Birth Planner | `BirthPlannerPage` | `birth-planner` | Foundry | GOVERNED |
+| Kernel Vault | `KernelsPage` | `kernels` | Foundry | STABLE |
+| Mirrors Registry | `MirrorsPage` | `mirrors` | Registry | ACTIVE |
+| Doctrine Library | `DoctrinePage` | `doctrine` | Governance | STABLE |
+| Engines | `EnginesPage` | `engines` | Runtime | ACTIVE |
+| Capabilities | `CapabilitiesPage` | `capabilities` | Runtime | ACTIVE |
+| Governance | `GovernancePage` | `governance` | Governance | ACTIVE |
+| Contracts | `ContractsPage` | `contracts` | Governance | STABLE |
+| Viewer | `ViewerPage` | `viewer` | Platform | COMING_SOON |
+| Plans & Upgrades | `PlansPage` | `plans` | Platform | ACTIVE |
+| Admin | `AdminPage` | `admin` | Admin | GOVERNED |
+
+### Preserved Features (16 existing pages)
+
+- Dashboard, Foundry, Truth Spine, Atlas, Assemblies, Materials
+- Specifications, Chemistry, Scope, Patterns, Runtime, Registry
+- Signals, Receipts, Branding, Mirror Builder
+
+### Grouped Navigation IA
+
+| Group | Routes |
+|-------|--------|
+| Core | Dashboard, Mirror Builder |
+| Foundry | Kernel Foundry, Birth Planner, Kernel Vault |
+| Atlas | Atlas, Topology, Assemblies |
+| Runtime | Runtime, Engines, Signals, Capabilities |
+| Governance | Governance, Contracts, Doctrine, Truth Spine |
+| Registry | Registry, Receipts, Mirrors |
+| Platform | Viewer, Plans & Upgrades, Materials, Specifications, Chemistry, Scope, Patterns |
+| Admin | Branding, Admin |
+
+### Shared Components Created
+
+| Component | Path | Purpose |
+|-----------|------|---------|
+| StatusBadge | `src/components/control-tower/StatusBadge.tsx` | 14-status badge system |
+| ControlTowerPage | `src/components/control-tower/ControlTowerPage.tsx` | Reusable page template (metrics + table + chart) |
+
+### Files Created
+
+| Path | Feature Family |
+|------|----------------|
+| `src/components/control-tower/StatusBadge.tsx` | Shared |
+| `src/components/control-tower/ControlTowerPage.tsx` | Shared |
+| `src/components/control-tower/index.ts` | Shared |
+| `src/pages/topology/TopologyPage.tsx` | Topology |
+| `src/pages/birth-planner/BirthPlannerPage.tsx` | Birth Planner |
+| `src/pages/kernels/KernelsPage.tsx` | Kernel Vault |
+| `src/pages/mirrors/MirrorsPage.tsx` | Mirrors |
+| `src/pages/doctrine/DoctrinePage.tsx` | Doctrine |
+| `src/pages/engines/EnginesPage.tsx` | Engines |
+| `src/pages/capabilities/CapabilitiesPage.tsx` | Capabilities |
+| `src/pages/governance/GovernancePage.tsx` | Governance |
+| `src/pages/contracts/ContractsPage.tsx` | Contracts |
+| `src/pages/viewer/ViewerPage.tsx` | Viewer |
+| `src/pages/plans/PlansPage.tsx` | Plans & Upgrades |
+| `src/pages/admin/AdminPage.tsx` | Admin |
 
 ### Files Modified
 
 | Path | Change |
 |------|--------|
-| `src/layout/controlTowerTypes.ts` | Added `'mirror-builder'` route and nav entry |
-| `src/layout/ControlTowerLayout.tsx` | Added mirror-builder route case, full-viewport support |
-| `tsconfig.json` | Extended include to `["src", "apps"]` |
+| `src/layout/controlTowerTypes.ts` | Expanded to 28 routes, added grouped nav structure |
+| `src/layout/ConstructionSidebar.tsx` | Grouped section navigation with collapsible groups |
+| `src/layout/ControlTowerLayout.tsx` | All 28 route cases, organized by group |
 
-### Files Created
+### Honest Data States
 
-| Path | Purpose |
-|------|--------|
-| `src/pages/mirror-builder/MirrorBuilderPage.tsx` | Page wrapper with dev session stub |
+All absorbed pages with no live backend display honest seed notices:
+- Topology: "staged for interactive SVG integration"
+- Birth Planner: "plan composition and preview only"
+- Kernel Vault: "seed data representing minted kernel assets"
+- Mirrors: "seed classification data"
+- Doctrine: "canonical platform rules, reference-only"
+- Engines: "seed data aligned with feature catalog"
+- Capabilities: "staged platform packaging"
+- Governance: "staged demonstration state"
+- Contracts: "staged schema references"
+- Viewer: "staged for future integration"
+- Plans: "staged packaging configuration"
+- Admin: "staged for production integration"
 
 ### Governance Constraints Preserved
 
-- No duplicate workstation shell created
-- No parallel control tower surface
-- No conflicting navigation systems
-- No writes outside Construction_Application_OS
-- DomainFoundryOS birthing authority untouched
-- VTI_TM boundary preserved
-- Construction_OS_Registry untouched
+- **Birthing singularity**: DomainFoundryOS remains sole birthing authority. Birth Planner is plan review only.
+- **No competing shell**: Single ControlTowerLayout shell, no duplicate surfaces.
+- **No semantic drift**: Feature names, statuses, and labels coherent across all surfaces.
+- **No taxonomy fork**: Uses existing Construction OS token system and design language.
+- **No deletes**: All existing routes, pages, and components preserved.
+- **VTI boundary**: VTI_TM retained as reference/execution surface, patterns adapted not cloned.
+- **Registry boundary**: Construction_OS_Registry not modified, vocabulary referenced only.
+- **Mirror Builder intact**: Fully operational with lens switching, feature selection, and admin mirror.
