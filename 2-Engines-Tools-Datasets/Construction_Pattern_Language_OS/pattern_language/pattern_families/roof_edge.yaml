@@ -1,0 +1,28 @@
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "DNA-CONSTR-FAM-EDGE-001-R1"
+name: "Roof Edge"
+description: >
+  The Roof Edge family encompasses all construction detail patterns that address
+  the termination of roofing membranes and assemblies at the perimeter edge of a
+  roof. These details manage water shedding, wind uplift resistance, and aesthetic
+  transition between the roof plane and the building fascia or soffit. Proper edge
+  detailing is critical for preventing wind-driven moisture infiltration and
+  membrane peeling at the most vulnerable zone of any roofing system.
+domain: "construction"
+patterns:
+  - "DNA-CONSTR-PAT-EDGE-DRIP-010-R1"
+  - "DNA-CONSTR-PAT-EDGE-GRAVELSTOP-011-R1"
+detail_intents:
+  - "Terminate roofing membrane at roof perimeter"
+  - "Provide drip line to direct water away from fascia"
+  - "Resist wind uplift forces at roof edge"
+  - "Create weathertight transition between roof and wall or fascia"
+  - "Secure membrane termination against peel-back"
+notes:
+  - "Roof edge details must comply with ANSI/SPRI ES-1 for wind resistance."
+  - "Edge metal gauge and profile selection depend on building height and exposure category."
+  - "Compatible with built-up, modified bitumen, single-ply, and metal roofing systems."

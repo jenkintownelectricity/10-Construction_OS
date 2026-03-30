@@ -1,0 +1,62 @@
+# =============================================================================
+# PatternVariant: Drip Edge — Adhered
+# =============================================================================
+# Drip edge bonded to substrate using roofing adhesive or peel-and-stick
+# membrane rather than mechanical fasteners.
+# =============================================================================
+
+id: "CHEM-CONSTR-VAR-ADHERED-102-R1"
+name: "Drip Edge — Adhered"
+description: >
+  Drip edge variant installed using adhesive bonding rather than mechanical
+  fasteners. The horizontal flange is bonded to the roof deck or insulation
+  substrate using cold-applied adhesive, hot-applied rubberized asphalt, or
+  a factory-applied peel-and-stick membrane strip on the underside of the
+  flange. This method eliminates fastener penetrations through the roof
+  deck, reducing potential leak paths. Primarily used on low-slope single-ply
+  and modified bitumen systems where the membrane is fully adhered. Requires
+  minimum substrate temperature and surface preparation per adhesive
+  manufacturer instructions.
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+pattern_id: "DNA-CONSTR-PAT-EDGE-DRIP-001-R1"
+
+method: "adhesive_bond"
+
+materials:
+  - name: "24-gauge prefinished galvalume drip edge"
+    specification: "ASTM A792/A792M, AZ55 coating"
+    role: "edge_flashing"
+  - name: "Low-VOC bonding adhesive"
+    specification: "ASTM D3019, Type III"
+    role: "adhesive"
+  - name: "Self-adhering modified bitumen membrane strip"
+    specification: "ASTM D1970"
+    role: "reinforcement_strip"
+  - name: "Primer"
+    specification: "Per membrane manufacturer requirements"
+    role: "surface_preparation"
+
+dimensional_constraints:
+  min_width: "3 in"
+  max_width: "6 in"
+  min_thickness: "0.024 in"
+  tolerance: "+/- 1/16 in"
+
+manufacturer_refs:
+  - "Firestone Building Products"
+  - "GAF"
+  - "Johns Manville"
+
+notes: >
+  Adhesive application requires a minimum substrate temperature of 40 deg F
+  (4 deg C) unless a cold-weather adhesive is specified. Surface must be
+  clean, dry, and free of dust, oil, and loose debris. A roller must be
+  used to ensure full contact between the adhesive and substrate. Peel-and-
+  stick variants require removal of the release liner immediately before
+  placement. Wind uplift resistance should be verified against ANSI/SPRI
+  ES-1 RE-1 for the specific adhesive and edge metal combination.

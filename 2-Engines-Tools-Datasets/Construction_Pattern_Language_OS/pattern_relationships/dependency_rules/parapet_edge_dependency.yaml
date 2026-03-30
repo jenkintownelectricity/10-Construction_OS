@@ -1,0 +1,47 @@
+# Parapet-Edge Dependency Rule
+# Metal parapet cap installation depends on compatible edge metal termination
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "SOUND-CONSTR-REL-PARAPETEDGE-005-R1"
+name: "Parapet Metal Cap to Edge Metal Dependency"
+type: dependency
+
+source:
+  id: "DNA-CONSTR-PAT-PARAPET-METALCAP-020-R1"
+  name: "Metal Parapet Cap Pattern"
+
+target:
+  id: "DNA-CONSTR-PAT-EDGE-DRIP-010-R1"
+  name: "Drip Edge Pattern"
+
+description: >
+  Metal parapet cap requires compatible edge metal termination at base. The
+  parapet cap covers the top of the wall and extends down both faces with
+  drip hems, while the edge metal at the base of the parapet's roof side
+  provides the transition from the roofing membrane to the vertical wall
+  surface. These two elements must be designed as a coordinated system:
+  the cap's interior drip hem must lap over or interlock with the top of
+  the base edge metal to create a continuous shingled water path. Mismatched
+  profiles, incompatible metals, or insufficient overlap will create a
+  capillary break failure and allow wind-driven rain behind the wall.
+
+dependency_direction: source_requires_target
+
+requirements:
+  - The parapet cap interior drip hem must overlap the base edge metal by a minimum of 2 inches
+  - Materials must be galvanically compatible to prevent corrosion
+  - Both elements must be specified from the same gauge and finish system
+  - Cleat attachment for the cap must not penetrate the base edge metal
+  - Thermal expansion provisions must be coordinated between cap and base metal
+
+validation:
+  - check: overlap_minimum
+    min_overlap_inches: 2.0
+  - check: galvanic_compatibility
+    required: true
+  - check: gauge_system_match
+    required: true

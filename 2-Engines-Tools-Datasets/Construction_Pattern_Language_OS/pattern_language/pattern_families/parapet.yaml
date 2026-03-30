@@ -1,0 +1,29 @@
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "DNA-CONSTR-FAM-PARAPET-002-R1"
+name: "Parapet"
+description: >
+  The Parapet family covers all construction detail patterns for the wall
+  extension that rises above the roof plane at the building perimeter. Parapet
+  details address waterproofing of the wall-to-roof transition, capping of the
+  parapet wall to prevent moisture intrusion from above, and flashing integration
+  to ensure continuity of the building envelope. Parapets serve as guardrails,
+  fire walls, and aesthetic elements while presenting complex waterproofing
+  challenges at their intersection with the roof membrane.
+domain: "construction"
+patterns:
+  - "DNA-CONSTR-PAT-PARAPET-METALCAP-020-R1"
+  - "DNA-CONSTR-PAT-PARAPET-STONECOP-021-R1"
+detail_intents:
+  - "Cap and weatherproof the top of parapet walls"
+  - "Flash the roof-to-parapet wall transition"
+  - "Provide slope for positive drainage off parapet top"
+  - "Allow thermal movement without compromising waterproofing"
+  - "Integrate through-wall flashing with roof membrane"
+notes:
+  - "Parapet height affects wind load calculations per ASCE 7."
+  - "Through-wall flashing is required at the base of all parapet walls."
+  - "Coping and cap joints must accommodate thermal expansion of metal components."

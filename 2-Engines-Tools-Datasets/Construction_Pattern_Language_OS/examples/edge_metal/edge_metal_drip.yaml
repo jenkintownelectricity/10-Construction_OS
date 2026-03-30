@@ -1,0 +1,44 @@
+# =============================================================================
+# Pattern: Drip Edge
+# =============================================================================
+# Angled metal flashing installed at eaves and rakes to direct water away
+# from fascia and into gutters. Classified under ANSI/SPRI ES-1 RE-1.
+# =============================================================================
+
+id: "DNA-CONSTR-PAT-EDGE-DRIP-001-R1"
+name: "Drip Edge"
+description: >
+  Angled sheet metal flashing installed at the eave and rake edges of a
+  roof system. The drip edge extends beyond the roof deck edge to direct
+  water runoff away from the fascia board and into the gutter. Typically
+  an L-shaped or T-shaped profile with a kick-out hem at the lower edge
+  to break surface tension and promote clean water shedding. Required by
+  most building codes on steep-slope roofs (IBC/IRC) and recommended on
+  low-slope systems where a gravel stop is not used. Tested per ANSI/SPRI
+  ES-1 RE-1 for wind resistance at the roof perimeter.
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+family_id: "DNA-CONSTR-FAM-EDGE-001-R1"
+
+variants:
+  - "CHEM-CONSTR-VAR-MECHANICAL-101-R1"
+  - "CHEM-CONSTR-VAR-ADHERED-102-R1"
+
+detail_intents:
+  - "Direct water away from fascia and into gutter"
+  - "Prevent water infiltration at eave and rake edges"
+  - "Provide a drip line that breaks surface tension"
+  - "Support underlayment termination at roof edge"
+
+artifact_intent_refs:
+  - "COLOR-CONSTR-ART-SHOPDRW-001-R1"
+  - "COLOR-CONSTR-ART-SPEC-002-R1"
+
+constraint_profile_refs:
+  - "TEXTURE-CONSTR-CNS-FLANGEWIDTH-001-R1"
+  - "TEXTURE-CONSTR-CNS-GAUGE-002-R1"
+  - "CLIMATE-CONSTR-CNS-WINDZONE-001-R1"

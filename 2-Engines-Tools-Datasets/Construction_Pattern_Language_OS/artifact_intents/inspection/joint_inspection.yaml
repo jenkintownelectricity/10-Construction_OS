@@ -1,0 +1,60 @@
+# Joint Inspection Intent
+# Defines the artifact output requirements for expansion joint inspection checklists
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "COLOR-CONSTR-ART-JOINTINSP-005-R1"
+name: "Expansion Joint Inspection"
+artifact_type: inspection
+
+description: >
+  Inspection artifact for roof and wall expansion joint assemblies. This
+  checklist defines the field observations, measurements, and pass/fail
+  criteria an inspector must evaluate to verify that expansion joints are
+  installed correctly and performing as designed. Inspections occur at
+  initial installation, at substantial completion, and as part of periodic
+  maintenance programs. The checklist covers the joint cover plate or
+  bellows, sealant integrity, anchorage, and alignment with adjacent
+  roofing and wall components.
+
+pattern_refs:
+  - id: "DNA-CONSTR-PAT-JOINT-ROOF-050-R1"
+    name: "Roof Expansion Joint Pattern"
+  - id: "DNA-CONSTR-PAT-JOINT-WALL-051-R1"
+    name: "Wall Expansion Joint Pattern"
+
+required_fields:
+  - field: joint_width_measurement
+    description: "Measured width of the joint gap at time of inspection compared to design width"
+    unit: inches
+    acceptance_criteria: "Within +/- 1/4 inch of design width at ambient temperature"
+  - field: sealant_adhesion
+    description: "Visual and probe inspection of sealant bond to both joint substrates"
+    acceptance_criteria: "No delamination, bubbling, or separation from substrate on either side"
+  - field: bellows_condition
+    description: "Physical condition of the flexible bellows or membrane bridge spanning the joint"
+    acceptance_criteria: "No tears, punctures, UV degradation, or permanent deformation"
+  - field: cover_alignment
+    description: "Alignment of the metal cover plate relative to the joint centerline"
+    acceptance_criteria: "Cover centered over joint within 1/2 inch, no binding or contact with fixed elements"
+
+supplementary_fields:
+  - fastener_condition
+  - flashing_integration
+  - debris_accumulation
+  - drainage_path_clear
+  - adjacent_membrane_condition
+
+inspection_frequency:
+  installation: required
+  substantial_completion: required
+  annual_maintenance: recommended
+  post_storm_event: recommended
+
+notes:
+  - Record ambient temperature at time of inspection as joint width varies with temperature
+  - Photograph all deficiencies with a scale reference in the frame
+  - Joint inspections should coincide with full roof inspection program

@@ -1,0 +1,27 @@
+id: CHEM-CONSTR-VAR-WALLJCOV-119-R1
+name: Cover Plate Wall Expansion Joint
+description: >
+  Wall expansion joint concealed behind an extruded aluminum cover
+  plate.  Neoprene gaskets behind the plate provide a secondary
+  weather seal while stainless anchors on one side allow the plate
+  to slide with structural movement.
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+pattern_id: DNA-CONSTR-PAT-JOINT-WALL-051-R1
+method: cover_plate_installation
+materials:
+  - name: extruded aluminum cover plate
+    specification: 6063-T5, factory finished, minimum 1/8" wall thickness
+  - name: neoprene gasket
+    specification: closed-cell neoprene, ASTM C509 Grade 1, full length
+  - name: stainless steel anchors
+    specification: 316 SS, slotted on movement side, fixed on anchor side
+dimensional_constraints:
+  min_cover_width_inches: 4
+  max_movement_inches: 2
+notes: >
+  Center cover plate over joint gap at mid-range of expected
+  movement.  Provide fire-rated safing insulation behind gasket
+  where fire rating is required.  Set anchors at 12" OC maximum.

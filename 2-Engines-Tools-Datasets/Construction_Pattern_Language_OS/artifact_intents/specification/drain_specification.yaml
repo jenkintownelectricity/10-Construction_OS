@@ -1,0 +1,60 @@
+# Drain Specification Intent
+# Defines the artifact output requirements for roof drain specifications
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "COLOR-CONSTR-ART-DRAINSPEC-003-R1"
+name: "Drain Specification"
+artifact_type: specification
+
+description: >
+  Specification artifact for roof drain assemblies including interior primary
+  drains and overflow scuppers or secondary drains. This specification
+  defines the performance requirements, material standards, and installation
+  criteria for the complete drain assembly from the surface strainer through
+  the drain body to the underdeck outlet connection. It must coordinate with
+  the structural opening size, the roofing membrane type for clamping ring
+  compatibility, and the storm piping system for outlet sizing.
+
+pattern_refs:
+  - id: "DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1"
+    name: "Interior Drain Pattern"
+  - id: "DNA-CONSTR-PAT-DRAIN-OVERFLOW-031-R1"
+    name: "Overflow Drain Pattern"
+
+required_fields:
+  - field: drain_body_material
+    description: "Material of the drain body casting (cast iron, stainless steel, or engineered polymer)"
+    type: enum
+    options: [cast_iron, stainless_steel, engineered_polymer]
+  - field: strainer_type
+    description: "Type and material of the surface strainer or dome"
+    type: enum
+    options: [flat_strainer, dome_strainer, beehive_strainer, vandal_proof]
+  - field: outlet_size
+    description: "Nominal diameter of the drain outlet connection"
+    unit: inches
+    typical_values: [2, 3, 4, 6]
+  - field: flow_rate
+    description: "Rated flow capacity of the drain at design head"
+    unit: gallons_per_minute
+
+supplementary_fields:
+  - clamping_ring_type
+  - membrane_compatibility
+  - gravel_guard_required
+  - underdeck_clamp_type
+  - extension_collar_height
+
+applicable_standards:
+  - ASME A112.6.4
+  - ASTM C564 (cast iron)
+  - IPC Chapter 11
+
+notes:
+  - Specify drains with integral clamping rings compatible with the specified membrane system
+  - Overflow drains must be set at the maximum allowable ponding depth per structural design
+  - Include flow rate calculations in the specification appendix

@@ -1,0 +1,29 @@
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "DNA-CONSTR-FAM-JOINT-005-R1"
+name: "Expansion Joint"
+description: >
+  The Expansion Joint family covers all construction detail patterns that
+  accommodate structural movement at predetermined joints in the building
+  envelope. These details bridge the gap between adjacent structural bays or
+  building sections while maintaining weatherproofing continuity. Expansion
+  joints must absorb thermal expansion and contraction, seismic drift, wind
+  sway, and differential settlement without compromising the integrity of the
+  roofing or wall waterproofing systems.
+domain: "construction"
+patterns:
+  - "DNA-CONSTR-PAT-JOINT-ROOF-050-R1"
+  - "DNA-CONSTR-PAT-JOINT-WALL-051-R1"
+detail_intents:
+  - "Accommodate structural movement at building joints"
+  - "Maintain waterproofing continuity across expansion gaps"
+  - "Allow thermal expansion and contraction cycles"
+  - "Resist wind uplift and water infiltration at joint locations"
+  - "Provide accessible and maintainable joint covers"
+notes:
+  - "Joint width and expected movement range must be determined by the structural engineer."
+  - "Expansion joints in roofing must be raised above the roof surface on curbs."
+  - "Building code may require fire-rated expansion joint assemblies."

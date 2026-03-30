@@ -1,0 +1,372 @@
+# Canonical ID Index
+# Generated: 2026-03-22
+# Authority: Construction_Pattern_Language_OS
+# Total entities: 53
+#
+# This is the single authoritative index of every entity ID
+# in the Construction_Pattern_Language_OS kernel. Consumers
+# must reference this index to resolve IDs to files and types.
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+generated_at: "2026-03-22T00:00:00Z"
+total_entities: 53
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# PATTERN FAMILIES (DNA-CONSTR-FAM-*)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+pattern_families:
+  - id: "DNA-CONSTR-FAM-EDGE-001-R1"
+    name: "Roof Edge"
+    file: "pattern_language/pattern_families/roof_edge.yaml"
+    status: active
+
+  - id: "DNA-CONSTR-FAM-PARAPET-002-R1"
+    name: "Parapet"
+    file: "pattern_language/pattern_families/parapet.yaml"
+    status: active
+
+  - id: "DNA-CONSTR-FAM-DRAIN-003-R1"
+    name: "Roof Drain"
+    file: "pattern_language/pattern_families/roof_drain.yaml"
+    status: active
+
+  - id: "DNA-CONSTR-FAM-PIPE-004-R1"
+    name: "Pipe Penetration"
+    file: "pattern_language/pattern_families/pipe_penetration.yaml"
+    status: active
+
+  - id: "DNA-CONSTR-FAM-JOINT-005-R1"
+    name: "Expansion Joint"
+    file: "pattern_language/pattern_families/expansion_joint.yaml"
+    status: active
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# PATTERNS (DNA-CONSTR-PAT-*)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+patterns:
+  - id: "DNA-CONSTR-PAT-EDGE-DRIP-010-R1"
+    name: "Drip Edge"
+    family_id: "DNA-CONSTR-FAM-EDGE-001-R1"
+    file: "pattern_language/patterns/edge_metal_drip.yaml"
+    status: active
+
+  - id: "DNA-CONSTR-PAT-EDGE-GRAVELSTOP-011-R1"
+    name: "Gravel Stop"
+    family_id: "DNA-CONSTR-FAM-EDGE-001-R1"
+    file: "pattern_language/patterns/edge_metal_gravel_stop.yaml"
+    status: active
+
+  - id: "DNA-CONSTR-PAT-PARAPET-METALCAP-020-R1"
+    name: "Metal Parapet Cap"
+    family_id: "DNA-CONSTR-FAM-PARAPET-002-R1"
+    file: "pattern_language/patterns/parapet_cap_metal.yaml"
+    status: active
+
+  - id: "DNA-CONSTR-PAT-PARAPET-STONECOP-021-R1"
+    name: "Stone Coping"
+    family_id: "DNA-CONSTR-FAM-PARAPET-002-R1"
+    file: "pattern_language/patterns/parapet_coping_stone.yaml"
+    status: active
+
+  - id: "DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1"
+    name: "Interior Roof Drain"
+    family_id: "DNA-CONSTR-FAM-DRAIN-003-R1"
+    file: "pattern_language/patterns/roof_drain_interior.yaml"
+    status: active
+
+  - id: "DNA-CONSTR-PAT-DRAIN-OVERFLOW-031-R1"
+    name: "Overflow / Scupper Drain"
+    family_id: "DNA-CONSTR-FAM-DRAIN-003-R1"
+    file: "pattern_language/patterns/roof_drain_overflow.yaml"
+    status: active
+
+  - id: "DNA-CONSTR-PAT-PIPE-PLUMBING-040-R1"
+    name: "Plumbing Vent Penetration"
+    family_id: "DNA-CONSTR-FAM-PIPE-004-R1"
+    file: "pattern_language/patterns/pipe_penetration_plumbing.yaml"
+    status: active
+
+  - id: "DNA-CONSTR-PAT-PIPE-CONDUIT-041-R1"
+    name: "Electrical Conduit Penetration"
+    family_id: "DNA-CONSTR-FAM-PIPE-004-R1"
+    file: "pattern_language/patterns/pipe_penetration_conduit.yaml"
+    status: active
+
+  - id: "DNA-CONSTR-PAT-JOINT-ROOF-050-R1"
+    name: "Roof Expansion Joint"
+    family_id: "DNA-CONSTR-FAM-JOINT-005-R1"
+    file: "pattern_language/patterns/expansion_joint_roof.yaml"
+    status: active
+
+  - id: "DNA-CONSTR-PAT-JOINT-WALL-051-R1"
+    name: "Wall Expansion Joint"
+    family_id: "DNA-CONSTR-FAM-JOINT-005-R1"
+    file: "pattern_language/patterns/expansion_joint_wall.yaml"
+    status: active
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# PATTERN VARIANTS (CHEM-CONSTR-VAR-*)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+pattern_variants:
+  - id: "CHEM-CONSTR-VAR-DRIPMECH-101-R1"
+    name: "Mechanically Fastened Drip Edge"
+    pattern_id: "DNA-CONSTR-PAT-EDGE-DRIP-010-R1"
+    file: "pattern_language/pattern_variants/drip_edge_mechanical.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-DRIPADH-102-R1"
+    name: "Adhered Drip Edge"
+    pattern_id: "DNA-CONSTR-PAT-EDGE-DRIP-010-R1"
+    file: "pattern_language/pattern_variants/drip_edge_adhered.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-GRAVELEXT-103-R1"
+    name: "Extruded Aluminum Gravel Stop"
+    pattern_id: "DNA-CONSTR-PAT-EDGE-GRAVELSTOP-011-R1"
+    file: "pattern_language/pattern_variants/gravel_stop_extruded.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-GRAVELFRM-104-R1"
+    name: "Formed Metal Gravel Stop"
+    pattern_id: "DNA-CONSTR-PAT-EDGE-GRAVELSTOP-011-R1"
+    file: "pattern_language/pattern_variants/gravel_stop_formed.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-CAPSNAP-105-R1"
+    name: "Snap-Lock Parapet Cap"
+    pattern_id: "DNA-CONSTR-PAT-PARAPET-METALCAP-020-R1"
+    file: "pattern_language/pattern_variants/parapet_cap_snap.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-CAPCLEAT-106-R1"
+    name: "Cleat-Mounted Parapet Cap"
+    pattern_id: "DNA-CONSTR-PAT-PARAPET-METALCAP-020-R1"
+    file: "pattern_language/pattern_variants/parapet_cap_cleat.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-COPSET-107-R1"
+    name: "Mortar-Set Stone Coping"
+    pattern_id: "DNA-CONSTR-PAT-PARAPET-STONECOP-021-R1"
+    file: "pattern_language/pattern_variants/coping_stone_set.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-COPADH-108-R1"
+    name: "Adhesive-Set Stone Coping"
+    pattern_id: "DNA-CONSTR-PAT-PARAPET-STONECOP-021-R1"
+    file: "pattern_language/pattern_variants/coping_stone_adhered.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-DRAINGRAV-109-R1"
+    name: "Gravity Flow Interior Drain"
+    pattern_id: "DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1"
+    file: "pattern_language/pattern_variants/drain_interior_gravity.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-DRAINSIP-110-R1"
+    name: "Siphonic Roof Drain"
+    pattern_id: "DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1"
+    file: "pattern_language/pattern_variants/drain_interior_siphonic.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-OVSCUPPER-111-R1"
+    name: "Through-Wall Scupper Overflow"
+    pattern_id: "DNA-CONSTR-PAT-DRAIN-OVERFLOW-031-R1"
+    file: "pattern_language/pattern_variants/overflow_scupper.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-OVSECOND-112-R1"
+    name: "Secondary Overflow Drain"
+    pattern_id: "DNA-CONSTR-PAT-DRAIN-OVERFLOW-031-R1"
+    file: "pattern_language/pattern_variants/overflow_secondary.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-PLUMBPITCH-113-R1"
+    name: "Pitch Pocket Penetration"
+    pattern_id: "DNA-CONSTR-PAT-PIPE-PLUMBING-040-R1"
+    file: "pattern_language/pattern_variants/plumbing_pitch_pocket.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-PLUMBBOOT-114-R1"
+    name: "Prefabricated Pipe Boot"
+    pattern_id: "DNA-CONSTR-PAT-PIPE-PLUMBING-040-R1"
+    file: "pattern_language/pattern_variants/plumbing_prefab_boot.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-CONDCURB-115-R1"
+    name: "Curb-Mounted Conduit Penetration"
+    pattern_id: "DNA-CONSTR-PAT-PIPE-CONDUIT-041-R1"
+    file: "pattern_language/pattern_variants/conduit_curb_mount.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-CONDFLUSH-116-R1"
+    name: "Flush-Mount Conduit Penetration"
+    pattern_id: "DNA-CONSTR-PAT-PIPE-CONDUIT-041-R1"
+    file: "pattern_language/pattern_variants/conduit_flush_mount.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-JOINTBELL-117-R1"
+    name: "Bellows-Type Roof Expansion Joint"
+    pattern_id: "DNA-CONSTR-PAT-JOINT-ROOF-050-R1"
+    file: "pattern_language/pattern_variants/roof_joint_bellows.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-JOINTSLIDE-118-R1"
+    name: "Sliding Plate Roof Expansion Joint"
+    pattern_id: "DNA-CONSTR-PAT-JOINT-ROOF-050-R1"
+    file: "pattern_language/pattern_variants/roof_joint_slide.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-WALLJCOV-119-R1"
+    name: "Cover Plate Wall Expansion Joint"
+    pattern_id: "DNA-CONSTR-PAT-JOINT-WALL-051-R1"
+    file: "pattern_language/pattern_variants/wall_joint_cover.yaml"
+    status: active
+
+  - id: "CHEM-CONSTR-VAR-WALLJSEAL-120-R1"
+    name: "Sealant Joint Wall Expansion Joint"
+    pattern_id: "DNA-CONSTR-PAT-JOINT-WALL-051-R1"
+    file: "pattern_language/pattern_variants/wall_joint_sealant.yaml"
+    status: active
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# PATTERN RELATIONSHIPS (SOUND-CONSTR-REL-*)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+pattern_relationships:
+  - id: "SOUND-CONSTR-REL-EDGEPARAPET-001-R1"
+    name: "Edge Metal to Parapet Wall Adjacency"
+    type: adjacency
+    source_id: "DNA-CONSTR-FAM-EDGE-001-R1"
+    target_id: "DNA-CONSTR-FAM-PARAPET-002-R1"
+    file: "pattern_relationships/adjacency_rules/edge_parapet_adjacency.yaml"
+    status: active
+
+  - id: "SOUND-CONSTR-REL-DRAINPIPE-002-R1"
+    name: "Roof Drain to Pipe Penetration Adjacency"
+    type: adjacency
+    source_id: "DNA-CONSTR-FAM-DRAIN-003-R1"
+    target_id: "DNA-CONSTR-FAM-PIPE-004-R1"
+    file: "pattern_relationships/adjacency_rules/drain_pipe_adjacency.yaml"
+    status: active
+
+  - id: "SOUND-CONSTR-REL-EDGEJOINT-003-R1"
+    name: "Drip Edge and Expansion Joint Conflict"
+    type: conflict
+    source_id: "DNA-CONSTR-PAT-EDGE-DRIP-010-R1"
+    target_id: "DNA-CONSTR-PAT-JOINT-ROOF-050-R1"
+    file: "pattern_relationships/conflict_rules/edge_joint_conflict.yaml"
+    status: active
+
+  - id: "SOUND-CONSTR-REL-DRAINJOINT-004-R1"
+    name: "Interior Drain and Expansion Joint Conflict"
+    type: conflict
+    source_id: "DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1"
+    target_id: "DNA-CONSTR-PAT-JOINT-ROOF-050-R1"
+    file: "pattern_relationships/conflict_rules/drain_joint_conflict.yaml"
+    status: active
+
+  - id: "SOUND-CONSTR-REL-PARAPETEDGE-005-R1"
+    name: "Parapet Metal Cap to Edge Metal Dependency"
+    type: dependency
+    source_id: "DNA-CONSTR-PAT-PARAPET-METALCAP-020-R1"
+    target_id: "DNA-CONSTR-PAT-EDGE-DRIP-010-R1"
+    file: "pattern_relationships/dependency_rules/parapet_edge_dependency.yaml"
+    status: active
+
+  - id: "SOUND-CONSTR-REL-PIPEDRAIN-006-R1"
+    name: "Plumbing Vent Penetration to Drain Location Dependency"
+    type: dependency
+    source_id: "DNA-CONSTR-PAT-PIPE-PLUMBING-040-R1"
+    target_id: "DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1"
+    file: "pattern_relationships/dependency_rules/pipe_drain_dependency.yaml"
+    status: active
+
+  - id: "SOUND-CONSTR-REL-JOINTEDGE-007-R1"
+    name: "Expansion Joint and Drip Edge Conflict"
+    type: conflict
+    source_id: "DNA-CONSTR-PAT-JOINT-ROOF-050-R1"
+    target_id: "DNA-CONSTR-PAT-EDGE-DRIP-010-R1"
+    file: "pattern_relationships/conflict_rules/joint_edge_conflict.yaml"
+    status: active
+
+  - id: "SOUND-CONSTR-REL-JOINTDRAIN-008-R1"
+    name: "Expansion Joint and Interior Drain Conflict"
+    type: conflict
+    source_id: "DNA-CONSTR-PAT-JOINT-ROOF-050-R1"
+    target_id: "DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1"
+    file: "pattern_relationships/conflict_rules/joint_drain_conflict.yaml"
+    status: active
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# ARTIFACT INTENTS (COLOR-CONSTR-ART-*)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+artifact_intents:
+  - id: "COLOR-CONSTR-ART-EDGESHOP-001-R1"
+    name: "Edge Metal Shop Drawing"
+    file: "artifact_intents/shop_drawing/edge_metal_shop_drawing.yaml"
+    status: active
+
+  - id: "COLOR-CONSTR-ART-PARAPETSHOP-002-R1"
+    name: "Parapet Cap Shop Drawing"
+    file: "artifact_intents/shop_drawing/parapet_cap_shop_drawing.yaml"
+    status: active
+
+  - id: "COLOR-CONSTR-ART-DRAINSPEC-003-R1"
+    name: "Drain Specification"
+    file: "artifact_intents/specification/drain_specification.yaml"
+    status: active
+
+  - id: "COLOR-CONSTR-ART-PIPESUBM-004-R1"
+    name: "Pipe Penetration Submittal"
+    file: "artifact_intents/submittal/pipe_penetration_submittal.yaml"
+    status: active
+
+  - id: "COLOR-CONSTR-ART-JOINTINSP-005-R1"
+    name: "Expansion Joint Inspection"
+    file: "artifact_intents/inspection/joint_inspection.yaml"
+    status: active
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# CONSTRAINT PROFILES (TEXTURE/CLIMATE-CONSTR-CNS-*)
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+constraint_profiles:
+  - id: "TEXTURE-CONSTR-CNS-EDGEMFR-001-R1"
+    name: "Edge Metal Manufacturer Constraints"
+    constraint_type: manufacturer
+    file: "constraint_profiles/manufacturer/edge_metal_manufacturer.yaml"
+    status: active
+
+  - id: "CLIMATE-CONSTR-CNS-WINDZONE-001-R1"
+    name: "Wind Zone Constraints"
+    constraint_type: environmental
+    file: "constraint_profiles/environmental/wind_zone_constraint.yaml"
+    status: active
+
+  - id: "TEXTURE-CONSTR-CNS-DRAINCODE-002-R1"
+    name: "Drain Code Compliance Constraints"
+    constraint_type: code
+    file: "constraint_profiles/code/drain_code_compliance.yaml"
+    status: active
+
+  - id: "CLIMATE-CONSTR-CNS-MOISTURE-002-R1"
+    name: "Moisture Exposure Constraint"
+    constraint_type: environmental
+    file: "constraint_profiles/environmental/moisture_exposure_constraint.yaml"
+    status: active
+
+  - id: "TEXTURE-CONSTR-CNS-PARAPETDIM-003-R1"
+    name: "Parapet Dimensional Constraints"
+    constraint_type: dimensional
+    file: "constraint_profiles/dimensional/parapet_dimensional.yaml"
+    status: active
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# DELETION / DEPRECATION REGISTRY
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# No entities have been deprecated or deleted.
+# When an entity is deprecated:
+#   1. Set status: deprecated in the entity file
+#   2. Add entry here with deprecated_at timestamp and reason
+#   3. Do NOT reuse the ID for a new entity
+#   4. Downstream consumers must stop referencing deprecated IDs
+deprecated_entities: []

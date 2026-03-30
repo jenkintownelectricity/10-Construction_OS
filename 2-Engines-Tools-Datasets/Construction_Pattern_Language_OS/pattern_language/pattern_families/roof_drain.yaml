@@ -1,0 +1,28 @@
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "DNA-CONSTR-FAM-DRAIN-003-R1"
+name: "Roof Drain"
+description: >
+  The Roof Drain family addresses all construction detail patterns for the
+  removal of stormwater from the roof surface. These patterns cover primary
+  interior drainage, secondary overflow provisions, and scupper-based drainage
+  systems. Proper drain detailing ensures integration with the roofing membrane,
+  structural deck penetration waterproofing, and adequate flow capacity to
+  prevent ponding and structural overload during storm events.
+domain: "construction"
+patterns:
+  - "DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1"
+  - "DNA-CONSTR-PAT-DRAIN-OVERFLOW-031-R1"
+detail_intents:
+  - "Remove stormwater from the roof surface"
+  - "Provide secondary overflow drainage as code-required redundancy"
+  - "Integrate drain assemblies with roofing membrane waterproofing"
+  - "Prevent ponding water and structural overload"
+  - "Connect roof drainage to building storm sewer system"
+notes:
+  - "IBC Section 1502 and IPC Chapter 11 govern roof drainage requirements."
+  - "Secondary drainage must be independent of primary system per code."
+  - "Tapered insulation crickets are typically required to direct water to drains."

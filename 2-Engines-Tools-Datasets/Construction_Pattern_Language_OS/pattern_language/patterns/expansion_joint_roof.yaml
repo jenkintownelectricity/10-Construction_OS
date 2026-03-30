@@ -1,0 +1,28 @@
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "DNA-CONSTR-PAT-JOINT-ROOF-050-R1"
+name: "Roof Expansion Joint"
+description: >
+  A construction detail that bridges a structural expansion joint where it
+  crosses the roof plane. The joint assembly is raised above the roof surface on
+  curbs to prevent water damming, and a flexible cover or bellows spans the gap
+  between the curbs to maintain weatherproofing while allowing the expected range
+  of structural movement. Roof expansion joints must accommodate multi-directional
+  movement including longitudinal, transverse, and vertical displacement.
+family_id: "DNA-CONSTR-FAM-JOINT-005-R1"
+variants:
+  - "CHEM-CONSTR-VAR-JOINTBELL-117-R1"
+  - "CHEM-CONSTR-VAR-JOINTSLIDE-118-R1"
+detail_intents:
+  - "Bridge structural expansion joint at roof level"
+  - "Maintain waterproofing across movement gap"
+  - "Accommodate multi-directional structural movement"
+artifact_intent_refs:
+  - "AI-JOINT-ROOF-DETAIL-001"
+  - "AI-JOINT-ROOF-SECTION-002"
+constraint_profile_refs:
+  - "CP-JOINT-MOVEMENT-RANGE-001"
+  - "CP-JOINT-CURB-HEIGHT-002"

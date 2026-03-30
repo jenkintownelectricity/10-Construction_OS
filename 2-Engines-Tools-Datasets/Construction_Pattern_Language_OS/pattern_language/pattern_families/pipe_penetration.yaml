@@ -1,0 +1,28 @@
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "DNA-CONSTR-FAM-PIPE-004-R1"
+name: "Pipe Penetration"
+description: >
+  The Pipe Penetration family encompasses all construction detail patterns for
+  sealing around pipes, conduits, and similar cylindrical elements that pass
+  through the roofing assembly. These penetrations are among the most common
+  sources of roof leaks and require careful detailing to maintain waterproofing
+  continuity while allowing for thermal movement and vibration isolation between
+  the penetrating element and the roof structure.
+domain: "construction"
+patterns:
+  - "DNA-CONSTR-PAT-PIPE-PLUMBING-040-R1"
+  - "DNA-CONSTR-PAT-PIPE-CONDUIT-041-R1"
+detail_intents:
+  - "Seal roofing membrane around pipe penetrations"
+  - "Accommodate thermal movement between pipe and roof"
+  - "Prevent moisture migration along penetrating elements"
+  - "Provide durable and maintainable flashing systems"
+  - "Maintain fire-rating of roof assembly at penetrations"
+notes:
+  - "All penetrations should be located in the field of the roof, not in valleys or gutters."
+  - "Minimum recommended distance between penetrations is 12 inches on center."
+  - "Hot-pipe penetrations require additional standoff and heat-resistant materials."

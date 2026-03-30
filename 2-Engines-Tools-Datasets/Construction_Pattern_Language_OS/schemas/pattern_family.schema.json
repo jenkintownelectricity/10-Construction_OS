@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "pattern_family.schema.json",
+  "title": "PatternFamily",
+  "description": "Schema for PatternFamily entities representing high-level groupings of related construction patterns within a specific domain.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "description",
+    "schema_version",
+    "pattern_language_version",
+    "entity_revision",
+    "created_at",
+    "domain",
+    "patterns"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the pattern family, following the DNA-CONSTR-FAM naming convention.",
+      "pattern": "^DNA-CONSTR-FAM-[A-Z]+-\\d{3}-R\\d+$",
+      "examples": ["DNA-CONSTR-FAM-MASONRY-001-R1"]
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name of the pattern family.",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the pattern family, its purpose, and scope within the construction domain."
+    },
+    "schema_version": {
+      "type": "string",
+      "description": "Version of this JSON schema definition used to validate the entity.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0"]
+    },
+    "pattern_language_version": {
+      "type": "string",
+      "description": "Version of the Construction Pattern Language specification this entity conforms to.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0"]
+    },
+    "entity_revision": {
+      "type": "integer",
+      "description": "Monotonically increasing revision number for this entity, incremented on each update.",
+      "minimum": 1
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 timestamp indicating when this entity was originally created.",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 timestamp indicating when this entity was last modified.",
+      "format": "date-time"
+    },
+    "domain": {
+      "type": "string",
+      "description": "The construction domain or discipline this pattern family belongs to (e.g., structural, mechanical, electrical, envelope).",
+      "minLength": 1
+    },
+    "patterns": {
+      "type": "array",
+      "description": "Ordered list of pattern identifiers that belong to this family.",
+      "items": {
+        "type": "string",
+        "description": "Reference to a Pattern entity ID.",
+        "pattern": "^DNA-CONSTR-PAT-[A-Z]+-[A-Z]+-\\d{3}-R\\d+$"
+      },
+      "uniqueItems": true
+    },
+    "detail_intents": {
+      "type": "array",
+      "description": "Optional list of high-level design intents or goals that this pattern family addresses.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-form notes, commentary, or additional context about the pattern family."
+    }
+  },
+  "additionalProperties": false
+}

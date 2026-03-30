@@ -1,0 +1,29 @@
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "DNA-CONSTR-PAT-PIPE-CONDUIT-041-R1"
+name: "Electrical Conduit Penetration"
+description: >
+  A roof penetration detail for electrical conduits, communication cables, and
+  similar small-diameter rigid or flexible conduits that pass through the roofing
+  assembly to serve rooftop equipment. Conduit penetrations are frequently
+  clustered near mechanical equipment and may involve multiple pipes in close
+  proximity. The flashing detail must group and seal multiple conduits efficiently
+  while providing a durable, maintainable, and code-compliant termination that
+  preserves the fire rating of the roof assembly.
+family_id: "DNA-CONSTR-FAM-PIPE-004-R1"
+variants:
+  - "CHEM-CONSTR-VAR-CONDCURB-115-R1"
+  - "CHEM-CONSTR-VAR-CONDFLUSH-116-R1"
+detail_intents:
+  - "Seal roofing membrane around electrical conduit penetrations"
+  - "Group multiple conduits within a single flashing assembly"
+  - "Maintain fire rating of roof assembly at penetration"
+artifact_intent_refs:
+  - "AI-PIPE-CONDUIT-DETAIL-001"
+  - "AI-PIPE-CONDUIT-SECTION-002"
+constraint_profile_refs:
+  - "CP-PIPE-CONDUIT-GROUPING-001"
+  - "CP-PIPE-FIRE-RATING-002"

@@ -1,0 +1,27 @@
+id: CHEM-CONSTR-VAR-PLUMBPITCH-113-R1
+name: Pitch Pocket Penetration
+description: >
+  Plumbing penetration sealed using a sheet metal pocket filled with
+  pourable sealant.  Suitable for irregular or non-circular
+  penetrations where prefabricated boots cannot be used.  Requires
+  periodic sealant replenishment.
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+pattern_id: DNA-CONSTR-PAT-PIPE-PLUMBING-040-R1
+method: pitch_pocket_installation
+materials:
+  - name: sheet metal pocket
+    specification: 16 oz copper or 24 gauge galvanized steel, soldered seams
+  - name: pourable sealant
+    specification: self-leveling polyurethane or hot-applied rubberized asphalt
+  - name: backer rod
+    specification: closed-cell polyethylene foam, sized to fit annular space
+dimensional_constraints:
+  min_pocket_height_inches: 3
+  min_clearance_from_pipe_inches: 1
+notes: >
+  Pitch pockets are a maintenance item and must be inspected and
+  topped off annually.  Fill sealant to within 1/2" of the top of
+  the pocket rim.  Flash pocket base into the roof membrane.

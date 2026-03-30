@@ -1,0 +1,29 @@
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "DNA-CONSTR-PAT-DRAIN-OVERFLOW-031-R1"
+name: "Overflow / Scupper Drain"
+description: >
+  A secondary drainage element installed at a predetermined elevation above the
+  primary drain inlet to provide emergency overflow capacity when the primary
+  system is blocked or overwhelmed. Overflow drains may take the form of
+  through-wall scuppers in parapet walls, secondary roof drain bodies set at a
+  higher elevation, or overflow pipes connected to an independent storm system.
+  Building codes require secondary drainage on all roofs where ponding water
+  could exceed the structural design load.
+family_id: "DNA-CONSTR-FAM-DRAIN-003-R1"
+variants:
+  - "CHEM-CONSTR-VAR-OVSCUPPER-111-R1"
+  - "CHEM-CONSTR-VAR-OVSECOND-112-R1"
+detail_intents:
+  - "Provide emergency overflow drainage capacity"
+  - "Discharge water independently of primary drain system"
+  - "Indicate drainage failure visibly at building exterior"
+artifact_intent_refs:
+  - "AI-DRAIN-OVERFLOW-DETAIL-001"
+  - "AI-DRAIN-OVERFLOW-SECTION-002"
+constraint_profile_refs:
+  - "CP-DRAIN-OVERFLOW-ELEVATION-001"
+  - "CP-DRAIN-OVERFLOW-CAPACITY-002"

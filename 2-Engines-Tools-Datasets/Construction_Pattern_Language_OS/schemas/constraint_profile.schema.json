@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "constraint_profile.schema.json",
+  "title": "ConstraintProfile",
+  "description": "Schema for ConstraintProfile entities representing constraints that govern how construction patterns may be applied, including manufacturer limitations, building code requirements, dimensional rules, and environmental factors.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "description",
+    "schema_version",
+    "pattern_language_version",
+    "entity_revision",
+    "created_at",
+    "constraint_type",
+    "applies_to"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the constraint profile, following the TEXTURE or CLIMATE CONSTR-CNS naming convention.",
+      "pattern": "^(TEXTURE|CLIMATE)-CONSTR-CNS-[A-Z]+-\\d{3}-R\\d+$",
+      "examples": [
+        "TEXTURE-CONSTR-CNS-FIRERATING-001-R1",
+        "CLIMATE-CONSTR-CNS-WINDLOAD-001-R1"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name of the constraint profile.",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the constraint, including its origin, rationale, and impact on pattern selection or implementation."
+    },
+    "schema_version": {
+      "type": "string",
+      "description": "Version of this JSON schema definition used to validate the entity.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0"]
+    },
+    "pattern_language_version": {
+      "type": "string",
+      "description": "Version of the Construction Pattern Language specification this entity conforms to.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0"]
+    },
+    "entity_revision": {
+      "type": "integer",
+      "description": "Monotonically increasing revision number for this entity, incremented on each update.",
+      "minimum": 1
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 timestamp indicating when this entity was originally created.",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 timestamp indicating when this entity was last modified.",
+      "format": "date-time"
+    },
+    "constraint_type": {
+      "type": "string",
+      "description": "The classification of this constraint: 'manufacturer' for product-specific limitations, 'code' for building code and regulatory requirements, 'dimensional' for size and tolerance rules, and 'environmental' for climate and site condition factors.",
+      "enum": ["manufacturer", "code", "dimensional", "environmental"]
+    },
+    "applies_to": {
+      "type": "array",
+      "description": "List of pattern identifiers that this constraint profile governs.",
+      "items": {
+        "type": "string",
+        "description": "Reference to a Pattern entity ID.",
+        "pattern": "^DNA-CONSTR-PAT-[A-Z]+-[A-Z]+-\\d{3}-R\\d+$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "parameters": {
+      "type": "object",
+      "description": "Optional key-value pairs defining specific constraint parameters (e.g., max_span, min_cover, fire_rating).",
+      "additionalProperties": {
+        "type": ["string", "number", "boolean"],
+        "description": "A constraint parameter value."
+      }
+    },
+    "thresholds": {
+      "type": "object",
+      "description": "Optional threshold values that define pass/fail criteria for this constraint.",
+      "properties": {
+        "min": {
+          "type": "number",
+          "description": "Minimum acceptable value for the constrained measurement."
+        },
+        "max": {
+          "type": "number",
+          "description": "Maximum acceptable value for the constrained measurement."
+        },
+        "unit": {
+          "type": "string",
+          "description": "Unit of measurement for the threshold values (e.g., psi, mm, degrees_F)."
+        },
+        "warning_threshold": {
+          "type": "number",
+          "description": "Optional value at which a warning should be raised before the hard limit is reached."
+        }
+      },
+      "additionalProperties": false
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-form notes, code references, or additional context about this constraint profile."
+    }
+  },
+  "additionalProperties": false
+}

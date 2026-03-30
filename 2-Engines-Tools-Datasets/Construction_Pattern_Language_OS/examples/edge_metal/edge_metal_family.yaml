@@ -1,0 +1,44 @@
+# =============================================================================
+# PatternFamily: Roof Edge
+# =============================================================================
+# Canonical pattern family for roof edge metal termination details.
+# Covers drip edges, gravel stops, fascia metals, and coping terminations
+# at the perimeter of low-slope and steep-slope roof systems.
+# =============================================================================
+
+id: "DNA-CONSTR-FAM-EDGE-001-R1"
+name: "Roof Edge"
+description: >
+  Pattern family for roof edge metal termination details. Encompasses all
+  sheet metal flashings and trim installed at the perimeter of roof systems
+  to provide weathertight termination, direct water runoff, and retain
+  roofing materials. Applicable to both low-slope (built-up, single-ply,
+  modified bitumen) and steep-slope (shingle, metal panel, tile) roof
+  assemblies. Typical members include drip edges, gravel stops, fascia
+  metals, and perimeter edge details per ANSI/SPRI ES-1 and FM Global
+  requirements.
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+domain: "envelope"
+
+patterns:
+  - "DNA-CONSTR-PAT-EDGE-DRIP-001-R1"
+  - "DNA-CONSTR-PAT-EDGE-GRAVELSTOP-002-R1"
+
+detail_intents:
+  - "Provide weathertight termination at roof perimeter edges"
+  - "Direct water away from fascia boards and into gutter systems"
+  - "Retain aggregate or ballast on built-up and ballasted roof systems"
+  - "Resist wind uplift forces at roof perimeter per ANSI/SPRI ES-1"
+  - "Provide a finished, aesthetically acceptable edge profile"
+
+notes: >
+  This family addresses ANSI/SPRI ES-1 test standards for wind resistance
+  of edge metal systems. All patterns within this family must be evaluated
+  against the RE-1 (drip edge), RE-2 (gravel stop), and RE-3 (coping)
+  test protocols as applicable. FM Global RoofNav listings should be
+  referenced for approved assemblies in FM-insured facilities.

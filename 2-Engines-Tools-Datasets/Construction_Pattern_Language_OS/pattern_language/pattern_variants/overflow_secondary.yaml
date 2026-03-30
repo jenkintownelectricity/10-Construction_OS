@@ -1,0 +1,26 @@
+id: CHEM-CONSTR-VAR-OVSECOND-112-R1
+name: Secondary Overflow Drain
+description: >
+  Secondary interior drain providing redundant overflow protection.
+  Set above the primary drain inlet elevation and piped independently
+  to a visible daylight outlet at grade.
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+pattern_id: DNA-CONSTR-PAT-DRAIN-OVERFLOW-031-R1
+method: secondary_drain_installation
+materials:
+  - name: overflow drain body
+    specification: same specification as primary drain per ASME A112.6.4
+  - name: independent piping
+    specification: cast iron or HDPE, not connected to primary system
+  - name: daylight outlet
+    specification: visible discharge point at exterior grade level
+dimensional_constraints:
+  min_outlet_diameter_inches: 4
+  set_height_above_primary_inches: 2
+notes: >
+  The secondary drain piping shall not connect to the primary roof
+  drain piping at any point.  Daylight outlet must be in a location
+  observable by building maintenance personnel.

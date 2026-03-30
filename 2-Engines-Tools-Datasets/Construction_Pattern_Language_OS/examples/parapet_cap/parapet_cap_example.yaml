@@ -1,0 +1,54 @@
+# Parapet Cap Example
+# Demonstrates a complete parapet cap pattern with variants
+
+family:
+  id: DNA-CONSTR-FAM-PARAPET-002-R1
+  name: Parapet
+  description: "Parapet wall cap and flashing patterns for building envelope termination"
+
+patterns:
+  - id: DNA-CONSTR-PAT-PARAPET-METALCAP-020-R1
+    name: Metal Parapet Cap
+    description: "Sheet metal coping cap for parapet wall termination"
+    family_id: DNA-CONSTR-FAM-PARAPET-002-R1
+    variants:
+      - CHEM-CONSTR-VAR-CAPSNAP-105-R1
+      - CHEM-CONSTR-VAR-CAPCLEAT-106-R1
+
+  - id: DNA-CONSTR-PAT-PARAPET-STONECOP-021-R1
+    name: Stone Coping
+    description: "Cast stone or natural stone coping for masonry parapet walls"
+    family_id: DNA-CONSTR-FAM-PARAPET-002-R1
+    variants:
+      - CHEM-CONSTR-VAR-COPSET-107-R1
+      - CHEM-CONSTR-VAR-COPADH-108-R1
+
+variants:
+  - id: CHEM-CONSTR-VAR-CAPSNAP-105-R1
+    name: Snap-Lock Parapet Cap
+    description: "Interlocking snap-lock metal cap with concealed fasteners"
+    pattern_id: DNA-CONSTR-PAT-PARAPET-METALCAP-020-R1
+    method: snap_lock_installation
+    materials:
+      - name: aluminum_coil_stock
+        specification: "0.040 inch minimum, kynar finish"
+      - name: snap_lock_clip
+        specification: "Stainless steel, 24 inch OC maximum"
+
+  - id: CHEM-CONSTR-VAR-CAPCLEAT-106-R1
+    name: Cleat-Mounted Parapet Cap
+    description: "Parapet cap secured with continuous cleats and wind clips"
+    pattern_id: DNA-CONSTR-PAT-PARAPET-METALCAP-020-R1
+    method: cleat_mount_installation
+    materials:
+      - name: sheet_metal
+        specification: "22 gauge galvanized steel minimum"
+      - name: continuous_cleat
+        specification: "Same material as cap, mechanically fastened to substrate"
+
+relationships:
+  - id: SOUND-CONSTR-REL-PARAPETEDGE-005-R1
+    relationship_type: dependency
+    source_id: DNA-CONSTR-PAT-PARAPET-METALCAP-020-R1
+    target_id: DNA-CONSTR-PAT-EDGE-DRIP-010-R1
+    description: "Metal parapet cap requires compatible edge metal termination at base"

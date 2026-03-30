@@ -1,0 +1,90 @@
+# Pipe Penetration Example
+# Demonstrates a complete pipe penetration pattern with variants
+
+family:
+  id: DNA-CONSTR-FAM-PIPE-004-R1
+  name: Pipe Penetration
+  description: "Pipe and conduit penetration flashing patterns for roof membrane integrity"
+
+patterns:
+  - id: DNA-CONSTR-PAT-PIPE-PLUMBING-040-R1
+    name: Plumbing Vent Penetration
+    description: "Roof penetration flashing for plumbing vent pipes"
+    family_id: DNA-CONSTR-FAM-PIPE-004-R1
+    variants:
+      - CHEM-CONSTR-VAR-PLUMBPITCH-113-R1
+      - CHEM-CONSTR-VAR-PLUMBBOOT-114-R1
+
+  - id: DNA-CONSTR-PAT-PIPE-CONDUIT-041-R1
+    name: Electrical Conduit Penetration
+    description: "Roof penetration flashing for electrical conduit and cable trays"
+    family_id: DNA-CONSTR-FAM-PIPE-004-R1
+    variants:
+      - CHEM-CONSTR-VAR-CONDCURB-115-R1
+      - CHEM-CONSTR-VAR-CONDFLUSH-116-R1
+
+variants:
+  - id: CHEM-CONSTR-VAR-PLUMBPITCH-113-R1
+    name: Pitch Pocket Penetration
+    description: "Traditional pitch pocket with pourable sealant for irregular penetrations"
+    pattern_id: DNA-CONSTR-PAT-PIPE-PLUMBING-040-R1
+    method: pitch_pocket_installation
+    materials:
+      - name: sheet_metal_pocket
+        specification: "16 oz copper or 24 gauge galvanized, soldered corners"
+      - name: pourable_sealant
+        specification: "Hot-applied rubberized asphalt or cold-applied polyurethane"
+      - name: backer_rod
+        specification: "Closed-cell polyethylene, sized to pipe diameter"
+
+  - id: CHEM-CONSTR-VAR-PLUMBBOOT-114-R1
+    name: Prefabricated Pipe Boot
+    description: "Factory-molded pipe boot flashing with membrane-compatible flange"
+    pattern_id: DNA-CONSTR-PAT-PIPE-PLUMBING-040-R1
+    method: prefab_boot_installation
+    materials:
+      - name: epdm_pipe_boot
+        specification: "ASTM C1085, UV-stabilized EPDM"
+      - name: stainless_steel_clamp
+        specification: "Adjustable worm-drive clamp"
+      - name: membrane_compatible_adhesive
+        specification: "Per membrane manufacturer requirements"
+
+  - id: CHEM-CONSTR-VAR-CONDCURB-115-R1
+    name: Curb-Mounted Conduit Penetration
+    description: "Raised curb with counter-flashing for multiple conduit penetrations"
+    pattern_id: DNA-CONSTR-PAT-PIPE-CONDUIT-041-R1
+    method: curb_mount_installation
+    materials:
+      - name: treated_wood_curb
+        specification: "Pressure-treated 2x blocking, min 8 inch height"
+      - name: sheet_metal_counterflashing
+        specification: "22 gauge galvanized, hemmed edges"
+      - name: base_flashing
+        specification: "Modified bitumen or single-ply, per system"
+
+  - id: CHEM-CONSTR-VAR-CONDFLUSH-116-R1
+    name: Flush-Mount Conduit Penetration
+    description: "Low-profile penetration sleeve for single conduit runs"
+    pattern_id: DNA-CONSTR-PAT-PIPE-CONDUIT-041-R1
+    method: flush_mount_installation
+    materials:
+      - name: galvanized_sleeve
+        specification: "Schedule 40, 2 inch above finished roof surface"
+      - name: umbrella_flashing
+        specification: "Lead or thermoplastic, field-formed to pipe"
+      - name: sealant
+        specification: "Polyurethane, non-sag grade"
+
+artifact_intents:
+  - id: COLOR-CONSTR-ART-PIPESUBM-004-R1
+    artifact_type: submittal
+    description: "Product submittal for pipe penetration flashing components"
+    pattern_refs:
+      - DNA-CONSTR-PAT-PIPE-PLUMBING-040-R1
+      - DNA-CONSTR-PAT-PIPE-CONDUIT-041-R1
+    required_fields:
+      - penetration_size
+      - flashing_material
+      - sealant_type
+      - manufacturer

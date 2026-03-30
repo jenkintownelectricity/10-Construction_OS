@@ -1,0 +1,27 @@
+id: CHEM-CONSTR-VAR-DRAINGRAV-109-R1
+name: Gravity Flow Interior Drain
+description: >
+  Interior roof drain relying on gravity head to move water through
+  the piping system.  Cast iron drain body with clamping ring
+  secures the membrane and provides a watertight connection to the
+  leader pipe.
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+pattern_id: DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1
+method: gravity_drain_installation
+materials:
+  - name: cast iron drain body
+    specification: per ASME A112.6.4, with integral gravel guard
+  - name: clamping ring
+    specification: cast iron or stainless steel, bolted compression type
+  - name: polyester dome strainer
+    specification: UV-stabilized polyester, minimum 2x outlet area free flow
+dimensional_constraints:
+  min_outlet_diameter_inches: 4
+  min_sump_depth_inches: 0.25
+notes: >
+  Install drain at the lowest point of the roof area served.  Set
+  drain flange flush with the top of the insulation.  Provide
+  tapered insulation crickets to direct water toward the drain.

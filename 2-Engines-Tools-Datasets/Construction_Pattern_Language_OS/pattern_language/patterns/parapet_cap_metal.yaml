@@ -1,0 +1,28 @@
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "DNA-CONSTR-PAT-PARAPET-METALCAP-020-R1"
+name: "Metal Parapet Cap"
+description: >
+  A sheet metal capping system that covers the top of a parapet wall to prevent
+  water infiltration into the wall assembly from above. Metal parapet caps are
+  formed to slope toward the roof side, overlap the wall flashing on both faces,
+  and incorporate drip edges to shed water clear of the wall surfaces. Joints
+  between cap sections must be lapped and sealed to maintain weathertightness
+  while allowing for thermal expansion of the metal.
+family_id: "DNA-CONSTR-FAM-PARAPET-002-R1"
+variants:
+  - "CHEM-CONSTR-VAR-CAPSNAP-105-R1"
+  - "CHEM-CONSTR-VAR-CAPCLEAT-106-R1"
+detail_intents:
+  - "Weatherproof the top surface of the parapet wall"
+  - "Provide slope for drainage off parapet cap"
+  - "Integrate with wall and roof flashing systems"
+artifact_intent_refs:
+  - "AI-PARAPET-METALCAP-SHOP-DWG-001"
+  - "AI-PARAPET-METALCAP-SECTION-002"
+constraint_profile_refs:
+  - "CP-PARAPET-THERMAL-MOVE-001"
+  - "CP-PARAPET-WIND-UPLIFT-002"

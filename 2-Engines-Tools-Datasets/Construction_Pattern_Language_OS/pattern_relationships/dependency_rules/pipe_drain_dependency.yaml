@@ -1,0 +1,47 @@
+# Pipe-Drain Dependency Rule
+# Plumbing vent penetration routing depends on drain location
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "SOUND-CONSTR-REL-PIPEDRAIN-006-R1"
+name: "Plumbing Vent Penetration to Drain Location Dependency"
+type: dependency
+
+source:
+  id: "DNA-CONSTR-PAT-PIPE-PLUMBING-040-R1"
+  name: "Plumbing Vent Penetration Pattern"
+
+target:
+  id: "DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1"
+  name: "Interior Drain Pattern"
+
+description: >
+  Plumbing vent penetration routing depends on drain location. Vent pipes
+  that penetrate the roof membrane must be coordinated with the storm
+  drainage layout because both systems share below-deck piping corridors
+  and structural bay constraints. The vent pipe location determines where
+  additional roof penetrations and associated flashing details occur, and
+  these penetrations must not interfere with the tapered insulation slope
+  pattern that directs water toward drains. Poorly coordinated vent
+  placement can create ponding zones, compromise insulation crickets, or
+  require excessive below-deck offsets that reduce pipe capacity.
+
+dependency_direction: source_requires_target
+
+requirements:
+  - Vent penetrations must be located on the high side of the drainage slope, not in ponding zones
+  - Minimum 24-inch horizontal separation between any vent pipe and a drain body
+  - Below-deck routing of vent piping must not conflict with storm leader piping
+  - Vent pipe flashing must not interrupt tapered insulation crickets or saddles
+  - Drain locations must be established before vent penetration locations are finalized
+
+validation:
+  - check: vent_on_high_side_of_slope
+    required: true
+  - check: min_horizontal_separation
+    min_distance_inches: 24.0
+  - check: below_deck_routing_clear
+    required: true

@@ -1,0 +1,53 @@
+# Edge Metal Manufacturer Constraints
+# Material and fabrication limits imposed by sheet metal manufacturing standards
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "TEXTURE-CONSTR-CNS-EDGEMFR-001-R1"
+name: "Edge Metal Manufacturer Constraints"
+constraint_type: manufacturer
+
+description: >
+  Manufacturer constraints governing edge metal fabrication for drip edges and
+  gravel stops. These constraints reflect the material availability, tooling
+  limits, and quality standards of standard sheet metal fabrication shops.
+  Gauge minimums ensure structural adequacy under wind uplift loads, while
+  material options define the alloys commonly stocked and compatible with
+  standard brake-forming equipment. Specifying outside these parameters
+  requires custom tooling, extended lead times, and premium pricing.
+
+applies_to:
+  - id: "DNA-CONSTR-PAT-EDGE-DRIP-010-R1"
+    name: "Drip Edge Pattern"
+  - id: "DNA-CONSTR-PAT-EDGE-GRAVELSTOP-011-R1"
+    name: "Gravel Stop Pattern"
+
+parameters:
+  min_gauge: 24
+  max_gauge: 20
+  material_options:
+    - galvanized_steel
+    - aluminum
+    - copper
+    - stainless_steel
+  max_section_length_feet: 10
+  standard_hem_depth_inches: 0.375
+  brake_forming_tolerance_inches: 0.0625
+
+material_notes:
+  galvanized_steel: "G90 coating minimum per ASTM A653; most economical option for concealed applications"
+  aluminum: "Alloy 3003-H14 per ASTM B209; lightweight, corrosion-resistant, suitable for coastal environments"
+  copper: "16 oz or 20 oz cold-rolled per ASTM B370; premium option with natural patina"
+  stainless_steel: "Type 304 per ASTM A240; required where chemical exposure or extreme corrosion resistance is needed"
+
+validation:
+  - check: gauge_within_range
+    min: 24
+    max: 20
+  - check: material_in_approved_list
+    required: true
+  - check: section_length_within_limit
+    max_feet: 10

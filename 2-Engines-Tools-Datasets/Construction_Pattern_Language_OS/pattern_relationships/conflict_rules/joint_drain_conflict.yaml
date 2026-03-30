@@ -1,0 +1,44 @@
+# Joint-Drain Conflict Rule (Reverse Symmetry)
+# Expansion joints cannot host interior drain bodies at their location
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "SOUND-CONSTR-REL-JOINTDRAIN-008-R1"
+name: "Expansion Joint and Interior Drain Conflict"
+type: conflict
+
+source:
+  id: "DNA-CONSTR-PAT-JOINT-ROOF-050-R1"
+  name: "Roof Expansion Joint Pattern"
+
+target:
+  id: "DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1"
+  name: "Interior Drain Pattern"
+
+description: >
+  Symmetric conflict: expansion joint location cannot host an interior
+  drain. The joint undergoes cyclic thermal movement that would compromise
+  the rigid drain-to-deck connection, cracking the flange seal and
+  separating the membrane clamping ring. This is the reverse declaration
+  of the drain-to-joint conflict (SOUND-CONSTR-REL-DRAINJOINT-004-R1).
+
+severity: critical
+
+resolution:
+  strategy: relocation_required
+  description: >
+    Same resolution as SOUND-CONSTR-REL-DRAINJOINT-004-R1. The drain
+    must be relocated a minimum of 48 inches from the expansion joint
+    centerline. If drainage geometry forces a low point at the joint,
+    introduce a saddle cricket to redirect water.
+  min_separation_inches: 48.0
+
+validation:
+  - check: drain_distance_from_joint
+    min_distance_inches: 48.0
+    fail_action: reject
+  - check: joint_internal_drainage
+    recommended: true

@@ -1,0 +1,25 @@
+id: CHEM-CONSTR-VAR-CAPSNAP-105-R1
+name: Snap-Lock Parapet Cap
+description: >
+  Parapet coping installed with a concealed snap-lock clip system.
+  Factory-finished Kynar-coated aluminum provides long-term color
+  retention and weather resistance.  Clips accommodate thermal
+  expansion and contraction.
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+pattern_id: DNA-CONSTR-PAT-PARAPET-METALCAP-020-R1
+method: snap_lock_installation
+materials:
+  - name: aluminum coil stock
+    specification: 0.040" minimum, Kynar 500 / Hylar 5000 finish
+  - name: snap-lock clips
+    specification: stainless steel, 24" OC maximum spacing
+dimensional_constraints:
+  min_cap_width_inches: 6
+  max_cap_width_inches: 24
+notes: >
+  Ensure clips are level and plumb prior to snapping cap into
+  place.  Provide end dams at all terminations and direction changes.
+  Slope cap a minimum of 1/4" per foot toward roof side.

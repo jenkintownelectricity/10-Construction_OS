@@ -1,0 +1,27 @@
+id: CHEM-CONSTR-VAR-GRAVELEXT-103-R1
+name: Extruded Aluminum Gravel Stop
+description: >
+  Factory-extruded aluminum gravel stop providing a finished perimeter
+  edge that retains ballast and protects the membrane termination.
+  Splice plates and stainless fasteners ensure structural continuity
+  across joints.
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+pattern_id: DNA-CONSTR-PAT-EDGE-GRAVELSTOP-011-R1
+method: extruded_profile_installation
+materials:
+  - name: extruded aluminum
+    specification: 6063-T5 alloy per ASTM B221
+  - name: splice plates
+    specification: aluminum, minimum 6" length, same alloy as gravel stop
+  - name: stainless fasteners
+    specification: 18-8 stainless steel screws, #12 x 1" minimum
+dimensional_constraints:
+  face_height_min_inches: 4
+  face_height_max_inches: 8
+notes: >
+  Allow 1/4" gap at splice joints for thermal movement.  Install
+  splice plates centered over each joint with sealant between
+  mating surfaces.

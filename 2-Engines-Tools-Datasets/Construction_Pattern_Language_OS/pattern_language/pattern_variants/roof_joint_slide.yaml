@@ -1,0 +1,26 @@
+id: CHEM-CONSTR-VAR-JOINTSLIDE-118-R1
+name: Sliding Plate Roof Expansion Joint
+description: >
+  Expansion joint cover using stainless steel slide plates riding
+  on PTFE bearing pads.  A metal cover plate bridges the joint and
+  slides freely on one side to accommodate structural movement.
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+pattern_id: DNA-CONSTR-PAT-JOINT-ROOF-050-R1
+method: slide_plate_installation
+materials:
+  - name: stainless steel slide plates
+    specification: 304 stainless, 16 gauge, polished contact surface
+  - name: PTFE bearing pads
+    specification: virgin PTFE sheet, 1/8" thick, bonded to fixed side
+  - name: metal cover plate
+    specification: stainless steel or aluminum, spanning joint plus 4" each side
+dimensional_constraints:
+  min_joint_width_inches: 1
+  max_movement_inches: 2
+notes: >
+  Fixed side is mechanically fastened; sliding side rests freely on
+  PTFE.  Slotted holes on sliding side allow unrestrained movement.
+  Flash membrane to underside of cover plate on both sides.

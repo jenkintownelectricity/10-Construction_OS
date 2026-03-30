@@ -1,0 +1,67 @@
+kernel_name: Construction_Pattern_Language_OS
+kernel_type: domain_pattern_language
+domain_scope: construction_patterns
+owner: Armand Lefebvre
+
+grown_from: ValidKernel_Patterns
+lineage_status: FROZEN
+lineage_frozen_at: "2026-03-22T00:00:00Z"
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+created_at: "2026-03-22T00:00:00Z"
+
+purpose: |
+  Defines the canonical construction pattern language.
+  Authoritative source of truth for pattern families, patterns,
+  pattern variants, relationships, artifact intents, and constraint profiles.
+
+entity_hierarchy:
+  primary:
+    - PatternFamily
+    - Pattern
+    - PatternVariant
+  supporting:
+    - PatternRelationship
+    - DetailIntent
+    - ArtifactIntent
+    - ConstraintProfile
+
+rules:
+  - "Variants belong to exactly one pattern"
+  - "Patterns belong to exactly one family"
+  - "Relationships reference canonical IDs only"
+  - "IDs are immutable once assigned"
+  - "IDs are unique across the entire kernel"
+  - "All references use canonical IDs"
+
+does_not_implement:
+  - reasoning
+  - runtime_behavior
+  - rendering
+  - assistant_logic
+  - ui_logic
+
+upstream_dependencies:
+  - name: Universal_Truth_Kernel
+    relationship: "Operates within root doctrine boundary"
+  - name: ValidKernel_Patterns
+    relationship: "Structural patterns derived from; no logic inherited"
+
+downstream_consumers:
+  - name: Construction_Kernel
+    relationship: "Consumes pattern definitions"
+  - name: Construction_Runtime
+    relationship: "References pattern IDs for execution"
+  - name: Construction_OS_Registry
+    relationship: "Registered as topology entry"
+
+identifier_classes:
+  - DNA
+  - CHEM
+  - COLOR
+  - SOUND
+  - TEXTURE
+  - CLIMATE
+
+identifier_format: "<CLASS>-CONSTR-<TYPE>-<NAME>-<INDEX>-R<REV>"

@@ -1,0 +1,26 @@
+id: CHEM-CONSTR-VAR-PLUMBBOOT-114-R1
+name: Prefabricated Pipe Boot
+description: >
+  Factory-molded EPDM pipe boot providing a one-piece seal around
+  plumbing vent penetrations.  Stainless steel clamp compresses the
+  boot collar against the pipe for a watertight seal.
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+pattern_id: DNA-CONSTR-PAT-PIPE-PLUMBING-040-R1
+method: prefab_boot_installation
+materials:
+  - name: EPDM pipe boot
+    specification: per ASTM C1085, UV-stabilized, -40°F to 212°F service range
+  - name: stainless steel clamp
+    specification: worm-drive type, 300 series stainless steel
+  - name: membrane-compatible adhesive
+    specification: per roof membrane manufacturer requirements
+dimensional_constraints:
+  min_flange_width_inches: 4
+  max_pipe_diameter_inches: 6
+notes: >
+  Trim boot cone to provide a snug fit around the pipe.  Clamp must
+  be tightened after 24 hours to compensate for EPDM relaxation.
+  Bond boot flange to the membrane per manufacturer instructions.

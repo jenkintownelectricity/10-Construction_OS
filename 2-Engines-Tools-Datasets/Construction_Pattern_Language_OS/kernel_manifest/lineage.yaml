@@ -1,0 +1,28 @@
+lineage:
+  kernel_name: Construction_Pattern_Language_OS
+  kernel_type: domain_pattern_language
+  grown_from: ValidKernel_Patterns
+  lineage_status: FROZEN
+  lineage_frozen_at: "2026-03-22T00:00:00Z"
+
+  birth_record:
+    created_at: "2026-03-22T00:00:00Z"
+    created_by: kernel_growth_command
+    parent_kernel: ValidKernel_Patterns
+    parent_version: "0.2"
+    domain_scope: construction_patterns
+
+  ancestry:
+    - name: Universal_Truth_Kernel
+      layer: "Layer 0 — Nucleus"
+      relationship: "Root doctrine authority"
+    - name: ValidKernel_Patterns
+      layer: "Infrastructure — Pattern Authority"
+      relationship: "Direct parent; structural patterns inherited"
+
+  immutability_rules:
+    - "grown_from field is frozen at birth and may never be modified"
+    - "lineage_frozen_at timestamp is itself immutable"
+    - "Birth record is locked; no field modification after freeze"
+    - "Creation and freeze are atomic — they happen together"
+    - "No reparenting, no retroactive ancestry changes"

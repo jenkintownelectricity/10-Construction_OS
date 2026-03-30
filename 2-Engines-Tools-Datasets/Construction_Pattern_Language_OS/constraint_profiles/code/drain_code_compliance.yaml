@@ -1,0 +1,54 @@
+# Drain Code Compliance Constraints
+# Plumbing code requirements governing roof drain sizing, placement, and overflow provisions
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "TEXTURE-CONSTR-CNS-DRAINCODE-002-R1"
+name: "Drain Code Compliance Constraints"
+constraint_type: code
+
+description: >
+  Code-mandated constraints for roof drainage systems derived from the
+  International Plumbing Code (IPC) 2021 edition. These requirements establish
+  minimum drain sizes, maximum tributary drainage areas per drain, and the
+  mandatory provision of secondary (overflow) drainage to prevent structural
+  overload from ponding water. The IPC requires that roof drainage be designed
+  to handle a rainfall rate based on the local 100-year, one-hour storm event,
+  and that the structural engineer confirm the roof can support the water depth
+  up to the overflow drain inlet elevation.
+
+applies_to:
+  - id: "DNA-CONSTR-FAM-DRAIN-003-R1"
+    name: "Drain Family"
+
+parameters:
+  code_reference: IPC_2021
+  min_drain_size_inches: 4
+  overflow_required: true
+  max_drainage_area_per_drain_sqft: 10000
+  design_rainfall_rate: "100-year, 1-hour storm per local weather data"
+  secondary_drainage_capacity: "Must independently handle full design storm if primary system is blocked"
+
+code_sections:
+  - section: "IPC 1106.1"
+    requirement: "Roof drainage system required for all roofs"
+  - section: "IPC 1106.6"
+    requirement: "Secondary drainage required where ponding would exceed structural capacity"
+  - section: "IPC 1106.2"
+    requirement: "Drain sizing based on rainfall rate and tributary area"
+  - section: "IPC 1108.1"
+    requirement: "Overflow drains or scuppers required as secondary drainage"
+
+validation:
+  - check: min_drain_size
+    min_inches: 4
+    fail_action: reject
+  - check: overflow_provision
+    required: true
+    fail_action: reject
+  - check: max_area_per_drain
+    max_sqft: 10000
+    fail_action: warn

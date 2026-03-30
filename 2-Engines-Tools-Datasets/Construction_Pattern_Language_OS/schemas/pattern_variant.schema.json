@@ -1,0 +1,148 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "pattern_variant.schema.json",
+  "title": "PatternVariant",
+  "description": "Schema for PatternVariant entities representing concrete implementation variations of a construction pattern, including specific methods, materials, and dimensional constraints.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "description",
+    "schema_version",
+    "pattern_language_version",
+    "entity_revision",
+    "created_at",
+    "pattern_id",
+    "method",
+    "materials"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the pattern variant, following the CHEM-CONSTR-VAR naming convention.",
+      "pattern": "^CHEM-CONSTR-VAR-[A-Z]+-\\d{3}-R\\d+$",
+      "examples": ["CHEM-CONSTR-VAR-MORTAR-001-R1"]
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name of the pattern variant.",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of this variant, explaining how it differs from other variants of the same pattern and when it should be applied."
+    },
+    "schema_version": {
+      "type": "string",
+      "description": "Version of this JSON schema definition used to validate the entity.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0"]
+    },
+    "pattern_language_version": {
+      "type": "string",
+      "description": "Version of the Construction Pattern Language specification this entity conforms to.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0"]
+    },
+    "entity_revision": {
+      "type": "integer",
+      "description": "Monotonically increasing revision number for this entity, incremented on each update.",
+      "minimum": 1
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 timestamp indicating when this entity was originally created.",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 timestamp indicating when this entity was last modified.",
+      "format": "date-time"
+    },
+    "pattern_id": {
+      "type": "string",
+      "description": "Reference to the parent Pattern entity that this variant implements.",
+      "pattern": "^DNA-CONSTR-PAT-[A-Z]+-[A-Z]+-\\d{3}-R\\d+$"
+    },
+    "method": {
+      "type": "string",
+      "description": "The construction method or technique used by this variant (e.g., cast-in-place, prefabricated, hand-laid).",
+      "minLength": 1
+    },
+    "materials": {
+      "type": "array",
+      "description": "List of materials required for this variant, each described as a structured object.",
+      "items": {
+        "type": "object",
+        "description": "A material entry specifying the material name and its role or specification.",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the material (e.g., Portland cement, rebar, plywood)."
+          },
+          "specification": {
+            "type": "string",
+            "description": "Material specification or standard reference (e.g., ASTM C150 Type I)."
+          },
+          "role": {
+            "type": "string",
+            "description": "The functional role this material plays in the variant (e.g., binder, reinforcement, formwork)."
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "dimensional_constraints": {
+      "type": "object",
+      "description": "Optional dimensional limits and tolerances applicable to this variant.",
+      "properties": {
+        "min_thickness": {
+          "type": "string",
+          "description": "Minimum allowable thickness with unit (e.g., '4 in', '100 mm')."
+        },
+        "max_thickness": {
+          "type": "string",
+          "description": "Maximum allowable thickness with unit."
+        },
+        "min_width": {
+          "type": "string",
+          "description": "Minimum allowable width with unit."
+        },
+        "max_width": {
+          "type": "string",
+          "description": "Maximum allowable width with unit."
+        },
+        "min_height": {
+          "type": "string",
+          "description": "Minimum allowable height with unit."
+        },
+        "max_height": {
+          "type": "string",
+          "description": "Maximum allowable height with unit."
+        },
+        "tolerance": {
+          "type": "string",
+          "description": "Allowable tolerance for dimensional measurements (e.g., '+/- 1/8 in')."
+        }
+      },
+      "additionalProperties": false
+    },
+    "manufacturer_refs": {
+      "type": "array",
+      "description": "Optional list of manufacturer names or identifiers that supply materials or systems for this variant.",
+      "items": {
+        "type": "string",
+        "description": "Manufacturer name or reference identifier."
+      },
+      "uniqueItems": true
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-form notes, field observations, or additional context about this pattern variant."
+    }
+  },
+  "additionalProperties": false
+}

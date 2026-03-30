@@ -1,0 +1,74 @@
+# Roof Drain Example
+# Demonstrates a complete roof drain pattern with variants
+
+family:
+  id: DNA-CONSTR-FAM-DRAIN-003-R1
+  name: Roof Drain
+  description: "Roof drain and overflow patterns for roof water management"
+
+patterns:
+  - id: DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1
+    name: Interior Roof Drain
+    description: "Through-deck interior roof drain with strainer and clamping ring"
+    family_id: DNA-CONSTR-FAM-DRAIN-003-R1
+    variants:
+      - CHEM-CONSTR-VAR-DRAINGRAV-109-R1
+      - CHEM-CONSTR-VAR-DRAINSIP-110-R1
+
+  - id: DNA-CONSTR-PAT-DRAIN-OVERFLOW-031-R1
+    name: Overflow Drain
+    description: "Secondary overflow drainage via scupper or overflow drain"
+    family_id: DNA-CONSTR-FAM-DRAIN-003-R1
+    variants:
+      - CHEM-CONSTR-VAR-OVSCUPPER-111-R1
+      - CHEM-CONSTR-VAR-OVSECOND-112-R1
+
+variants:
+  - id: CHEM-CONSTR-VAR-DRAINGRAV-109-R1
+    name: Gravity Flow Interior Drain
+    description: "Standard gravity-flow roof drain with cast iron body and clamping ring"
+    pattern_id: DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1
+    method: gravity_drain_installation
+    materials:
+      - name: cast_iron_drain_body
+        specification: "ASME A112.6.4, epoxy coated"
+      - name: clamping_ring
+        specification: "Cast iron, bolted to drain body"
+      - name: polyester_dome_strainer
+        specification: "Vandal-proof, UV stable"
+
+  - id: CHEM-CONSTR-VAR-DRAINSIP-110-R1
+    name: Siphonic Roof Drain
+    description: "Engineered siphonic drain system for high-volume water removal"
+    pattern_id: DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1
+    method: siphonic_drain_installation
+    materials:
+      - name: siphonic_drain_insert
+        specification: "Engineered anti-vortex baffle plate"
+      - name: hdpe_piping
+        specification: "ASTM F714, electrofusion joints"
+
+artifact_intents:
+  - id: COLOR-CONSTR-ART-DRAINSPEC-003-R1
+    artifact_type: specification
+    description: "Specification for roof drain selection and installation"
+    pattern_refs:
+      - DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1
+      - DNA-CONSTR-PAT-DRAIN-OVERFLOW-031-R1
+    required_fields:
+      - drain_body_material
+      - strainer_type
+      - outlet_size
+      - flow_rate
+
+constraint_profiles:
+  - id: TEXTURE-CONSTR-CNS-DRAINCODE-002-R1
+    constraint_type: code
+    description: "International Plumbing Code compliance for roof drainage"
+    applies_to:
+      - DNA-CONSTR-FAM-DRAIN-003-R1
+    parameters:
+      code_reference: IPC_2021
+      min_drain_size_inches: 4
+      overflow_required: true
+      max_drainage_area_per_drain_sqft: 10000

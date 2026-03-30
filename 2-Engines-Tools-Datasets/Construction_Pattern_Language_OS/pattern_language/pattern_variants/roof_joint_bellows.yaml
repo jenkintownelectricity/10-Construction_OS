@@ -1,0 +1,28 @@
+id: CHEM-CONSTR-VAR-JOINTBELL-117-R1
+name: Bellows-Type Roof Expansion Joint
+description: >
+  Flexible EPDM bellows membrane spanning a structural expansion
+  joint in the roof deck.  Stainless steel retaining bars clamp the
+  bellows to raised curbs on each side of the joint, allowing cyclic
+  thermal and seismic movement.
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+pattern_id: DNA-CONSTR-PAT-JOINT-ROOF-050-R1
+method: bellows_installation
+materials:
+  - name: EPDM bellows membrane
+    specification: 60-mil minimum, factory-formed loop, UV-stabilized
+  - name: stainless steel retaining bars
+    specification: 16 gauge, 1.5" wide, pre-drilled at 6" OC
+  - name: compressible filler
+    specification: closed-cell polyethylene foam, snug fit in joint gap
+dimensional_constraints:
+  min_joint_width_inches: 2
+  max_movement_inches: 4
+notes: >
+  Size bellows loop to accommodate expected movement plus 50% safety
+  factor.  Terminate roof membrane onto curb face below retaining
+  bar.  Fill joint gap loosely with compressible filler to support
+  bellows in the rest position.

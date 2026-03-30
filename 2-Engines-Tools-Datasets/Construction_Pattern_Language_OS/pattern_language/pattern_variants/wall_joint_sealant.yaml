@@ -1,0 +1,28 @@
+id: CHEM-CONSTR-VAR-WALLJSEAL-120-R1
+name: Sealant Joint Wall Expansion Joint
+description: >
+  Wall expansion joint sealed with a field-applied silicone sealant
+  over a closed-cell backer rod.  Bond breaker tape at the joint
+  bottom ensures two-sided adhesion for proper sealant elongation
+  under movement.
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+pattern_id: DNA-CONSTR-PAT-JOINT-WALL-051-R1
+method: sealant_joint_installation
+materials:
+  - name: silicone sealant
+    specification: per ASTM C920, Type S, Grade NS, Class 50, Use M and A
+  - name: closed-cell backer rod
+    specification: polyethylene foam, 25-33% larger than joint width
+  - name: bond breaker tape
+    specification: polyethylene tape, applied to joint substrate at back of sealant
+dimensional_constraints:
+  min_joint_width_inches: 0.5
+  max_joint_width_inches: 2
+  depth_to_width_ratio: 0.5
+notes: >
+  Prime substrates per sealant manufacturer requirements.  Install
+  backer rod to achieve the specified depth-to-width ratio.  Tool
+  sealant within open time to ensure full substrate contact.

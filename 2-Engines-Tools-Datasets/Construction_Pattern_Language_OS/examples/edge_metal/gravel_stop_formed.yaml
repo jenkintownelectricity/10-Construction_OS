@@ -1,0 +1,81 @@
+# =============================================================================
+# Example: Gravel Stop — Formed Metal
+# =============================================================================
+# Brake-formed sheet metal gravel stop installation example referencing
+# the CHEM-CONSTR-VAR-GRAVELFRM-104-R1 pattern variant.
+# =============================================================================
+
+id: EXAMPLE-EDGE-GRAVELFRM-104-001
+name: Formed Metal Gravel Stop Installation Example
+description: >
+  Worked example of a brake-formed sheet metal gravel stop installed on
+  a low-slope commercial roof with a built-up or modified bitumen membrane.
+  The gravel stop retains aggregate ballast at the roof perimeter and
+  provides a finished edge detail.  This example uses 22 gauge galvanized
+  steel formed to a 4-inch face height with a continuous cleat anchor.
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+variant_id: CHEM-CONSTR-VAR-GRAVELFRM-104-R1
+pattern_id: DNA-CONSTR-PAT-EDGE-GRAVELSTOP-011-R1
+
+method: brake_formed_installation
+
+materials:
+  - name: 22-gauge galvanized steel sheet
+    specification: ASTM A653/A653M, G90 coating designation
+    role: edge_flashing
+  - name: continuous cleat
+    specification: same material as gravel stop, 2" wide, nailed at 8" OC
+    role: anchor
+  - name: 12-gauge galvanized roofing nails
+    specification: ASTM F1667, Type I, hot-dip galvanized
+    role: fastener
+  - name: roofing cement
+    specification: ASTM D4586, Type I
+    role: sealant
+  - name: peel-and-stick membrane strip
+    specification: ASTM D1970, 4" minimum width
+    role: stripping_membrane
+
+dimensional_constraints:
+  face_height_min_inches: 3
+  face_height_actual_inches: 4
+  max_unsupported_height_inches: 6
+  min_cleat_width_inches: 2
+  piece_length_feet: 10
+  splice_overlap_inches: 6
+
+installation_steps:
+  - step: 1
+    action: >
+      Install continuous cleat along the roof edge, nailing through the
+      cleat and nailer into the blocking at 8 inches on center.
+  - step: 2
+    action: >
+      Set formed gravel stop sections onto the cleat, engaging the
+      bottom hem of the gravel stop over the cleat leg.
+  - step: 3
+    action: >
+      Overlap end joints a minimum of 6 inches.  Apply roofing cement
+      between overlapping surfaces.  Orient lap direction opposing
+      the prevailing wind.
+  - step: 4
+    action: >
+      Flash the horizontal flange into the roof membrane system using
+      a minimum 4-inch-wide peel-and-stick membrane strip lapped from
+      the deck surface onto the flange.
+
+manufacturer_refs:
+  - Exceptional Metals
+  - Metal Era
+  - local sheet metal fabrication shop
+
+notes: >
+  Hem all exposed edges with a minimum 3/8" hem for stiffness and safety.
+  In high-wind zones, reduce fastener spacing to 4 inches on center in
+  perimeter and corner zones per ANSI/SPRI ES-1.  Verify face height does
+  not exceed maximum unsupported height constraint without adding stiffening
+  ribs or intermediate support.

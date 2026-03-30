@@ -1,0 +1,28 @@
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "DNA-CONSTR-PAT-PIPE-PLUMBING-040-R1"
+name: "Plumbing Vent Penetration"
+description: >
+  A roof penetration detail for plumbing vent stacks and sanitary vent pipes that
+  extend through the roof assembly. Plumbing vents are among the most common roof
+  penetrations and typically range from 1.5 to 4 inches in diameter. The flashing
+  detail must seal the membrane to the pipe while accommodating differential
+  thermal movement between the pipe and the roof deck, and must remain watertight
+  under ponding conditions if located in a low area of the roof.
+family_id: "DNA-CONSTR-FAM-PIPE-004-R1"
+variants:
+  - "CHEM-CONSTR-VAR-PLUMBPITCH-113-R1"
+  - "CHEM-CONSTR-VAR-PLUMBBOOT-114-R1"
+detail_intents:
+  - "Seal roofing membrane to plumbing vent pipe"
+  - "Accommodate pipe thermal movement"
+  - "Maintain waterproofing under ponding conditions"
+artifact_intent_refs:
+  - "AI-PIPE-PLUMBING-DETAIL-001"
+  - "AI-PIPE-PLUMBING-SECTION-002"
+constraint_profile_refs:
+  - "CP-PIPE-DIAMETER-RANGE-001"
+  - "CP-PIPE-THERMAL-MOVE-002"

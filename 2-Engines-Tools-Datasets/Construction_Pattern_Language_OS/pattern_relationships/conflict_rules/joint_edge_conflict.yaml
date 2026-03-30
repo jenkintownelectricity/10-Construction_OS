@@ -1,0 +1,45 @@
+# Joint-Edge Conflict Rule (Reverse Symmetry)
+# Expansion joints cannot accept continuous drip edge profiles without a transition
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "SOUND-CONSTR-REL-JOINTEDGE-007-R1"
+name: "Expansion Joint and Drip Edge Conflict"
+type: conflict
+
+source:
+  id: "DNA-CONSTR-PAT-JOINT-ROOF-050-R1"
+  name: "Roof Expansion Joint Pattern"
+
+target:
+  id: "DNA-CONSTR-PAT-EDGE-DRIP-010-R1"
+  name: "Drip Edge Pattern"
+
+description: >
+  Symmetric conflict: expansion joint cannot accept a continuous drip edge
+  crossing it. The joint requires unimpeded thermal movement across its full
+  width. A rigid drip edge profile bridging the joint restrains this movement,
+  causing buckling of the edge metal, tearing of the joint membrane, and
+  water infiltration. This is the reverse declaration of the drip-edge-to-joint
+  conflict (SOUND-CONSTR-REL-EDGEJOINT-003-R1).
+
+severity: critical
+
+resolution:
+  strategy: transition_detail_required
+  description: >
+    Same resolution as SOUND-CONSTR-REL-EDGEJOINT-003-R1. A slip-joint
+    transition piece must be installed at the expansion joint location,
+    allowing rated joint movement while maintaining a continuous drip
+    profile for water shedding.
+  required_clearance_inches: 0.5
+  min_overlap_inches: 3.0
+
+validation:
+  - check: no_continuous_edge_across_joint
+    fail_action: reject
+  - check: transition_detail_present_at_intersection
+    required: true

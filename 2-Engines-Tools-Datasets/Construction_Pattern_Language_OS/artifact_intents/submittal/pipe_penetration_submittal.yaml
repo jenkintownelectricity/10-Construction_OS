@@ -1,0 +1,61 @@
+# Pipe Penetration Submittal Intent
+# Defines the artifact output requirements for pipe penetration submittals
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "COLOR-CONSTR-ART-PIPESUBM-004-R1"
+name: "Pipe Penetration Submittal"
+artifact_type: submittal
+
+description: >
+  Submittal artifact for roof pipe penetration assemblies including plumbing
+  vents and electrical conduit risers. This submittal package provides the
+  architect and engineer with product data, manufacturer literature, and
+  installation details for review and approval before fabrication and
+  installation. It must demonstrate that the proposed penetration flashing
+  system is compatible with the specified roofing membrane, can accommodate
+  the pipe size and material, and meets the project's weatherproofing and
+  fire-rating requirements.
+
+pattern_refs:
+  - id: "DNA-CONSTR-PAT-PIPE-PLUMBING-040-R1"
+    name: "Plumbing Vent Penetration Pattern"
+  - id: "DNA-CONSTR-PAT-PIPE-CONDUIT-041-R1"
+    name: "Conduit Penetration Pattern"
+
+required_fields:
+  - field: penetration_size
+    description: "Nominal pipe or conduit diameter that the flashing must accommodate"
+    unit: inches
+  - field: flashing_material
+    description: "Base material of the penetration flashing boot or collar"
+    type: enum
+    options: [EPDM_boot, TPO_coated_metal, lead_jack, stainless_steel_collar]
+  - field: sealant_type
+    description: "Sealant used at the flashing-to-pipe interface and flashing-to-membrane interface"
+    type: string
+  - field: manufacturer
+    description: "Manufacturer name and product line for the penetration flashing assembly"
+    type: string
+
+supplementary_fields:
+  - fire_rating_requirement
+  - uv_exposure_rating
+  - pipe_material_compatibility
+  - adjustable_height_range
+  - warranty_integration
+
+submittal_contents:
+  - Manufacturer product data sheet
+  - Installation instructions
+  - Compatibility letter from membrane manufacturer
+  - Sample warranty language
+  - Test reports for air and water resistance
+
+notes:
+  - Each unique pipe size requires a separate flashing submittal
+  - Flashing boots must be factory-fabricated; field-fabricated boots require separate approval
+  - Include membrane manufacturer compatibility confirmation

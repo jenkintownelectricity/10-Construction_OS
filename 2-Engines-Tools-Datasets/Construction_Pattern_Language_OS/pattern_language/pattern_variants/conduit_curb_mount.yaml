@@ -1,0 +1,27 @@
+id: CHEM-CONSTR-VAR-CONDCURB-115-R1
+name: Curb-Mounted Conduit Penetration
+description: >
+  Electrical conduit routed through a raised wood curb to elevate
+  the penetration above the roof plane.  Sheet metal counterflashing
+  and base flashing provide a two-stage water-shedding system around
+  the curb.
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+pattern_id: DNA-CONSTR-PAT-PIPE-CONDUIT-041-R1
+method: curb_mount_installation
+materials:
+  - name: treated wood curb
+    specification: pressure-treated 2x lumber, minimum 8" height above roof
+  - name: sheet metal counterflashing
+    specification: 22 gauge galvanized steel, hemmed drip edge
+  - name: base flashing
+    specification: same membrane system as field of roof, fully adhered
+dimensional_constraints:
+  min_curb_height_inches: 8
+  min_flashing_height_inches: 6
+notes: >
+  Slope curb top away from conduit to shed water.  Seal conduit-to-curb
+  penetration with fire-rated sealant where required.  Provide cant
+  strip at curb-to-roof transition.

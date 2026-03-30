@@ -1,0 +1,47 @@
+# Edge-Joint Conflict Rule
+# Drip edge profiles cannot cross expansion joints without a purpose-built transition
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "SOUND-CONSTR-REL-EDGEJOINT-003-R1"
+name: "Drip Edge and Expansion Joint Conflict"
+type: conflict
+
+source:
+  id: "DNA-CONSTR-PAT-EDGE-DRIP-010-R1"
+  name: "Drip Edge Pattern"
+
+target:
+  id: "DNA-CONSTR-PAT-JOINT-ROOF-050-R1"
+  name: "Roof Expansion Joint Pattern"
+
+description: >
+  Drip edge cannot cross expansion joint without transition detail. A continuous
+  drip edge profile is rigid and does not accommodate the thermal movement
+  inherent in expansion joints. If a drip edge runs across an expansion joint
+  without interruption, the joint's movement will buckle or tear the edge metal,
+  compromise the sealant, and create a direct path for water infiltration. A
+  purpose-built transition detail with a slip joint or bellows segment is
+  mandatory wherever these two patterns intersect at the roof perimeter.
+
+severity: critical
+
+resolution:
+  strategy: transition_detail_required
+  description: >
+    Install a manufactured or field-fabricated slip-joint transition piece at
+    the expansion joint location. The transition must allow the rated joint
+    movement in both directions while maintaining a continuous drip profile
+    for water shedding. Each side of the drip edge terminates independently
+    with a minimum 3-inch overlap at the slip connection.
+  required_clearance_inches: 0.5
+  min_overlap_inches: 3.0
+
+validation:
+  - check: no_continuous_edge_across_joint
+    fail_action: reject
+  - check: transition_detail_present_at_intersection
+    required: true

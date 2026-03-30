@@ -1,0 +1,49 @@
+# Drain-Joint Conflict Rule
+# Interior drains must not be placed at expansion joint locations
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "SOUND-CONSTR-REL-DRAINJOINT-004-R1"
+name: "Interior Drain and Expansion Joint Conflict"
+type: conflict
+
+source:
+  id: "DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1"
+  name: "Interior Drain Pattern"
+
+target:
+  id: "DNA-CONSTR-PAT-JOINT-ROOF-050-R1"
+  name: "Roof Expansion Joint Pattern"
+
+description: >
+  Interior drain must not be placed at expansion joint location. Expansion
+  joints undergo cyclic thermal movement that would compromise the rigid
+  connection between a drain body and the roof deck. Placing a drain at an
+  expansion joint creates competing requirements: the joint must move freely
+  while the drain must remain fixed and watertight. Structural movement would
+  crack the drain flange seal, separate the membrane clamping ring, and allow
+  water to bypass the drainage system entirely, leading to leaks at the most
+  movement-prone location on the roof.
+
+severity: critical
+
+resolution:
+  strategy: relocation_required
+  description: >
+    Relocate the interior drain a minimum of 48 inches from the centerline
+    of any expansion joint. If drainage low points fall at expansion joints
+    due to structural geometry, introduce a secondary slope or saddle cricket
+    to redirect water to a drain location that does not conflict with the
+    joint. The expansion joint itself should be equipped with its own
+    internal gutter or trough system to handle incidental water.
+  min_separation_inches: 48.0
+
+validation:
+  - check: drain_distance_from_joint
+    min_distance_inches: 48.0
+    fail_action: reject
+  - check: joint_internal_drainage
+    recommended: true

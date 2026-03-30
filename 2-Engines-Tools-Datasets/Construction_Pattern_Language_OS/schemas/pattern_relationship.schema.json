@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "pattern_relationship.schema.json",
+  "title": "PatternRelationship",
+  "description": "Schema for PatternRelationship entities representing directed relationships between construction patterns, capturing adjacencies, conflicts, and dependencies.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "description",
+    "schema_version",
+    "pattern_language_version",
+    "entity_revision",
+    "created_at",
+    "relationship_type",
+    "source_id",
+    "target_id"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the pattern relationship, following the SOUND-CONSTR-REL naming convention.",
+      "pattern": "^SOUND-CONSTR-REL-[A-Z]+-\\d{3}-R\\d+$",
+      "examples": ["SOUND-CONSTR-REL-ADJACENT-001-R1"]
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name describing this relationship.",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the relationship, explaining the nature of the connection between the source and target patterns."
+    },
+    "schema_version": {
+      "type": "string",
+      "description": "Version of this JSON schema definition used to validate the entity.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0"]
+    },
+    "pattern_language_version": {
+      "type": "string",
+      "description": "Version of the Construction Pattern Language specification this entity conforms to.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0"]
+    },
+    "entity_revision": {
+      "type": "integer",
+      "description": "Monotonically increasing revision number for this entity, incremented on each update.",
+      "minimum": 1
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 timestamp indicating when this entity was originally created.",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 timestamp indicating when this entity was last modified.",
+      "format": "date-time"
+    },
+    "relationship_type": {
+      "type": "string",
+      "description": "The classification of this relationship: 'adjacency' indicates patterns that physically or logically neighbor each other, 'conflict' indicates patterns that are incompatible, and 'dependency' indicates that the source pattern requires the target pattern.",
+      "enum": ["adjacency", "conflict", "dependency"]
+    },
+    "source_id": {
+      "type": "string",
+      "description": "The identifier of the originating pattern in this directed relationship.",
+      "minLength": 1
+    },
+    "target_id": {
+      "type": "string",
+      "description": "The identifier of the destination pattern in this directed relationship.",
+      "minLength": 1
+    },
+    "conditions": {
+      "type": "array",
+      "description": "Optional list of conditions or circumstances under which this relationship applies.",
+      "items": {
+        "type": "string",
+        "description": "A condition statement describing when or why this relationship is active."
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-form notes or additional context about this pattern relationship."
+    }
+  },
+  "additionalProperties": false
+}

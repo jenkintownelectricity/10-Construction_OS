@@ -1,0 +1,42 @@
+# Edge-Parapet Adjacency Rule
+# Defines the spatial relationship where edge metal terminates at parapet wall intersections
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "SOUND-CONSTR-REL-EDGEPARAPET-001-R1"
+name: "Edge Metal to Parapet Wall Adjacency"
+type: adjacency
+
+source:
+  id: "DNA-CONSTR-FAM-EDGE-001-R1"
+  name: "Edge Metal Family"
+
+target:
+  id: "DNA-CONSTR-FAM-PARAPET-002-R1"
+  name: "Parapet Wall Family"
+
+description: >
+  Edge metal terminates at parapet wall intersection. At the junction where
+  a roof perimeter transitions from open edge to parapet wall, the continuous
+  edge metal profile must terminate cleanly and integrate with the parapet
+  base flashing. This adjacency governs the lap direction, sealant placement,
+  and transition detail required to maintain weathertight integrity at the
+  change in roof perimeter condition.
+
+rules:
+  - Edge metal must terminate no more than 2 inches from the face of the parapet wall
+  - A transition closure piece is required to bridge edge metal to parapet base flashing
+  - Lap direction must shed water away from the parapet wall
+  - Sealant joint is required at the termination point
+  - Fasteners within 6 inches of the parapet face must account for differential movement
+
+validation:
+  - check: termination_gap_within_tolerance
+    max_gap_inches: 2.0
+  - check: transition_closure_present
+    required: true
+  - check: lap_direction_correct
+    direction: away_from_parapet

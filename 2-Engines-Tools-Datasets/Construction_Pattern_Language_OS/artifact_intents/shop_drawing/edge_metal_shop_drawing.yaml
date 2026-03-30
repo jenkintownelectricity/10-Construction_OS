@@ -1,0 +1,53 @@
+# Edge Metal Shop Drawing Intent
+# Defines the artifact output requirements for edge metal fabrication drawings
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "COLOR-CONSTR-ART-EDGESHOP-001-R1"
+name: "Edge Metal Shop Drawing"
+artifact_type: shop_drawing
+
+description: >
+  Shop drawing artifact for edge metal profiles including drip edges and
+  gravel stops. This drawing communicates the exact cross-sectional profile,
+  material specification, and installation parameters needed by the sheet
+  metal fabrication shop to produce edge metal components. Dimensions are
+  shown at full scale on the profile section with all bends, hems, and
+  fastener locations clearly indicated. Each unique condition (straight run,
+  inside corner, outside corner, transition) requires its own detail.
+
+pattern_refs:
+  - id: "DNA-CONSTR-PAT-EDGE-DRIP-010-R1"
+    name: "Drip Edge Pattern"
+  - id: "DNA-CONSTR-PAT-EDGE-GRAVELSTOP-011-R1"
+    name: "Gravel Stop Pattern"
+
+output_format: DXF
+
+required_fields:
+  - field: profile_dimensions
+    description: "Full cross-sectional dimensions of the edge metal profile including all bends and return legs"
+    unit: inches
+  - field: material_gauge
+    description: "Sheet metal gauge thickness per ASTM standards for the specified material"
+    unit: gauge
+  - field: fastener_spacing
+    description: "On-center spacing of mechanical fasteners along the edge metal run"
+    unit: inches
+  - field: drip_leg_length
+    description: "Length of the vertical drip leg measured from the bend point to the free edge"
+    unit: inches
+
+supplementary_fields:
+  - hem_dimension
+  - finish_specification
+  - corner_detail_type
+  - splice_overlap_length
+
+notes:
+  - All shop drawings must include a material legend and fastener schedule
+  - Corner details must show plan view in addition to section
+  - Indicate direction of lap at all splice locations

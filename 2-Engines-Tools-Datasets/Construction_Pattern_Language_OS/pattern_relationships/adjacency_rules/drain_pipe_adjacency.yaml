@@ -1,0 +1,43 @@
+# Drain-Pipe Adjacency Rule
+# Defines the connection relationship between roof drains and plumbing penetrations
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "SOUND-CONSTR-REL-DRAINPIPE-002-R1"
+name: "Roof Drain to Pipe Penetration Adjacency"
+type: adjacency
+
+source:
+  id: "DNA-CONSTR-FAM-DRAIN-003-R1"
+  name: "Drain Family"
+
+target:
+  id: "DNA-CONSTR-FAM-PIPE-004-R1"
+  name: "Pipe Penetration Family"
+
+description: >
+  Roof drains connect to plumbing penetrations. The drain body assembly
+  receives stormwater at the roof surface and transitions it into the
+  building's storm piping system through a vertical penetration of the
+  roof deck. This adjacency ensures the drain outlet aligns with the
+  leader pipe, the clamping ring properly secures the roofing membrane,
+  and the waterproofing continuity is maintained from the roof surface
+  through the deck penetration.
+
+rules:
+  - Drain outlet must align concentrically with the leader pipe within 1/4 inch
+  - Clamping ring must engage both the roofing membrane and the drain flange
+  - Underdeck clamp or mechanical coupling is required at the deck penetration
+  - Minimum 4-inch clearance from any structural member to the drain centerline
+  - Insulation must be tapered to create positive slope toward the drain body
+
+validation:
+  - check: concentric_alignment
+    max_offset_inches: 0.25
+  - check: clamping_ring_engagement
+    required: true
+  - check: underdeck_connection_present
+    required: true

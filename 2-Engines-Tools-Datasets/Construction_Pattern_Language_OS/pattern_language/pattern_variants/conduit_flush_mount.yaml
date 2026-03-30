@@ -1,0 +1,26 @@
+id: CHEM-CONSTR-VAR-CONDFLUSH-116-R1
+name: Flush-Mount Conduit Penetration
+description: >
+  Conduit penetrating the roof membrane at deck level with a
+  galvanized sleeve and umbrella flashing.  Suitable for smaller
+  diameter conduits where a raised curb is not practical.
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+pattern_id: DNA-CONSTR-PAT-PIPE-CONDUIT-041-R1
+method: flush_mount_installation
+materials:
+  - name: galvanized sleeve
+    specification: schedule 40 galvanized steel pipe, set in roof deck
+  - name: umbrella flashing
+    specification: lead or TPO pre-formed cone, sized to pipe OD
+  - name: polyurethane sealant
+    specification: single-component moisture-curing, ASTM C920 Type S
+dimensional_constraints:
+  min_height_above_roof_inches: 2
+  max_pipe_diameter_inches: 4
+notes: >
+  Sleeve must extend minimum 2 inches above finished roof surface.
+  Apply sealant around the conduit-to-sleeve annular space.  Bond
+  umbrella flashing flange to roof membrane.

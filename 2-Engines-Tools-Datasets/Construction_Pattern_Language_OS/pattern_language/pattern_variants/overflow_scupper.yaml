@@ -1,0 +1,26 @@
+id: CHEM-CONSTR-VAR-OVSCUPPER-111-R1
+name: Through-Wall Scupper Overflow
+description: >
+  Overflow protection via a scupper opening through the parapet wall,
+  set above the primary drain inlet elevation.  Conductor head and
+  downspout direct overflow water to grade level.
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+pattern_id: DNA-CONSTR-PAT-DRAIN-OVERFLOW-031-R1
+method: scupper_installation
+materials:
+  - name: sheet metal scupper box
+    specification: copper 16 oz or galvanized steel 22 gauge, soldered seams
+  - name: conductor head
+    specification: matching material, sized for 2x scupper flow capacity
+  - name: downspout
+    specification: matching material, sized per IPC Table 1106.3
+dimensional_constraints:
+  min_opening_width_inches: 6
+  set_height_above_drain_inches: 2
+notes: >
+  Scupper must be visible from ground level to allow detection of
+  overflow conditions.  Flash scupper box to membrane and through-wall
+  flashing.  Provide bird screen at inlet.

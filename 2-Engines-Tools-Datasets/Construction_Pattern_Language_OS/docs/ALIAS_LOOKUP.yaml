@@ -1,0 +1,268 @@
+# Alias-to-Canonical Lookup Index
+# Generated: 2026-03-22
+# Authority: Construction_Pattern_Language_OS
+#
+# Maps common names, abbreviations, trade terms, and alternative
+# references to their canonical entity IDs. Consumers should use
+# this index to resolve human-readable terms to canonical IDs.
+#
+# Rules:
+#   - Aliases are case-insensitive for lookup
+#   - Each alias resolves to exactly one canonical ID
+#   - No alias may map to more than one ID
+#   - Canonical IDs are the only valid reference format in YAML files
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+generated_at: "2026-03-22T00:00:00Z"
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# PATTERN FAMILY ALIASES
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+family_aliases:
+  - canonical_id: "DNA-CONSTR-FAM-EDGE-001-R1"
+    aliases:
+      - "roof edge"
+      - "edge metal"
+      - "perimeter edge"
+      - "roof perimeter"
+      - "edge termination"
+
+  - canonical_id: "DNA-CONSTR-FAM-PARAPET-002-R1"
+    aliases:
+      - "parapet"
+      - "parapet wall"
+      - "parapet cap"
+      - "coping"
+      - "wall cap"
+
+  - canonical_id: "DNA-CONSTR-FAM-DRAIN-003-R1"
+    aliases:
+      - "roof drain"
+      - "drain"
+      - "drainage"
+      - "storm drain"
+      - "roof drainage"
+
+  - canonical_id: "DNA-CONSTR-FAM-PIPE-004-R1"
+    aliases:
+      - "pipe penetration"
+      - "penetration"
+      - "pipe boot"
+      - "plumbing penetration"
+      - "conduit penetration"
+      - "roof penetration"
+
+  - canonical_id: "DNA-CONSTR-FAM-JOINT-005-R1"
+    aliases:
+      - "expansion joint"
+      - "control joint"
+      - "movement joint"
+      - "structural joint"
+      - "exp joint"
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# PATTERN ALIASES
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+pattern_aliases:
+  - canonical_id: "DNA-CONSTR-PAT-EDGE-DRIP-010-R1"
+    aliases:
+      - "drip edge"
+      - "drip metal"
+      - "drip flashing"
+      - "eave drip"
+      - "roof drip"
+
+  - canonical_id: "DNA-CONSTR-PAT-EDGE-GRAVELSTOP-011-R1"
+    aliases:
+      - "gravel stop"
+      - "gravel guard"
+      - "aggregate stop"
+      - "ballast stop"
+      - "fascia edge"
+
+  - canonical_id: "DNA-CONSTR-PAT-PARAPET-METALCAP-020-R1"
+    aliases:
+      - "metal parapet cap"
+      - "metal cap"
+      - "sheet metal cap"
+      - "parapet capping"
+      - "wall cap metal"
+
+  - canonical_id: "DNA-CONSTR-PAT-PARAPET-STONECOP-021-R1"
+    aliases:
+      - "stone coping"
+      - "cast stone coping"
+      - "precast coping"
+      - "natural stone coping"
+      - "coping stone"
+
+  - canonical_id: "DNA-CONSTR-PAT-DRAIN-INTERIOR-030-R1"
+    aliases:
+      - "interior drain"
+      - "roof drain body"
+      - "primary drain"
+      - "internal drain"
+      - "sump drain"
+
+  - canonical_id: "DNA-CONSTR-PAT-DRAIN-OVERFLOW-031-R1"
+    aliases:
+      - "overflow drain"
+      - "scupper"
+      - "secondary drain"
+      - "overflow scupper"
+      - "emergency overflow"
+
+  - canonical_id: "DNA-CONSTR-PAT-PIPE-PLUMBING-040-R1"
+    aliases:
+      - "plumbing vent"
+      - "plumbing penetration"
+      - "vent pipe"
+      - "soil stack"
+      - "vent stack"
+
+  - canonical_id: "DNA-CONSTR-PAT-PIPE-CONDUIT-041-R1"
+    aliases:
+      - "conduit penetration"
+      - "electrical conduit"
+      - "conduit pipe"
+      - "electrical penetration"
+      - "EMT penetration"
+
+  - canonical_id: "DNA-CONSTR-PAT-JOINT-ROOF-050-R1"
+    aliases:
+      - "roof expansion joint"
+      - "roof joint"
+      - "structural roof joint"
+      - "roof movement joint"
+
+  - canonical_id: "DNA-CONSTR-PAT-JOINT-WALL-051-R1"
+    aliases:
+      - "wall expansion joint"
+      - "wall joint"
+      - "parapet expansion joint"
+      - "wall movement joint"
+
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# VARIANT ALIASES
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+variant_aliases:
+  - canonical_id: "CHEM-CONSTR-VAR-DRIPMECH-101-R1"
+    aliases:
+      - "mechanical drip edge"
+      - "fastened drip edge"
+      - "screwed drip edge"
+
+  - canonical_id: "CHEM-CONSTR-VAR-DRIPADH-102-R1"
+    aliases:
+      - "adhered drip edge"
+      - "glued drip edge"
+      - "adhesive drip edge"
+
+  - canonical_id: "CHEM-CONSTR-VAR-GRAVELEXT-103-R1"
+    aliases:
+      - "extruded gravel stop"
+      - "aluminum gravel stop"
+      - "extruded aluminum edge"
+
+  - canonical_id: "CHEM-CONSTR-VAR-GRAVELFRM-104-R1"
+    aliases:
+      - "formed gravel stop"
+      - "brake-formed gravel stop"
+      - "sheet metal gravel stop"
+
+  - canonical_id: "CHEM-CONSTR-VAR-CAPSNAP-105-R1"
+    aliases:
+      - "snap-lock cap"
+      - "snap cap"
+      - "snap-on parapet cap"
+
+  - canonical_id: "CHEM-CONSTR-VAR-CAPCLEAT-106-R1"
+    aliases:
+      - "cleat cap"
+      - "cleat-mounted cap"
+      - "standing seam cap"
+
+  - canonical_id: "CHEM-CONSTR-VAR-COPSET-107-R1"
+    aliases:
+      - "mortar-set coping"
+      - "wet-set coping"
+      - "traditional coping"
+
+  - canonical_id: "CHEM-CONSTR-VAR-COPADH-108-R1"
+    aliases:
+      - "adhesive coping"
+      - "glued coping"
+      - "dry-set coping"
+
+  - canonical_id: "CHEM-CONSTR-VAR-DRAINGRAV-109-R1"
+    aliases:
+      - "gravity drain"
+      - "conventional drain"
+      - "gravity flow drain"
+
+  - canonical_id: "CHEM-CONSTR-VAR-DRAINSIP-110-R1"
+    aliases:
+      - "siphonic drain"
+      - "siphon drain"
+      - "full-bore drain"
+
+  - canonical_id: "CHEM-CONSTR-VAR-OVSCUPPER-111-R1"
+    aliases:
+      - "scupper overflow"
+      - "through-wall scupper"
+      - "wall scupper"
+
+  - canonical_id: "CHEM-CONSTR-VAR-OVSECOND-112-R1"
+    aliases:
+      - "secondary overflow"
+      - "overflow standpipe"
+      - "backup drain"
+
+  - canonical_id: "CHEM-CONSTR-VAR-PLUMBPITCH-113-R1"
+    aliases:
+      - "pitch pocket"
+      - "pitch pan"
+      - "pitch pocket penetration"
+
+  - canonical_id: "CHEM-CONSTR-VAR-PLUMBBOOT-114-R1"
+    aliases:
+      - "pipe boot"
+      - "prefab boot"
+      - "pre-formed pipe flashing"
+
+  - canonical_id: "CHEM-CONSTR-VAR-CONDCURB-115-R1"
+    aliases:
+      - "curb mount conduit"
+      - "raised conduit"
+      - "conduit on curb"
+
+  - canonical_id: "CHEM-CONSTR-VAR-CONDFLUSH-116-R1"
+    aliases:
+      - "flush mount conduit"
+      - "deck-level conduit"
+      - "flat conduit penetration"
+
+  - canonical_id: "CHEM-CONSTR-VAR-JOINTBELL-117-R1"
+    aliases:
+      - "bellows joint"
+      - "bellows expansion joint"
+      - "flexible bellows"
+
+  - canonical_id: "CHEM-CONSTR-VAR-JOINTSLIDE-118-R1"
+    aliases:
+      - "sliding plate joint"
+      - "slide joint"
+      - "slide plate expansion joint"
+
+  - canonical_id: "CHEM-CONSTR-VAR-WALLJCOV-119-R1"
+    aliases:
+      - "cover plate joint"
+      - "wall cover plate"
+      - "cover plate expansion joint"
+
+  - canonical_id: "CHEM-CONSTR-VAR-WALLJSEAL-120-R1"
+    aliases:
+      - "sealant joint"
+      - "wall sealant joint"
+      - "caulk joint"

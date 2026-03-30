@@ -1,0 +1,28 @@
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "DNA-CONSTR-PAT-PARAPET-STONECOP-021-R1"
+name: "Stone Coping"
+description: >
+  A natural or cast stone cap installed on top of a parapet wall to provide a
+  durable and architecturally finished weatherproofing termination. Stone copings
+  are set on a waterproof membrane over the wall substrate, with joints sealed
+  using flexible sealant to accommodate thermal and structural movement. The
+  coping profile includes a kerf-cut drip groove on both the interior and exterior
+  faces to prevent water from tracking back along the underside of the stone.
+family_id: "DNA-CONSTR-FAM-PARAPET-002-R1"
+variants:
+  - "CHEM-CONSTR-VAR-COPSET-107-R1"
+  - "CHEM-CONSTR-VAR-COPADH-108-R1"
+detail_intents:
+  - "Provide durable stone cap on parapet wall"
+  - "Prevent water infiltration through parapet top"
+  - "Drip water clear of wall faces via kerf-cut drip grooves"
+artifact_intent_refs:
+  - "AI-PARAPET-STONECOP-SHOP-DWG-001"
+  - "AI-PARAPET-STONECOP-SECTION-002"
+constraint_profile_refs:
+  - "CP-PARAPET-STONE-ANCHOR-001"
+  - "CP-PARAPET-JOINT-SEALANT-002"

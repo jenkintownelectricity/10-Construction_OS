@@ -1,0 +1,29 @@
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "DNA-CONSTR-PAT-JOINT-WALL-051-R1"
+name: "Wall Expansion Joint"
+description: >
+  A construction detail that maintains the weatherproofing continuity of the
+  building wall envelope at structural expansion joints. Wall expansion joints
+  must accommodate horizontal and vertical movement while preventing water and
+  air infiltration. The detail typically involves a compressible filler, a
+  backer rod, exterior sealant, and often a surface-mounted cover plate that
+  conceals the joint while permitting movement. Integration with flashing at
+  floor lines and the roof-to-wall transition is critical.
+family_id: "DNA-CONSTR-FAM-JOINT-005-R1"
+variants:
+  - "CHEM-CONSTR-VAR-WALLJCOV-119-R1"
+  - "CHEM-CONSTR-VAR-WALLJSEAL-120-R1"
+detail_intents:
+  - "Maintain wall envelope weatherproofing at expansion joints"
+  - "Accommodate horizontal and vertical structural movement"
+  - "Integrate with floor-line and roof-line flashing"
+artifact_intent_refs:
+  - "AI-JOINT-WALL-DETAIL-001"
+  - "AI-JOINT-WALL-SECTION-002"
+constraint_profile_refs:
+  - "CP-JOINT-WALL-MOVEMENT-001"
+  - "CP-JOINT-WALL-FIRE-RATING-002"

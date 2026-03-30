@@ -1,0 +1,54 @@
+# Parapet Cap Shop Drawing Intent
+# Defines the artifact output requirements for parapet cap fabrication drawings
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "COLOR-CONSTR-ART-PARAPETSHOP-002-R1"
+name: "Parapet Cap Shop Drawing"
+artifact_type: shop_drawing
+
+description: >
+  Shop drawing artifact for metal parapet capping systems. The parapet cap
+  is a formed sheet metal cover that protects the top of a parapet wall from
+  water infiltration. This drawing must show the full cap cross section
+  including both interior and exterior drip hems, the method of attachment
+  via continuous or intermittent cleats, and the joint system used to
+  accommodate thermal expansion between cap sections. Each parapet condition
+  (straight run, inside corner, outside corner, end dam) requires a
+  dedicated detail at full fabrication scale.
+
+pattern_refs:
+  - id: "DNA-CONSTR-PAT-PARAPET-METALCAP-020-R1"
+    name: "Metal Parapet Cap Pattern"
+
+output_format: DXF
+
+required_fields:
+  - field: cap_width
+    description: "Overall width of the parapet cap from exterior drip edge to interior drip edge"
+    unit: inches
+  - field: hem_depth
+    description: "Depth of the folded drip hem on both interior and exterior legs"
+    unit: inches
+  - field: cleat_spacing
+    description: "On-center spacing of hold-down cleats along the parapet run"
+    unit: inches
+  - field: joint_type
+    description: "Type of expansion joint between cap sections (butt, lap, standing seam, or interlocking)"
+    type: enum
+    options: [butt_with_cover, lap, standing_seam, interlocking]
+
+supplementary_fields:
+  - cleat_gauge
+  - cap_gauge
+  - finish_color_code
+  - end_dam_detail
+  - corner_fabrication_method
+
+notes:
+  - Maximum cap section length is typically 10 feet to limit thermal movement
+  - Cleat attachment must not penetrate the waterproofing membrane
+  - Show the relationship between cap drip hem and base flashing counterflashing

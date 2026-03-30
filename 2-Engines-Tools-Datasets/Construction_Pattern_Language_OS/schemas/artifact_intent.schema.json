@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "artifact_intent.schema.json",
+  "title": "ArtifactIntent",
+  "description": "Schema for ArtifactIntent entities representing the intended documentation artifacts that should be produced for construction patterns, such as shop drawings, specifications, submittals, and inspections.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "description",
+    "schema_version",
+    "pattern_language_version",
+    "entity_revision",
+    "created_at",
+    "artifact_type",
+    "pattern_refs"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the artifact intent, following the COLOR-CONSTR-ART naming convention.",
+      "pattern": "^COLOR-CONSTR-ART-[A-Z]+-\\d{3}-R\\d+$",
+      "examples": ["COLOR-CONSTR-ART-SHOPDWG-001-R1"]
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name of the artifact intent.",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the artifact intent, including its purpose, audience, and the information it conveys."
+    },
+    "schema_version": {
+      "type": "string",
+      "description": "Version of this JSON schema definition used to validate the entity.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0"]
+    },
+    "pattern_language_version": {
+      "type": "string",
+      "description": "Version of the Construction Pattern Language specification this entity conforms to.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0"]
+    },
+    "entity_revision": {
+      "type": "integer",
+      "description": "Monotonically increasing revision number for this entity, incremented on each update.",
+      "minimum": 1
+    },
+    "created_at": {
+      "type": "string",
+      "description": "ISO 8601 timestamp indicating when this entity was originally created.",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "ISO 8601 timestamp indicating when this entity was last modified.",
+      "format": "date-time"
+    },
+    "artifact_type": {
+      "type": "string",
+      "description": "The classification of this artifact: 'shop_drawing' for fabrication-level drawings, 'specification' for written technical requirements, 'submittal' for product data and approval documents, and 'inspection' for quality verification checklists.",
+      "enum": ["shop_drawing", "specification", "submittal", "inspection"]
+    },
+    "pattern_refs": {
+      "type": "array",
+      "description": "List of pattern identifiers that this artifact intent applies to.",
+      "items": {
+        "type": "string",
+        "description": "Reference to a Pattern entity ID.",
+        "pattern": "^DNA-CONSTR-PAT-[A-Z]+-[A-Z]+-\\d{3}-R\\d+$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "output_format": {
+      "type": "string",
+      "description": "Optional preferred output format for the artifact (e.g., PDF, DWG, CSV, IFC)."
+    },
+    "required_fields": {
+      "type": "array",
+      "description": "Optional list of field names or data points that must be included in the generated artifact.",
+      "items": {
+        "type": "string",
+        "description": "Name of a required field or data element."
+      },
+      "uniqueItems": true
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-form notes or additional context about this artifact intent."
+    }
+  },
+  "additionalProperties": false
+}

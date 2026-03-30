@@ -1,0 +1,65 @@
+# =============================================================================
+# PatternVariant: Gravel Stop — Extruded Aluminum
+# =============================================================================
+# Gravel stop manufactured by aluminum extrusion, providing consistent
+# cross-section profile and structural rigidity without brake-forming.
+# =============================================================================
+
+id: "CHEM-CONSTR-VAR-EXTRUDED-201-R1"
+name: "Gravel Stop — Extruded Aluminum"
+description: >
+  Gravel stop variant manufactured by aluminum extrusion. The extruded
+  profile provides a consistent cross-section with tighter dimensional
+  tolerances than brake-formed sheet metal. Typical alloy is 6063-T5 or
+  6063-T6 aluminum, which offers good corrosion resistance and a clean
+  anodized or painted finish. Extruded gravel stops are available in
+  standard lengths of 10 to 12 feet and are joined with splice plates at
+  butt joints. The integral nailing hem allows mechanical fastening to
+  the roof deck, and the horizontal flange is stripped in with the roof
+  membrane. Suitable for high-visibility applications where a uniform
+  edge profile and consistent finish are required.
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+pattern_id: "DNA-CONSTR-PAT-EDGE-GRAVELSTOP-002-R1"
+
+method: "aluminum_extrusion"
+
+materials:
+  - name: "6063-T5 extruded aluminum gravel stop"
+    specification: "ASTM B221, Alloy 6063-T5"
+    role: "edge_flashing"
+  - name: "Aluminum splice plate"
+    specification: "ASTM B209, Alloy 3003-H14"
+    role: "splice_connector"
+  - name: "Stainless steel fasteners"
+    specification: "ASTM F593, Type 304"
+    role: "fastener"
+  - name: "Butyl sealant tape"
+    specification: "ASTM C1311"
+    role: "sealant"
+
+dimensional_constraints:
+  min_height: "3 in"
+  max_height: "8 in"
+  min_width: "4 in"
+  min_thickness: "0.050 in"
+  tolerance: "+/- 1/32 in"
+
+manufacturer_refs:
+  - "Metal Era"
+  - "Hickman Company"
+  - "Perimeter Systems"
+
+notes: >
+  Extruded aluminum gravel stops must include provision for thermal
+  movement. Aluminum expands at approximately 0.0128 in per foot per
+  100 deg F temperature change. Splice joints must incorporate a minimum
+  1/4 in gap with butyl sealant to accommodate expansion. Maximum
+  unspliced length should not exceed 12 feet. All contact with dissimilar
+  metals must be isolated to prevent galvanic corrosion. Use stainless
+  steel or aluminum fasteners only -- never use plain steel or copper
+  fasteners in contact with aluminum.

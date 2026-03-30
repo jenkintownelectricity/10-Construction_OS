@@ -1,0 +1,75 @@
+# Wind Zone Environmental Constraints
+# Wind uplift and fastening requirements based on roof wind exposure zones
+
+schema_version: "1.0.0"
+pattern_language_version: "1.0.0"
+entity_revision: 1
+created_at: "2026-03-22T00:00:00Z"
+
+id: "CLIMATE-CONSTR-CNS-WINDZONE-001-R1"
+name: "Wind Zone Constraints"
+constraint_type: environmental
+
+description: >
+  Environmental constraints driven by wind uplift forces across the three
+  standard roof wind zones defined by ASCE 7 and FM Global. Zone 1 covers the
+  field of the roof, Zone 2 covers the perimeter strip, and Zone 3 covers the
+  corners where wind uplift pressures are highest. Edge metal and parapet
+  components at the roof perimeter are subject to Zone 2 and Zone 3 loads,
+  requiring enhanced fastening, closer cleat spacing, and higher pullout
+  resistance. These constraints ensure that roof perimeter assemblies resist
+  the design wind uplift without disengagement, flutter, or progressive peeling
+  that could lead to catastrophic membrane loss.
+
+applies_to:
+  - id: "DNA-CONSTR-FAM-EDGE-001-R1"
+    name: "Edge Metal Family"
+  - id: "DNA-CONSTR-FAM-PARAPET-002-R1"
+    name: "Parapet Wall Family"
+
+parameters:
+  wind_zones:
+    - 1
+    - 2
+    - 3
+  uplift_rating_required: true
+  enhanced_fastening_zone_3: true
+  zone_definitions:
+    zone_1:
+      name: "Field of Roof"
+      description: "Interior area beyond the perimeter strip; lowest uplift pressures"
+    zone_2:
+      name: "Perimeter"
+      description: "Strip along roof edges; width equals 10% of least roof dimension or 40 feet, whichever is less"
+    zone_3:
+      name: "Corner"
+      description: "Corner regions where two perimeter strips intersect; highest uplift pressures"
+
+fastening_requirements:
+  zone_1:
+    max_fastener_spacing_inches: 12
+    cleat_spacing_inches: 24
+  zone_2:
+    max_fastener_spacing_inches: 9
+    cleat_spacing_inches: 18
+  zone_3:
+    max_fastener_spacing_inches: 6
+    cleat_spacing_inches: 12
+    enhanced_fastening: true
+    description: "Zone 3 requires reduced fastener spacing, structural screws into blocking, and continuous cleats"
+
+applicable_standards:
+  - ANSI/SPRI ES-1 (edge securement)
+  - ANSI/SPRI/FM 4435/ES-1 (wind design for edge metal)
+  - FM Global Loss Prevention Data Sheet 1-49
+  - ASCE 7 Chapter 30 (wind loads on components and cladding)
+
+validation:
+  - check: uplift_rating_documented
+    required: true
+    fail_action: reject
+  - check: zone_3_enhanced_fastening
+    required: true
+    fail_action: reject
+  - check: fastener_spacing_per_zone
+    required: true
