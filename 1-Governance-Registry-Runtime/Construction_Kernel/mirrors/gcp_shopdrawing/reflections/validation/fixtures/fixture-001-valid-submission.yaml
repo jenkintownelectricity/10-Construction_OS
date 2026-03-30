@@ -1,0 +1,207 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Fixture 001: Valid Submission
+# Slice: validation
+#
+# A known-good submission package containing three well-formed detail records
+# (beam, column, panel) that passes all validation rules. Used as the
+# baseline positive test case for the validation slice.
+##############################################################################
+
+fixture:
+  id: "FIXTURE-VL-001"
+  name: "Valid Submission — Harbor Tower Structural Steel Package"
+  description: >
+    A complete and well-formed submission package from the steel fabricator
+    for the Harbor Tower 2026 project. Contains three detail records (beam,
+    column, curtain wall panel) that all pass structural completeness,
+    schema conformance, and cross-reference integrity checks. This fixture
+    exercises the happy-path validation flow.
+  slice: validation
+  created: "2026-03-20"
+  status: active
+
+submission_package:
+  submission_id: "SUB-20260315140000-AB12CD"
+  project_id: "PRJ-HARBOR-TOWER-2026"
+  submitted_at: "2026-03-15T14:00:00Z"
+  submitter:
+    entity_name: "Pacific Steel Fabricators, Inc."
+    role: "fabricator"
+    contact_email: "submittals@pacificsteel.com"
+    license_number: "AISC-BU-00452"
+  schema_version: "2.3.0"
+  transmittal:
+    transmittal_number: "PSF-HT26-XMIT-014"
+    spec_section: "05 12 00"
+    submittal_type: "initial"
+    cover_sheet_ref: "PSF-HT26-COVER-014.pdf"
+  records:
+    - gcp_record_id: "GCP-SD-000000001234"
+      element_data:
+        elem_type_code: "BM"
+        elem_subtype: "WF"
+        mark_number: "B12A"
+        piece_count: 4
+        sequence_number: 45
+        grid_location: "C3-D3"
+        level_tag: "L3"
+        elevation_raw: "32'-6\""
+      geometry_block:
+        section_designation: "W24X76"
+        depth_raw: "23.92\""
+        width_raw: "8.990\""
+        length_raw: "28'-3\""
+      material_data:
+        mat_code: "STL-A992-50"
+        grade_raw: "Gr.50"
+        finish_code: "PRIME"
+      dim_block:
+        unit_flag: "IMP"
+        dims:
+          - dim_label: "Overall Length"
+            dim_value_raw: "28'-3\""
+            dim_tol_plus_raw: "1/8\""
+            dim_tol_minus_raw: "1/8\""
+            is_critical: true
+      connection_block:
+        - conn_id: "C-NE-001"
+          conn_location_code: "NE"
+          conn_type_code: "SHR_TAB"
+          bolt_data:
+            bolt_type_code: "A325N"
+            bolt_dia_raw: "3/4\""
+            bolt_qty: 3
+            hole_type_code: "STD"
+          connects_to_mark: "CL5"
+      meta:
+        exported_at: "2026-03-01T14:30:00Z"
+        export_version: "2.3.0"
+        source_application: "Tekla Structures"
+        checksum: "a1b2c3d4e5f6789012345678abcdef01"
+
+    - gcp_record_id: "GCP-SD-000000005678"
+      element_data:
+        elem_type_code: "CL"
+        elem_subtype: "WF"
+        mark_number: "CL5"
+        piece_count: 1
+        sequence_number: 22
+        grid_location: "C3"
+        level_tag: "L2-L3"
+        elevation_raw: "18'-0\""
+      geometry_block:
+        section_designation: "W14X159"
+        depth_raw: "14.98\""
+        width_raw: "15.565\""
+        length_raw: "14'-6\""
+      material_data:
+        mat_code: "STL-A992-50"
+        grade_raw: "Gr.50"
+        finish_code: "PRIME"
+      dim_block:
+        unit_flag: "IMP"
+        dims:
+          - dim_label: "Overall Length"
+            dim_value_raw: "14'-6\""
+            dim_tol_plus_raw: "1/8\""
+            dim_tol_minus_raw: "1/8\""
+            is_critical: true
+      connection_block: []
+      meta:
+        exported_at: "2026-03-01T14:30:00Z"
+        export_version: "2.3.0"
+        source_application: "Tekla Structures"
+        checksum: "b2c3d4e5f67890123456789abcdef012"
+
+    - gcp_record_id: "GCP-SD-000000009012"
+      element_data:
+        elem_type_code: "PN"
+        elem_subtype: "CW"
+        mark_number: "CWA22"
+        piece_count: 12
+        sequence_number: 88
+        grid_location: "7-8/EAST"
+        level_tag: "L4-L5"
+        elevation_raw: "46'-0\""
+      geometry_block:
+        section_designation: "CW-A UNITIZED"
+        depth_raw: "5\""
+        width_raw: "60\""
+        length_raw: "14'-0\""
+      material_data:
+        mat_code: "ALM-6063-T6"
+        grade_raw: "T6"
+        finish_code: "ANOD-CL1"
+      dim_block:
+        unit_flag: "IMP"
+        dims:
+          - dim_label: "Panel Height"
+            dim_value_raw: "14'-0\""
+            is_critical: true
+          - dim_label: "Panel Width"
+            dim_value_raw: "5'-0\""
+            is_critical: true
+      connection_block: []
+      meta:
+        exported_at: "2026-03-05T09:15:00Z"
+        export_version: "2.3.0"
+        source_application: "SolidWorks"
+        checksum: "c3d4e5f678901234567890abcdef0123"
+  submission_hash: "sha256:d4e5f6789012345678901abcdef01234abcdef01234abcdef01234abcdef01234"
+
+validation_context:
+  project_id: "COS-PRJ-2026-0042"
+  expected_schema_version: "2.3.0"
+  strict_mode: false
+  bypass_codes: []
+
+expected_result:
+  validation_id: "VALD-20260320140000-VL001A"
+  submission_id: "SUB-20260315140000-AB12CD"
+  validated_at: "2026-03-20T14:00:00Z"
+  summary:
+    total_records: 3
+    records_valid: 3
+    records_invalid: 0
+    records_warning: 0
+    disposition: "accepted"
+    deficiency_count: 0
+    blocking_deficiencies: []
+    validation_duration_ms: 85
+  record_results:
+    - gcp_record_id: "GCP-SD-000000001234"
+      status: "valid"
+      checks_passed: 13
+      checks_failed: 0
+    - gcp_record_id: "GCP-SD-000000005678"
+      status: "valid"
+      checks_passed: 13
+      checks_failed: 0
+    - gcp_record_id: "GCP-SD-000000009012"
+      status: "valid"
+      checks_passed: 13
+      checks_failed: 0
+  cross_reference_results:
+    total_references_checked: 1
+    references_resolved: 1
+    references_broken: 0
+
+assertions:
+  - assert: value_equals
+    path: "$.summary.disposition"
+    expected: "accepted"
+    description: "A fully valid submission should be accepted."
+
+  - assert: value_equals
+    path: "$.summary.records_valid"
+    expected: 3
+
+  - assert: value_equals
+    path: "$.summary.deficiency_count"
+    expected: 0
+
+  - assert: value_equals
+    path: "$.cross_reference_results.references_broken"
+    expected: 0
+    description: "Beam B12A connects_to_mark CL5 should resolve to the column record."

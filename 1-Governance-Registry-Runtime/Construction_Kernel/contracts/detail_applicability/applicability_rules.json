@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "contract_id": "construction_kernel.detail_applicability.rules",
+  "version": "1.0",
+  "contract_type": "governed_applicability_rules",
+  "authority": "Construction_Kernel",
+  "description": "Governed detail applicability rules. Runtime consumes these rules and does not define them. Each rule maps a construction condition pattern to a canonical detail logic definition.",
+  "governance_source": "Construction_Kernel/docs/governance/construction-detail-doctrine.md",
+  "architecture_source": "Construction_Kernel/docs/system/CONSTRUCTION_DETAIL_APPLICABILITY_MODEL.md",
+  "fail_closed_rule": "If no rule matches a condition, the condition must be marked unresolved. The system must not generate a detail, fall back to a generic detail, or silently select between ambiguous matches.",
+  "multiple_match_rule": "Rules are evaluated by priority (lower value = higher priority). If multiple rules match at the same priority, the condition must be flagged for governed resolution.",
+  "rules": [
+    {
+      "rule_id": "RULE_EPDM_PARAPET_STD",
+      "condition_pattern": {
+        "interface_type": "roof_to_parapet",
+        "membrane_class": "epdm_membrane"
+      },
+      "applies_detail": "EPDM_PARAPET_FLASHING_STANDARD",
+      "detail_family": "parapet_flashing",
+      "priority": 1,
+      "components": [
+        {"name": "membrane_extension", "role": "waterproofing", "material_param": "membrane_type"},
+        {"name": "base_flashing", "role": "waterproofing", "material_param": "membrane_type"},
+        {"name": "termination_bar", "role": "fastener", "material": "galvanized_steel"},
+        {"name": "counterflashing", "role": "protection", "material": "galvanized_steel"},
+        {"name": "sealant", "role": "sealant", "material": "polyurethane_sealant"}
+      ],
+      "relationships": [
+        {"source": "membrane_extension", "type": "overlaps", "target": "base_flashing"},
+        {"source": "base_flashing", "type": "fastened_to", "target": "substrate"},
+        {"source": "termination_bar", "type": "fastened_to", "target": "substrate"},
+        {"source": "termination_bar", "type": "covers", "target": "membrane_extension"},
+        {"source": "counterflashing", "type": "covers", "target": "termination_bar"},
+        {"source": "sealant", "type": "seals", "target": "counterflashing"}
+      ]
+    },
+    {
+      "rule_id": "RULE_TPO_PARAPET_STD",
+      "condition_pattern": {
+        "interface_type": "roof_to_parapet",
+        "membrane_class": "tpo_membrane"
+      },
+      "applies_detail": "TPO_PARAPET_FLASHING_STANDARD",
+      "detail_family": "parapet_flashing",
+      "priority": 1,
+      "components": [
+        {"name": "membrane_extension", "role": "waterproofing", "material_param": "membrane_type"},
+        {"name": "base_flashing", "role": "waterproofing", "material_param": "membrane_type"},
+        {"name": "termination_bar", "role": "fastener", "material": "galvanized_steel"},
+        {"name": "counterflashing", "role": "protection", "material": "galvanized_steel"},
+        {"name": "sealant", "role": "sealant", "material": "polyurethane_sealant"}
+      ],
+      "relationships": [
+        {"source": "membrane_extension", "type": "overlaps", "target": "base_flashing"},
+        {"source": "base_flashing", "type": "fastened_to", "target": "substrate"},
+        {"source": "termination_bar", "type": "fastened_to", "target": "substrate"},
+        {"source": "termination_bar", "type": "covers", "target": "membrane_extension"},
+        {"source": "counterflashing", "type": "covers", "target": "termination_bar"},
+        {"source": "sealant", "type": "seals", "target": "counterflashing"}
+      ]
+    },
+    {
+      "rule_id": "RULE_EPDM_EDGE_STD",
+      "condition_pattern": {
+        "interface_type": "roof_edge",
+        "membrane_class": "epdm_membrane"
+      },
+      "applies_detail": "EPDM_ROOF_EDGE_STANDARD",
+      "detail_family": "roof_edge",
+      "priority": 1,
+      "components": [
+        {"name": "membrane_extension", "role": "waterproofing", "material_param": "membrane_type"},
+        {"name": "metal_edge", "role": "edge_profile", "material": "galvanized_steel"},
+        {"name": "cleat", "role": "fastener", "material": "galvanized_steel"},
+        {"name": "sealant", "role": "sealant", "material": "polyurethane_sealant"}
+      ],
+      "relationships": [
+        {"source": "membrane_extension", "type": "overlaps", "target": "metal_edge"},
+        {"source": "cleat", "type": "fastened_to", "target": "substrate"},
+        {"source": "metal_edge", "type": "covers", "target": "cleat"},
+        {"source": "sealant", "type": "seals", "target": "membrane_extension"}
+      ]
+    },
+    {
+      "rule_id": "RULE_TPO_EDGE_STD",
+      "condition_pattern": {
+        "interface_type": "roof_edge",
+        "membrane_class": "tpo_membrane"
+      },
+      "applies_detail": "TPO_ROOF_EDGE_STANDARD",
+      "detail_family": "roof_edge",
+      "priority": 1,
+      "components": [
+        {"name": "membrane_extension", "role": "waterproofing", "material_param": "membrane_type"},
+        {"name": "metal_edge", "role": "edge_profile", "material": "galvanized_steel"},
+        {"name": "cleat", "role": "fastener", "material": "galvanized_steel"},
+        {"name": "sealant", "role": "sealant", "material": "polyurethane_sealant"}
+      ],
+      "relationships": [
+        {"source": "membrane_extension", "type": "overlaps", "target": "metal_edge"},
+        {"source": "cleat", "type": "fastened_to", "target": "substrate"},
+        {"source": "metal_edge", "type": "covers", "target": "cleat"},
+        {"source": "sealant", "type": "seals", "target": "membrane_extension"}
+      ]
+    },
+    {
+      "rule_id": "RULE_PIPE_PENETRATION_STD",
+      "condition_pattern": {
+        "interface_type": "penetration"
+      },
+      "applies_detail": "PIPE_PENETRATION_FLASHING_STANDARD",
+      "detail_family": "penetration_flashing",
+      "priority": 10,
+      "components": [
+        {"name": "pipe_sleeve", "role": "penetrating_element", "material_param": "penetration_material"},
+        {"name": "flashing_base", "role": "waterproofing", "material_param": "membrane_type"},
+        {"name": "pipe_boot", "role": "seal", "material_param": "membrane_type"},
+        {"name": "clamp", "role": "fastener", "material": "stainless_fastener"},
+        {"name": "sealant", "role": "sealant", "material": "polyurethane_sealant"}
+      ],
+      "relationships": [
+        {"source": "flashing_base", "type": "overlaps", "target": "membrane_extension"},
+        {"source": "pipe_boot", "type": "surrounds", "target": "pipe_sleeve"},
+        {"source": "clamp", "type": "fastened_to", "target": "pipe_boot"},
+        {"source": "sealant", "type": "seals", "target": "pipe_boot"}
+      ]
+    }
+  ]
+}

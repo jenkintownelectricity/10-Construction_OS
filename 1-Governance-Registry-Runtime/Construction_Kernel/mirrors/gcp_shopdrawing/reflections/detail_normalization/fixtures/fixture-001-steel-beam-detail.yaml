@@ -1,0 +1,286 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Fixture 001: Steel Beam Detail Normalization
+# Slice: detail_normalization
+#
+# A known-good test fixture representing the normalization of a typical
+# structural steel wide-flange beam from GCP source format to Construction
+# OS canonical format. Used for regression testing and parity verification.
+##############################################################################
+
+fixture:
+  id: "FIXTURE-DN-001"
+  name: "Steel Beam Detail — W24x76 Floor Beam"
+  description: >
+    A W24x76 wide-flange floor beam spanning between grid lines C and D
+    at Level 3. The beam has bolted shear connections at both ends, a
+    3/4" camber specification, and cope cuts at the near end. This fixture
+    exercises imperial unit parsing, element type mapping, connection
+    normalization, and cope geometry handling.
+  slice: detail_normalization
+  created: "2026-03-20"
+  status: active
+
+# ─── SOURCE INPUT (GCP FORMAT) ──────────────────────────────────────────────
+
+source_input:
+  gcp_record_id: "GCP-SD-000000001234"
+  gcp_project_key: "PRJ-HARBOR-TOWER-2026"
+  gcp_schema_version: "2.3.0"
+  doc_type: "SHOP_DWG"
+  sheet_ref:
+    sheet_number: "S-301"
+    sheet_title: "LEVEL 3 FRAMING PLAN - AREA C-D"
+    sheet_revision: "R2"
+    sheet_date: "2026-02-15"
+  element_data:
+    elem_type_code: "BM"
+    elem_subtype: "WF"
+    mark_number: "B12A"
+    piece_count: 4
+    sequence_number: 45
+    grid_location: "C3-D3"
+    level_tag: "L3"
+    elevation_raw: "32'-6\""
+  geometry_block:
+    section_designation: "W24X76"
+    depth_raw: "23.92\""
+    width_raw: "8.990\""
+    length_raw: "28'-3\""
+    web_thk_raw: "0.440\""
+    flg_thk_raw: "0.680\""
+    rotation_raw: "0deg"
+    slope_raw: "0:12"
+    camber_raw: "3/4\" camber"
+    cope_data:
+      - end: "NEAR"
+        cope_depth_raw: "2\""
+        cope_length_raw: "5\""
+        cope_type: "TOP"
+  material_data:
+    mat_code: "STL-A992-50"
+    mat_spec_ref: "SPEC-STL-001"
+    grade_raw: "Gr.50"
+    finish_code: "PRIME"
+    coating_spec: "SSPC-SP6 with shop primer"
+    fy_raw: "50 ksi"
+    weld_electrode: "E70XX"
+  dim_block:
+    unit_flag: "IMP"
+    dims:
+      - dim_label: "Overall Length"
+        dim_value_raw: "28'-3\""
+        dim_tol_plus_raw: "1/8\""
+        dim_tol_minus_raw: "1/8\""
+        is_critical: true
+      - dim_label: "Left Setback"
+        dim_value_raw: "3\""
+        is_critical: false
+      - dim_label: "Right Setback"
+        dim_value_raw: "3\""
+        is_critical: false
+      - dim_label: "Camber"
+        dim_value_raw: "3/4\""
+        is_critical: true
+  connection_block:
+    - conn_id: "C-NE-001"
+      conn_location_code: "NE"
+      conn_type_code: "SHR_TAB"
+      bolt_data:
+        bolt_type_code: "A325N"
+        bolt_dia_raw: "3/4\""
+        bolt_qty: 3
+        hole_type_code: "STD"
+      connects_to_mark: "CL5"
+    - conn_id: "C-FE-001"
+      conn_location_code: "FE"
+      conn_type_code: "SHR_TAB"
+      bolt_data:
+        bolt_type_code: "A325N"
+        bolt_dia_raw: "3/4\""
+        bolt_qty: 3
+        hole_type_code: "STD"
+      connects_to_mark: "CL6"
+  annotation_block:
+    - anno_id: "A001"
+      anno_type_code: "NOTE"
+      anno_text: "VERIFY BEAM CAMBER IN FIELD"
+      anno_x: 150.0
+      anno_y: 230.0
+    - anno_id: "A002"
+      anno_type_code: "DIM"
+      anno_text: "28'-3\""
+      anno_x: 200.0
+      anno_y: 180.0
+  revision_block:
+    - rev_id: "R1"
+      rev_date: "2026-01-20"
+      rev_desc: "Initial issue"
+      rev_by: "JSmith"
+      rev_type_code: "INIT"
+    - rev_id: "R2"
+      rev_date: "2026-02-15"
+      rev_desc: "Added cope at near end per RFI-042"
+      rev_by: "MJones"
+      rev_type_code: "DIM_CHG"
+  meta:
+    exported_at: "2026-03-01T14:30:00Z"
+    export_version: "2.3.0"
+    source_application: "Tekla Structures"
+    source_application_version: "2025.1"
+    checksum: "a1b2c3d4e5f6789012345678abcdef01"
+
+# ─── NORMALIZATION CONTEXT ───────────────────────────────────────────────────
+
+normalization_context:
+  project_id: "COS-PRJ-2026-0042"
+  discipline_code: structural
+  unit_system: imperial
+  override_rules: []
+
+# ─── EXPECTED OUTPUT (CANONICAL FORMAT) ──────────────────────────────────────
+
+expected_output:
+  detail_id: "DET-STRC-00000045"
+  canonical_version: "1.0.0"
+  project_ref:
+    project_id: "COS-PRJ-2026-0042"
+    project_name: "Harbor Tower 2026"
+    phase: "shop_drawing"
+  discipline: "structural"
+  element_type:
+    primary_type: "beam"
+    subtype: "wide_flange"
+    designation: "W24x76"
+  geometry:
+    profile:
+      shape: "I_shape"
+      depth_in: 23.92
+      width_in: 8.99
+      thickness_in: 0.44
+      flange_thickness_in: 0.68
+    length_in: 339.0
+    orientation:
+      rotation_deg: 0.0
+      slope_ratio: "0:12"
+    coordinates:
+      grid_line_x: "C"
+      grid_line_y: "3"
+      elevation_ft: 32.5
+      level: "L3"
+  material:
+    category: "structural_steel"
+    specification: "ASTM A992"
+    grade: "Grade 50"
+    finish: "SSPC-SP6 with shop primer"
+    yield_strength_ksi: 50.0
+  dimensions:
+    unit_system: "imperial"
+    primary_dimensions:
+      - label: "Overall Length"
+        value: 339.0
+        unit: "in"
+        tolerance_plus: 0.125
+        tolerance_minus: 0.125
+        critical: true
+      - label: "Left Setback"
+        value: 3.0
+        unit: "in"
+        critical: false
+      - label: "Right Setback"
+        value: 3.0
+        unit: "in"
+        critical: false
+      - label: "Camber"
+        value: 0.75
+        unit: "in"
+        critical: true
+  connections:
+    - connection_id: "C-NE-001"
+      location: "near_end"
+      type: "shear"
+      fasteners:
+        bolt_type: "A325N"
+        bolt_diameter_in: 0.75
+        bolt_count: 3
+        hole_type: "standard"
+      connected_to: "DET-STRC-CL5"
+    - connection_id: "C-FE-001"
+      location: "far_end"
+      type: "shear"
+      fasteners:
+        bolt_type: "A325N"
+        bolt_diameter_in: 0.75
+        bolt_count: 3
+        hole_type: "standard"
+      connected_to: "DET-STRC-CL6"
+  annotations:
+    - annotation_id: "A001"
+      type: "note"
+      text: "VERIFY BEAM CAMBER IN FIELD"
+      position: { x: 150.0, y: 230.0 }
+    - annotation_id: "A002"
+      type: "dimension"
+      text: "28'-3\""
+      position: { x: 200.0, y: 180.0 }
+  revisions:
+    - revision_id: "R1"
+      date: "2026-01-20"
+      description: "Initial issue"
+      author: "JSmith"
+      delta_type: "full_redesign"
+    - revision_id: "R2"
+      date: "2026-02-15"
+      description: "Added cope at near end per RFI-042"
+      author: "MJones"
+      delta_type: "dimensional_change"
+  normalization_metadata:
+    source_system: "gcp_shopdrawing"
+    source_record_id: "GCP-SD-000000001234"
+    normalized_at: "2026-03-01T14:35:00Z"
+    contract_version: "1.0.0"
+    mapping_version: "1.0.0"
+    source_hash: "sha256:a1b2c3d4e5f6789012345678abcdef01abcdef01abcdef01abcdef01abcdef01"
+    output_hash: "sha256:f0e1d2c3b4a5968778695a4b3c2d1e0fabcdef0123456789abcdef0123456789"
+    warnings: []
+
+# ─── ASSERTIONS ──────────────────────────────────────────────────────────────
+
+assertions:
+  - assert: field_present
+    path: "$.detail_id"
+    description: "Canonical detail ID must be generated."
+
+  - assert: value_equals
+    path: "$.element_type.primary_type"
+    expected: "beam"
+    description: "GCP code 'BM' maps to canonical 'beam'."
+
+  - assert: value_equals
+    path: "$.geometry.length_in"
+    expected: 339.0
+    description: "28'-3\" must convert to 339.0 inches."
+
+  - assert: value_equals
+    path: "$.material.yield_strength_ksi"
+    expected: 50.0
+    description: "Yield strength must parse to 50.0 ksi."
+
+  - assert: value_equals
+    path: "$.connections[0].location"
+    expected: "near_end"
+    description: "Connection location code 'NE' maps to 'near_end'."
+
+  - assert: value_equals
+    path: "$.connections[0].fasteners.hole_type"
+    expected: "standard"
+    description: "Hole type code 'STD' maps to 'standard'."
+
+  - assert: array_length
+    path: "$.dimensions.primary_dimensions"
+    expected: 4
+    description: "All four dimension entries must be normalized."
+
+  - assert: field_present
+    path: "$.normalization_metadata.source_hash"
+    description: "Source hash must be present for traceability."

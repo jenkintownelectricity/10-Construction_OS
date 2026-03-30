@@ -1,0 +1,325 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-os.dev/schemas/gcp-mirror/normalized-detail.schema.json",
+  "title": "Normalized Detail Record",
+  "description": "Construction OS canonical schema for a normalized shop drawing detail. Represents one discrete detail element extracted and normalized from a GCP-hosted shop drawing submission.",
+  "type": "object",
+  "required": [
+    "detail_id",
+    "canonical_version",
+    "project_ref",
+    "discipline",
+    "element_type",
+    "geometry",
+    "material",
+    "dimensions",
+    "normalization_metadata"
+  ],
+  "properties": {
+    "detail_id": {
+      "type": "string",
+      "pattern": "^DET-[A-Z0-9]{4}-[0-9]{8}$",
+      "description": "Construction OS canonical detail identifier. Format: DET-{discipline_prefix}-{sequence}."
+    },
+    "canonical_version": {
+      "type": "string",
+      "const": "1.0.0",
+      "description": "Version of the canonical detail schema this record conforms to."
+    },
+    "project_ref": {
+      "type": "object",
+      "required": ["project_id", "project_name", "phase"],
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "description": "Construction OS project identifier."
+        },
+        "project_name": {
+          "type": "string",
+          "description": "Human-readable project name."
+        },
+        "phase": {
+          "type": "string",
+          "enum": ["design_development", "construction_documents", "shop_drawing", "fabrication", "as_built"],
+          "description": "Current project phase for this detail."
+        }
+      }
+    },
+    "discipline": {
+      "type": "string",
+      "enum": ["structural", "architectural", "mechanical", "electrical", "plumbing", "fire_protection"],
+      "description": "Engineering discipline this detail belongs to."
+    },
+    "element_type": {
+      "type": "object",
+      "required": ["primary_type", "subtype"],
+      "properties": {
+        "primary_type": {
+          "type": "string",
+          "enum": ["beam", "column", "slab", "wall", "panel", "connection", "brace", "footing", "truss", "plate"],
+          "description": "Primary structural or architectural element classification."
+        },
+        "subtype": {
+          "type": "string",
+          "description": "Specific subtype within the primary classification (e.g., 'wide_flange', 'HSS_round', 'precast_panel')."
+        },
+        "designation": {
+          "type": "string",
+          "description": "Industry-standard designation (e.g., 'W24x76', 'HSS8x8x1/2')."
+        }
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "required": ["profile"],
+      "properties": {
+        "profile": {
+          "type": "object",
+          "required": ["shape"],
+          "properties": {
+            "shape": {
+              "type": "string",
+              "enum": ["I_shape", "rectangular", "circular", "L_shape", "T_shape", "C_shape", "hollow_rectangular", "hollow_circular", "custom"],
+              "description": "Cross-sectional profile shape."
+            },
+            "depth_in": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Depth of the section in inches."
+            },
+            "width_in": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Width (flange width for I-shapes) in inches."
+            },
+            "thickness_in": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Thickness (web thickness for I-shapes, wall thickness for hollow sections) in inches."
+            },
+            "flange_thickness_in": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Flange thickness in inches. Applicable to I, T, and C shapes."
+            }
+          }
+        },
+        "length_in": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Overall length of the element in inches."
+        },
+        "orientation": {
+          "type": "object",
+          "properties": {
+            "rotation_deg": {
+              "type": "number",
+              "description": "Rotation about the longitudinal axis in degrees."
+            },
+            "slope_ratio": {
+              "type": "string",
+              "pattern": "^[0-9]+:[0-9]+$",
+              "description": "Slope expressed as rise:run ratio."
+            }
+          }
+        },
+        "coordinates": {
+          "type": "object",
+          "description": "Position in project coordinate system.",
+          "properties": {
+            "grid_line_x": { "type": "string" },
+            "grid_line_y": { "type": "string" },
+            "elevation_ft": { "type": "number" },
+            "level": { "type": "string" }
+          }
+        }
+      }
+    },
+    "material": {
+      "type": "object",
+      "required": ["category", "specification"],
+      "properties": {
+        "category": {
+          "type": "string",
+          "enum": ["structural_steel", "reinforced_concrete", "precast_concrete", "timber", "masonry", "aluminum", "glass", "composite"],
+          "description": "Broad material category."
+        },
+        "specification": {
+          "type": "string",
+          "description": "Material specification reference (e.g., 'ASTM A992', 'ACI 318-19 f_c=5000psi')."
+        },
+        "grade": {
+          "type": "string",
+          "description": "Material grade designation (e.g., 'Grade 50', 'Grade 60')."
+        },
+        "finish": {
+          "type": "string",
+          "description": "Surface finish or coating specification."
+        },
+        "yield_strength_ksi": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Yield strength in kips per square inch."
+        },
+        "compressive_strength_psi": {
+          "type": "number",
+          "minimum": 0,
+          "description": "28-day compressive strength in psi (concrete materials)."
+        }
+      }
+    },
+    "dimensions": {
+      "type": "object",
+      "required": ["unit_system"],
+      "properties": {
+        "unit_system": {
+          "type": "string",
+          "enum": ["imperial", "metric"],
+          "description": "Unit system for all dimensional values in this record."
+        },
+        "primary_dimensions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "value", "unit"],
+            "properties": {
+              "label": { "type": "string" },
+              "value": { "type": "number" },
+              "unit": { "type": "string" },
+              "tolerance_plus": { "type": "number" },
+              "tolerance_minus": { "type": "number" },
+              "critical": { "type": "boolean", "default": false }
+            }
+          }
+        }
+      }
+    },
+    "connections": {
+      "type": "array",
+      "description": "Connection details at each end or intermediate point.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "connection_id": { "type": "string" },
+          "location": {
+            "type": "string",
+            "enum": ["top", "bottom", "left", "right", "near_end", "far_end", "intermediate"]
+          },
+          "type": {
+            "type": "string",
+            "enum": ["bolted", "welded", "moment", "shear", "pinned", "fixed", "base_plate", "splice"]
+          },
+          "fasteners": {
+            "type": "object",
+            "properties": {
+              "bolt_type": { "type": "string" },
+              "bolt_diameter_in": { "type": "number" },
+              "bolt_count": { "type": "integer" },
+              "hole_type": {
+                "type": "string",
+                "enum": ["standard", "oversized", "short_slotted", "long_slotted"]
+              }
+            }
+          },
+          "welds": {
+            "type": "object",
+            "properties": {
+              "weld_type": {
+                "type": "string",
+                "enum": ["fillet", "groove", "plug", "slot", "flare_bevel", "flare_V"]
+              },
+              "weld_size_in": { "type": "number" },
+              "weld_length_in": { "type": "number" },
+              "electrode": { "type": "string" }
+            }
+          },
+          "connected_to": {
+            "type": "string",
+            "description": "Detail ID of the element this connection attaches to."
+          }
+        }
+      }
+    },
+    "annotations": {
+      "type": "array",
+      "description": "Drawing annotations, notes, and callouts associated with this detail.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "annotation_id": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["dimension", "note", "callout", "revision_cloud", "section_cut", "detail_reference"]
+          },
+          "text": { "type": "string" },
+          "position": {
+            "type": "object",
+            "properties": {
+              "x": { "type": "number" },
+              "y": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "revisions": {
+      "type": "array",
+      "description": "Revision history for this detail.",
+      "items": {
+        "type": "object",
+        "required": ["revision_id", "date", "description"],
+        "properties": {
+          "revision_id": { "type": "string" },
+          "date": { "type": "string", "format": "date" },
+          "description": { "type": "string" },
+          "author": { "type": "string" },
+          "delta_type": {
+            "type": "string",
+            "enum": ["dimensional_change", "material_change", "connection_change", "annotation_update", "full_redesign"]
+          }
+        }
+      }
+    },
+    "normalization_metadata": {
+      "type": "object",
+      "required": ["source_system", "source_record_id", "normalized_at", "contract_version", "source_hash"],
+      "properties": {
+        "source_system": {
+          "type": "string",
+          "const": "gcp_shopdrawing",
+          "description": "Originating mirror system."
+        },
+        "source_record_id": {
+          "type": "string",
+          "description": "Original record identifier in the GCP system."
+        },
+        "normalized_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of normalization."
+        },
+        "contract_version": {
+          "type": "string",
+          "description": "Version of the normalization contract used."
+        },
+        "mapping_version": {
+          "type": "string",
+          "description": "Version of the field mapping used."
+        },
+        "source_hash": {
+          "type": "string",
+          "description": "SHA-256 hash of the source record."
+        },
+        "output_hash": {
+          "type": "string",
+          "description": "SHA-256 hash of this normalized record."
+        },
+        "warnings": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

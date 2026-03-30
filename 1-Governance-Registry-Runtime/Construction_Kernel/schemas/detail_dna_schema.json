@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "detail_dna_schema.json",
+  "title": "Detail DNA Schema",
+  "description": "Canonical schema for Detail DNA families. Frozen after Wave 13A — future changes must be additive only.",
+  "type": "object",
+  "required": [
+    "detail_id",
+    "system",
+    "class",
+    "condition",
+    "variant",
+    "assembly_family",
+    "display_name",
+    "synonyms",
+    "tags",
+    "compatible_material_classes",
+    "risk_tags"
+  ],
+  "properties": {
+    "detail_id": {
+      "type": "string",
+      "description": "Canonical detail identifier. Format: [SYS]-[CLASS]-[COND]-[VAR]-[ASM]-[NN]. Immutable once assigned.",
+      "pattern": "^[A-Z_]+-[A-Z_]+-[A-Z_]+-[A-Z_]+-[A-Z_]+-[0-9]{2}$"
+    },
+    "system": {
+      "type": "string",
+      "description": "Top-level system classification.",
+      "enum": [
+        "LOW_SLOPE",
+        "STEEP_SLOPE",
+        "BELOW_GRADE",
+        "PLAZA_DECK",
+        "AIR_BARRIER",
+        "FACADE",
+        "JOINT_PROTECTION"
+      ]
+    },
+    "class": {
+      "type": "string",
+      "description": "Functional class within the system.",
+      "enum": [
+        "TERMINATION",
+        "EDGE",
+        "PENETRATION",
+        "TRANSITION",
+        "DRAINAGE",
+        "JOINT",
+        "OPENING",
+        "ANCHORAGE"
+      ]
+    },
+    "condition": {
+      "type": "string",
+      "description": "Specific construction condition addressed.",
+      "enum": [
+        "PARAPET",
+        "VERTICAL_WALL",
+        "CURB",
+        "PIPE",
+        "DRAIN",
+        "SCUPPER",
+        "EXPANSION_JOINT",
+        "THRESHOLD",
+        "INSIDE_CORNER",
+        "OUTSIDE_CORNER",
+        "ROOF_TO_WALL",
+        "ROOF_TO_EDGE"
+      ]
+    },
+    "variant": {
+      "type": "string",
+      "description": "Specific variant of the detail.",
+      "enum": [
+        "REGLET",
+        "COUNTERFLASHING",
+        "COPING",
+        "TERMINATION_BAR",
+        "PITCH_POCKET",
+        "PIPE_BOOT",
+        "METAL_EDGE",
+        "SELF_ADHERED",
+        "LIQUID_APPLIED"
+      ]
+    },
+    "assembly_family": {
+      "type": "string",
+      "description": "Membrane or assembly system family.",
+      "enum": [
+        "EPDM",
+        "TPO",
+        "PVC",
+        "SBS",
+        "BUR",
+        "PMR",
+        "AIR_BARRIER_SA",
+        "AIR_BARRIER_FLUID"
+      ]
+    },
+    "display_name": {
+      "type": "string",
+      "description": "Human-readable display name for the detail family.",
+      "minLength": 1
+    },
+    "synonyms": {
+      "type": "array",
+      "description": "Alternative names, trade names, or colloquial references for searchability.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "Searchable tags from the governed tag taxonomy. Each tag must reference a valid tag_id from detail_tags.json.",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "compatible_material_classes": {
+      "type": "array",
+      "description": "Material chemistry classes from construction_dna that are compatible with this detail family. References Tier 7 chemistry codes.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "SBS",
+          "APP",
+          "TPO",
+          "PVC",
+          "EPDM",
+          "KEE",
+          "HDPE",
+          "LDPE",
+          "PIB",
+          "PU",
+          "Acrylic",
+          "Silicone",
+          "Bitumen",
+          "PMMA",
+          "Epoxy",
+          "Hybrid"
+        ]
+      },
+      "minItems": 1
+    },
+    "risk_tags": {
+      "type": "array",
+      "description": "Risk indicators associated with this detail family. Used for QA flagging and training corpus generation.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "HIGH_MOISTURE_EXPOSURE",
+          "THERMAL_MOVEMENT",
+          "UV_EXPOSURE",
+          "WIND_UPLIFT",
+          "PONDING_RISK",
+          "CHEMICAL_INCOMPATIBILITY",
+          "SUBSTRATE_ADHESION",
+          "MECHANICAL_DAMAGE",
+          "INSTALLATION_SEQUENCE_CRITICAL",
+          "MULTI_TRADE_COORDINATION",
+          "WARRANTY_BOUNDARY",
+          "CODE_COMPLIANCE_CRITICAL",
+          "DRAINAGE_CRITICAL",
+          "FIRE_RATING_REQUIRED",
+          "STRUCTURAL_ATTACHMENT"
+        ]
+      }
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional extended description of the detail family purpose and scope."
+    },
+    "kernel_version": {
+      "type": "string",
+      "description": "Construction_Kernel version that defined this family.",
+      "const": "13A"
+    }
+  },
+  "additionalProperties": false
+}

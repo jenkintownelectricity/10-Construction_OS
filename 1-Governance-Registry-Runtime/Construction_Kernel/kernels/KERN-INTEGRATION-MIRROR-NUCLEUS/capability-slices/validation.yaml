@@ -1,0 +1,151 @@
+# ============================================================================
+# CAPABILITY SLICE DEFINITION — VALIDATION
+# Command C: Capability Slice Architecture
+# Kernel: KERN-INTEGRATION-MIRROR-NUCLEUS
+# ============================================================================
+# This slice validates shop drawing submissions against project specifications,
+# combining rule evaluation results with completeness checks, cross-reference
+# verification, and submission package integrity validation.
+# ============================================================================
+
+slice_id: validation
+name: "Submission Validation & Completeness Verification"
+version: "1.0.0"
+
+purpose: |
+  The validation slice performs comprehensive validation of shop drawing
+  submissions beyond individual rule compliance. While the rules_engine
+  evaluates individual details against specific code and standard
+  requirements, the validation slice operates at the submission level —
+  verifying that a submission package is complete (all required sheets
+  present, all specified details included), internally consistent (cross-
+  references between sheets resolve correctly, dimension chains close),
+  and aligned with the project specification requirements for the applicable
+  CSI division. It checks that material certifications match specified
+  materials, that delegation of design documents are properly sealed, and
+  that the submission addresses all items on the engineer's review checklist.
+  The validation slice produces a holistic readiness assessment that
+  determines whether a submission is ready for formal engineering review
+  or needs to be returned to the contractor for corrections.
+
+status:
+  gcp_shopdrawing: ACTIVE
+  default: STAGED
+
+# ---------------------------------------------------------------------------
+# DATA CONTRACTS
+# ---------------------------------------------------------------------------
+
+inputs:
+  - name: submission_package
+    description: "The complete shop drawing submission package with all sheets and attachments"
+    format: submission_bundle
+    required: true
+
+  - name: rule_evaluation_results
+    description: "Per-detail rule evaluation results from the rules_engine slice"
+    format: evaluation_record
+    required: true
+
+  - name: project_specifications
+    description: "Applicable project specification sections for the submission's CSI division"
+    format: spec_document
+    required: true
+
+  - name: submission_requirements_checklist
+    description: "Project-specific checklist of what must be included in a submission"
+    format: checklist
+    required: true
+
+  - name: prior_submission_history
+    description: "Previous submissions for the same spec section, including review comments"
+    format: submission_history
+    required: false
+
+  - name: material_certifications
+    description: "Mill certificates, test reports, and material certifications included in submission"
+    format: certificate_bundle
+    required: false
+
+  - name: delegation_of_design_documents
+    description: "Sealed engineering documents for delegated design items"
+    format: sealed_document
+    required: false
+
+outputs:
+  - name: validation_verdict
+    description: "Overall pass/fail/conditional verdict for the submission"
+    format: verdict_record
+    retention: "project_lifetime"
+
+  - name: completeness_report
+    description: "Itemized report of required vs. provided submission components"
+    format: structured_report
+    retention: "project_lifetime"
+
+  - name: cross_reference_verification
+    description: "Results of internal cross-reference and consistency checks"
+    format: verification_report
+    retention: "project_lifetime"
+
+  - name: review_readiness_score
+    description: "Quantitative score indicating submission readiness for engineering review"
+    format: score_record
+    retention: "project_lifetime"
+
+  - name: deficiency_list
+    description: "Itemized list of deficiencies that must be corrected before review"
+    format: deficiency_report
+    retention: "project_lifetime"
+
+  - name: contractor_feedback_package
+    description: "Formatted feedback package for return to the submitting contractor"
+    format: feedback_bundle
+    retention: "90_days"
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY GRAPH
+# ---------------------------------------------------------------------------
+
+required_dependencies:
+  - rules_engine
+  - detail_normalization
+  - spec_ingestion
+
+optional_dependencies:
+  - artifact_manifest
+  - receipt_audit
+  - submittal_analysis
+
+# ---------------------------------------------------------------------------
+# CLASSIFICATION & TRANSFER
+# ---------------------------------------------------------------------------
+
+trust_class: MIRROR_REFLECTED
+transfer_class: WHITE_LABELABLE
+detachability_level: FULLY_DETACHABLE
+
+# ---------------------------------------------------------------------------
+# PARITY & PROMOTION
+# ---------------------------------------------------------------------------
+
+parity_eligibility: true
+promotion_eligibility: true
+classification: CORE_PROMOTABLE
+
+# ---------------------------------------------------------------------------
+# OPERATIONAL NOTES
+# ---------------------------------------------------------------------------
+
+operational_notes: |
+  Validation is ACTIVE in the GCP shop drawing mirror as it is the
+  culminating step before a submission enters human review. It requires
+  rules_engine output (individual detail compliance), detail_normalization
+  (canonical representations for cross-referencing), and spec_ingestion
+  (specification requirements to check completeness against). The
+  submittal_analysis slice is an optional dependency that provides
+  historical submission pattern analysis for predictive deficiency
+  detection. This slice is FULLY_DETACHABLE and WHITE_LABELABLE because
+  the validation logic is project-configurable and self-contained. It is
+  CORE_PROMOTABLE because validation heuristics refined during mirror
+  operation can improve the core validation framework.

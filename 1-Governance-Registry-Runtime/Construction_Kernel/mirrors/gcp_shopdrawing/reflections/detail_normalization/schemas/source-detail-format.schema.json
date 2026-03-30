@@ -1,0 +1,242 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-os.dev/schemas/gcp-mirror/source-detail-format.schema.json",
+  "title": "GCP Source Detail Format",
+  "description": "Schema describing the raw detail record format as received from GCP-hosted construction document management systems. This represents the pre-normalization shape of shop drawing detail data.",
+  "type": "object",
+  "required": [
+    "gcp_record_id",
+    "gcp_project_key",
+    "doc_type",
+    "element_data",
+    "material_data",
+    "dim_block",
+    "meta"
+  ],
+  "properties": {
+    "gcp_record_id": {
+      "type": "string",
+      "pattern": "^GCP-SD-[0-9]{12}$",
+      "description": "GCP-assigned unique record identifier for the shop drawing detail."
+    },
+    "gcp_project_key": {
+      "type": "string",
+      "description": "GCP project key linking this record to a construction project."
+    },
+    "gcp_schema_version": {
+      "type": "string",
+      "description": "Version of the GCP export schema this record was generated with.",
+      "default": "2.3.0"
+    },
+    "doc_type": {
+      "type": "string",
+      "enum": ["SHOP_DWG", "ERECTION_DWG", "FABRICATION_DWG", "DETAIL_SHEET", "ASSEMBLY_DWG"],
+      "description": "GCP document type classification."
+    },
+    "sheet_ref": {
+      "type": "object",
+      "description": "Reference to the parent drawing sheet.",
+      "properties": {
+        "sheet_number": { "type": "string" },
+        "sheet_title": { "type": "string" },
+        "sheet_revision": { "type": "string" },
+        "sheet_date": { "type": "string", "format": "date" }
+      }
+    },
+    "element_data": {
+      "type": "object",
+      "required": ["elem_type_code", "elem_subtype", "mark_number"],
+      "description": "Core element identification from the GCP system.",
+      "properties": {
+        "elem_type_code": {
+          "type": "string",
+          "description": "GCP element type code (e.g., 'BM' for beam, 'CL' for column, 'PN' for panel)."
+        },
+        "elem_subtype": {
+          "type": "string",
+          "description": "GCP element subtype (e.g., 'WF' for wide flange, 'HSS_R' for HSS round)."
+        },
+        "mark_number": {
+          "type": "string",
+          "description": "Fabrication mark number assigned to this piece."
+        },
+        "piece_count": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of identical pieces with this mark."
+        },
+        "sequence_number": {
+          "type": "integer",
+          "description": "Erection sequence number."
+        },
+        "grid_location": {
+          "type": "string",
+          "description": "Grid intersection reference (e.g., 'A3-B4')."
+        },
+        "level_tag": {
+          "type": "string",
+          "description": "Building level or floor tag."
+        },
+        "elevation_raw": {
+          "type": "string",
+          "description": "Elevation as a raw string from the drawing (e.g., '32'-6\"', '+10.050m')."
+        }
+      }
+    },
+    "geometry_block": {
+      "type": "object",
+      "description": "Geometric properties as encoded in the GCP system.",
+      "properties": {
+        "section_designation": {
+          "type": "string",
+          "description": "AISC or similar section designation (e.g., 'W24X76')."
+        },
+        "depth_raw": { "type": "string", "description": "Depth as raw string with unit suffix." },
+        "width_raw": { "type": "string", "description": "Width as raw string with unit suffix." },
+        "length_raw": { "type": "string", "description": "Length as raw string with unit suffix." },
+        "web_thk_raw": { "type": "string", "description": "Web thickness as raw string." },
+        "flg_thk_raw": { "type": "string", "description": "Flange thickness as raw string." },
+        "rotation_raw": { "type": "string", "description": "Rotation as raw string (e.g., '90deg', '1.5708rad')." },
+        "slope_raw": { "type": "string", "description": "Slope as raw string (e.g., '1:12', '4.76%')." },
+        "camber_raw": { "type": "string", "description": "Camber specification as raw string (e.g., '3/4\" camber')." },
+        "cope_data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "end": { "type": "string", "enum": ["NEAR", "FAR"] },
+              "cope_depth_raw": { "type": "string" },
+              "cope_length_raw": { "type": "string" },
+              "cope_type": { "type": "string", "enum": ["TOP", "BOTTOM", "BOTH"] }
+            }
+          }
+        }
+      }
+    },
+    "material_data": {
+      "type": "object",
+      "required": ["mat_code"],
+      "description": "Material specification from the GCP system.",
+      "properties": {
+        "mat_code": {
+          "type": "string",
+          "description": "GCP material code (e.g., 'STL-A992-50', 'CONC-5000-NW')."
+        },
+        "mat_spec_ref": {
+          "type": "string",
+          "description": "Reference to the material specification document."
+        },
+        "grade_raw": { "type": "string" },
+        "finish_code": { "type": "string" },
+        "coating_spec": { "type": "string" },
+        "fy_raw": { "type": "string", "description": "Yield strength as raw string (e.g., '50 ksi', '345 MPa')." },
+        "fc_raw": { "type": "string", "description": "Compressive strength for concrete (e.g., '5000 psi')." },
+        "weld_electrode": { "type": "string" }
+      }
+    },
+    "dim_block": {
+      "type": "object",
+      "required": ["unit_flag"],
+      "description": "Dimensional data block.",
+      "properties": {
+        "unit_flag": {
+          "type": "string",
+          "enum": ["IMP", "MET", "DUAL"],
+          "description": "Unit system flag: IMP=imperial, MET=metric, DUAL=both."
+        },
+        "dims": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["dim_label", "dim_value_raw"],
+            "properties": {
+              "dim_label": { "type": "string" },
+              "dim_value_raw": { "type": "string" },
+              "dim_tol_plus_raw": { "type": "string" },
+              "dim_tol_minus_raw": { "type": "string" },
+              "is_critical": { "type": "boolean", "default": false }
+            }
+          }
+        }
+      }
+    },
+    "connection_block": {
+      "type": "array",
+      "description": "Connection data from the GCP system.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "conn_id": { "type": "string" },
+          "conn_location_code": {
+            "type": "string",
+            "enum": ["NE", "FE", "TP", "BT", "LT", "RT", "INT"],
+            "description": "Connection location: NE=near end, FE=far end, TP=top, BT=bottom, etc."
+          },
+          "conn_type_code": {
+            "type": "string",
+            "description": "GCP connection type code."
+          },
+          "bolt_data": {
+            "type": "object",
+            "properties": {
+              "bolt_type_code": { "type": "string" },
+              "bolt_dia_raw": { "type": "string" },
+              "bolt_qty": { "type": "integer" },
+              "hole_type_code": { "type": "string", "enum": ["STD", "OVS", "SSLT", "LSLT"] }
+            }
+          },
+          "weld_data": {
+            "type": "object",
+            "properties": {
+              "weld_type_code": { "type": "string" },
+              "weld_size_raw": { "type": "string" },
+              "weld_length_raw": { "type": "string" },
+              "electrode_code": { "type": "string" }
+            }
+          },
+          "connects_to_mark": { "type": "string" }
+        }
+      }
+    },
+    "annotation_block": {
+      "type": "array",
+      "description": "Annotations and notes from the drawing.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "anno_id": { "type": "string" },
+          "anno_type_code": { "type": "string" },
+          "anno_text": { "type": "string" },
+          "anno_x": { "type": "number" },
+          "anno_y": { "type": "number" }
+        }
+      }
+    },
+    "revision_block": {
+      "type": "array",
+      "description": "Revision history from the GCP system.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "rev_id": { "type": "string" },
+          "rev_date": { "type": "string", "format": "date" },
+          "rev_desc": { "type": "string" },
+          "rev_by": { "type": "string" },
+          "rev_type_code": { "type": "string" }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": ["exported_at", "export_version"],
+      "properties": {
+        "exported_at": { "type": "string", "format": "date-time" },
+        "export_version": { "type": "string" },
+        "source_application": { "type": "string" },
+        "source_application_version": { "type": "string" },
+        "checksum": { "type": "string" }
+      }
+    }
+  },
+  "additionalProperties": true
+}

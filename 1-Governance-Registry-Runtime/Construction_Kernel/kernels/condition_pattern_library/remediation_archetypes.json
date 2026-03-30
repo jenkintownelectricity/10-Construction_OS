@@ -1,0 +1,152 @@
+{
+  "catalog_id": "construction_kernel.condition_pattern_library.remediation_archetypes",
+  "version": "1.0",
+  "authority": "Construction_Kernel",
+  "description": "Catalog of remediation archetype definitions for the Condition Pattern Library. Each archetype defines a recurring remediation strategy that may be referenced by condition patterns. Runtime may reference these archetypes but must not author new ones.",
+  "archetypes": [
+    {
+      "archetype_id": "ra-install-continuous-flashing",
+      "label": "Install Continuous Flashing",
+      "description": "Install continuous flashing from the roof membrane surface up the vertical substrate to a defined termination height. Flashing must be compatible with both the membrane system and the substrate material.",
+      "strategy": "install_continuous_flashing",
+      "applicable_blocker_archetypes": ["ba-missing-flashing-termination", "ba-unresolved-membrane-transition"],
+      "typical_confidence": 0.90,
+      "required_deliverables": ["flashing_section_detail", "material_specification", "installation_sequence"]
+    },
+    {
+      "archetype_id": "ra-add-parapet-section-detail",
+      "label": "Add Parapet Section Detail",
+      "description": "Create a full parapet section detail showing all layers: structural wall, air barrier, insulation, cladding, base flashing, through-wall flashing, cap flashing, and coping with dimensions and material callouts.",
+      "strategy": "add_missing_detail",
+      "applicable_blocker_archetypes": ["ba-incomplete-parapet-detail"],
+      "typical_confidence": 0.85,
+      "required_deliverables": ["parapet_section_drawing", "material_schedule"]
+    },
+    {
+      "archetype_id": "ra-define-base-flashing-height",
+      "label": "Define Base Flashing Height",
+      "description": "Specify the minimum base flashing height (typically 8 inches minimum per code) and the attachment method to the vertical substrate.",
+      "strategy": "add_specification_parameter",
+      "applicable_blocker_archetypes": ["ba-unresolved-membrane-transition"],
+      "typical_confidence": 0.90,
+      "required_deliverables": ["base_flashing_detail", "height_dimension_callout"]
+    },
+    {
+      "archetype_id": "ra-add-termination-bar",
+      "label": "Add Termination Bar",
+      "description": "Specify and detail a mechanical termination bar including material (aluminum or stainless steel), profile, fastener type and spacing, and sealant bead above the bar.",
+      "strategy": "add_missing_detail",
+      "applicable_blocker_archetypes": ["ba-missing-termination-bar-spec", "ba-missing-flashing-termination"],
+      "typical_confidence": 0.85,
+      "required_deliverables": ["termination_bar_section_detail", "fastener_schedule"]
+    },
+    {
+      "archetype_id": "ra-specify-fastener-pattern",
+      "label": "Specify Fastener Pattern",
+      "description": "Define fastener type, diameter, embedment depth, and spacing based on substrate material and wind uplift requirements at the specific building zone.",
+      "strategy": "add_specification_parameter",
+      "applicable_blocker_archetypes": ["ba-fastener-pullout-risk", "ba-substrate-incompatibility", "ba-missing-termination-bar-spec"],
+      "typical_confidence": 0.80,
+      "required_deliverables": ["fastener_schedule", "wind_uplift_calculation_reference"]
+    },
+    {
+      "archetype_id": "ra-add-counterflashing-over-bar",
+      "label": "Add Counterflashing Over Termination Bar",
+      "description": "Add a counterflashing detail that covers and protects the termination bar and sealant from UV exposure and direct weather.",
+      "strategy": "add_missing_detail",
+      "applicable_blocker_archetypes": ["ba-missing-termination-bar-spec"],
+      "typical_confidence": 0.80,
+      "required_deliverables": ["counterflashing_section_detail"]
+    },
+    {
+      "archetype_id": "ra-assign-counterflashing-scope",
+      "label": "Assign Counterflashing Scope",
+      "description": "Issue a specification clarification or addendum assigning counterflashing installation to a specific trade, including coordination requirements with the adjacent roofing and masonry trades.",
+      "strategy": "resolve_scope_ownership",
+      "applicable_blocker_archetypes": ["ba-undefined-scope-ownership"],
+      "typical_confidence": 0.90,
+      "required_deliverables": ["specification_addendum", "scope_responsibility_matrix"]
+    },
+    {
+      "archetype_id": "ra-add-counterflashing-detail",
+      "label": "Add Counterflashing Detail",
+      "description": "Create a counterflashing section detail showing the profile, reglet engagement or surface mount attachment, overlap with base flashing, and sealant locations.",
+      "strategy": "add_missing_detail",
+      "applicable_blocker_archetypes": ["ba-missing-counterflashing-detail"],
+      "typical_confidence": 0.85,
+      "required_deliverables": ["counterflashing_section_drawing", "material_callouts"]
+    },
+    {
+      "archetype_id": "ra-coordinate-reglet-installation",
+      "label": "Coordinate Reglet Installation",
+      "description": "Define the installation sequence and coordination requirements for reglet cutting or casting between the masonry/concrete trade and the roofing/sheet metal trade.",
+      "strategy": "coordinate_disciplines",
+      "applicable_blocker_archetypes": ["ba-reglet-coordination-gap"],
+      "typical_confidence": 0.80,
+      "required_deliverables": ["installation_sequence_note", "coordination_meeting_minute"]
+    },
+    {
+      "archetype_id": "ra-revise-slope-design",
+      "label": "Revise Slope Design",
+      "description": "Revise the roof slope design to achieve minimum 1/4 inch per foot positive drainage to all drain locations, accounting for structural deflection and framing camber.",
+      "strategy": "revise_slope_design",
+      "applicable_blocker_archetypes": ["ba-insufficient-slope-design", "ba-drain-location-conflict"],
+      "typical_confidence": 0.80,
+      "required_deliverables": ["revised_drainage_plan", "tapered_insulation_layout"]
+    },
+    {
+      "archetype_id": "ra-add-tapered-insulation-layout",
+      "label": "Add Tapered Insulation Layout",
+      "description": "Create a tapered insulation layout plan showing slope directions, thickness at key points, cricket and saddle locations, and drain sump details.",
+      "strategy": "add_missing_detail",
+      "applicable_blocker_archetypes": ["ba-missing-tapered-insulation-layout"],
+      "typical_confidence": 0.85,
+      "required_deliverables": ["tapered_insulation_plan", "thickness_schedule"]
+    },
+    {
+      "archetype_id": "ra-relocate-drains",
+      "label": "Relocate Drains",
+      "description": "Coordinate with structural and plumbing disciplines to relocate roof drains to positions compatible with the slope design and structural framing.",
+      "strategy": "coordinate_disciplines",
+      "applicable_blocker_archetypes": ["ba-drain-location-conflict"],
+      "typical_confidence": 0.70,
+      "required_deliverables": ["revised_drain_layout", "structural_coordination_confirmation"]
+    },
+    {
+      "archetype_id": "ra-add-crickets-at-penetrations",
+      "label": "Add Crickets at Penetrations",
+      "description": "Add tapered insulation crickets on the upslope side of roof penetrations and equipment pads to divert water around obstructions.",
+      "strategy": "add_missing_detail",
+      "applicable_blocker_archetypes": ["ba-insufficient-slope-design"],
+      "typical_confidence": 0.85,
+      "required_deliverables": ["cricket_detail", "tapered_insulation_layout_update"]
+    },
+    {
+      "archetype_id": "ra-upgrade-insulation-compressive-strength",
+      "label": "Upgrade Insulation Compressive Strength",
+      "description": "Specify higher compressive strength insulation (e.g., upgrade from 20 psi to 40 psi polyiso) at equipment pad and high-traffic locations.",
+      "strategy": "substitute_material",
+      "applicable_blocker_archetypes": ["ba-insulation-compressive-strength-inadequate"],
+      "typical_confidence": 0.85,
+      "required_deliverables": ["revised_insulation_schedule", "product_data_sheet"]
+    },
+    {
+      "archetype_id": "ra-add-equipment-pad-detail",
+      "label": "Add Equipment Pad Detail",
+      "description": "Create an equipment pad detail showing load distribution platform, reinforced insulation zone, and membrane protection layer beneath the equipment support.",
+      "strategy": "add_missing_detail",
+      "applicable_blocker_archetypes": ["ba-equipment-pad-detail-missing"],
+      "typical_confidence": 0.85,
+      "required_deliverables": ["equipment_pad_section_detail", "load_distribution_plan"]
+    },
+    {
+      "archetype_id": "ra-coordinate-insulation-specification",
+      "label": "Coordinate Insulation Specification",
+      "description": "Coordinate insulation specification requirements across roofing, structural, and mechanical disciplines to resolve conflicting R-value, compressive strength, or fire rating requirements.",
+      "strategy": "coordinate_disciplines",
+      "applicable_blocker_archetypes": ["ba-specification-conflict-insulation"],
+      "typical_confidence": 0.80,
+      "required_deliverables": ["specification_coordination_memo", "revised_insulation_schedule"]
+    }
+  ]
+}

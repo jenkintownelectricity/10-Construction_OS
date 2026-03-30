@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 800" width="1000" height="800">
+  <title>Mirror Architecture — Slice Attachment Model</title>
+  <defs>
+    <marker id="arrSolid" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <marker id="arrGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+    <style>
+      text { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
+      .title { font-size: 20px; font-weight: bold; fill: #1F2937; }
+      .subtitle { font-size: 13px; fill: #6B7280; font-style: italic; }
+      .label { font-size: 14px; fill: #FFFFFF; font-weight: 600; }
+      .label-sm { font-size: 12px; fill: #FFFFFF; }
+      .check { font-size: 16px; fill: #059669; font-weight: bold; }
+      .cross { font-size: 16px; fill: #9CA3AF; font-weight: bold; }
+      .client-label { font-size: 13px; fill: #92400E; font-weight: 600; }
+    </style>
+  </defs>
+
+  <rect width="1000" height="800" fill="#F9FAFB" rx="8"/>
+
+  <text x="500" y="35" text-anchor="middle" class="title">Slice Attachment Model — Mix and Match</text>
+  <text x="500" y="55" text-anchor="middle" class="subtitle">Clients take exactly what they need. No full-platform dependency. Detachable by design.</text>
+
+  <!-- Available Slices (top row) -->
+  <text x="500" y="95" text-anchor="middle" font-size="15" fill="#0D9488" font-weight="bold">Available Capability Slices</text>
+
+  <!-- Slice: Governance -->
+  <polygon points="120,120 190,120 215,150 190,180 120,180 95,150" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="155" y="148" text-anchor="middle" font-size="12" fill="#FFF" font-weight="600">Governance</text>
+  <text x="155" y="163" text-anchor="middle" font-size="9" fill="#CCFBF1">Rules &amp; Policy</text>
+
+  <!-- Slice: Validation -->
+  <polygon points="280,120 350,120 375,150 350,180 280,180 255,150" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="315" y="148" text-anchor="middle" font-size="12" fill="#FFF" font-weight="600">Validation</text>
+  <text x="315" y="163" text-anchor="middle" font-size="9" fill="#CCFBF1">Check &amp; Verify</text>
+
+  <!-- Slice: Generation -->
+  <polygon points="440,120 510,120 535,150 510,180 440,180 415,150" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="475" y="148" text-anchor="middle" font-size="12" fill="#FFF" font-weight="600">Generation</text>
+  <text x="475" y="163" text-anchor="middle" font-size="9" fill="#CCFBF1">Produce Output</text>
+
+  <!-- Slice: Engine -->
+  <polygon points="600,120 670,120 695,150 670,180 600,180 575,150" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="635" y="148" text-anchor="middle" font-size="12" fill="#FFF" font-weight="600">Engine</text>
+  <text x="635" y="163" text-anchor="middle" font-size="9" fill="#CCFBF1">Core Logic</text>
+
+  <!-- Slice: Lineage -->
+  <polygon points="760,120 830,120 855,150 830,180 760,180 735,150" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="795" y="148" text-anchor="middle" font-size="12" fill="#FFF" font-weight="600">Lineage</text>
+  <text x="795" y="163" text-anchor="middle" font-size="9" fill="#CCFBF1">Tracking &amp; Audit</text>
+
+  <!-- Divider -->
+  <line x1="50" y1="210" x2="950" y2="210" stroke="#E5E7EB" stroke-width="2"/>
+  <text x="500" y="235" text-anchor="middle" font-size="15" fill="#D97706" font-weight="bold">Client Attachment Configurations</text>
+
+  <!-- Client A: Governance Only -->
+  <rect x="60" y="260" width="180" height="55" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="150" y="283" text-anchor="middle" class="label">Client A</text>
+  <text x="150" y="300" text-anchor="middle" font-size="11" fill="#FDE68A">Compliance Auditor</text>
+
+  <!-- Attachment indicators for Client A -->
+  <text x="155" y="340" text-anchor="middle" class="check">Y</text>
+  <text x="315" y="340" text-anchor="middle" class="cross">-</text>
+  <text x="475" y="340" text-anchor="middle" class="cross">-</text>
+  <text x="635" y="340" text-anchor="middle" class="cross">-</text>
+  <text x="795" y="340" text-anchor="middle" class="cross">-</text>
+  <line x1="150" y1="315" x2="155" y2="330" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <text x="500" y="345" text-anchor="middle" font-size="11" fill="#6B7280">Governance only — lightweight policy attachment</text>
+
+  <!-- Client B: Validation Only -->
+  <rect x="60" y="370" width="180" height="55" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="150" y="393" text-anchor="middle" class="label">Client B</text>
+  <text x="150" y="410" text-anchor="middle" font-size="11" fill="#FDE68A">QA Platform</text>
+
+  <text x="155" y="450" text-anchor="middle" class="cross">-</text>
+  <text x="315" y="450" text-anchor="middle" class="check">Y</text>
+  <text x="475" y="450" text-anchor="middle" class="cross">-</text>
+  <text x="635" y="450" text-anchor="middle" class="cross">-</text>
+  <text x="795" y="450" text-anchor="middle" class="cross">-</text>
+  <line x1="150" y1="425" x2="315" y2="440" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <text x="500" y="455" text-anchor="middle" font-size="11" fill="#6B7280">Validation only — check and verify without generation</text>
+
+  <!-- Client C: Generation Only -->
+  <rect x="60" y="480" width="180" height="55" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="150" y="503" text-anchor="middle" class="label">Client C</text>
+  <text x="150" y="520" text-anchor="middle" font-size="11" fill="#FDE68A">Document Producer</text>
+
+  <text x="155" y="560" text-anchor="middle" class="cross">-</text>
+  <text x="315" y="560" text-anchor="middle" class="cross">-</text>
+  <text x="475" y="560" text-anchor="middle" class="check">Y</text>
+  <text x="635" y="560" text-anchor="middle" class="cross">-</text>
+  <text x="795" y="560" text-anchor="middle" class="cross">-</text>
+  <line x1="150" y1="535" x2="475" y2="550" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <text x="500" y="565" text-anchor="middle" font-size="11" fill="#6B7280">Generation only — produce output without governance</text>
+
+  <!-- Client D: Governance + Engine -->
+  <rect x="60" y="590" width="180" height="55" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="150" y="613" text-anchor="middle" class="label">Client D</text>
+  <text x="150" y="630" text-anchor="middle" font-size="11" fill="#FDE68A">Smart Contractor</text>
+
+  <text x="155" y="670" text-anchor="middle" class="check">Y</text>
+  <text x="315" y="670" text-anchor="middle" class="cross">-</text>
+  <text x="475" y="670" text-anchor="middle" class="cross">-</text>
+  <text x="635" y="670" text-anchor="middle" class="check">Y</text>
+  <text x="795" y="670" text-anchor="middle" class="cross">-</text>
+  <line x1="150" y1="645" x2="155" y2="660" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <line x1="150" y1="645" x2="635" y2="660" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <text x="500" y="675" text-anchor="middle" font-size="11" fill="#6B7280">Governance + Engine — policy-aware computation, skip validation/generation</text>
+
+  <!-- Client E: Full Suite -->
+  <rect x="60" y="700" width="180" height="55" rx="10" fill="#D97706" stroke="#B45309" stroke-width="2"/>
+  <text x="150" y="723" text-anchor="middle" class="label">Client E</text>
+  <text x="150" y="740" text-anchor="middle" font-size="11" fill="#FDE68A">Full Platform Partner</text>
+
+  <text x="155" y="780" text-anchor="middle" class="check">Y</text>
+  <text x="315" y="780" text-anchor="middle" class="check">Y</text>
+  <text x="475" y="780" text-anchor="middle" class="check">Y</text>
+  <text x="635" y="780" text-anchor="middle" class="check">Y</text>
+  <text x="795" y="780" text-anchor="middle" class="check">Y</text>
+  <line x1="150" y1="755" x2="155" y2="770" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <line x1="150" y1="755" x2="315" y2="770" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <line x1="150" y1="755" x2="475" y2="770" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <line x1="150" y1="755" x2="635" y2="770" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <line x1="150" y1="755" x2="795" y2="770" stroke="#059669" stroke-width="2" marker-end="url(#arrGreen)"/>
+  <text x="500" y="785" text-anchor="middle" font-size="11" fill="#6B7280">All slices — complete capability set, still independently detachable</text>
+
+  <!-- Key insight box -->
+  <rect x="640" y="260" width="320" height="90" rx="8" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
+  <text x="800" y="285" text-anchor="middle" font-size="13" fill="#065F46" font-weight="bold">Key Principle</text>
+  <text x="800" y="305" text-anchor="middle" font-size="11" fill="#065F46">Each slice is independently attachable.</text>
+  <text x="800" y="320" text-anchor="middle" font-size="11" fill="#065F46">No slice requires any other slice.</text>
+  <text x="800" y="335" text-anchor="middle" font-size="11" fill="#065F46">Every attachment has a clean detachment.</text>
+</svg>

@@ -1,0 +1,138 @@
+# ============================================================================
+# CAPABILITY SLICE DEFINITION — DELIVERY PACKAGING
+# Command C: Capability Slice Architecture
+# Kernel: KERN-INTEGRATION-MIRROR-NUCLEUS
+# ============================================================================
+# This slice assembles final deliverable packages from processed artifacts,
+# formatting them for distribution to project stakeholders according to
+# project-specific delivery requirements.
+# ============================================================================
+
+slice_id: delivery_packaging
+name: "Deliverable Assembly & Distribution Packaging"
+version: "1.0.0"
+
+purpose: |
+  The delivery_packaging slice assembles processed artifacts into final
+  deliverable packages formatted for distribution to specific project
+  stakeholders. Different recipients require different packages — the
+  contractor receives marked-up drawings with review comments and action
+  items; the owner receives compliance summaries and approval certificates;
+  the architect of record receives technical review notes and code
+  compliance documentation; the building department receives sealed
+  delegation of design documents and inspection-ready packages. This slice
+  handles the assembly, formatting, watermarking, access control, and
+  distribution logistics for each recipient type. It also manages
+  transmittal tracking — recording when packages were sent, to whom,
+  via what method, and whether receipt was confirmed. In construction,
+  proper transmittal management is legally significant as it establishes
+  the timeline of communications that may be relevant in disputes.
+
+status:
+  gcp_shopdrawing: STAGED
+  default: STAGED
+
+# ---------------------------------------------------------------------------
+# DATA CONTRACTS
+# ---------------------------------------------------------------------------
+
+inputs:
+  - name: approved_artifacts
+    description: "Artifacts from artifact_generation that have been approved for delivery"
+    format: artifact_bundle
+    required: true
+
+  - name: recipient_configurations
+    description: "Per-recipient delivery format, access control, and distribution method configs"
+    format: configuration
+    required: true
+
+  - name: transmittal_templates
+    description: "Templates for transmittal cover letters and distribution notifications"
+    format: template_bundle
+    required: true
+
+  - name: watermark_configurations
+    description: "Watermark rules for different recipient types and document classifications"
+    format: configuration
+    required: false
+
+  - name: distribution_channel_credentials
+    description: "Credentials for delivery channels (email, FTP, project management platforms)"
+    format: credential_reference
+    required: false
+
+  - name: prior_transmittal_history
+    description: "History of previous transmittals for sequencing and reference numbering"
+    format: transmittal_history
+    required: false
+
+outputs:
+  - name: delivery_packages
+    description: "Assembled deliverable packages formatted per recipient requirements"
+    format: package_bundle
+    retention: "project_lifetime"
+
+  - name: transmittal_records
+    description: "Formal transmittal records documenting what was sent, to whom, and when"
+    format: transmittal_record
+    retention: permanent
+
+  - name: distribution_confirmations
+    description: "Delivery receipt confirmations from distribution channels"
+    format: confirmation_record
+    retention: "project_lifetime"
+
+  - name: packaging_audit_log
+    description: "Log of all packaging decisions — what was included/excluded and why"
+    format: append_only_log
+    retention: "project_lifetime"
+
+  - name: distribution_failure_alerts
+    description: "Alerts when package delivery fails and requires manual intervention"
+    format: alert_message
+    retention: "90_days"
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY GRAPH
+# ---------------------------------------------------------------------------
+
+required_dependencies:
+  - artifact_generation
+  - artifact_manifest
+  - validation
+
+optional_dependencies:
+  - review_support
+  - receipt_audit
+  - governance
+
+# ---------------------------------------------------------------------------
+# CLASSIFICATION & TRANSFER
+# ---------------------------------------------------------------------------
+
+trust_class: MIRROR_REFLECTED
+transfer_class: FULL_HANDOFF_READY
+detachability_level: FULLY_DETACHABLE
+
+# ---------------------------------------------------------------------------
+# PARITY & PROMOTION
+# ---------------------------------------------------------------------------
+
+parity_eligibility: true
+promotion_eligibility: false
+classification: MIRROR_ONLY
+
+# ---------------------------------------------------------------------------
+# OPERATIONAL NOTES
+# ---------------------------------------------------------------------------
+
+operational_notes: |
+  Delivery packaging is STAGED in the GCP shop drawing mirror because it
+  is a late-pipeline capability that depends on artifact generation being
+  active. It will be activated when the full end-to-end pipeline is
+  operational and automated distribution is needed. This slice is
+  FULLY_DETACHABLE and FULL_HANDOFF_READY because packaging and
+  distribution logic is entirely project-specific and self-contained.
+  It is MIRROR_ONLY because delivery configurations are inherently
+  tied to specific project stakeholders and distribution channels.

@@ -1,0 +1,182 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Contract: Rules Engine
+# Slice: rules_engine
+# Mirror: gcp_shopdrawing
+#
+# This contract defines the interface, guarantees, error handling, and
+# operational boundaries for evaluating construction compliance rules
+# against normalized shop drawing details from GCP sources.
+##############################################################################
+
+contract:
+  name: rules-engine
+  version: "1.0.0"
+  mirror: gcp_shopdrawing
+  slice: rules_engine
+  status: active
+  effective_date: "2026-03-20"
+
+description: >
+  The Rules Engine contract governs the evaluation of construction compliance
+  rules against normalized shop drawing detail records. It ensures that every
+  detail submitted through the GCP mirror is checked against applicable
+  building codes, project specifications, and fabrication standards before
+  acceptance into the Construction OS canonical store.
+
+inputs:
+  - name: normalized_detail_record
+    schema_ref: "../../detail_normalization/schemas/normalized-detail.schema.json"
+    description: >
+      A fully normalized detail record in Construction OS canonical format,
+      as produced by the detail_normalization slice.
+    required: true
+
+  - name: rule_set_selector
+    description: >
+      Parameters that determine which rules apply to the given detail,
+      including jurisdiction, project-specific overrides, and discipline scope.
+    required: true
+    fields:
+      - name: project_id
+        type: string
+        required: true
+      - name: jurisdiction_code
+        type: string
+        description: "Building code jurisdiction (e.g., 'IBC-2021', 'NYC-BC-2022')."
+        required: true
+      - name: discipline_code
+        type: string
+        enum: [structural, architectural, mechanical, electrical, plumbing, fire_protection]
+        required: true
+      - name: rule_tags
+        type: array
+        description: "Optional tags to filter applicable rules (e.g., ['seismic', 'wind'])."
+        required: false
+      - name: override_waivers
+        type: array
+        items_ref: "../rules/construction-compliance-rules.yaml#/waivers"
+        required: false
+
+outputs:
+  - name: rule_evaluation_result
+    schema_ref: "../schemas/rule-evaluation-result.schema.json"
+    description: >
+      A structured result containing the pass/fail status of each evaluated
+      rule, any violations found, remediation suggestions, and an overall
+      compliance verdict.
+
+  - name: evaluation_summary
+    description: >
+      Aggregate statistics for the evaluation run, including total rules
+      evaluated, pass count, fail count, warning count, and elapsed time.
+    fields:
+      - name: total_rules_evaluated
+        type: integer
+      - name: passed
+        type: integer
+      - name: failed
+        type: integer
+      - name: warnings
+        type: integer
+      - name: overall_verdict
+        type: string
+        enum: [compliant, non_compliant, conditionally_compliant]
+      - name: evaluation_duration_ms
+        type: integer
+
+guarantees:
+  deterministic_evaluation: >
+    Given the same normalized detail record and the same rule set version,
+    the evaluation will always produce identical results. Rule evaluation
+    order does not affect the outcome.
+
+  complete_coverage: >
+    Every rule in the applicable rule set is evaluated. No rule is silently
+    skipped. If a rule cannot be evaluated due to missing data, it is
+    reported as "not_evaluable" with a structured reason.
+
+  traceability: >
+    Each rule evaluation result references the exact rule definition version,
+    the input detail record hash, and the evaluation timestamp, enabling
+    full audit reconstruction.
+
+  isolation: >
+    Rule evaluation is stateless and side-effect-free. Evaluating rules
+    against one detail does not affect the evaluation of any other detail.
+
+  bounded_execution: >
+    Rule evaluation for a single detail will complete within the
+    performance bounds specified below, or timeout with a structured error.
+
+error_handling:
+  strategy: evaluate_all_then_report
+
+  error_types:
+    - code: RULE_E001
+      name: rule_definition_parse_error
+      severity: error
+      description: >
+        A rule definition could not be parsed. The rule is marked as
+        not_evaluable and the evaluation continues with remaining rules.
+      action: skip_rule_with_error
+      retry: false
+
+    - code: RULE_E002
+      name: missing_input_field
+      severity: warning
+      description: >
+        A field required by a rule is not present in the normalized detail.
+        The rule is marked as not_evaluable with a structured reason.
+      action: skip_rule_with_warning
+      retry: false
+
+    - code: RULE_E003
+      name: evaluation_timeout
+      severity: error
+      description: >
+        Rule evaluation exceeded the maximum allowed duration. Partial
+        results are returned with a timeout indicator.
+      action: return_partial_results
+      retry: true
+
+    - code: RULE_E004
+      name: rule_version_conflict
+      severity: error
+      description: >
+        The requested rule set version does not exist or is incompatible
+        with the input detail schema version.
+      action: reject_evaluation
+      retry: false
+
+    - code: RULE_W001
+      name: deprecated_rule_evaluated
+      severity: warning
+      description: >
+        A rule marked as deprecated was still evaluated. Results are valid
+        but the rule will be removed in a future version.
+      action: proceed_with_warning
+      retry: false
+
+performance_bounds:
+  max_latency_ms: 500
+  max_rules_per_detail: 200
+  throughput_target: "500 evaluations/second sustained"
+  memory_ceiling_mb: 256
+
+dependencies:
+  - name: construction-compliance-rules
+    path: "../rules/construction-compliance-rules.yaml"
+    version: ">=1.0.0"
+  - name: rule-definition-schema
+    path: "../schemas/rule-definition.schema.json"
+    version: ">=1.0.0"
+  - name: normalized-detail-schema
+    path: "../../detail_normalization/schemas/normalized-detail.schema.json"
+    version: ">=1.0.0"
+
+audit:
+  log_level: info
+  retain_evaluation_hash: true
+  emit_lineage_event: true
+  lineage_slice_ref: "../../lineage/"

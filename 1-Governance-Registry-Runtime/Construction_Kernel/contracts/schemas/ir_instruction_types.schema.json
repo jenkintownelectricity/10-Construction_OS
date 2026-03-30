@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "construction_kernel.schemas.ir_instruction_types",
+  "title": "Drawing Instruction IR Contract Schema",
+  "description": "Schema definition for governed Drawing Instruction IR contracts. Owned by Construction_Kernel. Runtime must validate contracts against this schema and must not define its own.",
+  "authority": "Construction_Kernel",
+  "type": "object",
+  "required": ["contract_id", "version", "authority", "contract_type", "ir_instruction_types"],
+  "properties": {
+    "contract_id": {
+      "type": "string",
+      "pattern": "^construction_kernel\\.drawing_instruction_ir\\."
+    },
+    "version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "authority": {
+      "type": "string",
+      "const": "Construction_Kernel"
+    },
+    "contract_type": {
+      "type": "string",
+      "const": "governed_ir_contract"
+    },
+    "description": { "type": "string" },
+    "governance_source": { "type": "string" },
+    "architecture_source": { "type": "string" },
+    "fail_closed_rule": { "type": "string" },
+    "ir_instruction_types": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "ir_instruction_fields": {
+      "type": "object",
+      "properties": {
+        "required": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "optional": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "ir_boundary_rules": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "renderer_separation_rule": { "type": "string" }
+  },
+  "additionalProperties": true
+}

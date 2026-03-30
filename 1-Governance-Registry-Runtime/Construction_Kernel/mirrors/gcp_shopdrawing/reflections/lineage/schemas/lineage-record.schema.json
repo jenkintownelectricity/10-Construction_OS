@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-os.dev/schemas/gcp-mirror/lineage-record.schema.json",
+  "title": "Lineage Record",
+  "description": "Schema for a single lineage record capturing one transformation step in the GCP mirror data pipeline. Each record represents a verifiable link in the provenance chain.",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_type",
+    "timestamp",
+    "processor",
+    "processor_version",
+    "input_ref",
+    "input_hash",
+    "output_ref",
+    "output_hash"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "pattern": "^LIN-[0-9]{14}$",
+      "description": "Unique lineage event identifier. Format: LIN-{timestamp_sequence}."
+    },
+    "event_type": {
+      "type": "string",
+      "enum": ["ingestion", "validation", "normalization", "rule_evaluation", "artifact_registration", "export"],
+      "description": "Type of pipeline transformation this event represents."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the transformation."
+    },
+    "processor": {
+      "type": "object",
+      "required": ["slice", "contract"],
+      "properties": {
+        "slice": {
+          "type": "string",
+          "description": "The slice that performed the transformation."
+        },
+        "contract": {
+          "type": "string",
+          "description": "The contract governing the transformation."
+        },
+        "operation": {
+          "type": "string",
+          "description": "Specific operation within the contract."
+        }
+      }
+    },
+    "processor_version": {
+      "type": "string",
+      "description": "Version of the processor contract."
+    },
+    "input_ref": {
+      "type": "string",
+      "description": "Reference to the input data element (e.g., GCP record ID, submission ID, detail ID)."
+    },
+    "input_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "description": "SHA-256 hash of the input data."
+    },
+    "output_ref": {
+      "type": "string",
+      "description": "Reference to the output data element."
+    },
+    "output_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "description": "SHA-256 hash of the output data."
+    },
+    "predecessor_event_id": {
+      "type": "string",
+      "description": "Event ID of the immediately preceding lineage event in the chain."
+    },
+    "detail_id": {
+      "type": "string",
+      "description": "Canonical detail ID this event relates to, if applicable."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Construction OS project identifier."
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Additional context about the transformation (e.g., rules applied, mappings used)."
+    },
+    "duration_ms": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Duration of the transformation in milliseconds."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["success", "partial", "failed"],
+      "description": "Outcome status of the transformation."
+    },
+    "error_details": {
+      "type": "string",
+      "description": "Error details if status is 'failed' or 'partial'."
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,74 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Fixture 001: Drawing Artifact Registration
+# Slice: artifact_manifest
+#
+# A known-good test fixture representing the registration of a shop drawing
+# PDF artifact in the artifact manifest.
+##############################################################################
+
+fixture:
+  id: "FIXTURE-AM-001"
+  name: "Drawing Artifact — Steel Framing Shop Drawing PDF"
+  description: >
+    Registers a multi-page shop drawing PDF containing Level 3 steel
+    framing details (beams B12A, B13, and associated connections) from
+    the Harbor Tower project. The artifact is linked to multiple detail
+    IDs and includes complete metadata for cataloging.
+  slice: artifact_manifest
+  created: "2026-03-20"
+  status: active
+
+input_artifact:
+  artifact_type: "drawing"
+  category: "primary_document"
+  file_name: "S-301_Level3_SteelFraming_R2.pdf"
+  file_format: "pdf"
+  file_size_bytes: 4825600
+  content_hash: "sha256:e5f6a7b8c9d0e1f2a3b4c5d6e7f8091a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7"
+  detail_refs:
+    - "DET-STRC-00000045"
+    - "DET-STRC-00000046"
+    - "DET-STRC-00000047"
+  submission_ref: "SUB-000000000201"
+  version:
+    version_number: 2
+    supersedes: "ART-DWG-0000000010"
+    revision_label: "R2"
+  metadata:
+    title: "Level 3 Steel Framing Plan - Area C-D"
+    description: "Shop drawing for Level 3 floor beams and connections between grid lines C-D."
+    author: "Pacific Steel Fabricators"
+    created_date: "2026-02-15"
+    discipline: "structural"
+    sheet_number: "S-301"
+    page_count: 8
+    tags: ["steel", "framing", "level_3", "beams"]
+  gcp_source_ref: "GCP-DOC-2026-0042-S301-R2"
+  retention:
+    retention_policy: "project_lifetime"
+
+expected_output:
+  artifact_id: "ART-DWG-0000000015"
+  registered_at: "2026-03-20T10:00:00Z"
+  content_verified: true
+  content_hash: "sha256:e5f6a7b8c9d0e1f2a3b4c5d6e7f8091a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7"
+  source_system: "gcp_shopdrawing"
+  version:
+    version_number: 2
+    supersedes: "ART-DWG-0000000010"
+
+assertions:
+  - assert: field_present
+    path: "$.artifact_id"
+    description: "Canonical artifact ID must be assigned."
+  - assert: value_equals
+    path: "$.content_verified"
+    expected: true
+  - assert: value_equals
+    path: "$.version.version_number"
+    expected: 2
+  - assert: array_length
+    path: "$.detail_refs"
+    expected: 3
+    description: "Three detail references must be preserved."

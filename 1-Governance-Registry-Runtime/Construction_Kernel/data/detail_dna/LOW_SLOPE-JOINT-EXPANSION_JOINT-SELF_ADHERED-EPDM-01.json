@@ -1,0 +1,43 @@
+{
+  "detail_id": "LOW_SLOPE-JOINT-EXPANSION_JOINT-SELF_ADHERED-EPDM-01",
+  "system": "LOW_SLOPE",
+  "class": "JOINT",
+  "condition": "EXPANSION_JOINT",
+  "variant": "SELF_ADHERED",
+  "assembly_family": "EPDM",
+  "display_name": "EPDM Expansion Joint Cover",
+  "description": "Standard expansion joint detail for EPDM membrane systems. Flexible EPDM bellows or cover strip spans the joint, allowing for structural movement. Self-adhered to membrane on both sides of the joint with backer rod and sealant at joint gap.",
+  "synonyms": [
+    "expansion joint cover",
+    "structural joint detail",
+    "movement joint",
+    "building expansion joint",
+    "roof expansion joint",
+    "expansion joint",
+    "EJ detail"
+  ],
+  "tags": [
+    "fn-expansion-accommodation",
+    "fn-waterproofing",
+    "geo-linear",
+    "sub-concrete",
+    "sub-metal-deck",
+    "att-self-adhered",
+    "att-adhered",
+    "acc-expansion-joint-cover",
+    "acc-sealant",
+    "perf-ponding-prone",
+    "perf-warranty-critical"
+  ],
+  "compatible_material_classes": [
+    "EPDM"
+  ],
+  "risk_tags": [
+    "THERMAL_MOVEMENT",
+    "PONDING_RISK",
+    "INSTALLATION_SEQUENCE_CRITICAL",
+    "WARRANTY_BOUNDARY",
+    "STRUCTURAL_ATTACHMENT"
+  ],
+  "kernel_version": "13A"
+}

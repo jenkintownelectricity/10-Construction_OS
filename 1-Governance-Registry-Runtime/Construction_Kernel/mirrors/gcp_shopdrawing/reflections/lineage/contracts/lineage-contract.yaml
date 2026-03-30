@@ -1,0 +1,167 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Contract: Lineage
+# Slice: lineage
+# Mirror: gcp_shopdrawing
+#
+# This contract defines the interface, guarantees, error handling, and
+# operational boundaries for tracking the complete provenance and
+# transformation history of every data element passing through the
+# GCP shop drawing mirror.
+##############################################################################
+
+contract:
+  name: lineage
+  version: "1.0.0"
+  mirror: gcp_shopdrawing
+  slice: lineage
+  status: active
+  effective_date: "2026-03-20"
+
+description: >
+  The Lineage contract governs the creation, maintenance, and querying of
+  provenance chains for all data flowing through the GCP shop drawing mirror.
+  Every transformation — from raw GCP source ingestion through validation,
+  normalization, rules evaluation, and artifact registration — is recorded
+  as a lineage event. Lineage chains enable complete audit reconstruction,
+  impact analysis for upstream changes, and regulatory compliance evidence.
+
+inputs:
+  - name: lineage_event
+    description: >
+      A single lineage event emitted by any slice in the GCP mirror
+      pipeline when it processes a data element.
+    required: true
+    fields:
+      - name: event_type
+        type: string
+        enum: [ingestion, validation, normalization, rule_evaluation, artifact_registration, export]
+        required: true
+      - name: source_ref
+        type: string
+        description: "Reference to the input data element."
+        required: true
+      - name: output_ref
+        type: string
+        description: "Reference to the output data element."
+        required: true
+      - name: processor
+        type: string
+        description: "Slice and contract that performed the transformation."
+        required: true
+      - name: processor_version
+        type: string
+        required: true
+      - name: timestamp
+        type: string
+        format: date-time
+        required: true
+      - name: input_hash
+        type: string
+        required: true
+      - name: output_hash
+        type: string
+        required: true
+
+outputs:
+  - name: lineage_record
+    schema_ref: "../schemas/lineage-record.schema.json"
+    description: >
+      A persisted lineage record capturing one transformation step.
+
+  - name: lineage_chain
+    schema_ref: "../schemas/lineage-chain.schema.json"
+    description: >
+      A complete lineage chain from source ingestion through all
+      transformations to the current state of a data element.
+
+guarantees:
+  completeness: >
+    Every data transformation in the mirror pipeline emits a lineage
+    event. No transformation occurs without a corresponding lineage
+    record. The chain from raw source to final canonical form is
+    unbroken.
+
+  immutability: >
+    Lineage records, once written, are immutable. They cannot be
+    modified or deleted. Corrections are recorded as new events
+    referencing the original.
+
+  hash_chain_integrity: >
+    Each lineage record includes the input and output content hashes.
+    The output hash of step N must equal the input hash of step N+1,
+    forming a verifiable hash chain.
+
+  query_efficiency: >
+    Any lineage chain can be reconstructed from a single canonical
+    detail ID within the performance bounds below. Both forward
+    (source to canonical) and reverse (canonical to source) traversal
+    are supported.
+
+  cross_slice_continuity: >
+    Lineage chains span all slices in the pipeline. A single query
+    can trace from GCP source record through validation, normalization,
+    rules evaluation, and artifact registration.
+
+error_handling:
+  strategy: buffer_and_retry
+
+  error_types:
+    - code: LIN_E001
+      name: hash_chain_break
+      severity: critical
+      description: >
+        The output hash of a predecessor event does not match the
+        input hash of the current event. The chain is broken.
+      action: alert_and_quarantine
+      retry: false
+
+    - code: LIN_E002
+      name: missing_predecessor
+      severity: error
+      description: >
+        A lineage event references a predecessor event that does not
+        exist in the lineage store.
+      action: buffer_for_retry
+      retry: true
+      max_retries: 3
+
+    - code: LIN_E003
+      name: duplicate_event
+      severity: warning
+      description: >
+        A lineage event with the same event_id already exists. The
+        duplicate is discarded.
+      action: discard_duplicate
+      retry: false
+
+    - code: LIN_E004
+      name: lineage_store_unavailable
+      severity: error
+      description: >
+        The lineage storage backend is temporarily unavailable.
+        Events are buffered in memory until the store recovers.
+      action: buffer_in_memory
+      retry: true
+      buffer_max_events: 10000
+      buffer_max_duration_sec: 300
+
+performance_bounds:
+  max_event_write_latency_ms: 50
+  max_chain_query_latency_ms: 500
+  max_chain_depth: 50
+  throughput_target: "5000 events/second sustained"
+  memory_ceiling_mb: 256
+
+dependencies:
+  - name: lineage-tracking-rules
+    path: "../rules/lineage-tracking-rules.yaml"
+    version: ">=1.0.0"
+
+audit:
+  log_level: info
+  self_lineage: false
+  description: >
+    The lineage slice does not emit lineage events for its own operations
+    to avoid infinite recursion. Its operations are tracked through
+    standard application logging.

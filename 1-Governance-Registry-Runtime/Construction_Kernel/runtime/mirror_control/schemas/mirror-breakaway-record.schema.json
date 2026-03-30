@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mirror-breakaway-record.schema.json",
+  "title": "Mirror Breakaway Record",
+  "description": "Schema for recording breakaway evaluations — controlled separation of a mirror from its source.",
+  "type": "object",
+  "required": ["record_id", "mirror_id", "source_id", "verdict", "non_destructive", "evaluated_at"],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "pattern": "^breakaway-[a-f0-9]{12}$",
+      "description": "Unique identifier for this breakaway record."
+    },
+    "mirror_id": {
+      "type": "string",
+      "description": "Identifier of the mirror evaluated for breakaway."
+    },
+    "source_id": {
+      "type": "string",
+      "description": "Identifier of the source system."
+    },
+    "verdict": {
+      "type": "string",
+      "enum": ["approved", "denied", "conditional"],
+      "description": "Breakaway evaluation verdict."
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["condition_id", "name", "description", "required", "met"],
+        "properties": {
+          "condition_id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "check_fn_name": { "type": "string", "default": "" },
+          "required": { "type": "boolean" },
+          "met": { "type": "boolean" },
+          "details": { "type": "string", "default": "" }
+        },
+        "additionalProperties": false
+      },
+      "description": "All conditions evaluated during the breakaway assessment."
+    },
+    "non_destructive": {
+      "type": "boolean",
+      "description": "Whether the breakaway is confirmed to be non-destructive to the source."
+    },
+    "plan": {
+      "type": "object",
+      "description": "The breakaway execution plan.",
+      "properties": {
+        "mirror_id": { "type": "string" },
+        "source_id": { "type": "string" },
+        "target_state": { "type": "string", "enum": ["standalone", "decommission"] },
+        "feasible": { "type": "boolean" },
+        "blocking_conditions": { "type": "array" },
+        "met_conditions": { "type": "array" },
+        "steps": { "type": "array", "items": { "type": "string" } },
+        "estimated_risk": { "type": "string", "enum": ["low", "medium", "high"] },
+        "generated_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "evaluated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the evaluation."
+    },
+    "notes": {
+      "type": "string",
+      "default": "",
+      "description": "Additional notes about the evaluation."
+    }
+  },
+  "additionalProperties": false
+}

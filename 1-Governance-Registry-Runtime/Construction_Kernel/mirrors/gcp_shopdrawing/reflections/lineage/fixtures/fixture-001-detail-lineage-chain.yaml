@@ -1,0 +1,44 @@
+fixture:
+  fixture_id: fixture-001-detail-lineage-chain
+  slice: lineage
+  mirror: gcp_shopdrawing
+  description: "Traces the lineage of a steel beam detail from GCP source through normalization to canonical form"
+
+  input:
+    entity_id: "DTL-STEEL-BEAM-001"
+    entity_type: DETAIL
+    origin_system: gcp_shop_drawing
+    events:
+      - action: CREATED
+        actor: gcp_import_service
+        timestamp: "2026-03-15T10:00:00Z"
+        metadata:
+          source_file: "SD-2024-BEAM-W12x26.dwg"
+          project_id: "PRJ-CAMPUS-NORTH-2026"
+      - action: NORMALIZED
+        actor: detail_normalization_engine
+        timestamp: "2026-03-15T10:01:23Z"
+        metadata:
+          normalization_rules_version: "1.0.0"
+          fields_mapped: 14
+      - action: VALIDATED
+        actor: validation_engine
+        timestamp: "2026-03-15T10:01:45Z"
+        metadata:
+          validation_result: PASS
+          rules_checked: 8
+
+  expected_output:
+    chain_id: "CHAIN-DTLBEAM001"
+    chain_length: 3
+    records_valid: true
+    chain_integrity_verifiable: true
+    origin_traceable_to: gcp_shop_drawing
+
+  parity_criteria:
+    - "Chain contains exactly 3 records"
+    - "First record action is CREATED with GCP source attribution"
+    - "Second record action is NORMALIZED"
+    - "Third record action is VALIDATED"
+    - "All records have valid timestamps in chronological order"
+    - "Chain integrity hash is verifiable"

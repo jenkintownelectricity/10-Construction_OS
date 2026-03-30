@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Graph Typing Contract",
+  "description": "Kernel typing schema for graph node types, edge types, and relation typing rules. Typing only — no projection, materialization, or query logic.",
+  "type": "object",
+  "properties": {
+    "node_types": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Canonical set of graph node types"
+    },
+    "edge_types": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Canonical set of graph edge types"
+    },
+    "node_required_fields": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Required fields for every graph node"
+    },
+    "edge_required_fields": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Required fields for every graph edge"
+    },
+    "enrichment_edge_types": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Edge types derived from enrichment (not hard runtime facts)"
+    }
+  },
+  "required": ["node_types", "edge_types", "node_required_fields", "edge_required_fields", "enrichment_edge_types"]
+}

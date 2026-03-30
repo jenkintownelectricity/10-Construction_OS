@@ -1,0 +1,178 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Artifact Tracking Rules
+# Slice: artifact_manifest
+#
+# Defines rules for artifact registration, validation, retention, and
+# lifecycle management within the GCP shop drawing mirror.
+##############################################################################
+
+rules:
+  version: "1.0.0"
+  effective_date: "2026-03-20"
+  mirror: gcp_shopdrawing
+  slice: artifact_manifest
+
+# --- ARTIFACT TYPE RULES ---------------------------------------------------
+
+artifact_type_rules:
+  - rule_id: AT-001
+    name: approved_file_formats
+    description: >
+      Only approved file formats may be registered in the artifact manifest.
+      This prevents storage of executable files, temporary files, or
+      formats that cannot be reliably archived.
+    approved_formats:
+      drawing: [pdf, dwg, dxf]
+      calculation: [pdf, xlsx]
+      material_certificate: [pdf]
+      weld_procedure: [pdf]
+      inspection_report: [pdf, xlsx]
+      photograph: [jpg, png, tiff]
+      model_file: [ifc, rvt, stp]
+      specification: [pdf]
+      correspondence: [pdf]
+    on_violation: reject
+
+  - rule_id: AT-002
+    name: maximum_file_size
+    description: >
+      Enforce maximum file size limits per artifact type to prevent
+      storage abuse and ensure reasonable retrieval times.
+    size_limits_mb:
+      drawing: 50
+      calculation: 25
+      material_certificate: 10
+      weld_procedure: 10
+      inspection_report: 25
+      photograph: 20
+      model_file: 100
+      specification: 25
+      correspondence: 10
+    on_violation: reject
+
+  - rule_id: AT-003
+    name: required_metadata_by_type
+    description: >
+      Certain artifact types require specific metadata fields to be
+      present for proper cataloging and retrieval.
+    requirements:
+      drawing:
+        required: [title, discipline, sheet_number]
+        recommended: [author, page_count]
+      calculation:
+        required: [title, discipline]
+        recommended: [author]
+      material_certificate:
+        required: [title]
+        recommended: [created_date]
+      inspection_report:
+        required: [title, created_date]
+    on_violation: warn
+
+# --- CONTENT INTEGRITY RULES -----------------------------------------------
+
+content_integrity:
+  - rule_id: CI-001
+    name: content_hash_verification
+    description: >
+      Every artifact must have a SHA-256 content hash computed at
+      registration time. The hash is verified on every retrieval.
+    hash_algorithm: sha256
+    verify_on_retrieval: true
+    on_mismatch: reject_with_alert
+
+  - rule_id: CI-002
+    name: duplicate_detection
+    description: >
+      Before registering a new artifact, check for existing artifacts
+      with the same content hash. Duplicates are de-duplicated by
+      reference rather than stored twice.
+    check_scope: project
+    on_duplicate: deduplicate_by_reference
+
+  - rule_id: CI-003
+    name: virus_scan_gate
+    description: >
+      All artifacts must pass virus scanning before registration.
+      This rule is enforced at the infrastructure layer.
+    scan_required: true
+    on_fail: reject_artifact
+
+# --- LINKAGE RULES ---------------------------------------------------------
+
+linkage_rules:
+  - rule_id: LK-001
+    name: detail_linkage_required
+    description: >
+      Every artifact must be linked to at least one canonical detail ID.
+      Artifacts without detail linkage are flagged as orphans.
+    min_detail_refs: 1
+    on_violation: register_with_warning
+
+  - rule_id: LK-002
+    name: bundle_completeness
+    description: >
+      A shop_drawing_package bundle must include at minimum one primary
+      drawing artifact. Calculation and certification packages have their
+      own minimum requirements.
+    bundle_requirements:
+      shop_drawing_package:
+        min_primary: 1
+        recommended_types: [drawing]
+      calculation_package:
+        min_primary: 1
+        recommended_types: [calculation]
+      material_certification_package:
+        min_primary: 1
+        recommended_types: [material_certificate]
+    on_violation: warn
+
+# --- RETENTION RULES -------------------------------------------------------
+
+retention_rules:
+  - rule_id: RT-001
+    name: default_retention_policy
+    description: >
+      Assign default retention policies based on artifact type and project
+      classification. Construction documents are typically retained for the
+      project lifetime plus a statutory period.
+    default_policies:
+      drawing: project_lifetime
+      calculation: project_lifetime
+      material_certificate: permanent
+      weld_procedure: permanent
+      inspection_report: 10_years
+      photograph: project_lifetime
+      model_file: project_lifetime
+      specification: project_lifetime
+      correspondence: 7_years
+
+  - rule_id: RT-002
+    name: retention_override_authority
+    description: >
+      Retention policies can only be shortened (not extended) by the
+      project document controller. Extensions are applied automatically
+      by legal hold events.
+    override_permitted: shorten_only
+    authority_role: document_controller
+
+# --- VERSION CONTROL RULES -------------------------------------------------
+
+version_control:
+  - rule_id: VC-001
+    name: supersession_tracking
+    description: >
+      When a new version of an artifact is registered, the previous version
+      is marked as superseded. Both versions remain retrievable, but the
+      latest version is the default for new references.
+    on_new_version: mark_previous_superseded
+    preserve_previous: true
+
+  - rule_id: VC-002
+    name: revision_label_format
+    description: >
+      Revision labels must follow the project revision numbering scheme.
+      Standard format is R{number} (e.g., R1, R2, R3).
+    pattern: "^R[0-9]+$"
+    on_violation: warn

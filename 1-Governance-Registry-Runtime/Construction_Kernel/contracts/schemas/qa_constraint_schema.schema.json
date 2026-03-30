@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "construction_kernel.schemas.qa_constraint_schema",
+  "title": "QA Constraint Contract Schema",
+  "description": "Schema definition for governed QA constraint objects. Owned by Construction_Kernel. QA constraints define validation rules that must be satisfied before construction artifacts can advance in the pipeline. These include completeness checks, compatibility checks, and readiness gates. Runtime must validate QA constraints against this schema and must not define its own.",
+  "authority": "Construction_Kernel",
+  "type": "object",
+  "required": ["contract_id", "version", "authority", "contract_type", "valid_constraint_classes", "valid_target_types"],
+  "properties": {
+    "contract_id": {
+      "type": "string",
+      "pattern": "^construction_kernel\\.qa_constraint\\."
+    },
+    "version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "authority": {
+      "type": "string",
+      "const": "Construction_Kernel"
+    },
+    "contract_type": {
+      "type": "string",
+      "const": "governed_qa_constraint_schema"
+    },
+    "description": { "type": "string" },
+    "governance_source": { "type": "string" },
+    "architecture_source": { "type": "string" },
+    "fail_closed_rule": { "type": "string" },
+    "valid_constraint_classes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" },
+      "description": "Governed list of valid QA constraint classes."
+    },
+    "valid_target_types": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" },
+      "description": "Governed list of valid target types that constraints may apply to."
+    },
+    "valid_fail_modes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["fail_closed", "fail_open", "warn", "block"]
+      },
+      "description": "Governed list of valid failure modes."
+    },
+    "constraint_item_schema": {
+      "type": "object",
+      "description": "Schema for individual QA constraint records.",
+      "required": ["constraint_id", "constraint_class", "target_type", "rule_expression", "severity", "fail_mode"],
+      "properties": {
+        "constraint_id": {
+          "type": "string",
+          "pattern": "^qac-[a-z0-9\\-]+$",
+          "description": "Unique identifier for the QA constraint."
+        },
+        "constraint_class": {
+          "type": "string",
+          "description": "Classification of the constraint. Must be one of valid_constraint_classes."
+        },
+        "target_type": {
+          "type": "string",
+          "description": "Type of entity this constraint applies to. Must be one of valid_target_types."
+        },
+        "rule_expression": {
+          "type": "string",
+          "description": "Formal expression defining the constraint rule."
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low"],
+          "description": "Severity of a constraint violation."
+        },
+        "fail_mode": {
+          "type": "string",
+          "enum": ["fail_closed", "fail_open", "warn", "block"],
+          "description": "Behavior when the constraint is violated."
+        },
+        "description": { "type": "string" },
+        "enabled": { "type": "boolean", "default": true },
+        "scope_filter": {
+          "type": "object",
+          "description": "Optional filter to narrow constraint applicability.",
+          "properties": {
+            "discipline_tags": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "assembly_types": {
+              "type": "array",
+              "items": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

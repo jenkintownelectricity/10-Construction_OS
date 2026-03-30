@@ -1,0 +1,52 @@
+{
+  "contract_id": "construction_kernel.drawing_package.v1",
+  "version": "1.0",
+  "authority": "Construction_Kernel",
+  "contract_type": "governed_drawing_package_contract",
+  "description": "Defines the drawing package contract governing aggregation of sheets and drawing references into revisioned, QA-gated deliverables. Runtime must validate drawing packages against this contract and must not define its own QA or completeness states.",
+  "governance_source": "GOVERNANCE_KERNEL.md",
+  "architecture_source": "DELIVERABLE_KERNEL.md",
+  "fail_closed_rule": "Any drawing package that does not meet all required QA constraints must not be issued. Runtime must not override completeness or QA state.",
+  "valid_qa_states": [
+    "not_started",
+    "in_progress",
+    "under_review",
+    "qa_passed",
+    "qa_failed",
+    "conditionally_approved",
+    "issued"
+  ],
+  "valid_completeness_states": [
+    "incomplete",
+    "partially_complete",
+    "complete_pending_review",
+    "complete",
+    "superseded"
+  ],
+  "qa_state_transitions": {
+    "not_started": ["in_progress"],
+    "in_progress": ["under_review"],
+    "under_review": ["qa_passed", "qa_failed"],
+    "qa_passed": ["issued", "conditionally_approved"],
+    "qa_failed": ["in_progress"],
+    "conditionally_approved": ["issued", "in_progress"],
+    "issued": ["superseded"]
+  },
+  "completeness_state_transitions": {
+    "incomplete": ["partially_complete"],
+    "partially_complete": ["complete_pending_review", "incomplete"],
+    "complete_pending_review": ["complete", "partially_complete"],
+    "complete": ["superseded"],
+    "superseded": []
+  },
+  "required_sheet_disciplines": [
+    "architectural",
+    "structural",
+    "mechanical",
+    "electrical",
+    "plumbing",
+    "fire_protection",
+    "civil",
+    "landscape"
+  ]
+}

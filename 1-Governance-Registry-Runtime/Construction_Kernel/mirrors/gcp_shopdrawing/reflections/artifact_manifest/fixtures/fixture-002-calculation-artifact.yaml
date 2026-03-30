@@ -1,0 +1,63 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Fixture 002: Calculation Artifact Registration
+# Slice: artifact_manifest
+#
+# A test fixture for registering a structural calculation package artifact.
+##############################################################################
+
+fixture:
+  id: "FIXTURE-AM-002"
+  name: "Calculation Artifact — Connection Design Calculations"
+  description: >
+    Registers a structural calculation PDF containing connection design
+    calculations for Level 3 beam-to-column shear connections. The
+    calculations support the shop drawing details and must be retained
+    for the project lifetime.
+  slice: artifact_manifest
+  created: "2026-03-20"
+  status: active
+
+input_artifact:
+  artifact_type: "calculation"
+  category: "supporting_document"
+  file_name: "CALC-L3-Connections-ShearTab-R1.pdf"
+  file_format: "pdf"
+  file_size_bytes: 1245184
+  content_hash: "sha256:a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8091a2b3c4d5e6f7a8b9c0d1e2f3"
+  detail_refs:
+    - "DET-STRC-00000045"
+    - "DET-STRC-00000046"
+  submission_ref: "SUB-000000000201"
+  version:
+    version_number: 1
+    revision_label: "R1"
+  metadata:
+    title: "Connection Design Calculations - Level 3 Shear Tabs"
+    description: "AISC 360-22 shear tab connection design for W24x76 floor beams to W14x82 columns."
+    author: "JSmith, PE"
+    created_date: "2026-02-10"
+    discipline: "structural"
+    page_count: 24
+    tags: ["calculations", "connections", "shear_tab", "level_3"]
+  gcp_source_ref: "GCP-DOC-2026-0042-CALC-CONN-L3-R1"
+  retention:
+    retention_policy: "project_lifetime"
+
+expected_output:
+  artifact_id: "ART-CALC-0000000008"
+  registered_at: "2026-03-20T10:01:00Z"
+  content_verified: true
+  content_hash: "sha256:a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8091a2b3c4d5e6f7a8b9c0d1e2f3"
+  source_system: "gcp_shopdrawing"
+
+assertions:
+  - assert: field_present
+    path: "$.artifact_id"
+  - assert: value_equals
+    path: "$.content_verified"
+    expected: true
+  - assert: value_starts_with
+    path: "$.artifact_id"
+    expected: "ART-CALC-"
+    description: "Calculation artifacts use CALC prefix."

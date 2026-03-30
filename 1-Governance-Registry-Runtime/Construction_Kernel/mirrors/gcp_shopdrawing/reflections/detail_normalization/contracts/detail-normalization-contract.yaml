@@ -1,0 +1,189 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Contract: Detail Normalization
+# Slice: detail_normalization
+# Mirror: gcp_shopdrawing
+#
+# This contract defines the interface, guarantees, error handling, and
+# operational boundaries for normalizing construction shop drawing details
+# from GCP source format into Construction OS canonical form.
+##############################################################################
+
+contract:
+  name: detail-normalization
+  version: "1.0.0"
+  mirror: gcp_shopdrawing
+  slice: detail_normalization
+  status: active
+  effective_date: "2026-03-20"
+
+description: >
+  The Detail Normalization contract governs the transformation of raw
+  shop drawing detail records received from GCP-hosted construction
+  document management systems into the Construction OS canonical detail
+  format. It guarantees field-level fidelity, dimensional unit consistency,
+  and traceability of every normalized record back to its source.
+
+inputs:
+  - name: source_detail_record
+    schema_ref: "../schemas/source-detail-format.schema.json"
+    description: >
+      A single shop drawing detail record in GCP source format, including
+      geometry references, material specifications, dimensional annotations,
+      and metadata from the originating BIM/CAD system.
+    required: true
+
+  - name: normalization_context
+    description: >
+      Contextual parameters including project ID, discipline code,
+      unit system preference, and any project-specific override rules.
+    required: true
+    fields:
+      - name: project_id
+        type: string
+        required: true
+      - name: discipline_code
+        type: string
+        enum: [structural, architectural, mechanical, electrical, plumbing, fire_protection]
+        required: true
+      - name: unit_system
+        type: string
+        enum: [imperial, metric, dual]
+        default: imperial
+      - name: override_rules
+        type: array
+        items_ref: "../rules/normalization-rules.yaml#/overrides"
+        required: false
+
+outputs:
+  - name: normalized_detail_record
+    schema_ref: "../schemas/normalized-detail.schema.json"
+    description: >
+      The fully normalized detail record in Construction OS canonical format.
+      All dimensions converted to the target unit system, all field names
+      mapped to canonical identifiers, and all references resolved.
+
+  - name: normalization_report
+    description: >
+      A summary of transformations applied, fields mapped, values converted,
+      and any warnings or informational notes generated during normalization.
+    fields:
+      - name: transformations_applied
+        type: integer
+      - name: fields_mapped
+        type: integer
+      - name: warnings
+        type: array
+      - name: source_hash
+        type: string
+        description: SHA-256 of the input record for audit traceability
+      - name: output_hash
+        type: string
+        description: SHA-256 of the normalized output for integrity verification
+
+guarantees:
+  idempotency: >
+    Normalizing the same source record with the same context parameters
+    will always produce an identical normalized output. The output_hash
+    will be deterministic for identical inputs.
+
+  field_completeness: >
+    Every required field defined in normalized-detail.schema.json will be
+    populated. If a source field is missing and no default is defined,
+    the normalization will fail with a structured error rather than
+    producing a partial record.
+
+  dimensional_consistency: >
+    All dimensional values in the normalized output will be expressed
+    in the unit system specified by the normalization context. Mixed
+    units are never present in a single normalized record.
+
+  traceability: >
+    The normalized record retains a lineage block that references the
+    original source record ID, source system, ingestion timestamp,
+    and the normalization contract version used.
+
+  lossless_round_trip: >
+    For all fields classified as "critical" in the mapping specification,
+    the normalization is reversible. A denormalization pass using the
+    same mapping version will recover the original source values within
+    the precision bounds defined per field type.
+
+error_handling:
+  strategy: fail_fast_with_structured_errors
+
+  error_types:
+    - code: NORM_E001
+      name: missing_required_field
+      severity: error
+      description: >
+        A required field in the source record is absent and no default
+        value or fallback rule is configured.
+      action: reject_record
+      retry: false
+
+    - code: NORM_E002
+      name: invalid_dimension_value
+      severity: error
+      description: >
+        A dimensional value cannot be parsed or is outside physically
+        plausible bounds for construction details.
+      action: reject_record
+      retry: false
+
+    - code: NORM_E003
+      name: unknown_material_code
+      severity: warning
+      description: >
+        The source material code does not map to any known canonical
+        material identifier. The raw code is preserved in an extension field.
+      action: proceed_with_warning
+      retry: false
+
+    - code: NORM_E004
+      name: unit_conversion_overflow
+      severity: error
+      description: >
+        A unit conversion produced a value outside representable range
+        (e.g., fractional inches exceeding 64ths precision).
+      action: reject_field
+      retry: false
+
+    - code: NORM_E005
+      name: schema_version_mismatch
+      severity: error
+      description: >
+        The source record declares a schema version not supported by
+        the current normalization rules.
+      action: reject_record
+      retry: false
+
+    - code: NORM_W001
+      name: deprecated_field_used
+      severity: warning
+      description: >
+        The source record contains a field marked as deprecated. The
+        value is mapped but a warning is emitted.
+      action: proceed_with_warning
+      retry: false
+
+performance_bounds:
+  max_latency_ms: 250
+  max_batch_size: 500
+  throughput_target: "2000 records/second sustained"
+  memory_ceiling_mb: 512
+
+dependencies:
+  - name: gcp-to-canonical-mapping
+    path: "../mappings/gcp-to-canonical-mapping.yaml"
+    version: ">=1.0.0"
+  - name: normalization-rules
+    path: "../rules/normalization-rules.yaml"
+    version: ">=1.0.0"
+
+audit:
+  log_level: info
+  retain_source_hash: true
+  retain_output_hash: true
+  emit_lineage_event: true
+  lineage_slice_ref: "../../lineage/"

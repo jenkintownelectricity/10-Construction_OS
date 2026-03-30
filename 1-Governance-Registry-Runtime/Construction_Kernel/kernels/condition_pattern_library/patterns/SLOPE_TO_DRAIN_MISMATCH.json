@@ -1,0 +1,88 @@
+{
+  "pattern_id": "cpat-slope-to-drain-mismatch",
+  "pattern_class": "drainage_mismatch",
+  "description": "The roof slope design does not direct water effectively to the specified drain locations. This may manifest as insufficient slope (less than 1/4 inch per foot minimum), slope direction conflicting with drain placement, ponding areas at structural deflection points, or cricket/saddle omissions at penetrations and equipment pads. The mismatch between the drainage design and the structural framing or insulation tapered system creates areas of standing water that accelerate membrane degradation.",
+  "assembly_relationships": [
+    {
+      "assembly_type": "tapered_insulation_system",
+      "role": "primary",
+      "relationship": "defines_drainage_slope",
+      "required_components": ["tapered_insulation", "crickets", "saddles", "sumps"]
+    },
+    {
+      "assembly_type": "roof_drain_system",
+      "role": "primary",
+      "relationship": "receives_drainage_flow",
+      "required_components": ["primary_drains", "overflow_drains", "scuppers", "drain_sumps"]
+    },
+    {
+      "assembly_type": "structural_framing",
+      "role": "substrate",
+      "relationship": "supports_slope_system",
+      "required_components": ["roof_deck", "structural_members", "camber_points"]
+    },
+    {
+      "assembly_type": "roof_membrane_system",
+      "role": "adjacent",
+      "relationship": "covers_sloped_substrate",
+      "required_components": ["membrane", "insulation", "vapor_barrier"]
+    }
+  ],
+  "interface_relationships": [
+    {
+      "interface_type": "slope_to_drain",
+      "from_assembly": "tapered_insulation_system",
+      "to_assembly": "roof_drain_system",
+      "criticality": "critical",
+      "seal_requirement": "drain_flange_to_membrane_seal",
+      "transition_type": "insulation_taper_to_sump"
+    },
+    {
+      "interface_type": "cricket_to_penetration",
+      "from_assembly": "tapered_insulation_system",
+      "to_assembly": "roof_membrane_system",
+      "criticality": "high",
+      "seal_requirement": "continuous_membrane_over_cricket",
+      "transition_type": "tapered_insulation_to_flat"
+    }
+  ],
+  "detail_relationships": [
+    {
+      "detail_type": "roof_drainage_plan",
+      "detail_family": "roof_plan_details",
+      "status": "inadequate",
+      "gap_description": "Drainage plan does not show slope arrows, tapered insulation layout, or cricket locations relative to drain positions."
+    },
+    {
+      "detail_type": "tapered_insulation_layout",
+      "detail_family": "roof_plan_details",
+      "status": "missing",
+      "gap_description": "Tapered insulation layout with thickness callouts and slope direction not provided."
+    },
+    {
+      "detail_type": "drain_sump_detail",
+      "detail_family": "roof_drainage_details",
+      "status": "required",
+      "gap_description": "Drain sump receptor detail showing insulation termination and membrane tie-in not defined."
+    }
+  ],
+  "blocker_archetypes": [
+    "ba-insufficient-slope-design",
+    "ba-missing-tapered-insulation-layout",
+    "ba-drain-location-conflict"
+  ],
+  "remediation_archetypes": [
+    "ra-revise-slope-design",
+    "ra-add-tapered-insulation-layout",
+    "ra-relocate-drains",
+    "ra-add-crickets-at-penetrations"
+  ],
+  "issue_signatures": [
+    "is-slope-below-minimum",
+    "is-ponding-area-predicted",
+    "is-drain-location-conflicts-with-slope",
+    "is-missing-cricket-at-penetration"
+  ],
+  "severity_default": "high",
+  "discipline_tags": ["roofing", "structural", "plumbing", "architectural"]
+}

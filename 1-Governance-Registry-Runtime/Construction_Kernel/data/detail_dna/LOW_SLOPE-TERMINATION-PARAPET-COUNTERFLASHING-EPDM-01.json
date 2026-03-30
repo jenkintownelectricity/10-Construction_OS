@@ -1,0 +1,48 @@
+{
+  "detail_id": "LOW_SLOPE-TERMINATION-PARAPET-COUNTERFLASHING-EPDM-01",
+  "system": "LOW_SLOPE",
+  "class": "TERMINATION",
+  "condition": "PARAPET",
+  "variant": "COUNTERFLASHING",
+  "assembly_family": "EPDM",
+  "display_name": "EPDM Parapet Termination with Counterflashing",
+  "description": "Standard parapet termination detail for EPDM membrane systems. Membrane extends up parapet face, secured with termination bar and sealed at top. Counterflashing provides weather protection over the termination.",
+  "synonyms": [
+    "parapet cap detail",
+    "parapet flashing",
+    "wall flashing termination",
+    "EPDM parapet counterflashing",
+    "parapet detail",
+    "base flashing at parapet",
+    "parapet wall flashing"
+  ],
+  "tags": [
+    "fn-termination",
+    "fn-waterproofing",
+    "fn-flashing",
+    "geo-vertical",
+    "sub-concrete",
+    "sub-cmu",
+    "sub-masonry",
+    "att-adhered",
+    "acc-termination-bar",
+    "acc-counterflashing",
+    "acc-cant-strip",
+    "acc-sealant",
+    "perf-uv-exposed",
+    "perf-high-wind",
+    "perf-warranty-critical"
+  ],
+  "compatible_material_classes": [
+    "EPDM"
+  ],
+  "risk_tags": [
+    "UV_EXPOSURE",
+    "WIND_UPLIFT",
+    "THERMAL_MOVEMENT",
+    "MULTI_TRADE_COORDINATION",
+    "WARRANTY_BOUNDARY",
+    "INSTALLATION_SEQUENCE_CRITICAL"
+  ],
+  "kernel_version": "13A"
+}

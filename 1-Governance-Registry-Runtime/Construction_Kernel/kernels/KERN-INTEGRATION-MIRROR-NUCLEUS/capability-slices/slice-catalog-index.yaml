@@ -1,0 +1,261 @@
+# ============================================================================
+# CAPABILITY SLICE CATALOG INDEX
+# Command C: Capability Slice Architecture
+# Kernel: KERN-INTEGRATION-MIRROR-NUCLEUS
+# ============================================================================
+# This index provides a machine-readable catalog of all capability slices
+# defined within this kernel, their activation status per mirror context,
+# and summary classification metadata.
+# ============================================================================
+
+catalog_metadata:
+  kernel_id: KERN-INTEGRATION-MIRROR-NUCLEUS
+  catalog_version: "1.0.0"
+  total_slices: 15
+  last_updated: "2026-03-20"
+  command: "C — Capability Slice Architecture"
+
+# ---------------------------------------------------------------------------
+# ACTIVATION SUMMARY
+# ---------------------------------------------------------------------------
+
+activation_summary:
+  gcp_shopdrawing:
+    active_count: 5
+    staged_count: 10
+    active_slices:
+      - detail_normalization
+      - rules_engine
+      - validation
+      - artifact_manifest
+      - lineage
+    staged_slices:
+      - governance
+      - registry
+      - receipt_audit
+      - artifact_generation
+      - execution_orchestration
+      - review_support
+      - delivery_packaging
+      - standards_mapping
+      - spec_ingestion
+      - submittal_analysis
+
+# ---------------------------------------------------------------------------
+# SLICE CATALOG
+# ---------------------------------------------------------------------------
+
+slices:
+
+  - slice_id: governance
+    name: "Mirror Governance & Policy Enforcement"
+    status:
+      gcp_shopdrawing: STAGED
+      default: STAGED
+    trust_class: CORE_OWNED
+    transfer_class: NON_TRANSFERABLE
+    detachability_level: NON_DETACHABLE
+    classification: MIRROR_ONLY
+    definition_file: governance.yaml
+
+  - slice_id: registry
+    name: "Mirror & Slice Lifecycle Registry"
+    status:
+      gcp_shopdrawing: STAGED
+      default: STAGED
+    trust_class: CORE_OWNED
+    transfer_class: NON_TRANSFERABLE
+    detachability_level: NON_DETACHABLE
+    classification: MIRROR_ONLY
+    definition_file: registry.yaml
+
+  - slice_id: receipt_audit
+    name: "Receipt & Audit Trail Management"
+    status:
+      gcp_shopdrawing: STAGED
+      default: STAGED
+    trust_class: CORE_OWNED
+    transfer_class: LICENSE_ONLY
+    detachability_level: PARTIALLY_DETACHABLE
+    classification: MIRROR_ONLY
+    definition_file: receipt_audit.yaml
+
+  - slice_id: detail_normalization
+    name: "Detail Normalization Engine"
+    status:
+      gcp_shopdrawing: ACTIVE
+      default: STAGED
+    trust_class: MIRROR_REFLECTED
+    transfer_class: WHITE_LABELABLE
+    detachability_level: FULLY_DETACHABLE
+    classification: CORE_PROMOTABLE
+    definition_file: detail_normalization.yaml
+
+  - slice_id: rules_engine
+    name: "Construction Rules & Constraints Engine"
+    status:
+      gcp_shopdrawing: ACTIVE
+      default: STAGED
+    trust_class: SHARED_GOVERNED
+    transfer_class: LICENSE_ONLY
+    detachability_level: PARTIALLY_DETACHABLE
+    classification: CORE_PROMOTABLE
+    definition_file: rules_engine.yaml
+
+  - slice_id: validation
+    name: "Submission Validation & Completeness Verification"
+    status:
+      gcp_shopdrawing: ACTIVE
+      default: STAGED
+    trust_class: MIRROR_REFLECTED
+    transfer_class: WHITE_LABELABLE
+    detachability_level: FULLY_DETACHABLE
+    classification: CORE_PROMOTABLE
+    definition_file: validation.yaml
+
+  - slice_id: artifact_manifest
+    name: "Artifact Manifest & Inventory Tracker"
+    status:
+      gcp_shopdrawing: ACTIVE
+      default: STAGED
+    trust_class: SHARED_GOVERNED
+    transfer_class: BUYOUT_READY
+    detachability_level: FULLY_DETACHABLE
+    classification: MIRROR_ONLY
+    definition_file: artifact_manifest.yaml
+
+  - slice_id: artifact_generation
+    name: "Artifact Generation & Document Production"
+    status:
+      gcp_shopdrawing: STAGED
+      default: STAGED
+    trust_class: MIRROR_REFLECTED
+    transfer_class: WHITE_LABELABLE
+    detachability_level: FULLY_DETACHABLE
+    classification: CORE_PROMOTABLE
+    definition_file: artifact_generation.yaml
+
+  - slice_id: lineage
+    name: "Data Lineage & Provenance Tracking"
+    status:
+      gcp_shopdrawing: ACTIVE
+      default: STAGED
+    trust_class: SHARED_GOVERNED
+    transfer_class: BUYOUT_READY
+    detachability_level: FULLY_DETACHABLE
+    classification: CORE_PROMOTABLE
+    definition_file: lineage.yaml
+
+  - slice_id: execution_orchestration
+    name: "Workflow Execution Orchestration"
+    status:
+      gcp_shopdrawing: STAGED
+      default: STAGED
+    trust_class: CORE_OWNED
+    transfer_class: LICENSE_ONLY
+    detachability_level: PARTIALLY_DETACHABLE
+    classification: MIRROR_ONLY
+    definition_file: execution_orchestration.yaml
+
+  - slice_id: review_support
+    name: "Human Review Support & Coordination"
+    status:
+      gcp_shopdrawing: STAGED
+      default: STAGED
+    trust_class: MIRROR_REFLECTED
+    transfer_class: FULL_HANDOFF_READY
+    detachability_level: FULLY_DETACHABLE
+    classification: CORE_PROMOTABLE
+    definition_file: review_support.yaml
+
+  - slice_id: delivery_packaging
+    name: "Deliverable Assembly & Distribution Packaging"
+    status:
+      gcp_shopdrawing: STAGED
+      default: STAGED
+    trust_class: MIRROR_REFLECTED
+    transfer_class: FULL_HANDOFF_READY
+    detachability_level: FULLY_DETACHABLE
+    classification: MIRROR_ONLY
+    definition_file: delivery_packaging.yaml
+
+  - slice_id: standards_mapping
+    name: "Construction Standards & Code Mapping"
+    status:
+      gcp_shopdrawing: STAGED
+      default: STAGED
+    trust_class: CORE_OWNED
+    transfer_class: LICENSE_ONLY
+    detachability_level: PARTIALLY_DETACHABLE
+    classification: CORE_PROMOTABLE
+    definition_file: standards_mapping.yaml
+
+  - slice_id: spec_ingestion
+    name: "Project Specification Ingestion & Parsing"
+    status:
+      gcp_shopdrawing: STAGED
+      default: STAGED
+    trust_class: MIRROR_REFLECTED
+    transfer_class: WHITE_LABELABLE
+    detachability_level: FULLY_DETACHABLE
+    classification: CORE_PROMOTABLE
+    definition_file: spec_ingestion.yaml
+
+  - slice_id: submittal_analysis
+    name: "Submittal Analytics & Predictive Insights"
+    status:
+      gcp_shopdrawing: STAGED
+      default: STAGED
+    trust_class: MIRROR_REFLECTED
+    transfer_class: BUYOUT_READY
+    detachability_level: FULLY_DETACHABLE
+    classification: CORE_PROMOTABLE
+    definition_file: submittal_analysis.yaml
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY MATRIX (required dependencies only)
+# ---------------------------------------------------------------------------
+# Read as: slice -> depends on [list]
+
+dependency_matrix:
+  governance: []
+  registry: []
+  receipt_audit: [registry]
+  detail_normalization: [spec_ingestion]
+  rules_engine: [detail_normalization, standards_mapping]
+  validation: [rules_engine, detail_normalization, spec_ingestion]
+  artifact_manifest: [registry]
+  artifact_generation: [detail_normalization, validation, artifact_manifest]
+  lineage: [registry]
+  execution_orchestration: [registry, governance]
+  review_support: [validation, detail_normalization]
+  delivery_packaging: [artifact_generation, artifact_manifest, validation]
+  standards_mapping: []
+  spec_ingestion: []
+  submittal_analysis: [validation, registry]
+
+# ---------------------------------------------------------------------------
+# CLASSIFICATION DISTRIBUTION
+# ---------------------------------------------------------------------------
+
+classification_distribution:
+  trust_class:
+    CORE_OWNED: [governance, registry, receipt_audit, execution_orchestration, standards_mapping]
+    MIRROR_REFLECTED: [detail_normalization, validation, artifact_generation, review_support, delivery_packaging, spec_ingestion, submittal_analysis]
+    SHARED_GOVERNED: [rules_engine, artifact_manifest, lineage]
+
+  transfer_class:
+    NON_TRANSFERABLE: [governance, registry]
+    LICENSE_ONLY: [receipt_audit, rules_engine, execution_orchestration, standards_mapping]
+    WHITE_LABELABLE: [detail_normalization, validation, artifact_generation, spec_ingestion]
+    BUYOUT_READY: [artifact_manifest, lineage, submittal_analysis]
+    FULL_HANDOFF_READY: [review_support, delivery_packaging]
+
+  detachability_level:
+    NON_DETACHABLE: [governance, registry]
+    PARTIALLY_DETACHABLE: [receipt_audit, rules_engine, execution_orchestration, standards_mapping]
+    FULLY_DETACHABLE: [detail_normalization, validation, artifact_manifest, artifact_generation, lineage, review_support, delivery_packaging, spec_ingestion, submittal_analysis]
+
+  classification:
+    MIRROR_ONLY: [governance, registry, receipt_audit, artifact_manifest, execution_orchestration, delivery_packaging]
+    CORE_PROMOTABLE: [detail_normalization, rules_engine, validation, artifact_generation, lineage, review_support, standards_mapping, spec_ingestion, submittal_analysis]

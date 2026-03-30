@@ -1,0 +1,162 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Contract: Validation
+# Slice: validation
+# Mirror: gcp_shopdrawing
+#
+# This contract defines the interface, guarantees, error handling, and
+# operational boundaries for validating shop drawing submissions from
+# GCP sources against completeness, consistency, and schema requirements.
+##############################################################################
+
+contract:
+  name: validation
+  version: "1.0.0"
+  mirror: gcp_shopdrawing
+  slice: validation
+  status: active
+  effective_date: "2026-03-20"
+
+description: >
+  The Validation contract governs the pre-acceptance checks applied to
+  every shop drawing submission entering the Construction OS through the
+  GCP mirror. Validation occurs before normalization and rules evaluation,
+  serving as the first gate that ensures submissions are structurally
+  complete, internally consistent, and conform to the expected GCP source
+  schema. Submissions that fail validation are rejected with structured
+  feedback before any processing resources are consumed.
+
+inputs:
+  - name: validation_request
+    schema_ref: "../schemas/validation-request.schema.json"
+    description: >
+      A validation request wrapping one or more raw GCP shop drawing
+      detail records along with submission metadata and the target
+      validation profile.
+    required: true
+
+outputs:
+  - name: validation_result
+    schema_ref: "../schemas/validation-result.schema.json"
+    description: >
+      A structured result indicating whether the submission passed
+      validation, with per-record and per-field error details for any
+      failures.
+
+  - name: validation_summary
+    description: >
+      Aggregate statistics for the validation pass.
+    fields:
+      - name: total_records
+        type: integer
+      - name: valid_records
+        type: integer
+      - name: invalid_records
+        type: integer
+      - name: partial_records
+        type: integer
+      - name: overall_status
+        type: string
+        enum: [accepted, rejected, accepted_with_warnings]
+      - name: validation_duration_ms
+        type: integer
+
+guarantees:
+  schema_conformance: >
+    Every record is validated against the GCP source detail schema
+    (source-detail-format.schema.json). Non-conforming records are
+    rejected with specific path and constraint violation details.
+
+  completeness_verification: >
+    All required fields per the submission profile are checked for
+    presence. Optional fields that are present are type-checked.
+
+  referential_integrity: >
+    Cross-references within a submission (e.g., connection marks
+    referencing other detail marks) are verified for consistency.
+
+  idempotent_validation: >
+    Validating the same submission multiple times produces identical
+    results. Validation has no side effects on stored data.
+
+  fast_rejection: >
+    Invalid submissions are rejected as early as possible. Schema
+    validation runs before cross-reference and business rule checks
+    to minimize wasted computation.
+
+error_handling:
+  strategy: collect_all_errors
+
+  error_types:
+    - code: VAL_E001
+      name: schema_violation
+      severity: error
+      description: >
+        A record does not conform to the expected GCP source schema.
+        Specific field path and constraint violation are reported.
+      action: reject_record
+      retry: false
+
+    - code: VAL_E002
+      name: missing_required_field
+      severity: error
+      description: >
+        A field required by the submission profile is absent.
+      action: reject_record
+      retry: false
+
+    - code: VAL_E003
+      name: type_mismatch
+      severity: error
+      description: >
+        A field value does not match the expected type (e.g., string
+        where number is expected).
+      action: reject_record
+      retry: false
+
+    - code: VAL_E004
+      name: referential_integrity_failure
+      severity: error
+      description: >
+        A cross-reference (e.g., connects_to_mark) references a mark
+        number not present in the submission.
+      action: reject_record
+      retry: false
+
+    - code: VAL_W001
+      name: optional_field_quality_warning
+      severity: warning
+      description: >
+        An optional field is present but has a suspicious value
+        (e.g., empty string, zero dimensions).
+      action: accept_with_warning
+      retry: false
+
+    - code: VAL_W002
+      name: deprecated_schema_version
+      severity: warning
+      description: >
+        The submission uses a GCP schema version that is deprecated
+        but still supported.
+      action: accept_with_warning
+      retry: false
+
+performance_bounds:
+  max_latency_ms: 200
+  max_records_per_submission: 1000
+  throughput_target: "3000 records/second sustained"
+  memory_ceiling_mb: 256
+
+dependencies:
+  - name: validation-rules
+    path: "../rules/validation-rules.yaml"
+    version: ">=1.0.0"
+  - name: source-detail-schema
+    path: "../../detail_normalization/schemas/source-detail-format.schema.json"
+    version: ">=1.0.0"
+
+audit:
+  log_level: info
+  retain_submission_hash: true
+  emit_lineage_event: true
+  lineage_slice_ref: "../../lineage/"

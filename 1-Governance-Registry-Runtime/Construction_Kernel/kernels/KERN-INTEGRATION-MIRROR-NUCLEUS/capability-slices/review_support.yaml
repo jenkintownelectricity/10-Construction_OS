@@ -1,0 +1,143 @@
+# ============================================================================
+# CAPABILITY SLICE DEFINITION — REVIEW SUPPORT
+# Command C: Capability Slice Architecture
+# Kernel: KERN-INTEGRATION-MIRROR-NUCLEUS
+# ============================================================================
+# This slice provides tooling and data support for human reviewers during
+# the shop drawing review process, including comment management, markup
+# coordination, and review workflow tracking.
+# ============================================================================
+
+slice_id: review_support
+name: "Human Review Support & Coordination"
+version: "1.0.0"
+
+purpose: |
+  The review_support slice provides the data backbone for human engineering
+  review of shop drawing submissions. It manages review assignments (which
+  reviewer is responsible for which submission), tracks review progress
+  (which sheets have been reviewed, which are pending), coordinates multi-
+  discipline review (when structural, mechanical, and architectural reviews
+  must all sign off), manages review comments (capture, categorization,
+  threading, resolution tracking), and supports the review decision workflow
+  (approve, approve as noted, revise and resubmit, rejected). In the
+  construction context, this slice understands the semantics of shop drawing
+  review — that a "revise and resubmit" requires tracking which specific
+  comments must be addressed in the next revision, that an "approve as
+  noted" requires generating conditional approval documentation, and that
+  multi-discipline coordination requires conflict detection when reviewers
+  from different disciplines make contradictory comments.
+
+status:
+  gcp_shopdrawing: STAGED
+  default: STAGED
+
+# ---------------------------------------------------------------------------
+# DATA CONTRACTS
+# ---------------------------------------------------------------------------
+
+inputs:
+  - name: submission_for_review
+    description: "Validated submission package ready for human review"
+    format: submission_bundle
+    required: true
+
+  - name: validation_verdicts
+    description: "Machine validation results to present to reviewers as decision support"
+    format: verdict_record
+    required: true
+
+  - name: reviewer_assignments
+    description: "Assignments mapping reviewers to submissions by discipline and authority"
+    format: assignment_record
+    required: true
+
+  - name: reviewer_comments
+    description: "Comments entered by reviewers during the review process"
+    format: comment_set
+    required: false
+
+  - name: review_decision_events
+    description: "Decision events from reviewers (approve, reject, request revision)"
+    format: event_stream
+    required: false
+
+  - name: prior_review_history
+    description: "Review history from previous submission revisions"
+    format: review_history
+    required: false
+
+outputs:
+  - name: review_status_dashboard
+    description: "Current status of all active reviews with progress tracking"
+    format: structured_record
+    retention: current_state
+
+  - name: comment_registry
+    description: "All review comments indexed by submission, sheet, detail, and discipline"
+    format: structured_record
+    retention: "project_lifetime"
+
+  - name: review_decision_record
+    description: "Formal record of review decisions with supporting rationale"
+    format: decision_record
+    retention: "project_lifetime"
+
+  - name: cross_discipline_conflict_alerts
+    description: "Alerts when reviewers from different disciplines make conflicting comments"
+    format: alert_message
+    retention: "90_days"
+
+  - name: comment_resolution_tracking
+    description: "Tracking of which comments from prior reviews have been addressed in resubmissions"
+    format: resolution_tracker
+    retention: "project_lifetime"
+
+  - name: review_metrics
+    description: "Review performance metrics (turnaround time, comment density, revision rates)"
+    format: metrics_record
+    retention: "365_days"
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY GRAPH
+# ---------------------------------------------------------------------------
+
+required_dependencies:
+  - validation
+  - detail_normalization
+
+optional_dependencies:
+  - artifact_generation
+  - rules_engine
+  - lineage
+
+# ---------------------------------------------------------------------------
+# CLASSIFICATION & TRANSFER
+# ---------------------------------------------------------------------------
+
+trust_class: MIRROR_REFLECTED
+transfer_class: FULL_HANDOFF_READY
+detachability_level: FULLY_DETACHABLE
+
+# ---------------------------------------------------------------------------
+# PARITY & PROMOTION
+# ---------------------------------------------------------------------------
+
+parity_eligibility: true
+promotion_eligibility: true
+classification: CORE_PROMOTABLE
+
+# ---------------------------------------------------------------------------
+# OPERATIONAL NOTES
+# ---------------------------------------------------------------------------
+
+operational_notes: |
+  Review support is STAGED in the GCP shop drawing mirror because the
+  initial deployment focuses on the automated pipeline. Human review
+  coordination will be activated once the automated validation pipeline
+  is producing reliable results that reviewers can use as decision support.
+  This slice is FULLY_DETACHABLE and FULL_HANDOFF_READY because review
+  coordination logic and comment data are self-contained and can be fully
+  transferred to a client organization. It is CORE_PROMOTABLE because
+  review workflow patterns (e.g., improved multi-discipline conflict
+  detection) can be generalized to benefit all mirrors.

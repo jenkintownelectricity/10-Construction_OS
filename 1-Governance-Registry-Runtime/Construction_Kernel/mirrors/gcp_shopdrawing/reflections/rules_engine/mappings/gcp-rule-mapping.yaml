@@ -1,0 +1,105 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# GCP Rule Mapping
+# Slice: rules_engine
+#
+# Maps GCP-specific compliance check codes, inspection categories, and
+# quality control references to Construction OS canonical rule identifiers.
+##############################################################################
+
+mapping:
+  name: gcp-rule-mapping
+  version: "1.0.0"
+  source_system: gcp_shopdrawing
+  target_system: construction_os_rules_engine
+  effective_date: "2026-03-20"
+
+# --- GCP INSPECTION CATEGORY TO RULE CATEGORY MAPPING ---------------------
+
+inspection_category_mapping:
+  - gcp_category: "DIM_CHECK"
+    canonical_category: "dimensional_compliance"
+    description: "GCP dimensional inspection checks."
+    applicable_rules: ["CCR-DIM-001", "CCR-DIM-002", "CCR-DIM-003"]
+
+  - gcp_category: "MAT_CERT"
+    canonical_category: "material_compliance"
+    description: "GCP material certification verification."
+    applicable_rules: ["CCR-MAT-001", "CCR-MAT-002", "CCR-MAT-003"]
+
+  - gcp_category: "CONN_INSP"
+    canonical_category: "connection_compliance"
+    description: "GCP connection inspection checks."
+    applicable_rules: ["CCR-CONN-001", "CCR-CONN-002", "CCR-CONN-003"]
+
+  - gcp_category: "GEO_VERIFY"
+    canonical_category: "geometric_compliance"
+    description: "GCP geometry verification."
+    applicable_rules: ["CCR-GEO-001", "CCR-GEO-002"]
+
+  - gcp_category: "DOC_REVIEW"
+    canonical_category: "documentation_compliance"
+    description: "GCP documentation review and completeness checks."
+    applicable_rules: ["CCR-DOC-001", "CCR-DOC-002"]
+
+# --- GCP COMPLIANCE STATUS TO CANONICAL VERDICT MAPPING -------------------
+
+compliance_status_mapping:
+  - gcp_status: "APPROVED"
+    canonical_verdict: "compliant"
+  - gcp_status: "APPROVED_AS_NOTED"
+    canonical_verdict: "conditionally_compliant"
+  - gcp_status: "REVISE_AND_RESUBMIT"
+    canonical_verdict: "non_compliant"
+  - gcp_status: "REJECTED"
+    canonical_verdict: "non_compliant"
+  - gcp_status: "FOR_INFORMATION"
+    canonical_verdict: null
+
+# --- GCP SEVERITY CODE TO CANONICAL SEVERITY MAPPING ----------------------
+
+severity_mapping:
+  - gcp_severity: "HOLD_POINT"
+    canonical_severity: "critical"
+    description: "Work cannot proceed until resolved."
+  - gcp_severity: "WITNESS_POINT"
+    canonical_severity: "major"
+    description: "Inspector presence required."
+  - gcp_severity: "REVIEW_POINT"
+    canonical_severity: "minor"
+    description: "Documentation review required."
+  - gcp_severity: "INFO"
+    canonical_severity: "advisory"
+
+# --- GCP QC REFERENCE TO JURISDICTION MAPPING -----------------------------
+
+qc_reference_mapping:
+  - gcp_qc_ref: "QC-STL-001"
+    jurisdiction_codes: ["AISC 360-22", "AISC 303-22"]
+    description: "Structural steel fabrication quality control."
+  - gcp_qc_ref: "QC-STL-002"
+    jurisdiction_codes: ["AWS D1.1/D1.1M:2020"]
+    description: "Structural steel welding quality control."
+  - gcp_qc_ref: "QC-CONC-001"
+    jurisdiction_codes: ["ACI 318-19", "ACI 301-20"]
+    description: "Concrete placement and testing quality control."
+  - gcp_qc_ref: "QC-BOLT-001"
+    jurisdiction_codes: ["RCSC Specification 2020"]
+    description: "High-strength bolting quality control."
+  - gcp_qc_ref: "QC-CW-001"
+    jurisdiction_codes: ["AAMA 501", "ASTM E283", "ASTM E331"]
+    description: "Curtain wall testing and quality control."
+
+# --- EVALUATION TRIGGER MAPPING -------------------------------------------
+
+evaluation_trigger_mapping:
+  - gcp_doc_status: "SUBMITTED_FOR_REVIEW"
+    trigger_evaluation: true
+    evaluation_scope: "full"
+  - gcp_doc_status: "RESUBMITTED"
+    trigger_evaluation: true
+    evaluation_scope: "delta_only"
+  - gcp_doc_status: "SUPERSEDED"
+    trigger_evaluation: false
+  - gcp_doc_status: "VOID"
+    trigger_evaluation: false

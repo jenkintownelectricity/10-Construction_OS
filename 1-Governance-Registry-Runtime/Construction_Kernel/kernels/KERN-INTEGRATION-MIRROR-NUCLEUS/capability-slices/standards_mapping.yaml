@@ -1,0 +1,136 @@
+# ============================================================================
+# CAPABILITY SLICE DEFINITION — STANDARDS MAPPING
+# Command C: Capability Slice Architecture
+# Kernel: KERN-INTEGRATION-MIRROR-NUCLEUS
+# ============================================================================
+# This slice maintains mappings between construction standards, building
+# codes, and the kernel's internal rule vocabulary, enabling the rules
+# engine to evaluate compliance against specific code editions.
+# ============================================================================
+
+slice_id: standards_mapping
+name: "Construction Standards & Code Mapping"
+version: "1.0.0"
+
+purpose: |
+  The standards_mapping slice maintains comprehensive mappings between
+  external construction standards (AISC 360, ACI 318, AWS D1.1, ASCE 7,
+  IBC, etc.), local building code amendments, and the kernel's internal
+  rule vocabulary. Each standard section is decomposed into evaluable
+  predicates that the rules_engine can execute against normalized details.
+  The slice tracks standard editions and their effective dates, manages
+  the mapping lifecycle as standards are updated (e.g., transitioning from
+  IBC 2021 to IBC 2024), and maintains cross-reference tables between
+  standards that address the same subject (e.g., seismic design provisions
+  across IBC, ASCE 7, and AISC 341). In practice, when a project specifies
+  "AISC 360-22, Chapter J" for connection design, this slice provides the
+  specific evaluable predicates that the rules_engine uses to check bolt
+  spacing, weld sizing, bearing strength, and all other Chapter J
+  requirements.
+
+status:
+  gcp_shopdrawing: STAGED
+  default: STAGED
+
+# ---------------------------------------------------------------------------
+# DATA CONTRACTS
+# ---------------------------------------------------------------------------
+
+inputs:
+  - name: standard_source_documents
+    description: "Source texts of construction standards, codes, and specifications"
+    format: document_bundle
+    required: true
+
+  - name: predicate_definitions
+    description: "Machine-evaluable predicate definitions derived from standard requirements"
+    format: rule_bundle
+    required: true
+
+  - name: edition_applicability_matrix
+    description: "Matrix defining which standard editions apply to which project types and jurisdictions"
+    format: lookup_table
+    required: true
+
+  - name: local_amendment_overlays
+    description: "Local jurisdiction amendments that modify base code requirements"
+    format: amendment_set
+    required: false
+
+  - name: cross_reference_tables
+    description: "Cross-reference tables linking related provisions across standards"
+    format: lookup_table
+    required: false
+
+  - name: standard_update_notifications
+    description: "Notifications of new standard editions or errata requiring mapping updates"
+    format: event_stream
+    required: false
+
+outputs:
+  - name: evaluable_rule_sets
+    description: "Complete sets of evaluable predicates organized by standard, edition, and section"
+    format: rule_bundle
+    retention: permanent
+
+  - name: standard_cross_reference_index
+    description: "Searchable index of cross-references between standards"
+    format: structured_record
+    retention: permanent
+
+  - name: edition_transition_guides
+    description: "Guides documenting rule changes between standard editions"
+    format: structured_report
+    retention: permanent
+
+  - name: mapping_coverage_reports
+    description: "Reports on what percentage of each standard has been mapped to predicates"
+    format: structured_report
+    retention: "365_days"
+
+  - name: unmapped_provision_alerts
+    description: "Alerts when a project references standard provisions that lack predicate mappings"
+    format: alert_message
+    retention: "90_days"
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY GRAPH
+# ---------------------------------------------------------------------------
+
+required_dependencies: []
+
+optional_dependencies:
+  - governance
+  - registry
+
+# ---------------------------------------------------------------------------
+# CLASSIFICATION & TRANSFER
+# ---------------------------------------------------------------------------
+
+trust_class: CORE_OWNED
+transfer_class: LICENSE_ONLY
+detachability_level: PARTIALLY_DETACHABLE
+
+# ---------------------------------------------------------------------------
+# PARITY & PROMOTION
+# ---------------------------------------------------------------------------
+
+parity_eligibility: true
+promotion_eligibility: true
+classification: CORE_PROMOTABLE
+
+# ---------------------------------------------------------------------------
+# OPERATIONAL NOTES
+# ---------------------------------------------------------------------------
+
+operational_notes: |
+  Standards mapping is STAGED in the GCP shop drawing mirror because the
+  initial deployment uses a pre-loaded rule set rather than dynamic mapping.
+  It will be activated when the system needs to support multiple standard
+  editions simultaneously or when local amendment overlays are required.
+  This slice has no required dependencies because standard mappings are
+  reference data that can be loaded independently. It is PARTIALLY_DETACHABLE
+  because the mapping data can be extracted but the predicate compilation
+  infrastructure is tied to the kernel's rule engine. It is CORE_PROMOTABLE
+  because new standard mappings benefit all mirrors that reference those
+  standards.

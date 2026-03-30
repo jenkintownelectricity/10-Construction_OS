@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" width="1000" height="700">
+  <title>Mirror Architecture — Transfer &amp; Buyout Path</title>
+  <defs>
+    <marker id="tbArrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <marker id="tbArrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#EA580C"/>
+    </marker>
+    <marker id="tbArrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#059669"/>
+    </marker>
+    <marker id="tbArrowTeal" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0D9488"/>
+    </marker>
+    <style>
+      text { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; }
+      .title { font-size: 20px; font-weight: bold; fill: #1F2937; }
+      .subtitle { font-size: 13px; fill: #6B7280; font-style: italic; }
+      .label { font-size: 14px; fill: #FFFFFF; font-weight: 600; }
+      .label-sm { font-size: 12px; fill: #FFFFFF; }
+      .label-dark { font-size: 14px; fill: #1F2937; font-weight: 600; }
+      .desc { font-size: 11px; fill: #6B7280; }
+      .class-label { font-size: 12px; fill: #FFFFFF; font-weight: 600; }
+      .class-desc { font-size: 10px; fill: #E5E7EB; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="700" fill="#F8FAFC" rx="8"/>
+
+  <!-- Title -->
+  <text x="500" y="35" text-anchor="middle" class="title">Transfer &amp; Buyout Path — Clean Exit Protocol</text>
+  <text x="500" y="55" text-anchor="middle" class="subtitle">Every attachment has a clean detachment. Sold by capability, detachable by design.</text>
+
+  <!-- ====== STAGE 1: Selectable Slices ====== -->
+  <text x="105" y="95" text-anchor="middle" font-size="15" fill="#0D9488" font-weight="bold">Selectable</text>
+  <text x="105" y="112" text-anchor="middle" font-size="15" fill="#0D9488" font-weight="bold">Slices</text>
+
+  <!-- Slice hexagons -->
+  <polygon points="75,130 135,130 160,155 135,180 75,180 50,155" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="105" y="153" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Governance</text>
+  <text x="105" y="167" text-anchor="middle" font-size="9" fill="#CCFBF1">[T:varies]</text>
+
+  <polygon points="75,195 135,195 160,220 135,245 75,245 50,220" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="105" y="218" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Validation</text>
+  <text x="105" y="232" text-anchor="middle" font-size="9" fill="#CCFBF1">[T:varies]</text>
+
+  <polygon points="75,260 135,260 160,285 135,310 75,310 50,285" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="105" y="283" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Generation</text>
+  <text x="105" y="297" text-anchor="middle" font-size="9" fill="#CCFBF1">[T:varies]</text>
+
+  <polygon points="75,325 135,325 160,350 135,375 75,375 50,350" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="105" y="348" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Engine</text>
+  <text x="105" y="362" text-anchor="middle" font-size="9" fill="#CCFBF1">[T:varies]</text>
+
+  <polygon points="75,390 135,390 160,415 135,440 75,440 50,415" fill="#0D9488" stroke="#0F766E" stroke-width="2"/>
+  <text x="105" y="413" text-anchor="middle" font-size="11" fill="#FFF" font-weight="600">Lineage</text>
+  <text x="105" y="427" text-anchor="middle" font-size="9" fill="#CCFBF1">[T:varies]</text>
+
+  <!-- Arrows from slices to transfer classes -->
+  <line x1="160" y1="155" x2="230" y2="155" stroke="#0D9488" stroke-width="2" marker-end="url(#tbArrowTeal)"/>
+  <line x1="160" y1="220" x2="230" y2="220" stroke="#0D9488" stroke-width="2" marker-end="url(#tbArrowTeal)"/>
+  <line x1="160" y1="285" x2="230" y2="285" stroke="#0D9488" stroke-width="2" marker-end="url(#tbArrowTeal)"/>
+  <line x1="160" y1="350" x2="230" y2="350" stroke="#0D9488" stroke-width="2" marker-end="url(#tbArrowTeal)"/>
+  <line x1="160" y1="415" x2="230" y2="415" stroke="#0D9488" stroke-width="2" marker-end="url(#tbArrowTeal)"/>
+
+  <!-- ====== STAGE 2: Transfer Classes ====== -->
+  <text x="330" y="95" text-anchor="middle" font-size="15" fill="#EA580C" font-weight="bold">Transfer Classes</text>
+
+  <!-- NON_TRANSFERABLE -->
+  <rect x="240" y="125" width="180" height="50" rx="10" fill="#DC2626" stroke="#B91C1C" stroke-width="2"/>
+  <text x="330" y="148" text-anchor="middle" class="class-label">NON_TRANSFERABLE</text>
+  <text x="330" y="163" text-anchor="middle" class="class-desc">Core IP — never leaves</text>
+
+  <!-- LICENSE_ONLY -->
+  <rect x="240" y="190" width="180" height="50" rx="10" fill="#EA580C" stroke="#C2410C" stroke-width="2"/>
+  <text x="330" y="213" text-anchor="middle" class="class-label">LICENSE_ONLY</text>
+  <text x="330" y="228" text-anchor="middle" class="class-desc">Use rights, no source</text>
+
+  <!-- WHITE_LABELABLE -->
+  <rect x="240" y="255" width="180" height="50" rx="10" fill="#F59E0B" stroke="#D97706" stroke-width="2"/>
+  <text x="330" y="278" text-anchor="middle" font-size="12" fill="#1F2937" font-weight="600">WHITE_LABELABLE</text>
+  <text x="330" y="293" text-anchor="middle" font-size="10" fill="#451A03">Rebrand permitted</text>
+
+  <!-- BUYOUT_READY -->
+  <rect x="240" y="320" width="180" height="50" rx="10" fill="#059669" stroke="#047857" stroke-width="2"/>
+  <text x="330" y="343" text-anchor="middle" class="class-label">BUYOUT_READY</text>
+  <text x="330" y="358" text-anchor="middle" class="class-desc">Full source available</text>
+
+  <!-- FULL_HANDOFF_READY -->
+  <rect x="240" y="385" width="180" height="50" rx="10" fill="#2563EB" stroke="#1D4ED8" stroke-width="2"/>
+  <text x="330" y="408" text-anchor="middle" class="class-label">FULL_HANDOFF_READY</text>
+  <text x="330" y="423" text-anchor="middle" class="class-desc">Complete independence</text>
+
+  <!-- NON_TRANSFERABLE dead end -->
+  <line x1="420" y1="150" x2="460" y2="150" stroke="#DC2626" stroke-width="2" stroke-dasharray="6,4"/>
+  <rect x="463" y="135" width="40" height="25" rx="4" fill="none" stroke="#DC2626" stroke-width="2"/>
+  <text x="483" y="153" text-anchor="middle" font-size="16" fill="#DC2626" font-weight="bold">X</text>
+
+  <!-- Arrows from transferable classes to detachment gate -->
+  <line x1="420" y1="215" x2="510" y2="290" stroke="#374151" stroke-width="2" marker-end="url(#tbArrow)"/>
+  <line x1="420" y1="280" x2="510" y2="290" stroke="#374151" stroke-width="2" marker-end="url(#tbArrow)"/>
+  <line x1="420" y1="345" x2="510" y2="310" stroke="#374151" stroke-width="2" marker-end="url(#tbArrow)"/>
+  <line x1="420" y1="410" x2="510" y2="320" stroke="#374151" stroke-width="2" marker-end="url(#tbArrow)"/>
+
+  <!-- ====== STAGE 3: Detachment Gate (Diamond) ====== -->
+  <text x="570" y="95" text-anchor="middle" font-size="15" fill="#7C3AED" font-weight="bold">Detachment Gate</text>
+
+  <polygon points="570,240 640,300 570,360 500,300" fill="#7C3AED" stroke="#6D28D9" stroke-width="2.5"/>
+  <text x="570" y="295" text-anchor="middle" class="label">Detach</text>
+  <text x="570" y="312" text-anchor="middle" font-size="10" fill="#DDD6FE">Gate</text>
+
+  <!-- Gate checklist -->
+  <rect x="510" y="375" width="120" height="90" rx="6" fill="#F5F3FF" stroke="#7C3AED" stroke-width="1.5"/>
+  <text x="570" y="392" text-anchor="middle" font-size="10" fill="#6D28D9" font-weight="bold">Gate Checks</text>
+  <text x="525" y="408" font-size="9" fill="#4C1D95">&#x2713; Parity snapshot</text>
+  <text x="525" y="422" font-size="9" fill="#4C1D95">&#x2713; IP audit clear</text>
+  <text x="525" y="436" font-size="9" fill="#4C1D95">&#x2713; Deps resolved</text>
+  <text x="525" y="450" font-size="9" fill="#4C1D95">&#x2713; Contracts signed</text>
+
+  <!-- Arrow from gate to handoff bundle -->
+  <line x1="640" y1="300" x2="710" y2="300" stroke="#374151" stroke-width="2.5" marker-end="url(#tbArrow)"/>
+  <text x="675" y="290" font-size="10" fill="#374151" font-weight="500">Approved</text>
+
+  <!-- ====== STAGE 4: Handoff Bundle ====== -->
+  <text x="790" y="95" text-anchor="middle" font-size="15" fill="#059669" font-weight="bold">Handoff Bundle</text>
+
+  <rect x="720" y="200" width="140" height="200" rx="12" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
+  <text x="790" y="225" text-anchor="middle" font-size="13" fill="#065F46" font-weight="bold">Bundle</text>
+
+  <!-- Bundle contents -->
+  <rect x="735" y="240" width="110" height="24" rx="4" fill="#059669"/>
+  <text x="790" y="257" text-anchor="middle" font-size="10" fill="#FFF" font-weight="500">Source Code</text>
+
+  <rect x="735" y="270" width="110" height="24" rx="4" fill="#059669"/>
+  <text x="790" y="287" text-anchor="middle" font-size="10" fill="#FFF" font-weight="500">Schemas</text>
+
+  <rect x="735" y="300" width="110" height="24" rx="4" fill="#059669"/>
+  <text x="790" y="317" text-anchor="middle" font-size="10" fill="#FFF" font-weight="500">Test Fixtures</text>
+
+  <rect x="735" y="330" width="110" height="24" rx="4" fill="#059669"/>
+  <text x="790" y="347" text-anchor="middle" font-size="10" fill="#FFF" font-weight="500">Documentation</text>
+
+  <rect x="735" y="360" width="110" height="24" rx="4" fill="#059669"/>
+  <text x="790" y="377" text-anchor="middle" font-size="10" fill="#FFF" font-weight="500">License Terms</text>
+
+  <!-- ====== STAGE 5: Clean Exit Path ====== -->
+  <line x1="790" y1="400" x2="790" y2="450" stroke="#059669" stroke-width="2.5" marker-end="url(#tbArrowGreen)"/>
+
+  <rect x="700" y="460" width="180" height="70" rx="14" fill="#059669" stroke="#047857" stroke-width="2.5"/>
+  <text x="790" y="490" text-anchor="middle" class="label">Clean Exit</text>
+  <text x="790" y="510" text-anchor="middle" font-size="11" fill="#D1FAE5">Partner operates independently</text>
+
+  <!-- Post-exit states -->
+  <line x1="790" y1="530" x2="700" y2="570" stroke="#374151" stroke-width="1.5" marker-end="url(#tbArrow)"/>
+  <line x1="790" y1="530" x2="880" y2="570" stroke="#374151" stroke-width="1.5" marker-end="url(#tbArrow)"/>
+
+  <rect x="620" y="575" width="160" height="45" rx="8" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="700" y="596" text-anchor="middle" font-size="11" fill="#374151" font-weight="600">Mirror RETIRED</text>
+  <text x="700" y="611" text-anchor="middle" font-size="9" fill="#6B7280">Registry updated</text>
+
+  <rect x="800" y="575" width="160" height="45" rx="8" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="880" y="596" text-anchor="middle" font-size="11" fill="#374151" font-weight="600">Partner Independent</text>
+  <text x="880" y="611" text-anchor="middle" font-size="9" fill="#6B7280">No kernel dependency</text>
+
+  <!-- ====== Flow Summary (bottom) ====== -->
+  <rect x="50" y="500" width="400" height="170" rx="10" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="250" y="525" text-anchor="middle" font-size="14" fill="#1F2937" font-weight="bold">Transfer Flow Summary</text>
+
+  <text x="70" y="548" font-size="12" fill="#0D9488" font-weight="600">1.</text>
+  <text x="88" y="548" font-size="12" fill="#374151">Select slices for transfer</text>
+
+  <text x="70" y="568" font-size="12" fill="#EA580C" font-weight="600">2.</text>
+  <text x="88" y="568" font-size="12" fill="#374151">Classify each slice&#x27;s transfer eligibility</text>
+
+  <text x="70" y="588" font-size="12" fill="#7C3AED" font-weight="600">3.</text>
+  <text x="88" y="588" font-size="12" fill="#374151">Pass detachment gate (IP, deps, parity, contracts)</text>
+
+  <text x="70" y="608" font-size="12" fill="#059669" font-weight="600">4.</text>
+  <text x="88" y="608" font-size="12" fill="#374151">Package handoff bundle with all artifacts</text>
+
+  <text x="70" y="628" font-size="12" fill="#059669" font-weight="600">5.</text>
+  <text x="88" y="628" font-size="12" fill="#374151">Execute clean exit — partner operates independently</text>
+
+  <text x="250" y="658" text-anchor="middle" font-size="11" fill="#6B7280" font-style="italic">Every attachment has a clean detachment path. Always.</text>
+</svg>

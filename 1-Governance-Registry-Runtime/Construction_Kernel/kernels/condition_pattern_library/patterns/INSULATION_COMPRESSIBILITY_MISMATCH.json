@@ -1,0 +1,88 @@
+{
+  "pattern_id": "cpat-insulation-compressibility-mismatch",
+  "pattern_class": "material_mismatch",
+  "description": "The specified roof insulation type has insufficient compressive strength for the anticipated live loads, equipment loads, or foot traffic in the designated area. Alternatively, the insulation product specified in the roofing section conflicts with the structural engineer's deflection assumptions or the mechanical engineer's equipment pad requirements. This mismatch leads to insulation crushing, membrane distortion, ponding, and premature system failure.",
+  "assembly_relationships": [
+    {
+      "assembly_type": "roof_insulation_system",
+      "role": "primary",
+      "relationship": "provides_thermal_and_structural_support",
+      "required_components": ["cover_board", "primary_insulation", "secondary_insulation", "vapor_retarder"]
+    },
+    {
+      "assembly_type": "mechanical_equipment_pad",
+      "role": "adjacent",
+      "relationship": "imposes_point_loads_on_insulation",
+      "required_components": ["equipment_support", "load_distribution_board", "isolation_pad"]
+    },
+    {
+      "assembly_type": "roof_membrane_system",
+      "role": "adjacent",
+      "relationship": "covers_insulation",
+      "required_components": ["membrane", "adhesive_or_fasteners"]
+    }
+  ],
+  "interface_relationships": [
+    {
+      "interface_type": "insulation_to_equipment_pad",
+      "from_assembly": "roof_insulation_system",
+      "to_assembly": "mechanical_equipment_pad",
+      "criticality": "high",
+      "seal_requirement": "load_distribution_over_insulation",
+      "transition_type": "insulation_to_rigid_support"
+    },
+    {
+      "interface_type": "insulation_to_membrane",
+      "from_assembly": "roof_insulation_system",
+      "to_assembly": "roof_membrane_system",
+      "criticality": "medium",
+      "seal_requirement": "smooth_substrate_for_membrane",
+      "transition_type": "rigid_board_to_membrane"
+    },
+    {
+      "interface_type": "insulation_to_deck",
+      "from_assembly": "roof_insulation_system",
+      "to_assembly": "structural_deck",
+      "criticality": "medium",
+      "seal_requirement": "vapor_retarder_continuity",
+      "transition_type": "insulation_to_deck"
+    }
+  ],
+  "detail_relationships": [
+    {
+      "detail_type": "insulation_schedule",
+      "detail_family": "roof_assembly_details",
+      "status": "inadequate",
+      "gap_description": "Insulation schedule does not specify compressive strength requirements for equipment load areas."
+    },
+    {
+      "detail_type": "equipment_pad_detail",
+      "detail_family": "mechanical_support_details",
+      "status": "missing",
+      "gap_description": "Equipment pad detail not provided showing load distribution and insulation reinforcement."
+    },
+    {
+      "detail_type": "roof_assembly_section",
+      "detail_family": "roof_assembly_details",
+      "status": "required",
+      "gap_description": "Section through insulation system at equipment locations not shown, R-value and compressive strength not coordinated."
+    }
+  ],
+  "blocker_archetypes": [
+    "ba-insulation-compressive-strength-inadequate",
+    "ba-equipment-pad-detail-missing",
+    "ba-specification-conflict-insulation"
+  ],
+  "remediation_archetypes": [
+    "ra-upgrade-insulation-compressive-strength",
+    "ra-add-equipment-pad-detail",
+    "ra-coordinate-insulation-specification"
+  ],
+  "issue_signatures": [
+    "is-insulation-psi-below-load-requirement",
+    "is-equipment-pad-detail-absent",
+    "is-insulation-spec-conflicts-with-structural"
+  ],
+  "severity_default": "high",
+  "discipline_tags": ["roofing", "mechanical", "structural", "architectural"]
+}

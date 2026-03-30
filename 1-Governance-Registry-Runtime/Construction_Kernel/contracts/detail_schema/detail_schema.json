@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "contract_id": "construction_kernel.detail_schema",
+  "version": "1.0",
+  "contract_type": "governed_detail_schema",
+  "authority": "Construction_Kernel",
+  "description": "Governed detail schema contract. Defines the structure of canonical detail logic definitions: required fields, valid component roles, valid relationship types, and valid parameter inputs. Runtime consumes this schema and does not define it.",
+  "governance_source": "Construction_Kernel/docs/governance/construction-detail-doctrine.md",
+  "architecture_source": "Construction_Kernel/docs/system/CONSTRUCTION_DETAIL_SCHEMA.md",
+  "fail_closed_rule": "A detail must not be emitted if required components are undefined, required relationships are unresolved, material references point to undefined classes, parameter inputs cannot be resolved, or preconditions are not satisfied.",
+  "detail_fields": {
+    "required": ["detail_id", "detail_family", "components", "relationships"],
+    "optional": ["material_references", "parameter_inputs", "preconditions", "output_intent"]
+  },
+  "valid_component_roles": [
+    "waterproofing",
+    "protection",
+    "fastener",
+    "sealant",
+    "edge_profile",
+    "penetrating_element",
+    "seal",
+    "structural",
+    "insulation",
+    "transition"
+  ],
+  "valid_relationship_types": [
+    "overlaps",
+    "fastened_to",
+    "covers",
+    "seals",
+    "supports",
+    "terminates_at",
+    "transitions_to",
+    "surrounds"
+  ],
+  "valid_parameter_inputs": [
+    "membrane_type",
+    "parapet_height",
+    "substrate",
+    "insulation_thickness",
+    "climate_zone",
+    "edge_condition",
+    "attachment_method",
+    "penetration_material",
+    "fastener_spacing"
+  ],
+  "canonical_detail_logic_rule": "A detail family must be represented by one canonical logic definition unless a true logic change is required. Parameter variation alone does not create new definitions."
+}

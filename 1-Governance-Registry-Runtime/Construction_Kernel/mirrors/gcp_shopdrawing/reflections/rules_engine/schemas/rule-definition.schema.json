@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://construction-os.dev/schemas/gcp-mirror/rule-definition.schema.json",
+  "title": "Rule Definition",
+  "description": "Schema for a single construction compliance rule as evaluated by the GCP mirror rules engine. Each rule specifies a condition to test against a normalized detail record, along with severity, applicability criteria, and remediation guidance.",
+  "type": "object",
+  "required": [
+    "rule_id",
+    "rule_version",
+    "name",
+    "category",
+    "severity",
+    "applicable_disciplines",
+    "condition",
+    "message_template"
+  ],
+  "properties": {
+    "rule_id": {
+      "type": "string",
+      "pattern": "^CCR-[A-Z]{2,4}-[0-9]{3}$",
+      "description": "Unique rule identifier. Format: CCR-{category_prefix}-{sequence}."
+    },
+    "rule_version": {
+      "type": "string",
+      "description": "Semantic version of this rule definition."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable rule name."
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed explanation of what this rule checks and why."
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "dimensional_compliance",
+        "material_compliance",
+        "connection_compliance",
+        "geometric_compliance",
+        "documentation_compliance",
+        "seismic_compliance",
+        "fire_rating_compliance",
+        "fabrication_tolerance"
+      ],
+      "description": "Rule category for grouping and filtering."
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["critical", "major", "minor", "advisory"],
+      "description": "Severity level if the rule is violated."
+    },
+    "applicable_disciplines": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["structural", "architectural", "mechanical", "electrical", "plumbing", "fire_protection"]
+      },
+      "minItems": 1,
+      "description": "Engineering disciplines this rule applies to."
+    },
+    "applicable_element_types": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Element primary_types this rule applies to. Empty means all types."
+    },
+    "jurisdiction_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Building code references that mandate this rule."
+    },
+    "condition": {
+      "type": "object",
+      "required": ["type", "expression"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["field_range", "field_presence", "field_match", "cross_field", "computed", "lookup"],
+          "description": "Type of condition evaluation."
+        },
+        "expression": {
+          "type": "string",
+          "description": "The evaluation expression in rule engine syntax."
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Parameters referenced by the expression."
+        }
+      }
+    },
+    "message_template": {
+      "type": "string",
+      "description": "Template for the violation message using {field_path} syntax."
+    },
+    "remediation": {
+      "type": "string",
+      "description": "Suggested corrective action if the rule is violated."
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "deprecated": {
+      "type": "boolean",
+      "default": false
+    },
+    "superseded_by": {
+      "type": "string",
+      "description": "Rule ID of the replacement rule, if deprecated."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Tags for filtering (e.g., 'seismic', 'wind', 'high_rise')."
+    }
+  },
+  "additionalProperties": false
+}

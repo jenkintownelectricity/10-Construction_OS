@@ -1,0 +1,52 @@
+lineage_mapping:
+  version: "1.0.0"
+  source_system: gcp_shop_drawing
+  target_system: construction_os_canonical
+  slice: lineage
+  description: "Maps GCP lineage/audit trail fields to Construction OS lineage record format"
+
+  field_mappings:
+    - source_field: gcp_audit.event_id
+      target_field: record_id
+      transform: "prefix with 'LIN-' and uppercase"
+
+    - source_field: gcp_audit.object_type
+      target_field: entity_type
+      transform: "map GCP types to canonical enum"
+      mapping:
+        drawing: DETAIL
+        document: ARTIFACT
+        check_result: RULE_RESULT
+        submission_check: VALIDATION_RESULT
+        package: BUNDLE
+
+    - source_field: gcp_audit.object_id
+      target_field: entity_id
+      transform: "direct mapping"
+
+    - source_field: gcp_audit.action_type
+      target_field: action
+      transform: "map GCP actions to canonical enum"
+      mapping:
+        create: CREATED
+        normalize: NORMALIZED
+        validate: VALIDATED
+        check: RULE_APPLIED
+        transform: TRANSFORMED
+        package: BUNDLED
+
+    - source_field: gcp_audit.user_or_system
+      target_field: actor
+      transform: "direct mapping"
+
+    - source_field: gcp_audit.event_timestamp
+      target_field: timestamp
+      transform: "convert to UTC ISO 8601"
+
+    - source_field: gcp_audit.parent_event_id
+      target_field: parent_record_id
+      transform: "prefix with 'LIN-' and uppercase, null if root event"
+
+    - source_field: gcp_audit.source
+      target_field: source_system
+      transform: "direct mapping"

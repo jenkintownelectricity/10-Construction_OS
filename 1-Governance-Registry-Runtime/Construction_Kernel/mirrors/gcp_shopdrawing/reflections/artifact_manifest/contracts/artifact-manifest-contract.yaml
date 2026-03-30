@@ -1,0 +1,185 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Contract: Artifact Manifest
+# Slice: artifact_manifest
+# Mirror: gcp_shopdrawing
+#
+# This contract defines the interface for tracking and cataloging all
+# artifacts associated with shop drawing submissions. An artifact is any
+# discrete deliverable produced during the shop drawing review process:
+# drawings, calculations, material test reports, inspection records,
+# weld procedures, and erection plans.
+##############################################################################
+
+contract:
+  name: artifact-manifest
+  version: "1.0.0"
+  mirror: gcp_shopdrawing
+  slice: artifact_manifest
+  status: active
+  effective_date: "2026-03-20"
+
+description: >
+  The Artifact Manifest contract governs the cataloging, tracking, and
+  integrity verification of all deliverable artifacts produced during
+  the construction shop drawing lifecycle. Each artifact is registered
+  with a content hash, classification, provenance metadata, and
+  association to its originating submission and detail records. The
+  manifest enables downstream consumers to discover, retrieve, and
+  verify any artifact by its canonical identifier.
+
+inputs:
+  - name: artifact_registration
+    schema_ref: "../schemas/artifact-manifest-entry.schema.json"
+    description: >
+      A single artifact to be registered in the manifest. Includes
+      the artifact content hash, classification, source metadata, and
+      associations to submissions and detail records.
+    required: true
+
+  - name: bundle_registration
+    schema_ref: "../schemas/artifact-bundle.schema.json"
+    description: >
+      A bundle of related artifacts to be registered together. A bundle
+      represents a logical grouping such as all artifacts for a single
+      submittal package.
+    required: false
+
+  - name: manifest_context
+    description: >
+      Context for the registration operation, including project ID,
+      registering party, and any classification overrides.
+    required: true
+    fields:
+      - name: project_id
+        type: string
+        required: true
+      - name: registering_party
+        type: string
+        required: true
+      - name: registration_source
+        type: string
+        enum: [gcp_import, manual_upload, automated_extraction, as_built_scan]
+        required: true
+      - name: retention_policy
+        type: string
+        enum: [project_lifetime, permanent, regulatory_minimum]
+        default: project_lifetime
+
+outputs:
+  - name: manifest_entry
+    schema_ref: "../schemas/artifact-manifest-entry.schema.json"
+    description: >
+      The registered manifest entry with generated artifact_id,
+      registration timestamp, and computed integrity metadata.
+
+  - name: registration_receipt
+    description: >
+      Confirmation receipt for the registration operation.
+    fields:
+      - name: artifact_id
+        type: string
+      - name: registered_at
+        type: string
+        format: date-time
+      - name: content_hash_verified
+        type: boolean
+      - name: classification
+        type: string
+      - name: associations_count
+        type: integer
+
+guarantees:
+  content_integrity: >
+    Every registered artifact has a verified SHA-256 content hash.
+    The manifest will reject registration if the provided hash does
+    not match the computed hash of the artifact content.
+
+  uniqueness: >
+    No two manifest entries may share the same content_hash within
+    the same project. Duplicate registrations are detected and
+    deduplicated by returning the existing entry.
+
+  immutability: >
+    Once registered, a manifest entry cannot be modified. Corrections
+    are made by registering a superseding artifact with a reference
+    to the original. The original entry is marked as superseded but
+    never deleted.
+
+  traceability: >
+    Every manifest entry includes provenance metadata linking it
+    to the source system, submission, and detail records. The
+    lineage slice is notified of every registration.
+
+  completeness: >
+    Bundle registrations are atomic. Either all artifacts in the
+    bundle are registered or none are.
+
+error_handling:
+  strategy: fail_fast_for_integrity
+
+  error_types:
+    - code: ART_E001
+      name: hash_mismatch
+      severity: error
+      description: >
+        The provided content_hash does not match the computed hash
+        of the artifact content.
+      action: reject_registration
+
+    - code: ART_E002
+      name: duplicate_content
+      severity: info
+      description: >
+        An artifact with the same content_hash already exists in the
+        manifest for this project.
+      action: return_existing_entry
+
+    - code: ART_E003
+      name: invalid_classification
+      severity: error
+      description: >
+        The artifact classification does not match any recognized type.
+      action: reject_registration
+
+    - code: ART_E004
+      name: association_unresolvable
+      severity: warning
+      description: >
+        A referenced submission_id or detail_id cannot be resolved.
+        The artifact is registered but the association is marked as
+        pending resolution.
+      action: proceed_with_warning
+
+    - code: ART_E005
+      name: bundle_partial_failure
+      severity: error
+      description: >
+        One or more artifacts in a bundle failed registration. The
+        entire bundle is rolled back.
+      action: reject_bundle
+
+performance_bounds:
+  max_registration_latency_ms: 500
+  max_bundle_size: 100
+  max_bundle_registration_ms: 10000
+  max_manifest_query_ms: 200
+  memory_ceiling_mb: 256
+
+dependencies:
+  - name: artifact-tracking-rules
+    path: "../rules/artifact-tracking-rules.yaml"
+    version: ">=1.0.0"
+  - name: artifact-manifest-entry-schema
+    path: "../schemas/artifact-manifest-entry.schema.json"
+    version: ">=1.0.0"
+  - name: artifact-bundle-schema
+    path: "../schemas/artifact-bundle.schema.json"
+    version: ">=1.0.0"
+
+audit:
+  log_level: info
+  retain_registration_log: true
+  emit_lineage_event: true
+  lineage_slice_ref: "../../lineage/"
+  retention_period_days: 2555

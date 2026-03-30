@@ -1,0 +1,41 @@
+fixture:
+  fixture_id: fixture-002-artifact-lineage-chain
+  slice: lineage
+  mirror: gcp_shopdrawing
+  description: "Traces the lineage of a shop drawing artifact from creation through bundling"
+
+  input:
+    entity_id: "ART-DRAWING-SD2024-001"
+    entity_type: ARTIFACT
+    origin_system: gcp_shop_drawing
+    events:
+      - action: CREATED
+        actor: gcp_artifact_service
+        timestamp: "2026-03-15T14:00:00Z"
+        metadata:
+          artifact_type: DRAWING
+          file_format: PDF
+          page_count: 3
+      - action: VALIDATED
+        actor: validation_engine
+        timestamp: "2026-03-15T14:02:00Z"
+        metadata:
+          validation_result: PASS
+      - action: BUNDLED
+        actor: delivery_packaging_engine
+        timestamp: "2026-03-15T14:05:00Z"
+        metadata:
+          bundle_id: "BDL-CAMPUS-NORTH-001"
+          bundle_position: 1
+
+  expected_output:
+    chain_id: "CHAIN-ARTDRAW001"
+    chain_length: 3
+    records_valid: true
+    chain_integrity_verifiable: true
+
+  parity_criteria:
+    - "Chain contains exactly 3 records"
+    - "Actions follow CREATED → VALIDATED → BUNDLED sequence"
+    - "Bundle metadata includes valid bundle_id"
+    - "All timestamps are chronological"

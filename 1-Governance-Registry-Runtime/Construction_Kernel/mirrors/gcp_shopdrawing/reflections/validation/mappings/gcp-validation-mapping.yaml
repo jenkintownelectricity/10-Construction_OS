@@ -1,0 +1,143 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# GCP Validation Mapping
+# Slice: validation
+#
+# Maps GCP submission statuses, document workflows, and quality gates to
+# the Construction OS validation framework. Defines which validation
+# profile is triggered by each GCP submission event.
+##############################################################################
+
+mapping:
+  name: gcp-validation-mapping
+  version: "1.0.0"
+  source_system: gcp_shopdrawing
+  target_system: construction_os_validation
+  effective_date: "2026-03-20"
+
+# --- GCP SUBMISSION EVENT TO VALIDATION PROFILE ----------------------------
+
+submission_event_mapping:
+  - gcp_event: "INITIAL_SUBMISSION"
+    validation_profile: "standard"
+    description: "First-time shop drawing submission triggers full validation."
+    checks_enabled:
+      schema_validation: true
+      required_field_validation: true
+      type_validation: true
+      referential_integrity: true
+      business_logic: true
+
+  - gcp_event: "RESUBMISSION"
+    validation_profile: "re_submission"
+    description: "Resubmission after revise-and-resubmit; validates changed records plus delta checks."
+    checks_enabled:
+      schema_validation: true
+      required_field_validation: true
+      type_validation: true
+      referential_integrity: true
+      business_logic: true
+    additional_checks:
+      - delta_verification: true
+        description: "Verify that corrections from prior rejection are addressed."
+
+  - gcp_event: "EXPEDITED_REVIEW"
+    validation_profile: "expedited"
+    description: "Fast-track review for time-critical submittals; schema checks only."
+    checks_enabled:
+      schema_validation: true
+      required_field_validation: true
+      type_validation: true
+      referential_integrity: false
+      business_logic: false
+
+  - gcp_event: "AS_BUILT_SUBMISSION"
+    validation_profile: "as_built"
+    description: "As-built record submission; relaxed validation for field conditions."
+    checks_enabled:
+      schema_validation: true
+      required_field_validation: true
+      type_validation: true
+      referential_integrity: false
+      business_logic: false
+
+# --- GCP DOCUMENT WORKFLOW STATUS MAPPING ----------------------------------
+
+workflow_status_mapping:
+  - gcp_workflow_status: "DRAFT"
+    trigger_validation: false
+    description: "Draft documents are not validated."
+
+  - gcp_workflow_status: "SUBMITTED"
+    trigger_validation: true
+    validation_profile: "standard"
+
+  - gcp_workflow_status: "UNDER_REVIEW"
+    trigger_validation: false
+    description: "Documents under review are not re-validated."
+
+  - gcp_workflow_status: "RETURNED"
+    trigger_validation: false
+    description: "Returned documents await resubmission."
+
+  - gcp_workflow_status: "APPROVED"
+    trigger_validation: false
+    description: "Approved documents have already passed validation."
+
+# --- GCP ERROR CODE TO CONSTRUCTION OS ERROR CODE MAPPING ------------------
+
+error_code_mapping:
+  - gcp_error: "GCP_ERR_MISSING_FIELD"
+    cos_error: "VAL_E002"
+    description: "Missing required field."
+
+  - gcp_error: "GCP_ERR_INVALID_FORMAT"
+    cos_error: "VAL_E001"
+    description: "Schema format violation."
+
+  - gcp_error: "GCP_ERR_TYPE_ERROR"
+    cos_error: "VAL_E003"
+    description: "Data type mismatch."
+
+  - gcp_error: "GCP_ERR_REF_BROKEN"
+    cos_error: "VAL_E004"
+    description: "Broken cross-reference."
+
+  - gcp_error: "GCP_WARN_DEPRECATED"
+    cos_error: "VAL_W002"
+    description: "Deprecated feature used."
+
+  - gcp_error: "GCP_WARN_QUALITY"
+    cos_error: "VAL_W001"
+    description: "Data quality warning."
+
+# --- VALIDATION GATE CONFIGURATION ----------------------------------------
+
+validation_gates:
+  gate_1_schema:
+    order: 1
+    name: "Schema Conformance Gate"
+    description: "Checks structural conformance to GCP source schema."
+    fail_action: "reject_immediately"
+    rules: ["SV-001", "SV-002", "SV-003"]
+
+  gate_2_completeness:
+    order: 2
+    name: "Completeness Gate"
+    description: "Checks required field presence and types."
+    fail_action: "collect_errors_continue"
+    rules: ["RF-001", "RF-002", "RF-003", "RF-004", "TV-001", "TV-002"]
+
+  gate_3_integrity:
+    order: 3
+    name: "Referential Integrity Gate"
+    description: "Checks cross-references and uniqueness constraints."
+    fail_action: "collect_errors_continue"
+    rules: ["RI-001", "RI-002", "RI-003"]
+
+  gate_4_business:
+    order: 4
+    name: "Business Logic Gate"
+    description: "Checks domain-specific business rules."
+    fail_action: "collect_warnings_continue"
+    rules: ["BL-001", "BL-002", "BL-003"]

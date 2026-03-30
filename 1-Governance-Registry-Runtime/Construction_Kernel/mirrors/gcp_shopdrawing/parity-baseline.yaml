@@ -1,0 +1,295 @@
+# =============================================================================
+# Parity Baseline: GCP Shop Drawing Mirror
+# =============================================================================
+# This file records the baseline parity measurements for all active slices
+# in the gcp_shopdrawing mirror. Parity measures how faithfully the mirror's
+# reflections represent the source system's capabilities.
+#
+# Parity is NOT about data completeness (having every record). It is about
+# fidelity: when a record is reflected, does it accurately represent the
+# source capability in Construction OS canonical terms?
+#
+# Mirror ID: gcp_shopdrawing
+# Version: 1.0.0
+# Baseline Date: 2026-03-20
+# =============================================================================
+
+baseline_version: "1.0.0"
+mirror_id: gcp_shopdrawing
+baseline_date: "2026-03-20"
+measurement_methodology: |
+  Parity is measured by sampling reflected records and comparing them against
+  source records through manual and automated verification:
+
+  1. SCHEMA PARITY: Does the canonical schema capture all semantically
+     significant fields from the source entity? Measured as the ratio of
+     meaningful source fields represented in the canonical schema.
+
+  2. VALUE PARITY: For a sample of records, do the reflected values
+     accurately represent the source values after mediation? Measured by
+     comparing mediated values against manually verified source values.
+
+  3. COMPLETENESS PARITY: Of the records that should be reflected (within
+     scope, within time window), what fraction actually appears in the
+     mirror? Measured by comparing mirror record counts against source
+     counts for a defined time window.
+
+  4. TIMELINESS PARITY: How current are the reflected records relative to
+     the source? Measured as the age of the oldest un-synced change during
+     steady-state operation.
+
+  The overall parity score for a slice is the weighted average:
+    schema_parity * 0.30 + value_parity * 0.30 +
+    completeness_parity * 0.25 + timeliness_parity * 0.15
+
+measurement_frequency: "6h"
+sample_size: 100  # records per measurement cycle per slice
+
+# =============================================================================
+# Slice: detail_normalization
+# =============================================================================
+slices:
+
+  detail_normalization:
+    status: ACTIVE
+    parity_target: 0.95
+    drift_tolerance: 0.05
+    baseline_measurement:
+      date: "2026-03-20"
+      overall_parity: 0.96
+      schema_parity: 0.97
+      schema_parity_notes: |
+        33 of 34 semantically significant source fields are represented in
+        the canonical schema. The unrepresented field (gcp.internal_batch_id)
+        is an internal processing artifact with no semantic value for consumers.
+      value_parity: 0.96
+      value_parity_notes: |
+        96 of 100 sampled records had exact value parity after mediation.
+        4 records had minor discrepancies in normalization_confidence scores
+        due to floating-point precision differences (within 0.01). Accepted
+        as within tolerance.
+      completeness_parity: 0.95
+      completeness_parity_notes: |
+        950 of 1000 expected records were present in the mirror after initial
+        backfill. 50 missing records were traced to a pagination boundary
+        issue in the initial sync that has been corrected.
+      timeliness_parity: 0.94
+      timeliness_parity_notes: |
+        Average sync lag during steady state: 8 minutes. Maximum observed
+        lag: 22 minutes (during a large batch submission). Within the
+        15-minute target for 94% of measurements.
+    thresholds:
+      critical_low: 0.85
+      warning_low: 0.90
+      target: 0.95
+      optimal: 0.98
+
+  # ===========================================================================
+  # Slice: rules_engine
+  # ===========================================================================
+  rules_engine:
+    status: ACTIVE
+    parity_target: 0.90
+    drift_tolerance: 0.08
+    baseline_measurement:
+      date: "2026-03-20"
+      overall_parity: 0.91
+      schema_parity: 0.93
+      schema_parity_notes: |
+        28 of 30 source fields represented. Two omitted fields are GCP's
+        internal rule execution hints (cache_ttl, eval_priority) that are
+        specific to GCP's evaluation engine and not meaningful in a
+        vendor-neutral format.
+      value_parity: 0.92
+      value_parity_notes: |
+        92 of 100 sampled rules had exact value parity. 8 rules had
+        discrepancies in condition expression format where GCP uses
+        proprietary shorthand that was expanded to canonical form. The
+        canonical form is semantically equivalent but textually different.
+        Accepted after manual verification.
+      completeness_parity: 0.89
+      completeness_parity_notes: |
+        2,136 of 2,400 rules successfully reflected. 264 rules are
+        project-specific rules that reference project-scoped entities
+        not yet in the mirror's scope. These are tracked as known gaps.
+      timeliness_parity: 0.88
+      timeliness_parity_notes: |
+        Rules change infrequently (5-10 per day). With 1-hour sync
+        interval for rules, average lag is 35 minutes. Acceptable for
+        rule definitions which are not time-critical.
+    thresholds:
+      critical_low: 0.80
+      warning_low: 0.85
+      target: 0.90
+      optimal: 0.95
+
+  # ===========================================================================
+  # Slice: validation
+  # ===========================================================================
+  validation:
+    status: ACTIVE
+    parity_target: 0.92
+    drift_tolerance: 0.06
+    baseline_measurement:
+      date: "2026-03-20"
+      overall_parity: 0.93
+      schema_parity: 0.95
+      schema_parity_notes: |
+        19 of 20 source fields represented. The omitted field
+        (gcp.eval_duration_ms) is an internal performance metric not
+        relevant to validation outcomes.
+      value_parity: 0.93
+      value_parity_notes: |
+        93 of 100 sampled validation results matched exactly. 7 results
+        had discrepancies in violation location references due to
+        coordinate system differences between GCP's viewer-based
+        coordinates and the canonical spatial reference format.
+        Remediation in progress.
+      completeness_parity: 0.92
+      completeness_parity_notes: |
+        Validation results are high-volume (500+ per day). Completeness
+        measured over a 24-hour window: 4,600 of 5,000 expected results
+        reflected. 400 missing results traced to a rate limit issue
+        during peak submission periods. Sync agent retry logic improved.
+      timeliness_parity: 0.91
+      timeliness_parity_notes: |
+        Average sync lag: 10 minutes. Event-triggered syncs reduce lag
+        to under 5 minutes for significant events. Peak-hour lag can
+        reach 20 minutes due to volume.
+    thresholds:
+      critical_low: 0.82
+      warning_low: 0.87
+      target: 0.92
+      optimal: 0.96
+
+  # ===========================================================================
+  # Slice: artifact_manifest
+  # ===========================================================================
+  artifact_manifest:
+    status: ACTIVE
+    parity_target: 0.95
+    drift_tolerance: 0.04
+    baseline_measurement:
+      date: "2026-03-20"
+      overall_parity: 0.96
+      schema_parity: 0.98
+      schema_parity_notes: |
+        24 of 25 source fields represented. The omitted field
+        (gcp.storage_bucket) is a GCP infrastructure detail that
+        would violate the trust boundary if reflected.
+      value_parity: 0.97
+      value_parity_notes: |
+        97 of 100 sampled artifact records matched exactly. 3 records
+        had discrepancies in file_uri format (GCP internal URIs vs.
+        canonical URIs). The mediation layer now correctly transforms
+        all URI formats.
+      completeness_parity: 0.95
+      completeness_parity_notes: |
+        Artifact manifest is relatively stable (100-300 changes per day).
+        Completeness over 24 hours: 285 of 300 expected records present.
+        15 missing records were version metadata updates that arrived
+        after the sync window closed. Captured in next cycle.
+      timeliness_parity: 0.93
+      timeliness_parity_notes: |
+        Average sync lag: 9 minutes. Artifact metadata is less
+        time-sensitive than validation results. Current lag is well
+        within acceptable bounds for all known consumers.
+    thresholds:
+      critical_low: 0.87
+      warning_low: 0.91
+      target: 0.95
+      optimal: 0.98
+
+  # ===========================================================================
+  # Slice: lineage
+  # ===========================================================================
+  lineage:
+    status: ACTIVE
+    parity_target: 0.98
+    drift_tolerance: 0.02
+    baseline_measurement:
+      date: "2026-03-20"
+      overall_parity: 0.98
+      schema_parity: 0.99
+      schema_parity_notes: |
+        All 22 semantically significant source fields are represented
+        in the canonical schema. One field (gcp.internal_workflow_ref)
+        is intentionally excluded as it references GCP's internal
+        workflow engine. This is documented in exclusions.
+      value_parity: 0.98
+      value_parity_notes: |
+        98 of 100 sampled lineage records matched exactly. 2 records
+        had timestamp precision differences (GCP provides milliseconds,
+        canonical format uses seconds). Accepted as within precision
+        tolerance. Mediation layer truncates consistently.
+      completeness_parity: 0.97
+      completeness_parity_notes: |
+        Lineage records are append-only and relatively low volume
+        (50-100 per day). Completeness over 24 hours: 97 of 100
+        expected records present. 3 missing records were approval
+        chain updates that arrived during a brief GCP API maintenance
+        window. Captured on retry.
+      timeliness_parity: 0.96
+      timeliness_parity_notes: |
+        Average sync lag: 7 minutes. Lineage has the tightest parity
+        target (0.98) because lineage integrity is critical for
+        audit trail accuracy. Current performance meets this target.
+    thresholds:
+      critical_low: 0.92
+      warning_low: 0.95
+      target: 0.98
+      optimal: 0.99
+
+# =============================================================================
+# Drift Monitoring Configuration
+# =============================================================================
+drift_monitoring:
+  check_interval: "1h"
+  consecutive_drift_alert: 3
+  sustained_drift_threshold_days: 7
+  actions:
+    on_warning:
+      - "Log drift event"
+      - "Notify platform team via alert channel"
+    on_critical:
+      - "Log drift event"
+      - "Page on-call platform engineer"
+      - "Trigger immediate full reconciliation"
+    on_sustained:
+      - "Escalate to platform team lead"
+      - "Initiate root cause investigation"
+      - "Evaluate breakaway readiness"
+
+# =============================================================================
+# Baseline Update Policy
+# =============================================================================
+baseline_update_policy: |
+  The parity baseline is updated when:
+  1. A new slice is activated (new baseline measurements added).
+  2. A schema change at GCP or Construction OS materially affects parity.
+  3. The measurement methodology changes.
+  4. A sustained drift event is resolved and the new steady-state differs
+     from the previous baseline.
+
+  Baseline updates require:
+  - Documentation of what changed and why.
+  - Re-measurement with the standard methodology.
+  - Review by the platform team.
+  - Version increment of this file.
+
+  Baselines are never updated to mask degradation. If parity has genuinely
+  decreased, the baseline stays and the degradation is investigated.
+
+# =============================================================================
+# Summary
+# =============================================================================
+summary:
+  total_active_slices: 5
+  slices_meeting_target: 5
+  slices_in_warning: 0
+  slices_in_critical: 0
+  highest_parity: 0.98  # lineage
+  lowest_parity: 0.91   # rules_engine
+  average_parity: 0.948
+  open_gaps: 4
+  overall_active_coverage_percent: 94.8

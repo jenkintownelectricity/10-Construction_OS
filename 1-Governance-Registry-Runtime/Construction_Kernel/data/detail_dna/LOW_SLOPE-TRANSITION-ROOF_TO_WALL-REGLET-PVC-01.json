@@ -1,0 +1,48 @@
+{
+  "detail_id": "LOW_SLOPE-TRANSITION-ROOF_TO_WALL-REGLET-PVC-01",
+  "system": "LOW_SLOPE",
+  "class": "TRANSITION",
+  "condition": "ROOF_TO_WALL",
+  "variant": "REGLET",
+  "assembly_family": "PVC",
+  "display_name": "PVC Roof-to-Wall Transition with Reglet",
+  "description": "Standard roof-to-wall transition detail for PVC membrane systems. Membrane extends up the wall face and terminates into a reglet cut into masonry or concrete. Counterflashing is inserted into the reglet and sealed. Cant strip provides the horizontal-to-vertical transition.",
+  "synonyms": [
+    "roof to wall flashing",
+    "base flashing with reglet",
+    "wall transition detail",
+    "masonry reglet termination",
+    "roof-to-wall detail",
+    "reglet flashing",
+    "reglet detail",
+    "base flashing"
+  ],
+  "tags": [
+    "fn-transition",
+    "fn-waterproofing",
+    "fn-flashing",
+    "geo-vertical",
+    "geo-inside-corner",
+    "sub-concrete",
+    "sub-cmu",
+    "sub-masonry",
+    "att-heat-welded",
+    "att-embedded",
+    "acc-reglet",
+    "acc-counterflashing",
+    "acc-cant-strip",
+    "acc-sealant",
+    "perf-warranty-critical"
+  ],
+  "compatible_material_classes": [
+    "PVC"
+  ],
+  "risk_tags": [
+    "SUBSTRATE_ADHESION",
+    "THERMAL_MOVEMENT",
+    "MULTI_TRADE_COORDINATION",
+    "INSTALLATION_SEQUENCE_CRITICAL",
+    "WARRANTY_BOUNDARY"
+  ],
+  "kernel_version": "13A"
+}

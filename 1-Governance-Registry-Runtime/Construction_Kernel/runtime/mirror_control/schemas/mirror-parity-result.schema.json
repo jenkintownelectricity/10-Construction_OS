@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mirror-parity-result.schema.json",
+  "title": "Mirror Parity Result",
+  "description": "Schema for recording the result of a parity check between source and mirror systems.",
+  "type": "object",
+  "required": ["fixture_id", "outcome", "source_output", "mirror_output", "checked_at"],
+  "properties": {
+    "fixture_id": {
+      "type": "string",
+      "description": "Unique identifier of the parity fixture that was checked."
+    },
+    "outcome": {
+      "type": "string",
+      "enum": ["pass", "fail", "drift", "error"],
+      "description": "Outcome of the parity check."
+    },
+    "source_output": {
+      "type": "object",
+      "description": "The expected output from the source system (or fixture)."
+    },
+    "mirror_output": {
+      "type": "object",
+      "description": "The actual output produced by the mirror."
+    },
+    "deviation": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "default": 0.0,
+      "description": "Numeric measure of divergence between source and mirror (0.0 = identical)."
+    },
+    "details": {
+      "type": "string",
+      "default": "",
+      "description": "Human-readable explanation of the result."
+    },
+    "checked_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the check was performed."
+    }
+  },
+  "additionalProperties": false
+}

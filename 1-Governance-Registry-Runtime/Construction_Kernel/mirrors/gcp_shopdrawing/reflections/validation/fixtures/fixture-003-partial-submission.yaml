@@ -1,0 +1,214 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Fixture 003: Partial Submission (Accepted with Conditions)
+# Slice: validation
+#
+# A submission package where some records pass and others trigger warnings.
+# The submission is accepted with conditions, exercising the middle-ground
+# disposition path between full acceptance and rejection.
+##############################################################################
+
+fixture:
+  id: "FIXTURE-VL-003"
+  name: "Partial Submission — Accepted with Conditions"
+  description: >
+    A submission package containing two detail records. Record 1 is a
+    well-formed steel beam that passes all checks. Record 2 is a steel
+    column with a deprecated field (old-format material code) and an
+    unresolvable material code that triggers a warning but not a rejection.
+    The overall submission is accepted with conditions, requiring the
+    fabricator to update the material code on the next revision.
+  slice: validation
+  created: "2026-03-20"
+  status: active
+
+submission_package:
+  submission_id: "SUB-20260317110000-PQ34RS"
+  project_id: "PRJ-HARBOR-TOWER-2026"
+  submitted_at: "2026-03-17T11:00:00Z"
+  submitter:
+    entity_name: "Pacific Steel Fabricators, Inc."
+    role: "fabricator"
+    contact_email: "submittals@pacificsteel.com"
+    license_number: "AISC-BU-00452"
+  schema_version: "2.3.0"
+  transmittal:
+    transmittal_number: "PSF-HT26-XMIT-015"
+    spec_section: "05 12 00"
+    submittal_type: "revision"
+    previous_submission_id: "SUB-20260310100000-LM56NO"
+    cover_sheet_ref: "PSF-HT26-COVER-015.pdf"
+  records:
+    - gcp_record_id: "GCP-SD-000000030001"
+      element_data:
+        elem_type_code: "BM"
+        elem_subtype: "WF"
+        mark_number: "B50"
+        piece_count: 2
+        sequence_number: 110
+        grid_location: "A1-B1"
+        level_tag: "L6"
+        elevation_raw: "74'-0\""
+      geometry_block:
+        section_designation: "W21X62"
+        depth_raw: "20.99\""
+        width_raw: "8.240\""
+        length_raw: "30'-0\""
+      material_data:
+        mat_code: "STL-A992-50"
+        grade_raw: "Gr.50"
+        finish_code: "PRIME"
+        coating_spec: "SSPC-SP6 with shop primer"
+      dim_block:
+        unit_flag: "IMP"
+        dims:
+          - dim_label: "Overall Length"
+            dim_value_raw: "30'-0\""
+            dim_tol_plus_raw: "1/8\""
+            dim_tol_minus_raw: "1/8\""
+            is_critical: true
+          - dim_label: "Camber"
+            dim_value_raw: "3/4\""
+            is_critical: true
+      connection_block:
+        - conn_id: "C-NE-001"
+          conn_location_code: "NE"
+          conn_type_code: "SHR_TAB"
+          bolt_data:
+            bolt_type_code: "A325N"
+            bolt_dia_raw: "3/4\""
+            bolt_qty: 3
+            hole_type_code: "STD"
+          connects_to_mark: "CL10"
+      meta:
+        exported_at: "2026-03-15T10:00:00Z"
+        export_version: "2.3.0"
+        source_application: "Tekla Structures"
+        checksum: "1a2b3c4d5e6f78901234567890abcdef"
+
+    - gcp_record_id: "GCP-SD-000000030002"
+      element_data:
+        elem_type_code: "CL"
+        elem_subtype: "WF"
+        mark_number: "CL10"
+        piece_count: 1
+        sequence_number: 60
+        grid_location: "A1"
+        level_tag: "L5-L6"
+        elevation_raw: "60'-0\""
+      geometry_block:
+        section_designation: "W14X120"
+        depth_raw: "14.48\""
+        width_raw: "14.670\""
+        length_raw: "14'-0\""
+      material_data:
+        mat_code: "STEEL-A992-GRADE50"
+        mat_spec_ref: "SPEC-STL-001"
+        grade_raw: "Gr.50"
+        finish_code: "PRIME"
+        fy_raw: "50 ksi"
+        deprecated_field_v1: "legacy-data-block"
+      dim_block:
+        unit_flag: "IMP"
+        dims:
+          - dim_label: "Overall Length"
+            dim_value_raw: "14'-0\""
+            dim_tol_plus_raw: "1/8\""
+            dim_tol_minus_raw: "1/8\""
+            is_critical: true
+      connection_block: []
+      meta:
+        exported_at: "2026-03-15T10:00:00Z"
+        export_version: "2.3.0"
+        source_application: "Tekla Structures"
+        checksum: "2b3c4d5e6f7890abcdef01234567890a"
+
+validation_context:
+  project_id: "COS-PRJ-2026-0042"
+  expected_schema_version: "2.3.0"
+  strict_mode: false
+  bypass_codes: []
+
+expected_result:
+  validation_id: "VALD-20260320110000-VL003A"
+  submission_id: "SUB-20260317110000-PQ34RS"
+  validated_at: "2026-03-20T11:00:00Z"
+  summary:
+    total_records: 2
+    records_valid: 1
+    records_invalid: 0
+    records_warning: 1
+    disposition: "accepted_with_conditions"
+    deficiency_count: 0
+    blocking_deficiencies: []
+    validation_duration_ms: 48
+  record_results:
+    - gcp_record_id: "GCP-SD-000000030001"
+      status: "valid"
+      checks:
+        - rule_id: "VR-RC-001"
+          status: "passed"
+        - rule_id: "VR-RC-002"
+          status: "passed"
+        - rule_id: "VR-RC-003"
+          status: "passed"
+        - rule_id: "VR-FI-001"
+          status: "passed"
+        - rule_id: "VR-FI-003"
+          status: "passed"
+
+    - gcp_record_id: "GCP-SD-000000030002"
+      status: "valid_with_warnings"
+      checks:
+        - rule_id: "VR-RC-001"
+          status: "passed"
+        - rule_id: "VR-RC-002"
+          status: "passed"
+        - rule_id: "VR-RC-003"
+          status: "passed"
+        - rule_id: "VR-FI-004"
+          status: "warning"
+          severity: "warning"
+          field_path: "$.material_data.mat_code"
+          message: >
+            Material code 'STEEL-A992-GRADE50' does not match any known
+            pattern in the normalization material mapping. The code will
+            be preserved as-is and flagged for manual review during
+            normalization.
+        - rule_id: "VR-W001"
+          status: "warning"
+          severity: "warning"
+          field_path: "$.material_data.deprecated_field_v1"
+          message: >
+            Deprecated field 'deprecated_field_v1' is present. This field
+            is ignored in schema version 2.3.0 and will be removed in
+            a future version.
+
+  cross_reference_results:
+    total_references_checked: 1
+    references_resolved: 1
+    references_broken: 0
+
+assertions:
+  - assert: value_equals
+    path: "$.summary.disposition"
+    expected: "accepted_with_conditions"
+    description: "Warnings without blocking deficiencies result in conditional acceptance."
+
+  - assert: value_equals
+    path: "$.summary.records_warning"
+    expected: 1
+
+  - assert: value_equals
+    path: "$.summary.records_valid"
+    expected: 1
+
+  - assert: value_equals
+    path: "$.record_results[1].status"
+    expected: "valid_with_warnings"
+    description: "Column record with unresolvable mat_code should be valid with warnings."
+
+  - assert: value_equals
+    path: "$.cross_reference_results.references_resolved"
+    expected: 1
+    description: "Beam B50 connects_to_mark CL10 should resolve to the column record."

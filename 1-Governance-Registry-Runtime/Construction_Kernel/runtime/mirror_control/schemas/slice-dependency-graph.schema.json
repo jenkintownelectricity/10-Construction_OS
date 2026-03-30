@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "slice-dependency-graph.schema.json",
+  "title": "Slice Dependency Graph",
+  "description": "Schema for representing the directed dependency graph between mirror slices.",
+  "type": "object",
+  "required": ["graph_id", "mirror_id", "nodes", "edges"],
+  "properties": {
+    "graph_id": {
+      "type": "string",
+      "description": "Unique identifier for this dependency graph."
+    },
+    "mirror_id": {
+      "type": "string",
+      "description": "Identifier of the mirror this graph describes."
+    },
+    "nodes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true,
+      "description": "List of slice IDs that form the nodes of the graph."
+    },
+    "edges": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "List of slice IDs this node depends on."
+      },
+      "description": "Adjacency list: each key is a slice ID mapping to its dependency list."
+    },
+    "declared_boundaries": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true,
+      "default": [],
+      "description": "Slice IDs that mark trust boundaries in the graph."
+    },
+    "metadata": {
+      "type": "object",
+      "default": {},
+      "description": "Additional metadata about the graph."
+    }
+  },
+  "additionalProperties": false
+}

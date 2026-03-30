@@ -1,0 +1,42 @@
+{
+  "detail_id": "LOW_SLOPE-DRAINAGE-DRAIN-COPING-TPO-01",
+  "system": "LOW_SLOPE",
+  "class": "DRAINAGE",
+  "condition": "DRAIN",
+  "variant": "COPING",
+  "assembly_family": "TPO",
+  "display_name": "TPO Roof Drain",
+  "description": "Standard interior roof drain detail for TPO membrane systems. TPO membrane is heat-welded to a compatible drain flange. Includes tapered insulation cricket for positive drainage and clamping ring assembly.",
+  "synonyms": [
+    "interior roof drain",
+    "roof drain detail",
+    "drain flashing",
+    "primary drain connection",
+    "roof drain",
+    "drain sump detail",
+    "main roof drain"
+  ],
+  "tags": [
+    "fn-drainage",
+    "fn-waterproofing",
+    "geo-circular",
+    "geo-sloped",
+    "sub-metal-deck",
+    "sub-concrete",
+    "att-heat-welded",
+    "att-clamped",
+    "acc-drain-ring",
+    "perf-ponding-prone",
+    "perf-code-critical"
+  ],
+  "compatible_material_classes": [
+    "TPO"
+  ],
+  "risk_tags": [
+    "PONDING_RISK",
+    "DRAINAGE_CRITICAL",
+    "INSTALLATION_SEQUENCE_CRITICAL",
+    "CODE_COMPLIANCE_CRITICAL"
+  ],
+  "kernel_version": "13A"
+}

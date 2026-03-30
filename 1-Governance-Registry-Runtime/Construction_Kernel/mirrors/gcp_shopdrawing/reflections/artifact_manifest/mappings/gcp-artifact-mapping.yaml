@@ -1,0 +1,145 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# GCP Artifact Mapping
+# Slice: artifact_manifest
+#
+# Maps GCP document management system artifact types, categories, and
+# storage references to the Construction OS artifact manifest schema.
+##############################################################################
+
+mapping:
+  name: gcp-artifact-mapping
+  version: "1.0.0"
+  source_system: gcp_shopdrawing
+  target_system: construction_os_artifact_manifest
+  effective_date: "2026-03-20"
+
+# --- GCP DOCUMENT TYPE TO ARTIFACT TYPE MAPPING ----------------------------
+
+document_type_mapping:
+  - gcp_doc_type: "SHOP_DWG_PDF"
+    artifact_type: "drawing"
+    category: "primary_document"
+    description: "Shop drawing PDF output from detailing software."
+
+  - gcp_doc_type: "ERECTION_DWG_PDF"
+    artifact_type: "drawing"
+    category: "primary_document"
+    description: "Erection drawing PDF."
+
+  - gcp_doc_type: "CALC_PACKAGE"
+    artifact_type: "calculation"
+    category: "supporting_document"
+    description: "Structural calculation package."
+
+  - gcp_doc_type: "MTR"
+    artifact_type: "material_certificate"
+    category: "certification"
+    description: "Mill test report / material certificate."
+
+  - gcp_doc_type: "WPS"
+    artifact_type: "weld_procedure"
+    category: "certification"
+    description: "Weld procedure specification."
+
+  - gcp_doc_type: "PQR"
+    artifact_type: "weld_procedure"
+    category: "certification"
+    description: "Procedure qualification record."
+
+  - gcp_doc_type: "INSP_REPORT"
+    artifact_type: "inspection_report"
+    category: "test_report"
+    description: "Inspection or testing report."
+
+  - gcp_doc_type: "SITE_PHOTO"
+    artifact_type: "photograph"
+    category: "visual_record"
+    description: "Site photograph or visual documentation."
+
+  - gcp_doc_type: "BIM_MODEL"
+    artifact_type: "model_file"
+    category: "reference"
+    description: "BIM model file (IFC, Revit, or STEP format)."
+
+  - gcp_doc_type: "NATIVE_DWG"
+    artifact_type: "drawing"
+    category: "reference"
+    description: "Native CAD drawing file (DWG/DXF)."
+
+  - gcp_doc_type: "SPEC_SECTION"
+    artifact_type: "specification"
+    category: "reference"
+    description: "Project specification section."
+
+  - gcp_doc_type: "RFI_RESPONSE"
+    artifact_type: "correspondence"
+    category: "reference"
+    description: "RFI response or project correspondence."
+
+# --- GCP FILE FORMAT MAPPING -----------------------------------------------
+
+file_format_mapping:
+  - gcp_extension: ".pdf"
+    canonical_format: "pdf"
+  - gcp_extension: ".dwg"
+    canonical_format: "dwg"
+  - gcp_extension: ".dxf"
+    canonical_format: "dxf"
+  - gcp_extension: ".ifc"
+    canonical_format: "ifc"
+  - gcp_extension: ".rvt"
+    canonical_format: "rvt"
+  - gcp_extension: ".stp"
+    canonical_format: "stp"
+  - gcp_extension: ".step"
+    canonical_format: "stp"
+  - gcp_extension: ".xlsx"
+    canonical_format: "xlsx"
+  - gcp_extension: ".csv"
+    canonical_format: "csv"
+  - gcp_extension: ".jpg"
+    canonical_format: "jpg"
+  - gcp_extension: ".jpeg"
+    canonical_format: "jpg"
+  - gcp_extension: ".png"
+    canonical_format: "png"
+  - gcp_extension: ".tif"
+    canonical_format: "tiff"
+  - gcp_extension: ".tiff"
+    canonical_format: "tiff"
+
+# --- GCP STORAGE REFERENCE MAPPING ----------------------------------------
+
+storage_reference_mapping:
+  gcp_bucket_pattern: "gs://{project_bucket}/shop_drawings/{submission_id}/{filename}"
+  canonical_ref_template: "GCP-DOC-{project_id}-{doc_type_code}-{sequence}"
+  description: >
+    GCP artifacts are stored in Google Cloud Storage buckets organized by
+    project and submission. The canonical reference is derived from the
+    bucket path components.
+
+# --- ARTIFACT ID PREFIX MAPPING -------------------------------------------
+
+artifact_id_prefix_mapping:
+  drawing: "ART-DWG-"
+  calculation: "ART-CALC-"
+  material_certificate: "ART-CERT-"
+  weld_procedure: "ART-WPS-"
+  inspection_report: "ART-INSP-"
+  photograph: "ART-PHOT-"
+  model_file: "ART-MDL-"
+  specification: "ART-SPEC-"
+  correspondence: "ART-CORR-"
+
+# --- RETENTION POLICY MAPPING ---------------------------------------------
+
+retention_policy_mapping:
+  - gcp_retention_class: "PERMANENT"
+    canonical_policy: "permanent"
+  - gcp_retention_class: "PROJECT"
+    canonical_policy: "project_lifetime"
+  - gcp_retention_class: "STATUTORY"
+    canonical_policy: "10_years"
+  - gcp_retention_class: "STANDARD"
+    canonical_policy: "7_years"

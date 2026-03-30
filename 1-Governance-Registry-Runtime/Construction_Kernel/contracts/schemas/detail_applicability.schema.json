@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "construction_kernel.schemas.detail_applicability",
+  "title": "Detail Applicability Contract Schema",
+  "description": "Schema definition for governed detail applicability contracts. Owned by Construction_Kernel. Runtime must validate contracts against this schema and must not define its own.",
+  "authority": "Construction_Kernel",
+  "type": "object",
+  "required": ["contract_id", "version", "authority", "contract_type", "rules"],
+  "properties": {
+    "contract_id": {
+      "type": "string",
+      "pattern": "^construction_kernel\\.detail_applicability\\."
+    },
+    "version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "authority": {
+      "type": "string",
+      "const": "Construction_Kernel"
+    },
+    "contract_type": {
+      "type": "string",
+      "const": "governed_applicability_rules"
+    },
+    "description": { "type": "string" },
+    "governance_source": { "type": "string" },
+    "architecture_source": { "type": "string" },
+    "fail_closed_rule": { "type": "string" },
+    "multiple_match_rule": { "type": "string" },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["rule_id", "condition_pattern", "applies_detail", "detail_family", "priority", "components", "relationships"],
+        "properties": {
+          "rule_id": { "type": "string" },
+          "condition_pattern": {
+            "type": "object",
+            "required": ["interface_type"],
+            "properties": {
+              "interface_type": { "type": "string" },
+              "membrane_class": { "type": "string" }
+            },
+            "additionalProperties": { "type": "string" }
+          },
+          "applies_detail": { "type": "string" },
+          "detail_family": { "type": "string" },
+          "priority": { "type": "integer", "minimum": 0 },
+          "components": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["name", "role"],
+              "properties": {
+                "name": { "type": "string" },
+                "role": { "type": "string" },
+                "material": { "type": "string" },
+                "material_param": { "type": "string" }
+              }
+            }
+          },
+          "relationships": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["source", "type", "target"],
+              "properties": {
+                "source": { "type": "string" },
+                "type": { "type": "string" },
+                "target": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

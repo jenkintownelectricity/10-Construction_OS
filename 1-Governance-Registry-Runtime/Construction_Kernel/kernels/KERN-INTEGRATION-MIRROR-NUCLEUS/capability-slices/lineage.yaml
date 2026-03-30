@@ -1,0 +1,132 @@
+# ============================================================================
+# CAPABILITY SLICE DEFINITION — LINEAGE
+# Command C: Capability Slice Architecture
+# Kernel: KERN-INTEGRATION-MIRROR-NUCLEUS
+# ============================================================================
+# This slice traces the origin and transformation history of every detail
+# and artifact, maintaining a complete provenance graph from ingestion
+# through all processing stages to final output.
+# ============================================================================
+
+slice_id: lineage
+name: "Data Lineage & Provenance Tracking"
+version: "1.0.0"
+
+purpose: |
+  The lineage slice maintains a complete provenance graph that traces every
+  piece of data from its origin through every transformation, enrichment,
+  evaluation, and output stage. Unlike the artifact_manifest (which tracks
+  what exists) and receipt_audit (which records what happened), lineage
+  answers the question "how did this specific value or element arrive at
+  its current state." For a shop drawing detail, lineage traces from the
+  original CAD geometry through format conversion, unit normalization,
+  material vocabulary mapping, rule evaluation, and output generation —
+  recording exactly which transformation was applied at each step, what
+  configuration drove that transformation, and what the intermediate states
+  were. This is essential for construction workflows where a reviewer may
+  need to understand why a dimension appears as it does in the normalized
+  view, or where a material callout was resolved from, or how a compliance
+  score was computed.
+
+status:
+  gcp_shopdrawing: ACTIVE
+  default: STAGED
+
+# ---------------------------------------------------------------------------
+# DATA CONTRACTS
+# ---------------------------------------------------------------------------
+
+inputs:
+  - name: transformation_events
+    description: "Events emitted by processing slices recording each transformation step"
+    format: event_stream
+    required: true
+
+  - name: source_provenance_metadata
+    description: "Origin metadata for ingested data (file source, upload actor, timestamp)"
+    format: structured_record
+    required: true
+
+  - name: processing_configuration_snapshots
+    description: "Snapshots of configuration that governed each transformation"
+    format: config_snapshot
+    required: true
+
+  - name: intermediate_state_captures
+    description: "Captured intermediate states at key processing boundaries"
+    format: state_snapshot
+    required: false
+
+  - name: external_reference_resolutions
+    description: "Records of how external references (codes, standards) were resolved"
+    format: resolution_record
+    required: false
+
+outputs:
+  - name: lineage_graph
+    description: "Complete directed acyclic graph of data provenance from source to output"
+    format: directed_graph
+    retention: "project_lifetime"
+
+  - name: element_lineage_traces
+    description: "On-demand per-element lineage traces from output back to source"
+    format: trace_record
+    retention: "project_lifetime"
+
+  - name: transformation_timeline
+    description: "Chronological timeline of all transformations applied to a data element"
+    format: timeline_record
+    retention: "project_lifetime"
+
+  - name: configuration_impact_analysis
+    description: "Analysis of which outputs would change if a specific configuration were altered"
+    format: impact_report
+    retention: "90_days"
+
+  - name: lineage_completeness_report
+    description: "Report on lineage coverage — what percentage of outputs have complete lineage"
+    format: structured_report
+    retention: "365_days"
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY GRAPH
+# ---------------------------------------------------------------------------
+
+required_dependencies:
+  - registry
+
+optional_dependencies:
+  - artifact_manifest
+  - receipt_audit
+
+# ---------------------------------------------------------------------------
+# CLASSIFICATION & TRANSFER
+# ---------------------------------------------------------------------------
+
+trust_class: SHARED_GOVERNED
+transfer_class: BUYOUT_READY
+detachability_level: FULLY_DETACHABLE
+
+# ---------------------------------------------------------------------------
+# PARITY & PROMOTION
+# ---------------------------------------------------------------------------
+
+parity_eligibility: true
+promotion_eligibility: true
+classification: CORE_PROMOTABLE
+
+# ---------------------------------------------------------------------------
+# OPERATIONAL NOTES
+# ---------------------------------------------------------------------------
+
+operational_notes: |
+  Lineage is ACTIVE in the GCP shop drawing mirror because provenance
+  tracking must begin from the moment data enters the system — retroactive
+  lineage construction is unreliable. It requires the registry to resolve
+  entity and slice identifiers used in transformation events. The
+  artifact_manifest and receipt_audit slices are optional enrichment
+  sources. This slice is FULLY_DETACHABLE and BUYOUT_READY because the
+  lineage graph and query interface are self-contained data structures
+  that can be transferred to a client. It is CORE_PROMOTABLE because
+  lineage tracking patterns discovered in mirror operation (e.g., new
+  transformation event types) can improve the core lineage framework.

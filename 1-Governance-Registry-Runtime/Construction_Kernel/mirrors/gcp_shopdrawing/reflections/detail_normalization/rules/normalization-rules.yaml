@@ -1,0 +1,265 @@
+##############################################################################
+# COMMAND G — GCP MIRROR INITIAL REFLECTIONS
+# Normalization Rules
+# Slice: detail_normalization
+#
+# Defines the complete set of rules governing how GCP source detail fields
+# are transformed, validated, and mapped into Construction OS canonical form.
+##############################################################################
+
+rules:
+  version: "1.0.0"
+  effective_date: "2026-03-20"
+  mirror: gcp_shopdrawing
+  slice: detail_normalization
+
+# ─── UNIT CONVERSION RULES ───────────────────────────────────────────────────
+
+unit_conversion:
+  - rule_id: UC-001
+    name: imperial_length_parsing
+    description: >
+      Parse raw imperial length strings into decimal inches. Supports
+      feet-inches notation (e.g., 32'-6"), fractional inches (e.g., 3/4"),
+      and decimal inches (e.g., 23.875").
+    input_patterns:
+      - "^(\\d+)'[- ]?(\\d+)\"?$"             # feet-inches: 32'-6"
+      - "^(\\d+)'[- ]?(\\d+)/(\\d+)\"?$"      # feet-fractional: 32'-6 3/4"
+      - "^(\\d+\\.?\\d*)\"?$"                  # decimal inches: 23.875"
+      - "^(\\d+)/(\\d+)\"?$"                   # fractional inches: 3/4"
+    output_unit: inches
+    precision: 4
+
+  - rule_id: UC-002
+    name: metric_length_parsing
+    description: >
+      Parse raw metric length strings into millimeters for internal
+      computation, then convert to inches if target unit system is imperial.
+    input_patterns:
+      - "^(\\d+\\.?\\d*)\\s*mm$"
+      - "^(\\d+\\.?\\d*)\\s*cm$"
+      - "^(\\d+\\.?\\d*)\\s*m$"
+    conversion_factors:
+      mm_to_in: 0.0393701
+      cm_to_in: 0.393701
+      m_to_in: 39.3701
+    precision: 4
+
+  - rule_id: UC-003
+    name: angle_normalization
+    description: >
+      Normalize angle values to decimal degrees. Input may be in degrees,
+      radians, or slope ratios.
+    input_patterns:
+      - "^(\\d+\\.?\\d*)\\s*deg$"
+      - "^(\\d+\\.?\\d*)\\s*rad$"
+      - "^(\\d+):(\\d+)$"                      # slope ratio
+    output_unit: degrees
+    precision: 2
+
+  - rule_id: UC-004
+    name: stress_unit_normalization
+    description: >
+      Normalize stress values to ksi for steel or psi for concrete.
+    conversions:
+      - from: MPa
+        to: ksi
+        factor: 0.145038
+      - from: MPa
+        to: psi
+        factor: 145.038
+      - from: ksi
+        to: psi
+        factor: 1000.0
+
+# ─── ELEMENT TYPE MAPPING RULES ──────────────────────────────────────────────
+
+element_type_mapping:
+  - rule_id: ET-001
+    name: gcp_element_type_resolution
+    description: >
+      Map GCP element type codes and subtypes to Construction OS canonical
+      primary_type and subtype values.
+    mappings:
+      - gcp_code: "BM"
+        gcp_subtypes:
+          "WF":  { primary_type: "beam", subtype: "wide_flange" }
+          "HSS_R": { primary_type: "beam", subtype: "HSS_round" }
+          "HSS_S": { primary_type: "beam", subtype: "HSS_square" }
+          "CHL": { primary_type: "beam", subtype: "channel" }
+          "ANG": { primary_type: "beam", subtype: "angle" }
+      - gcp_code: "CL"
+        gcp_subtypes:
+          "WF":  { primary_type: "column", subtype: "wide_flange" }
+          "HSS_R": { primary_type: "column", subtype: "HSS_round" }
+          "HSS_S": { primary_type: "column", subtype: "HSS_square" }
+          "PIPE": { primary_type: "column", subtype: "pipe" }
+      - gcp_code: "PN"
+        gcp_subtypes:
+          "CW":  { primary_type: "panel", subtype: "curtain_wall" }
+          "PC":  { primary_type: "panel", subtype: "precast" }
+          "MTL": { primary_type: "panel", subtype: "metal" }
+      - gcp_code: "CN"
+        gcp_subtypes:
+          "BLT": { primary_type: "connection", subtype: "bolted" }
+          "WLD": { primary_type: "connection", subtype: "welded" }
+          "MOM": { primary_type: "connection", subtype: "moment" }
+      - gcp_code: "BR"
+        gcp_subtypes:
+          "CHV": { primary_type: "brace", subtype: "chevron" }
+          "X":   { primary_type: "brace", subtype: "x_brace" }
+          "K":   { primary_type: "brace", subtype: "k_brace" }
+
+# ─── MATERIAL MAPPING RULES ─────────────────────────────────────────────────
+
+material_mapping:
+  - rule_id: MAT-001
+    name: gcp_material_code_resolution
+    description: >
+      Resolve GCP material codes to canonical material category,
+      specification, and grade.
+    patterns:
+      - pattern: "^STL-A992-(\\d+)$"
+        canonical:
+          category: structural_steel
+          specification: "ASTM A992"
+          grade: "Grade {capture_1}"
+      - pattern: "^STL-A500-(\\w+)-(\\d+)$"
+        canonical:
+          category: structural_steel
+          specification: "ASTM A500 Grade {capture_1}"
+          grade: "Grade {capture_1} Fy={capture_2}ksi"
+      - pattern: "^STL-A36$"
+        canonical:
+          category: structural_steel
+          specification: "ASTM A36"
+          grade: "Grade 36"
+      - pattern: "^CONC-(\\d+)-(NW|LW)$"
+        canonical:
+          category: reinforced_concrete
+          specification: "ACI 318 f'c={capture_1}psi"
+          grade: "{capture_2}"
+      - pattern: "^ALM-(\\d+)-(T\\d+)$"
+        canonical:
+          category: aluminum
+          specification: "AA {capture_1}"
+          grade: "Temper {capture_2}"
+      - pattern: "^GLS-(\\w+)$"
+        canonical:
+          category: glass
+          specification: "{capture_1}"
+          grade: "N/A"
+
+# ─── CONNECTION TYPE MAPPING RULES ───────────────────────────────────────────
+
+connection_mapping:
+  - rule_id: CONN-001
+    name: gcp_connection_location_mapping
+    description: Map GCP connection location codes to canonical location values.
+    mappings:
+      NE: near_end
+      FE: far_end
+      TP: top
+      BT: bottom
+      LT: left
+      RT: right
+      INT: intermediate
+
+  - rule_id: CONN-002
+    name: gcp_connection_type_mapping
+    mappings:
+      BLT_SC: bolted       # slip-critical bolted
+      BLT_BR: bolted       # bearing-type bolted
+      WLD_FIL: welded      # fillet weld
+      WLD_GRV: welded      # groove weld
+      MOM_BLT: moment      # bolted moment
+      MOM_WLD: moment      # welded moment
+      SHR_TAB: shear       # shear tab
+      SHR_CLP: shear       # clip angle shear
+      PIN: pinned
+      FXD: fixed
+      BSP: base_plate
+      SPL: splice
+
+  - rule_id: CONN-003
+    name: gcp_hole_type_mapping
+    mappings:
+      STD: standard
+      OVS: oversized
+      SSLT: short_slotted
+      LSLT: long_slotted
+
+# ─── VALIDATION RULES ────────────────────────────────────────────────────────
+
+field_validation:
+  - rule_id: FV-001
+    name: dimensional_plausibility
+    description: >
+      Reject dimension values outside physically plausible bounds for
+      construction elements.
+    bounds:
+      depth_in: { min: 0.125, max: 120 }
+      width_in: { min: 0.125, max: 120 }
+      length_in: { min: 1, max: 7200 }        # up to 600 feet
+      thickness_in: { min: 0.01, max: 12 }
+      yield_strength_ksi: { min: 20, max: 200 }
+      compressive_strength_psi: { min: 2000, max: 20000 }
+
+  - rule_id: FV-002
+    name: required_field_presence
+    description: >
+      Ensure all fields required by the normalized schema are derivable
+      from the source record or have configured defaults.
+    required_derivable_fields:
+      - detail_id
+      - discipline
+      - element_type.primary_type
+      - element_type.subtype
+      - material.category
+      - material.specification
+      - dimensions.unit_system
+
+  - rule_id: FV-003
+    name: mark_number_format
+    description: Validate mark number format for traceability.
+    pattern: "^[A-Z]{1,3}[0-9]{1,5}[A-Z]?$"
+    on_fail: warning
+
+# ─── DETAIL ID GENERATION RULES ─────────────────────────────────────────────
+
+id_generation:
+  - rule_id: ID-001
+    name: canonical_detail_id_generation
+    description: >
+      Generate the Construction OS canonical detail_id from source data.
+    template: "DET-{discipline_prefix}-{sequence_padded_8}"
+    discipline_prefixes:
+      structural: "STRC"
+      architectural: "ARCH"
+      mechanical: "MECH"
+      electrical: "ELEC"
+      plumbing: "PLMB"
+      fire_protection: "FPRT"
+    sequence_source: project_global_counter
+
+# ─── OVERRIDES ───────────────────────────────────────────────────────────────
+
+overrides:
+  description: >
+    Project-specific overrides that can be passed in the normalization
+    context to alter default rule behavior.
+  schema:
+    type: array
+    items:
+      type: object
+      required: [rule_id, override_value]
+      properties:
+        rule_id:
+          type: string
+          description: The rule_id to override.
+        override_value:
+          type: object
+          description: Key-value pairs to override within the rule.
+        justification:
+          type: string
+          description: Reason for the override, logged for audit.

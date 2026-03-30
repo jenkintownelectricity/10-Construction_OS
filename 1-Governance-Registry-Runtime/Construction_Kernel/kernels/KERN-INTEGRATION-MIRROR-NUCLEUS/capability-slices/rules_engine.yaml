@@ -1,0 +1,137 @@
+# ============================================================================
+# CAPABILITY SLICE DEFINITION — RULES ENGINE
+# Command C: Capability Slice Architecture
+# Kernel: KERN-INTEGRATION-MIRROR-NUCLEUS
+# ============================================================================
+# This slice applies construction rules and constraints to validate detail
+# compliance against applicable codes, standards, and project requirements.
+# ============================================================================
+
+slice_id: rules_engine
+name: "Construction Rules & Constraints Engine"
+version: "1.0.0"
+
+purpose: |
+  The rules_engine slice evaluates normalized shop drawing details against
+  a layered hierarchy of construction rules: building codes (IBC, local
+  amendments), material standards (AISC, ACI, AWS), project specifications
+  (division-specific requirements from the spec book), and owner-specific
+  requirements (corporate standards, facility management constraints). Rules
+  are expressed as declarative predicates that operate on the canonical
+  detail representation produced by the detail_normalization slice. The
+  engine supports rule composition, conflict resolution (when rules from
+  different authorities contradict), exception handling (approved variances),
+  and explainable results — every pass/fail determination includes a
+  citation chain back to the authoritative source. This enables reviewers
+  to understand not just whether a detail complies, but exactly which rule
+  applies and why.
+
+status:
+  gcp_shopdrawing: ACTIVE
+  default: STAGED
+
+# ---------------------------------------------------------------------------
+# DATA CONTRACTS
+# ---------------------------------------------------------------------------
+
+inputs:
+  - name: canonical_details
+    description: "Normalized detail representations from the detail_normalization slice"
+    format: canonical_detail
+    required: true
+
+  - name: rule_definitions
+    description: "Declarative rule sets organized by authority level (code, standard, spec, owner)"
+    format: rule_bundle
+    required: true
+
+  - name: project_rule_overrides
+    description: "Project-specific rule overrides, exceptions, and approved variances"
+    format: override_manifest
+    required: false
+
+  - name: applicable_code_editions
+    description: "Which editions of building codes and standards apply to this project"
+    format: code_reference_set
+    required: true
+
+  - name: prior_evaluation_results
+    description: "Previous evaluation results for the same detail, enabling delta analysis"
+    format: evaluation_record
+    required: false
+
+  - name: cross_detail_context
+    description: "Context from related details needed for inter-detail rule evaluation"
+    format: detail_context_bundle
+    required: false
+
+outputs:
+  - name: rule_evaluation_results
+    description: "Per-detail, per-rule pass/fail/warning results with citation chains"
+    format: evaluation_record
+    retention: "project_lifetime"
+
+  - name: compliance_summary
+    description: "Aggregated compliance summary across all evaluated details"
+    format: structured_report
+    retention: "project_lifetime"
+
+  - name: rule_conflict_reports
+    description: "Reports of detected conflicts between rules from different authorities"
+    format: conflict_report
+    retention: "project_lifetime"
+
+  - name: exception_utilization_log
+    description: "Log of which approved variances/exceptions were applied during evaluation"
+    format: append_only_log
+    retention: "project_lifetime"
+
+  - name: remediation_suggestions
+    description: "Machine-generated suggestions for resolving rule failures"
+    format: suggestion_list
+    retention: "90_days"
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY GRAPH
+# ---------------------------------------------------------------------------
+
+required_dependencies:
+  - detail_normalization
+  - standards_mapping
+
+optional_dependencies:
+  - governance
+  - lineage
+
+# ---------------------------------------------------------------------------
+# CLASSIFICATION & TRANSFER
+# ---------------------------------------------------------------------------
+
+trust_class: SHARED_GOVERNED
+transfer_class: LICENSE_ONLY
+detachability_level: PARTIALLY_DETACHABLE
+
+# ---------------------------------------------------------------------------
+# PARITY & PROMOTION
+# ---------------------------------------------------------------------------
+
+parity_eligibility: true
+promotion_eligibility: true
+classification: CORE_PROMOTABLE
+
+# ---------------------------------------------------------------------------
+# OPERATIONAL NOTES
+# ---------------------------------------------------------------------------
+
+operational_notes: |
+  The rules engine is ACTIVE in the GCP shop drawing mirror because rule
+  evaluation is a core function of shop drawing review. It requires both
+  detail_normalization (for the canonical input data) and standards_mapping
+  (for resolving code references to evaluable predicates). The engine is
+  SHARED_GOVERNED because rule definitions may come from multiple sources
+  (kernel core, mirror-specific, project-specific) and governance must
+  arbitrate conflicts. It is PARTIALLY_DETACHABLE — the evaluation engine
+  can be extracted but the rule repository and conflict resolution logic
+  are tied to the kernel's authority hierarchy. Rule improvements discovered
+  during mirror operation (e.g., a new predicate for evaluating seismic
+  connection adequacy) are CORE_PROMOTABLE.

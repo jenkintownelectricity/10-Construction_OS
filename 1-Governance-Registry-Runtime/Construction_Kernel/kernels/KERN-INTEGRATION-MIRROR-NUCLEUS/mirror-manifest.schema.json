@@ -1,0 +1,180 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Mirror Manifest Schema",
+  "description": "Defines the required structure for all mirror manifests in the Construction OS integration mirror system. Every mirror must have a valid manifest conforming to this schema.",
+  "type": "object",
+  "required": [
+    "mirror_id",
+    "mirror_name",
+    "source_system",
+    "trust_boundary",
+    "lifecycle_state",
+    "enabled_slices",
+    "version",
+    "created_at",
+    "owner"
+  ],
+  "properties": {
+    "mirror_id": {
+      "type": "string",
+      "description": "Unique identifier for this mirror. Must be globally unique across all mirrors in the registry. Format: lowercase alphanumeric with hyphens.",
+      "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$",
+      "minLength": 3,
+      "maxLength": 128,
+      "examples": ["gcp-shop-drawing-mirror", "partner-alpha-detail-mirror"]
+    },
+    "mirror_name": {
+      "type": "string",
+      "description": "Human-readable name for this mirror. Used in documentation, logs, and governance records.",
+      "minLength": 1,
+      "maxLength": 256,
+      "examples": ["GCP Shop Drawing Mirror", "Partner Alpha Detail Integration Mirror"]
+    },
+    "source_system": {
+      "type": "string",
+      "description": "Identifier of the external source system that this mirror reflects. Must reference a known system in the source system registry.",
+      "minLength": 1,
+      "examples": ["gcp-shop-drawings", "partner-alpha-erp"]
+    },
+    "trust_boundary": {
+      "type": "string",
+      "description": "Reference to the trust boundary definition governing this mirror's interaction with Construction OS core. Must reference a documented trust boundary specification.",
+      "minLength": 1,
+      "examples": ["tb-gcp-standard", "tb-partner-alpha-restricted"]
+    },
+    "lifecycle_state": {
+      "type": "string",
+      "description": "Current lifecycle state of the mirror. Transitions between states are governed and must follow the mirror lifecycle model.",
+      "enum": [
+        "PROPOSED",
+        "CHARTERED",
+        "STAGED",
+        "ACTIVE",
+        "FROZEN",
+        "RETIRED"
+      ]
+    },
+    "enabled_slices": {
+      "type": "array",
+      "description": "List of capability slices currently enabled in this mirror. Each slice must be declared with its identifier and operational status.",
+      "items": {
+        "type": "object",
+        "required": ["slice_id", "status"],
+        "properties": {
+          "slice_id": {
+            "type": "string",
+            "description": "Unique identifier for the capability slice within this mirror.",
+            "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$",
+            "minLength": 3,
+            "maxLength": 128
+          },
+          "status": {
+            "type": "string",
+            "description": "Operational status of this slice.",
+            "enum": [
+              "ACTIVE",
+              "STAGED",
+              "DISABLED",
+              "PENDING",
+              "DEPRECATED"
+            ]
+          },
+          "transfer_class": {
+            "type": "string",
+            "description": "Transfer classification for this slice, determining what forms of external handoff are permitted.",
+            "enum": [
+              "NON_TRANSFERABLE",
+              "LICENSE_ONLY",
+              "WHITE_LABELABLE",
+              "BUYOUT_READY",
+              "FULL_HANDOFF_READY"
+            ]
+          },
+          "dependencies": {
+            "type": "array",
+            "description": "List of slice_ids that this slice depends on.",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of this mirror manifest. Incremented on every manifest change.",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "examples": ["1.0.0", "2.3.1"]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Date when this mirror was originally created (chartered). Format: ISO 8601 date (YYYY-MM-DD).",
+      "examples": ["2026-01-15"]
+    },
+    "owner": {
+      "type": "string",
+      "description": "Identifier of the team or individual responsible for this mirror's governance and operation.",
+      "minLength": 1,
+      "examples": ["integration-team-alpha", "mirror-ops"]
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional human-readable description of this mirror's purpose and scope."
+    },
+    "charter_reference": {
+      "type": "string",
+      "description": "Reference to the governance charter document that authorized this mirror's creation."
+    },
+    "last_parity_review": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the most recent parity review for this mirror."
+    },
+    "breakaway_conditions": {
+      "type": "array",
+      "description": "Declared conditions under which this mirror should undergo breakaway.",
+      "items": {
+        "type": "object",
+        "required": ["condition", "description"],
+        "properties": {
+          "condition": {
+            "type": "string",
+            "enum": [
+              "IRRECONCILABLE_DRIFT",
+              "TRUST_VIOLATION",
+              "PARTNER_TERMINATION",
+              "STRATEGIC_DIVERGENCE"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "threshold": {
+            "type": "string",
+            "description": "Measurable threshold that triggers this condition, if applicable."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "truth_ownership_references": {
+      "type": "array",
+      "description": "References to truth ownership matrix entries relevant to this mirror.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "registry_entry_id": {
+      "type": "string",
+      "description": "Reference to this mirror's entry in the central mirror registry."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the most recent manifest update."
+    }
+  },
+  "additionalProperties": false
+}

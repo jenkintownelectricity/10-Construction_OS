@@ -1,0 +1,143 @@
+{
+  "catalog_id": "construction_kernel.condition_pattern_library.blocker_archetypes",
+  "version": "1.0",
+  "authority": "Construction_Kernel",
+  "description": "Catalog of blocker archetype definitions for the Condition Pattern Library. Each archetype defines a recurring blocker pattern that may be referenced by condition patterns. Runtime may reference these archetypes but must not author new ones.",
+  "archetypes": [
+    {
+      "archetype_id": "ba-missing-flashing-termination",
+      "label": "Missing Flashing Termination",
+      "description": "Flashing system does not have a defined termination point, leaving the membrane or flashing edge exposed to wind uplift and water infiltration.",
+      "blocker_class": "missing_detail_blocker",
+      "typical_severity": "critical",
+      "affected_assemblies": ["parapet_wall", "roof_membrane_system", "wall_assembly"],
+      "resolution_strategies": ["ra-install-continuous-flashing", "ra-add-termination-bar"]
+    },
+    {
+      "archetype_id": "ba-incomplete-parapet-detail",
+      "label": "Incomplete Parapet Detail",
+      "description": "Parapet section detail is missing or does not show all required components (cap flashing, through-wall flashing, base flashing, coping).",
+      "blocker_class": "incomplete_drawing_blocker",
+      "typical_severity": "high",
+      "affected_assemblies": ["parapet_wall"],
+      "resolution_strategies": ["ra-add-parapet-section-detail"]
+    },
+    {
+      "archetype_id": "ba-unresolved-membrane-transition",
+      "label": "Unresolved Membrane Transition",
+      "description": "Membrane transition from horizontal to vertical plane lacks a defined detail, creating an unresolved interface.",
+      "blocker_class": "interface_coordination_blocker",
+      "typical_severity": "high",
+      "affected_assemblies": ["roof_membrane_system", "parapet_wall"],
+      "resolution_strategies": ["ra-define-base-flashing-height", "ra-install-continuous-flashing"]
+    },
+    {
+      "archetype_id": "ba-missing-termination-bar-spec",
+      "label": "Missing Termination Bar Specification",
+      "description": "Termination bar material, profile, and fastener pattern are not specified in the contract documents.",
+      "blocker_class": "missing_detail_blocker",
+      "typical_severity": "high",
+      "affected_assemblies": ["membrane_termination"],
+      "resolution_strategies": ["ra-add-termination-bar", "ra-specify-fastener-pattern"]
+    },
+    {
+      "archetype_id": "ba-substrate-incompatibility",
+      "label": "Substrate Incompatibility",
+      "description": "The specified termination method is incompatible with the substrate material (e.g., concrete fasteners specified for metal panel substrate).",
+      "blocker_class": "incompatible_material_blocker",
+      "typical_severity": "critical",
+      "affected_assemblies": ["membrane_termination", "vertical_substrate"],
+      "resolution_strategies": ["ra-specify-fastener-pattern"]
+    },
+    {
+      "archetype_id": "ba-fastener-pullout-risk",
+      "label": "Fastener Pullout Risk",
+      "description": "Fastener embedment depth or type is inadequate for wind uplift forces at the specified location.",
+      "blocker_class": "failed_qa_check_blocker",
+      "typical_severity": "critical",
+      "affected_assemblies": ["membrane_termination"],
+      "resolution_strategies": ["ra-specify-fastener-pattern"]
+    },
+    {
+      "archetype_id": "ba-undefined-scope-ownership",
+      "label": "Undefined Scope Ownership",
+      "description": "No trade or discipline has been assigned responsibility for the specified work item, creating a scope gap.",
+      "blocker_class": "scope_ownership_blocker",
+      "typical_severity": "high",
+      "affected_assemblies": ["counterflashing_system"],
+      "resolution_strategies": ["ra-assign-counterflashing-scope"]
+    },
+    {
+      "archetype_id": "ba-missing-counterflashing-detail",
+      "label": "Missing Counterflashing Detail",
+      "description": "Counterflashing section detail is absent from the drawing set, leaving the interface between base flashing and wall undefined.",
+      "blocker_class": "missing_detail_blocker",
+      "typical_severity": "high",
+      "affected_assemblies": ["counterflashing_system", "wall_assembly"],
+      "resolution_strategies": ["ra-add-counterflashing-detail"]
+    },
+    {
+      "archetype_id": "ba-reglet-coordination-gap",
+      "label": "Reglet Coordination Gap",
+      "description": "Reglet installation requires coordination between masonry and roofing trades that has not been defined in the sequence or scope.",
+      "blocker_class": "interface_coordination_blocker",
+      "typical_severity": "medium",
+      "affected_assemblies": ["counterflashing_system", "wall_assembly"],
+      "resolution_strategies": ["ra-coordinate-reglet-installation"]
+    },
+    {
+      "archetype_id": "ba-insufficient-slope-design",
+      "label": "Insufficient Slope Design",
+      "description": "Roof slope is below the minimum 1/4 inch per foot required for positive drainage, or slope direction conflicts with drain locations.",
+      "blocker_class": "failed_qa_check_blocker",
+      "typical_severity": "high",
+      "affected_assemblies": ["tapered_insulation_system", "roof_drain_system"],
+      "resolution_strategies": ["ra-revise-slope-design"]
+    },
+    {
+      "archetype_id": "ba-missing-tapered-insulation-layout",
+      "label": "Missing Tapered Insulation Layout",
+      "description": "Tapered insulation layout drawing with thickness callouts, slope arrows, and cricket locations is not provided.",
+      "blocker_class": "incomplete_drawing_blocker",
+      "typical_severity": "high",
+      "affected_assemblies": ["tapered_insulation_system"],
+      "resolution_strategies": ["ra-add-tapered-insulation-layout"]
+    },
+    {
+      "archetype_id": "ba-drain-location-conflict",
+      "label": "Drain Location Conflict",
+      "description": "Drain locations shown on plumbing drawings conflict with structural framing or slope design on architectural drawings.",
+      "blocker_class": "specification_conflict_blocker",
+      "typical_severity": "high",
+      "affected_assemblies": ["roof_drain_system", "structural_framing"],
+      "resolution_strategies": ["ra-relocate-drains", "ra-revise-slope-design"]
+    },
+    {
+      "archetype_id": "ba-insulation-compressive-strength-inadequate",
+      "label": "Insulation Compressive Strength Inadequate",
+      "description": "Specified insulation compressive strength (psi) is below the required value for anticipated loads at equipment or high-traffic areas.",
+      "blocker_class": "incompatible_material_blocker",
+      "typical_severity": "high",
+      "affected_assemblies": ["roof_insulation_system", "mechanical_equipment_pad"],
+      "resolution_strategies": ["ra-upgrade-insulation-compressive-strength"]
+    },
+    {
+      "archetype_id": "ba-equipment-pad-detail-missing",
+      "label": "Equipment Pad Detail Missing",
+      "description": "Mechanical equipment pad detail showing load distribution, insulation reinforcement, and membrane protection is not provided.",
+      "blocker_class": "missing_detail_blocker",
+      "typical_severity": "high",
+      "affected_assemblies": ["mechanical_equipment_pad"],
+      "resolution_strategies": ["ra-add-equipment-pad-detail"]
+    },
+    {
+      "archetype_id": "ba-specification-conflict-insulation",
+      "label": "Specification Conflict - Insulation",
+      "description": "Roofing specification insulation requirements conflict with structural or mechanical specification assumptions.",
+      "blocker_class": "specification_conflict_blocker",
+      "typical_severity": "medium",
+      "affected_assemblies": ["roof_insulation_system"],
+      "resolution_strategies": ["ra-coordinate-insulation-specification"]
+    }
+  ]
+}

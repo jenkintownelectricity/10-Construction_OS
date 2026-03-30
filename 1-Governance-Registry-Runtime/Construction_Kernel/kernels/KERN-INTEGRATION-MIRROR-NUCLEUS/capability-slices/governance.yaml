@@ -1,0 +1,132 @@
+# ============================================================================
+# CAPABILITY SLICE DEFINITION — GOVERNANCE
+# Command C: Capability Slice Architecture
+# Kernel: KERN-INTEGRATION-MIRROR-NUCLEUS
+# ============================================================================
+# This slice enforces mirror policies, lifecycle rules, and compliance checks
+# across all integration mirrors. It is the authority on what operations are
+# permitted, which slices may be activated, and how data flows between mirrors
+# and the core kernel.
+# ============================================================================
+
+slice_id: governance
+name: "Mirror Governance & Policy Enforcement"
+version: "1.0.0"
+
+purpose: |
+  The governance slice is the policy authority for all integration mirrors
+  operating under the KERN-INTEGRATION-MIRROR-NUCLEUS kernel. It enforces
+  lifecycle rules that determine when mirrors can be created, activated,
+  suspended, or decommissioned. It validates that all slice activations
+  comply with contractual obligations, licensing constraints, and
+  organizational trust boundaries. Governance also enforces data residency
+  policies, ensures that mirror reflections do not violate intellectual
+  property boundaries, and maintains an auditable record of all policy
+  decisions made during mirror operation. In the construction technology
+  context, this includes enforcing that shop drawing review workflows
+  comply with project-specific submission requirements, jurisdictional
+  building code mandates, and prime contractor approval chains.
+
+status:
+  gcp_shopdrawing: STAGED
+  default: STAGED
+
+# ---------------------------------------------------------------------------
+# DATA CONTRACTS
+# ---------------------------------------------------------------------------
+
+inputs:
+  - name: mirror_lifecycle_events
+    description: "State transition requests from mirrors (create, activate, suspend, decommission)"
+    format: event_stream
+    required: true
+
+  - name: slice_activation_requests
+    description: "Requests to activate or deactivate capability slices within a mirror"
+    format: command_message
+    required: true
+
+  - name: policy_rule_definitions
+    description: "Organizational and project-level policy rules loaded from configuration"
+    format: yaml_bundle
+    required: true
+
+  - name: contractual_constraints
+    description: "License terms, IP boundaries, and contractual limits for each mirror tenant"
+    format: structured_record
+    required: true
+
+  - name: trust_boundary_declarations
+    description: "Declarations of trust classes and data sharing permissions between mirrors"
+    format: structured_record
+    required: false
+
+  - name: compliance_check_triggers
+    description: "Scheduled or event-driven triggers for compliance audits"
+    format: event_stream
+    required: false
+
+outputs:
+  - name: policy_decisions
+    description: "Permit/deny decisions for lifecycle and activation requests with rationale"
+    format: decision_record
+    retention: permanent
+
+  - name: compliance_audit_reports
+    description: "Periodic and on-demand compliance audit results"
+    format: audit_report
+    retention: "7_years"
+
+  - name: governance_event_log
+    description: "Immutable log of all governance decisions, policy changes, and enforcement actions"
+    format: append_only_log
+    retention: permanent
+
+  - name: policy_violation_alerts
+    description: "Real-time alerts when policy violations are detected"
+    format: alert_message
+    retention: "90_days"
+
+  - name: mirror_permission_matrix
+    description: "Current effective permissions for each mirror and its slices"
+    format: structured_record
+    retention: current_state
+
+# ---------------------------------------------------------------------------
+# DEPENDENCY GRAPH
+# ---------------------------------------------------------------------------
+
+required_dependencies: []
+
+optional_dependencies:
+  - registry
+  - receipt_audit
+
+# ---------------------------------------------------------------------------
+# CLASSIFICATION & TRANSFER
+# ---------------------------------------------------------------------------
+
+trust_class: CORE_OWNED
+transfer_class: NON_TRANSFERABLE
+detachability_level: NON_DETACHABLE
+
+# ---------------------------------------------------------------------------
+# PARITY & PROMOTION
+# ---------------------------------------------------------------------------
+
+parity_eligibility: false
+promotion_eligibility: false
+classification: MIRROR_ONLY
+
+# ---------------------------------------------------------------------------
+# OPERATIONAL NOTES
+# ---------------------------------------------------------------------------
+
+operational_notes: |
+  Governance is a foundational slice that must be evaluated before any other
+  slice can be activated. It has no required dependencies because it is the
+  root authority. The registry slice is an optional dependency used to
+  cross-reference mirror state, but governance can operate in standalone
+  mode during bootstrap. This slice is NON_TRANSFERABLE and NON_DETACHABLE
+  because policy enforcement logic is intrinsic to the kernel and cannot
+  be separated without compromising system integrity.
