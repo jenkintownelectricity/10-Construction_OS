@@ -1,0 +1,31 @@
+# Construction OS v2 — CODEOWNERS
+# Authority: Armand Lefebvre, L0 — Lefebvre Design Solutions LLC
+# Generated: 2026-03-30 — Wave 0 Genesis
+#
+# This file defines code ownership for Construction OS v2.
+# All paths require L0 approval for changes to frozen doctrine.
+
+# Frozen Doctrine — L0 only
+/0-Frozen-Doctrine/ @jenkintownelectricity
+
+# Governance Authority — L0/L1
+/1-Governance-Authority/ @jenkintownelectricity
+
+# Domain Kernel — L0/L1
+/2-Domain-Kernel/ @jenkintownelectricity
+
+# Application Layer — L1/L2
+/3-Application-Layer/ @jenkintownelectricity
+
+# Engine Runtime — L1/L2
+/4-Engine-Runtime/ @jenkintownelectricity
+
+# State Registry — L1/L2
+/5-State-Registry/ @jenkintownelectricity
+
+# Archive Lineage — L0/L1
+/6-Archive-Lineage/ @jenkintownelectricity
+
+# Root files — L0 only
+/CODEOWNERS @jenkintownelectricity
+/BRANCH_PROTECTION.md @jenkintownelectricity
