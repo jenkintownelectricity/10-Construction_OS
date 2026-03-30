@@ -1,0 +1,107 @@
+{
+  "receipt_id": "CPORT-BUILD-001",
+  "document_ref": "L0-CMD-CONOS-VKGL04R-CPORT-001",
+  "branch": "claude/setup-constraint-port-AtwTy",
+  "target_repo": "10-Construction_OS",
+  "base_path": "2-Engines-Tools-Datasets/Constraint-Port/",
+  "build_date": "2026-03-30",
+  "files_created": [
+    "2-Engines-Tools-Datasets/Constraint-Port/README.md",
+    "2-Engines-Tools-Datasets/Constraint-Port/doctrine/CONSTRAINT_PORT_DOCTRINE.md",
+    "2-Engines-Tools-Datasets/Constraint-Port/doctrine/CONSTRAINT_PORT_BOUNDARY.md",
+    "2-Engines-Tools-Datasets/Constraint-Port/schemas/constraint_object.schema.json",
+    "2-Engines-Tools-Datasets/Constraint-Port/schemas/constraint_evidence.schema.json",
+    "2-Engines-Tools-Datasets/Constraint-Port/schemas/constraint_decision.schema.json",
+    "2-Engines-Tools-Datasets/Constraint-Port/contracts/constraintTypes.ts",
+    "2-Engines-Tools-Datasets/Constraint-Port/contracts/constraintEvaluatorContract.ts",
+    "2-Engines-Tools-Datasets/Constraint-Port/taxonomy/constraintSeverity.json",
+    "2-Engines-Tools-Datasets/Constraint-Port/taxonomy/constraintActions.json",
+    "2-Engines-Tools-Datasets/Constraint-Port/examples/example_manufacturer_rules.json",
+    "2-Engines-Tools-Datasets/Constraint-Port/examples/example_chemistry_rules.json",
+    "2-Engines-Tools-Datasets/Constraint-Port/examples/example_spec_rules.json",
+    "2-Engines-Tools-Datasets/Constraint-Port/examples/example_warranty_rules.json",
+    "2-Engines-Tools-Datasets/Constraint-Port/registry/constraint_port_manifest.json",
+    "2-Engines-Tools-Datasets/Constraint-Port/receipts/CONSTRAINT_PORT_BUILD_RECEIPT.json"
+  ],
+  "files_modified": [],
+  "commits_created": [
+    {
+      "phase": 1,
+      "message": "CONSTRAINT PORT PHASE 1 — branch discipline and bounded path setup",
+      "files_count": 8
+    },
+    {
+      "phase": 2,
+      "message": "CONSTRAINT PORT PHASE 2 — doctrine and boundaries",
+      "files_count": 2
+    },
+    {
+      "phase": 3,
+      "message": "CONSTRAINT PORT PHASE 3 — core schemas",
+      "files_count": 3
+    },
+    {
+      "phase": 4,
+      "message": "CONSTRAINT PORT PHASE 4 — evaluation contracts",
+      "files_count": 2
+    },
+    {
+      "phase": 5,
+      "message": "CONSTRAINT PORT PHASE 5 — severity and action taxonomy",
+      "files_count": 2
+    },
+    {
+      "phase": 6,
+      "message": "CONSTRAINT PORT PHASE 6 — example rule pack",
+      "files_count": 4
+    },
+    {
+      "phase": 7,
+      "message": "CONSTRAINT PORT PHASE 7 — registry manifest stub",
+      "files_count": 1
+    },
+    {
+      "phase": 8,
+      "message": "CONSTRAINT PORT PHASE 8 — final receipt",
+      "files_count": 1
+    }
+  ],
+  "observer_repos_confirmed_untouched": [
+    "Construction_Kernel",
+    "Construction_Assembly_Kernel",
+    "Construction_Material_Kernel",
+    "Construction_Chemistry_Kernel",
+    "Construction_Specification_Kernel",
+    "Construction_Scope_Kernel",
+    "Construction_Reference_Intelligence",
+    "Construction_Runtime",
+    "Construction_OS_Registry",
+    "Construction_Application_OS"
+  ],
+  "frozen_repos_confirmed_untouched": [
+    "00-Universal_Truth_Kernel"
+  ],
+  "unresolved_risks": [],
+  "commit_gate_validation": {
+    "only_10_construction_os_modified": true,
+    "no_observer_repo_modified": true,
+    "no_frozen_repo_modified": true,
+    "micro_commit_strategy_used": true,
+    "no_oversized_generated_content": true,
+    "doctrine_file_exists": true,
+    "constraint_object_schema_exists": true,
+    "constraint_evidence_schema_exists": true,
+    "constraint_decision_schema_exists": true,
+    "severity_taxonomy_explicit_and_finite": true,
+    "action_taxonomy_explicit_and_finite": true,
+    "block_warn_require_human_stamp_present": true,
+    "manufacturer_chemistry_incompatibility_rule_exists": true,
+    "code_spec_constraint_rule_exists": true,
+    "warranty_void_rule_exists": true,
+    "runtime_referenced_as_consumer_only": true,
+    "registry_manifest_stub_exists": true,
+    "final_receipt_exists": true,
+    "all_files_deterministic_and_text_only": true
+  },
+  "status": "COMPLETE"
+}
