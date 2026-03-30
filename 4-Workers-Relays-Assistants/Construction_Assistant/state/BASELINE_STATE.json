@@ -1,0 +1,19 @@
+{
+  "repo_name": "Construction_Assistant",
+  "stack_role": "truth-emitting assistant layer",
+  "current_branch": "claude/multi-repo-construction-build-WLo5u",
+  "baseline_version": "v0.1",
+  "baseline_commit": "PENDING",
+  "manifest_version": "v0.1",
+  "frozen_seams_version": "v0.1",
+  "cache_mode": "manifest_first",
+  "cache_validity": "valid_until_branch_commit_or_manifest_change",
+  "requires_reaudit_on": [
+    "branch_change",
+    "commit_change",
+    "manifest_change",
+    "frozen_seam_change",
+    "explicit_user_request",
+    "topology_change"
+  ]
+}
