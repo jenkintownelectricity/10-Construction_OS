@@ -1,0 +1,55 @@
+{
+  "$schema": "constraint_action_taxonomy",
+  "title": "Constraint Action Taxonomy",
+  "description": "Finite, ordered action types for constraint evaluation decisions.",
+  "authority": "L0-CMD-CONOS-VKGL04R-CPORT-001",
+  "version": "1.0.0",
+  "action_types": [
+    {
+      "action": "PASS",
+      "rank": 0,
+      "description": "Constraint satisfied. No impediment to proceeding.",
+      "halts_execution": false,
+      "requires_human": false,
+      "evidence_required": false
+    },
+    {
+      "action": "WARN",
+      "rank": 1,
+      "description": "Potential issue identified. Execution may proceed but concern is logged.",
+      "halts_execution": false,
+      "requires_human": false,
+      "evidence_required": true
+    },
+    {
+      "action": "DEFER_FOR_MISSING_EVIDENCE",
+      "rank": 2,
+      "description": "Evaluation cannot complete due to missing evidence. Decision deferred.",
+      "halts_execution": true,
+      "requires_human": false,
+      "evidence_required": true,
+      "note": "Fail-closed: if deferred evidence is never provided, escalates to BLOCK."
+    },
+    {
+      "action": "REQUIRE_HUMAN_STAMP",
+      "rank": 3,
+      "description": "Decision requires explicit human authority to override or accept risk.",
+      "halts_execution": true,
+      "requires_human": true,
+      "evidence_required": true,
+      "note": "Only a named human with authority can stamp. Anonymous overrides are invalid."
+    },
+    {
+      "action": "BLOCK",
+      "rank": 4,
+      "description": "Constraint violated. Execution must not proceed. No override without HUMAN_STAMP.",
+      "halts_execution": true,
+      "requires_human": true,
+      "evidence_required": true,
+      "note": "BLOCK is the fail-closed default for any indeterminate evaluation."
+    }
+  ],
+  "ordering_rule": "BLOCK > REQUIRE_HUMAN_STAMP > DEFER_FOR_MISSING_EVIDENCE > WARN > PASS",
+  "aggregation_rule": "Batch evaluation returns the most severe action encountered across all evaluated constraints.",
+  "fail_closed_default": "BLOCK"
+}

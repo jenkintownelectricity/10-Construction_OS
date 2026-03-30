@@ -1,0 +1,46 @@
+{
+  "$schema": "constraint_severity_taxonomy",
+  "title": "Constraint Severity Taxonomy",
+  "description": "Finite, ordered severity levels for constraint evaluation results.",
+  "authority": "L0-CMD-CONOS-VKGL04R-CPORT-001",
+  "version": "1.0.0",
+  "severity_levels": [
+    {
+      "level": "INFO",
+      "rank": 0,
+      "description": "Informational. Constraint evaluated with no concerns.",
+      "requires_action": false,
+      "example": "Material compatibility confirmed for standard substrate pairing."
+    },
+    {
+      "level": "LOW",
+      "rank": 1,
+      "description": "Minor concern noted. Does not impede construction activity.",
+      "requires_action": false,
+      "example": "Manufacturer recommends but does not require primer for this substrate."
+    },
+    {
+      "level": "MEDIUM",
+      "rank": 2,
+      "description": "Moderate concern. Should be reviewed before proceeding.",
+      "requires_action": true,
+      "example": "Substrate age exceeds manufacturer recommended threshold for direct application."
+    },
+    {
+      "level": "HIGH",
+      "rank": 3,
+      "description": "Significant concern. Likely requires corrective action or human review.",
+      "requires_action": true,
+      "example": "Assembly method conflicts with specification for this wind zone classification."
+    },
+    {
+      "level": "CRITICAL",
+      "rank": 4,
+      "description": "Severe constraint violation. Must be resolved before any work proceeds.",
+      "requires_action": true,
+      "example": "PMMA applied directly to aged asphalt without approved separator — chemical incompatibility."
+    }
+  ],
+  "ordering_rule": "CRITICAL > HIGH > MEDIUM > LOW > INFO",
+  "aggregation_rule": "Batch evaluation returns the highest severity encountered across all evaluated constraints."
+}
