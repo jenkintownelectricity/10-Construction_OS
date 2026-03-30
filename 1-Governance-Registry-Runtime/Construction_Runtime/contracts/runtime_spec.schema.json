@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "schema_version": "0.2",
+  "contract_name": "runtime_spec",
+  "description": "Contract schema for runtime spec intelligence output.",
+  "type": "object",
+  "required": ["opportunities", "requirement_summary", "reference_summary", "intelligence_status"],
+  "properties": {
+    "opportunities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string" },
+          "reference": { "type": "string" },
+          "reference_type": { "type": "string" },
+          "related_requirements": { "type": "integer" }
+        }
+      }
+    },
+    "requirement_summary": { "type": "object" },
+    "reference_summary": { "type": "object" },
+    "section_count": { "type": "integer" },
+    "intelligence_status": { "type": "string", "enum": ["complete", "partial"] }
+  }
+}

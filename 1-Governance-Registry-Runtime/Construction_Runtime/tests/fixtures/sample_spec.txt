@@ -1,0 +1,18 @@
+Section 07 92 00 - Joint Sealants
+
+1.1 - Summary
+This section includes joint sealant materials and installation.
+
+2.1 - Products
+Manufacturer: Dow Corning
+Product: 795 Silicone Building Sealant
+Basis of Design: Dow Corning 795
+
+2.2 - Requirements
+The sealant shall comply with ASTM C920, Type S, Grade NS.
+Joint width must be minimum 1/4" and maximum 1".
+Primer is required on all porous substrates.
+
+3.1 - Execution
+All joints must be clean, dry, and free of contaminants.
+Model No: 795-SBS

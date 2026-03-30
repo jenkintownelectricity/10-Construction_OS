@@ -1,0 +1,12 @@
+Assembly: Steel Beam Connection A1
+
+Components:
+- W12x26 Steel Beam
+- L4x4x1/4 Angle Bracket
+- 3/4" A325 Bolts (qty 4)
+- Shim Plate 1/4"
+
+Constraint: Clearance = 1/2" minimum at beam-to-column interface
+Constraint: Spacing = 3" on center for bolt pattern
+Interface: Beam flange to column flange via angle bracket
+Tolerance: +/- 1/16" on all dimensions

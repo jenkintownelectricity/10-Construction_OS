@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "schema_version": "0.2",
+  "contract_name": "deliverable",
+  "description": "Contract schema for final deliverable output.",
+  "type": "object",
+  "required": ["deliverable_id", "deliverable_version", "deliverable_type", "formats"],
+  "properties": {
+    "deliverable_id": { "type": "string" },
+    "deliverable_version": { "type": "string" },
+    "deliverable_type": { "type": "string" },
+    "formats": {
+      "type": "object",
+      "properties": {
+        "dxf": {
+          "type": "object",
+          "properties": {
+            "content": { "type": "string" },
+            "status": { "type": "string", "enum": ["generated", "failed", "skipped"] }
+          }
+        },
+        "svg": {
+          "type": "object",
+          "properties": {
+            "content": { "type": "string" },
+            "status": { "type": "string", "enum": ["generated", "failed", "skipped"] }
+          }
+        },
+        "json_preview": {
+          "type": "object",
+          "properties": {
+            "content": {},
+            "status": { "type": "string", "enum": ["generated", "failed", "skipped"] }
+          }
+        }
+      }
+    },
+    "payload": { "type": "object" },
+    "export_targets": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "condition_edge_schema.json",
+  "title": "Condition Edge Schema",
+  "description": "Schema for edges in the project condition graph. Edges define relationships between condition nodes.",
+  "type": "object",
+  "required": ["edge_id", "source_node_id", "target_node_id", "edge_type"],
+  "properties": {
+    "edge_id": {
+      "type": "string",
+      "description": "Unique identifier for this edge.",
+      "pattern": "^CE-[0-9]{6}$"
+    },
+    "source_node_id": {
+      "type": "string",
+      "description": "Node ID of the source condition.",
+      "pattern": "^CN-[A-Z_]+-[0-9]{4}$"
+    },
+    "target_node_id": {
+      "type": "string",
+      "description": "Node ID of the target condition.",
+      "pattern": "^CN-[A-Z_]+-[0-9]{4}$"
+    },
+    "edge_type": {
+      "type": "string",
+      "description": "The type of relationship between conditions.",
+      "enum": [
+        "adjacent_to",
+        "drains_to",
+        "penetrates",
+        "terminates_at",
+        "intersects",
+        "requires_continuity_with"
+      ]
+    },
+    "sequencing_critical": {
+      "type": "boolean",
+      "description": "If true, this edge participates in sequencing and must be acyclic.",
+      "default": false
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata."
+    }
+  },
+  "additionalProperties": false,
+  "_validation_rules": {
+    "sequencing_critical_edge_types": ["drains_to", "terminates_at"],
+    "allowed_cyclic_edge_types": ["adjacent_to", "requires_continuity_with"],
+    "node_pair_rules": {
+      "drains_to": {
+        "valid_sources": ["ROOF_FIELD", "PARAPET", "EDGE", "CURB"],
+        "valid_targets": ["DRAIN", "SCUPPER"]
+      },
+      "penetrates": {
+        "valid_sources": ["PIPE_PENETRATION", "CURB"],
+        "valid_targets": ["ROOF_FIELD"]
+      },
+      "terminates_at": {
+        "valid_sources": ["EDGE", "EXPANSION_JOINT"],
+        "valid_targets": ["PARAPET", "EDGE", "SCUPPER"]
+      }
+    }
+  }
+}

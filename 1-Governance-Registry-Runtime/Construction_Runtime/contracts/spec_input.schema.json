@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "schema_version": "0.2",
+  "contract_name": "spec_input",
+  "description": "Contract schema for raw spec input after parsing.",
+  "type": "object",
+  "required": ["sections", "requirements", "product_references", "source_text", "metadata"],
+  "properties": {
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["number", "title", "line"],
+        "properties": {
+          "number": { "type": "string" },
+          "title": { "type": "string" },
+          "line": { "type": "integer" }
+        }
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["text", "type"],
+        "properties": {
+          "text": { "type": "string" },
+          "type": { "type": "string", "enum": ["mandatory", "recommended"] }
+        }
+      }
+    },
+    "product_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["value", "type"],
+        "properties": {
+          "value": { "type": "string" },
+          "type": { "type": "string" }
+        }
+      }
+    },
+    "source_text": { "type": "string" },
+    "metadata": {
+      "type": "object",
+      "required": ["parse_status"],
+      "properties": {
+        "parse_status": { "type": "string", "enum": ["success", "empty_input"] }
+      }
+    }
+  }
+}

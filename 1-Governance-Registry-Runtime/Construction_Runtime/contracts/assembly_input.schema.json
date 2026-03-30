@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "schema_version": "0.2",
+  "contract_name": "assembly_input",
+  "description": "Contract schema for raw assembly input after parsing.",
+  "type": "object",
+  "required": ["name", "components", "constraints", "source_text", "metadata"],
+  "properties": {
+    "name": { "type": "string" },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "type": { "type": "string" }
+        }
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["description", "type"],
+        "properties": {
+          "description": { "type": "string" },
+          "type": { "type": "string" }
+        }
+      }
+    },
+    "source_text": { "type": "string" },
+    "metadata": {
+      "type": "object",
+      "required": ["parse_status"],
+      "properties": {
+        "parse_status": { "type": "string", "enum": ["success", "empty_input"] }
+      }
+    }
+  }
+}

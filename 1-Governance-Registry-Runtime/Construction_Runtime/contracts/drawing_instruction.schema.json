@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "schema_version": "0.2",
+  "contract_name": "drawing_instruction",
+  "description": "Contract schema for DrawingInstructionSet consumed by DXF and SVG writers.",
+  "type": "object",
+  "required": ["instruction_version", "entities", "layers", "sheet_metadata"],
+  "properties": {
+    "instruction_version": { "type": "string" },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["entity_type", "layer"],
+        "properties": {
+          "entity_type": {
+            "type": "string",
+            "enum": ["LINE", "POLYLINE", "RECT", "CIRCLE", "TEXT", "DIMENSION", "CALLOUT"]
+          },
+          "layer": { "type": "string" },
+          "properties": { "type": "object" }
+        }
+      }
+    },
+    "dimensions": { "type": "array" },
+    "text_annotations": { "type": "array" },
+    "layers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "sheet_metadata": {
+      "type": "object",
+      "required": ["width", "height", "unit"],
+      "properties": {
+        "width": { "type": "number" },
+        "height": { "type": "number" },
+        "unit": { "type": "string" }
+      }
+    },
+    "title_block_data": { "type": "object" },
+    "provenance": { "type": "object" }
+  }
+}

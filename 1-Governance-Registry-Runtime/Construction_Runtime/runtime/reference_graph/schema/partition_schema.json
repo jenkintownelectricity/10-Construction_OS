@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "partition_schema.json",
+  "title": "Reference Graph Partition Schema",
+  "description": "Schema for graph partitions in the Construction Reference Graph. Wave 17A.",
+  "type": "object",
+  "required": ["partition_id", "partition_type", "scope_rule"],
+  "properties": {
+    "partition_id": {
+      "type": "string",
+      "description": "Unique partition identifier.",
+      "enum": [
+        "global_kernel_partition",
+        "global_runtime_partition",
+        "project_partition",
+        "artifact_partition",
+        "observation_partition"
+      ]
+    },
+    "partition_type": {
+      "type": "string",
+      "description": "Classification of the partition.",
+      "enum": ["global", "scoped"]
+    },
+    "scope_rule": {
+      "type": "string",
+      "description": "Rule governing what objects belong in this partition."
+    },
+    "allowed_object_types": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Object types that may exist in this partition."
+    },
+    "cross_partition_edge_policy": {
+      "type": "string",
+      "description": "Policy for edges crossing into/out of this partition.",
+      "enum": ["allowed_typed", "restricted", "prohibited"]
+    }
+  },
+  "additionalProperties": false,
+  "_partition_definitions": [
+    {
+      "partition_id": "global_kernel_partition",
+      "partition_type": "global",
+      "scope_rule": "Kernel canonical objects remain global. Read-only from runtime perspective.",
+      "allowed_object_types": ["DETAIL"],
+      "cross_partition_edge_policy": "allowed_typed"
+    },
+    {
+      "partition_id": "global_runtime_partition",
+      "partition_type": "global",
+      "scope_rule": "Runtime-derived global objects (variants, instruction sets).",
+      "allowed_object_types": ["VARIANT", "INSTRUCTION_SET", "MANIFEST", "RENDER_JOB", "CONDITION", "PROJECT"],
+      "cross_partition_edge_policy": "allowed_typed"
+    },
+    {
+      "partition_id": "project_partition",
+      "partition_type": "scoped",
+      "scope_rule": "Project-scoped instances. Cross-project links require explicit relation typing.",
+      "allowed_object_types": ["VARIANT", "INSTRUCTION_SET", "MANIFEST", "RENDER_JOB", "CONDITION", "PROJECT", "MARKUP"],
+      "cross_partition_edge_policy": "allowed_typed"
+    },
+    {
+      "partition_id": "artifact_partition",
+      "partition_type": "scoped",
+      "scope_rule": "Artifact-scoped nodes for drawings, files, and regions.",
+      "allowed_object_types": ["DRAWING", "PDF", "DXF", "SVG", "ARTIFACT", "ARTIFACT_REGION", "PAGE_REFERENCE"],
+      "cross_partition_edge_policy": "allowed_typed"
+    },
+    {
+      "partition_id": "observation_partition",
+      "partition_type": "scoped",
+      "scope_rule": "Observation-scoped nodes for field observations.",
+      "allowed_object_types": ["OBSERVATION"],
+      "cross_partition_edge_policy": "allowed_typed"
+    }
+  ]
+}
