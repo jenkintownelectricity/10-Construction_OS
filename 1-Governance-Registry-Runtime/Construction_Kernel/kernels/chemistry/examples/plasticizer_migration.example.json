@@ -1,0 +1,15 @@
+{
+  "schema_version": "v1",
+  "mechanism_id": "DEG-PM-001",
+  "title": "PVC Plasticizer Migration into Contact Adhesive",
+  "degradation_type": "plasticizer_loss",
+  "chemistry_ref": "CHEM-SYS-PVC-001",
+  "status": "active",
+  "rate_factors": "Migration rate increases with temperature, pressure, and direct contact area. Phthalate-based plasticizers (DOP, DINP) migrate faster than polymeric plasticizers. Rate doubles approximately every 10 degrees C above ambient.",
+  "climate_context": {
+    "accelerating_condition": "sustained temperatures above 140 degrees F",
+    "typical_environment": "rooftop PVC membrane in direct sun contact with adhesive-bonded flashing"
+  },
+  "evidence_refs": ["EVD-LAB-2023-031", "EVD-FIELD-2024-008"],
+  "notes": "PVC plasticizers migrate into contact adhesives and certain sealants, causing softening and bond degradation. Use only PVC-compatible adhesives approved by the membrane manufacturer. Avoid bitumen-based products in contact with PVC."
+}

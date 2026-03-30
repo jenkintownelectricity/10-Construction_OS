@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Specification Document",
+  "description": "Schema for a specification document — the top-level container representing a project specification for Division 07 building envelope systems.",
+  "type": "object",
+  "required": ["schema_version", "document_id", "title", "project_ref", "status", "csi_division"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "document_id": {
+      "type": "string",
+      "description": "Unique identifier for this specification document."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title of the specification document."
+    },
+    "project_ref": {
+      "type": "string",
+      "description": "Project reference identifier (project number or name)."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "csi_division": {
+      "type": "string",
+      "description": "CSI division number (e.g., '07')."
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Array of specification_section IDs contained in this document."
+    },
+    "revision_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "revision_id": { "type": "string" },
+          "date": { "type": "string", "format": "date" },
+          "description": { "type": "string" }
+        },
+        "additionalProperties": false
+      },
+      "description": "Document-level revision history."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Supplementary notes."
+    }
+  },
+  "additionalProperties": false
+}

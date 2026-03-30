@@ -1,0 +1,12 @@
+{
+  "schema_version": "v1",
+  "testing_id": "TST-07-5200-003",
+  "title": "Field adhesion pull-off testing of modified bituminous membrane per ASTM D4541",
+  "test_type": "field_test",
+  "status": "active",
+  "test_method_ref": "ASTM D4541",
+  "acceptance_criteria": "Minimum pull-off adhesion of 200 psi. Failure mode shall be cohesive within the substrate or adhesive layer. Adhesive failure at the membrane-to-substrate interface below 200 psi is not acceptable and requires remediation of the affected area.",
+  "timing": "Testing shall be performed after minimum 7-day cure period following membrane installation. Testing shall not be performed when ambient temperature is below 40 deg F or when substrate is wet.",
+  "frequency": "Minimum two (2) tests per 10,000 square feet of installed membrane. Additional tests required at each change in substrate type. At least one test per roof area separated by expansion joints or building sections.",
+  "notes": "Test locations shall be selected by the architect or owner's representative. Test locations shall include both field and perimeter zones. Failed tests require two additional tests within 100 feet of the failed location. If additional tests fail, the contractor shall remove and replace the membrane in the affected area and retest. All test results shall be documented with location, date, ambient temperature, pull-off value, and failure mode. Test reports shall be submitted to the architect within 48 hours of testing."
+}

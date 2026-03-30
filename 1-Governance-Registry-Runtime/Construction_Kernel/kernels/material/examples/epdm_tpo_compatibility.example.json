@@ -1,0 +1,16 @@
+{
+  "schema_version": "v1",
+  "record_id": "COMPAT-EPDM-TPO-001",
+  "material_a_ref": "MATL-EPDM-060-001",
+  "material_b_ref": "MATL-TPO-060-001",
+  "compatibility_result": "conditional",
+  "status": "active",
+  "conditions": "EPDM and TPO are different polymer families (thermoset and thermoplastic respectively). Direct heat welding is not possible between the two materials. Contact is physically compatible — no chemical degradation occurs. However, adhesive bonding at transitions requires manufacturer-approved transition strips or adhesives designed for dissimilar membrane splicing. Mechanical attachment with compression bars is acceptable at transitions.",
+  "evidence_refs": [
+    "EVD-NRCA-TB-2019-TRANS",
+    "EVD-SPRI-COMPAT-2021",
+    "EVD-MFR-TRANSITION-GUIDE-2023"
+  ],
+  "chemistry_ref": "CHEM-POLYMER-FAMILY-BOND-001",
+  "notes": "Common scenario in re-roofing where new TPO membrane is installed adjacent to existing EPDM membrane. No chemical incompatibility in contact, but bonding between dissimilar polymers requires mechanical or adhesive transition methods."
+}

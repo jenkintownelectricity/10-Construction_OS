@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Tested Assembly Record",
+  "description": "Documents a specific assembly configuration validated by a specific test under a specific standard. Immutable once created.",
+  "type": "object",
+  "required": ["schema_version", "record_id", "title", "test_type", "test_standard_ref", "result", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "record_id": {
+      "type": "string",
+      "description": "Unique identifier for this tested assembly record."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable description of the tested configuration."
+    },
+    "test_type": {
+      "type": "string",
+      "enum": ["fire_rating", "wind_uplift", "structural", "air_leakage", "water_penetration", "thermal"],
+      "description": "Category of test performed."
+    },
+    "test_standard_ref": {
+      "type": "string",
+      "description": "Reference ID of the test method standard from the shared standards registry."
+    },
+    "result": {
+      "type": "string",
+      "description": "Test outcome: pass/fail, rating achieved, classification, or measured value."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"],
+      "description": "Current status of this test record."
+    },
+    "assembly_ref": {
+      "type": "string",
+      "description": "Reference to the assembly_system this test validates."
+    },
+    "test_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the test was performed."
+    },
+    "lab_ref": {
+      "type": "string",
+      "description": "Testing laboratory identifier or name."
+    },
+    "evidence_ref": {
+      "type": "string",
+      "description": "Reference to the test report or evidence document."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes about the test configuration or results."
+    }
+  },
+  "additionalProperties": false
+}

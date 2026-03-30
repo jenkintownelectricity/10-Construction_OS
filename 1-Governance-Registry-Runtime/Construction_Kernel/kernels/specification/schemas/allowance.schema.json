@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Allowance",
+  "description": "Schema for a specification allowance — an explicit statement permitting an alternative or substitution.",
+  "type": "object",
+  "required": ["schema_version", "allowance_id", "title", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "allowance_id": {
+      "type": "string",
+      "description": "Unique identifier for this allowance."
+    },
+    "title": {
+      "type": "string",
+      "description": "Concise description of the allowance."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "csi_section": {
+      "type": "string",
+      "description": "CSI section code where this allowance originates."
+    },
+    "conditions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Conditions under which the allowance applies."
+    },
+    "source_ref": {
+      "type": "string",
+      "description": "Source pointer ID establishing this allowance."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Supplementary notes."
+    }
+  },
+  "additionalProperties": false
+}

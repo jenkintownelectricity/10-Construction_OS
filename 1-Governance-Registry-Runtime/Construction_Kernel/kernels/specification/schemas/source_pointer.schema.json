@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Source Pointer",
+  "description": "Schema for a source pointer — a traceable reference to the originating document that establishes a specification fact.",
+  "type": "object",
+  "required": ["schema_version", "source_id", "source_type", "title"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "source_id": {
+      "type": "string",
+      "description": "Unique identifier for this source pointer."
+    },
+    "source_type": {
+      "type": "string",
+      "enum": ["project_manual", "addendum", "rfi", "bulletin", "standards_body"],
+      "description": "Type of source document."
+    },
+    "title": {
+      "type": "string",
+      "description": "Descriptive title of the source document."
+    },
+    "document_ref": {
+      "type": "string",
+      "description": "External document reference (project number, addendum number, RFI number)."
+    },
+    "page_ref": {
+      "type": "string",
+      "description": "Page, paragraph, or clause reference within the source document."
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the source document."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Supplementary notes."
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Cure Mechanism",
+  "type": "object",
+  "required": ["schema_version", "mechanism_id", "title", "cure_type", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "mechanism_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "cure_type": {
+      "type": "string",
+      "enum": ["moisture_cure", "heat_cure", "uv_cure", "chemical_cure", "evaporative", "anaerobic", "room_temperature_vulcanizing"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "min_temp_f": {
+      "type": "number"
+    },
+    "max_temp_f": {
+      "type": "number"
+    },
+    "min_humidity_pct": {
+      "type": "number"
+    },
+    "max_humidity_pct": {
+      "type": "number"
+    },
+    "cure_time_hours": {
+      "type": "number"
+    },
+    "moisture_sensitive": {
+      "type": "boolean"
+    },
+    "full_cure_days": {
+      "type": "number"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

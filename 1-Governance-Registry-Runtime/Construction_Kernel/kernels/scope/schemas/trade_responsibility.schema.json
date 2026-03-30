@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Trade Responsibility",
+  "description": "Schema for a trade responsibility assignment within a scope of work. Defines which trade is responsible for specific inclusions, exclusions, and interface coordination.",
+  "type": "object",
+  "required": ["schema_version", "responsibility_id", "trade", "scope_ref", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "responsibility_id": {
+      "type": "string",
+      "description": "Unique identifier for this trade responsibility record."
+    },
+    "trade": {
+      "type": "string",
+      "enum": ["roofing", "waterproofing", "sheet_metal", "glazing", "masonry", "concrete", "steel", "insulation", "air_barrier", "fireproofing", "sealant", "general_contractor"],
+      "description": "Trade responsible for the assigned scope items."
+    },
+    "scope_ref": {
+      "type": "string",
+      "description": "Reference to the parent scope_of_work record."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "inclusions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Items explicitly included in this trade's responsibility."
+    },
+    "exclusions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Items explicitly excluded from this trade's responsibility."
+    },
+    "interface_zones": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Interface zone identifiers where this trade coordinates with adjacent trades."
+    },
+    "coordination_notes": {
+      "type": "string",
+      "description": "Notes on coordination requirements with other trades."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

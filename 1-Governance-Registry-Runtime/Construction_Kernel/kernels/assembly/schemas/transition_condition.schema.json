@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Transition Condition",
+  "description": "Records how two assembly systems connect at an interface zone. Tracks which control layers are maintained across the transition and the associated risk level.",
+  "type": "object",
+  "required": ["schema_version", "transition_id", "title", "interface_zone", "from_assembly_ref", "to_assembly_ref", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "transition_id": {
+      "type": "string",
+      "description": "Unique identifier for this transition condition."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable description of this transition."
+    },
+    "interface_zone": {
+      "type": "string",
+      "enum": [
+        "roof_to_wall",
+        "parapet_transition",
+        "penetration",
+        "fenestration_edge",
+        "below_grade_transition",
+        "expansion_joint",
+        "deck_to_wall",
+        "roof_edge",
+        "curb_transition",
+        "drain_transition"
+      ],
+      "description": "Interface zone where this transition occurs. References shared/interface_zones.json."
+    },
+    "from_assembly_ref": {
+      "type": "string",
+      "description": "Reference to the source assembly system."
+    },
+    "to_assembly_ref": {
+      "type": "string",
+      "description": "Reference to the target assembly system."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"],
+      "description": "Current status of this transition record."
+    },
+    "control_layers_maintained": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "bulk_water_control",
+          "capillary_control",
+          "air_control",
+          "vapor_control",
+          "thermal_control",
+          "fire_smoke_control",
+          "movement_control",
+          "weathering_surface",
+          "drainage_plane",
+          "protection_layer",
+          "vegetation_support_layer"
+        ]
+      },
+      "description": "Control layers that remain continuous across this transition."
+    },
+    "detail_ref": {
+      "type": "string",
+      "description": "Reference to detail drawing or specification section documenting this transition."
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"],
+      "description": "Risk level assigned to this transition."
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "References to evidence supporting this transition design (test reports, mock-ups, inspections)."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes about this transition condition."
+    }
+  },
+  "additionalProperties": false
+}

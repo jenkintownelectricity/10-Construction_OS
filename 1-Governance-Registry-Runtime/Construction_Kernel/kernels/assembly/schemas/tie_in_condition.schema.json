@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Tie-In Condition",
+  "description": "Records how assemblies connect at construction boundaries: new-to-existing transitions, phased construction joints, and repair boundaries.",
+  "type": "object",
+  "required": ["schema_version", "tie_in_id", "title", "tie_in_type", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "tie_in_id": {
+      "type": "string",
+      "description": "Unique identifier for this tie-in condition."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable description of this tie-in condition."
+    },
+    "tie_in_type": {
+      "type": "string",
+      "enum": ["new_to_existing", "phased_construction", "repair_boundary"],
+      "description": "Classification of the construction boundary type."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"],
+      "description": "Current status of this tie-in condition record."
+    },
+    "assemblies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "References to the assembly systems connected at this tie-in."
+    },
+    "control_layers_maintained": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "bulk_water_control",
+          "capillary_control",
+          "air_control",
+          "vapor_control",
+          "thermal_control",
+          "fire_smoke_control",
+          "movement_control",
+          "weathering_surface",
+          "drainage_plane",
+          "protection_layer",
+          "vegetation_support_layer"
+        ]
+      },
+      "description": "Control layers that remain continuous across this tie-in."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes about this tie-in condition."
+    }
+  },
+  "additionalProperties": false
+}

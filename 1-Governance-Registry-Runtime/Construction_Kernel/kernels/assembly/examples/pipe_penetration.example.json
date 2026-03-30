@@ -1,0 +1,13 @@
+{
+  "schema_version": "v1",
+  "penetration_id": "PEN-PIPE-001",
+  "title": "Roof Pipe Penetration — 4-inch Plumbing Vent through TPO Membrane",
+  "penetration_type": "pipe",
+  "assembly_ref": "ASSY-ROOF-001",
+  "status": "active",
+  "control_layers_affected": ["bulk_water_control", "air_control", "thermal_control"],
+  "seal_method": "prefabricated_pitch_pocket_alternative",
+  "detail_ref": "DTL-PEN-PIPE-001",
+  "risk_level": "medium",
+  "notes": "Use manufacturer-approved penetration boot. TPO membrane welded to boot flange. Insulation cut tight around pipe. Air barrier sealed to pipe with compatible sealant. No field-fabricated pitch pockets permitted."
+}

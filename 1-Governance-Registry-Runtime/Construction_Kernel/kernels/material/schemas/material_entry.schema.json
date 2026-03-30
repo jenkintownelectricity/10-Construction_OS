@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Material Entry",
+  "description": "Schema for a material-domain truth record. Each entry captures one material fact: physical properties, compatibility constraints, degradation profile, substrate requirements, or control-layer mapping.",
+  "type": "object",
+  "required": ["schema_version", "entry_id", "entry_type", "title", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "entry_id": {
+      "type": "string",
+      "description": "Unique identifier for this material entry."
+    },
+    "entry_type": {
+      "type": "string",
+      "enum": ["material_profile", "compatibility_rule", "degradation_profile", "substrate_requirement"],
+      "description": "Classification of the material fact."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "material_class": {
+      "type": "string",
+      "description": "Material family (e.g., 'thermoplastic_membrane', 'fluid_applied_membrane', 'rigid_insulation', 'sealant')."
+    },
+    "control_layers_served": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Control layer IDs this material can serve."
+    },
+    "physical_properties": {
+      "type": "object",
+      "description": "Measurable physical properties (tensile strength, elongation, permeance, R-value, etc.).",
+      "additionalProperties": true
+    },
+    "compatibility": {
+      "type": "object",
+      "properties": {
+        "compatible_with": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Material entry IDs known to be compatible."
+        },
+        "incompatible_with": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Material entry IDs known to be incompatible."
+        }
+      }
+    },
+    "temperature_range": {
+      "type": "object",
+      "properties": {
+        "application_min_f": { "type": "number" },
+        "application_max_f": { "type": "number" },
+        "service_min_f": { "type": "number" },
+        "service_max_f": { "type": "number" }
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

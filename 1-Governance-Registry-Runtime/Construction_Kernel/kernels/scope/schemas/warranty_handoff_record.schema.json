@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Warranty Handoff Record",
+  "description": "Schema for a warranty handoff record within a scope of work. Captures warranty type, duration, conditions, exclusions, and documentation required for warranty transfer at project closeout.",
+  "type": "object",
+  "required": ["schema_version", "handoff_id", "title", "warranty_type", "scope_ref", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "handoff_id": {
+      "type": "string",
+      "description": "Unique identifier for this warranty handoff record."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for the warranty handoff."
+    },
+    "warranty_type": {
+      "type": "string",
+      "enum": ["manufacturer_standard", "manufacturer_extended", "system_warranty", "nol", "workmanship"],
+      "description": "Classification of the warranty type."
+    },
+    "scope_ref": {
+      "type": "string",
+      "description": "Reference to the parent scope_of_work record."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "manufacturer": {
+      "type": "string",
+      "description": "Warranty-issuing manufacturer name."
+    },
+    "duration_years": {
+      "type": "number",
+      "description": "Warranty duration in years."
+    },
+    "conditions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Conditions that must be met for warranty validity."
+    },
+    "exclusions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Items or conditions excluded from warranty coverage."
+    },
+    "start_trigger": {
+      "type": "string",
+      "enum": ["substantial_completion", "final_completion", "occupancy", "roof_completion"],
+      "description": "Event that triggers the warranty start date."
+    },
+    "documentation_required": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Documents required to activate or maintain the warranty."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

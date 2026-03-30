@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Submittal Requirement",
+  "description": "Schema for a submittal requirement — a required submittal document or item for review as specified in a Division 07 specification section.",
+  "type": "object",
+  "required": ["schema_version", "submittal_id", "title", "submittal_type", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "submittal_id": {
+      "type": "string",
+      "description": "Unique identifier for this submittal requirement."
+    },
+    "title": {
+      "type": "string",
+      "description": "Concise description of the required submittal."
+    },
+    "submittal_type": {
+      "type": "string",
+      "enum": ["product_data", "shop_drawing", "sample", "test_report", "certificate", "warranty", "mix_design"],
+      "description": "Type of submittal required."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "csi_section": {
+      "type": "string",
+      "description": "CSI section code where this submittal is required."
+    },
+    "timing": {
+      "type": "string",
+      "description": "When the submittal must be provided (e.g., 'prior to installation', 'with bid')."
+    },
+    "review_requirement": {
+      "type": "string",
+      "description": "Review and approval requirements (e.g., 'architect review required', 'for information only')."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Supplementary notes."
+    }
+  },
+  "additionalProperties": false
+}

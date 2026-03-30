@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Warranty Requirement",
+  "description": "Schema for a warranty requirement — warranty obligations specified for Division 07 materials, systems, and workmanship.",
+  "type": "object",
+  "required": ["schema_version", "warranty_id", "title", "warranty_type", "duration_years", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "warranty_id": {
+      "type": "string",
+      "description": "Unique identifier for this warranty requirement."
+    },
+    "title": {
+      "type": "string",
+      "description": "Concise description of the warranty requirement."
+    },
+    "warranty_type": {
+      "type": "string",
+      "enum": ["manufacturer_standard", "manufacturer_extended", "system_warranty", "nol", "workmanship"],
+      "description": "Type of warranty required. nol = no-dollar-limit."
+    },
+    "duration_years": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Warranty duration in years."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "conditions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Warranty conditions and prerequisites."
+    },
+    "exclusions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Items excluded from warranty coverage."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Supplementary notes."
+    }
+  },
+  "additionalProperties": false
+}

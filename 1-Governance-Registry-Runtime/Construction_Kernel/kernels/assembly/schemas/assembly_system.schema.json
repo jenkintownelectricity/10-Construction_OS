@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Assembly System",
+  "description": "A complete building enclosure assembly defined as an ordered layer stack with control-layer continuity tracking. The primary organizing unit of the Construction Assembly Kernel.",
+  "type": "object",
+  "required": ["schema_version", "system_id", "title", "assembly_type", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "system_id": {
+      "type": "string",
+      "description": "Unique identifier for this assembly system."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable name for this assembly system."
+    },
+    "assembly_type": {
+      "type": "string",
+      "enum": ["roof_assembly", "wall_assembly", "below_grade_assembly", "plaza_assembly", "vegetated_assembly", "hybrid_assembly"],
+      "description": "Functional classification of this assembly."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"],
+      "description": "Current status of this assembly record."
+    },
+    "layers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["layer_id", "position", "control_layer_id", "material_ref"],
+        "properties": {
+          "layer_id": {
+            "type": "string",
+            "description": "Unique identifier for this layer within the assembly."
+          },
+          "position": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Layer position from exterior to interior (1 = outermost)."
+          },
+          "control_layer_id": {
+            "type": "string",
+            "description": "Control layer function this layer serves. References shared/control_layers.json."
+          },
+          "material_ref": {
+            "type": "string",
+            "description": "Reference to a material entry in Construction_Material_Kernel."
+          },
+          "attachment_method": {
+            "type": "string",
+            "description": "How this layer is attached (mechanically_attached, fully_adhered, ballasted, etc.)."
+          },
+          "thickness": {
+            "type": "string",
+            "description": "Layer thickness with units (e.g., '3 inches', '60 mil')."
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Ordered layer stack for this assembly (position 1 = outermost)."
+    },
+    "control_layer_continuity": {
+      "type": "object",
+      "description": "Map of control_layer_id to continuity status for each control layer this assembly addresses.",
+      "additionalProperties": {
+        "type": "string",
+        "enum": ["continuous", "interrupted", "terminated", "transitioned"]
+      }
+    },
+    "interface_zones": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Interface zone IDs from the shared registry that this assembly encounters."
+    },
+    "climate_context": {
+      "type": "object",
+      "description": "Climate conditions this assembly is designed for.",
+      "properties": {
+        "climate_zone": {
+          "type": "string",
+          "description": "ASHRAE climate zone (e.g., '4A', '5B')."
+        },
+        "exposure_flags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["marine_exposure", "high_uv", "freeze_thaw", "coastal_salt", "high_wind", "high_humidity", "severe_precipitation"]
+          }
+        },
+        "exposure_class": {
+          "type": "string",
+          "enum": ["sheltered", "moderate", "severe", "extreme"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "geometry_context": {
+      "type": "object",
+      "description": "Geometric conditions affecting this assembly.",
+      "properties": {
+        "geometry_contexts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["low_slope_roof", "steep_slope_roof", "complex_roof_geometry", "large_parapet_run", "multi_penetration_field", "irregular_drainage_geometry", "tall_wall_field", "podium_condition"]
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "tested_assembly_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Pointers to tested_assembly_record entries that validate this configuration."
+    },
+    "standards_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Applicable standards by reference ID from the shared standards registry."
+    },
+    "warranty_posture": {
+      "type": "string",
+      "enum": ["manufacturer_standard", "manufacturer_extended", "system_warranty", "no_dollar_limit", "prorated", "none", "unknown"],
+      "description": "Warranty classification for this assembly."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes, clarifications, or context."
+    }
+  },
+  "additionalProperties": false
+}

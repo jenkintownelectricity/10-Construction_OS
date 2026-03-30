@@ -1,0 +1,15 @@
+{
+  "schema_version": "v1",
+  "inspection_id": "INSP-ROOF-PC-001",
+  "title": "Pre-Cover Inspection — Roof Insulation Over TPO Membrane Substrate",
+  "inspection_type": "pre_cover",
+  "scope_ref": "SOW-ROOF-001",
+  "status": "active",
+  "timing": "After substrate preparation and before polyiso insulation board installation",
+  "acceptance_criteria": "Deck surface is clean, dry, and free of debris. All penetration curbs are installed and properly secured. Deck joints are sealed. No ponding water present. Moisture scan confirms substrate moisture content below 25% per ASTM D4263.",
+  "test_method_ref": "ASTM D4263",
+  "responsible_party": "BECx commissioning agent and roofing manufacturer representative",
+  "hold_point": true,
+  "evidence_required": true,
+  "notes": "This inspection is a mandatory hold point. Insulation installation must not begin until this inspection passes and is documented with photographs and signed inspection report."
+}

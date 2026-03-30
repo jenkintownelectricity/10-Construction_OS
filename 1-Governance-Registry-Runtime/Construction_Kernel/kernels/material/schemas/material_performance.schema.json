@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Material Performance",
+  "description": "Schema for a material performance record. Captures aggregate performance data for a material including test results, service life estimates, and contextual applicability.",
+  "type": "object",
+  "required": ["schema_version", "performance_id", "material_ref", "performance_class", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "performance_id": {
+      "type": "string",
+      "description": "Unique identifier for this performance record."
+    },
+    "material_ref": {
+      "type": "string",
+      "description": "Reference to the parent material ID."
+    },
+    "performance_class": {
+      "type": "string",
+      "description": "Performance classification (e.g., fire_resistance, weathering_resistance, structural_capacity)."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "test_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "test_method_ref": { "type": "string" },
+          "result": { "type": "string" },
+          "date": { "type": "string" }
+        },
+        "additionalProperties": false
+      },
+      "description": "Array of test result summaries."
+    },
+    "service_life_estimate": {
+      "type": "object",
+      "properties": {
+        "years": { "type": "number", "description": "Estimated service life in years." },
+        "source": { "type": "string", "description": "Source of the estimate (manufacturer, industry study)." },
+        "conditions": { "type": "string", "description": "Conditions under which estimate applies." }
+      },
+      "additionalProperties": false,
+      "description": "Published service life estimate."
+    },
+    "climate_context": {
+      "type": "object",
+      "properties": {
+        "climate_zone": { "type": "string", "description": "ASHRAE climate zone." },
+        "exposure_severity": { "type": "string", "enum": ["mild", "moderate", "severe"] },
+        "key_stressor": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "description": "Climate context for performance applicability."
+    },
+    "geometry_context": {
+      "type": "object",
+      "properties": {
+        "slope": { "type": "string", "enum": ["low_slope", "steep_slope", "vertical", "below_grade"] },
+        "orientation": { "type": "string", "enum": ["horizontal", "vertical", "overhead", "inverted"] },
+        "substrate": { "type": "string" },
+        "exposure": { "type": "string", "enum": ["exposed", "concealed", "buried"] }
+      },
+      "additionalProperties": false,
+      "description": "Geometry context for performance applicability."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

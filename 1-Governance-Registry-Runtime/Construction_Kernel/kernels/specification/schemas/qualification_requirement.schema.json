@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Qualification Requirement",
+  "description": "Schema for a qualification requirement — required qualifications for manufacturers, installers, testing agencies, or inspectors as specified in Division 07 sections.",
+  "type": "object",
+  "required": ["schema_version", "qualification_id", "title", "qualification_type", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "qualification_id": {
+      "type": "string",
+      "description": "Unique identifier for this qualification requirement."
+    },
+    "title": {
+      "type": "string",
+      "description": "Concise description of the qualification requirement."
+    },
+    "qualification_type": {
+      "type": "string",
+      "enum": ["manufacturer", "installer", "testing_agency", "inspector"],
+      "description": "Type of party that must be qualified."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "minimum_experience": {
+      "type": "string",
+      "description": "Minimum experience requirement (e.g., '5 years of similar work')."
+    },
+    "certifications_required": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Required certifications or accreditations."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Supplementary notes."
+    }
+  },
+  "additionalProperties": false
+}

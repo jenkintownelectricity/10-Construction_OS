@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Solvent System",
+  "type": "object",
+  "required": ["schema_version", "system_id", "title", "solvent_type", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "system_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "solvent_type": {
+      "type": "string",
+      "enum": ["water_based", "solvent_based", "solvent_free", "hot_applied", "reactive"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "voc_g_per_l": {
+      "type": "number"
+    },
+    "flash_point_f": {
+      "type": "number"
+    },
+    "evaporation_rate": {
+      "type": "string"
+    },
+    "regulatory_class": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

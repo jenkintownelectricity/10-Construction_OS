@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "step_id": "BECX-PERF-001",
+  "title": "BECx Air Leakage Performance Test — Building Enclosure",
+  "becx_phase": "performance_testing",
+  "scope_ref": "SOW-ENCL-001",
+  "status": "active",
+  "responsible_party": "Third-party BECx commissioning agent",
+  "acceptance_criteria": "Whole-building air leakage rate must not exceed 0.25 CFM/ft² at 75 Pa pressure differential per ASTM E2357. Individual test areas must not exceed 0.15 CFM/ft² at 75 Pa. Any localized leakage exceeding threshold requires remediation and retest.",
+  "documentation_required": [
+    "ASTM E2357 test report with pressure and flow data",
+    "Thermographic survey images identifying leakage paths",
+    "Pre-test and post-test condition photographs",
+    "Remediation log for any failed areas",
+    "Signed commissioning agent summary report"
+  ],
+  "notes": "Test to be conducted after air barrier installation is complete and before cladding installation conceals the air barrier system. Weather conditions must permit pressurization: wind speed below 15 mph, no active precipitation."
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Specification Revision",
+  "description": "Schema for a specification revision record — tracks changes to specification content through addenda, bulletins, RFI responses, and re-specifications.",
+  "type": "object",
+  "required": ["schema_version", "revision_id", "document_ref", "revision_number", "effective_date", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "revision_id": {
+      "type": "string",
+      "description": "Unique identifier for this revision record."
+    },
+    "document_ref": {
+      "type": "string",
+      "description": "Reference to the specification document being revised."
+    },
+    "revision_number": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Sequential revision number."
+    },
+    "effective_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the revision takes effect."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "changes_summary": {
+      "type": "string",
+      "description": "Summary of what changed in this revision."
+    },
+    "supersedes": {
+      "type": "string",
+      "description": "ID of the record superseded by this revision."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Supplementary notes."
+    }
+  },
+  "additionalProperties": false
+}

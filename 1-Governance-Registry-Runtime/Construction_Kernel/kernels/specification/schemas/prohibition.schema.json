@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Prohibition",
+  "description": "Schema for a specification prohibition — an explicit statement forbidding a material, method, condition, or configuration.",
+  "type": "object",
+  "required": ["schema_version", "prohibition_id", "title", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "prohibition_id": {
+      "type": "string",
+      "description": "Unique identifier for this prohibition."
+    },
+    "title": {
+      "type": "string",
+      "description": "Concise description of the prohibition."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "csi_section": {
+      "type": "string",
+      "description": "CSI section code where this prohibition originates."
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of what is prohibited and why."
+    },
+    "conditions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Conditions under which the prohibition applies."
+    },
+    "source_ref": {
+      "type": "string",
+      "description": "Source pointer ID establishing this prohibition."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Supplementary notes."
+    }
+  },
+  "additionalProperties": false
+}

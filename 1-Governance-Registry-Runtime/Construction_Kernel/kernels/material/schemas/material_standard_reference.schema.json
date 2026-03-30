@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Material Standard Reference",
+  "description": "Schema for a standards reference record. Captures ASTM and other test method citations used to define material properties. Citation only — no copyrighted text.",
+  "type": "object",
+  "required": ["schema_version", "reference_id", "standard_id", "title", "applicability"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "reference_id": {
+      "type": "string",
+      "description": "Unique identifier for this standards reference."
+    },
+    "standard_id": {
+      "type": "string",
+      "description": "Standard designation (e.g., ASTM D6878, ASTM E96, UL 790)."
+    },
+    "title": {
+      "type": "string",
+      "description": "Official title of the standard."
+    },
+    "applicability": {
+      "type": "string",
+      "description": "What this standard measures, defines, or classifies."
+    },
+    "test_method": {
+      "type": "string",
+      "description": "Specific test procedure within a multi-part standard, if applicable."
+    },
+    "edition": {
+      "type": "string",
+      "description": "Year or edition identifier (e.g., 2023, 2019a)."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

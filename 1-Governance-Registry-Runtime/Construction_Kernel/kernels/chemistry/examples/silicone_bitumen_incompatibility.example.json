@@ -1,0 +1,13 @@
+{
+  "schema_version": "v1",
+  "rule_id": "INCOMPAT-001",
+  "title": "Silicone Sealant Adhesion Failure on Bituminous Substrates",
+  "chemistry_a_ref": "CHEM-SYS-SIL-001",
+  "chemistry_b_ref": "CHEM-SYS-BIT-001",
+  "incompatibility_type": "adhesion_failure",
+  "severity": "critical",
+  "status": "active",
+  "mechanism": "Silicone sealants do not achieve adequate adhesion to bituminous substrates. Oils and plasticizers in asphalt-based materials migrate into the silicone, preventing bond formation and causing delamination at the interface.",
+  "evidence_refs": ["EVD-LAB-2024-017", "EVD-FIELD-2023-042"],
+  "notes": "Do not apply silicone sealant directly to APP, SBS, or built-up roofing substrates. Use polyurethane or polysulfide alternatives for bituminous interfaces."
+}

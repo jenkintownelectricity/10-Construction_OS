@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Specification Section",
+  "description": "Schema for a CSI-formatted specification section within Division 07. Sections are the primary organizational unit containing requirements, prohibitions, allowances, and associated obligations.",
+  "type": "object",
+  "required": ["schema_version", "section_id", "csi_section_code", "csi_section_title", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "section_id": {
+      "type": "string",
+      "description": "Unique identifier for this specification section."
+    },
+    "csi_section_code": {
+      "type": "string",
+      "pattern": "^\\d{2} \\d{2} \\d{2}$",
+      "description": "CSI MasterFormat section number (e.g., '07 52 00')."
+    },
+    "csi_section_title": {
+      "type": "string",
+      "description": "Human-readable CSI section title."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "requirements": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Array of requirement IDs in this section."
+    },
+    "prohibitions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Array of prohibition IDs in this section."
+    },
+    "allowances": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Array of allowance IDs in this section."
+    },
+    "submittals": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Array of submittal_requirement IDs in this section."
+    },
+    "qualifications": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Array of qualification_requirement IDs in this section."
+    },
+    "warranties": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Array of warranty_requirement IDs in this section."
+    },
+    "testing": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Array of testing_requirement IDs in this section."
+    },
+    "control_layers_served": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["bulk_water_control", "capillary_control", "air_control", "vapor_control", "thermal_control", "fire_smoke_control", "movement_control", "weathering_surface", "drainage_plane", "protection_layer", "vegetation_support_layer"]
+      },
+      "description": "Control layer IDs from the shared registry served by this section."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Supplementary notes."
+    }
+  },
+  "additionalProperties": false
+}

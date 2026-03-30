@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Material Property",
+  "description": "Schema for a material property record. Captures a single measured physical property of a material with value, unit, test method, and evidence traceability.",
+  "type": "object",
+  "required": ["schema_version", "property_id", "material_ref", "property_name", "value", "unit", "test_method_ref", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "property_id": {
+      "type": "string",
+      "description": "Unique identifier for this property record."
+    },
+    "material_ref": {
+      "type": "string",
+      "description": "Reference to the parent material ID."
+    },
+    "property_name": {
+      "type": "string",
+      "description": "Name of the physical property (e.g., tensile_strength, elongation, r_value)."
+    },
+    "value": {
+      "oneOf": [
+        { "type": "number" },
+        { "type": "string" }
+      ],
+      "description": "Measured property value. Numeric for quantitative properties; string for pass/fail or classification."
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit of measurement (e.g., psi, %, perms, hr·ft²·°F/BTU)."
+    },
+    "test_method_ref": {
+      "type": "string",
+      "description": "Reference to the standards reference record ID for the test method."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "conditions": {
+      "type": "string",
+      "description": "Test conditions (temperature, humidity, age, substrate, etc.)."
+    },
+    "temperature_range": {
+      "type": "object",
+      "properties": {
+        "min_f": { "type": "number", "description": "Minimum temperature in degrees F." },
+        "max_f": { "type": "number", "description": "Maximum temperature in degrees F." }
+      },
+      "additionalProperties": false,
+      "description": "Temperature range for which the property value is valid."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

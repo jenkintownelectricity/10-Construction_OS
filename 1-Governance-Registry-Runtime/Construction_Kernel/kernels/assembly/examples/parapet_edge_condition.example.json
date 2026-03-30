@@ -1,0 +1,11 @@
+{
+  "schema_version": "v1",
+  "edge_id": "EDGE-PAR-001",
+  "title": "Parapet Coping — Prefinished Metal over TPO Base Flashing",
+  "edge_type": "coping",
+  "assembly_ref": "ASSY-ROOF-001",
+  "status": "active",
+  "control_layers_terminated": ["bulk_water_control", "thermal_control"],
+  "detail_ref": "DTL-EDGE-PAR-001",
+  "notes": "Metal coping with continuous cleat. TPO base flashing extends over parapet top. Coping overlaps base flashing min 2 inches. Sealant at cleat-to-flashing interface. Coping joints lapped min 4 inches with sealant. Thermal insulation terminates at parapet inside face."
+}

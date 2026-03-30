@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Material Compatibility Record",
+  "description": "Schema for a material-to-material compatibility record. Captures pairwise compatibility assessment between two materials based on published evidence.",
+  "type": "object",
+  "required": ["schema_version", "record_id", "material_a_ref", "material_b_ref", "compatibility_result", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "record_id": {
+      "type": "string",
+      "description": "Unique identifier for this compatibility record."
+    },
+    "material_a_ref": {
+      "type": "string",
+      "description": "Reference to the first material ID."
+    },
+    "material_b_ref": {
+      "type": "string",
+      "description": "Reference to the second material ID."
+    },
+    "compatibility_result": {
+      "type": "string",
+      "enum": ["compatible", "incompatible", "conditional", "untested"],
+      "description": "Assessed compatibility result."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "conditions": {
+      "type": "string",
+      "description": "Required conditions for conditional compatibility (e.g., separator sheet, primer application)."
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to evidence sources supporting this compatibility result."
+    },
+    "chemistry_ref": {
+      "type": "string",
+      "description": "Pointer to Chemistry Kernel record explaining interaction mechanism."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

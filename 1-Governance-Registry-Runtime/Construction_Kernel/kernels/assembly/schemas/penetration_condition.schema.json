@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Penetration Condition",
+  "description": "Records how a penetrating element passes through a building enclosure assembly. Tracks affected control layers and seal method.",
+  "type": "object",
+  "required": ["schema_version", "penetration_id", "title", "penetration_type", "assembly_ref", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "penetration_id": {
+      "type": "string",
+      "description": "Unique identifier for this penetration condition."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable description of this penetration."
+    },
+    "penetration_type": {
+      "type": "string",
+      "enum": ["pipe", "conduit", "structural", "equipment", "anchor", "vent"],
+      "description": "Classification of the penetrating element."
+    },
+    "assembly_ref": {
+      "type": "string",
+      "description": "Reference to the assembly system being penetrated."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"],
+      "description": "Current status of this penetration record."
+    },
+    "control_layers_affected": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "bulk_water_control",
+          "capillary_control",
+          "air_control",
+          "vapor_control",
+          "thermal_control",
+          "fire_smoke_control",
+          "movement_control",
+          "weathering_surface",
+          "drainage_plane",
+          "protection_layer",
+          "vegetation_support_layer"
+        ]
+      },
+      "description": "Control layers interrupted by this penetration."
+    },
+    "seal_method": {
+      "type": "string",
+      "description": "Method used to restore control-layer continuity around the penetration."
+    },
+    "detail_ref": {
+      "type": "string",
+      "description": "Reference to penetration detail drawing or specification."
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"],
+      "description": "Risk level assigned to this penetration condition."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes about this penetration condition."
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hygrothermal Property",
+  "description": "Schema for a hygrothermal property record. Captures moisture transport and thermal-moisture interaction properties including vapor permeance, moisture absorption, and wet thermal conductivity.",
+  "type": "object",
+  "required": ["schema_version", "property_id", "material_ref", "property_type", "value", "unit", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "property_id": {
+      "type": "string",
+      "description": "Unique identifier for this hygrothermal property record."
+    },
+    "material_ref": {
+      "type": "string",
+      "description": "Reference to the parent material ID."
+    },
+    "property_type": {
+      "type": "string",
+      "enum": [
+        "vapor_permeance",
+        "moisture_absorption",
+        "capillary_coefficient",
+        "sorption_isotherm",
+        "thermal_conductivity_wet"
+      ],
+      "description": "Type of hygrothermal property."
+    },
+    "value": {
+      "oneOf": [
+        { "type": "number" },
+        { "type": "string" }
+      ],
+      "description": "Measured property value."
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit of measurement (e.g., perms, % by weight, kg/m2·s^0.5, BTU·in/hr·ft2·°F)."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "test_method_ref": {
+      "type": "string",
+      "description": "Reference to the test method standards record."
+    },
+    "temperature": {
+      "type": "string",
+      "description": "Temperature at which the property was measured (e.g., '73°F')."
+    },
+    "rh_conditions": {
+      "type": "string",
+      "description": "Relative humidity conditions during measurement (e.g., '50% RH dry cup', '0-50% RH gradient')."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

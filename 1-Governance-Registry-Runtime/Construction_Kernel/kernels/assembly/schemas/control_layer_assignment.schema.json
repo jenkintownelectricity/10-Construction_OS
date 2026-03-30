@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Control Layer Assignment",
+  "description": "Maps an assembly to a control-layer function and tracks continuity status. Records which control layer an assembly addresses and whether it is continuous, interrupted, terminated, or transitioned.",
+  "type": "object",
+  "required": ["schema_version", "assignment_id", "assembly_ref", "control_layer_id", "continuity_status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "assignment_id": {
+      "type": "string",
+      "description": "Unique identifier for this assignment."
+    },
+    "assembly_ref": {
+      "type": "string",
+      "description": "Reference to the assembly_system this assignment belongs to."
+    },
+    "control_layer_id": {
+      "type": "string",
+      "enum": [
+        "bulk_water_control",
+        "capillary_control",
+        "air_control",
+        "vapor_control",
+        "thermal_control",
+        "fire_smoke_control",
+        "movement_control",
+        "weathering_surface",
+        "drainage_plane",
+        "protection_layer",
+        "vegetation_support_layer"
+      ],
+      "description": "Control layer function assigned. References shared/control_layers.json."
+    },
+    "continuity_status": {
+      "type": "string",
+      "enum": ["continuous", "interrupted", "terminated", "transitioned"],
+      "description": "Whether the control layer is maintained continuously within this assembly."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes about this assignment."
+    }
+  },
+  "additionalProperties": false
+}

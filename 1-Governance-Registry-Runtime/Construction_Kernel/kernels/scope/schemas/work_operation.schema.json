@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Work Operation",
+  "description": "Schema for a discrete work operation within a scope of work. Each operation represents a single constructible task with defined prerequisites, sequencing, and weather constraints.",
+  "type": "object",
+  "required": ["schema_version", "operation_id", "title", "operation_type", "scope_ref", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "operation_id": {
+      "type": "string",
+      "description": "Unique identifier for this work operation."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for the operation."
+    },
+    "operation_type": {
+      "type": "string",
+      "enum": ["surface_prep", "installation", "flashing", "sealing", "insulating", "waterproofing", "air_sealing", "fire_stopping", "testing", "protection", "cleanup"],
+      "description": "Classification of the work operation."
+    },
+    "scope_ref": {
+      "type": "string",
+      "description": "Reference to the parent scope_of_work record."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "trade_ref": {
+      "type": "string",
+      "description": "Reference to the trade_responsibility record for this operation."
+    },
+    "sequence_position": {
+      "type": "integer",
+      "description": "Ordinal position within the scope execution sequence."
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to operations or conditions that must be complete before this operation begins."
+    },
+    "duration_estimate": {
+      "type": "string",
+      "description": "Estimated duration for this operation (e.g., '2 days', '4 hours')."
+    },
+    "weather_constraints": {
+      "type": "object",
+      "description": "Weather limitations for this operation (temperature range, wind speed, precipitation)."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

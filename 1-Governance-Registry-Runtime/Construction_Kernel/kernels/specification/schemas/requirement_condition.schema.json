@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Requirement Condition",
+  "description": "Schema for a condition that triggers or modifies a specification requirement based on climate, geometry, substrate, exposure, or code context.",
+  "type": "object",
+  "required": ["schema_version", "condition_id", "condition_type", "description"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "condition_id": {
+      "type": "string",
+      "description": "Unique identifier for this condition."
+    },
+    "condition_type": {
+      "type": "string",
+      "enum": ["climate", "geometry", "substrate", "exposure", "code_trigger"],
+      "description": "Type of condition that triggers the requirement variation."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the condition."
+    },
+    "parameters": {
+      "type": "object",
+      "description": "Condition parameters as key-value pairs.",
+      "additionalProperties": true
+    },
+    "notes": {
+      "type": "string",
+      "description": "Supplementary notes."
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Assembly Component",
+  "description": "A discrete component that participates in one or more assemblies. Typed by function within the assembly.",
+  "type": "object",
+  "required": ["schema_version", "component_id", "title", "component_type", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "component_id": {
+      "type": "string",
+      "description": "Unique identifier for this component."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable name for this component."
+    },
+    "component_type": {
+      "type": "string",
+      "enum": [
+        "membrane",
+        "insulation",
+        "substrate",
+        "cover_board",
+        "fastener",
+        "adhesive",
+        "sealant",
+        "flashing",
+        "edge_metal",
+        "drain",
+        "curb",
+        "vapor_retarder",
+        "air_barrier",
+        "firebreak"
+      ],
+      "description": "Functional classification of this component within an assembly."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"],
+      "description": "Current status of this component record."
+    },
+    "material_ref": {
+      "type": "string",
+      "description": "Reference to a material entry in Construction_Material_Kernel."
+    },
+    "spec_ref": {
+      "type": "string",
+      "description": "Reference to a specification entry in Construction_Specification_Kernel."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes about this component."
+    }
+  },
+  "additionalProperties": false
+}

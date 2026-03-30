@@ -1,0 +1,13 @@
+{
+  "schema_version": "v1",
+  "property_id": "HYGRO-SA-PERM-001",
+  "material_ref": "MATL-SA-MEMBRANE-001",
+  "property_type": "vapor_permeance",
+  "value": 0.05,
+  "unit": "perms (US)",
+  "status": "active",
+  "test_method_ref": "STD-ASTM-E96",
+  "temperature": "73°F",
+  "rh_conditions": "Dry cup method (desiccant) per ASTM E96 Procedure A — 0% RH on one side, 50% RH on other side. Specimen conditioned at 73°F and 50% RH for 24 hours prior to test.",
+  "notes": "36-mil self-adhered polymer modified bitumen sheet membrane (SBS-modified with polyethylene facer). Classified as Class I Vapor Retarder per IRC/IBC (permeance <= 0.1 perms). Vapor permeance is not significantly temperature-dependent within the normal service range of 30-100°F. Used as combined water-resistive barrier and vapor retarder in wall assemblies and as roofing underlayment. Conforms to ASTM D1970. Permeance value applies to the intact sheet only — permeance at laps depends on sealant and overlap width, which are assembly-level considerations outside this kernel's scope."
+}

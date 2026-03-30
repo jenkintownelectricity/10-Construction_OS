@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Chemical Hazard Record",
+  "type": "object",
+  "required": ["schema_version", "hazard_id", "chemistry_ref", "hazard_type", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "hazard_id": {
+      "type": "string"
+    },
+    "chemistry_ref": {
+      "type": "string"
+    },
+    "hazard_type": {
+      "type": "string",
+      "enum": ["flammable", "toxic", "corrosive", "sensitizer", "environmental"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "exposure_route": {
+      "type": "string"
+    },
+    "regulatory_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "precautions": {
+      "type": "string"
+    },
+    "sds_ref": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

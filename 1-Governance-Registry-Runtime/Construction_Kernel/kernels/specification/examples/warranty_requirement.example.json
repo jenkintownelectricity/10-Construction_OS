@@ -1,0 +1,23 @@
+{
+  "schema_version": "v1",
+  "warranty_id": "WAR-07-5200-001",
+  "title": "20-year no-dollar-limit system warranty for modified bituminous membrane roofing",
+  "warranty_type": "nol",
+  "duration_years": 20,
+  "status": "active",
+  "conditions": [
+    "Membrane system shall be installed by manufacturer-authorized applicator",
+    "Manufacturer's representative shall inspect installation at completion",
+    "All components shall be from single manufacturer's system",
+    "Roof maintenance program shall be maintained for warranty duration",
+    "Owner shall provide manufacturer access for annual inspection during first two years"
+  ],
+  "exclusions": [
+    "Damage caused by others including but not limited to mechanical trades, window washers, and antenna installers",
+    "Damage from acts of God including hurricane, tornado, earthquake, and hail exceeding 1.75 inch diameter",
+    "Consequential damages including interior damage from leaks",
+    "Ponding water in areas not designed for positive drainage",
+    "Alterations or penetrations made without manufacturer's written authorization"
+  ],
+  "notes": "NDL system warranty covers complete waterproofing integrity of the roof system for 20 years from date of substantial completion. Warranty is non-prorated for full duration. Manufacturer is responsible for 100% of material and labor costs for warranty repairs. Warranty is transferable to subsequent building owners with written notice to manufacturer within 30 days of transfer."
+}

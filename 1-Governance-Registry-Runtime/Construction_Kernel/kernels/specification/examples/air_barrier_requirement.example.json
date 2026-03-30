@@ -1,0 +1,23 @@
+{
+  "schema_version": "v1",
+  "requirement_id": "REQ-07-2700-001",
+  "title": "Air barrier assembly shall achieve maximum air leakage rate of 0.04 cfm/sf at 1.57 psf pressure differential",
+  "obligation_level": "shall",
+  "status": "active",
+  "csi_section": "07 27 00",
+  "control_layers": ["air_control"],
+  "interface_zones": ["roof_to_wall", "fenestration_edge", "penetration"],
+  "performance_criteria": {
+    "max_air_leakage_cfm_per_sf": 0.04,
+    "test_pressure_psf": 1.57,
+    "continuity_requirement": "continuous across all control layer transitions"
+  },
+  "test_method_refs": ["ASTM E2357"],
+  "standards_refs": ["ASHRAE_90_1", "IBC"],
+  "source_ref": "SRC-PM-002",
+  "climate_context": "5A",
+  "lifecycle_stage": "design",
+  "evidence_required": true,
+  "ambiguity_flag": false,
+  "notes": "Air barrier performance requirement per ASHRAE 90.1 Section 5.4.3.1. Assembly-level testing required per ASTM E2357. Climate Zone 5A requires continuous air barrier with this performance threshold. Continuity at roof-to-wall transitions, fenestration perimeters, and penetrations is critical. Specification addresses field of wall but does not detail transition sequencing at fenestration — see related ambiguity in REQ-07-2700-003."
+}

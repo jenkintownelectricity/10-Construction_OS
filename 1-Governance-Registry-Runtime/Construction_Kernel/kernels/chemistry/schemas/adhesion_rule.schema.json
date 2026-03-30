@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Adhesion Rule",
+  "type": "object",
+  "required": ["schema_version", "rule_id", "title", "substrate_type", "chemistry_ref", "adhesion_status", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "rule_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "substrate_type": {
+      "type": "string"
+    },
+    "chemistry_ref": {
+      "type": "string"
+    },
+    "adhesion_status": {
+      "type": "string",
+      "enum": ["verified", "conditional", "not_recommended", "untested"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "surface_prep_required": {
+      "type": "boolean"
+    },
+    "primer_required": {
+      "type": "boolean"
+    },
+    "primer_ref": {
+      "type": "string"
+    },
+    "test_method_ref": {
+      "type": "string"
+    },
+    "min_temp_f": {
+      "type": "number"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

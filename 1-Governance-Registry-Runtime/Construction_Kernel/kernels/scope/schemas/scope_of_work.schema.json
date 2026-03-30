@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Scope of Work",
+  "description": "Schema for a complete scope-of-work record. Defines the boundary, inclusions, exclusions, trade responsibilities, operations, inspection steps, commissioning steps, and closeout requirements for a defined scope package.",
+  "type": "object",
+  "required": ["schema_version", "scope_id", "title", "scope_type", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "scope_id": {
+      "type": "string",
+      "description": "Unique identifier for this scope of work."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for the scope of work."
+    },
+    "scope_type": {
+      "type": "string",
+      "enum": ["division_scope", "trade_scope", "interface_scope", "phased_scope"],
+      "description": "Classification of the scope package."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "csi_sections": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "CSI MasterFormat section numbers covered by this scope."
+    },
+    "inclusions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Items explicitly included in scope."
+    },
+    "exclusions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Items explicitly excluded from scope."
+    },
+    "trade_responsibilities": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to trade_responsibility records associated with this scope."
+    },
+    "operations": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to work_operation records within this scope."
+    },
+    "inspection_steps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to inspection_step records required by this scope."
+    },
+    "commissioning_steps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to commissioning_step records within this scope."
+    },
+    "closeout_requirements": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to closeout_requirement records for this scope."
+    },
+    "interface_zones": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Interface zone identifiers where scope handoffs occur."
+    },
+    "control_layers_affected": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Control layer identifiers affected by this scope."
+    },
+    "climate_context": {
+      "type": "object",
+      "description": "Climate zone and environmental context affecting scope execution."
+    },
+    "geometry_context": {
+      "type": "object",
+      "description": "Building geometry context relevant to scope boundaries."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

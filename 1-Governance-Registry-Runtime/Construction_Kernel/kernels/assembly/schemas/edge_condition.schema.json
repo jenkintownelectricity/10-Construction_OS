@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Edge Condition",
+  "description": "Records how an assembly terminates at its perimeter. Typed by edge treatment: fascia, drip edge, gravel stop, coping, parapet cap, or termination bar.",
+  "type": "object",
+  "required": ["schema_version", "edge_id", "title", "edge_type", "assembly_ref", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "edge_id": {
+      "type": "string",
+      "description": "Unique identifier for this edge condition."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable description of this edge condition."
+    },
+    "edge_type": {
+      "type": "string",
+      "enum": ["fascia", "drip_edge", "gravel_stop", "coping", "parapet_cap", "termination_bar"],
+      "description": "Type of edge treatment."
+    },
+    "assembly_ref": {
+      "type": "string",
+      "description": "Reference to the assembly system this edge terminates."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"],
+      "description": "Current status of this edge condition record."
+    },
+    "control_layers_terminated": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "bulk_water_control",
+          "capillary_control",
+          "air_control",
+          "vapor_control",
+          "thermal_control",
+          "fire_smoke_control",
+          "movement_control",
+          "weathering_surface",
+          "drainage_plane",
+          "protection_layer",
+          "vegetation_support_layer"
+        ]
+      },
+      "description": "Control layers that terminate at this edge."
+    },
+    "detail_ref": {
+      "type": "string",
+      "description": "Reference to edge detail drawing or specification."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes about this edge condition."
+    }
+  },
+  "additionalProperties": false
+}

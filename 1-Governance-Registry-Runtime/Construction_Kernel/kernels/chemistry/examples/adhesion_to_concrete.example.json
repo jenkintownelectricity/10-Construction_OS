@@ -1,0 +1,16 @@
+{
+  "schema_version": "v1",
+  "rule_id": "ADH-001",
+  "title": "Polyurethane Sealant Adhesion to Concrete Substrate",
+  "substrate_type": "concrete",
+  "chemistry_ref": "CHEM-SYS-001",
+  "adhesion_status": "conditional",
+  "status": "active",
+  "surface_prep_required": true,
+  "primer_required": true,
+  "primer_ref": "CHEM-SYS-PRM-001",
+  "test_method_ref": "ASTM C794",
+  "min_temp_f": 40,
+  "evidence_refs": ["EVD-LAB-2024-003", "EVD-MFR-TDS-001"],
+  "notes": "Polyurethane sealant achieves adhesion to concrete only when substrate is clean, dry, and primed. Surface must be free of laitance, curing compounds, and form release agents. Primer must be applied per manufacturer instructions and allowed to tack before sealant application. Minimum application temperature 40 degrees F."
+}

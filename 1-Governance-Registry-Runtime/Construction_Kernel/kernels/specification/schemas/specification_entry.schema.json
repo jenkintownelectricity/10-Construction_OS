@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Specification Entry",
+  "description": "Schema for a specification-domain truth record. Each entry captures one specification fact: a product data point, performance criterion, code requirement, test standard reference, or specification section mapping.",
+  "type": "object",
+  "required": ["schema_version", "entry_id", "entry_type", "csi_section", "title", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "entry_id": {
+      "type": "string",
+      "description": "Unique identifier for this specification entry."
+    },
+    "entry_type": {
+      "type": "string",
+      "enum": ["product_data", "performance_criterion", "code_requirement", "test_standard", "section_mapping"],
+      "description": "Classification of the specification fact."
+    },
+    "csi_section": {
+      "type": "string",
+      "description": "CSI section number (e.g., '07 52 00')."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for this entry."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "control_layers_served": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Control layer IDs from the shared registry that this spec entry relates to."
+    },
+    "source_citation": {
+      "type": "string",
+      "description": "Standards body, code section, or manufacturer reference (by citation, not copied text)."
+    },
+    "performance_values": {
+      "type": "object",
+      "description": "Key-value pairs of measurable performance criteria.",
+      "additionalProperties": true
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

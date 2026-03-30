@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Scope Entry",
+  "description": "Schema for a scope-domain truth record. Each entry captures one scope fact: a scope boundary, inclusion/exclusion rule, trade coordination interface, work-breakdown mapping, or scope-to-division alignment.",
+  "type": "object",
+  "required": ["schema_version", "entry_id", "entry_type", "title", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "entry_id": {
+      "type": "string",
+      "description": "Unique identifier for this scope entry."
+    },
+    "entry_type": {
+      "type": "string",
+      "enum": ["scope_boundary", "inclusion_rule", "exclusion_rule", "trade_interface", "work_breakdown", "division_alignment"],
+      "description": "Classification of the scope fact."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "csi_sections": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "CSI section numbers this scope entry relates to."
+    },
+    "responsible_trade": {
+      "type": "string",
+      "description": "Trade responsible for this scope item (e.g., 'roofing', 'waterproofing', 'sheet_metal', 'glazing')."
+    },
+    "adjacent_trades": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Trades with coordination dependencies at this scope boundary."
+    },
+    "interface_zones": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Interface zone IDs from the shared registry where scope handoffs occur."
+    },
+    "control_layers_affected": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Control layer IDs affected by this scope boundary."
+    },
+    "inclusion_items": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Items explicitly included in scope."
+    },
+    "exclusion_items": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Items explicitly excluded from scope."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

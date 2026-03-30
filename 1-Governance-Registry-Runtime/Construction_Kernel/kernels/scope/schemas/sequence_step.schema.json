@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sequence Step",
+  "description": "Schema for a sequencing step within a scope of work. Defines predecessor and successor relationships, hold points, and duration constraints for construction sequencing.",
+  "type": "object",
+  "required": ["schema_version", "step_id", "title", "sequence_position", "scope_ref", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "step_id": {
+      "type": "string",
+      "description": "Unique identifier for this sequence step."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for the step."
+    },
+    "sequence_position": {
+      "type": "integer",
+      "description": "Ordinal position in the execution sequence."
+    },
+    "scope_ref": {
+      "type": "string",
+      "description": "Reference to the parent scope_of_work record."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "predecessor_steps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to steps that must complete before this step begins."
+    },
+    "successor_steps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to steps that depend on this step's completion."
+    },
+    "trade_ref": {
+      "type": "string",
+      "description": "Reference to the trade_responsibility record for this step."
+    },
+    "duration": {
+      "type": "string",
+      "description": "Estimated duration for this step."
+    },
+    "weather_constraints": {
+      "type": "object",
+      "description": "Weather limitations for this step."
+    },
+    "hold_point": {
+      "type": "boolean",
+      "description": "Whether this step requires inspection or approval before proceeding."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

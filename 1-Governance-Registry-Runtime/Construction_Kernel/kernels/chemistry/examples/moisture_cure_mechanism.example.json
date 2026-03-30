@@ -1,0 +1,15 @@
+{
+  "schema_version": "v1",
+  "mechanism_id": "CURE-MC-001",
+  "title": "Moisture-Cure Mechanism for Polyurethane Sealants",
+  "cure_type": "moisture_cure",
+  "status": "active",
+  "min_temp_f": 40,
+  "max_temp_f": 120,
+  "min_humidity_pct": 25,
+  "max_humidity_pct": 95,
+  "cure_time_hours": 24,
+  "moisture_sensitive": true,
+  "full_cure_days": 7,
+  "notes": "Cure rate is directly proportional to ambient humidity. Below 25% RH, cure is severely retarded. Skin formation typically occurs within 1-2 hours at 50% RH and 72 degrees F. Full depth cure of 1/2-inch joint requires approximately 7 days."
+}

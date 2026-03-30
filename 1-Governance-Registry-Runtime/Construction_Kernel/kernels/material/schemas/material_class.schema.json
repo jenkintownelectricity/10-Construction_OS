@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Material Class",
+  "description": "Schema for a material class record. Defines a taxonomy classification by composition or application method for Division 07 building envelope materials.",
+  "type": "object",
+  "required": ["schema_version", "class_id", "name", "primary_material_class", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "class_id": {
+      "type": "string",
+      "description": "Unique identifier for this material class."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name for this material class."
+    },
+    "primary_material_class": {
+      "type": "string",
+      "enum": [
+        "thermoplastic",
+        "thermoset",
+        "elastomer",
+        "bituminous",
+        "cementitious",
+        "metallic",
+        "mineral_fiber",
+        "cellular_plastic",
+        "composite",
+        "fluid_applied",
+        "sheet_applied",
+        "spray_applied"
+      ],
+      "description": "Primary material class from shared taxonomy."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of this material class."
+    },
+    "typical_control_layers": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Control layer IDs this class typically serves."
+    },
+    "typical_forms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["sheet", "liquid", "foam", "rigid_board", "batt", "loose_fill", "paste", "tape", "coating", "membrane", "panel"]
+      },
+      "description": "Physical forms typically available for this class."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

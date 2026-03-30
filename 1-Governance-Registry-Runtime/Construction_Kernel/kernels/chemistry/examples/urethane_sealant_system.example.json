@@ -1,0 +1,13 @@
+{
+  "schema_version": "v1",
+  "system_id": "CHEM-SYS-001",
+  "title": "Single-Component Moisture-Cure Polyurethane Sealant",
+  "chemistry_family": "polyurethane",
+  "system_type": "sealant",
+  "status": "active",
+  "polymer_base": "MDI-based polyurethane prepolymer",
+  "cure_mechanism_ref": "CURE-MC-001",
+  "voc_g_per_l": 250,
+  "material_refs": ["MATL-SEAL-001"],
+  "notes": "Common joint sealant for Division 07 applications. Requires primer on porous substrates."
+}

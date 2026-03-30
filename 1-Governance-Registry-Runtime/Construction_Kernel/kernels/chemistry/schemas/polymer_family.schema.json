@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Polymer Family",
+  "type": "object",
+  "required": ["schema_version", "family_id", "name", "chemistry_family", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "family_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "chemistry_family": {
+      "type": "string",
+      "enum": ["polyurethane", "silicone", "polysulfide", "acrylic", "epoxy", "bituminous", "polyolefin", "pvc", "epdm", "butyl", "sbs", "app", "pmma", "polyurea", "hybrid"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "characteristic_properties": {
+      "type": "string"
+    },
+    "typical_applications": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "known_incompatibilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

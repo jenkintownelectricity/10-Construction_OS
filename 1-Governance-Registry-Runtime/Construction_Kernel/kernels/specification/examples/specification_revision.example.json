@@ -1,0 +1,11 @@
+{
+  "schema_version": "v1",
+  "revision_id": "REV-ADD-003-001",
+  "document_ref": "DOC-PROJ-2025-001",
+  "revision_number": 3,
+  "effective_date": "2026-02-15",
+  "status": "active",
+  "changes_summary": "Addendum No. 3 revises Section 07 26 00 Vapor Retarders. Original specification required Class III vapor retarder (latex paint) on interior face of exterior walls. Revised to require Class II vapor retarder (kraft-faced insulation or variable-permeance membrane) based on updated hygrothermal analysis for Climate Zone 5A. Adds requirement for vapor retarder continuity at electrical boxes and penetrations through the vapor control layer. Adds prohibition against polyethylene sheet vapor barriers on interior face in mixed-humid climate applications.",
+  "supersedes": "REV-ADD-002-001",
+  "notes": "This revision was issued in response to RFI-042 which identified a conflict between the original Class III vapor retarder specification and the project's hygrothermal analysis showing condensation risk at the insulation-to-sheathing interface during winter months. The consulting engineer's hygrothermal modeling (WUFI analysis) demonstrated that a Class II vapor retarder is required to prevent interstitial condensation in the specified wall assembly for Climate Zone 5A. The revision also addresses RFI-051 which questioned vapor retarder continuity at electrical outlet boxes in exterior walls."
+}

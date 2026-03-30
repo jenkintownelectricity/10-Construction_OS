@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Weathering Behavior",
+  "description": "Schema for a weathering behavior record. Captures material degradation response to environmental exposure types including UV, thermal cycling, moisture, and freeze-thaw.",
+  "type": "object",
+  "required": ["schema_version", "behavior_id", "material_ref", "exposure_type", "degradation_rate", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "behavior_id": {
+      "type": "string",
+      "description": "Unique identifier for this weathering behavior record."
+    },
+    "material_ref": {
+      "type": "string",
+      "description": "Reference to the parent material ID."
+    },
+    "exposure_type": {
+      "type": "string",
+      "enum": ["uv", "thermal_cycling", "moisture", "freeze_thaw", "chemical", "biological"],
+      "description": "Type of environmental exposure."
+    },
+    "degradation_rate": {
+      "type": "string",
+      "description": "Published degradation rate or severity (e.g., '85% tensile retention after 10,000 hours xenon arc')."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "test_method_ref": {
+      "type": "string",
+      "description": "Reference to the weathering test standard (e.g., ASTM G154, ASTM G155)."
+    },
+    "service_life_impact": {
+      "type": "string",
+      "description": "Published effect on expected service life."
+    },
+    "climate_context": {
+      "type": "object",
+      "properties": {
+        "climate_zone": { "type": "string", "description": "ASHRAE climate zone." },
+        "exposure_severity": { "type": "string", "enum": ["mild", "moderate", "severe"] },
+        "key_stressor": { "type": "string" }
+      },
+      "additionalProperties": false,
+      "description": "Climate context for this weathering record."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

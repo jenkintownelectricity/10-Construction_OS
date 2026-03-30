@@ -1,0 +1,21 @@
+{
+  "schema_version": "v1",
+  "transition_id": "TRANS-RTW-001",
+  "title": "Roof-to-Wall Transition — TPO Membrane to Metal Panel Wall",
+  "interface_zone": "roof_to_wall",
+  "from_assembly_ref": "ASSY-ROOF-001",
+  "to_assembly_ref": "ASSY-WALL-001",
+  "status": "active",
+  "control_layers_maintained": {
+    "bulk_water_control": "transitioned",
+    "air_control": "continuous",
+    "thermal_control": "continuous",
+    "vapor_control": "terminated"
+  },
+  "detail_ref": "DTL-RTW-001",
+  "risk_level": "high",
+  "evidence_refs": [
+    { "evidence_id": "EV-RTW-001", "summary": "Field observation showing proper counter-flashing lap and sealant termination" }
+  ],
+  "notes": "Critical transition. TPO membrane base flashing extends min 8 inches above roof plane. Counter-flashing by sheet metal trade laps over base flashing min 4 inches. Sealant at top of counter-flashing. Air barrier must be continuous through transition."
+}

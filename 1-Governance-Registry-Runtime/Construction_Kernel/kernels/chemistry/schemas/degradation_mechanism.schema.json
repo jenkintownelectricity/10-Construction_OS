@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Degradation Mechanism",
+  "type": "object",
+  "required": ["schema_version", "mechanism_id", "title", "degradation_type", "chemistry_ref", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "mechanism_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "degradation_type": {
+      "type": "string",
+      "enum": ["oxidation", "hydrolysis", "uv_chain_scission", "plasticizer_loss", "thermal_decomposition", "biological", "chemical_attack"]
+    },
+    "chemistry_ref": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "rate_factors": {
+      "type": "string"
+    },
+    "climate_context": {
+      "type": "object"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

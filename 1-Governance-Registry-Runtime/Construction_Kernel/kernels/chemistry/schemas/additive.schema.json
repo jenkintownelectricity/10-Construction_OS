@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Additive",
+  "type": "object",
+  "required": ["schema_version", "additive_id", "name", "additive_type", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "additive_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "additive_type": {
+      "type": "string",
+      "enum": ["plasticizer", "stabilizer", "filler", "pigment", "catalyst", "flame_retardant", "biocide", "surfactant"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "function": {
+      "type": "string"
+    },
+    "migration_risk": {
+      "type": "boolean"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

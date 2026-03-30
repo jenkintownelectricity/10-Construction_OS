@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Reference Standard",
+  "description": "Schema for a reference standard citation — a pointer to a governing standard or code referenced in specification requirements. Contains citation metadata only, never standards text.",
+  "type": "object",
+  "required": ["schema_version", "standard_id", "title", "issuing_body", "relevance"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "standard_id": {
+      "type": "string",
+      "description": "Standard identifier (e.g., 'ASTM_D4541', 'IBC_2021')."
+    },
+    "title": {
+      "type": "string",
+      "description": "Full title of the standard."
+    },
+    "issuing_body": {
+      "type": "string",
+      "description": "Organization that publishes the standard (e.g., 'ASTM International', 'ICC')."
+    },
+    "relevance": {
+      "type": "string",
+      "description": "Description of why this standard is referenced in the specification."
+    },
+    "edition": {
+      "type": "string",
+      "description": "Edition year or version number of the standard."
+    },
+    "applicable_sections": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "CSI sections where this standard is referenced."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Supplementary notes."
+    }
+  },
+  "additionalProperties": false
+}

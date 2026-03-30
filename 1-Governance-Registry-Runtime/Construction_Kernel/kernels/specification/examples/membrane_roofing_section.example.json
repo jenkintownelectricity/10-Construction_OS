@@ -1,0 +1,192 @@
+{
+  "specification_section": {
+    "schema_version": "v1",
+    "section_id": "SEC-07-5200-001",
+    "csi_section_code": "07 52 00",
+    "csi_section_title": "Modified Bituminous Membrane Roofing",
+    "status": "active",
+    "requirements": [
+      "REQ-07-5200-001",
+      "REQ-07-5200-002",
+      "REQ-07-5200-003",
+      "REQ-07-5200-004",
+      "REQ-07-5200-005"
+    ],
+    "prohibitions": [
+      "PRH-07-5200-001"
+    ],
+    "allowances": [
+      "ALW-07-5200-001"
+    ],
+    "submittals": [
+      "SUB-07-5200-001",
+      "SUB-07-5200-002",
+      "SUB-07-5200-003"
+    ],
+    "qualifications": [
+      "QUA-07-5200-001",
+      "QUA-07-5200-002"
+    ],
+    "warranties": [
+      "WAR-07-5200-001",
+      "WAR-07-5200-002"
+    ],
+    "testing": [
+      "TST-07-5200-001",
+      "TST-07-5200-002"
+    ],
+    "control_layers_served": [
+      "bulk_water_control",
+      "weathering_surface"
+    ],
+    "notes": "Two-ply SBS modified bituminous membrane roofing system with granule-surfaced cap sheet. Fully adhered system in field, perimeter, and corners."
+  },
+  "requirements": [
+    {
+      "schema_version": "v1",
+      "requirement_id": "REQ-07-5200-001",
+      "title": "Membrane system shall be two-ply SBS modified bituminous fully adhered system",
+      "obligation_level": "shall",
+      "status": "active",
+      "csi_section": "07 52 00",
+      "control_layers": ["bulk_water_control", "weathering_surface"],
+      "source_ref": "SRC-PM-001",
+      "lifecycle_stage": "design",
+      "evidence_required": true,
+      "ambiguity_flag": false
+    },
+    {
+      "schema_version": "v1",
+      "requirement_id": "REQ-07-5200-002",
+      "title": "Base flashing shall extend minimum 8 inches above finished roof surface at all roof-to-wall transitions",
+      "obligation_level": "shall",
+      "status": "active",
+      "csi_section": "07 52 00",
+      "control_layers": ["bulk_water_control"],
+      "interface_zones": ["roof_to_wall", "parapet_transition"],
+      "performance_criteria": {
+        "min_flashing_height_inches": 8
+      },
+      "source_ref": "SRC-PM-001",
+      "lifecycle_stage": "installation",
+      "evidence_required": true,
+      "ambiguity_flag": false
+    },
+    {
+      "schema_version": "v1",
+      "requirement_id": "REQ-07-5200-003",
+      "title": "Membrane shall be installed when ambient temperature is 40 deg F and rising",
+      "obligation_level": "shall",
+      "status": "active",
+      "csi_section": "07 52 00",
+      "performance_criteria": {
+        "min_ambient_temp_f": 40,
+        "temp_direction": "rising"
+      },
+      "source_ref": "SRC-PM-001",
+      "lifecycle_stage": "installation",
+      "ambiguity_flag": false
+    },
+    {
+      "schema_version": "v1",
+      "requirement_id": "REQ-07-5200-004",
+      "title": "Cap sheet shall have minimum 3-inch side laps and 6-inch end laps",
+      "obligation_level": "shall",
+      "status": "active",
+      "csi_section": "07 52 00",
+      "control_layers": ["bulk_water_control"],
+      "performance_criteria": {
+        "min_side_lap_inches": 3,
+        "min_end_lap_inches": 6
+      },
+      "source_ref": "SRC-PM-001",
+      "lifecycle_stage": "installation",
+      "evidence_required": true,
+      "ambiguity_flag": false
+    },
+    {
+      "schema_version": "v1",
+      "requirement_id": "REQ-07-5200-005",
+      "title": "Roof insulation shall provide minimum R-30 thermal resistance",
+      "obligation_level": "shall",
+      "status": "active",
+      "csi_section": "07 52 00",
+      "control_layers": ["thermal_control"],
+      "performance_criteria": {
+        "min_r_value": 30
+      },
+      "standards_refs": ["ASHRAE_90_1"],
+      "source_ref": "SRC-PM-001",
+      "climate_context": "5A",
+      "lifecycle_stage": "design",
+      "evidence_required": true,
+      "ambiguity_flag": false
+    }
+  ],
+  "prohibitions": [
+    {
+      "schema_version": "v1",
+      "prohibition_id": "PRH-07-5200-001",
+      "title": "Torch-applied membrane installation is prohibited",
+      "status": "active",
+      "csi_section": "07 52 00",
+      "description": "Open flame torch application of modified bituminous membrane is not permitted. Cold-applied adhesive or self-adhered methods only.",
+      "source_ref": "SRC-PM-001"
+    }
+  ],
+  "submittals": [
+    {
+      "schema_version": "v1",
+      "submittal_id": "SUB-07-5200-001",
+      "title": "Manufacturer product data for membrane system components",
+      "submittal_type": "product_data",
+      "status": "active",
+      "csi_section": "07 52 00",
+      "timing": "Prior to installation",
+      "review_requirement": "Architect review and approval required"
+    },
+    {
+      "schema_version": "v1",
+      "submittal_id": "SUB-07-5200-002",
+      "title": "Shop drawings showing membrane layout, seam locations, and flashing details",
+      "submittal_type": "shop_drawing",
+      "status": "active",
+      "csi_section": "07 52 00",
+      "timing": "Prior to installation",
+      "review_requirement": "Architect review and approval required"
+    },
+    {
+      "schema_version": "v1",
+      "submittal_id": "SUB-07-5200-003",
+      "title": "Sample of cap sheet membrane minimum 12 inches by 12 inches",
+      "submittal_type": "sample",
+      "status": "active",
+      "csi_section": "07 52 00",
+      "timing": "Prior to installation",
+      "review_requirement": "Architect review for color and texture"
+    }
+  ],
+  "testing": [
+    {
+      "schema_version": "v1",
+      "testing_id": "TST-07-5200-001",
+      "title": "Field adhesion pull-off testing of membrane system",
+      "test_type": "field_test",
+      "status": "active",
+      "test_method_ref": "ASTM D4541",
+      "acceptance_criteria": "Minimum 200 psi pull-off adhesion; cohesive failure in substrate or adhesive acceptable",
+      "timing": "During installation, after minimum 7-day cure",
+      "frequency": "Minimum 2 tests per 10,000 square feet"
+    },
+    {
+      "schema_version": "v1",
+      "testing_id": "TST-07-5200-002",
+      "title": "Preconstruction roof mock-up",
+      "test_type": "mock_up",
+      "status": "active",
+      "acceptance_criteria": "Mock-up shall demonstrate all typical conditions including field, perimeter, penetration, and drain details",
+      "timing": "Prior to production roofing installation",
+      "frequency": "One mock-up required"
+    }
+  ]
+}

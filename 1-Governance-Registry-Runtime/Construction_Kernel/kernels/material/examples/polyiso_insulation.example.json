@@ -1,0 +1,75 @@
+{
+  "schema_version": "v1",
+  "entry_id": "MATL-POLYISO-001",
+  "entry_type": "material_profile",
+  "title": "Polyisocyanurate Rigid Board Insulation — Glass-Fiber Faced",
+  "status": "active",
+  "material_class": "cellular_plastic",
+  "control_layers_served": ["thermal_control"],
+  "physical_properties": {
+    "thermal_resistance_1in": {
+      "value": 5.7,
+      "unit": "hr·ft²·°F/BTU per inch",
+      "test_method": "ASTM C518",
+      "note": "LTTR value at 75°F mean temperature per ASTM C1289 Type II Class 1"
+    },
+    "thermal_resistance_2in": {
+      "value": 11.4,
+      "unit": "hr·ft²·°F/BTU",
+      "test_method": "ASTM C518",
+      "note": "2-inch board, LTTR value"
+    },
+    "compressive_strength": {
+      "value": 20,
+      "unit": "psi",
+      "test_method": "ASTM D1621",
+      "note": "minimum at 10% deformation"
+    },
+    "density": {
+      "value": 2.0,
+      "unit": "pcf",
+      "test_method": "ASTM D1622"
+    },
+    "moisture_absorption": {
+      "value": 1.5,
+      "unit": "% by volume",
+      "test_method": "ASTM C209",
+      "note": "maximum after 24-hour immersion"
+    },
+    "water_vapor_permeance": {
+      "value": 1.0,
+      "unit": "perms",
+      "test_method": "ASTM E96",
+      "note": "glass fiber faced, 1-inch thickness"
+    },
+    "flame_spread_index": {
+      "value": 25,
+      "unit": "dimensionless",
+      "test_method": "ASTM E84",
+      "note": "maximum"
+    },
+    "smoke_developed_index": {
+      "value": 450,
+      "unit": "dimensionless",
+      "test_method": "ASTM E84",
+      "note": "maximum"
+    },
+    "dimensional_stability": {
+      "value": 2.0,
+      "unit": "% linear change",
+      "test_method": "ASTM D2126",
+      "note": "maximum at 158°F and 97% RH"
+    }
+  },
+  "compatibility": {
+    "compatible_with": ["MATL-TPO-060-001", "MATL-EPDM-060-001"],
+    "incompatible_with": []
+  },
+  "temperature_range": {
+    "application_min_f": 0,
+    "application_max_f": 250,
+    "service_min_f": -100,
+    "service_max_f": 250
+  },
+  "notes": "Conforms to ASTM C1289 Type II Class 1 Grade 2. Closed-cell polyisocyanurate foam core with glass-fiber facers. R-value subject to thermal drift; LTTR (Long-Term Thermal Resistance) values per CAN/ULC-S770. R-value decreases at mean temperatures below 40°F."
+}

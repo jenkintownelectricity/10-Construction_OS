@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Closeout Requirement",
+  "description": "Schema for a closeout requirement within a scope of work. Defines the deliverable type, responsible party, and timing for project closeout items.",
+  "type": "object",
+  "required": ["schema_version", "requirement_id", "title", "closeout_type", "scope_ref", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "requirement_id": {
+      "type": "string",
+      "description": "Unique identifier for this closeout requirement."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for the closeout requirement."
+    },
+    "closeout_type": {
+      "type": "string",
+      "enum": ["warranty_submission", "as_built_documentation", "maintenance_manual", "training", "spare_materials", "final_inspection", "punch_list"],
+      "description": "Classification of the closeout deliverable."
+    },
+    "scope_ref": {
+      "type": "string",
+      "description": "Reference to the parent scope_of_work record."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "responsible_party": {
+      "type": "string",
+      "description": "Party responsible for fulfilling this closeout requirement."
+    },
+    "due_date_relative": {
+      "type": "string",
+      "description": "Due date relative to a project milestone (e.g., '30 days after substantial completion')."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

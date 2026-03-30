@@ -1,0 +1,30 @@
+{
+  "schema_version": "v1",
+  "responsibility_id": "RESP-AB-001",
+  "trade": "air_barrier",
+  "scope_ref": "SOW-ENCL-001",
+  "status": "active",
+  "inclusions": [
+    "Fluid-applied air barrier application to exterior sheathing",
+    "Air barrier membrane at above-grade walls",
+    "Transition membrane at window rough openings",
+    "Penetration sealing at conduits, pipes, and structural steel",
+    "Detail work at shelf angles and relieving angles",
+    "Lapping and sealing at sheathing joints"
+  ],
+  "exclusions": [
+    "Below-grade waterproofing membrane",
+    "Roofing membrane air barrier tie-in (by roofing trade)",
+    "Window frame installation (by glazing trade)",
+    "Interior vapor retarder installation",
+    "Structural sheathing installation"
+  ],
+  "interface_zones": [
+    "window_to_wall",
+    "roof_to_wall",
+    "foundation_to_wall",
+    "penetration"
+  ],
+  "coordination_notes": "Air barrier installer must complete wall membrane before glazing trade installs window frames. Roofing trade is responsible for tying roof membrane air barrier to wall air barrier at roof_to_wall interface. Sequencing with masonry veneer installation must allow minimum 24-hour cure time for fluid-applied membrane.",
+  "notes": "Scope covers ASTM E2357 air barrier system. Installer must be manufacturer-certified."
+}

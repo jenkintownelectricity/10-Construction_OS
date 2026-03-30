@@ -1,0 +1,72 @@
+{
+  "schema_version": "v1",
+  "entry_id": "MATL-TPO-060-001",
+  "entry_type": "material_profile",
+  "title": "60-mil Reinforced Thermoplastic Polyolefin (TPO) Roofing Membrane",
+  "status": "active",
+  "material_class": "thermoplastic",
+  "control_layers_served": ["water_control", "air_control"],
+  "physical_properties": {
+    "thickness": {
+      "value": 60,
+      "unit": "mils",
+      "test_method": "ASTM D751"
+    },
+    "tensile_strength": {
+      "value": 200,
+      "unit": "psi",
+      "test_method": "ASTM D751",
+      "note": "machine direction, minimum"
+    },
+    "elongation_at_break": {
+      "value": 700,
+      "unit": "%",
+      "test_method": "ASTM D751",
+      "note": "machine direction, minimum"
+    },
+    "tear_resistance": {
+      "value": 45,
+      "unit": "lbf",
+      "test_method": "ASTM D751",
+      "note": "tongue tear, minimum"
+    },
+    "puncture_resistance": {
+      "value": 300,
+      "unit": "lbf",
+      "test_method": "ASTM D5602"
+    },
+    "water_vapor_permeance": {
+      "value": 0.06,
+      "unit": "perms",
+      "test_method": "ASTM E96"
+    },
+    "flame_spread_index": {
+      "value": 10,
+      "unit": "dimensionless",
+      "test_method": "ASTM E84",
+      "note": "maximum"
+    },
+    "smoke_developed_index": {
+      "value": 10,
+      "unit": "dimensionless",
+      "test_method": "ASTM E84",
+      "note": "maximum"
+    },
+    "linear_thermal_expansion": {
+      "value": 0.000044,
+      "unit": "in/in/degF",
+      "test_method": "ASTM D696"
+    }
+  },
+  "compatibility": {
+    "compatible_with": ["MATL-POLYISO-001", "MATL-HDCOVER-001"],
+    "incompatible_with": ["MATL-PVC-060-001"]
+  },
+  "temperature_range": {
+    "application_min_f": 40,
+    "application_max_f": 135,
+    "service_min_f": -40,
+    "service_max_f": 180
+  },
+  "notes": "Conforms to ASTM D6878. Reinforced with polyester scrim. Suitable for mechanically attached, fully adhered, or ballasted roofing systems on low-slope roofs."
+}

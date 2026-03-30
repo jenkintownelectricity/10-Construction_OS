@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Assembly Entry",
+  "description": "Schema for an assembly-domain truth record. Each entry captures one assembly fact: a layered system definition, control-layer continuity rule, transition detail, penetration condition, or edge condition.",
+  "type": "object",
+  "required": ["schema_version", "entry_id", "entry_type", "title", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "entry_id": {
+      "type": "string",
+      "description": "Unique identifier for this assembly entry."
+    },
+    "entry_type": {
+      "type": "string",
+      "enum": ["assembly_system", "continuity_rule", "transition_detail", "penetration_detail", "edge_condition"],
+      "description": "Classification of the assembly fact."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for this assembly."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "layers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["position", "control_layer_id", "material_ref"],
+        "properties": {
+          "position": { "type": "integer", "description": "Layer position from exterior to interior (1 = outermost)." },
+          "control_layer_id": { "type": "string", "description": "Reference to control_layers.json ID." },
+          "material_ref": { "type": "string", "description": "Reference to a material entry ID in Construction_Material_Kernel." },
+          "attachment_method": { "type": "string" }
+        }
+      },
+      "description": "Ordered layer stack for this assembly."
+    },
+    "interface_zones": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Interface zone IDs from the shared registry that this assembly addresses."
+    },
+    "control_layer_continuity": {
+      "type": "object",
+      "description": "Map of control_layer_id to continuity status (continuous, interrupted, terminated, transitioned).",
+      "additionalProperties": { "type": "string" }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

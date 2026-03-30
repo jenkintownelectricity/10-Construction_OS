@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Chemistry Entry",
+  "description": "Schema for a chemistry-domain truth record. Each entry captures one chemistry fact: chemical compatibility rule, cure profile, adhesion requirement, solvent interaction, VOC constraint, or reaction-condition dependency.",
+  "type": "object",
+  "required": ["schema_version", "entry_id", "entry_type", "title", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "entry_id": {
+      "type": "string",
+      "description": "Unique identifier for this chemistry entry."
+    },
+    "entry_type": {
+      "type": "string",
+      "enum": ["compatibility_rule", "cure_profile", "adhesion_requirement", "solvent_interaction", "voc_constraint", "reaction_condition"],
+      "description": "Classification of the chemistry fact."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "material_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to material entry IDs in Construction_Material_Kernel."
+    },
+    "chemistry_class": {
+      "type": "string",
+      "description": "Chemistry family (e.g., 'polyurethane', 'silicone', 'asphalt', 'acrylic', 'epoxy', 'bituminous')."
+    },
+    "cure_conditions": {
+      "type": "object",
+      "properties": {
+        "min_temp_f": { "type": "number" },
+        "max_temp_f": { "type": "number" },
+        "min_humidity_pct": { "type": "number" },
+        "max_humidity_pct": { "type": "number" },
+        "cure_time_hours": { "type": "number" },
+        "moisture_sensitive": { "type": "boolean" }
+      }
+    },
+    "incompatible_chemistries": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Chemistry classes or entry IDs that must not contact this chemistry."
+    },
+    "voc_limit_g_per_l": {
+      "type": "number",
+      "description": "Maximum VOC content in grams per liter."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

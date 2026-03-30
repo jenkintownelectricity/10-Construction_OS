@@ -1,0 +1,38 @@
+{
+  "schema_version": "v1",
+  "handoff_id": "WHR-ROOF-NDL-001",
+  "title": "20-Year NDL Warranty — TPO Membrane Roofing System",
+  "warranty_type": "nol",
+  "scope_ref": "SOW-ROOF-001",
+  "status": "active",
+  "manufacturer": "Carlisle SynTec Systems",
+  "duration_years": 20,
+  "conditions": [
+    "Installation by Carlisle-authorized applicator with current ESP status",
+    "Manufacturer pre-installation inspection completed and approved",
+    "Manufacturer final inspection completed within 60 days of roof completion",
+    "All penetration flashings installed per Carlisle technical details",
+    "Minimum membrane thickness of 60 mil TPO",
+    "Annual maintenance program maintained by building owner",
+    "No unauthorized modifications or penetrations without manufacturer approval"
+  ],
+  "exclusions": [
+    "Damage caused by other trades working on the roof after completion",
+    "Acts of nature exceeding design wind speed (120 mph)",
+    "Ponding water caused by structural deflection beyond design tolerances",
+    "Damage from foot traffic without walk pad protection",
+    "Consequential damages including interior damage from leaks"
+  ],
+  "start_trigger": "roof_completion",
+  "documentation_required": [
+    "Carlisle ESP applicator certification (current year)",
+    "Pre-installation inspection report signed by manufacturer representative",
+    "Final inspection report signed by manufacturer representative",
+    "Warranty application form with project details",
+    "Product submittals and shop drawings (approved)",
+    "Daily installation logs",
+    "Seam probe and pull test results",
+    "Executed maintenance agreement between owner and maintenance contractor"
+  ],
+  "notes": "NDL (No Dollar Limit) warranty covers material and labor for the full 20-year term with no prorated depreciation. Manufacturer final inspection must be scheduled at least 14 days in advance."
+}

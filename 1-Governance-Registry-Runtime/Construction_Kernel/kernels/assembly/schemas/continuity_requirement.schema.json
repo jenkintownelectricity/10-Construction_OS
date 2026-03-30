@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Continuity Requirement",
+  "description": "Defines a rule for control-layer continuity: whether a control layer must be continuous, may be interrupted, must terminate, or must transition within a defined scope.",
+  "type": "object",
+  "required": ["schema_version", "requirement_id", "control_layer_id", "continuity_type", "scope"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "requirement_id": {
+      "type": "string",
+      "description": "Unique identifier for this continuity requirement."
+    },
+    "control_layer_id": {
+      "type": "string",
+      "enum": [
+        "bulk_water_control",
+        "capillary_control",
+        "air_control",
+        "vapor_control",
+        "thermal_control",
+        "fire_smoke_control",
+        "movement_control",
+        "weathering_surface",
+        "drainage_plane",
+        "protection_layer",
+        "vegetation_support_layer"
+      ],
+      "description": "Control layer this requirement governs. References shared/control_layers.json."
+    },
+    "continuity_type": {
+      "type": "string",
+      "enum": ["must_be_continuous", "may_be_interrupted", "must_terminate", "must_transition"],
+      "description": "The continuity rule for this control layer within the defined scope."
+    },
+    "scope": {
+      "type": "string",
+      "description": "Where this requirement applies (e.g., 'all roof-to-wall transitions', 'entire building enclosure')."
+    },
+    "conditions": {
+      "type": "string",
+      "description": "Conditions or qualifications for this requirement (e.g., climate zone restrictions, code references)."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes about this continuity requirement."
+    }
+  },
+  "additionalProperties": false
+}

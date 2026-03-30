@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Material Form",
+  "description": "Schema for a material form record. Defines the physical delivery form of a material class for Division 07 building envelope materials.",
+  "type": "object",
+  "required": ["schema_version", "form_id", "title", "form_type", "material_class_ref", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "form_id": {
+      "type": "string",
+      "description": "Unique identifier for this material form."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for this material form."
+    },
+    "form_type": {
+      "type": "string",
+      "enum": ["sheet", "liquid", "foam", "rigid_board", "batt", "loose_fill", "paste", "tape", "coating", "membrane", "panel"],
+      "description": "Physical delivery form type."
+    },
+    "material_class_ref": {
+      "type": "string",
+      "description": "Reference to the parent material class ID."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "dimensions": {
+      "type": "object",
+      "properties": {
+        "thickness": { "type": "string", "description": "Typical thickness range." },
+        "width": { "type": "string", "description": "Typical width range." },
+        "length": { "type": "string", "description": "Typical length or roll length." }
+      },
+      "additionalProperties": false,
+      "description": "Typical dimensional ranges for this form."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

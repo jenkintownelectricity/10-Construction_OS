@@ -1,0 +1,32 @@
+{
+  "schema_version": "v1",
+  "scope_id": "SOW-ROOF-001",
+  "title": "TPO Membrane Roofing System — Complete Scope",
+  "scope_type": "trade_scope",
+  "status": "active",
+  "csi_sections": ["07 52 00", "07 62 00", "07 72 00"],
+  "inclusions": [
+    "TPO membrane installation",
+    "Polyiso insulation",
+    "Metal edge details",
+    "Pipe penetration flashings",
+    "Roof drain connections",
+    "Field seam welding"
+  ],
+  "exclusions": [
+    "Structural deck repair",
+    "Rooftop mechanical equipment installation",
+    "Interior ceiling work"
+  ],
+  "trade_responsibilities": ["RESP-ROOF-001"],
+  "interface_zones": [
+    "roof_to_wall",
+    "parapet_transition",
+    "penetration",
+    "roof_edge",
+    "curb_transition",
+    "drain_transition"
+  ],
+  "control_layers_affected": ["bulk_water_control", "thermal_control", "air_control"],
+  "notes": "Scope assumes existing structural deck is sound and dry."
+}

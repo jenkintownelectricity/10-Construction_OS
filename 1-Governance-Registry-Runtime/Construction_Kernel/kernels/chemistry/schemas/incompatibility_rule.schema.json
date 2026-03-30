@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Incompatibility Rule",
+  "type": "object",
+  "required": ["schema_version", "rule_id", "title", "chemistry_a_ref", "chemistry_b_ref", "incompatibility_type", "severity", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "rule_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "chemistry_a_ref": {
+      "type": "string"
+    },
+    "chemistry_b_ref": {
+      "type": "string"
+    },
+    "incompatibility_type": {
+      "type": "string",
+      "enum": ["adhesion_failure", "chemical_attack", "plasticizer_migration", "staining", "corrosion", "off_gassing", "cure_inhibition"]
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "mechanism": {
+      "type": "string"
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

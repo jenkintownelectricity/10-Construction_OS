@@ -1,0 +1,16 @@
+{
+  "schema_version": "v1",
+  "behavior_id": "WTHR-MODBIT-UV-001",
+  "material_ref": "MATL-SBS-MODBIT-CAP-001",
+  "exposure_type": "uv",
+  "degradation_rate": "Surface granule loss of 15-25% after 5,000 hours xenon arc exposure per ASTM G155 Cycle 1. Underlying bitumen shows initial surface oxidation and micro-cracking at 3,000 hours. Elongation retention 70% of original value after 5,000 hours exposure.",
+  "status": "active",
+  "test_method_ref": "STD-ASTM-G155",
+  "service_life_impact": "Granule loss exposes underlying modified bitumen to accelerated UV degradation. Industry estimates granule-surfaced SBS modified bitumen cap sheets maintain UV protection for 15-25 years depending on UV intensity and granule embedment quality. Once granule coverage drops below 60%, degradation rate accelerates significantly.",
+  "climate_context": {
+    "climate_zone": "3A-4A",
+    "exposure_severity": "moderate",
+    "key_stressor": "UV radiation — cumulative dose increases with latitude-adjusted solar exposure. Higher severity in zones 1-3 (southern US) than zones 5-7 (northern US)."
+  },
+  "notes": "SBS (styrene-butadiene-styrene) modified bitumen cap sheet with ceramic granule surface. Granule color affects UV absorption — darker granules absorb more heat but UV degradation mechanism is primarily photochemical oxidation of the bitumen binder. White or light-colored granules reduce surface temperature but UV exposure remains. Data from accelerated weathering per ASTM G155; natural weathering studies show similar degradation patterns at approximately 1:8 acceleration ratio."
+}

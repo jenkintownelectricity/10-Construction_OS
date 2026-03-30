@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Requirement",
+  "description": "Schema for a specification requirement — a single obligation statement with obligation level, scope, and context metadata.",
+  "type": "object",
+  "required": ["schema_version", "requirement_id", "title", "obligation_level", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "requirement_id": {
+      "type": "string",
+      "description": "Unique identifier for this requirement."
+    },
+    "title": {
+      "type": "string",
+      "description": "Concise description of the requirement."
+    },
+    "obligation_level": {
+      "type": "string",
+      "enum": ["shall", "should", "may"],
+      "description": "Obligation level: shall (mandatory), should (recommended), may (permissive)."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "csi_section": {
+      "type": "string",
+      "description": "CSI section code where this requirement originates."
+    },
+    "control_layers": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["bulk_water_control", "capillary_control", "air_control", "vapor_control", "thermal_control", "fire_smoke_control", "movement_control", "weathering_surface", "drainage_plane", "protection_layer", "vegetation_support_layer"]
+      },
+      "description": "Control layers this requirement serves."
+    },
+    "interface_zones": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["roof_to_wall", "parapet_transition", "penetration", "fenestration_edge", "below_grade_transition", "expansion_joint", "deck_to_wall", "roof_edge", "curb_transition", "drain_transition"]
+      },
+      "description": "Interface zones this requirement addresses."
+    },
+    "performance_criteria": {
+      "type": "object",
+      "description": "Measurable performance thresholds as key-value pairs.",
+      "additionalProperties": true
+    },
+    "test_method_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Test method citations (e.g., 'ASTM D4541')."
+    },
+    "standards_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Governing standards citations."
+    },
+    "source_ref": {
+      "type": "string",
+      "description": "Source pointer ID establishing this requirement."
+    },
+    "climate_context": {
+      "type": "string",
+      "description": "Climate zone or exposure flag applicable to this requirement."
+    },
+    "geometry_context": {
+      "type": "string",
+      "description": "Geometric condition applicable to this requirement."
+    },
+    "lifecycle_stage": {
+      "type": "string",
+      "enum": ["design", "procurement", "installation", "commissioning", "operation", "maintenance", "failure", "replacement"],
+      "description": "Primary lifecycle stage where this requirement applies."
+    },
+    "evidence_required": {
+      "type": "boolean",
+      "description": "Whether compliance evidence must be provided."
+    },
+    "ambiguity_flag": {
+      "type": "boolean",
+      "description": "True if this requirement contains ambiguous language requiring human resolution."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Supplementary notes."
+    }
+  },
+  "additionalProperties": false
+}

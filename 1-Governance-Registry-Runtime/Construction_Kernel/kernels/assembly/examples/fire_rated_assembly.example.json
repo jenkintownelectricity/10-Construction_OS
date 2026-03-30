@@ -1,0 +1,14 @@
+{
+  "schema_version": "v1",
+  "record_id": "TEST-ASSY-FR-001",
+  "title": "NFPA 285 Tested Wall Assembly — Metal Composite Panel with Mineral Wool CI",
+  "test_type": "fire_rating",
+  "test_standard_ref": "NFPA_285",
+  "result": "pass",
+  "status": "active",
+  "assembly_ref": "ASSY-WALL-MCM-001",
+  "test_date": "2024-06-15",
+  "lab_ref": "Southwest Research Institute",
+  "evidence_ref": "EV-FR-001",
+  "notes": "Assembly includes: aluminum composite panel (FR-core), 1-inch air cavity, 3-inch mineral wool continuous insulation, fluid-applied air/water barrier, glass-mat gypsum sheathing on steel studs. Passes NFPA 285 for buildings of any height. IBC Section 1402.5 compliance."
+}

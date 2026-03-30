@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Commissioning Step",
+  "description": "Schema for a building enclosure commissioning (BECx) step within a scope of work. Defines the commissioning phase, acceptance criteria, and documentation requirements.",
+  "type": "object",
+  "required": ["schema_version", "step_id", "title", "becx_phase", "scope_ref", "status"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "v1"
+    },
+    "step_id": {
+      "type": "string",
+      "description": "Unique identifier for this commissioning step."
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title for the commissioning step."
+    },
+    "becx_phase": {
+      "type": "string",
+      "enum": ["design_review", "construction_observation", "pre_cover_inspection", "performance_testing", "closeout_review", "seasonal_observation"],
+      "description": "BECx phase classification for this step."
+    },
+    "scope_ref": {
+      "type": "string",
+      "description": "Reference to the parent scope_of_work record."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "responsible_party": {
+      "type": "string",
+      "description": "Party responsible for performing this commissioning step."
+    },
+    "acceptance_criteria": {
+      "type": "string",
+      "description": "Criteria that must be met for this step to pass."
+    },
+    "documentation_required": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Documents that must be produced or collected during this step."
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
