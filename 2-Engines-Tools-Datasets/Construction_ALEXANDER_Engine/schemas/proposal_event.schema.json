@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "proposal_event.schema.json",
+  "title": "ALEXANDER Proposal Event",
+  "description": "Cognitive Bus proposal event schema for ALEXANDER Engine advisory resolution outputs. Distinct from internal ResolutionResult.",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_class",
+    "event_type",
+    "schema_version",
+    "source_component",
+    "source_repo",
+    "timestamp",
+    "payload"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_class": {
+      "type": "string",
+      "const": "Proposal"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "pattern_resolution_proposal",
+        "variant_selection_proposal",
+        "artifact_intent_proposal"
+      ]
+    },
+    "schema_version": {
+      "type": "string",
+      "const": "0.1"
+    },
+    "source_component": {
+      "type": "string",
+      "const": "Construction_ALEXANDER_Engine"
+    },
+    "source_repo": {
+      "type": "string",
+      "const": "Construction_ALEXANDER_Engine"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "payload": {
+      "type": "object",
+      "required": [
+        "condition_id",
+        "result_id",
+        "status",
+        "advisory_class"
+      ],
+      "properties": {
+        "condition_id": { "type": "string" },
+        "result_id": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["RESOLVED", "UNRESOLVED", "BLOCKED", "CONFLICT"]
+        },
+        "advisory_class": {
+          "type": "string",
+          "const": "proposal",
+          "description": "Explicitly marks this as advisory/proposal class — NOT execution"
+        },
+        "pattern_family_id": { "type": ["string", "null"] },
+        "pattern_id": { "type": ["string", "null"] },
+        "variant_id": { "type": ["string", "null"] },
+        "artifact_intent_id": { "type": ["string", "null"] },
+        "score": {
+          "type": ["object", "null"],
+          "properties": {
+            "total_score": { "type": "number" },
+            "breakdown": { "type": "object" }
+          }
+        },
+        "fail_reasons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["code", "stage", "message"],
+            "properties": {
+              "code": { "type": "string" },
+              "stage": { "type": "string" },
+              "message": { "type": "string" }
+            }
+          }
+        },
+        "conflicts": { "type": "array" },
+        "correlation_refs": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

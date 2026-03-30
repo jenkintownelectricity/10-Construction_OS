@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "observation_event.schema.json",
+  "title": "ALEXANDER Observation Event",
+  "description": "Cognitive Bus observation event schema for ALEXANDER Engine state reports and anomaly signals. Distinct from internal ResolutionResult.",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_class",
+    "event_type",
+    "schema_version",
+    "source_component",
+    "source_repo",
+    "timestamp",
+    "payload"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_class": {
+      "type": "string",
+      "const": "Observation"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "resolution_observation",
+        "anomaly_detected",
+        "constraint_violation_observed",
+        "conflict_observed",
+        "missing_truth_observed"
+      ]
+    },
+    "schema_version": {
+      "type": "string",
+      "const": "0.1"
+    },
+    "source_component": {
+      "type": "string",
+      "const": "Construction_ALEXANDER_Engine"
+    },
+    "source_repo": {
+      "type": "string",
+      "const": "Construction_ALEXANDER_Engine"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "payload": {
+      "type": "object",
+      "required": [
+        "observation_type",
+        "advisory_class"
+      ],
+      "properties": {
+        "observation_type": {
+          "type": "string",
+          "enum": [
+            "resolution_status",
+            "anomaly",
+            "constraint_violation",
+            "conflict",
+            "missing_truth",
+            "blocked_condition"
+          ]
+        },
+        "advisory_class": {
+          "type": "string",
+          "const": "observation",
+          "description": "Explicitly marks this as observation class — NOT execution"
+        },
+        "condition_id": { "type": "string" },
+        "result_id": { "type": "string" },
+        "detail": { "type": "string" },
+        "affected_entities": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["info", "warning", "critical"]
+        },
+        "correlation_refs": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

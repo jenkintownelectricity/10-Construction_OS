@@ -1,0 +1,76 @@
+engine_name: Construction_ALEXANDER_Engine
+engine_type: ring_2_pattern_intelligence
+domain_scope: construction_pattern_resolution
+owner: Armand Lefebvre
+authority_level: L0
+
+ring: 2
+ring_description: "Ring 2 reasoning — advisory pattern resolution only"
+
+authority_boundary:
+  may_consume:
+    - Construction_Pattern_Language_OS   # governed pattern truth
+    - Construction_Atlas                 # spatial context
+    - Construction_Reference_Intelligence # reference intelligence
+  may_emit:
+    - proposals        # advisory pattern resolution proposals
+    - observations     # pattern resolution observations
+    - anomalies        # detected anomalies in condition/pattern space
+    - resolution_results  # internal structured resolution outputs
+  may_not:
+    - define_canonical_truth
+    - mutate_any_kernel
+    - render_artifacts
+    - bypass_cognitive_bus
+    - emit_execution_commands
+    - introduce_intelligence_into_runtime
+
+schema_version: "1.0.0"
+created_at: "2026-03-22T00:00:00Z"
+
+resolution_pipeline:
+  stages:
+    - condition_intake
+    - normalization
+    - family_classification
+    - pattern_resolution
+    - variant_selection
+    - constraint_enforcement
+    - conflict_detection
+    - scoring
+    - result_assembly
+
+fail_closed_policy:
+  description: >
+    All stages fail closed. If any required truth, atlas context, or reference
+    context is missing, incompatible, ambiguous, or conflicting, the engine
+    emits an UNRESOLVED, BLOCKED, or CONFLICT result with explicit fail reason
+    codes rather than guessing.
+  enforcement: strict
+  invalid_input: reject
+  missing_truth: block
+  ambiguous_context: block
+  conflicting_patterns: conflict
+
+consumer_contracts:
+  - source: Construction_Pattern_Language_OS
+    contract_type: pattern_kernel_consumer
+    consumed_entities:
+      - PatternFamily
+      - Pattern
+      - PatternVariant
+      - ArtifactIntent
+      - ConstraintProfile
+      - PatternRelationship
+    id_format: "<CLASS>-CONSTR-<TYPE>-<NAME>-<INDEX>-R<REV>"
+
+cognitive_bus_integration:
+  source_component: Construction_ALEXANDER_Engine
+  source_repo: Construction_ALEXANDER_Engine
+  schema_version: "0.1"
+  allowed_event_classes:
+    - Proposal
+    - Observation
+  forbidden_event_classes:
+    - ExternallyValidatedEvent
+  max_payload_bytes: 65536

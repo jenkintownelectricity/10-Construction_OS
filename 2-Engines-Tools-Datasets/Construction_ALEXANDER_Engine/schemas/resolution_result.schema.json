@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "resolution_result.schema.json",
+  "title": "ResolutionResult",
+  "description": "Internal resolution output from ALEXANDER Engine. Versioned, deterministic, fail-closed.",
+  "type": "object",
+  "required": [
+    "result_id",
+    "schema_version",
+    "timestamp_utc",
+    "condition_id",
+    "status",
+    "resolution_stages"
+  ],
+  "properties": {
+    "result_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for this resolution result"
+    },
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0",
+      "description": "ResolutionResult schema version"
+    },
+    "timestamp_utc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp of resolution completion"
+    },
+    "condition_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The ConditionSignature ID that was resolved"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["RESOLVED", "UNRESOLVED", "BLOCKED", "CONFLICT"],
+      "description": "Resolution outcome status"
+    },
+    "pattern_family_id": {
+      "type": ["string", "null"],
+      "description": "Resolved pattern family canonical ID, or null if unresolved"
+    },
+    "pattern_id": {
+      "type": ["string", "null"],
+      "description": "Resolved pattern canonical ID, or null if unresolved"
+    },
+    "variant_id": {
+      "type": ["string", "null"],
+      "description": "Resolved variant canonical ID, or null if unresolved"
+    },
+    "artifact_intent_id": {
+      "type": ["string", "null"],
+      "description": "Resolved artifact intent canonical ID, or null if unresolved"
+    },
+    "fail_reasons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code", "stage", "message"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "INVALID_CONDITION",
+              "MISSING_REQUIRED_FIELD",
+              "UNKNOWN_CONDITION_TYPE",
+              "NO_FAMILY_MATCH",
+              "AMBIGUOUS_FAMILY",
+              "NO_PATTERN_MATCH",
+              "AMBIGUOUS_PATTERN",
+              "NO_VARIANT_MATCH",
+              "AMBIGUOUS_VARIANT",
+              "CONSTRAINT_VIOLATION",
+              "CONFLICT_DETECTED",
+              "MISSING_TRUTH",
+              "INCOMPATIBLE_CONTEXT",
+              "SCORING_FAILURE",
+              "INTERNAL_ERROR"
+            ]
+          },
+          "stage": {
+            "type": "string",
+            "enum": [
+              "intake",
+              "normalization",
+              "family_classification",
+              "pattern_resolution",
+              "variant_selection",
+              "constraint_enforcement",
+              "conflict_detection",
+              "scoring",
+              "assembly"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "details": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "Explicit fail reason codes when status is not RESOLVED"
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["conflict_id", "relationship_id", "source_id", "target_id", "severity"],
+        "properties": {
+          "conflict_id": { "type": "string" },
+          "relationship_id": { "type": "string" },
+          "source_id": { "type": "string" },
+          "target_id": { "type": "string" },
+          "severity": { "type": "string" },
+          "description": { "type": "string" },
+          "resolution_strategy": { "type": "string" }
+        },
+        "additionalProperties": false
+      },
+      "description": "Detected conflict records"
+    },
+    "constraint_violations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["constraint_id", "constraint_type", "violation"],
+        "properties": {
+          "constraint_id": { "type": "string" },
+          "constraint_type": { "type": "string" },
+          "violation": { "type": "string" },
+          "parameter": { "type": "string" },
+          "expected": {},
+          "actual": {}
+        },
+        "additionalProperties": false
+      }
+    },
+    "score": {
+      "type": ["object", "null"],
+      "properties": {
+        "total_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "breakdown": {
+          "type": "object",
+          "properties": {
+            "family_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+            "pattern_fit": { "type": "number", "minimum": 0, "maximum": 1 },
+            "variant_match": { "type": "number", "minimum": 0, "maximum": 1 },
+            "constraint_compliance": { "type": "number", "minimum": 0, "maximum": 1 },
+            "conflict_free": { "type": "number", "minimum": 0, "maximum": 1 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false,
+      "description": "Machine-readable score breakdown, null if scoring failed"
+    },
+    "resolution_stages": {
+      "type": "object",
+      "required": [
+        "intake",
+        "normalization",
+        "family_classification",
+        "pattern_resolution",
+        "variant_selection",
+        "constraint_enforcement",
+        "conflict_detection",
+        "scoring"
+      ],
+      "properties": {
+        "intake": { "$ref": "#/$defs/stage_result" },
+        "normalization": { "$ref": "#/$defs/stage_result" },
+        "family_classification": { "$ref": "#/$defs/stage_result" },
+        "pattern_resolution": { "$ref": "#/$defs/stage_result" },
+        "variant_selection": { "$ref": "#/$defs/stage_result" },
+        "constraint_enforcement": { "$ref": "#/$defs/stage_result" },
+        "conflict_detection": { "$ref": "#/$defs/stage_result" },
+        "scoring": { "$ref": "#/$defs/stage_result" }
+      },
+      "additionalProperties": false
+    },
+    "correlation_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "source_repo": {
+      "type": "string",
+      "const": "Construction_ALEXANDER_Engine"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "stage_result": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["PASS", "FAIL", "SKIP"]
+        },
+        "candidates_in": { "type": "integer", "minimum": 0 },
+        "candidates_out": { "type": "integer", "minimum": 0 },
+        "detail": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

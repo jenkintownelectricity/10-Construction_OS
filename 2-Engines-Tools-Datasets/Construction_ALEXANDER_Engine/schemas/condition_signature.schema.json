@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "condition_signature.schema.json",
+  "title": "ConditionSignature",
+  "description": "Input schema for ALEXANDER Engine resolution. Describes a construction condition requiring pattern resolution.",
+  "type": "object",
+  "required": [
+    "condition_id",
+    "schema_version",
+    "timestamp_utc",
+    "condition_type",
+    "location_context"
+  ],
+  "properties": {
+    "condition_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for this condition"
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Schema version of this condition signature"
+    },
+    "timestamp_utc": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp when condition was identified"
+    },
+    "condition_type": {
+      "type": "string",
+      "enum": [
+        "roof_edge",
+        "parapet",
+        "drain",
+        "penetration",
+        "expansion_joint",
+        "interface",
+        "transition"
+      ],
+      "description": "High-level condition classification"
+    },
+    "location_context": {
+      "type": "object",
+      "required": ["zone_id"],
+      "properties": {
+        "zone_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Spatial zone identifier from Construction_Atlas"
+        },
+        "spatial_object_id": {
+          "type": "string",
+          "description": "Optional spatial object reference from Construction_Atlas"
+        },
+        "interface_condition": {
+          "type": "string",
+          "enum": [
+            "roof_to_wall",
+            "parapet",
+            "penetration",
+            "fenestration",
+            "below_grade",
+            "expansion_joint",
+            "deck_to_wall",
+            "roof_edge",
+            "curb",
+            "drain",
+            "custom"
+          ],
+          "description": "Interface condition type from atlas context"
+        },
+        "adjacencies": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Adjacent spatial object IDs"
+        }
+      },
+      "additionalProperties": false
+    },
+    "dimensions": {
+      "type": "object",
+      "properties": {
+        "height_inches": { "type": "number" },
+        "width_inches": { "type": "number" },
+        "thickness_inches": { "type": "number" },
+        "length_feet": { "type": "number" },
+        "diameter_inches": { "type": "number" }
+      },
+      "additionalProperties": true
+    },
+    "system_type": {
+      "type": "string",
+      "description": "Construction system type (e.g., 'membrane_roofing', 'metal_panel')"
+    },
+    "material_preferences": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Preferred materials if any"
+    },
+    "method_preference": {
+      "type": "string",
+      "description": "Preferred installation method if any"
+    },
+    "manufacturer_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Manufacturer references if any"
+    },
+    "climate_context": {
+      "type": "object",
+      "properties": {
+        "wind_zone": {
+          "type": "integer",
+          "enum": [1, 2, 3]
+        },
+        "moisture_exposure": {
+          "type": "string",
+          "enum": ["low", "moderate", "high", "severe"]
+        },
+        "climate_zone": {
+          "type": "string"
+        },
+        "freeze_thaw": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "code_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code_reference"],
+        "properties": {
+          "code_reference": { "type": "string" },
+          "section": { "type": "string" },
+          "requirement": { "type": "string" }
+        }
+      }
+    },
+    "correlation_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Correlation IDs for traceability"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
