@@ -1,0 +1,71 @@
+{
+  "rule_pack": "chemistry_constraints",
+  "version": "1.0.0",
+  "description": "Example chemical incompatibility constraint rules for the Constraint Port.",
+  "rules": [
+    {
+      "rule_id": "CR-CHEM-001",
+      "rule_label": "PMMA to aged asphalt without approved separator or primer — chemical incompatibility",
+      "rule_family": "ROOFING_CHEMISTRY",
+      "constraint_type": "PHYSICAL_INCOMPATIBILITY",
+      "source_authority": "Construction_Chemistry_Kernel reference + Manufacturer TB-2024-PMMA-07",
+      "source_ref": "Chemical interaction matrix — PMMA / bituminous compounds",
+      "applies_to": {
+        "entity_type": "material",
+        "entity_filter": {
+          "material_a": "PMMA_liquid_applied",
+          "material_b": "bituminous_asphalt"
+        }
+      },
+      "trigger": {
+        "condition": "material_a_type == 'PMMA_liquid_applied' AND material_b_type == 'bituminous_asphalt' AND substrate_age_years > 5 AND interlay_separator == false AND approved_primer == false",
+        "context_requirements": ["material_a_type", "material_b_type", "substrate_age_years", "interlay_separator", "approved_primer"]
+      },
+      "dependency_map": {
+        "kernels": ["Construction_Chemistry_Kernel", "Construction_Material_Kernel"],
+        "external_refs": ["TB-2024-PMMA-07", "ASTM D6878"]
+      },
+      "logic_operator": "BLOCK",
+      "required_evidence": [
+        "material_a_type",
+        "material_b_type",
+        "substrate_age_years",
+        "interlay_separator",
+        "approved_primer"
+      ],
+      "decision_on_fail": "BLOCK",
+      "notes": "Plasticizer migration from aged asphalt chemically degrades PMMA cure. Mandatory separator or approved primer required."
+    },
+    {
+      "rule_id": "CR-CHEM-002",
+      "rule_label": "PVC membrane contact with polystyrene insulation without barrier",
+      "rule_family": "ROOFING_CHEMISTRY",
+      "constraint_type": "PHYSICAL_INCOMPATIBILITY",
+      "source_authority": "Construction_Chemistry_Kernel reference",
+      "source_ref": "Chemical interaction matrix — PVC / polystyrene",
+      "applies_to": {
+        "entity_type": "material",
+        "entity_filter": {
+          "material_a": "PVC_membrane",
+          "material_b": "EPS_or_XPS_insulation"
+        }
+      },
+      "trigger": {
+        "condition": "material_a_type == 'PVC_membrane' AND material_b_type IN ['EPS_insulation', 'XPS_insulation'] AND barrier_sheet_present == false",
+        "context_requirements": ["material_a_type", "material_b_type", "barrier_sheet_present"]
+      },
+      "dependency_map": {
+        "kernels": ["Construction_Chemistry_Kernel", "Construction_Material_Kernel"],
+        "external_refs": []
+      },
+      "logic_operator": "BLOCK",
+      "required_evidence": [
+        "material_a_type",
+        "material_b_type",
+        "barrier_sheet_present"
+      ],
+      "decision_on_fail": "BLOCK",
+      "notes": "PVC plasticizers react with polystyrene, causing brittleness and membrane failure. Barrier sheet mandatory."
+    }
+  ]
+}

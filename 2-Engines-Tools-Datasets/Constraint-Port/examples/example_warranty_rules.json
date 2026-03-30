@@ -1,0 +1,69 @@
+{
+  "rule_pack": "warranty_constraints",
+  "version": "1.0.0",
+  "description": "Example warranty-voiding constraint rules for the Constraint Port.",
+  "rules": [
+    {
+      "rule_id": "CR-WARR-001",
+      "rule_label": "Non-approved substrate voids manufacturer membrane warranty",
+      "rule_family": "WARRANTY_COMPLIANCE",
+      "constraint_type": "WARRANTY_VOID",
+      "source_authority": "Manufacturer Warranty Document WD-2024-MEM-01",
+      "source_ref": "Section 2.1 — Approved Substrates",
+      "applies_to": {
+        "entity_type": "assembly",
+        "entity_filter": {
+          "component": "roof_membrane",
+          "warranty_class": "manufacturer_full"
+        }
+      },
+      "trigger": {
+        "condition": "substrate_id NOT IN approved_substrate_list",
+        "context_requirements": ["substrate_id", "approved_substrate_list"]
+      },
+      "dependency_map": {
+        "kernels": ["Construction_Material_Kernel"],
+        "external_refs": ["WD-2024-MEM-01"]
+      },
+      "logic_operator": "REQUIRE_HUMAN_STAMP",
+      "required_evidence": [
+        "substrate_id",
+        "approved_substrate_list",
+        "warranty_class"
+      ],
+      "decision_on_fail": "BLOCK",
+      "notes": "Using a non-approved substrate voids the manufacturer warranty. Human authority required to accept risk."
+    },
+    {
+      "rule_id": "CR-WARR-002",
+      "rule_label": "Non-approved primer with PMMA membrane voids warranty",
+      "rule_family": "WARRANTY_COMPLIANCE",
+      "constraint_type": "WARRANTY_VOID",
+      "source_authority": "Manufacturer Warranty Document WD-2024-PMMA-02",
+      "source_ref": "Section 3.4 — Approved Primers and Preparation",
+      "applies_to": {
+        "entity_type": "material",
+        "entity_filter": {
+          "membrane_type": "PMMA",
+          "component": "primer"
+        }
+      },
+      "trigger": {
+        "condition": "primer_id NOT IN approved_primer_list AND membrane_type == 'PMMA'",
+        "context_requirements": ["primer_id", "approved_primer_list", "membrane_type"]
+      },
+      "dependency_map": {
+        "kernels": ["Construction_Material_Kernel", "Construction_Chemistry_Kernel"],
+        "external_refs": ["WD-2024-PMMA-02"]
+      },
+      "logic_operator": "BLOCK",
+      "required_evidence": [
+        "primer_id",
+        "approved_primer_list",
+        "membrane_type"
+      ],
+      "decision_on_fail": "BLOCK",
+      "notes": "Non-approved primer with PMMA membrane voids warranty and risks chemical incompatibility. BLOCK unless human stamps override."
+    }
+  ]
+}

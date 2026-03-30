@@ -1,0 +1,72 @@
+{
+  "rule_pack": "manufacturer_constraints",
+  "version": "1.0.0",
+  "description": "Example manufacturer constraint rules for the Constraint Port.",
+  "rules": [
+    {
+      "rule_id": "CR-MFR-001",
+      "rule_label": "PMMA membrane requires approved primer on aged asphalt substrate",
+      "rule_family": "ROOFING_MANUFACTURER",
+      "constraint_type": "PHYSICAL_INCOMPATIBILITY",
+      "source_authority": "Manufacturer Technical Bulletin TB-2024-PMMA-07",
+      "source_ref": "Section 3.2 — Substrate Preparation Requirements",
+      "applies_to": {
+        "entity_type": "assembly",
+        "entity_filter": {
+          "membrane_type": "PMMA",
+          "substrate_type": "asphalt",
+          "substrate_condition": "aged"
+        }
+      },
+      "trigger": {
+        "condition": "substrate_type == 'asphalt' AND substrate_age_years > 5 AND separator_present == false AND approved_primer_applied == false",
+        "context_requirements": ["substrate_type", "substrate_age_years", "separator_present", "approved_primer_applied"]
+      },
+      "dependency_map": {
+        "kernels": ["Construction_Material_Kernel", "Construction_Chemistry_Kernel"],
+        "external_refs": ["TB-2024-PMMA-07"]
+      },
+      "logic_operator": "BLOCK",
+      "required_evidence": [
+        "substrate_type",
+        "substrate_age_years",
+        "separator_present",
+        "approved_primer_applied",
+        "membrane_type"
+      ],
+      "decision_on_fail": "BLOCK",
+      "notes": "PMMA applied directly to aged asphalt causes chemical degradation. Approved separator or primer is mandatory."
+    },
+    {
+      "rule_id": "CR-MFR-002",
+      "rule_label": "Fastener spacing must not exceed manufacturer maximum for wind zone",
+      "rule_family": "ROOFING_MANUFACTURER",
+      "constraint_type": "SPEC_CONFLICT",
+      "source_authority": "Manufacturer Installation Guide IG-2024-MECH-03",
+      "source_ref": "Table 4.1 — Fastener Spacing by Wind Zone",
+      "applies_to": {
+        "entity_type": "assembly",
+        "entity_filter": {
+          "attachment_method": "mechanical",
+          "component": "roof_membrane"
+        }
+      },
+      "trigger": {
+        "condition": "fastener_spacing_inches > max_allowed_spacing_for_wind_zone",
+        "context_requirements": ["fastener_spacing_inches", "wind_zone", "max_allowed_spacing_for_wind_zone"]
+      },
+      "dependency_map": {
+        "kernels": ["Construction_Assembly_Kernel", "Construction_Specification_Kernel"],
+        "external_refs": ["IG-2024-MECH-03"]
+      },
+      "logic_operator": "BLOCK",
+      "required_evidence": [
+        "fastener_spacing_inches",
+        "wind_zone",
+        "max_allowed_spacing_for_wind_zone"
+      ],
+      "decision_on_fail": "BLOCK",
+      "notes": "Exceeding manufacturer fastener spacing voids warranty and may violate code."
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "rule_pack": "specification_constraints",
+  "version": "1.0.0",
+  "description": "Example specification and code compliance constraint rules for the Constraint Port.",
+  "rules": [
+    {
+      "rule_id": "CR-SPEC-001",
+      "rule_label": "Roof assembly must meet minimum R-value for climate zone",
+      "rule_family": "ENERGY_CODE",
+      "constraint_type": "CODE_VIOLATION",
+      "source_authority": "IECC 2021",
+      "source_ref": "Table C402.1.3 — Insulation Minimum R-Values by Climate Zone",
+      "applies_to": {
+        "entity_type": "assembly",
+        "entity_filter": {
+          "assembly_type": "roof",
+          "classification": "commercial"
+        }
+      },
+      "trigger": {
+        "condition": "assembly_r_value < minimum_r_value_for_climate_zone",
+        "context_requirements": ["assembly_r_value", "climate_zone", "minimum_r_value_for_climate_zone"]
+      },
+      "dependency_map": {
+        "kernels": ["Construction_Specification_Kernel", "Construction_Assembly_Kernel"],
+        "external_refs": ["IECC 2021 Table C402.1.3"]
+      },
+      "logic_operator": "BLOCK",
+      "required_evidence": [
+        "assembly_r_value",
+        "climate_zone",
+        "minimum_r_value_for_climate_zone"
+      ],
+      "decision_on_fail": "BLOCK",
+      "notes": "Energy code minimum R-value is a hard requirement. Failure to meet it is a code violation."
+    },
+    {
+      "rule_id": "CR-SPEC-002",
+      "rule_label": "Fire rating documentation required for assembly in fire-rated area",
+      "rule_family": "FIRE_CODE",
+      "constraint_type": "CODE_VIOLATION",
+      "source_authority": "IBC 2021",
+      "source_ref": "Section 703 — Fire-Resistance-Rated Construction",
+      "applies_to": {
+        "entity_type": "assembly",
+        "entity_filter": {
+          "location_classification": "fire_rated_area"
+        }
+      },
+      "trigger": {
+        "condition": "location_is_fire_rated == true AND assembly_fire_rating_documented == false",
+        "context_requirements": ["location_is_fire_rated", "assembly_fire_rating_documented"]
+      },
+      "dependency_map": {
+        "kernels": ["Construction_Specification_Kernel"],
+        "external_refs": ["IBC 2021 Section 703"]
+      },
+      "logic_operator": "BLOCK",
+      "required_evidence": [
+        "location_is_fire_rated",
+        "assembly_fire_rating_documented",
+        "fire_rating_value"
+      ],
+      "decision_on_fail": "DEFER_FOR_MISSING_EVIDENCE",
+      "notes": "Missing fire rating documentation in a fire-rated area must be resolved before installation."
+    }
+  ]
+}
