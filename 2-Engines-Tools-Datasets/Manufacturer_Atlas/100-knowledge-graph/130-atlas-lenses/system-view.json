@@ -1,0 +1,9 @@
+{
+  "$schema": "../../000-governance-truth/090-schemas/atlas_lens.schema.json",
+  "lens_id": "LENS-SYSTEM-001",
+  "name": "System View",
+  "description": "Shows manufacturer systems, families, and conditions they support.",
+  "emphasized_node_classes": ["manufacturer", "system_family", "system", "condition"],
+  "displayed_relationships": ["contains", "supports"],
+  "inspection_capabilities": ["view_system_hierarchy", "inspect_system_metadata", "list_supported_conditions_per_system", "check_system_status_honesty", "navigate_from_system_to_assemblies"]
+}

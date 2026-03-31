@@ -1,0 +1,9 @@
+{
+  "$schema": "../../000-governance-truth/090-schemas/atlas_lens.schema.json",
+  "lens_id": "LENS-COVERAGE-001",
+  "name": "Coverage View",
+  "description": "Shows completeness of the knowledge graph for auditing.",
+  "emphasized_node_classes": ["manufacturer", "system_family", "system", "condition", "assembly", "product", "rule", "detail"],
+  "displayed_relationships": ["contains", "supports", "uses", "governed_by", "compatible_with", "resolved_by", "references", "outputs"],
+  "inspection_capabilities": ["count_nodes_by_status", "count_nodes_by_class", "identify_orphan_nodes", "identify_edges_to_missing_nodes", "calculate_grounded_vs_scaffold_ratio", "list_deferred_items", "generate_coverage_summary"]
+}

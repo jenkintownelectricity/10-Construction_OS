@@ -1,0 +1,18 @@
+{
+  "$schema": "../../000-governance-truth/090-schemas/detail_graph_relation.schema.json",
+  "description": "Detail Graph ready relations — resolution paths from condition to detail",
+  "generated": "2026-03-31",
+  "resolution_flow": "Project Condition -> Manufacturer System -> Assembly Constraint Set -> Detail",
+  "_lineage": {
+    "origin_repo": "10-Construction_OS",
+    "origin_path": "2-Engines-Tools-Datasets/Manufacturer_Atlas/relations/detail-graph-relations.json",
+    "origin_commit": "05a909260769de38eebe839494e2b00c277fbdff",
+    "recreated_by": "manufacturer-domain-os-taxonomy-wave",
+    "recreated_date": "2026-03-31"
+  },
+  "relations": [
+    {"relation_id":"DGR-ROOFHW-001","project_condition":"MFR-COND-HIGHWIND-001","manufacturer_system":"MFR-SYSTEM-ADHERO-001","assembly_constraint_set":"ACS-ADHERO-HW-001","output_detail":"MFR-DETAIL-BASEFLASH-001","resolution_status":"scaffold","resolution_notes":"Path structurally complete. Detail geometry requires manufacturer CAD source."},
+    {"relation_id":"DGR-ROOFMECH-001","project_condition":"MFR-COND-HIGHWIND-001","manufacturer_system":"MFR-SYSTEM-MECHR-001","assembly_constraint_set":"ACS-MECHR-STD-001","output_detail":"MFR-DETAIL-EDGETERMINATION-001","resolution_status":"scaffold","resolution_notes":"Path structurally complete. Fastener patterns require manufacturer FM approval data."},
+    {"relation_id":"DGR-WALLMOIST-001","project_condition":"MFR-COND-MOISTURE-001","manufacturer_system":"MFR-SYSTEM-CAVWALL-001","assembly_constraint_set":"ACS-CAVWALL-STD-001","output_detail":"MFR-DETAIL-WALLFLASH-001","resolution_status":"scaffold","resolution_notes":"Path structurally complete. WRB integration requires manufacturer installation guide data."}
+  ]
+}
