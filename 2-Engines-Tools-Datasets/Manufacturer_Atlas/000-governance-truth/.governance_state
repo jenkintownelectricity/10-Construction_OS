@@ -1,0 +1,13 @@
+{
+  "status": "frozen",
+  "version": "v1.0",
+  "frozen_date": "2026-03-31T00:00:00Z",
+  "frozen_by": "manufacturer-atlas-foundation-wave",
+  "governance_rules": [
+    "only governed commits modify 000",
+    "engines cannot write here",
+    "tools cannot write here",
+    "adapters cannot write here",
+    "changes require thaw/refreeze protocol"
+  ]
+}

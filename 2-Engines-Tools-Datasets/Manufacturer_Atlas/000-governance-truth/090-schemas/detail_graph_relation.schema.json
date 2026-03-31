@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "detail_graph_relation.schema.json",
+  "title": "DetailGraphRelation",
+  "description": "Defines a resolution path from project condition through manufacturer system and assembly constraint set to a construction detail.",
+  "_lineage": {
+    "origin_repo": "10-Construction_OS",
+    "origin_path": "2-Engines-Tools-Datasets/Manufacturer_Atlas/schemas/detail_graph_relation.schema.json",
+    "origin_commit": "05a909260769de38eebe839494e2b00c277fbdff",
+    "recreated_by": "manufacturer-domain-os-taxonomy-wave",
+    "recreated_date": "2026-03-31"
+  },
+  "type": "object",
+  "required": ["relation_id", "project_condition", "manufacturer_system", "assembly_constraint_set", "output_detail", "resolution_status"],
+  "properties": {
+    "relation_id": { "type": "string", "pattern": "^DGR-[A-Z0-9]+-[0-9]+$" },
+    "project_condition": { "type": "string" },
+    "manufacturer_system": { "type": "string" },
+    "assembly_constraint_set": { "type": "string" },
+    "output_detail": { "type": "string" },
+    "resolution_status": { "type": "string", "enum": ["grounded", "derived", "scaffold", "deferred", "unverified"] },
+    "resolution_notes": { "type": "string" }
+  },
+  "additionalProperties": false
+}

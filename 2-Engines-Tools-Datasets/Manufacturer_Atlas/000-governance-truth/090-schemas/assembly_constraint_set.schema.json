@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assembly_constraint_set.schema.json",
+  "title": "AssemblyConstraintSet",
+  "description": "Defines a deterministic assembly constraint set linking system, condition, substrate, products, rules, and detail output.",
+  "_lineage": {
+    "origin_repo": "10-Construction_OS",
+    "origin_path": "2-Engines-Tools-Datasets/Manufacturer_Atlas/schemas/assembly_constraint_set.schema.json",
+    "origin_commit": "05a909260769de38eebe839494e2b00c277fbdff",
+    "recreated_by": "manufacturer-domain-os-taxonomy-wave",
+    "recreated_date": "2026-03-31"
+  },
+  "type": "object",
+  "required": ["constraint_id", "system", "condition", "substrate", "required_products", "required_rules", "output_detail_reference", "constraint_status"],
+  "properties": {
+    "constraint_id": { "type": "string", "pattern": "^ACS-[A-Z0-9]+-[0-9]+$" },
+    "system": { "type": "string" },
+    "condition": { "type": "string" },
+    "substrate": { "type": "string" },
+    "required_products": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "required_rules": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "output_detail_reference": { "type": "string" },
+    "constraint_status": { "type": "string", "enum": ["grounded", "derived", "scaffold", "deferred", "unverified"] },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": false
+}

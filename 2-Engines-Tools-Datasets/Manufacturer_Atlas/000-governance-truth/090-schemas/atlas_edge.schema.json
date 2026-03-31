@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atlas_edge.schema.json",
+  "title": "AtlasEdge",
+  "description": "A directed relationship between two AtlasNode entities in the Manufacturer Atlas knowledge graph.",
+  "_lineage": {
+    "origin_repo": "10-Construction_OS",
+    "origin_path": "2-Engines-Tools-Datasets/Manufacturer_Atlas/schemas/atlas_edge.schema.json",
+    "origin_commit": "05a909260769de38eebe839494e2b00c277fbdff",
+    "recreated_by": "manufacturer-domain-os-taxonomy-wave",
+    "recreated_date": "2026-03-31"
+  },
+  "type": "object",
+  "required": ["edge_id", "from_node", "to_node", "relationship", "governance_tier"],
+  "properties": {
+    "edge_id": {
+      "type": "string",
+      "description": "Unique identifier for this edge.",
+      "pattern": "^EDGE-[A-Z0-9]+-[0-9]+$"
+    },
+    "from_node": { "type": "string", "description": "node_id of the source AtlasNode." },
+    "to_node": { "type": "string", "description": "node_id of the target AtlasNode." },
+    "relationship": {
+      "type": "string",
+      "enum": ["contains", "supports", "uses", "governed_by", "compatible_with", "resolved_by", "references", "outputs"],
+      "description": "Type of directed relationship."
+    },
+    "governance_tier": {
+      "type": "string",
+      "enum": ["manufacturer_published", "code_required", "industry_standard", "derived_inference", "scaffold"],
+      "description": "Authority level of this relationship."
+    }
+  },
+  "additionalProperties": false
+}

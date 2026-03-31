@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atlas_node.schema.json",
+  "title": "AtlasNode",
+  "description": "A single node in the Manufacturer Atlas knowledge graph. Every node carries an explicit honesty status.",
+  "_lineage": {
+    "origin_repo": "10-Construction_OS",
+    "origin_path": "2-Engines-Tools-Datasets/Manufacturer_Atlas/schemas/atlas_node.schema.json",
+    "origin_commit": "05a909260769de38eebe839494e2b00c277fbdff",
+    "recreated_by": "manufacturer-domain-os-taxonomy-wave",
+    "recreated_date": "2026-03-31"
+  },
+  "type": "object",
+  "required": ["node_id", "domain", "class", "label", "status", "metadata"],
+  "properties": {
+    "node_id": {
+      "type": "string",
+      "description": "Unique identifier for this atlas node.",
+      "pattern": "^MFR-[A-Z]+-[A-Z0-9]+-[0-9]+$"
+    },
+    "domain": {
+      "type": "string",
+      "enum": ["building_envelope"],
+      "description": "Domain classification for this node."
+    },
+    "class": {
+      "type": "string",
+      "enum": ["manufacturer", "system_family", "system", "condition", "assembly", "product", "rule", "detail"],
+      "description": "Node class within the manufacturer atlas."
+    },
+    "label": {
+      "type": "string",
+      "description": "Human-readable label for this node.",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "status": {
+      "type": "string",
+      "enum": ["grounded", "derived", "scaffold", "deferred", "unverified"],
+      "description": "Honesty status classification."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata for this node.",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
