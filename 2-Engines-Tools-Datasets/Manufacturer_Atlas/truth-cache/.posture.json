@@ -1,0 +1,7 @@
+{
+  "source_repo": "10-building-envelope-manufacturer-os",
+  "ownership": "upstream",
+  "local_role": "consumed_reference_only",
+  "mutation_policy": "no_local_truth_authority",
+  "note": "All records in this directory are consumed references from the upstream manufacturer truth domain. They are not locally owned canonical truth. Upstream is authoritative. Do not mutate these records to assert local sovereignty."
+}
