@@ -1,0 +1,35 @@
+{
+  "$schema": "../schemas/detail_graph_relation.schema.json",
+  "description": "Detail Graph ready relations — resolution paths from project condition to construction detail through the manufacturer atlas",
+  "generated": "2026-03-31",
+  "resolution_flow": "Project Condition -> Manufacturer System -> Assembly Constraint Set -> Detail",
+  "relations": [
+    {
+      "relation_id": "DGR-ROOFHW-001",
+      "project_condition": "MFR-COND-HIGHWIND-001",
+      "manufacturer_system": "MFR-SYSTEM-ADHERO-001",
+      "assembly_constraint_set": "ACS-ADHERO-HW-001",
+      "output_detail": "MFR-DETAIL-BASEFLASH-001",
+      "resolution_status": "scaffold",
+      "resolution_notes": "Path is structurally complete but detail geometry requires manufacturer CAD source data. Assembly constraint parameters (adhesive rates, membrane thickness) remain scaffold until manufacturer TDS ingestion."
+    },
+    {
+      "relation_id": "DGR-ROOFMECH-001",
+      "project_condition": "MFR-COND-HIGHWIND-001",
+      "manufacturer_system": "MFR-SYSTEM-MECHR-001",
+      "assembly_constraint_set": "ACS-MECHR-STD-001",
+      "output_detail": "MFR-DETAIL-EDGETERMINATION-001",
+      "resolution_status": "scaffold",
+      "resolution_notes": "Path is structurally complete but fastener patterns and edge metal profiles require manufacturer FM approval data. Detail geometry deferred to CAD source."
+    },
+    {
+      "relation_id": "DGR-WALLMOIST-001",
+      "project_condition": "MFR-COND-MOISTURE-001",
+      "manufacturer_system": "MFR-SYSTEM-CAVWALL-001",
+      "assembly_constraint_set": "ACS-CAVWALL-STD-001",
+      "output_detail": "MFR-DETAIL-WALLFLASH-001",
+      "resolution_status": "scaffold",
+      "resolution_notes": "Path is structurally complete but WRB integration details and through-wall flashing geometry require manufacturer installation guide data."
+    }
+  ]
+}

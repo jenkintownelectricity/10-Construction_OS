@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "detail_graph_relation.schema.json",
+  "title": "DetailGraphRelation",
+  "description": "Defines a resolution path from project condition through manufacturer system and assembly constraint set to a construction detail. Prepares the relation model for the future Detail Graph.",
+  "type": "object",
+  "required": ["relation_id", "project_condition", "manufacturer_system", "assembly_constraint_set", "output_detail", "resolution_status"],
+  "properties": {
+    "relation_id": {
+      "type": "string",
+      "description": "Unique identifier for this detail graph relation.",
+      "pattern": "^DGR-[A-Z0-9]+-[0-9]+$"
+    },
+    "project_condition": {
+      "type": "string",
+      "description": "Reference to the condition node_id representing the project condition."
+    },
+    "manufacturer_system": {
+      "type": "string",
+      "description": "Reference to the manufacturer system node_id that addresses this condition."
+    },
+    "assembly_constraint_set": {
+      "type": "string",
+      "description": "Reference to the assembly constraint set constraint_id."
+    },
+    "output_detail": {
+      "type": "string",
+      "description": "Reference to the detail node_id produced by this resolution path."
+    },
+    "resolution_status": {
+      "type": "string",
+      "enum": ["grounded", "derived", "scaffold", "deferred", "unverified"],
+      "description": "Honesty status of this resolution path."
+    },
+    "resolution_notes": {
+      "type": "string",
+      "description": "Notes on what is needed to ground this resolution path."
+    }
+  },
+  "additionalProperties": false
+}
