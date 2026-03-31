@@ -1,9 +1,0 @@
-{
-  "$schema": "../../000-governance-truth/090-schemas/atlas_lens.schema.json",
-  "lens_id": "LENS-RULE-001",
-  "name": "Rule View",
-  "description": "Shows rules, governed assemblies, and referenced conditions.",
-  "emphasized_node_classes": ["rule", "assembly", "condition"],
-  "displayed_relationships": ["governed_by", "references"],
-  "inspection_capabilities": ["list_all_rules", "inspect_rule_authority_and_fail_action", "view_governed_assemblies_per_rule", "trace_rule_to_referenced_conditions", "check_rule_grounding_status"]
-}
