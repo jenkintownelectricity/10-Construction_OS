@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "installation_rule.schema.json",
+  "title": "InstallationRule",
+  "description": "Canonical schema for an installation rule in the building envelope domain.",
+  "type": "object",
+  "required": ["record_id", "type", "label", "domain", "status", "rule_type", "authority", "fail_action"],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "pattern": "^MFR-RULE-[A-Z0-9]+-[0-9]+$"
+    },
+    "type": {
+      "type": "string",
+      "const": "installation_rule"
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "domain": {
+      "type": "string",
+      "enum": ["building_envelope"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["grounded", "derived", "scaffold", "deferred", "unverified"]
+    },
+    "rule_type": {
+      "type": "string",
+      "examples": ["attachment_requirement", "pre_installation_test", "movement_accommodation"]
+    },
+    "authority": {
+      "type": "string",
+      "description": "Source authority for this rule (code body, standard, manufacturer)."
+    },
+    "fail_action": {
+      "type": "string",
+      "enum": ["BLOCK", "WARN", "REQUIRE_HUMAN_STAMP"]
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
