@@ -1,0 +1,15 @@
+{
+  "manufacturer_id": "MFR-BARRETT-001",
+  "name": "The Barrett Company",
+  "domain": "building-envelope",
+  "system_families_supported": [
+    "PMMA"
+  ],
+  "authority": "upstream_truth_owner",
+  "source_authority": "system upstream truth owner",
+  "status": "grounded",
+  "record_origin": "upstream_manufacturer_truth",
+  "authority_scope": "manufacturer_domain",
+  "created_by": "system upstream truth owner",
+  "verification_status": "grounded"
+}
