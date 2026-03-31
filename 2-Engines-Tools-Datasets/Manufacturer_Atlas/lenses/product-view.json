@@ -1,0 +1,15 @@
+{
+  "$schema": "../schemas/atlas_lens.schema.json",
+  "lens_id": "LENS-PRODUCT-001",
+  "name": "Product View",
+  "description": "Shows products, their usage in assemblies, and compatibility relationships. Primary lens for inspecting what products are available and which assemblies consume them.",
+  "emphasized_node_classes": ["product", "assembly"],
+  "displayed_relationships": ["uses", "compatible_with"],
+  "inspection_capabilities": [
+    "list_all_products",
+    "inspect_product_metadata",
+    "view_assemblies_using_product",
+    "check_product_compatibility_pairs",
+    "identify_scaffold_products_needing_data"
+  ]
+}

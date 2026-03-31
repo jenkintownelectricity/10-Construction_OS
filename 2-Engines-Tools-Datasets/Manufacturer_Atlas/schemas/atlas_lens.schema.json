@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "atlas_lens.schema.json",
+  "title": "AtlasLens",
+  "description": "Defines a view lens for inspecting a subset of the Manufacturer Atlas knowledge graph.",
+  "type": "object",
+  "required": ["lens_id", "name", "description", "emphasized_node_classes", "displayed_relationships", "inspection_capabilities"],
+  "properties": {
+    "lens_id": {
+      "type": "string",
+      "description": "Unique identifier for this lens.",
+      "pattern": "^LENS-[A-Z]+-[0-9]+$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable lens name."
+    },
+    "description": {
+      "type": "string",
+      "description": "What this lens reveals about the atlas."
+    },
+    "emphasized_node_classes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["manufacturer", "system_family", "system", "condition", "assembly", "product", "rule", "detail"]
+      },
+      "minItems": 1,
+      "description": "Node classes that are primary focus in this lens."
+    },
+    "displayed_relationships": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["contains", "supports", "uses", "governed_by", "compatible_with", "resolved_by", "references", "outputs"]
+      },
+      "minItems": 1,
+      "description": "Relationship types visible in this lens."
+    },
+    "inspection_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "Operator inspection actions available through this lens."
+    }
+  },
+  "additionalProperties": false
+}

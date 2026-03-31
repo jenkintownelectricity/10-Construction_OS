@@ -1,0 +1,15 @@
+{
+  "$schema": "../schemas/atlas_lens.schema.json",
+  "lens_id": "LENS-RULE-001",
+  "name": "Rule View",
+  "description": "Shows rules, the assemblies they govern, and the conditions they reference. Primary lens for understanding what constraints and requirements apply to assemblies.",
+  "emphasized_node_classes": ["rule", "assembly", "condition"],
+  "displayed_relationships": ["governed_by", "references"],
+  "inspection_capabilities": [
+    "list_all_rules",
+    "inspect_rule_authority_and_fail_action",
+    "view_governed_assemblies_per_rule",
+    "trace_rule_to_referenced_conditions",
+    "check_rule_grounding_status"
+  ]
+}
