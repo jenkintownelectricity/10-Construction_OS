@@ -1,7 +1,8 @@
 /**
  * Manufacturer Record Loader
  * Read-only. Fails closed on missing data.
- * Does not own truth — consumed upstream reference only.
+ * Supports both legacy scaffold shape (record_id/type) and
+ * upstream authority shape (manufacturer_id/name).
  */
 import * as fs from "fs";
 import * as path from "path";
@@ -20,8 +21,10 @@ export function loadManufacturers(): ManufacturerRecord[] | LoaderFailure {
   const records: ManufacturerRecord[] = [];
   for (const file of files) {
     const parsed = JSON.parse(fs.readFileSync(path.join(DIR, file), "utf-8"));
-    if (parsed.type !== "manufacturer" || !parsed.record_id) {
-      return { loader: "manufacturer-record-loader", path: file, reason: "invalid manufacturer record" };
+    const hasLegacyId = parsed.record_id && parsed.type === "manufacturer";
+    const hasUpstreamId = parsed.manufacturer_id && parsed.name;
+    if (!hasLegacyId && !hasUpstreamId) {
+      return { loader: "manufacturer-record-loader", path: file, reason: "record missing both record_id/type and manufacturer_id/name" };
     }
     records.push(parsed);
   }

@@ -4,6 +4,9 @@
  * Local typing for consumed upstream manufacturer truth records.
  * These types are read-validation helpers, not canonical truth schemas.
  * Upstream authority: 10-building-envelope-manufacturer-os
+ *
+ * Supports both legacy scaffold shapes (record_id/type/label) and
+ * upstream authority shapes (manufacturer_id/name/product_family).
  */
 
 export type RecordStatus = "grounded" | "derived" | "scaffold" | "deferred" | "unverified";
@@ -13,35 +16,69 @@ export interface UpstreamRef {
   role: "consumed_reference";
 }
 
+// --- Manufacturer ---
+
 export interface ManufacturerRecord {
-  record_id: string;
-  type: "manufacturer";
-  label: string;
+  // Upstream authority shape
+  manufacturer_id?: string;
+  name?: string;
+  system_families_supported?: string[];
+  authority?: string;
+  source_authority?: string;
+  // Legacy scaffold shape
+  record_id?: string;
+  type?: "manufacturer";
+  label?: string;
+  scaffold_reason?: string;
+  _upstream?: UpstreamRef;
+  // Common
   domain: string;
   status: RecordStatus;
-  scaffold_reason?: string;
-  _upstream: UpstreamRef;
+  record_origin?: string;
+  authority_scope?: string;
+  created_by?: string;
+  verification_status?: string;
 }
 
+// --- Product ---
+
 export interface ProductRecord {
-  record_id: string;
-  type: "product";
-  label: string;
-  domain: string;
-  status: RecordStatus;
-  product_category: string;
+  // Upstream authority shape
+  product_id?: string;
+  manufacturer_id?: string;
+  product_family?: string;
+  product_role?: string;
+  system_family?: string;
+  // Legacy scaffold shape
+  record_id?: string;
+  type?: "product";
+  label?: string;
+  product_category?: string;
   material_class?: string;
   envelope_zone?: string;
   scaffold_reason?: string;
-  _upstream: UpstreamRef;
+  _upstream?: UpstreamRef;
+  // Common
+  domain?: string;
+  status: RecordStatus;
+  record_origin?: string;
+  authority_scope?: string;
+  created_by?: string;
+  verification_status?: string;
 }
 
+// --- System ---
+
 export interface SystemRecord {
-  record_id: string;
-  type: "system_family" | "system" | "assembly";
-  label: string;
-  domain: string;
-  status: RecordStatus;
+  // Upstream authority shape
+  system_id?: string;
+  manufacturer_id?: string;
+  system_family?: string;
+  supported_conditions?: string[];
+  // Legacy scaffold shape
+  record_id?: string;
+  type?: "system_family" | "system" | "assembly";
+  label?: string;
   system_type?: string;
   envelope_zone?: string;
   attachment_method?: string;
@@ -51,61 +88,95 @@ export interface SystemRecord {
   system_ref?: string;
   condition_ref?: string;
   scaffold_reason?: string;
-  _upstream: UpstreamRef;
+  _upstream?: UpstreamRef;
+  // Common
+  domain?: string;
+  status: RecordStatus;
+  record_origin?: string;
+  authority_scope?: string;
+  created_by?: string;
+  verification_status?: string;
 }
+
+// --- Rules ---
 
 export type RuleFailAction = "BLOCK" | "WARN" | "REQUIRE_HUMAN_STAMP";
 
 export interface InstallationRuleRecord {
-  record_id: string;
-  type: "installation_rule";
-  label: string;
-  domain: string;
-  status: RecordStatus;
+  // Upstream authority shape
+  rule_id?: string;
+  manufacturer_id?: string;
+  system_family?: string;
   rule_type: string;
-  authority: string;
-  fail_action: RuleFailAction;
-  description: string;
-  _upstream: UpstreamRef;
+  required_cure_time?: string;
+  // Legacy scaffold shape
+  record_id?: string;
+  type?: "installation_rule";
+  label?: string;
+  fail_action?: RuleFailAction;
+  description?: string;
+  _upstream?: UpstreamRef;
+  // Common
+  domain?: string;
+  status: RecordStatus;
+  authority?: string;
+  record_origin?: string;
+  authority_scope?: string;
+  created_by?: string;
+  verification_status?: string;
 }
 
 export interface CertificationRuleRecord {
-  record_id: string;
-  type: "certification_rule";
-  label: string;
-  domain: string;
+  record_id?: string;
+  type?: "certification_rule";
+  label?: string;
+  domain?: string;
   status: RecordStatus;
   rule_type: string;
-  authority: string;
-  fail_action: RuleFailAction;
-  description: string;
-  _upstream: UpstreamRef;
+  authority?: string;
+  fail_action?: RuleFailAction;
+  description?: string;
+  _upstream?: UpstreamRef;
+  record_origin?: string;
+  authority_scope?: string;
+  created_by?: string;
+  verification_status?: string;
 }
 
-export interface ConstraintRecord {
-  constraint_id: string;
-  system: string;
-  condition: string;
-  substrate: string;
-  required_products: string[];
-  required_rules: string[];
-  output_detail_reference: string;
-  status: RecordStatus;
-  _upstream: UpstreamRef;
-}
+// --- Compatibility ---
 
-export interface ConditionRecord {
-  condition_id: string;
-  label: string;
-  status: RecordStatus;
+export interface CompatibilityRecord {
+  // Upstream authority shape
+  compatibility_id?: string;
+  manufacturer_id?: string;
+  system_family?: string;
+  compatible_products?: string[];
+  supported_conditions?: string[];
+  // Legacy constraint shape
+  constraint_id?: string;
+  system?: string;
+  condition?: string;
+  substrate?: string;
+  required_products?: string[];
+  required_rules?: string[];
+  output_detail_reference?: string;
+  // Legacy condition shape
+  condition_id?: string;
+  label?: string;
   trigger?: string;
   code_reference?: string;
   substrate_type?: string;
   requirements?: string[];
-  _upstream: UpstreamRef;
+  // Common
+  status: RecordStatus;
+  _upstream?: UpstreamRef;
+  record_origin?: string;
+  authority_scope?: string;
+  created_by?: string;
+  verification_status?: string;
 }
 
-export type CompatibilityEntry = ConstraintRecord | ConditionRecord;
+// --- Evaluator output ---
 
 export type EvaluationStatus = "PASS" | "WARN" | "HALT";
 
