@@ -1,0 +1,12 @@
+{
+  "product_id": "PROD-BARRETT-PMMA-001",
+  "manufacturer_id": "MFR-BARRETT-001",
+  "product_family": "PMMA",
+  "product_role": "waterproofing_membrane",
+  "system_family": "PMMA",
+  "status": "grounded",
+  "record_origin": "upstream_manufacturer_truth",
+  "authority_scope": "manufacturer_domain",
+  "created_by": "system upstream truth owner",
+  "verification_status": "grounded"
+}
