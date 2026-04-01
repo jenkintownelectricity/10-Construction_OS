@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "trace_bundle.schema.json",
+  "title": "OMNI-VIEW Trace Bundle",
+  "description": "Defines the required shape of a trace bundle exported by OMNI-VIEW for ingestion into 10-Construction_OS. Fail-closed: any missing or invalid field causes rejection.",
+  "type": "object",
+  "required": [
+    "trace_id",
+    "source_tool",
+    "trace_type",
+    "units",
+    "calibration",
+    "polyline_points",
+    "closed_status",
+    "operator_confirmed"
+  ],
+  "properties": {
+    "trace_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for the trace, assigned by OMNI-VIEW."
+    },
+    "source_tool": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Name of the tool that produced this trace (e.g. OMNI-VIEW)."
+    },
+    "source_file_ref": {
+      "type": "string",
+      "description": "Optional reference to the source architect drawing file."
+    },
+    "trace_type": {
+      "type": "string",
+      "enum": ["FOUNDATION_OUTLINE", "WALL_CENTERLINE"],
+      "description": "Type of traced boundary. Must be FOUNDATION_OUTLINE or WALL_CENTERLINE."
+    },
+    "units": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unit of measurement for polyline coordinates (e.g. ft, m)."
+    },
+    "calibration": {
+      "type": "object",
+      "required": ["ppu", "unit"],
+      "properties": {
+        "ppu": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Pixels per unit used during trace calibration."
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Calibration unit label."
+        }
+      },
+      "additionalProperties": true,
+      "description": "Calibration metadata. Must include at least ppu and unit."
+    },
+    "polyline_points": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["x", "y"],
+        "properties": {
+          "x": { "type": "number" },
+          "y": { "type": "number" }
+        },
+        "additionalProperties": true
+      },
+      "description": "Array of polyline vertices. Must contain at least 3 points."
+    },
+    "closed_status": {
+      "type": "boolean",
+      "const": true,
+      "description": "Must be true. Only closed polylines are admissible."
+    },
+    "operator_confirmed": {
+      "type": "boolean",
+      "const": true,
+      "description": "Must be true. Operator must confirm trace accuracy before export."
+    }
+  },
+  "additionalProperties": true,
+  "$comment": "AUTHORITY BOUNDARY: This schema defines the ingestion contract for OMNI-VIEW trace bundles. Construction_OS validates all bundles against this schema before admitting any boundary. Fail-closed semantics apply throughout."
+}
