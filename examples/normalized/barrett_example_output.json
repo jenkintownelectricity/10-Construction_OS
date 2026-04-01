@@ -1,0 +1,127 @@
+{
+  "assembly_id": "barrett_parapet_termination_5d0619e78111",
+  "assembly_version": "1.0.0",
+  "node_id": "barrett_parapet_termination_5d0619e78111_node_83b198c9",
+  "manufacturer_id": "barrett",
+  "manufacturer_name": "Barrett Company",
+  "condition_type": "parapet_termination",
+  "system_type": "SBS Modified Bitumen",
+  "components": [
+    {
+      "component_id": "cant_strip",
+      "name": "Perlite Cant Strip",
+      "material": "perlite",
+      "position": "wall_base_transition",
+      "required": true,
+      "parameters": {
+        "min_size_inches": 4,
+        "angle_degrees": 45
+      },
+      "source_block": "CANT_STRIP",
+      "block_count": 2
+    },
+    {
+      "component_id": "termination_bar",
+      "name": "Aluminum Termination Bar",
+      "material": "aluminum",
+      "position": "flashing_top",
+      "required": true,
+      "parameters": {
+        "fastener_spacing_inches": 12,
+        "sealant_required": true,
+        "sealant_type": "polyurethane"
+      },
+      "source_block": "TERM_BAR",
+      "block_count": 1
+    },
+    {
+      "component_id": "metal_coping",
+      "name": "Prefinished Metal Coping",
+      "material": "galvanized_steel",
+      "position": "parapet_cap",
+      "required": true,
+      "parameters": {
+        "min_gauge": 24,
+        "cleat_spacing_inches": 24,
+        "joint_type": "standing_seam"
+      },
+      "source_block": "COPING",
+      "block_count": 1
+    }
+  ],
+  "assembly_constraints": [
+    {
+      "rule_id": "RULE_SUBSTRATE",
+      "description": "Substrate must be an approved type",
+      "severity": "HALT",
+      "check": "substrate.material IN substrate.parameters.approved_types"
+    },
+    {
+      "rule_id": "RULE_FLASHING_HEIGHT",
+      "description": "Flashing must extend minimum 8 inches above roof surface",
+      "severity": "HALT",
+      "check": "flashing.parameters.min_height_inches >= 8"
+    },
+    {
+      "rule_id": "RULE_TERMINATION_BAR",
+      "description": "Termination bar required with sealant at top of flashing",
+      "severity": "HALT",
+      "check": "termination_bar.required == true AND termination_bar.parameters.sealant_required == true"
+    },
+    {
+      "rule_id": "RULE_CANT_STRIP",
+      "description": "Cant strip required at wall-to-roof transition",
+      "severity": "HALT",
+      "check": "cant_strip.required == true AND cant_strip.parameters.min_size_inches >= 4"
+    }
+  ],
+  "template_path": "templates/parapet_termination.svg",
+  "source_quantities": {
+    "linear_feet_by_layer": {
+      "PARAPET": 12.5,
+      "FLASHING": 8.3,
+      "ROOF": 45.2,
+      "METAL": 6.0,
+      "INSULATION": 3.5
+    },
+    "total_linear_feet": 75.5,
+    "block_counts": {
+      "CANT_STRIP": 2,
+      "TERM_BAR": 1,
+      "COPING": 1
+    }
+  },
+  "source_dimensions": [
+    {
+      "value_raw": 8.0,
+      "value_feet": 0.6667,
+      "override_text": "8\"",
+      "layer": "FLASHING"
+    },
+    {
+      "value_raw": 36.0,
+      "value_feet": 3.0,
+      "override_text": "3'-0\"",
+      "layer": "PARAPET"
+    }
+  ],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "source_file": "barrett_parapet_detail_001.dxf",
+    "source_format": "cad_processor.dxf_json",
+    "normalizer": "detail_atlas_normalizer",
+    "normalizer_version": "1.0.0",
+    "config_id": "barrett_sbs_detail_atlas",
+    "config_version": "1.0.0",
+    "created": "2026-04-01T10:29:45.057368+00:00",
+    "created_by": "detail_atlas_normalizer",
+    "governance_kernel": "00-validkernel-governance",
+    "truth_kernel": "00-Universal_Truth_Kernel"
+  },
+  "artifacts_enabled": {
+    "detail_packet": true,
+    "compliance_certificate": true,
+    "svg_overlay": true,
+    "system_passport": true
+  }
+}
