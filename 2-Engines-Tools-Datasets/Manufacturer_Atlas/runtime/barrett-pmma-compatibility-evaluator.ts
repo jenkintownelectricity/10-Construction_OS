@@ -5,6 +5,12 @@
  * Evaluates against current truth-cache content only.
  * Fails closed on missing or partial critical inputs.
  *
+ * Matches records using actual upstream authority fields:
+ * - manufacturer_id / name (not legacy label)
+ * - product_family (not legacy material_class)
+ * - system_family (not legacy system_type)
+ * - rule_type + required_cure_time (not hardcoded)
+ *
  * Does not fabricate chemistry truth.
  * Does not overpromise certification.
  * Does not invent unsupported system paths.
@@ -14,13 +20,9 @@ import { loadManufacturers } from "./manufacturer-record-loader";
 import { loadProducts } from "./manufacturer-product-loader";
 import { loadSystems } from "./manufacturer-system-loader";
 import { loadInstallationRules, loadCertificationRules } from "./manufacturer-rule-loader";
-import { loadCompatibilityMatrix, filterConstraints, filterConditions } from "./manufacturer-compatibility-loader";
+import { loadCompatibilityMatrix, filterUpstreamCompatibility } from "./manufacturer-compatibility-loader";
 import type {
   BarrettPmmaEvaluationResult,
-  ManufacturerRecord,
-  ProductRecord,
-  InstallationRuleRecord,
-  CertificationRuleRecord,
   LoaderFailure,
 } from "./types";
 
@@ -77,113 +79,138 @@ export function evaluateBarrettPmmaCompatibility(): BarrettPmmaEvaluationResult 
   }
   evidence_sources.push("truth-cache/compatibility/");
 
-  // --- Step 2: Search for Barrett manufacturer identity ---
+  // --- Step 2: Find Barrett manufacturer ---
 
   const barrettMfr = manufacturers.find(
     (m) =>
-      m.label.toLowerCase().includes("barrett") ||
-      m.record_id.toLowerCase().includes("barrett")
+      m.manufacturer_id?.toLowerCase().includes("barrett") ||
+      m.name?.toLowerCase().includes("barrett") ||
+      m.record_id?.toLowerCase().includes("barrett") ||
+      m.label?.toLowerCase().includes("barrett")
   );
 
   if (!barrettMfr) {
-    notes.push(
-      "No Barrett manufacturer record found in truth-cache. " +
-      "Current manufacturer records are scaffold placeholders. " +
-      "Barrett-specific identity must be ingested from upstream " +
-      "(10-building-envelope-manufacturer-os) before evaluation can proceed."
-    );
     blocking_rules.push("MISSING_MANUFACTURER: Barrett identity not in truth-cache");
   }
 
-  // --- Step 3: Search for PMMA product ---
+  const barrettId = barrettMfr?.manufacturer_id ?? barrettMfr?.record_id ?? null;
+
+  // --- Step 3: Find PMMA product ---
 
   const pmmaProduct = products.find(
     (p) =>
+      p.product_family?.toLowerCase() === "pmma" ||
       p.material_class?.toLowerCase().includes("pmma") ||
-      p.label.toLowerCase().includes("pmma") ||
-      p.product_category?.toLowerCase().includes("pmma")
+      p.label?.toLowerCase().includes("pmma") ||
+      p.product_id?.toLowerCase().includes("pmma")
   );
 
   if (!pmmaProduct) {
-    notes.push(
-      "No PMMA product record found in truth-cache. " +
-      "Current product records are scaffold (TPO/PVC/EPDM membrane, generic adhesive). " +
-      "Barrett PMMA product definition must be ingested from upstream."
-    );
     blocking_rules.push("MISSING_PRODUCT: PMMA product not in truth-cache");
   }
 
-  // --- Step 4: Search for PMMA-compatible system ---
-
-  const pmmaSystem = systems.find(
-    (s) =>
-      s.label.toLowerCase().includes("pmma") ||
-      s.system_type?.toLowerCase().includes("pmma")
-  );
-
-  if (!pmmaSystem) {
-    notes.push(
-      "No PMMA system or assembly found in truth-cache. " +
-      "Current systems are scaffold (adhered, mechanically attached, cavity wall). " +
-      "Barrett PMMA system definition must be ingested from upstream."
-    );
-    blocking_rules.push("MISSING_SYSTEM: PMMA system not in truth-cache");
-  }
-
-  // --- Step 5: Evaluate grounded rules that WOULD apply ---
-
-  // These rules are grounded and would apply to any roofing system including PMMA:
-  const applicableInstallRules = installRules.filter((r) => r.status === "grounded");
-  const applicableCertRules = certRules.filter((r) => r.status === "grounded");
-
-  for (const rule of applicableInstallRules) {
-    if (rule.fail_action === "BLOCK") {
+  // Verify manufacturer linkage if both found
+  if (pmmaProduct && barrettMfr) {
+    const productMfrId = pmmaProduct.manufacturer_id;
+    if (productMfrId && productMfrId !== barrettId) {
       warning_rules.push(
-        `${rule.record_id}: ${rule.label} (${rule.authority}) — would BLOCK if not satisfied`
-      );
-    } else if (rule.fail_action === "WARN") {
-      warning_rules.push(
-        `${rule.record_id}: ${rule.label} (${rule.authority}) — would WARN`
+        `MANUFACTURER_MISMATCH: product ${pmmaProduct.product_id} references ${productMfrId}, expected ${barrettId}`
       );
     }
   }
 
-  for (const rule of applicableCertRules) {
-    warning_rules.push(
-      `${rule.record_id}: ${rule.label} (${rule.authority}) — would ${rule.fail_action}`
-    );
+  const pmmaProductId = pmmaProduct?.product_id ?? pmmaProduct?.record_id ?? null;
+
+  // --- Step 4: Find PMMA system ---
+
+  const pmmaSystem = systems.find(
+    (s) =>
+      s.system_family?.toLowerCase() === "pmma" ||
+      s.system_type?.toLowerCase().includes("pmma") ||
+      s.system_id?.toLowerCase().includes("pmma")
+  );
+
+  if (!pmmaSystem) {
+    blocking_rules.push("MISSING_SYSTEM: PMMA system not in truth-cache");
   }
 
-  notes.push(
-    `${applicableInstallRules.length} grounded installation rules and ` +
-    `${applicableCertRules.length} grounded certification rules would apply ` +
-    `to a Barrett PMMA path once manufacturer data is ingested.`
+  // Verify manufacturer linkage
+  if (pmmaSystem && barrettMfr) {
+    const sysMfrId = pmmaSystem.manufacturer_id ?? pmmaSystem.manufacturer_ref;
+    if (sysMfrId && sysMfrId !== barrettId) {
+      warning_rules.push(
+        `MANUFACTURER_MISMATCH: system ${pmmaSystem.system_id} references ${sysMfrId}, expected ${barrettId}`
+      );
+    }
+  }
+
+  // --- Step 5: Find cure-before-overlay rule ---
+
+  const cureRule = installRules.find(
+    (r) => r.rule_type === "cure_before_overlay"
   );
 
-  // --- Step 6: Known Barrett PMMA requirements (from domain knowledge) ---
+  let cureTime: string | null = null;
+  if (cureRule) {
+    cureTime = cureRule.required_cure_time ?? null;
+    if (!cureTime) {
+      warning_rules.push("CURE_RULE_INCOMPLETE: cure_before_overlay rule found but required_cure_time is missing");
+    } else {
+      notes.push(`Cure-before-overlay rule resolved: ${cureTime} (${cureRule.rule_id ?? cureRule.record_id})`);
+    }
+  } else {
+    warning_rules.push("CURE_RULE_MISSING: No cure_before_overlay rule found in truth-cache");
+    cureTime = null;
+  }
 
-  notes.push(
-    "Known Barrett PMMA requirement: 1/2-hour cure before overlay. " +
-    "This is not yet represented as a grounded upstream record. " +
-    "Must be ingested as a grounded installation rule from 10-building-envelope-manufacturer-os."
+  // --- Step 6: Find compatibility record ---
+
+  const upstreamCompat = filterUpstreamCompatibility(compatEntries);
+  const barrettCompat = upstreamCompat.find(
+    (c) =>
+      c.system_family?.toLowerCase() === "pmma" &&
+      c.manufacturer_id === barrettId
   );
 
-  notes.push(
-    "Known Barrett PMMA requirement: compatible primer required for substrate preparation. " +
-    "Specific primer product ID not available in current truth-cache."
-  );
+  if (barrettCompat) {
+    notes.push(
+      `Compatibility record resolved: ${barrettCompat.compatibility_id}, ` +
+      `supported_conditions: [${barrettCompat.supported_conditions?.join(", ") ?? "none"}]`
+    );
+  } else {
+    warning_rules.push("COMPATIBILITY_RECORD_MISSING: No Barrett PMMA compatibility record found");
+  }
 
-  // --- Step 7: Determine evaluation status ---
+  // --- Step 7: Collect grounded general rules that also apply ---
+
+  const generalGroundedInstall = installRules.filter(
+    (r) => r.status === "grounded" && r.rule_type !== "cure_before_overlay"
+  );
+  const generalGroundedCert = certRules.filter((r) => r.status === "grounded");
+
+  for (const rule of generalGroundedInstall) {
+    const ruleId = rule.rule_id ?? rule.record_id ?? "unknown";
+    const ruleLabel = rule.label ?? rule.rule_type;
+    const action = rule.fail_action ?? "BLOCK";
+    warning_rules.push(`${ruleId}: ${ruleLabel} (${rule.authority ?? "general"}) \u2014 would ${action} if not satisfied`);
+  }
+  for (const rule of generalGroundedCert) {
+    const ruleId = rule.record_id ?? "unknown";
+    const ruleLabel = rule.label ?? rule.rule_type;
+    warning_rules.push(`${ruleId}: ${ruleLabel} (${rule.authority ?? "general"}) \u2014 would ${rule.fail_action ?? "BLOCK"}`);
+  }
+
+  // --- Step 8: Determine status ---
 
   if (blocking_rules.length > 0) {
     return {
       evaluation_status: "HALT",
-      manufacturer_id: barrettMfr?.record_id ?? null,
-      system_family: pmmaSystem?.family_ref ?? null,
-      compatible_products: pmmaProduct ? [pmmaProduct.record_id] : [],
+      manufacturer_id: barrettId,
+      system_family: pmmaSystem?.system_family ?? null,
+      compatible_products: pmmaProductId ? [pmmaProductId] : [],
       required_primer: null,
-      required_prep: ["substrate_moisture_test", "surface_preparation"],
-      required_cure_before_overlay: "30 minutes (1/2-hour cure)",
+      required_prep: ["substrate_preparation"],
+      required_cure_before_overlay: cureTime,
       blocking_rules,
       warning_rules,
       evidence_sources,
@@ -191,15 +218,26 @@ export function evaluateBarrettPmmaCompatibility(): BarrettPmmaEvaluationResult 
     };
   }
 
-  // If we reach here, all critical inputs exist (future state)
+  // All critical records found. Assess completeness.
+  const hasWarnings = warning_rules.length > 0;
+
+  if (hasWarnings) {
+    notes.push(
+      "All critical Barrett PMMA records resolved. Warnings present " +
+      "for additional rule depth not yet fully covered."
+    );
+  } else {
+    notes.push("All critical Barrett PMMA records resolved with no warnings.");
+  }
+
   return {
-    evaluation_status: "WARN",
-    manufacturer_id: barrettMfr?.record_id ?? null,
-    system_family: pmmaSystem?.family_ref ?? null,
-    compatible_products: pmmaProduct ? [pmmaProduct.record_id] : [],
+    evaluation_status: hasWarnings ? "WARN" : "PASS",
+    manufacturer_id: barrettId,
+    system_family: pmmaSystem?.system_family ?? null,
+    compatible_products: pmmaProductId ? [pmmaProductId] : [],
     required_primer: null,
-    required_prep: ["substrate_moisture_test", "surface_preparation"],
-    required_cure_before_overlay: "30 minutes (1/2-hour cure)",
+    required_prep: ["substrate_preparation"],
+    required_cure_before_overlay: cureTime,
     blocking_rules,
     warning_rules,
     evidence_sources,
@@ -215,10 +253,10 @@ function halt(reason: string, sources: string[]): BarrettPmmaEvaluationResult {
     compatible_products: [],
     required_primer: null,
     required_prep: [],
-    required_cure_before_overlay: "30 minutes (1/2-hour cure)",
+    required_cure_before_overlay: null,
     blocking_rules: [reason],
     warning_rules: [],
     evidence_sources: sources,
-    notes: ["Evaluation halted due to missing critical truth-cache data. This is expected fail-closed behavior."],
+    notes: ["Evaluation halted due to missing critical truth-cache data."],
   };
 }

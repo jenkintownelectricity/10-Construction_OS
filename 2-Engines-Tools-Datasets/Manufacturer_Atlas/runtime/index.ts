@@ -18,9 +18,7 @@ export type {
   SystemRecord,
   InstallationRuleRecord,
   CertificationRuleRecord,
-  ConstraintRecord,
-  ConditionRecord,
-  CompatibilityEntry,
+  CompatibilityRecord,
   BarrettPmmaEvaluationResult,
   EvaluationStatus,
   LoaderFailure,
@@ -31,7 +29,7 @@ export { loadManufacturers } from "./manufacturer-record-loader";
 export { loadProducts } from "./manufacturer-product-loader";
 export { loadSystems } from "./manufacturer-system-loader";
 export { loadInstallationRules, loadCertificationRules } from "./manufacturer-rule-loader";
-export { loadCompatibilityMatrix, filterConstraints, filterConditions } from "./manufacturer-compatibility-loader";
+export { loadCompatibilityMatrix, filterUpstreamCompatibility, filterLegacyConstraints, filterLegacyConditions } from "./manufacturer-compatibility-loader";
 
 // Evaluator
 export { evaluateBarrettPmmaCompatibility } from "./barrett-pmma-compatibility-evaluator";

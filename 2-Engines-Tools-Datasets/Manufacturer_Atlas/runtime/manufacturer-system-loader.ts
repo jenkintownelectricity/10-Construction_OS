@@ -1,6 +1,8 @@
 /**
  * System Loader
  * Read-only. Fails closed on missing data.
+ * Supports both legacy scaffold shape (record_id/type) and
+ * upstream authority shape (system_id/system_family).
  */
 import * as fs from "fs";
 import * as path from "path";
@@ -20,8 +22,10 @@ export function loadSystems(): SystemRecord[] | LoaderFailure {
   for (const file of files) {
     const parsed = JSON.parse(fs.readFileSync(path.join(DIR, file), "utf-8"));
     for (const item of Array.isArray(parsed) ? parsed : [parsed]) {
-      if (!item.record_id || !["system_family", "system", "assembly"].includes(item.type)) {
-        return { loader: "system-loader", path: file, reason: "invalid system record" };
+      const hasLegacy = item.record_id && ["system_family", "system", "assembly"].includes(item.type);
+      const hasUpstream = item.system_id && item.system_family;
+      if (!hasLegacy && !hasUpstream) {
+        return { loader: "system-loader", path: file, reason: "record missing both record_id/type and system_id/system_family" };
       }
       records.push(item);
     }
