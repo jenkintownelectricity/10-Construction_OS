@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "manufacturer.schema.json",
+  "title": "Manufacturer",
+  "description": "Canonical schema for a manufacturer identity record in the building envelope domain.",
+  "type": "object",
+  "required": ["record_id", "type", "label", "domain", "status"],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "description": "Unique identifier for this manufacturer.",
+      "pattern": "^MFR-MANUFACTURER-[A-Z0-9]+-[0-9]+$"
+    },
+    "type": {
+      "type": "string",
+      "const": "manufacturer"
+    },
+    "label": {
+      "type": "string",
+      "description": "Human-readable name of the manufacturer.",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "domain": {
+      "type": "string",
+      "enum": ["building_envelope"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["grounded", "derived", "scaffold", "deferred", "unverified"]
+    },
+    "scaffold_reason": {
+      "type": "string",
+      "description": "Required when status is scaffold."
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

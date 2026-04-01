@@ -1,0 +1,37 @@
+[
+  {
+    "lens_id": "LENS-SYSTEM-001",
+    "name": "System View",
+    "description": "Shows manufacturer systems, families, and conditions they support.",
+    "emphasized_record_types": ["manufacturer", "system_family", "system", "condition"],
+    "displayed_relationships": ["contains", "supports"]
+  },
+  {
+    "lens_id": "LENS-CONDITION-001",
+    "name": "Condition View",
+    "description": "Shows project conditions and the systems/assemblies that resolve them.",
+    "emphasized_record_types": ["condition", "system", "assembly"],
+    "displayed_relationships": ["supports", "resolved_by", "governed_by"]
+  },
+  {
+    "lens_id": "LENS-PRODUCT-001",
+    "name": "Product View",
+    "description": "Shows products, assembly usage, and compatibility.",
+    "emphasized_record_types": ["product", "assembly"],
+    "displayed_relationships": ["uses", "compatible_with"]
+  },
+  {
+    "lens_id": "LENS-RULE-001",
+    "name": "Rule View",
+    "description": "Shows rules, governed assemblies, and referenced conditions.",
+    "emphasized_record_types": ["rule", "assembly", "condition"],
+    "displayed_relationships": ["governed_by", "references"]
+  },
+  {
+    "lens_id": "LENS-COVERAGE-001",
+    "name": "Coverage View",
+    "description": "Shows completeness of the truth registry for auditing.",
+    "emphasized_record_types": ["manufacturer", "system_family", "system", "condition", "assembly", "product", "rule", "detail"],
+    "displayed_relationships": ["all"]
+  }
+]

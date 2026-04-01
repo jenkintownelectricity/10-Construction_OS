@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <style>
+      .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #B0B7BD; }
+      .title { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: bold; fill: #00E5FF; }
+      .dim { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #4A657D; }
+      .component { stroke: #4A657D; stroke-width: 1; }
+      .highlight { stroke: #00E5FF; stroke-width: 1.5; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#0A0D11"/>
+
+  <!-- Title Block -->
+  <text x="40" y="30" class="title">PARAPET TERMINATION DETAIL</text>
+  <text x="40" y="46" class="label">NodeID: parapet_termination_001 | Barrett SBS v1.0.0</text>
+  <line x1="40" y1="52" x2="760" y2="52" stroke="#22262C" stroke-width="1"/>
+
+  <!-- Structural Wall (Parapet) -->
+  <rect x="500" y="80" width="80" height="400" fill="#2C3136" class="component"/>
+  <text x="515" y="290" class="label" transform="rotate(-90 515 290)">PARAPET WALL</text>
+
+  <!-- Roof Deck / Substrate -->
+  <rect x="80" y="380" width="420" height="30" fill="#1A1D21" class="component"/>
+  <text x="250" y="400" class="label">SUBSTRATE / CONCRETE DECK</text>
+
+  <!-- Insulation Layer -->
+  <rect x="80" y="345" width="420" height="35" fill="#22262C" class="component"/>
+  <text x="230" y="368" class="label">POLYISO INSULATION — R-20 MIN</text>
+
+  <!-- Base Sheet -->
+  <path d="M 80 340 L 500 340 L 500 160" fill="none" stroke="#4A657D" stroke-width="3"/>
+  <text x="260" y="335" class="dim">BASE SHEET — MECH. FASTENED</text>
+
+  <!-- Cap Sheet -->
+  <path d="M 80 333 L 500 333 L 500 150" fill="none" stroke="#B0B7BD" stroke-width="3"/>
+  <text x="260" y="328" class="dim">CAP SHEET — TORCH APPLIED</text>
+
+  <!-- Cant Strip -->
+  <polygon points="460,340 500,340 500,300" fill="#2C3136" stroke="#00E5FF" stroke-width="1.5"/>
+  <text x="430" y="355" class="dim">CANT</text>
+
+  <!-- Flashing -->
+  <rect x="497" y="140" width="6" height="200" fill="none" class="highlight"/>
+  <text x="510" y="240" class="label">FLASHING</text>
+  <text x="510" y="254" class="dim">MIN 8" HEIGHT</text>
+
+  <!-- Termination Bar -->
+  <rect x="494" y="138" width="12" height="6" fill="#00E5FF"/>
+  <text x="510" y="135" class="label">TERM. BAR</text>
+  <text x="510" y="149" class="dim">w/ SEALANT</text>
+
+  <!-- Metal Coping -->
+  <path d="M 490 80 L 490 90 L 580 90 L 580 80 L 595 75 L 475 75 Z" fill="#2C3136" stroke="#00E5FF" stroke-width="1"/>
+  <text x="505" y="72" class="label">METAL COPING — 24 GA</text>
+
+  <!-- Dimension Lines -->
+  <line x1="590" y1="140" x2="590" y2="340" stroke="#4A657D" stroke-width="0.5" stroke-dasharray="4"/>
+  <line x1="585" y1="140" x2="595" y2="140" stroke="#4A657D" stroke-width="0.5"/>
+  <line x1="585" y1="340" x2="595" y2="340" stroke="#4A657D" stroke-width="0.5"/>
+  <text x="596" y="245" class="dim">8" MIN</text>
+
+  <!-- Detail Atlas Branding -->
+  <line x1="40" y1="560" x2="760" y2="560" stroke="#22262C" stroke-width="1"/>
+  <text x="40" y="578" class="title">DETAIL ATLAS</text>
+  <text x="200" y="578" class="label">CONSTRUCTION INTELLIGENCE</text>
+  <text x="580" y="578" class="dim">{{PROJECT_NAME}} | {{DATE}}</text>
+
+  <!-- Hash placeholder -->
+  <text x="40" y="592" class="dim">SVG-HASH: {{SVG_HASH}}</text>
+</svg>

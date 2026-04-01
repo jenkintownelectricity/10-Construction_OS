@@ -1,0 +1,235 @@
+{
+  "mapping_id": "barrett_sbs_detail_atlas",
+  "mapping_version": "1.0.0",
+  "manufacturer_id": "barrett",
+  "manufacturer_name": "Barrett Company",
+  "description": "Detail Atlas mapping configuration for Barrett SBS Modified Bitumen systems",
+
+  "layer_to_system": {
+    "ROOF": "SBS Modified Bitumen",
+    "ROOFING": "SBS Modified Bitumen",
+    "MEMBRANE": "SBS Modified Bitumen",
+    "SBS": "SBS Modified Bitumen",
+    "FLASHING": "SBS Modified Bitumen",
+    "FLASH": "SBS Modified Bitumen",
+    "PARAPET": "SBS Modified Bitumen",
+    "INSULATION": "Thermal Envelope",
+    "INSUL": "Thermal Envelope",
+    "SUBSTRATE": "Structural Deck",
+    "DECK": "Structural Deck",
+    "STRUCT": "Structural Deck",
+    "METAL": "Sheet Metal",
+    "COPING": "Sheet Metal",
+    "SHEET_METAL": "Sheet Metal",
+    "DRAIN": "Drainage System",
+    "DRAINAGE": "Drainage System",
+    "PLUMBING": "Drainage System",
+    "HVAC": "Mechanical Penetration",
+    "MECH": "Mechanical Penetration",
+    "PENETRATION": "Mechanical Penetration"
+  },
+
+  "block_to_component": {
+    "CANT_STRIP": {
+      "component_id": "cant_strip",
+      "name": "Perlite Cant Strip",
+      "material": "perlite",
+      "position": "wall_base_transition",
+      "required": true,
+      "parameters": {
+        "min_size_inches": 4,
+        "angle_degrees": 45
+      }
+    },
+    "TERM_BAR": {
+      "component_id": "termination_bar",
+      "name": "Aluminum Termination Bar",
+      "material": "aluminum",
+      "position": "flashing_top",
+      "required": true,
+      "parameters": {
+        "fastener_spacing_inches": 12,
+        "sealant_required": true,
+        "sealant_type": "polyurethane"
+      }
+    },
+    "TERMINATION_BAR": {
+      "component_id": "termination_bar",
+      "name": "Aluminum Termination Bar",
+      "material": "aluminum",
+      "position": "flashing_top",
+      "required": true,
+      "parameters": {
+        "fastener_spacing_inches": 12,
+        "sealant_required": true,
+        "sealant_type": "polyurethane"
+      }
+    },
+    "ROOF_DRAIN": {
+      "component_id": "roof_drain",
+      "name": "Roof Drain Assembly",
+      "material": "cast_iron",
+      "position": "deck_penetration",
+      "required": true,
+      "parameters": {
+        "flashing_collar_required": true,
+        "clamping_ring_required": true
+      }
+    },
+    "DRAIN": {
+      "component_id": "roof_drain",
+      "name": "Roof Drain Assembly",
+      "material": "cast_iron",
+      "position": "deck_penetration",
+      "required": true,
+      "parameters": {
+        "flashing_collar_required": true,
+        "clamping_ring_required": true
+      }
+    },
+    "COPING": {
+      "component_id": "metal_coping",
+      "name": "Prefinished Metal Coping",
+      "material": "galvanized_steel",
+      "position": "parapet_cap",
+      "required": true,
+      "parameters": {
+        "min_gauge": 24,
+        "cleat_spacing_inches": 24,
+        "joint_type": "standing_seam"
+      }
+    },
+    "METAL_COPING": {
+      "component_id": "metal_coping",
+      "name": "Prefinished Metal Coping",
+      "material": "galvanized_steel",
+      "position": "parapet_cap",
+      "required": true,
+      "parameters": {
+        "min_gauge": 24,
+        "cleat_spacing_inches": 24,
+        "joint_type": "standing_seam"
+      }
+    },
+    "INSULATION": {
+      "component_id": "insulation",
+      "name": "Polyisocyanurate Insulation",
+      "material": "polyiso",
+      "position": "above_deck",
+      "required": true,
+      "parameters": {
+        "min_r_value": 20,
+        "min_thickness_inches": 3.0,
+        "approved_types": ["polyiso", "eps", "xps"]
+      }
+    }
+  },
+
+  "text_regex_to_manufacturer": [
+    {"pattern": "(?i)\\bbarrett\\b", "manufacturer_id": "barrett", "manufacturer_name": "Barrett Company"},
+    {"pattern": "(?i)\\bgaf\\b", "manufacturer_id": "gaf", "manufacturer_name": "GAF"},
+    {"pattern": "(?i)\\bjohns\\s*manville\\b", "manufacturer_id": "johns_manville", "manufacturer_name": "Johns Manville"},
+    {"pattern": "(?i)\\bfirestone\\b", "manufacturer_id": "firestone", "manufacturer_name": "Firestone"},
+    {"pattern": "(?i)\\bcarlisle\\b", "manufacturer_id": "carlisle", "manufacturer_name": "Carlisle"},
+    {"pattern": "(?i)\\bsiplast\\b", "manufacturer_id": "siplast", "manufacturer_name": "Siplast"},
+    {"pattern": "(?i)\\bsoprema\\b", "manufacturer_id": "soprema", "manufacturer_name": "Soprema"}
+  ],
+
+  "text_regex_to_system": [
+    {"pattern": "(?i)\\bSBS\\b|\\bmodified\\s+bitumen\\b", "system_type": "SBS Modified Bitumen"},
+    {"pattern": "(?i)\\bTPO\\b", "system_type": "TPO Single-Ply"},
+    {"pattern": "(?i)\\bEPDM\\b", "system_type": "EPDM Single-Ply"},
+    {"pattern": "(?i)\\bPVC\\b", "system_type": "PVC Single-Ply"},
+    {"pattern": "(?i)\\bbuilt[\\s-]*up\\b|\\bBUR\\b", "system_type": "Built-Up Roofing"},
+    {"pattern": "(?i)\\bspray\\s+foam\\b|\\bSPF\\b", "system_type": "Spray Polyurethane Foam"}
+  ],
+
+  "condition_heuristics": [
+    {
+      "condition_type": "parapet_termination",
+      "required_indicators": ["parapet", "flashing", "termination"],
+      "min_match": 2,
+      "layer_hints": ["PARAPET", "FLASHING", "FLASH"],
+      "block_hints": ["CANT_STRIP", "TERM_BAR", "TERMINATION_BAR", "COPING"]
+    },
+    {
+      "condition_type": "roof_drain",
+      "required_indicators": ["drain", "roof drain", "leader"],
+      "min_match": 1,
+      "layer_hints": ["DRAIN", "DRAINAGE", "PLUMBING"],
+      "block_hints": ["ROOF_DRAIN", "DRAIN"]
+    },
+    {
+      "condition_type": "pipe_penetration",
+      "required_indicators": ["penetration", "pipe", "vent", "stack"],
+      "min_match": 1,
+      "layer_hints": ["PENETRATION", "MECH", "HVAC"],
+      "block_hints": []
+    },
+    {
+      "condition_type": "roof_to_wall_transition",
+      "required_indicators": ["transition", "wall", "base flashing"],
+      "min_match": 2,
+      "layer_hints": ["FLASHING", "FLASH"],
+      "block_hints": ["CANT_STRIP"]
+    },
+    {
+      "condition_type": "edge_termination",
+      "required_indicators": ["edge", "drip", "fascia", "gravel stop"],
+      "min_match": 1,
+      "layer_hints": ["METAL", "SHEET_METAL", "EDGE"],
+      "block_hints": ["COPING", "METAL_COPING"]
+    }
+  ],
+
+  "template_lookup": {
+    "parapet_termination": "templates/parapet_termination.svg",
+    "roof_drain": "templates/roof_drain.svg",
+    "pipe_penetration": "templates/pipe_penetration.svg",
+    "roof_to_wall_transition": "templates/roof_to_wall_transition.svg",
+    "edge_termination": "templates/edge_termination.svg"
+  },
+
+  "default_assembly_constraints": {
+    "parapet_termination": [
+      {
+        "rule_id": "RULE_SUBSTRATE",
+        "description": "Substrate must be an approved type",
+        "severity": "HALT",
+        "check": "substrate.material IN substrate.parameters.approved_types"
+      },
+      {
+        "rule_id": "RULE_FLASHING_HEIGHT",
+        "description": "Flashing must extend minimum 8 inches above roof surface",
+        "severity": "HALT",
+        "check": "flashing.parameters.min_height_inches >= 8"
+      },
+      {
+        "rule_id": "RULE_TERMINATION_BAR",
+        "description": "Termination bar required with sealant at top of flashing",
+        "severity": "HALT",
+        "check": "termination_bar.required == true AND termination_bar.parameters.sealant_required == true"
+      },
+      {
+        "rule_id": "RULE_CANT_STRIP",
+        "description": "Cant strip required at wall-to-roof transition",
+        "severity": "HALT",
+        "check": "cant_strip.required == true AND cant_strip.parameters.min_size_inches >= 4"
+      }
+    ],
+    "roof_drain": [
+      {
+        "rule_id": "RULE_DRAIN_FLASHING",
+        "description": "Drain flashing collar must be present",
+        "severity": "HALT",
+        "check": "roof_drain.parameters.flashing_collar_required == true"
+      },
+      {
+        "rule_id": "RULE_DRAIN_CLAMP",
+        "description": "Clamping ring required for drain assembly",
+        "severity": "HALT",
+        "check": "roof_drain.parameters.clamping_ring_required == true"
+      }
+    ]
+  }
+}

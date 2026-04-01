@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "compatibility_matrix.schema.json",
+  "title": "CompatibilityMatrix",
+  "description": "Canonical schema for compatibility records: assembly constraints, product compatibility pairs, and condition definitions.",
+  "type": "object",
+  "oneOf": [
+    {
+      "title": "AssemblyConstraint",
+      "required": ["constraint_id", "system", "condition", "substrate", "required_products", "required_rules", "output_detail_reference", "status"],
+      "properties": {
+        "constraint_id": { "type": "string", "pattern": "^ACS-[A-Z0-9]+-[0-9]+$" },
+        "system": { "type": "string" },
+        "condition": { "type": "string" },
+        "substrate": { "type": "string" },
+        "required_products": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "required_rules": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "output_detail_reference": { "type": "string" },
+        "status": { "type": "string", "enum": ["grounded", "derived", "scaffold", "deferred", "unverified"] },
+        "notes": { "type": "string" }
+      }
+    },
+    {
+      "title": "ProductCompatibility",
+      "required": ["compatibility_id", "product_a", "product_b", "compatible", "status"],
+      "properties": {
+        "compatibility_id": { "type": "string" },
+        "product_a": { "type": "string" },
+        "product_b": { "type": "string" },
+        "compatible": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["grounded", "derived", "scaffold", "deferred", "unverified"] },
+        "authority": { "type": "string" }
+      }
+    },
+    {
+      "title": "Condition",
+      "required": ["condition_id", "label", "status"],
+      "properties": {
+        "condition_id": { "type": "string" },
+        "label": { "type": "string" },
+        "status": { "type": "string", "enum": ["grounded", "derived", "scaffold", "deferred", "unverified"] },
+        "trigger": { "type": "string" },
+        "code_reference": { "type": "string" },
+        "substrate_type": { "type": "string" },
+        "requirements": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  ]
+}

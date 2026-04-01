@@ -1,0 +1,18 @@
+{
+  "compatibility_id": "COMP-BARRETT-PMMA-001",
+  "manufacturer_id": "MFR-BARRETT-001",
+  "system_family": "PMMA",
+  "compatible_products": [
+    "PROD-BARRETT-PMMA-001"
+  ],
+  "supported_conditions": [
+    "parapet",
+    "field",
+    "drain"
+  ],
+  "status": "grounded",
+  "record_origin": "upstream_manufacturer_truth",
+  "authority_scope": "manufacturer_domain",
+  "created_by": "system upstream truth owner",
+  "verification_status": "grounded"
+}

@@ -1,0 +1,15 @@
+{
+  "system_id": "SYS-BARRETT-PMMA-001",
+  "manufacturer_id": "MFR-BARRETT-001",
+  "system_family": "PMMA",
+  "supported_conditions": [
+    "parapet",
+    "field",
+    "drain"
+  ],
+  "status": "grounded",
+  "record_origin": "upstream_manufacturer_truth",
+  "authority_scope": "manufacturer_domain",
+  "created_by": "system upstream truth owner",
+  "verification_status": "grounded"
+}

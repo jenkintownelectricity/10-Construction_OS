@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "certification_rule.schema.json",
+  "title": "CertificationRule",
+  "description": "Canonical schema for a certification rule in the building envelope domain.",
+  "type": "object",
+  "required": ["record_id", "type", "label", "domain", "status", "rule_type", "authority", "fail_action"],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "pattern": "^MFR-RULE-[A-Z0-9]+-[0-9]+$"
+    },
+    "type": {
+      "type": "string",
+      "const": "certification_rule"
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "domain": {
+      "type": "string",
+      "enum": ["building_envelope"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["grounded", "derived", "scaffold", "deferred", "unverified"]
+    },
+    "rule_type": {
+      "type": "string",
+      "examples": ["compatibility_check", "warranty_validation", "certification_requirement"]
+    },
+    "authority": {
+      "type": "string"
+    },
+    "fail_action": {
+      "type": "string",
+      "enum": ["BLOCK", "WARN", "REQUIRE_HUMAN_STAMP"]
+    },
+    "description": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

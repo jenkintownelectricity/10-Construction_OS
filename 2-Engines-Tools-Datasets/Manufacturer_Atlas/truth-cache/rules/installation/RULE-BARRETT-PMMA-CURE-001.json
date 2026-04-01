@@ -1,0 +1,13 @@
+{
+  "rule_id": "RULE-BARRETT-PMMA-CURE-001",
+  "manufacturer_id": "MFR-BARRETT-001",
+  "system_family": "PMMA",
+  "rule_type": "cure_before_overlay",
+  "required_cure_time": "30 minutes",
+  "status": "grounded",
+  "authority": "manufacturer_installation_requirement",
+  "record_origin": "upstream_manufacturer_truth",
+  "authority_scope": "manufacturer_domain",
+  "created_by": "system upstream truth owner",
+  "verification_status": "grounded"
+}

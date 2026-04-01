@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "product.schema.json",
+  "title": "Product",
+  "description": "Canonical schema for a product definition in the building envelope domain.",
+  "type": "object",
+  "required": ["record_id", "type", "label", "domain", "status", "product_category"],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "description": "Unique identifier for this product.",
+      "pattern": "^MFR-PROD-[A-Z0-9]+-[0-9]+$"
+    },
+    "type": {
+      "type": "string",
+      "const": "product"
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256
+    },
+    "domain": {
+      "type": "string",
+      "enum": ["building_envelope"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["grounded", "derived", "scaffold", "deferred", "unverified"]
+    },
+    "product_category": {
+      "type": "string",
+      "description": "Product classification.",
+      "examples": ["membrane", "insulation", "fastener", "adhesive", "weather_barrier"]
+    },
+    "material_class": {
+      "type": "string"
+    },
+    "envelope_zone": {
+      "type": "string",
+      "enum": ["roof", "wall", "foundation", "general"]
+    },
+    "scaffold_reason": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

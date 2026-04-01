@@ -1,6 +1,6 @@
 /**
  * Construction OS — Control Tower Layout
- * Wave C1 + VTI Absorption — Primary application shell with grouped sidebar
+ * Wave C1 + VTI Absorption + Manufacturer Hub — Primary application shell with grouped sidebar
  * navigation and routed content area for all absorbed control tower surfaces.
  */
 
@@ -49,6 +49,7 @@ import { ChemistryPage } from '../pages/chemistry/ChemistryPage';
 import { ScopePage } from '../pages/scope/ScopePage';
 import { PatternLanguagePage } from '../pages/patterns/PatternLanguagePage';
 import { BarrettPMMAGeneratorPage } from '../pages/pmma-generator/BarrettPMMAGeneratorPage';
+import { ManufacturerHubPage } from '../pages/manufacturers/ManufacturerHubPage';
 
 // Admin
 import { BrandingPage } from '../pages/branding/BrandingPage';
@@ -57,7 +58,7 @@ import { AdminPage } from '../pages/admin/AdminPage';
 const t = tokens;
 
 /** Routes that use full-viewport layout (no padding, no scroll). */
-const FULL_VIEWPORT_ROUTES: ControlTowerRoute[] = ['mirror-builder'];
+const FULL_VIEWPORT_ROUTES: ControlTowerRoute[] = ['mirror-builder', 'manufacturers'];
 
 function renderPage(route: ControlTowerRoute) {
   switch (route) {
@@ -128,6 +129,8 @@ function renderPage(route: ControlTowerRoute) {
       return <PatternLanguagePage />;
     case 'pmma-generator':
       return <BarrettPMMAGeneratorPage />;
+    case 'manufacturers':
+      return <ManufacturerHubPage />;
 
     // Admin
     case 'branding':

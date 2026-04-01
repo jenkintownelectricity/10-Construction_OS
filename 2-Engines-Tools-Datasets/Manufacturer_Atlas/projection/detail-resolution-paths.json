@@ -1,0 +1,64 @@
+[
+  {
+    "relation_id": "DGR-ROOFHW-001",
+    "resolution_flow": "condition -> system -> constraint_set -> detail",
+    "project_condition": "MFR-COND-HIGHWIND-001",
+    "manufacturer_system": "MFR-SYSTEM-ADHERO-001",
+    "assembly_constraint_set": "ACS-ADHERO-HW-001",
+    "output_detail": "MFR-DETAIL-BASEFLASH-001",
+    "status": "scaffold",
+    "notes": "Path structurally complete. Detail geometry requires manufacturer CAD source."
+  },
+  {
+    "relation_id": "DGR-ROOFMECH-001",
+    "resolution_flow": "condition -> system -> constraint_set -> detail",
+    "project_condition": "MFR-COND-HIGHWIND-001",
+    "manufacturer_system": "MFR-SYSTEM-MECHR-001",
+    "assembly_constraint_set": "ACS-MECHR-STD-001",
+    "output_detail": "MFR-DETAIL-EDGETERMINATION-001",
+    "status": "scaffold",
+    "notes": "Path structurally complete. Fastener patterns require manufacturer FM approval data."
+  },
+  {
+    "relation_id": "DGR-WALLMOIST-001",
+    "resolution_flow": "condition -> system -> constraint_set -> detail",
+    "project_condition": "MFR-COND-MOISTURE-001",
+    "manufacturer_system": "MFR-SYSTEM-CAVWALL-001",
+    "assembly_constraint_set": "ACS-CAVWALL-STD-001",
+    "output_detail": "MFR-DETAIL-WALLFLASH-001",
+    "status": "scaffold",
+    "notes": "Path structurally complete. WRB integration requires manufacturer installation guide data."
+  },
+  {
+    "detail_id": "MFR-DETAIL-BASEFLASH-001",
+    "label": "Base Flashing Detail",
+    "detail_type": "base_flashing",
+    "location": "roof_to_wall_transition",
+    "status": "scaffold",
+    "scaffold_reason": "Detail geometry requires manufacturer CAD source"
+  },
+  {
+    "detail_id": "MFR-DETAIL-PENETRATION-001",
+    "label": "Pipe Penetration Detail",
+    "detail_type": "penetration",
+    "location": "roof_field",
+    "status": "scaffold",
+    "scaffold_reason": "Detail geometry requires manufacturer CAD source"
+  },
+  {
+    "detail_id": "MFR-DETAIL-EDGETERMINATION-001",
+    "label": "Edge Termination Detail",
+    "detail_type": "edge_termination",
+    "location": "roof_perimeter",
+    "status": "scaffold",
+    "scaffold_reason": "Detail geometry requires manufacturer CAD source"
+  },
+  {
+    "detail_id": "MFR-DETAIL-WALLFLASH-001",
+    "label": "Through-Wall Flashing Detail",
+    "detail_type": "through_wall_flashing",
+    "location": "wall_assembly",
+    "status": "scaffold",
+    "scaffold_reason": "Detail geometry requires manufacturer CAD source"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "record_id": "MFR-MANUFACTURER-ENVSYS-001",
+  "type": "manufacturer",
+  "label": "Envelope Systems Manufacturer (Scaffold)",
+  "domain": "building_envelope",
+  "status": "scaffold",
+  "scaffold_reason": "No manufacturer data agreement in place yet",
+  "_upstream": { "source": "10-building-envelope-manufacturer-os", "role": "consumed_reference" }
+}

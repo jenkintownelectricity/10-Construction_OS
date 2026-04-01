@@ -1,0 +1,186 @@
+{
+  "assembly_id": "barrett_sbs_parapet_ext_001",
+  "assembly_version": "1.0.0",
+  "node_id": "parapet_termination_001",
+  "manufacturer_id": "barrett",
+  "manufacturer_name": "Barrett Company",
+  "condition_type": "parapet_termination",
+  "system_type": "SBS Modified Bitumen",
+  "csi_section": "07 52 16",
+  "warranty_envelope": {
+    "type": "NDL",
+    "term_years": 20,
+    "coverage": "material_and_labor",
+    "wind_speed_mph": 110,
+    "requires_certified_applicator": true
+  },
+  "components": [
+    {
+      "component_id": "substrate",
+      "name": "Concrete Deck / Approved Substrate",
+      "material": "concrete",
+      "required": true,
+      "position": "base",
+      "parameters": {
+        "min_slope_percent": 0.25,
+        "approved_types": ["concrete", "steel", "wood"]
+      }
+    },
+    {
+      "component_id": "insulation",
+      "name": "Polyisocyanurate Insulation",
+      "material": "polyiso",
+      "required": true,
+      "position": "above_deck",
+      "parameters": {
+        "min_r_value": 20,
+        "min_thickness_inches": 3.0,
+        "approved_types": ["polyiso", "eps", "xps"]
+      }
+    },
+    {
+      "component_id": "base_sheet",
+      "name": "Barrett SBS Base Sheet",
+      "material": "SBS_modified_bitumen",
+      "required": true,
+      "position": "membrane_base",
+      "parameters": {
+        "attachment": "mechanically_fastened",
+        "min_overlap_inches": 4
+      }
+    },
+    {
+      "component_id": "cap_sheet",
+      "name": "Barrett SBS Cap Sheet",
+      "material": "SBS_modified_bitumen_granulated",
+      "required": true,
+      "position": "membrane_cap",
+      "parameters": {
+        "attachment": "torch_applied",
+        "min_overlap_inches": 6,
+        "granule_color": "standard"
+      }
+    },
+    {
+      "component_id": "cant_strip",
+      "name": "Perlite Cant Strip",
+      "material": "perlite",
+      "required": true,
+      "position": "wall_base_transition",
+      "parameters": {
+        "min_size_inches": 4,
+        "angle_degrees": 45
+      }
+    },
+    {
+      "component_id": "flashing",
+      "name": "Modified Bitumen Flashing",
+      "material": "SBS_modified_bitumen",
+      "required": true,
+      "position": "vertical_wall",
+      "parameters": {
+        "min_height_inches": 8,
+        "max_height_inches": 24,
+        "attachment": "torch_applied"
+      }
+    },
+    {
+      "component_id": "termination_bar",
+      "name": "Aluminum Termination Bar",
+      "material": "aluminum",
+      "required": true,
+      "position": "flashing_top",
+      "parameters": {
+        "fastener_spacing_inches": 12,
+        "sealant_required": true,
+        "sealant_type": "polyurethane"
+      }
+    },
+    {
+      "component_id": "adhesive",
+      "name": "SBS Compatible Adhesive",
+      "material": "cold_adhesive",
+      "required": false,
+      "position": "bonding_layer",
+      "parameters": {
+        "approved_types": ["cold_adhesive", "hot_asphalt"],
+        "prohibited_with": ["TPO", "PVC", "EPDM"]
+      }
+    },
+    {
+      "component_id": "metal_coping",
+      "name": "Prefinished Metal Coping",
+      "material": "galvanized_steel",
+      "required": true,
+      "position": "parapet_cap",
+      "parameters": {
+        "min_gauge": 24,
+        "cleat_spacing_inches": 24,
+        "joint_type": "standing_seam"
+      }
+    }
+  ],
+  "assembly_constraints": [
+    {
+      "rule_id": "RULE_SUBSTRATE",
+      "description": "Substrate must be an approved type for SBS application",
+      "severity": "HALT",
+      "check": "substrate.material IN substrate.parameters.approved_types"
+    },
+    {
+      "rule_id": "RULE_BASE_SHEET",
+      "description": "Base sheet is required and must be mechanically fastened",
+      "severity": "HALT",
+      "check": "base_sheet.required == true AND base_sheet.parameters.attachment == 'mechanically_fastened'"
+    },
+    {
+      "rule_id": "RULE_CAP_SHEET",
+      "description": "Cap sheet is required with minimum 6 inch overlap",
+      "severity": "HALT",
+      "check": "cap_sheet.required == true AND cap_sheet.parameters.min_overlap_inches >= 6"
+    },
+    {
+      "rule_id": "RULE_CANT_STRIP",
+      "description": "Cant strip is required at all wall-to-roof transitions",
+      "severity": "HALT",
+      "check": "cant_strip.required == true AND cant_strip.parameters.min_size_inches >= 4"
+    },
+    {
+      "rule_id": "RULE_FLASHING_HEIGHT",
+      "description": "Flashing must extend minimum 8 inches above roof surface",
+      "severity": "HALT",
+      "check": "flashing.parameters.min_height_inches >= 8"
+    },
+    {
+      "rule_id": "RULE_TERMINATION_BAR",
+      "description": "Termination bar required with sealant at top of flashing",
+      "severity": "HALT",
+      "check": "termination_bar.required == true AND termination_bar.parameters.sealant_required == true"
+    },
+    {
+      "rule_id": "RULE_ADHESIVE",
+      "description": "Adhesive must be SBS-compatible; no cross-chemistry mixing",
+      "severity": "HALT",
+      "check": "adhesive.material NOT IN adhesive.parameters.prohibited_with"
+    },
+    {
+      "rule_id": "RULE_INSULATION",
+      "description": "Insulation must meet minimum R-value for warranty compliance",
+      "severity": "WARN",
+      "check": "insulation.parameters.min_r_value >= 20"
+    }
+  ],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "created": "2026-04-01T00:00:00Z",
+    "created_by": "detail_atlas_population_pass",
+    "governance_kernel": "00-validkernel-governance",
+    "truth_kernel": "00-Universal_Truth_Kernel"
+  },
+  "artifacts_enabled": {
+    "detail_packet": true,
+    "compliance_certificate": true,
+    "svg_overlay": true,
+    "system_passport": true
+  }
+}

@@ -1,6 +1,6 @@
 /**
  * Construction OS — Control Tower Route Types
- * Wave C1 + VTI Absorption — Grouped navigation with absorbed feature families.
+ * Wave C1 + VTI Absorption + Manufacturer Hub — Grouped navigation with absorbed feature families.
  */
 
 export type ControlTowerRoute =
@@ -38,6 +38,7 @@ export type ControlTowerRoute =
   | 'scope'
   | 'patterns'
   | 'pmma-generator'
+  | 'manufacturers'
   // Admin
   | 'branding'
   | 'admin';
@@ -119,6 +120,7 @@ export const CONTROL_TOWER_NAV_GROUPS: ControlTowerNavGroup[] = [
       { id: 'scope', label: 'Scope', icon: '\u25CB' },
       { id: 'patterns', label: 'Patterns', icon: '\u2726' },
       { id: 'pmma-generator', label: 'PMMA Generator', icon: '\u25E9' },
+      { id: 'manufacturers', label: 'Manufacturer Hub', icon: '\u2302' },
     ],
   },
   {
