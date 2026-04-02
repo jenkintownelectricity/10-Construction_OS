@@ -1,0 +1,34 @@
+{
+  "receipt_id": "RCT-HARDENING-PRE-GMO-001",
+  "status": "COMPLETE",
+  "purpose": "Repository hygiene pass before progressive DXF validation GMO",
+  "generated_at": "2026-04-02T05:00:00Z",
+  "source_authority": "10-Construction_OS",
+  "actions_performed": {
+    "docs_normalized": true,
+    "version_suffixes_added": [
+      "manufacturer-detail-system-input-manual-v0.1.md",
+      "manufacturer-system-ingestion-operator-manual-v0.1.md",
+      "dxf-semantic-taxonomy-v0.1.md",
+      "barrett-onboarding-flow-v0.1.md"
+    ],
+    "docs_index_created": "docs/manufacturer/README.md",
+    "assembly_definitions_verified": true,
+    "taxonomy_locked": true
+  },
+  "verified_files": {
+    "definitions": [
+      "source/barrett/definitions/black_pearl.definition.json",
+      "source/barrett/definitions/pmma.definition.json",
+      "source/barrett/definitions/ramproof_gc.definition.json",
+      "source/barrett/definitions/rt250.definition.json"
+    ],
+    "audit": "source/barrett/audits/barrett_assembly_readiness_audit.json",
+    "onboarding_receipt": "source/barrett/receipts/manufacturer_onboarding_wave_receipt.json"
+  },
+  "next_wave": "BARRETT_LOCAL_DXF_VALIDATION_AND_PROGRESSIVE_IMPORT",
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "governance_kernel": "00-validkernel-governance"
+  }
+}
