@@ -103,40 +103,6 @@ Construction OS is a **domain-plane** system. It executes domain workloads.
 
 ---
 
-## Root-Level Operational Directories
-
-In addition to the 7-ring structure, the following directories exist at root level for active domain execution. These contain the operational pipeline — tools, schemas, configuration, outputs, and receipts that implement the construction domain logic.
-
-| Directory | Purpose | File Count |
-|-----------|---------|-----------|
-| `tools/` | Python execution tools (geometry, condition detection, assembly resolution, constraint validation, compilation, library admission) | 22 tools |
-| `schemas/` | JSON schema definitions for conditions, candidates, assemblies, manifests, artifacts, library records, spatial index | 12 schemas |
-| `config/` | Configuration files (detection tolerances, layer semantics, assembly recipes, constraint rules) | 5 configs |
-| `output/` | Pipeline outputs (conditions, detail candidates, assembly resolutions, compiler manifests, compiled details, detail library, spatial index, geometry) | ~80 files |
-| `receipts/` | Execution receipts for all pipeline phases | 21 receipts |
-| `assemblies/` | Barrett assembly primitives (1 complete, 4 derived) | 5 files |
-| `docs/` | Posture documents and source library index | 8 files |
-| `templates/` | SVG detail templates | 1 file |
-| `tests/` | Test files | varies |
-| `examples/` | Normalized detail example output | 1 file |
-
-> **Note:** These root-level directories operate alongside the ring structure. The ring directories (0-6) contain the architectural framework (frozen doctrine, kernels, engines, registries). The root-level directories contain the active domain execution artifacts. This dual structure is intentional — ring architecture provides governance; root-level directories provide execution.
-
----
-
-## Evidence Infrastructure
-
-The repository carries evidence through every execution stage:
-
-- **35 of 148 schemas** include explicit `evidence` fields (23.6%)
-- **All tools** produce deterministic receipts with evidence
-- **truth_spine.py** traces complete lineage from source through compilation
-- **Condition nodes** carry detection rules, geometry inputs, tolerances, and cross-product calculations
-- **Validation results** carry rule hits, severity, and constraint evaluation evidence
-- **Library records** carry admission decisions with full provenance chain
-
----
-
 ## Governance Compliance
 
 Construction OS operates under VKG command governance with:
