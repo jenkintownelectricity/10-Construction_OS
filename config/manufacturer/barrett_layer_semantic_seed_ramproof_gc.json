@@ -1,0 +1,56 @@
+{
+  "RamProof SYSTEM LIQUID": {
+    "semantic_role": "liquid_applied_membrane",
+    "ownership_role": "SYSTEM_OWNED"
+  },
+
+  "RamProof SYSTEM MESH": {
+    "semantic_role": "reinforcement_mesh",
+    "ownership_role": "SYSTEM_OWNED"
+  },
+
+  "Ram Mastic": {
+    "semantic_role": "sealant",
+    "ownership_role": "SYSTEM_OWNED"
+  },
+
+  "RAM POLY FELT 3.5 FILTER FABRIC": {
+    "semantic_role": "filter_fabric",
+    "ownership_role": "SYSTEM_OWNED"
+  },
+
+  "Drainage Mat": {
+    "semantic_role": "drainage_layer",
+    "ownership_role": "SYSTEM_OWNED"
+  },
+
+  "Protection Course": {
+    "semantic_role": "protection_course",
+    "ownership_role": "SYSTEM_OWNED"
+  },
+
+  "Primer": {
+    "semantic_role": "primer",
+    "ownership_role": "SYSTEM_OWNED"
+  },
+
+  "Others": {
+    "semantic_role": "context_geometry",
+    "ownership_role": "CONTEXT_ONLY"
+  },
+
+  "Text": {
+    "semantic_role": "annotation",
+    "ownership_role": "ANNOTATION"
+  },
+
+  "Dimensions": {
+    "semantic_role": "annotation",
+    "ownership_role": "ANNOTATION"
+  },
+
+  "Defpoints": {
+    "semantic_role": "reference",
+    "ownership_role": "CONTEXT_ONLY"
+  }
+}
