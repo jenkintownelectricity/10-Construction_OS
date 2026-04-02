@@ -1,0 +1,29 @@
+{
+  "family_id": "FAM-BARRETT-RT250",
+  "manufacturer_id": "MFR-BARRETT-001",
+  "manufacturer_name": "Barrett Company",
+  "system_name": "RamTough 250 Waterproofing System",
+  "system_description": "Hot fluid-applied rubberized asphalt membrane waterproofing system. Applied at elevated temperature for monolithic seamless waterproofing. Often used with RamFlash PMMA for detail/flashing work.",
+  "csi_section": "07 11 13",
+  "product_components": [
+    { "component_id": "rt250-membrane", "name": "RamTough 250 Membrane", "role": "membrane", "material_type": "hot_fluid_applied_rubberized_asphalt", "ownership_class": "SYSTEM_OWNED" },
+    { "component_id": "rt250-primer", "name": "RamTough 250 Primer", "role": "primer_adhesive", "material_type": "asphalt_primer", "ownership_class": "SYSTEM_OWNED" },
+    { "component_id": "rt250-protection", "name": "Protection Course", "role": "protection", "material_type": "protection_board", "ownership_class": "SYSTEM_OWNED" }
+  ],
+  "owned_layers": ["RamTough 250", "RT-250", "RT250", "Membrane", "Protection Course"],
+  "context_layers": ["Others", "Substrate", "Concrete", "Structural Slab", "Foundation"],
+  "annotation_layers": ["Text", "Defpoints", "MULTILEADER"],
+  "supported_conditions": ["field_membrane", "foundation_wall", "below_grade", "plaza_deck", "wall_transition"],
+  "representative_sources": ["source/barrett/renamed_dxf/RT-250/"],
+  "readiness": "PARTIAL",
+  "readiness_blockers": [
+    "DXF source files are local-only (gitignored), not in repo",
+    "Component list derived from product knowledge, not validated against parsed DXFs",
+    "Often paired with PMMA flashing — cross-family dependency not yet modeled"
+  ],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "created_at": "2026-04-02T04:00:00Z",
+    "created_by": "manufacturer_onboarding_wave"
+  }
+}

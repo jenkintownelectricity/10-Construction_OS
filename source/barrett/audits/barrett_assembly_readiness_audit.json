@@ -1,0 +1,105 @@
+{
+  "audit_id": "AUD-BARRETT-READINESS-001",
+  "audit_date": "2026-04-02T04:00:00Z",
+  "manufacturer_id": "MFR-BARRETT-001",
+  "manufacturer_name": "Barrett Company",
+  "auditor": "manufacturer_onboarding_wave",
+  "summary": {
+    "total_families": 4,
+    "ready": 0,
+    "partial": 4,
+    "blocked": 0,
+    "no_source": 0
+  },
+  "families": [
+    {
+      "audit_id": "AUD-FAM-BLACK-PEARL",
+      "family_id": "FAM-BARRETT-BLACK-PEARL",
+      "system_name": "Black Pearl Waterproofing System",
+      "readiness": "PARTIAL",
+      "checklist": {
+        "family_defined": true,
+        "components_listed": true,
+        "layers_mapped": false,
+        "representative_dxf_available": true,
+        "dxf_json_parsed": true,
+        "condition_support_defined": true,
+        "ownership_classified": false,
+        "product_data_available": true
+      },
+      "blockers": [
+        "DXF source files are local-only (gitignored) — layer mapping not validated against parsed JSON",
+        "Ownership classification needs DXF layer confirmation"
+      ],
+      "notes": "Closest to READY. DXF JSON exists locally with known layers (RAM Black Pearl Sheet, Protection Course, Others, Text, Defpoints). Needs layer-to-ownership confirmation pass."
+    },
+    {
+      "audit_id": "AUD-FAM-PMMA",
+      "family_id": "FAM-BARRETT-PMMA",
+      "system_name": "RamFlash PMMA Flashing System",
+      "readiness": "PARTIAL",
+      "checklist": {
+        "family_defined": true,
+        "components_listed": true,
+        "layers_mapped": false,
+        "representative_dxf_available": true,
+        "dxf_json_parsed": false,
+        "condition_support_defined": true,
+        "ownership_classified": false,
+        "product_data_available": true
+      },
+      "blockers": [
+        "DXF source files are local-only — layer names not confirmed from parsed JSON",
+        "DXF JSON parse status unknown for PMMA family"
+      ],
+      "notes": "PMMA system record already exists in Manufacturer Atlas (SYS-BARRETT-PMMA-001). Component list from product knowledge. Needs DXF parse validation."
+    },
+    {
+      "audit_id": "AUD-FAM-RAMPROOF-GC",
+      "family_id": "FAM-BARRETT-RAMPROOF-GC",
+      "system_name": "RamProof GC Waterproofing System",
+      "readiness": "PARTIAL",
+      "checklist": {
+        "family_defined": true,
+        "components_listed": true,
+        "layers_mapped": false,
+        "representative_dxf_available": true,
+        "dxf_json_parsed": false,
+        "condition_support_defined": true,
+        "ownership_classified": false,
+        "product_data_available": true
+      },
+      "blockers": [
+        "DXF source files are local-only — layer names not confirmed",
+        "Single-component system may be simpler to validate but needs parse confirmation"
+      ],
+      "notes": "Simplest system (fewest components). May reach READY fastest once DXF JSON is parsed and layers confirmed."
+    },
+    {
+      "audit_id": "AUD-FAM-RT250",
+      "family_id": "FAM-BARRETT-RT250",
+      "system_name": "RamTough 250 Waterproofing System",
+      "readiness": "PARTIAL",
+      "checklist": {
+        "family_defined": true,
+        "components_listed": true,
+        "layers_mapped": false,
+        "representative_dxf_available": true,
+        "dxf_json_parsed": false,
+        "condition_support_defined": true,
+        "ownership_classified": false,
+        "product_data_available": true
+      },
+      "blockers": [
+        "DXF source files are local-only — layer names not confirmed",
+        "Cross-family dependency with PMMA (flashing partner) not yet modeled"
+      ],
+      "notes": "Hot-applied system. Often paired with PMMA for details/flashings. Cross-family relationship should be documented but is not a readiness blocker."
+    }
+  ],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "audited_at": "2026-04-02T04:00:00Z",
+    "audited_by": "manufacturer_onboarding_wave"
+  }
+}

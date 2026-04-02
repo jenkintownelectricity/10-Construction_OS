@@ -1,0 +1,58 @@
+{
+  "receipt_id": "RCT-MFR-ONBOARD-BARRETT-001",
+  "receipt_type": "manufacturer_onboarding",
+  "status": "complete",
+  "generated_at": "2026-04-02T04:00:00Z",
+  "source_authority": "10-Construction_OS",
+  "manufacturer_id": "MFR-BARRETT-001",
+  "manufacturer_name": "Barrett Company",
+  "summary": {
+    "families_defined": 4,
+    "families_ready": 0,
+    "families_partial": 4,
+    "families_blocked": 0,
+    "families_no_source": 0,
+    "manuals_created": 2,
+    "schemas_created": 3,
+    "configs_created": 3,
+    "doctrine_docs_created": 2
+  },
+  "outputs": {
+    "manuals": [
+      "docs/manufacturer/manufacturer-detail-system-input-manual.md",
+      "docs/manufacturer/manufacturer-system-ingestion-operator-manual.md"
+    ],
+    "doctrine": [
+      "docs/manufacturer/dxf-semantic-taxonomy.md",
+      "docs/manufacturer/barrett-onboarding-flow.md"
+    ],
+    "schemas": [
+      "schemas/manufacturer/manufacturer_family_definition.schema.json",
+      "schemas/manufacturer/dxf_semantic_enrichment_record.schema.json",
+      "schemas/manufacturer/assembly_readiness_record.schema.json"
+    ],
+    "configs": [
+      "config/manufacturer/dxf_semantic_defaults.json",
+      "config/manufacturer/ownership_class_defaults.json",
+      "config/manufacturer/readiness_classification_rules.json"
+    ],
+    "definitions": [
+      "source/barrett/definitions/black_pearl.definition.json",
+      "source/barrett/definitions/pmma.definition.json",
+      "source/barrett/definitions/ramproof_gc.definition.json",
+      "source/barrett/definitions/rt250.definition.json"
+    ],
+    "audits": [
+      "source/barrett/audits/barrett_assembly_readiness_audit.json"
+    ]
+  },
+  "evidence": {
+    "all_families_partial_because": "DXF source files are gitignored (local-only). Layer-to-ownership mapping cannot be validated from repo alone. Component lists derived from product knowledge, not yet confirmed against parsed DXF layers.",
+    "closest_to_ready": "Black Pearl — DXF JSON exists locally with known layers",
+    "onboarding_target": "sub-10-minutes per manufacturer when local DXF access available"
+  },
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "governance_kernel": "00-validkernel-governance"
+  }
+}

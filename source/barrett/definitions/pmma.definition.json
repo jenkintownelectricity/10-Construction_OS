@@ -1,0 +1,30 @@
+{
+  "family_id": "FAM-BARRETT-PMMA",
+  "manufacturer_id": "MFR-BARRETT-001",
+  "manufacturer_name": "Barrett Company",
+  "system_name": "RamFlash PMMA Flashing System",
+  "system_description": "PMMA-based flashing system composed of RamFlash PMMA Primer, PMMA Membrane resin, Fleece reinforcement, and Catalyst. Used as a flashing and detail system often paired with RamTough 250 or Black Pearl field membranes.",
+  "csi_section": "07 62 00",
+  "product_components": [
+    { "component_id": "pmma-primer", "name": "RamFlash PMMA Primer", "role": "primer_adhesive", "material_type": "PMMA_primer", "ownership_class": "SYSTEM_OWNED" },
+    { "component_id": "pmma-membrane", "name": "RamFlash PMMA Membrane", "role": "membrane", "material_type": "PMMA_resin", "ownership_class": "SYSTEM_OWNED" },
+    { "component_id": "pmma-fleece", "name": "RamFlash Fleece", "role": "reinforcement", "material_type": "polyester_fleece", "ownership_class": "SYSTEM_OWNED" },
+    { "component_id": "pmma-catalyst", "name": "RamFlash Catalyst", "role": "primer_adhesive", "material_type": "PMMA_catalyst", "ownership_class": "SYSTEM_OWNED" }
+  ],
+  "owned_layers": ["PMMA", "RamFlash", "Fleece", "Primer"],
+  "context_layers": ["Others", "Substrate", "Concrete", "Wall"],
+  "annotation_layers": ["Text", "Defpoints", "MULTILEADER"],
+  "supported_conditions": ["parapet_flashing", "penetration_flashing", "wall_transition", "detail_flashing", "counter_flashing"],
+  "representative_sources": ["source/barrett/renamed_dxf/PMMA/"],
+  "readiness": "PARTIAL",
+  "readiness_blockers": [
+    "DXF source files are local-only (gitignored), not in repo",
+    "Component list derived from product knowledge, not validated against parsed DXFs",
+    "Layer names are estimated — need confirmation from actual DXF layer inventory"
+  ],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "created_at": "2026-04-02T04:00:00Z",
+    "created_by": "manufacturer_onboarding_wave"
+  }
+}
