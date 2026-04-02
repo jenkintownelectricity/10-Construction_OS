@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Project Claim Record",
+  "description": "Domain truth object representing a claim or assertion made by a project party, linked to supporting evidence.",
+  "type": "object",
+  "required": ["claim_id", "project_id", "claimant_party_id", "claim_type", "severity", "status", "subject", "evidence_ids", "lineage"],
+  "additionalProperties": false,
+  "properties": {
+    "claim_id": {
+      "type": "string",
+      "pattern": "^CLM-",
+      "description": "Unique claim identifier."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Reference to the parent project."
+    },
+    "claimant_party_id": {
+      "type": "string",
+      "description": "Party making the claim."
+    },
+    "claim_type": {
+      "type": "string",
+      "enum": [
+        "SCOPE_ASSERTION",
+        "SCHEDULE_ASSERTION",
+        "QUALITY_ASSERTION",
+        "RESPONSIBILITY_ASSERTION",
+        "COMPLIANCE_ASSERTION",
+        "WARRANTY_ASSERTION",
+        "COST_ASSERTION",
+        "CONDITION_ASSERTION"
+      ],
+      "description": "Category of the claim."
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW", "INFORMATIONAL"],
+      "description": "Severity level of the claim."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["ASSERTED", "EVIDENCED", "CONTESTED", "RESOLVED", "ACCEPTED", "REJECTED"],
+      "description": "Current resolution status of the claim."
+    },
+    "subject": {
+      "type": "string",
+      "description": "Brief subject line summarizing the claim."
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the claim."
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Evidence records supporting this claim."
+    },
+    "counter_claim_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Claims that contest or counter this claim."
+    },
+    "lineage": {
+      "$ref": "#/$defs/lineage",
+      "description": "Provenance and traceability metadata."
+    }
+  },
+  "$defs": {
+    "lineage": {
+      "type": "object",
+      "required": ["source_authority", "generated_at", "generated_by"],
+      "additionalProperties": false,
+      "properties": {
+        "source_authority": {
+          "type": "string",
+          "default": "10-Construction_OS",
+          "description": "System or authority that produced this record."
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when this record was generated."
+        },
+        "generated_by": {
+          "type": "string",
+          "description": "Identity of the agent or process that generated this record."
+        }
+      }
+    }
+  }
+}

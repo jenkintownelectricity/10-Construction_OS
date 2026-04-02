@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Project Context Snapshot",
+  "description": "Domain truth object representing a point-in-time summary of project intelligence, including document counts, posture distribution, and reconciliation status.",
+  "type": "object",
+  "required": ["snapshot_id", "project_id", "generated_at", "summary", "lineage"],
+  "additionalProperties": false,
+  "properties": {
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^CTX-",
+      "description": "Unique snapshot identifier."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Reference to the parent project."
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when this snapshot was generated."
+    },
+    "summary": {
+      "type": "object",
+      "description": "Aggregated project intelligence summary.",
+      "required": [
+        "total_documents",
+        "total_communications",
+        "total_submittals",
+        "total_claims",
+        "total_open_actions",
+        "posture_summary",
+        "reconciliation_summary"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "total_documents": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of documents ingested."
+        },
+        "total_communications": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of communications tracked."
+        },
+        "total_submittals": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of submittals tracked."
+        },
+        "total_claims": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of claims recorded."
+        },
+        "total_open_actions": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of open action items."
+        },
+        "posture_summary": {
+          "type": "object",
+          "description": "Counts of posture records by state.",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "reconciliation_summary": {
+          "type": "object",
+          "description": "Counts of reconciliation records by state.",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "lineage": {
+      "$ref": "#/$defs/lineage",
+      "description": "Provenance and traceability metadata."
+    }
+  },
+  "$defs": {
+    "lineage": {
+      "type": "object",
+      "required": ["source_authority", "generated_at", "generated_by"],
+      "additionalProperties": false,
+      "properties": {
+        "source_authority": {
+          "type": "string",
+          "default": "10-Construction_OS",
+          "description": "System or authority that produced this record."
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when this record was generated."
+        },
+        "generated_by": {
+          "type": "string",
+          "description": "Identity of the agent or process that generated this record."
+        }
+      }
+    }
+  }
+}

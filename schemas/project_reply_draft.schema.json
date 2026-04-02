@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Project Reply Draft",
+  "description": "Domain truth object representing a draft reply to a project party, incorporating claims, evidence, posture context, and tone guidance.",
+  "type": "object",
+  "required": ["draft_id", "project_id", "target_party_id", "topic", "status", "lineage"],
+  "additionalProperties": false,
+  "properties": {
+    "draft_id": {
+      "type": "string",
+      "pattern": "^DRF-",
+      "description": "Unique draft identifier."
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Reference to the parent project."
+    },
+    "target_party_id": {
+      "type": "string",
+      "description": "Party the reply is addressed to."
+    },
+    "topic": {
+      "type": "string",
+      "description": "Subject or topic of the reply."
+    },
+    "thread_id": {
+      "type": "string",
+      "description": "Optional reference to the communication thread."
+    },
+    "claims_to_address": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Claim IDs this reply intends to address."
+    },
+    "evidence_to_cite": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Evidence IDs to cite in the reply."
+    },
+    "posture_context": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Posture IDs providing context for the reply."
+    },
+    "tone_guidance": {
+      "type": "string",
+      "enum": ["NEUTRAL", "FIRM", "COLLABORATIVE", "ESCALATION"],
+      "description": "Recommended tone for the reply."
+    },
+    "risk_level": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"],
+      "description": "Risk level associated with the reply."
+    },
+    "draft_body": {
+      "type": "string",
+      "description": "Full text of the draft reply."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["DRAFT", "PROPOSED", "REQUIRES_HUMAN_REVIEW", "APPROVED", "SENT"],
+      "description": "Workflow status of the draft."
+    },
+    "lineage": {
+      "$ref": "#/$defs/lineage",
+      "description": "Provenance and traceability metadata."
+    }
+  },
+  "$defs": {
+    "lineage": {
+      "type": "object",
+      "required": ["source_authority", "generated_at", "generated_by"],
+      "additionalProperties": false,
+      "properties": {
+        "source_authority": {
+          "type": "string",
+          "default": "10-Construction_OS",
+          "description": "System or authority that produced this record."
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when this record was generated."
+        },
+        "generated_by": {
+          "type": "string",
+          "description": "Identity of the agent or process that generated this record."
+        }
+      }
+    }
+  }
+}
