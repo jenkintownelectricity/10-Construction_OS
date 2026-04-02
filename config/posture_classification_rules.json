@@ -1,0 +1,139 @@
+{
+  "version": "1.0.0",
+  "description": "Rules for classifying project posture states from claims, evidence, and project data",
+  "rules": [
+    {
+      "rule_id": "PCR-001",
+      "posture_state": "ALIGNED",
+      "detection_conditions": {"all_claims_evidenced": true, "no_open_disputes": true, "reconciliation_state": "CONSISTENT"},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-002",
+      "posture_state": "DIVERGENT",
+      "detection_conditions": {"conflicting_claims_present": true, "parties_disagree_on_scope": true},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-003",
+      "posture_state": "CONTESTED",
+      "detection_conditions": {"opposing_claims_on_same_topic": true, "both_parties_have_evidence": true},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-004",
+      "posture_state": "ESCALATING",
+      "detection_conditions": {"dispute_frequency_increasing": true, "unresolved_claim_count_rising": true},
+      "detection_method": "HEURISTIC",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-005",
+      "posture_state": "DE_ESCALATING",
+      "detection_conditions": {"dispute_frequency_decreasing": true, "recent_resolutions_present": true},
+      "detection_method": "HEURISTIC",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-006",
+      "posture_state": "STALLED",
+      "detection_conditions": {"no_recent_activity": true, "open_items_unchanged": true},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-007",
+      "posture_state": "BLOCKED",
+      "detection_conditions": {"dependency_unresolved": true, "blocking_rfi_or_submittal_open": true},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-008",
+      "posture_state": "COOPERATIVE",
+      "detection_conditions": {"mutual_acknowledgments_present": true, "shared_resolution_activity": true},
+      "detection_method": "HEURISTIC",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-009",
+      "posture_state": "ADVERSARIAL",
+      "detection_conditions": {"legal_notices_present": true, "formal_dispute_filed": true},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-010",
+      "posture_state": "DEFENSIVE",
+      "detection_conditions": {"party_rejecting_claims": true, "counter_evidence_submitted": true},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-011",
+      "posture_state": "COMPLIANT",
+      "detection_conditions": {"all_spec_requirements_met": true, "inspections_passed": true},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-012",
+      "posture_state": "NON_COMPLIANT",
+      "detection_conditions": {"spec_violations_documented": true, "failed_inspections_present": true},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-013",
+      "posture_state": "EXPOSED",
+      "detection_conditions": {"warranty_gap_detected": true, "unaddressed_deficiency_present": true},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-014",
+      "posture_state": "PROTECTED",
+      "detection_conditions": {"all_warranties_active": true, "documentation_complete": true},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-015",
+      "posture_state": "TRANSITIONING",
+      "detection_conditions": {"phase_change_in_progress": true, "handoff_documents_pending": true},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-016",
+      "posture_state": "ACCEPTING",
+      "detection_conditions": {"party_acknowledging_responsibility": true, "corrective_action_initiated": true},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-017",
+      "posture_state": "REJECTING",
+      "detection_conditions": {"party_formally_rejecting_work": true, "rejection_notice_issued": true},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-018",
+      "posture_state": "NEUTRAL",
+      "detection_conditions": {"no_active_claims": true, "no_disputes": true, "routine_operations_only": true},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "PCR-019",
+      "posture_state": "NEEDS_REVIEW",
+      "detection_conditions": {"ambiguous_signals": true, "insufficient_data_for_classification": true},
+      "detection_method": "RULE_BASED",
+      "fallback": "NEEDS_REVIEW"
+    }
+  ]
+}

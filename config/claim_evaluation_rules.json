@@ -1,0 +1,48 @@
+{
+  "version": "1.0.0",
+  "description": "Rules for evaluating construction claims against available evidence",
+  "rules": [
+    {
+      "rule_id": "CER-001",
+      "claim_type": "SCOPE_ASSERTION",
+      "required_evidence_types": ["CONTRACT_DOCUMENT", "DRAWING", "SPECIFICATION"],
+      "min_evidence_count": 1,
+      "severity_if_unmet": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "CER-002",
+      "claim_type": "SCHEDULE_ASSERTION",
+      "required_evidence_types": ["DAILY_REPORT", "MEETING_MINUTES", "CONTRACT_DOCUMENT"],
+      "min_evidence_count": 1,
+      "severity_if_unmet": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "CER-003",
+      "claim_type": "QUALITY_ASSERTION",
+      "required_evidence_types": ["INSPECTION_REPORT", "TEST_RESULT", "PHOTO"],
+      "min_evidence_count": 1,
+      "severity_if_unmet": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "CER-004",
+      "claim_type": "RESPONSIBILITY_ASSERTION",
+      "required_evidence_types": ["CONTRACT_DOCUMENT", "DRAWING", "SPECIFICATION", "SUBMITTAL"],
+      "min_evidence_count": 1,
+      "severity_if_unmet": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "CER-005",
+      "claim_type": "COMPLIANCE_ASSERTION",
+      "required_evidence_types": ["SPECIFICATION", "INSPECTION_REPORT", "TEST_RESULT"],
+      "min_evidence_count": 1,
+      "severity_if_unmet": "NEEDS_REVIEW"
+    },
+    {
+      "rule_id": "CER-006",
+      "claim_type": "WARRANTY_ASSERTION",
+      "required_evidence_types": ["CONTRACT_DOCUMENT", "SUBMITTAL", "INSPECTION_REPORT"],
+      "min_evidence_count": 1,
+      "severity_if_unmet": "NEEDS_REVIEW"
+    }
+  ]
+}

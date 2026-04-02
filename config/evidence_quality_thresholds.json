@@ -1,0 +1,23 @@
+{
+  "version": "1.0.0",
+  "description": "Evidence quality evaluation thresholds",
+  "quality_tiers": {
+    "PRIMARY": {
+      "description": "Direct observation, inspection, test result",
+      "min_confidence": 0.9,
+      "source_types": ["FIELD_OBSERVATION", "INSPECTION_REPORT", "PHOTO", "TEST_RESULT"]
+    },
+    "SECONDARY": {
+      "description": "Documented record, email, submittal",
+      "min_confidence": 0.7,
+      "source_types": ["EMAIL", "SUBMITTAL", "MEETING_MINUTES", "DAILY_REPORT", "DRAWING", "SPECIFICATION", "CONTRACT_DOCUMENT"]
+    },
+    "TERTIARY": {
+      "description": "Inferred or derived evidence",
+      "min_confidence": 0.4,
+      "source_types": ["RFI", "CHANGE_ORDER"]
+    }
+  },
+  "insufficient_evidence_threshold": 0.3,
+  "needs_review_threshold": 0.5
+}

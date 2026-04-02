@@ -1,0 +1,56 @@
+{
+  "version": "1.0.0",
+  "description": "Rules for reconciling intended, approved, asserted, observed, and documented project states",
+  "rules": [
+    {
+      "rule_id": "RR-001",
+      "reconciliation_state": "CONSISTENT",
+      "condition_description": "All five states (intended, approved, asserted, observed, documented) agree on scope, schedule, and quality for the topic"
+    },
+    {
+      "rule_id": "RR-002",
+      "reconciliation_state": "INTENDED_VS_APPROVED_DIVERGENCE",
+      "condition_description": "Intended state differs from approved state — scope or design was approved differently than originally intended"
+    },
+    {
+      "rule_id": "RR-003",
+      "reconciliation_state": "APPROVED_VS_ASSERTED_DIVERGENCE",
+      "condition_description": "A party asserts completion or compliance that differs from the approved scope or specifications"
+    },
+    {
+      "rule_id": "RR-004",
+      "reconciliation_state": "ASSERTED_VS_OBSERVED_DIVERGENCE",
+      "condition_description": "Field observations or inspections contradict what a party asserts about the work"
+    },
+    {
+      "rule_id": "RR-005",
+      "reconciliation_state": "OBSERVED_VS_DOCUMENTED_DIVERGENCE",
+      "condition_description": "What was observed in the field does not match the formal documentation (reports, photos, logs)"
+    },
+    {
+      "rule_id": "RR-006",
+      "reconciliation_state": "INTENDED_VS_OBSERVED_DIVERGENCE",
+      "condition_description": "Field conditions diverge from original design intent without approved changes"
+    },
+    {
+      "rule_id": "RR-007",
+      "reconciliation_state": "DOCUMENTATION_GAP",
+      "condition_description": "One or more states lack sufficient documentation to perform reconciliation"
+    },
+    {
+      "rule_id": "RR-008",
+      "reconciliation_state": "MULTI_STATE_DIVERGENCE",
+      "condition_description": "Three or more states disagree, indicating systemic misalignment requiring escalation"
+    },
+    {
+      "rule_id": "RR-009",
+      "reconciliation_state": "PARTIAL_ALIGNMENT",
+      "condition_description": "Some state pairs agree while others diverge — partial progress toward consistency"
+    },
+    {
+      "rule_id": "RR-010",
+      "reconciliation_state": "NEEDS_REVIEW",
+      "condition_description": "Insufficient data or ambiguous conditions prevent deterministic reconciliation classification"
+    }
+  ]
+}
