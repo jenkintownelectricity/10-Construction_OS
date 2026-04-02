@@ -1,0 +1,19 @@
+{
+  "claim_id": "CLM-DEMO-001",
+  "project_id": "PRJ-BARRETT-DEMO-001",
+  "claimant_party_id": "PARTY-SUB-001",
+  "claim_type": "SCOPE_ASSERTION",
+  "severity": "MEDIUM",
+  "status": "EVIDENCED",
+  "subject": "Edge termination details not included in original scope",
+  "description": "Roofing subcontractor asserts that edge termination detail work at outside corners was not part of the original contract scope. References contract Section 07 52 16 which specifies parapet termination only.",
+  "evidence_ids": ["EVD-DEMO-002"],
+  "counter_claim_ids": [],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "generated_at": "2026-04-02T03:00:00Z",
+    "generated_by": "staged_example_data"
+  },
+  "_staged": true,
+  "_staged_note": "STAGED EXAMPLE — not a live claim record"
+}

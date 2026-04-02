@@ -1,0 +1,19 @@
+{
+  "claim_id": "CLM-DEMO-002",
+  "project_id": "PRJ-BARRETT-DEMO-001",
+  "claimant_party_id": "PARTY-ARCH-001",
+  "claim_type": "RESPONSIBILITY_ASSERTION",
+  "severity": "HIGH",
+  "status": "CONTESTED",
+  "subject": "Certified applicator requirement must be met before warranty",
+  "description": "Architect asserts that Barrett warranty requires certified applicator per submittal EVD-DEMO-002. Contractor has not yet confirmed certified applicator status. Warranty coverage is at risk.",
+  "evidence_ids": ["EVD-DEMO-002", "EVD-DEMO-003"],
+  "counter_claim_ids": ["CLM-DEMO-001"],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "generated_at": "2026-04-02T03:00:00Z",
+    "generated_by": "staged_example_data"
+  },
+  "_staged": true,
+  "_staged_note": "STAGED EXAMPLE — not a live claim record"
+}

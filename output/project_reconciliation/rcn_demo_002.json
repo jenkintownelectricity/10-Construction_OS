@@ -1,0 +1,20 @@
+{
+  "reconciliation_id": "RCN-DEMO-002",
+  "project_id": "PRJ-BARRETT-DEMO-001",
+  "topic": "Edge termination scope and compilation",
+  "intended_state": "Edge termination at all outside/inside corners",
+  "approved_state": null,
+  "asserted_state": "Subcontractor asserts edge termination not in contract scope",
+  "observed_state": "10 outside corners + 1 inside corner detected in boundary geometry",
+  "documented_state": "Detail candidates BLOCKED — derived assembly has 0 components",
+  "reconciliation_state": "CLAIM_CONFLICT",
+  "divergence_description": "Scope conflict: architect direction includes edge termination, contractor claims it was excluded from original scope. Assembly is derived (incomplete) so compilation is blocked regardless of scope resolution.",
+  "evidence_ids": ["EVD-DEMO-002", "EVD-DEMO-003"],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "generated_at": "2026-04-02T03:00:00Z",
+    "generated_by": "reconciliation_evaluator"
+  },
+  "_staged": true,
+  "_staged_note": "STAGED EXAMPLE — not a live reconciliation record"
+}

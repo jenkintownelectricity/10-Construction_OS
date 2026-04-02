@@ -1,0 +1,21 @@
+{
+  "draft_id": "DRF-DEMO-001",
+  "project_id": "PRJ-BARRETT-DEMO-001",
+  "target_party_id": "PARTY-SUB-001",
+  "topic": "Certified applicator confirmation request",
+  "thread_id": null,
+  "claims_to_address": ["CLM-DEMO-002"],
+  "evidence_to_cite": ["EVD-DEMO-002", "EVD-DEMO-003"],
+  "posture_context": ["PST-DEMO-001", "PST-DEMO-003"],
+  "tone_guidance": "FIRM",
+  "risk_level": "HIGH",
+  "draft_body": "Per the Barrett SBS submittal (ref: SUB-2026-03-15-BARRETT-SBS-001) and architect direction dated March 20, the warranty requires installation by a Barrett-certified applicator. Please confirm certified applicator status and provide certification documentation at your earliest convenience. Warranty coverage cannot be activated until this requirement is satisfied.",
+  "status": "REQUIRES_HUMAN_REVIEW",
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "generated_at": "2026-04-02T03:00:00Z",
+    "generated_by": "reply_context_builder"
+  },
+  "_staged": true,
+  "_staged_note": "STAGED EXAMPLE — draft requires human review before any action"
+}

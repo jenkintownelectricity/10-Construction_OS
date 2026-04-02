@@ -1,0 +1,32 @@
+{
+  "snapshot_id": "CTX-DEMO-001",
+  "project_id": "PRJ-BARRETT-DEMO-001",
+  "generated_at": "2026-04-02T03:00:00Z",
+  "summary": {
+    "total_documents": 3,
+    "total_communications": 1,
+    "total_submittals": 1,
+    "total_claims": 2,
+    "total_open_actions": 2,
+    "posture_summary": {
+      "PENDING_UPSTREAM_RESPONSE": 1,
+      "UNCLEAR_SCOPE": 1,
+      "WARRANTY_RISK": 1
+    },
+    "reconciliation_summary": {
+      "ALIGNED": 1,
+      "CLAIM_CONFLICT": 1
+    },
+    "compilation_summary": {
+      "PROVISIONAL": 10,
+      "BLOCKED": 10
+    }
+  },
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "generated_at": "2026-04-02T03:00:00Z",
+    "generated_by": "context_snapshot_builder"
+  },
+  "_staged": true,
+  "_staged_note": "STAGED EXAMPLE — not a live context snapshot"
+}

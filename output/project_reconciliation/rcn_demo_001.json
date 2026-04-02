@@ -1,0 +1,20 @@
+{
+  "reconciliation_id": "RCN-DEMO-001",
+  "project_id": "PRJ-BARRETT-DEMO-001",
+  "topic": "Parapet termination assembly — intent vs observation",
+  "intended_state": "Barrett SBS parapet termination per spec 07 52 16",
+  "approved_state": "Approved via submittal EVD-DEMO-002",
+  "asserted_state": null,
+  "observed_state": "Field inspection confirms parapet heights 36-42 inches, existing membrane fair condition",
+  "documented_state": "Detail candidate DTL-CND-BND-0001-FDN-007 PROVISIONAL",
+  "reconciliation_state": "ALIGNED",
+  "divergence_description": "Intent and observation are consistent. Parapet conditions match specification requirements. Compilation is provisional pending certified applicator confirmation.",
+  "evidence_ids": ["EVD-DEMO-001", "EVD-DEMO-002"],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "generated_at": "2026-04-02T03:00:00Z",
+    "generated_by": "reconciliation_evaluator"
+  },
+  "_staged": true,
+  "_staged_note": "STAGED EXAMPLE — not a live reconciliation record"
+}

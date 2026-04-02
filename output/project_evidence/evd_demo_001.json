@@ -1,0 +1,19 @@
+{
+  "evidence_id": "EVD-DEMO-001",
+  "project_id": "PRJ-BARRETT-DEMO-001",
+  "source_type": "INSPECTION_REPORT",
+  "source_date": "2026-03-28T00:00:00Z",
+  "source_party_id": "PARTY-ARCH-001",
+  "quality_tier": "PRIMARY",
+  "extraction_method": "DIRECT_ENTRY",
+  "status": "ADMITTED",
+  "content_summary": "Roof inspection report confirms parapet wall heights range 36-42 inches. Existing membrane in fair condition. No active leaks observed. Drain locations confirmed per drawings.",
+  "document_ref": "INSP-2026-03-28-ROOF-001.pdf",
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "generated_at": "2026-04-02T03:00:00Z",
+    "generated_by": "staged_example_data"
+  },
+  "_staged": true,
+  "_staged_note": "STAGED EXAMPLE — not a live evidence record"
+}

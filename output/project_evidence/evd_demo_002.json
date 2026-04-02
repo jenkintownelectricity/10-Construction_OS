@@ -1,0 +1,19 @@
+{
+  "evidence_id": "EVD-DEMO-002",
+  "project_id": "PRJ-BARRETT-DEMO-001",
+  "source_type": "SUBMITTAL",
+  "source_date": "2026-03-15T00:00:00Z",
+  "source_party_id": "PARTY-SUB-001",
+  "quality_tier": "SECONDARY",
+  "extraction_method": "DIRECT_ENTRY",
+  "status": "ADMITTED",
+  "content_summary": "Barrett SBS product submittal for parapet termination assembly. Includes material data sheets, warranty terms (20-year NDL), and installation requirements. Certified applicator requirement noted.",
+  "document_ref": "SUB-2026-03-15-BARRETT-SBS-001.pdf",
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "generated_at": "2026-04-02T03:00:00Z",
+    "generated_by": "staged_example_data"
+  },
+  "_staged": true,
+  "_staged_note": "STAGED EXAMPLE — not a live evidence record"
+}

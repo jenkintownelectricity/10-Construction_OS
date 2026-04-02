@@ -1,0 +1,21 @@
+{
+  "project_id": "PRJ-BARRETT-DEMO-001",
+  "project_name": "Barrett SBS Roofing — Demo Project",
+  "description": "Demonstration project for Barrett SBS Modified Bitumen roofing system. Exercises the full construction domain execution spine from geometry ingestion through detail library admission.",
+  "status": "ACTIVE",
+  "parties": [
+    { "party_id": "PARTY-GC-001", "role": "GENERAL_CONTRACTOR", "name": "Demo General Contractor" },
+    { "party_id": "PARTY-OWNER-001", "role": "OWNER", "name": "Demo Building Owner" },
+    { "party_id": "PARTY-ARCH-001", "role": "ARCHITECT", "name": "Demo Architect of Record" },
+    { "party_id": "PARTY-MFR-001", "role": "MANUFACTURER", "name": "Barrett Company" },
+    { "party_id": "PARTY-SUB-001", "role": "ROOFING_SUBCONTRACTOR", "name": "Demo Roofing Sub" }
+  ],
+  "created_at": "2026-04-02T00:00:00Z",
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "generated_at": "2026-04-02T03:00:00Z",
+    "generated_by": "staged_example_data"
+  },
+  "_staged": true,
+  "_staged_note": "STAGED EXAMPLE — not a live project record"
+}

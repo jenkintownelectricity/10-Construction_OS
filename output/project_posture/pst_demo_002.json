@@ -1,0 +1,17 @@
+{
+  "posture_id": "PST-DEMO-002",
+  "project_id": "PRJ-BARRETT-DEMO-001",
+  "topic": "Edge termination scope clarity",
+  "posture_state": "UNCLEAR_SCOPE",
+  "detection_method": "RULE_BASED",
+  "confidence": 0.7,
+  "evidence_ids": ["EVD-DEMO-002"],
+  "related_claim_ids": ["CLM-DEMO-001"],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "generated_at": "2026-04-02T03:00:00Z",
+    "generated_by": "posture_detector"
+  },
+  "_staged": true,
+  "_staged_note": "STAGED EXAMPLE — not a live posture record"
+}

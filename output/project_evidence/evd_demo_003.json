@@ -1,0 +1,19 @@
+{
+  "evidence_id": "EVD-DEMO-003",
+  "project_id": "PRJ-BARRETT-DEMO-001",
+  "source_type": "EMAIL",
+  "source_date": "2026-03-20T00:00:00Z",
+  "source_party_id": "PARTY-ARCH-001",
+  "quality_tier": "SECONDARY",
+  "extraction_method": "DIRECT_ENTRY",
+  "status": "ADMITTED",
+  "content_summary": "Architect email directing contractor to proceed with Barrett SBS system for all parapet conditions. Notes that edge termination details are pending final review. Requests certified applicator confirmation.",
+  "document_ref": "EMAIL-2026-03-20-ARCH-DIRECTION.eml",
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "generated_at": "2026-04-02T03:00:00Z",
+    "generated_by": "staged_example_data"
+  },
+  "_staged": true,
+  "_staged_note": "STAGED EXAMPLE — not a live evidence record"
+}
