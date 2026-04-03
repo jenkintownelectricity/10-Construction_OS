@@ -2,8 +2,14 @@
 source/**/*.dwg
 source/**/*.dxf
 
-# generated geometry
+# generated geometry (raw ingestor output)
 source/**/*.json
+# allow governed census, inventory, definition, and validation outputs
+!source/barrett/census/*.json
+!source/barrett/dxf_inventory_*.json
+!source/barrett/definitions/*.json
+!source/barrett/validations/*.json
+!source/barrett/audits/*.json
 
 # ingestion logs
 logs/**
