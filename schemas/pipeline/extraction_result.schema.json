@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "extraction_result.schema.json",
+  "title": "Extraction Result Envelope",
+  "description": "Shared contract for the output of evidence extraction. All downstream consumers depend on this shape.",
+  "type": "object",
+  "required": ["extraction_id", "ingest_job_id", "file_type", "extraction_status", "extracted_at_utc"],
+  "properties": {
+    "extraction_id": { "type": "string" },
+    "ingest_job_id": { "type": "string", "format": "uuid" },
+    "file_type": { "type": "string", "enum": ["dxf", "dwg", "pdf", "png", "jpg", "unknown"] },
+    "extraction_status": { "type": "string", "enum": ["extracted", "partial", "halted", "failed", "evidence_only"] },
+    "entity_count": { "type": "integer", "minimum": 0 },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["entity_type", "layer"],
+        "properties": {
+          "entity_id": { "type": "string" },
+          "entity_type": { "type": "string" },
+          "layer": { "type": "string" },
+          "coordinates": { "type": "object" },
+          "text": { "type": "string" },
+          "radius": { "type": "number" },
+          "angle": { "type": "number" },
+          "raw_ref": { "type": "string" }
+        }
+      }
+    },
+    "source_file": { "type": "string" },
+    "source_path": { "type": "string" },
+    "halt_reason": { "type": "string" },
+    "extracted_at_utc": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

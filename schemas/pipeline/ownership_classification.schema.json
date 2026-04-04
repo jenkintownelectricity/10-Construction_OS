@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ownership_classification.schema.json",
+  "title": "Ownership Classification Result",
+  "description": "Semantic ownership classification applied to extracted geometry entities.",
+  "type": "object",
+  "required": ["classification_id", "extraction_id", "classified_at_utc", "summary"],
+  "properties": {
+    "classification_id": { "type": "string" },
+    "extraction_id": { "type": "string" },
+    "classified_entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["entity_id", "layer", "ownership_class"],
+        "properties": {
+          "entity_id": { "type": "string" },
+          "layer": { "type": "string" },
+          "entity_type": { "type": "string" },
+          "ownership_class": { "type": "string", "enum": ["SYSTEM_OWNED", "CONTEXT_ONLY", "ANNOTATION", "UNKNOWN"] },
+          "classification_basis": { "type": "string", "enum": ["entity_type_default", "layer_exact_match", "layer_regex_match", "fallback_default"] },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "total": { "type": "integer" },
+        "system_owned": { "type": "integer" },
+        "context_only": { "type": "integer" },
+        "annotation": { "type": "integer" },
+        "unknown": { "type": "integer" }
+      }
+    },
+    "classified_at_utc": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

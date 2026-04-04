@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assembly_resolution_result.schema.json",
+  "title": "Assembly Resolution Result",
+  "description": "Result of resolving a system + condition + evidence context into a detail candidate.",
+  "type": "object",
+  "required": ["resolution_id", "candidate_id", "resolution_status", "source_mode", "resolved_at_utc"],
+  "properties": {
+    "resolution_id": { "type": "string" },
+    "candidate_id": { "type": "string" },
+    "manufacturer_id": { "type": "string" },
+    "system_id": { "type": "string" },
+    "condition_type": { "type": "string" },
+    "resolution_status": { "type": "string", "enum": ["RESOLVED", "NO_MATCH", "HALTED"] },
+    "resolved_detail_id": { "type": "string" },
+    "resolved_detail_label": { "type": "string" },
+    "resolution_basis": { "type": "string" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "source_mode": { "type": "string", "enum": ["LIVE_EXTRACTED", "DEMO_SEED", "NO_RESULT"] },
+    "resolved_at_utc": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

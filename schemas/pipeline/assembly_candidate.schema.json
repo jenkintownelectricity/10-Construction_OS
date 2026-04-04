@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "assembly_candidate.schema.json",
+  "title": "Assembly Candidate",
+  "description": "A candidate assembly generated from evidence-backed condition detection and system context.",
+  "type": "object",
+  "required": ["candidate_id", "manufacturer_id", "system_id", "condition_type", "status", "created_at_utc"],
+  "properties": {
+    "candidate_id": { "type": "string" },
+    "manufacturer_id": { "type": "string" },
+    "system_id": { "type": "string" },
+    "condition_type": { "type": "string" },
+    "source_evidence_id": { "type": "string" },
+    "extraction_id": { "type": "string" },
+    "condition_result_id": { "type": "string" },
+    "geometry_reference": { "type": "string" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "status": { "type": "string", "enum": ["PASS", "PARTIAL", "HALT"] },
+    "halt_reason": { "type": "string" },
+    "created_at_utc": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "guaranteed_detail_result.schema.json",
+  "title": "Guaranteed Detail Result",
+  "description": "Final result of the Guaranteed Detail Engine. Admitted only after condition support, assembly resolution, and constraint evaluation.",
+  "type": "object",
+  "required": ["result_id", "manufacturer_id", "system_id", "condition_type", "guarantee_state", "source_mode", "generated_at_utc"],
+  "properties": {
+    "result_id": { "type": "string" },
+    "manufacturer_id": { "type": "string" },
+    "system_id": { "type": "string" },
+    "condition_type": { "type": "string" },
+    "detail_id": { "type": "string" },
+    "detail_label": { "type": "string" },
+    "guarantee_state": {
+      "type": "string",
+      "enum": ["GUARANTEED_PASS", "PROVISIONAL_PARTIAL", "BLOCKED_HALT"]
+    },
+    "constraint_action": {
+      "type": "string",
+      "enum": ["PASS", "WARN", "BLOCK", "REQUIRE_HUMAN_STAMP", "DEFER_FOR_MISSING_EVIDENCE"]
+    },
+    "constraint_severity": {
+      "type": "string",
+      "enum": ["INFO", "LOW", "MEDIUM", "HIGH", "CRITICAL"]
+    },
+    "reason_summary": { "type": "string" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "source_mode": { "type": "string", "enum": ["LIVE_EXTRACTED", "DEMO_SEED", "NO_RESULT"] },
+    "resolution_id": { "type": "string" },
+    "candidate_id": { "type": "string" },
+    "receipt_reference": { "type": "string" },
+    "generated_at_utc": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "condition_result.schema.json",
+  "title": "Condition Detection Result",
+  "description": "Output of condition detection on classified geometry. Includes support state honesty.",
+  "type": "object",
+  "required": ["condition_id", "extraction_id", "support_state", "detected_at_utc"],
+  "properties": {
+    "condition_id": { "type": "string" },
+    "extraction_id": { "type": "string" },
+    "condition_type": { "type": "string" },
+    "support_state": {
+      "type": "string",
+      "enum": ["SUPPORTED", "UNSUPPORTED_CONDITION", "NO_SOURCE"]
+    },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "features": { "type": "array", "items": { "type": "string" } },
+    "source_entity_count": { "type": "integer" },
+    "detected_at_utc": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}
