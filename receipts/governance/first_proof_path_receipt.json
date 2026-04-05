@@ -1,0 +1,41 @@
+{
+  "receipt_type": "trust_boundary_proof_path",
+  "version": "1.0.0",
+  "status": "PROVEN",
+  "repo": "10-Construction_OS",
+  "domain": "construction-building-envelope",
+  "authority": "L0_ARMAND_LEFEBVRE",
+  "effective_date": "2026-04-05",
+  "doctrine_source": "00-validkernel-governance/docs/doctrine/TRUST-BOUNDARY-ENFORCEMENT-v1.md",
+  "proof_scenario": "Manufacturer detail evidence intake (Barrett parapet cap)",
+  "proof_files": [
+    "2-Engines-Tools-Datasets/trust-boundary-proof/proofBoundaryGate.ts",
+    "2-Engines-Tools-Datasets/trust-boundary-proof/test/proofBoundaryGate.test.ts"
+  ],
+  "demonstrated_decisions": [
+    "ACCEPTED_TYPED",
+    "ACCEPTED_NON_SOVEREIGN",
+    "REJECTED_FAIL_CLOSED",
+    "REJECTED_UNDECLARED",
+    "REJECTED_PROVENANCE_MISSING",
+    "REJECTED_SCHEMA_FAILURE",
+    "REJECTED_CONSTRAINT_FAILURE"
+  ],
+  "test_count": 13,
+  "forbidden_crossings_tested": [
+    "UNTRUSTED:GOVERNED_STATE_MUTATION",
+    "UNTRUSTED:DOMAIN_EXECUTION",
+    "PARTIALLY_TRUSTED:DOMAIN_EXECUTION"
+  ],
+  "invariants_verified": [
+    "DECLARED_INGRESS",
+    "PROVENANCE_PRESENT",
+    "ALLOWED_CROSSING",
+    "SPINE_PATH_DECLARED",
+    "SCHEMA_VALIDATOR_REF",
+    "CONSTRAINT_PORT_REF",
+    "AI_NON_SOVEREIGN",
+    "TYPED_BOUNDARY"
+  ],
+  "deterministic_replay_verified": true
+}
