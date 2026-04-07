@@ -1,0 +1,24 @@
+{
+  "map_id": "MKMAP-DNA-001",
+  "version": "0.1.0",
+  "installed_date": "2026-04-07",
+  "authority": "L0_ARMAND_LEFEBVRE",
+  "description": "Microkernel ownership map for the Construction DNA kernel stack",
+  "parent_kernels": [
+    {
+      "kernel_id": "KRN-MATDNA-001",
+      "kernel_name": "Construction_Material_DNA_Kernel",
+      "microdomain_count": 7,
+      "microdomains": ["material_identity", "material_properties", "material_relationships", "material_composition", "material_constraints", "material_context", "material_lineage"]
+    },
+    {
+      "kernel_id": "KRN-TXNMY-001",
+      "kernel_name": "Construction_Taxonomy_Kernel",
+      "microdomain_count": 6,
+      "microdomains": ["taxonomy_nodes", "taxonomy_edges", "taxonomy_tags", "taxonomy_projections", "taxonomy_aliases", "taxonomy_navigation_views"]
+    }
+  ],
+  "total_microdomains": 13,
+  "overlap_check": "PASS — no two microdomains claim the same truth domain",
+  "growth_rule": "New microdomains require bounded build GMO. Promotion to sovereign kernel requires 3+ consumers, distinct lifecycle, independent versioning need, and L0 authority."
+}

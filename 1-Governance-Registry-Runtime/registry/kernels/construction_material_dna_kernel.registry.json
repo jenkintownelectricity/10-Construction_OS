@@ -1,0 +1,26 @@
+{
+  "kernel_id": "KRN-MATDNA-001",
+  "kernel_name": "Construction_Material_DNA_Kernel",
+  "version": "0.1.0",
+  "ring": 0,
+  "status": "INSTALLED",
+  "installed_date": "2026-04-07",
+  "authority": "L0_ARMAND_LEFEBVRE",
+  "truth_domain": "deep_material_identity_properties_relationships_composition_constraints_context_lineage",
+  "parent_system": "Construction_OS",
+  "parent_kernel": "Construction_Kernel",
+  "microdomains": [
+    {"id": "MK-MATDNA-IDENT", "name": "material_identity", "owns": "Material naming, SKU, manufacturer origin, product variant"},
+    {"id": "MK-MATDNA-PROPS", "name": "material_properties", "owns": "R-values, perm ratings, tensile strength, elongation, fire rating, thickness, reflectivity"},
+    {"id": "MK-MATDNA-RELS", "name": "material_relationships", "owns": "Compatibility matrices, adjacency rules, chemical interaction profiles"},
+    {"id": "MK-MATDNA-COMP", "name": "material_composition", "owns": "Layer stacks, reinforcement types, surface treatments, base chemistry"},
+    {"id": "MK-MATDNA-CONST", "name": "material_constraints", "owns": "Application constraints, temperature limits, code references"},
+    {"id": "MK-MATDNA-CTX", "name": "material_context", "owns": "Failure modes, degradation profiles, condition-specific behavior"},
+    {"id": "MK-MATDNA-LIN", "name": "material_lineage", "owns": "Spec sheet provenance, version chains, manufacturer revision history"}
+  ],
+  "no_overlap_assertion": "This kernel does not claim chemical interaction truth (Chemistry Kernel), assembly sequence truth (Assembly Kernel), specification requirement truth (Specification Kernel), boundary/scope truth (Scope Kernel), or navigation hierarchy truth (Taxonomy Kernel).",
+  "consumed_by": ["Construction_Taxonomy_Kernel", "Construction_Runtime", "Construction_ALEXANDER_Engine", "Construction_Atlas"],
+  "forbidden_mutators": ["execution_systems", "observational_intelligence", "projection_surfaces", "engines"],
+  "lineage_policy": "All material DNA objects must maintain version provenance. Spec sheet origin and manufacturer revision chain are mandatory fields.",
+  "projection_policy": "Material DNA objects may be projected into taxonomy navigation, atlas spatial context, and application UI surfaces. Projections are derived and read-only."
+}

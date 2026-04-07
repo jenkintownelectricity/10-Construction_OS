@@ -1,0 +1,55 @@
+{
+  "contract_set_id": "CTR-DNAMK-001",
+  "version": "0.1.0",
+  "description": "Cross-microdomain contracts within the Construction DNA kernel stack",
+  "intra_kernel_contracts": [
+    {
+      "from": "material_identity",
+      "to": "material_properties",
+      "contract": "Every material_properties record must reference a valid material_identity"
+    },
+    {
+      "from": "material_identity",
+      "to": "material_relationships",
+      "contract": "Relationship endpoints must reference valid material_identity records"
+    },
+    {
+      "from": "material_identity",
+      "to": "material_composition",
+      "contract": "Composition entries must reference a valid material_identity as parent"
+    },
+    {
+      "from": "material_identity",
+      "to": "material_constraints",
+      "contract": "Constraints must reference a valid material_identity"
+    },
+    {
+      "from": "material_identity",
+      "to": "material_context",
+      "contract": "Context records must reference a valid material_identity"
+    },
+    {
+      "from": "material_identity",
+      "to": "material_lineage",
+      "contract": "Lineage chains must originate from a valid material_identity"
+    }
+  ],
+  "cross_kernel_contracts": [
+    {
+      "from_kernel": "Construction_Taxonomy_Kernel",
+      "from_microdomain": "taxonomy_projections",
+      "to_kernel": "Construction_Material_DNA_Kernel",
+      "to_microdomain": "material_identity",
+      "contract": "Taxonomy projections must reference valid material_identity records. Taxonomy never creates or modifies material_identity.",
+      "direction": "read-only consumption"
+    },
+    {
+      "from_kernel": "Construction_Material_DNA_Kernel",
+      "from_microdomain": "material_relationships",
+      "to_kernel": "Construction_Chemistry_Kernel",
+      "to_microdomain": null,
+      "contract": "Material relationship compatibility references may cite Chemistry Kernel interaction profiles. Material DNA does not mutate Chemistry truth.",
+      "direction": "read-only reference"
+    }
+  ]
+}

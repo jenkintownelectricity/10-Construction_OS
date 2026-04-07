@@ -1,0 +1,26 @@
+{
+  "kernel_id": "KRN-TXNMY-001",
+  "kernel_name": "Construction_Taxonomy_Kernel",
+  "version": "0.1.0",
+  "ring": 0,
+  "status": "INSTALLED",
+  "installed_date": "2026-04-07",
+  "authority": "L0_ARMAND_LEFEBVRE",
+  "truth_domain": "navigation_hierarchy_classification_structure_browse_paths",
+  "parent_system": "Construction_OS",
+  "parent_kernel": "Construction_Kernel",
+  "microdomains": [
+    {"id": "MK-TXNMY-NODES", "name": "taxonomy_nodes", "owns": "Node definitions, labels, descriptions, node types"},
+    {"id": "MK-TXNMY-EDGES", "name": "taxonomy_edges", "owns": "Parent-child relationships, sibling ordering, cross-references"},
+    {"id": "MK-TXNMY-TAGS", "name": "taxonomy_tags", "owns": "Faceted tags, filter dimensions, tag groups"},
+    {"id": "MK-TXNMY-PROJ", "name": "taxonomy_projections", "owns": "Entity-to-node mappings, multi-path projections, primary path designation"},
+    {"id": "MK-TXNMY-ALIAS", "name": "taxonomy_aliases", "owns": "Alternate labels, search synonyms, industry nomenclature mappings"},
+    {"id": "MK-TXNMY-VIEWS", "name": "taxonomy_navigation_views", "owns": "Role-based browse paths, workflow-optimized navigation trees"}
+  ],
+  "no_overlap_assertion": "This kernel does not claim material identity, properties, relationships, composition, constraints, context, or lineage truth (Material DNA Kernel). It does not claim chemical interaction truth (Chemistry Kernel), assembly sequence truth (Assembly Kernel), or specification requirement truth (Specification Kernel).",
+  "consumed_by": ["Construction_Atlas", "Construction_Application_OS", "70-manufacturer-mirror", "Construction_ALEXANDER_Engine"],
+  "forbidden_mutators": ["execution_systems", "observational_intelligence", "projection_surfaces", "engines"],
+  "admission_requirements": ["Taxonomy nodes must reference canonical entities from upstream truth kernels", "Taxonomy may not create material truth by creating taxonomy nodes", "Maximum practical tree depth: 6-8 levels"],
+  "lineage_policy": "Taxonomy structure changes must be versioned. Node additions and removals are append-only events.",
+  "projection_policy": "Taxonomy projections map upstream truth entities into navigable paths. Projections are derived and read-only. Taxonomy is the source of navigation truth but NOT material truth."
+}

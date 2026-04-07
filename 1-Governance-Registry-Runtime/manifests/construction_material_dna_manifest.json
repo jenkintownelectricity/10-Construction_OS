@@ -1,0 +1,28 @@
+{
+  "manifest_id": "MAN-MATDNA-001",
+  "kernel_id": "KRN-MATDNA-001",
+  "kernel_name": "Construction_Material_DNA_Kernel",
+  "version": "0.1.0",
+  "installed_date": "2026-04-07",
+  "authority": "L0_ARMAND_LEFEBVRE",
+  "ring": 0,
+  "status": "INSTALLED",
+  "truth_domain": "deep_material_identity_properties_relationships_composition_constraints_context_lineage",
+  "microdomain_count": 7,
+  "schema_authority": "kernel-local",
+  "doctrine_files": [
+    "0-Frozen-Doctrine/CONSTRUCTION_MATERIAL_DNA_KERNEL_v0.1.md",
+    "0-Frozen-Doctrine/CONSTRUCTION_DNA_KERNEL_STACK_v0.1.md",
+    "0-Frozen-Doctrine/CONSTRUCTION_DNA_KERNEL_BOUNDARY_MAP_v0.1.md",
+    "0-Frozen-Doctrine/CONSTRUCTION_DNA_TRUTH_OWNERSHIP_v0.1.md"
+  ],
+  "contract_files": [
+    "1-Governance-Registry-Runtime/contracts/construction_material_dna_kernel.contract.json"
+  ],
+  "registry_files": [
+    "1-Governance-Registry-Runtime/registry/kernels/construction_material_dna_kernel.registry.json"
+  ],
+  "upstream_dependencies": ["Universal_Truth_Kernel", "Construction_Kernel"],
+  "peer_references": ["Chemistry_Kernel", "Specification_Kernel"],
+  "downstream_consumers": ["Construction_Taxonomy_Kernel", "Construction_Runtime", "Construction_ALEXANDER_Engine", "Construction_Atlas"]
+}

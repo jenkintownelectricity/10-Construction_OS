@@ -1,0 +1,21 @@
+{
+  "contract_id": "CTR-TXNMY-001",
+  "kernel_id": "KRN-TXNMY-001",
+  "kernel_name": "Construction_Taxonomy_Kernel",
+  "version": "0.1.0",
+  "truth_domain": "navigation_hierarchy_classification_structure_browse_paths",
+  "no_overlap_assertion": "This kernel does not claim material identity, properties, relationships, composition, constraints, context, lineage, chemical interaction, assembly sequence, or specification requirement truth.",
+  "owned_microdomains": ["taxonomy_nodes", "taxonomy_edges", "taxonomy_tags", "taxonomy_projections", "taxonomy_aliases", "taxonomy_navigation_views"],
+  "consumed_by": ["Construction_Atlas", "Construction_Application_OS", "70-manufacturer-mirror", "Construction_ALEXANDER_Engine"],
+  "forbidden_mutators": ["execution_systems", "observational_intelligence", "projection_surfaces", "engines"],
+  "mandatory_assertions": [
+    "Taxonomy kernel does not own material truth",
+    "Material DNA kernel does not own UI navigation surfaces",
+    "No execution system may mutate this kernel",
+    "Observational intelligence may not mutate this kernel",
+    "Projections are derived, not primary truth"
+  ],
+  "admission_requirements": ["Taxonomy nodes must reference canonical entities from upstream truth kernels", "Maximum practical tree depth: 6-8 levels", "Taxonomy may not create material truth by creating nodes"],
+  "lineage_policy": "Node additions/removals are append-only versioned events.",
+  "projection_policy": "Taxonomy projects upstream truth entities into navigable paths. Navigation truth only."
+}

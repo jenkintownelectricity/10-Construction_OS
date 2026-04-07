@@ -1,0 +1,27 @@
+{
+  "manifest_id": "MAN-TXNMY-001",
+  "kernel_id": "KRN-TXNMY-001",
+  "kernel_name": "Construction_Taxonomy_Kernel",
+  "version": "0.1.0",
+  "installed_date": "2026-04-07",
+  "authority": "L0_ARMAND_LEFEBVRE",
+  "ring": 0,
+  "status": "INSTALLED",
+  "truth_domain": "navigation_hierarchy_classification_structure_browse_paths",
+  "microdomain_count": 6,
+  "schema_authority": "kernel-local",
+  "doctrine_files": [
+    "0-Frozen-Doctrine/CONSTRUCTION_TAXONOMY_KERNEL_v0.1.md",
+    "0-Frozen-Doctrine/CONSTRUCTION_DNA_KERNEL_STACK_v0.1.md",
+    "0-Frozen-Doctrine/CONSTRUCTION_DNA_KERNEL_BOUNDARY_MAP_v0.1.md",
+    "0-Frozen-Doctrine/CONSTRUCTION_DNA_TRUTH_OWNERSHIP_v0.1.md"
+  ],
+  "contract_files": [
+    "1-Governance-Registry-Runtime/contracts/construction_taxonomy_kernel.contract.json"
+  ],
+  "registry_files": [
+    "1-Governance-Registry-Runtime/registry/kernels/construction_taxonomy_kernel.registry.json"
+  ],
+  "upstream_dependencies": ["Universal_Truth_Kernel", "Construction_Kernel", "Construction_Material_DNA_Kernel"],
+  "downstream_consumers": ["Construction_Atlas", "Construction_Application_OS", "70-manufacturer-mirror", "Construction_ALEXANDER_Engine"]
+}

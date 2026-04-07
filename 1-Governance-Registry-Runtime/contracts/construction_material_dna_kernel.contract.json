@@ -1,0 +1,21 @@
+{
+  "contract_id": "CTR-MATDNA-001",
+  "kernel_id": "KRN-MATDNA-001",
+  "kernel_name": "Construction_Material_DNA_Kernel",
+  "version": "0.1.0",
+  "truth_domain": "deep_material_identity_properties_relationships_composition_constraints_context_lineage",
+  "no_overlap_assertion": "This kernel does not claim truth owned by Chemistry, Assembly, Specification, Scope, or Taxonomy kernels.",
+  "owned_microdomains": ["material_identity", "material_properties", "material_relationships", "material_composition", "material_constraints", "material_context", "material_lineage"],
+  "consumed_by": ["Construction_Taxonomy_Kernel", "Construction_Runtime", "Construction_ALEXANDER_Engine", "Construction_Atlas"],
+  "forbidden_mutators": ["execution_systems", "observational_intelligence", "projection_surfaces", "engines"],
+  "mandatory_assertions": [
+    "Taxonomy kernel does not own material truth",
+    "Material DNA kernel does not own UI navigation surfaces",
+    "No execution system may mutate this kernel",
+    "Observational intelligence may not mutate this kernel",
+    "Projections are derived, not primary truth"
+  ],
+  "admission_requirements": ["Must define material identity with manufacturer provenance", "Must include at least one property class", "Must declare compatibility stance or mark as UNKNOWN"],
+  "lineage_policy": "Version provenance mandatory. Spec sheet origin required.",
+  "projection_policy": "Read-only projections to taxonomy, atlas, and application surfaces."
+}
