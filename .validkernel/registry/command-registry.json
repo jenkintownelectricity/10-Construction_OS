@@ -1,0 +1,43 @@
+{
+  "registry_version": "0.1",
+  "repository": "10-Construction_OS",
+  "last_updated": "2026-04-08T00:00:00Z",
+  "commands": [
+    {
+      "command_id": "L0-CMD-VKG-INSTALL-001",
+      "title": "VKG kernel installation",
+      "authority": "",
+      "organization": "",
+      "date_issued": "2026-04-08",
+      "repository": "10-Construction_OS",
+      "branch": "",
+      "commit_hash": "",
+      "status": "EXECUTED",
+      "gate_result": "PASS",
+      "receipt_path": ".validkernel/receipts/L0-CMD-VKG-INSTALL-001.receipt.json",
+      "receipt_status": "CREATED",
+      "supersedes": "",
+      "superseded_by": "",
+      "next_action": "Configure authority.json and verify governance CI.",
+      "last_updated": "2026-04-08T08:49:22Z"
+    },
+    {
+      "command_id": "L0-CMD-PLANETARY-HEALTH-SWEEP-001",
+      "title": "Planetary Health Sweep \u2014 full-system validation",
+      "authority": "Armand Lefebvre",
+      "organization": "Lefebvre Design Solutions LLC",
+      "date_issued": "2026-04-08",
+      "repository": "10-Construction_OS",
+      "branch": "claude/prepare-for-command-aog2z",
+      "commit_hash": "",
+      "status": "EXECUTED",
+      "gate_result": "PASS",
+      "receipt_path": ".validkernel/receipts/L0-CMD-PLANETARY-HEALTH-SWEEP-001.repo.json",
+      "receipt_status": "CREATED",
+      "supersedes": "",
+      "superseded_by": "",
+      "next_action": "",
+      "last_updated": "2026-04-08T00:00:00Z"
+    }
+  ]
+}

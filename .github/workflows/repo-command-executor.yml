@@ -1,0 +1,98 @@
+name: Repo Command Executor
+
+on:
+  workflow_dispatch:
+    inputs:
+      command_payload:
+        description: "JSON command payload from dispatcher"
+        required: true
+        type: string
+
+jobs:
+  execute-command:
+    name: Execute Governed Command
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate VKG infrastructure
+        run: |
+          echo "=== Validating VKG Infrastructure ==="
+          FAIL=0
+          for f in \
+            .validkernel/tools/runtime-gate.py \
+            .validkernel/registry/command-registry.json \
+            .validkernel/authority/authority.json \
+            .validkernel/tools/repo-command-runner.py; do
+            if [ ! -f "$f" ]; then
+              echo "FAIL: Missing $f"
+              FAIL=1
+            else
+              echo "PASS: $f"
+            fi
+          done
+          if [ ! -d ".validkernel/receipts" ]; then
+            echo "FAIL: Missing .validkernel/receipts/"
+            FAIL=1
+          else
+            echo "PASS: .validkernel/receipts/"
+          fi
+          if [ $FAIL -eq 1 ]; then
+            echo "FAIL_CLOSED: VKG infrastructure incomplete."
+            exit 1
+          fi
+          echo "VKG infrastructure validated."
+
+      - name: Write command payload
+        run: |
+          echo '${{ inputs.command_payload }}' > /tmp/command-payload.json
+          python3 -c "import json; json.load(open('/tmp/command-payload.json'))" || \
+            { echo "FAIL: Invalid command payload JSON"; exit 1; }
+          echo "Command payload written and validated."
+
+      - name: Run runtime gate
+        run: |
+          echo "=== Runtime Gate Check ==="
+          # Validate command payload has required governance fields
+          python3 -c "
+          import json, sys
+          with open('/tmp/command-payload.json') as f:
+              data = json.load(f)
+          required = ['command_id', 'authority', 'payload']
+          missing = [k for k in required if k not in data or not data[k]]
+          if missing:
+              print(f'FAIL: Missing required fields: {missing}')
+              sys.exit(1)
+          print(f'PASS: Command {data[\"command_id\"]} from {data[\"authority\"]}')
+          "
+
+      - name: Execute local command runner
+        run: |
+          echo "=== Executing Local Command Runner ==="
+          python3 .validkernel/tools/repo-command-runner.py \
+            --command-file /tmp/command-payload.json \
+            --repo-root .
+
+      - name: Validate local receipt
+        run: |
+          echo "=== Validating Local Receipt ==="
+          LATEST=$(ls -t .validkernel/receipts/*.receipt.json 2>/dev/null | head -1)
+          if [ -z "$LATEST" ]; then
+            echo "WARN: No new receipt found (may be dry-run)"
+          else
+            python3 .validkernel/tools/validate-receipt.py "$LATEST"
+          fi
+
+      - name: Report execution result
+        if: always()
+        run: |
+          echo "=== Repo Command Execution Complete ==="
+          echo "Repository: ${{ github.repository }}"
+          echo "If any step above failed, this workflow fails CLOSED."
