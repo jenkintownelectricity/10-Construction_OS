@@ -1,0 +1,68 @@
+{
+  "registry_id": "JFK_T1_EVIDENCE_REGISTRY",
+  "project": "JFK_Terminal_1",
+  "wave": 112,
+  "generated": "2026-04-09",
+  "records": [
+    {
+      "document_id": "hatch_plan_h11_bilco",
+      "source_file": "hatch_plan_h11_bilco.pdf",
+      "discipline": "architectural",
+      "sheet_or_package_id": "H-11",
+      "spec_section": "07 72 00",
+      "submission_date": "2026-04-09",
+      "status": "active",
+      "review_posture": "pending_review",
+      "project_zone_guess": "roof_level",
+      "trust_state": "UNTRUSTED_UNTIL_VERIFIED"
+    },
+    {
+      "document_id": "submittal_071413_wbr_0005_hh5",
+      "source_file": "submittal_071413_wbr_0005_hh5.pdf",
+      "discipline": "waterproofing",
+      "sheet_or_package_id": "WBR-0005",
+      "spec_section": "07 14 13",
+      "submission_date": "2026-04-09",
+      "status": "reviewed",
+      "review_posture": "make corrections as noted",
+      "project_zone_guess": "HH5_scope",
+      "trust_state": "UNTRUSTED_UNTIL_VERIFIED"
+    },
+    {
+      "document_id": "submittal_071413_wbr_0006_nwhh",
+      "source_file": "submittal_071413_wbr_0006_nwhh.pdf",
+      "discipline": "waterproofing",
+      "sheet_or_package_id": "WBR-0006",
+      "spec_section": "07 14 13",
+      "submission_date": "2026-04-09",
+      "status": "reviewed",
+      "review_posture": "make corrections as noted",
+      "project_zone_guess": "NW_HH_scope",
+      "trust_state": "UNTRUSTED_UNTIL_VERIFIED"
+    },
+    {
+      "document_id": "pkg30_03_structural_r04",
+      "source_file": "pkg30_03_structural_r04.pdf",
+      "discipline": "structural",
+      "sheet_or_package_id": "PKG30-03",
+      "spec_section": null,
+      "submission_date": "2026-04-09",
+      "status": "active",
+      "review_posture": "for_construction",
+      "project_zone_guess": "structural_package_30",
+      "trust_state": "UNTRUSTED_UNTIL_VERIFIED"
+    },
+    {
+      "document_id": "pkg30_14_civil_r04",
+      "source_file": "pkg30_14_civil_r04.pdf",
+      "discipline": "civil",
+      "sheet_or_package_id": "PKG30-14",
+      "spec_section": null,
+      "submission_date": "2026-04-09",
+      "status": "active",
+      "review_posture": "for_construction",
+      "project_zone_guess": "civil_package_30",
+      "trust_state": "UNTRUSTED_UNTIL_VERIFIED"
+    }
+  ]
+}
