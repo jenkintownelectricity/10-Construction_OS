@@ -1,0 +1,86 @@
+{
+  "schema_id": "truth_plane_separation",
+  "version": "1.0.0",
+  "description": "Hard separation rules governing the three truth planes. Enforces immutability of canonical kernels and prevents truth-plane collapse.",
+  "truth_planes": {
+    "canonical_truth": {
+      "tier": 0,
+      "label": "Canonical Truth — Immutable Kernel",
+      "description": "Scraped and typed manufacturer truth, specification truth, and code-derived assembly definitions. This plane is the source of record. No external process may write, patch, or delete records in this plane.",
+      "sources": ["manufacturer_data_scrape", "spec_section_parse", "code_compliance_extraction", "typed_dna_assembly"],
+      "mutability": "IMMUTABLE",
+      "write_access": ["system_ingest_only"],
+      "read_access": ["all_planes", "all_roles"],
+      "versioning": "append_only_audit_log",
+      "halt_triggers": ["any_write_from_project_truth", "any_write_from_field_intelligence", "direct_api_mutation_attempt"]
+    },
+    "project_truth": {
+      "tier": 1,
+      "label": "Project Truth — Project Variant",
+      "description": "Project-specific mappings, assembly selections, RFI resolutions, approved submittals, and design decisions applied to canonical truth for a specific project. May reference canonical kernels but may not overwrite them.",
+      "sources": ["project_rfi", "approved_submittal", "design_drawing", "architect_directive", "shop_drawing_approval"],
+      "mutability": "PROJECT_SCOPED_WRITE",
+      "write_access": ["project_architect", "project_engineer", "submittal_reviewer"],
+      "read_access": ["all_planes", "all_project_roles"],
+      "versioning": "revision_controlled",
+      "canonical_reference_mode": "read_only_pointer",
+      "halt_triggers": ["attempt_to_write_canonical_record", "attempt_to_delete_canonical_record", "tier_0_id_collision"]
+    },
+    "field_intelligence": {
+      "tier": 2,
+      "label": "Field Intelligence — Observed Project Variant",
+      "description": "Contractor-originated observations, installer notes, field fixes, inspection findings, and reality capture references. Enriches the project layer with as-built intelligence. May never mutate tier 0 or tier 1 canonical records.",
+      "sources": ["shop_drawing_correction", "rfi_reference", "submittal_correction", "installer_note", "field_fix", "observed_conflict", "inspection_observation", "reality_capture_ref"],
+      "mutability": "FIELD_ENRICHMENT_ONLY",
+      "write_access": ["field_superintendent", "installer", "inspector", "reality_capture_operator"],
+      "read_access": ["all_planes", "all_project_roles"],
+      "versioning": "timestamped_append",
+      "enrichment_targets": ["revision_queue", "recommendation_layer", "deviation_record", "packet_regeneration_trigger"],
+      "halt_triggers": ["attempt_to_write_canonical_record", "attempt_to_overwrite_project_record", "tier_0_id_reference_with_write_intent", "tier_1_id_reference_with_write_intent"]
+    }
+  },
+  "separation_rules": [
+    {
+      "rule_id": "SEP-001",
+      "description": "No process operating in project_truth may write to or delete a canonical_truth record.",
+      "enforcement": "hard_halt",
+      "violation_action": "reject_transaction, log_violation, emit_alert"
+    },
+    {
+      "rule_id": "SEP-002",
+      "description": "No process operating in field_intelligence may write to or delete a canonical_truth or project_truth record.",
+      "enforcement": "hard_halt",
+      "violation_action": "reject_transaction, log_violation, emit_alert"
+    },
+    {
+      "rule_id": "SEP-003",
+      "description": "Truth-plane collapse — a condition where tier boundaries are merged or bypassed — triggers an immediate system halt.",
+      "enforcement": "system_halt",
+      "violation_action": "halt_all_writes, isolate_affected_records, notify_admin, require_manual_review"
+    },
+    {
+      "rule_id": "SEP-004",
+      "description": "Field intelligence may only enrich recommendation and revision layers via append operations.",
+      "enforcement": "schema_validation",
+      "violation_action": "reject_transaction, log_violation"
+    },
+    {
+      "rule_id": "SEP-005",
+      "description": "Cross-plane reads are permitted for all tiers. Writes always remain tier-scoped.",
+      "enforcement": "access_control_matrix",
+      "violation_action": "reject_write, allow_read"
+    }
+  ],
+  "halt_protocol": {
+    "trigger": "truth_plane_collapse_attempt",
+    "actions": ["HALT_ALL_WRITES", "SNAPSHOT_CURRENT_STATE", "LOG_VIOLATION_WITH_FULL_CONTEXT", "NOTIFY_SYSTEM_ADMIN", "QUARANTINE_OFFENDING_RECORD", "REQUIRE_MANUAL_RELEASE"],
+    "auto_recovery": false,
+    "manual_override_requires": ["admin_role", "dual_approval"]
+  },
+  "audit": {
+    "log_all_cross_plane_reads": true,
+    "log_all_writes": true,
+    "log_all_halt_events": true,
+    "retention_policy": "project_lifetime_plus_7_years"
+  }
+}
