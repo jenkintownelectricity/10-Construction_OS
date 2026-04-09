@@ -1,0 +1,66 @@
+{
+  "rules_version": "1.0",
+  "description": "Rules mapping roof condition types to required checks and associated risk classifications on failure",
+  "rules": [
+    {
+      "condition": "parapet_termination",
+      "checks": ["termination_height_min_200mm", "sealant_above_bar", "counterflashing_present"],
+      "risk_on_fail": "termination_failure"
+    },
+    {
+      "condition": "roof_drain",
+      "checks": ["clamping_ring_torque", "membrane_welded_to_flange", "slope_to_drain_min_1pct"],
+      "risk_on_fail": "water_path"
+    },
+    {
+      "condition": "membrane_transition",
+      "checks": ["compatibility_class_verified", "transition_material_installed", "laps_sealed"],
+      "risk_on_fail": "membrane_incompatibility"
+    },
+    {
+      "condition": "expansion_joint",
+      "checks": ["cover_plate_fastened", "sealant_backer_rod_present", "movement_allowance_min_25mm"],
+      "risk_on_fail": "thermal_movement"
+    },
+    {
+      "condition": "penetration_flashing",
+      "checks": ["pitch_pan_filled", "collar_height_min_150mm", "clamp_ring_torqued"],
+      "risk_on_fail": "water_path"
+    },
+    {
+      "condition": "fastener_pattern",
+      "checks": ["spacing_per_wind_zone", "embedment_depth_verified", "pullout_test_passed"],
+      "risk_on_fail": "fastener_pullout"
+    },
+    {
+      "condition": "overburden_assembly",
+      "checks": ["load_calc_below_structural_limit", "drainage_mat_installed", "filter_fabric_lapped_min_150mm"],
+      "risk_on_fail": "overburden_pressure"
+    },
+    {
+      "condition": "edge_metal",
+      "checks": ["cleat_spacing_max_600mm", "membrane_over_cleat", "sealant_at_joints"],
+      "risk_on_fail": "termination_failure"
+    },
+    {
+      "condition": "hvac_curb",
+      "checks": ["curb_height_min_200mm", "counterflashing_lapped_over_membrane", "sealant_continuous"],
+      "risk_on_fail": "water_path"
+    },
+    {
+      "condition": "slope_transition",
+      "checks": ["tapered_insulation_confirmed", "min_slope_1_4_in_per_ft", "no_ponding_zones_mapped"],
+      "risk_on_fail": "water_path"
+    },
+    {
+      "condition": "field_lap_weld",
+      "checks": ["weld_width_min_38mm", "probe_test_passed", "no_fish_mouths"],
+      "risk_on_fail": "water_path"
+    },
+    {
+      "condition": "insulation_attachment",
+      "checks": ["adhesive_coverage_min_80pct", "mechanical_fasteners_per_zone", "no_gaps_at_perimeter"],
+      "risk_on_fail": "fastener_pullout"
+    }
+  ]
+}

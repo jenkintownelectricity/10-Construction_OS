@@ -1,0 +1,13 @@
+{
+  "transition_id": "trans-pvc-hydrotech",
+  "system_a": "PVC Fleeceback",
+  "system_b": "Hydrotech MM6125",
+  "compatibility_class": "CONDITION_REQUIRED",
+  "requirements": [
+    {"type": "transition_flashing", "material": "Modified bitumen transition strip", "width_mm": 150},
+    {"type": "separation_layer", "material": "Protection board", "thickness_mm": 3},
+    {"type": "termination_bar", "material": "Aluminum bar", "spacing_mm": 300}
+  ],
+  "risks": ["thermal_movement_at_interface", "differential_drainage"],
+  "notes": "PVC and Hydrotech cannot be directly lapped. Transition flashing required."
+}
