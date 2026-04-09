@@ -1,0 +1,68 @@
+{
+  "registry_id": "scrape_registry_v1",
+  "wave": 202,
+  "schema_version": "1.0",
+  "default_trust_state": "UNTRUSTED_UNTIL_TYPED",
+  "schema": {
+    "source_url": "string — full URL of scraped resource",
+    "source_type": "enum: manufacturer_website | typical_detail | product_data | csi_spec | public_standard",
+    "manufacturer": "string | null — manufacturer name if applicable",
+    "doc_title": "string — title of document or page",
+    "discipline": "string — e.g. roofing, waterproofing, avb, fireproofing, mep, structural",
+    "trust_state": "UNTRUSTED_UNTIL_TYPED — default for all incoming records",
+    "capture_date": "ISO 8601 date string",
+    "parser_status": "enum: pending | parsed | failed | review_needed"
+  },
+  "records": [
+    {
+      "source_url": "https://www.carlisleccw.com/products/waterproofing/barrierflex",
+      "source_type": "manufacturer_website",
+      "manufacturer": "Carlisle CCW",
+      "doc_title": "BarrierFlex Below-Grade Waterproofing System",
+      "discipline": "waterproofing",
+      "trust_state": "UNTRUSTED_UNTIL_TYPED",
+      "capture_date": "2026-04-09",
+      "parser_status": "pending"
+    },
+    {
+      "source_url": "https://www.gaf.com/en-us/roofing-products/commercial/tpo",
+      "source_type": "manufacturer_website",
+      "manufacturer": "GAF",
+      "doc_title": "EverGuard TPO Commercial Roofing System",
+      "discipline": "roofing",
+      "trust_state": "UNTRUSTED_UNTIL_TYPED",
+      "capture_date": "2026-04-09",
+      "parser_status": "pending"
+    },
+    {
+      "source_url": "https://www.dow.com/en-us/document/technical-data-sheet/thermax-ci",
+      "source_type": "product_data",
+      "manufacturer": "Dow",
+      "doc_title": "THERMAX CI Insulation Board TDS",
+      "discipline": "avb",
+      "trust_state": "UNTRUSTED_UNTIL_TYPED",
+      "capture_date": "2026-04-09",
+      "parser_status": "pending"
+    },
+    {
+      "source_url": "https://www.awci.org/technical-resources/specifications/07-84-00-firestopping",
+      "source_type": "csi_spec",
+      "manufacturer": null,
+      "doc_title": "CSI MasterFormat 07 84 00 Firestopping",
+      "discipline": "fireproofing",
+      "trust_state": "UNTRUSTED_UNTIL_TYPED",
+      "capture_date": "2026-04-09",
+      "parser_status": "pending"
+    },
+    {
+      "source_url": "https://www.nrca.net/technical/manual/details/roof-edge-conditions",
+      "source_type": "typical_detail",
+      "manufacturer": null,
+      "doc_title": "NRCA Roof Edge Termination Details",
+      "discipline": "roofing",
+      "trust_state": "UNTRUSTED_UNTIL_TYPED",
+      "capture_date": "2026-04-09",
+      "parser_status": "pending"
+    }
+  ]
+}
