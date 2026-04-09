@@ -21,8 +21,7 @@
             "type": "object",
             "required": ["method", "location_description"],
             "properties": {
-              "method": { "type": "string",
-                "enum": ["terrestrial_lidar", "drone_photogrammetry", "bim_export", "fixed_camera", "mobile_mapping", "manual_survey", "structured_light"] },
+              "method": { "type": "string", "enum": ["terrestrial_lidar", "drone_photogrammetry", "bim_export", "fixed_camera", "mobile_mapping", "manual_survey", "structured_light"] },
               "location_description": { "type": "string" },
               "floor": { "type": "string" },
               "zone": { "type": "string" }
@@ -66,18 +65,7 @@
             "properties": {
               "raw_data_uri": { "type": "string" },
               "processed_data_uri": { "type": "string" },
-              "processing_steps": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "step": { "type": "string" },
-                    "tool": { "type": "string" },
-                    "timestamp": { "type": "string", "format": "date-time" },
-                    "output_uri": { "type": "string" }
-                  }
-                }
-              },
+              "processing_steps": { "type": "array", "items": { "type": "object", "properties": { "step": { "type": "string" }, "tool": { "type": "string" }, "timestamp": { "type": "string", "format": "date-time" }, "output_uri": { "type": "string" } } } },
               "parent_record_ids": { "type": "array", "items": { "type": "string" } },
               "checksum_sha256": { "type": "string" }
             }

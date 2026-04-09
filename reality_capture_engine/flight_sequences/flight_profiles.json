@@ -1,8 +1,7 @@
 {
   "schema": "flight_profiles",
   "version": "1.0.0",
-  "description": "Reusable drone flight profiles defining altitude, grid spacing, scan angle, image frequency, and overlap for each capture mission type",
-
+  "description": "Reusable drone flight profiles defining altitude, grid spacing, scan angle, image frequency, and overlap per mission type",
   "profiles": {
     "roof_scan_daily": {
       "description": "Daily overhead roof scan for progress tracking and condition monitoring",
@@ -11,16 +10,12 @@
       "grid_spacing_m": 5,
       "scan_angle_deg": 90,
       "image_frequency_m": 2,
-      "overlap": {
-        "frontal_pct": 80,
-        "side_pct": 80
-      },
+      "overlap": { "frontal_pct": 80, "side_pct": 80 },
       "flight_pattern": "grid",
       "recommended_capture": "photogrammetry",
       "estimated_duration_min": 15,
       "use_cases": ["daily_progress", "roof_condition", "waterproofing_check"]
     },
-
     "tower_vertical_pass": {
       "description": "Vertical facade sweep for towers and high-rise elements at varying altitudes",
       "altitude_m": "varies_10_to_120",
@@ -28,33 +23,25 @@
       "grid_spacing_m": 4,
       "scan_angle_deg": 80,
       "image_frequency_m": 2,
-      "overlap": {
-        "frontal_pct": 70,
-        "side_pct": 70
-      },
+      "overlap": { "frontal_pct": 70, "side_pct": 70 },
       "flight_pattern": "facade_sweep",
       "recommended_capture": "photogrammetry",
       "estimated_duration_min": 25,
       "use_cases": ["tower_progress", "vertical_element_inspection", "cladding_verification"]
     },
-
     "full_site_mesh": {
-      "description": "Comprehensive weekly site-wide mesh capture combining photogrammetry and lidar",
+      "description": "Weekly site-wide mesh capture combining photogrammetry and lidar",
       "altitude_m": 50,
       "altitude_reference": "AGL",
       "grid_spacing_m": 10,
       "scan_angle_deg": 90,
       "image_frequency_m": 5,
-      "overlap": {
-        "frontal_pct": 75,
-        "side_pct": 75
-      },
+      "overlap": { "frontal_pct": 75, "side_pct": 75 },
       "flight_pattern": "grid",
       "recommended_capture": ["photogrammetry", "lidar"],
       "estimated_duration_min": 45,
       "use_cases": ["weekly_milestone", "full_asbuilt_update", "stakeholder_reporting"]
     },
-
     "facade_progress_scan": {
       "description": "Close-range facade scan for detailed installation and cladding progress",
       "altitude_m": 20,
@@ -62,16 +49,12 @@
       "grid_spacing_m": 3,
       "scan_angle_deg": 75,
       "image_frequency_m": 1,
-      "overlap": {
-        "frontal_pct": 80,
-        "side_pct": 70
-      },
+      "overlap": { "frontal_pct": 80, "side_pct": 70 },
       "flight_pattern": "facade_sweep",
       "recommended_capture": "photogrammetry",
       "estimated_duration_min": 20,
       "use_cases": ["facade_progress", "window_installation", "cladding_panel_check"]
     },
-
     "condition_detail_scan": {
       "description": "High-resolution close-range scan for defect detection and condition reporting",
       "altitude_m": 10,
@@ -79,10 +62,7 @@
       "grid_spacing_m": 2,
       "scan_angle_deg": 70,
       "image_frequency_m": 0.5,
-      "overlap": {
-        "frontal_pct": 90,
-        "side_pct": 90
-      },
+      "overlap": { "frontal_pct": 90, "side_pct": 90 },
       "flight_pattern": "orbit_or_grid",
       "recommended_capture": ["photogrammetry", "thermal"],
       "estimated_duration_min": 20,
