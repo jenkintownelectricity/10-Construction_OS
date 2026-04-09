@@ -1,0 +1,116 @@
+{
+  "assemblies": [
+    {
+      "assembly_id": "Hydrotech_MM6125_Parapet",
+      "discipline": "waterproofing",
+      "system_family": "Hydrotech_Monolithic_Membrane_6125",
+      "base_condition": "parapet_wall",
+      "layer_stack": [
+        { "role": "substrate",        "material": "cast_in_place_concrete",                   "thickness_in": 0.00 },
+        { "role": "primer",           "material": "Hydrotech_Liquid_Primer_HP250",             "thickness_in": 0.01 },
+        { "role": "membrane_base",    "material": "Hydrotech_MM6125_Fluid_Applied_Layer1",     "thickness_in": 0.06 },
+        { "role": "membrane_top",     "material": "Hydrotech_MM6125_Fluid_Applied_Layer2",     "thickness_in": 0.06 },
+        { "role": "protection_board", "material": "Hydrotech_Composite_Protection_Board_1in",  "thickness_in": 1.00 },
+        { "role": "drainage_mat",     "material": "Hydrotech_GardsDrain_DrainageMat",          "thickness_in": 0.38 },
+        { "role": "filter_fabric",    "material": "Geotextile_Filter_Fabric_4oz",              "thickness_in": 0.02 }
+      ],
+      "geometry_template_ref": "gtpl_plazadeck_parapet_v1",
+      "compliance_rule_refs": ["NRCA_WP_Parapet_W01", "ACI_350_WP", "IBC_1805_WP_Parapet"],
+      "installation_family": "inst_fluid_applied_membrane",
+      "inspection_family":   "insp_waterproofing_parapet_v1"
+    },
+    {
+      "assembly_id": "Hydrotech_MM6125_Drain",
+      "discipline": "waterproofing",
+      "system_family": "Hydrotech_Monolithic_Membrane_6125",
+      "base_condition": "area_drain_plaza",
+      "layer_stack": [
+        { "role": "substrate",        "material": "cast_in_place_concrete",                   "thickness_in": 0.00 },
+        { "role": "primer",           "material": "Hydrotech_Liquid_Primer_HP250",             "thickness_in": 0.01 },
+        { "role": "membrane_base",    "material": "Hydrotech_MM6125_Fluid_Applied_Layer1",     "thickness_in": 0.06 },
+        { "role": "membrane_top",     "material": "Hydrotech_MM6125_Fluid_Applied_Layer2",     "thickness_in": 0.06 },
+        { "role": "clamping_collar",  "material": "Hydrotech_Drain_Clamping_Collar_Bronze",    "thickness_in": 0.12 },
+        { "role": "drain_body",       "material": "Cast_Iron_Area_Drain_Adjustable_Nickel",    "thickness_in": 0.00 }
+      ],
+      "geometry_template_ref": "gtpl_plazadeck_drain_sump_v1",
+      "compliance_rule_refs": ["NRCA_WP_Drain_W01", "ANSI_A112_AreaDrain", "IBC_1805_WP_Drain"],
+      "installation_family": "inst_fluid_applied_membrane",
+      "inspection_family":   "insp_waterproofing_drain_v1"
+    },
+    {
+      "assembly_id": "Hydrotech_MM6125_Curb",
+      "discipline": "waterproofing",
+      "system_family": "Hydrotech_Monolithic_Membrane_6125",
+      "base_condition": "equipment_curb_plaza",
+      "layer_stack": [
+        { "role": "substrate",        "material": "cast_in_place_concrete",                   "thickness_in": 0.00 },
+        { "role": "primer",           "material": "Hydrotech_Liquid_Primer_HP250",             "thickness_in": 0.01 },
+        { "role": "membrane_base",    "material": "Hydrotech_MM6125_Fluid_Applied_Layer1",     "thickness_in": 0.06 },
+        { "role": "membrane_top",     "material": "Hydrotech_MM6125_Fluid_Applied_Layer2",     "thickness_in": 0.06 },
+        { "role": "membrane_vertical","material": "Hydrotech_MM6125_Vertical_Termination",     "thickness_in": 0.06 },
+        { "role": "termination_bar",  "material": "Stainless_Steel_Termination_Bar_w_Sealant", "thickness_in": 0.06 },
+        { "role": "protection_board", "material": "Hydrotech_Composite_Protection_Board_1in",  "thickness_in": 1.00 }
+      ],
+      "geometry_template_ref": "gtpl_plazadeck_curb_v1",
+      "compliance_rule_refs": ["NRCA_WP_Curb_W01", "IBC_1805_WP_Curb"],
+      "installation_family": "inst_fluid_applied_membrane",
+      "inspection_family":   "insp_waterproofing_curb_v1"
+    },
+    {
+      "assembly_id": "Hydrotech_MM6125_Penetration",
+      "discipline": "waterproofing",
+      "system_family": "Hydrotech_Monolithic_Membrane_6125",
+      "base_condition": "pipe_penetration_plaza",
+      "layer_stack": [
+        { "role": "substrate",        "material": "cast_in_place_concrete",                   "thickness_in": 0.00 },
+        { "role": "primer",           "material": "Hydrotech_Liquid_Primer_HP250",             "thickness_in": 0.01 },
+        { "role": "membrane_base",    "material": "Hydrotech_MM6125_Fluid_Applied_Layer1",     "thickness_in": 0.06 },
+        { "role": "membrane_top",     "material": "Hydrotech_MM6125_Fluid_Applied_Layer2",     "thickness_in": 0.06 },
+        { "role": "pipe_flashing",    "material": "Hydrotech_Pipe_Flashing_Sleeve_EPDM",       "thickness_in": 0.08 },
+        { "role": "clamp_band",       "material": "Stainless_Steel_Clamp_Band_2pc",            "thickness_in": 0.02 },
+        { "role": "sealant",          "material": "Polyurethane_Sealant_1part_WP",             "thickness_in": 0.38 }
+      ],
+      "geometry_template_ref": "gtpl_pipe_penetration_plazadeck_v1",
+      "compliance_rule_refs": ["NRCA_WP_Penetration_W01", "IBC_1805_WP_Penetration"],
+      "installation_family": "inst_fluid_applied_membrane",
+      "inspection_family":   "insp_waterproofing_penetration_v1"
+    },
+    {
+      "assembly_id": "GCP_Bituthene_WallBase",
+      "discipline": "waterproofing",
+      "system_family": "GCP_Bituthene_3000",
+      "base_condition": "below_grade_wall_base",
+      "layer_stack": [
+        { "role": "substrate",        "material": "cast_in_place_concrete_wall",      "thickness_in": 0.00 },
+        { "role": "primer",           "material": "GCP_Bituthene_Primer_B2_LVC",      "thickness_in": 0.01 },
+        { "role": "membrane",         "material": "GCP_Bituthene_3000_SelfAdhered",   "thickness_in": 0.16 },
+        { "role": "protection_board", "material": "Delta_MS_Dimple_Mat_8mil",         "thickness_in": 0.38 },
+        { "role": "drainage_board",   "material": "Tremco_Paraseal_Drainage_Board",   "thickness_in": 0.50 },
+        { "role": "filter_fabric",    "material": "Geotextile_Filter_Fabric_4oz",     "thickness_in": 0.02 }
+      ],
+      "geometry_template_ref": "gtpl_below_grade_wall_base_v1",
+      "compliance_rule_refs": ["NRCA_WP_BelowGrade_W02", "IBC_1805_BelowGrade", "ASTM_D1970_SelfAdhered"],
+      "installation_family": "inst_self_adhered_sheet",
+      "inspection_family":   "insp_waterproofing_belowgrade_v1"
+    },
+    {
+      "assembly_id": "GCP_Bituthene_Transition",
+      "discipline": "waterproofing",
+      "system_family": "GCP_Bituthene_3000",
+      "base_condition": "wall_to_footing_transition",
+      "layer_stack": [
+        { "role": "substrate_wall",   "material": "cast_in_place_concrete_wall",      "thickness_in": 0.00 },
+        { "role": "substrate_footing","material": "cast_in_place_concrete_footing",   "thickness_in": 0.00 },
+        { "role": "fillet",           "material": "Hydraulic_Cement_Cove_Fillet",     "thickness_in": 0.75 },
+        { "role": "primer",           "material": "GCP_Bituthene_Primer_B2_LVC",      "thickness_in": 0.01 },
+        { "role": "membrane",         "material": "GCP_Bituthene_3000_SelfAdhered",   "thickness_in": 0.16 },
+        { "role": "transition_strip", "material": "GCP_Bituthene_4000_Transition_Ply","thickness_in": 0.20 },
+        { "role": "protection_board", "material": "Delta_MS_Dimple_Mat_8mil",         "thickness_in": 0.38 }
+      ],
+      "geometry_template_ref": "gtpl_wall_footing_transition_v1",
+      "compliance_rule_refs": ["NRCA_WP_Transition_W03", "IBC_1805_WP_Transition", "ASTM_D1970_SelfAdhered"],
+      "installation_family": "inst_self_adhered_sheet",
+      "inspection_family":   "insp_waterproofing_transition_v1"
+    }
+  ]
+}
