@@ -1,0 +1,47 @@
+{
+  "framework": "spatial_device_adapter_framework",
+  "version": "1.0.0",
+  "description": "Normalizes output from all spatial capture devices into unified point_clouds, mesh_models, and image_sets.",
+  "output_schema": {
+    "point_clouds": { "format": "LAS/LAZ", "coordinate_system": "WGS84_local_grid", "density_per_m2": "configurable" },
+    "mesh_models": { "format": "OBJ/glTF/IFC", "texture_resolution": "4K", "lod_levels": [0, 1, 2, 3] },
+    "image_sets": { "format": "JPEG/RAW/TIFF", "georeferenced": true, "overlap_percent": 75 }
+  },
+  "adapters": {
+    "drone_systems": {
+      "supported_vendors": ["DJI", "Skydio", "Parrot", "Wingtra"],
+      "capture_modes": ["nadir", "oblique", "facade", "inspection"],
+      "raw_formats": ["DNG", "MP4", "GeoTIFF"],
+      "normalizes_to": ["point_clouds", "image_sets"],
+      "pipeline": ["ingest_flight_log", "extract_frames", "run_sfm", "export_outputs"]
+    },
+    "lidar_scanners": {
+      "supported_vendors": ["Leica", "FARO", "Trimble", "Matterport"],
+      "capture_modes": ["static_scan", "mobile_scan", "tripod_scan"],
+      "raw_formats": ["E57", "PTX", "RCP", "XYZ"],
+      "normalizes_to": ["point_clouds", "mesh_models"],
+      "pipeline": ["ingest_scan_file", "register_targets", "clean_noise", "export_outputs"]
+    },
+    "photogrammetry_rigs": {
+      "supported_vendors": ["Sony", "Phase One", "iSTAR", "custom_multi_cam"],
+      "capture_modes": ["ground_based", "pole_mounted", "vehicle_mounted"],
+      "raw_formats": ["JPEG", "RAW", "TIFF"],
+      "normalizes_to": ["point_clouds", "mesh_models", "image_sets"],
+      "pipeline": ["ingest_images", "extract_metadata", "run_photogrammetry", "export_outputs"]
+    },
+    "ar_scanning": {
+      "supported_vendors": ["Apple_LiDAR", "HoloLens", "Magic_Leap", "Matterport_iPhone"],
+      "capture_modes": ["room_scan", "element_scan", "walkthrough"],
+      "raw_formats": ["USDZ", "OBJ", "PLY", "ARKit_session"],
+      "normalizes_to": ["mesh_models", "image_sets"],
+      "pipeline": ["ingest_session", "align_to_reference", "scale_calibrate", "export_outputs"]
+    },
+    "robotic_inspection": {
+      "supported_vendors": ["Boston_Dynamics_Spot", "Trimble_X7_Robot", "Hilti_Jaibot", "custom_uav"],
+      "capture_modes": ["autonomous_patrol", "inspection_route", "targeted_element"],
+      "raw_formats": ["E57", "JPEG", "MP4", "sensor_log_JSON"],
+      "normalizes_to": ["point_clouds", "mesh_models", "image_sets"],
+      "pipeline": ["ingest_robot_log", "extract_sensor_frames", "register_spatial", "export_outputs"]
+    }
+  }
+}

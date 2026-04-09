@@ -1,0 +1,64 @@
+{
+  "system": "reality_sandbox_unification",
+  "version": "1.0.0",
+  "description": "Integrates Reality Capture Engine with Predicted Build Sandbox, Time Engine, and Global Atlas.",
+  "integrations": {
+    "predicted_build_sandbox": {
+      "role": "source_of_truth_for_planned_state",
+      "sync_fields": ["planned_geometry", "schedule_sequence", "material_specs", "tolerance_thresholds"],
+      "update_trigger": "on_deviation_detected"
+    },
+    "time_engine": {
+      "role": "temporal_indexing_and_playback",
+      "sync_fields": ["scan_timestamps", "daily_progress_index", "crew_timeline", "installation_events"],
+      "update_trigger": "on_new_scan_ingested"
+    },
+    "global_atlas": {
+      "role": "spatial_reference_and_site_map",
+      "sync_fields": ["site_coordinate_frame", "element_locations", "zone_boundaries", "as_built_layer"],
+      "update_trigger": "on_mesh_model_published"
+    }
+  },
+  "unification_loop": {
+    "description": "Continuous closed-loop pipeline from capture to corrective action.",
+    "steps": [
+      {
+        "step": 1,
+        "name": "reality_capture",
+        "action": "Ingest normalized point_clouds, mesh_models, image_sets from spatial_device_adapters.",
+        "output": "raw_as_built_snapshot"
+      },
+      {
+        "step": 2,
+        "name": "compare_design",
+        "action": "Diff raw_as_built_snapshot against BIM design model from Predicted Build Sandbox.",
+        "output": "design_deviation_report"
+      },
+      {
+        "step": 3,
+        "name": "compare_planned",
+        "action": "Diff raw_as_built_snapshot against planned schedule geometry from Time Engine.",
+        "output": "schedule_deviation_report"
+      },
+      {
+        "step": 4,
+        "name": "detect_deviation",
+        "action": "Merge design_deviation_report and schedule_deviation_report. Flag elements exceeding tolerance.",
+        "output": "unified_deviation_manifest"
+      },
+      {
+        "step": 5,
+        "name": "suggest_correction",
+        "action": "Generate correction recommendations per flagged element. Route to responsible trade and RFI system.",
+        "output": "correction_action_list"
+      },
+      {
+        "step": 6,
+        "name": "update_sandbox",
+        "action": "Push verified as-built geometry to Predicted Build Sandbox, update Global Atlas as-built layer, log to Time Engine.",
+        "output": "updated_sandbox_state"
+      }
+    ],
+    "loop_cadence": "on_scan_complete | scheduled_daily | manual_trigger"
+  }
+}
