@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Fixed Camera System Schema",
+  "description": "Manages mast, tower, roof, and interior fixed cameras. Supports periodic capture, timelapse, motion detection, and spatial reconstruction feeds.",
+  "type": "object",
+  "required": ["camera_network_id", "project_id", "cameras"],
+  "properties": {
+    "camera_network_id": { "type": "string" },
+    "project_id": { "type": "string" },
+    "last_sync": { "type": "string", "format": "date-time" },
+    "cameras": {
+      "type": "array",
+      "description": "Registry of all deployed fixed cameras on the project",
+      "items": {
+        "type": "object",
+        "required": ["camera_id", "type", "location", "status", "capture_config"],
+        "properties": {
+          "camera_id": { "type": "string" },
+          "label": { "type": "string" },
+          "type": { "type": "string", "enum": ["mast", "tower", "roof", "interior", "perimeter"] },
+          "status": { "type": "string", "enum": ["active", "offline", "maintenance", "decommissioned"] },
+          "location": {
+            "type": "object",
+            "required": ["description"],
+            "properties": {
+              "description": { "type": "string" },
+              "floor": { "type": "string" },
+              "zone": { "type": "string" },
+              "mount_height_m": { "type": "number" },
+              "orientation_deg": { "type": "number", "description": "Azimuth bearing of camera optical axis" },
+              "coordinates_xyz": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 }
+            }
+          },
+          "hardware": {
+            "type": "object",
+            "properties": {
+              "make": { "type": "string" },
+              "model": { "type": "string" },
+              "resolution_mp": { "type": "number" },
+              "focal_length_mm": { "type": "number" },
+              "has_ir": { "type": "boolean" }
+            }
+          },
+          "capture_config": {
+            "type": "object",
+            "required": ["modes_enabled"],
+            "properties": {
+              "modes_enabled": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": ["periodic_capture", "timelapse", "motion_detection", "progress_snapshot", "spatial_reconstruction_feed"]
+                }
+              },
+              "periodic_interval_min": { "type": "integer", "description": "Minutes between scheduled captures" },
+              "timelapse_fps": { "type": "number" },
+              "motion_sensitivity": { "type": "string", "enum": ["low", "medium", "high"] },
+              "progress_snapshot_schedule": { "type": "string", "description": "Cron expression for progress snapshots" },
+              "reconstruction_upload_enabled": { "type": "boolean" }
+            }
+          },
+          "feeds": {
+            "type": "object",
+            "properties": {
+              "live_stream_uri": { "type": "string" },
+              "archive_bucket": { "type": "string" },
+              "spatial_reconstruction_feed_uri": { "type": "string" },
+              "latest_snapshot_uri": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "network_config": {
+      "type": "object",
+      "properties": {
+        "connectivity": { "type": "string", "enum": ["ethernet", "wifi", "4G_LTE", "5G", "mixed"] },
+        "storage_backend": { "type": "string" },
+        "retention_days": { "type": "integer" },
+        "encryption_at_rest": { "type": "boolean" }
+      }
+    }
+  }
+}

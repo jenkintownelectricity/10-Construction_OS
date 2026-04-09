@@ -1,0 +1,13 @@
+{
+  "project_id": "jfk-t1",
+  "evidence": [
+    {
+      "evidence_id": "ev-hydrotech-001",
+      "manufacturer": "Hydrotech",
+      "document": "MM6125 Assembly Letter",
+      "type": "assembly_letter",
+      "status": "registered",
+      "system": "MM6125 PMR"
+    }
+  ]
+}

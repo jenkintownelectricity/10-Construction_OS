@@ -1,0 +1,38 @@
+{
+  "manifest_id": "JFK-T1-ATLAS-001",
+  "project": "JFK Terminal 1 Reconstruction",
+  "project_code": "JFK-T1",
+  "version": "1.0.0",
+  "created": "2026-04-09",
+  "wave": 210,
+  "core_objects": {
+    "building":           { "key_fields": ["building_id","name","footprint_geo","level_ids","occupancy_type"] },
+    "level":              { "key_fields": ["level_id","building_id","elevation_ft","sector_ids","designation"] },
+    "zone":               { "key_fields": ["zone_id","level_id","sector_id","boundary_geo","zone_type"] },
+    "roof":               { "key_fields": ["roof_id","building_id","zone_id","membrane_type","slope_pct","drain_ids"] },
+    "condition":          { "key_fields": ["condition_id","zone_id","assembly_id","severity","status","evidence_refs"] },
+    "assembly":           { "key_fields": ["assembly_id","zone_id","spec_section","membrane","insulation","cover_board"] },
+    "packet":             { "key_fields": ["packet_id","submittal_no","discipline","drawing_ids","status","revision"] },
+    "revision":           { "key_fields": ["revision_id","packet_id","rev_no","date","delta","approved_by"] },
+    "evidence":           { "key_fields": ["evidence_id","file_path","type","linked_condition","capture_date"] },
+    "support_condition":  { "key_fields": ["support_id","zone_id","element_type","structural_note","drawing_ref"] },
+    "discipline_interface": { "key_fields": ["interface_id","discipline_a","discipline_b","zone_id","issue","resolution"] }
+  },
+  "source_disciplines": {
+    "architectural":  { "abbrev": "A",   "drawing_prefix": "A-" },
+    "structural":     { "abbrev": "S",   "drawing_prefix": "S-" },
+    "MEP":            { "abbrev": "MEP", "drawing_prefix": "M-" },
+    "civil":          { "abbrev": "C",   "drawing_prefix": "C-" },
+    "shop_drawings":  { "abbrev": "SD",  "drawing_prefix": "SD-" },
+    "submittals":     { "abbrev": "SUB", "drawing_prefix": "SUB-" },
+    "review_notes":   { "abbrev": "RN",  "drawing_prefix": "RN-" }
+  },
+  "registry_refs": {
+    "building_registry":   "project_atlas/building_registry.json",
+    "gps_site_anchor":     "gps/site_anchor.json",
+    "roof_surfaces_geo":   "gps/roof_surfaces_geo.json",
+    "roof_zones_geo":      "gps/roof_zones_geo.json",
+    "drawing_geo_bindings":"drawings_geo/drawing_geo_bindings.json",
+    "condition_markers":   "gps/condition_markers.json"
+  }
+}

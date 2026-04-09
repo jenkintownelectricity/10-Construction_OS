@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "assembly_layer.schema.json",
+  "title": "Assembly Layer",
+  "description": "Schema for a single layer within an Assembly DNA object",
+  "type": "object",
+  "required": ["order", "role", "material_family", "thickness_mm", "required", "attachment_method"],
+  "additionalProperties": false,
+  "properties": {
+    "order": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Stacking order — 1 is the lowest (substrate-side) layer"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "structural",
+        "vapor_control",
+        "thermal",
+        "air_barrier",
+        "waterproofing",
+        "protection",
+        "drainage",
+        "setting",
+        "finish",
+        "flashing",
+        "termination",
+        "fastening"
+      ],
+      "description": "Functional role of this layer in the assembly stack"
+    },
+    "material_family": {
+      "type": "string",
+      "description": "Material family identifier linking to layer_types.json",
+      "examples": ["SBS_MODIFIED_BITUMEN", "TPO", "ISO_INSULATION", "STEEL_DECK", "METAL_COPING"]
+    },
+    "thickness_mm": {
+      "oneOf": [
+        { "type": "number", "minimum": 0 },
+        {
+          "type": "object",
+          "required": ["min", "max"],
+          "properties": {
+            "min": { "type": "number", "minimum": 0 },
+            "max": { "type": "number", "minimum": 0 }
+          },
+          "additionalProperties": false
+        }
+      ],
+      "description": "Nominal thickness in millimeters; may be a fixed value or min/max range"
+    },
+    "required": {
+      "type": "boolean",
+      "description": "Whether this layer is mandatory in all configurations of the assembly"
+    },
+    "attachment_method": {
+      "type": "string",
+      "enum": [
+        "torch_applied",
+        "self_adhered",
+        "mechanically_fastened",
+        "fully_adhered",
+        "gravity",
+        "mortar_set",
+        "welded",
+        "clipped",
+        "loose_laid",
+        "spray_applied"
+      ],
+      "description": "Primary method used to attach or install this layer"
+    },
+    "notes": {
+      "type": "string",
+      "maxLength": 250,
+      "description": "Optional installation or specification notes for this layer"
+    },
+    "compatible_layers_above": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Layer role types that are permitted directly above this layer"
+    },
+    "compatible_layers_below": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Layer role types that are permitted directly below this layer"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "project_id": "jfk-t1",
+  "sheets": [
+    {
+      "sheet_id": "L06-C2",
+      "title": "Level 06 High Roof Sector C2",
+      "type": "roof_plan",
+      "level": "L06",
+      "sector": "C2",
+      "status": "registered"
+    },
+    {
+      "sheet_id": "L06-C3",
+      "title": "Level 06 High Roof Sector C3",
+      "type": "roof_plan",
+      "level": "L06",
+      "sector": "C3",
+      "status": "registered"
+    },
+    {
+      "sheet_id": "L06-C4",
+      "title": "Level 06 High Roof Sector C4",
+      "type": "roof_plan",
+      "level": "L06",
+      "sector": "C4",
+      "status": "registered"
+    },
+    {
+      "sheet_id": "L06-D2",
+      "title": "Level 06 High Roof Sector D2",
+      "type": "roof_plan",
+      "level": "L06",
+      "sector": "D2",
+      "status": "registered"
+    },
+    {
+      "sheet_id": "L06-D3",
+      "title": "Level 06 High Roof Sector D3",
+      "type": "roof_plan",
+      "level": "L06",
+      "sector": "D3",
+      "status": "registered"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "project": "JFK_Terminal_1",
+  "wave": 116,
+  "description": "Expanded zone registry — new zones beyond original roofing scope",
+  "generated": "2026-04-09",
+  "zones": [
+    {
+      "zone_id": "HH5",
+      "name": "High Roof Zone HH5",
+      "discipline": "waterproofing",
+      "level": "roof",
+      "area_sqm": 310,
+      "primary_system": "TPO_waterproofing_membrane",
+      "related_evidence": ["WP-DWG-HH5-001", "RFI-WP-042", "SITE-PHOTO-HH5-2026-03"]
+    },
+    {
+      "zone_id": "NW_HH",
+      "name": "Northwest High Roof Zone",
+      "discipline": "waterproofing",
+      "level": "roof",
+      "area_sqm": 275,
+      "primary_system": "TPO_waterproofing_membrane",
+      "related_evidence": ["WP-DWG-NWHH-001", "RFI-WP-051", "SITE-PHOTO-NWHH-2026-03"]
+    },
+    {
+      "zone_id": "STAIR_HATCH",
+      "name": "Stair Shaft Hatch Regions",
+      "discipline": "waterproofing",
+      "level": "roof",
+      "area_sqm": 45,
+      "primary_system": "hatch_curb_and_waterproofing_upturns",
+      "related_evidence": ["DWG-HATCH-CURB-001", "RFI-SMOKE-EXH-007", "COND-HATCH-TERM-003"]
+    },
+    {
+      "zone_id": "PRECLEAR_WALL",
+      "name": "Preclear Wall Regions",
+      "discipline": "architectural",
+      "level": "level_2_and_3",
+      "area_sqm": 520,
+      "primary_system": "light_gauge_partition_with_glazing",
+      "related_evidence": ["DWG-PRECLEAR-WALL-001", "SC-003", "RFI-PORTAL-COORD-012"]
+    },
+    {
+      "zone_id": "TSA_PORTAL",
+      "name": "TSA Portal Regions",
+      "discipline": "security_architectural",
+      "level": "level_2",
+      "area_sqm": 180,
+      "primary_system": "portal_frame_with_screening_equipment",
+      "related_evidence": ["DWG-TSA-PORTAL-001", "SC-004", "RFI-TSA-COORD-018"]
+    },
+    {
+      "zone_id": "DUNNAGE",
+      "name": "Dunnage Regions",
+      "discipline": "structural_mechanical",
+      "level": "roof",
+      "area_sqm": 390,
+      "primary_system": "dunnage_steel_supporting_MEP_equipment",
+      "related_evidence": ["DWG-DUNNAGE-001", "SC-001", "RFI-DUNNAGE-WP-009"]
+    },
+    {
+      "zone_id": "MONUMENT_STAIR",
+      "name": "Monument Stair Regions",
+      "discipline": "architectural_structural",
+      "level": "level_1_to_3",
+      "area_sqm": 210,
+      "primary_system": "exposed_structural_stair_assembly",
+      "related_evidence": ["DWG-MON-STAIR-001", "SC-005", "RFI-STAIR-WP-014"]
+    },
+    {
+      "zone_id": "CANOPY_CLAD_DRAIN",
+      "name": "Canopy Cladding and Drainage Regions",
+      "discipline": "envelope_drainage",
+      "level": "canopy",
+      "area_sqm": 640,
+      "primary_system": "metal_cladding_with_integrated_gutter_and_drain",
+      "related_evidence": ["DWG-CANOPY-DRAIN-001", "RFI-GUTTER-EDGE-022", "COND-CANOPY-DRAIN-005"]
+    }
+  ]
+}

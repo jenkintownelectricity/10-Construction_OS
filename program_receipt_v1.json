@@ -1,0 +1,53 @@
+{
+  "receipt_id": "program_receipt_v1",
+  "generated": "2026-04-09",
+  "wave": 201,
+  "posture": "ADDITIVE_ONLY",
+  "posture_note": "No existing records may be deleted or mutated. All changes append or extend.",
+  "active_project": "JFK",
+  "summary": {
+    "conditions_admitted": 55,
+    "assemblies": 32,
+    "bindings": 50,
+    "transitions": 12,
+    "compliance_rules": 10,
+    "geometry_templates": 7,
+    "packet_families": 9
+  },
+  "conditions": {
+    "count": 55,
+    "state": "admitted",
+    "note": "55 canonical conditions active prior to v2 expansion"
+  },
+  "assemblies": {
+    "count": 32,
+    "state": "active"
+  },
+  "bindings": {
+    "count": 50,
+    "state": "active",
+    "note": "Condition-to-assembly bindings"
+  },
+  "transitions": {
+    "count": 12,
+    "state": "active",
+    "note": "Condition-to-condition transition rules"
+  },
+  "compliance_rules": {
+    "count": 10,
+    "state": "active"
+  },
+  "geometry_templates": {
+    "count": 7,
+    "state": "active"
+  },
+  "packet_families": {
+    "count": 9,
+    "state": "active"
+  },
+  "additive_only_confirmation": {
+    "confirmed": true,
+    "policy": "All future waves append new records. No deletions. No field overwrites on admitted records.",
+    "override_requires": "explicit_wave_command_with_justification"
+  }
+}

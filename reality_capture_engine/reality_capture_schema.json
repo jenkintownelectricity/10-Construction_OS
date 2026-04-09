@@ -1,0 +1,87 @@
+{
+  "schema": "reality_capture_engine",
+  "version": "1.0.0",
+  "description": "Core schema for ingesting sensor data, reconstructing spatial reality, and comparing design vs as-built state",
+  "sensor_ingestion_gateway": {
+    "sources": {
+      "drone": {
+        "type": "aerial_photogrammetry_lidar",
+        "capture_modes": ["photogrammetry", "lidar", "thermal", "multispectral"],
+        "input_formats": ["jpeg", "raw", "las", "laz", "e57"],
+        "trigger": ["scheduled", "manual", "zone_event"]
+      },
+      "lidar": {
+        "type": "ground_based_lidar",
+        "capture_modes": ["static_scan", "mobile_scan"],
+        "input_formats": ["las", "laz", "e57", "pts"],
+        "trigger": ["continuous", "scheduled", "manual"]
+      },
+      "360_camera": {
+        "type": "spherical_imagery",
+        "capture_modes": ["walkaround", "fixed_interval", "triggered"],
+        "input_formats": ["jpeg", "raw", "equirectangular"],
+        "trigger": ["continuous", "manual"]
+      },
+      "fixed_camera": {
+        "type": "site_monitoring_camera",
+        "capture_modes": ["timelapse", "motion_triggered", "scheduled"],
+        "input_formats": ["jpeg", "mp4", "h264"],
+        "trigger": ["continuous", "scheduled"]
+      },
+      "mobile_spatial": {
+        "type": "operator_handheld_device",
+        "capture_modes": ["lidar_tablet", "spatial_phone", "ar_headset"],
+        "input_formats": ["depth_map", "point_cloud", "mesh_fragment"],
+        "trigger": ["continuous", "manual"]
+      },
+      "operator_annotations": {
+        "type": "field_markup",
+        "capture_modes": ["voice_note", "photo_markup", "ar_pin", "text_note"],
+        "input_formats": ["json", "geojson", "audio", "jpeg"],
+        "trigger": ["manual"]
+      }
+    }
+  },
+  "spatial_reconstruction_engine": {
+    "processes": ["photogrammetry_meshing", "point_cloud_registration", "incremental_update", "zone_reconstruction"],
+    "output_formats": ["obj", "glb", "ifc", "las", "e57"],
+    "update_frequency": "on_capture_or_scheduled"
+  },
+  "reality_truth_layer": {
+    "description": "Single authoritative as-built spatial record updated from all sensor inputs",
+    "components": ["current_geometry", "historical_snapshots", "confidence_map", "sensor_attribution"],
+    "versioned": true,
+    "granularity": "zone_and_element_level"
+  },
+  "design_vs_reality_comparator": {
+    "inputs": ["bim_design_model", "reality_truth_layer"],
+    "checks": ["geometric_deviation", "element_placement", "installation_completeness", "elevation_accuracy"],
+    "deviation_thresholds": { "critical_mm": 25, "warning_mm": 10, "acceptable_mm": 5 },
+    "output": "comparison_report"
+  },
+  "asbuilt_model_store": {
+    "formats": ["ifc", "glb", "obj", "geojson", "las"],
+    "retention_policy": "daily_snapshots_90_days_full_milestones_forever",
+    "access": ["api", "viewer", "export"]
+  },
+  "outputs": {
+    "asbuilt_model_updates": {
+      "trigger": "post_reconstruction",
+      "format": ["glb", "ifc"],
+      "destination": ["asbuilt_model_store", "bim_sync_bus"]
+    },
+    "condition_verification": {
+      "trigger": "comparison_complete",
+      "includes": ["deviation_flags", "photo_evidence", "location_ref"]
+    },
+    "installation_progress": {
+      "trigger": "daily_reconstruction",
+      "metrics": ["percent_complete_by_zone", "element_install_count", "schedule_delta"]
+    },
+    "risk_alerts": {
+      "trigger": "threshold_exceeded",
+      "channels": ["push_notification", "dashboard", "site_supervisor_alert"],
+      "severity_levels": ["info", "warning", "critical"]
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Design vs Reality Comparator",
+  "description": "Compares expected design model against captured spatial reality. Detects deviations across geometry, sequence, and assemblies.",
+  "type": "object",
+  "required": ["comparison_id", "project_id", "timestamp", "design_ref", "reality_ref", "deviation_report"],
+  "properties": {
+    "comparison_id": { "type": "string" },
+    "project_id": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "design_ref": {
+      "type": "object",
+      "required": ["model_uri", "model_version"],
+      "properties": {
+        "model_uri": { "type": "string" },
+        "model_version": { "type": "string" },
+        "format": { "type": "string", "enum": ["IFC", "Revit", "NWD", "3D-DWG", "glTF"] }
+      }
+    },
+    "reality_ref": {
+      "type": "object",
+      "required": ["twin_id", "capture_date"],
+      "properties": {
+        "twin_id": { "type": "string" },
+        "capture_date": { "type": "string", "format": "date" },
+        "point_cloud_uri": { "type": "string" }
+      }
+    },
+    "comparison_scope": {
+      "type": "object",
+      "properties": {
+        "floors": { "type": "array", "items": { "type": "string" } },
+        "systems": { "type": "array", "items": { "type": "string" } },
+        "tolerance_mm": { "type": "number", "default": 25 }
+      }
+    },
+    "deviation_report": {
+      "type": "object",
+      "required": ["summary", "findings"],
+      "properties": {
+        "summary": {
+          "type": "object",
+          "properties": {
+            "total_deviations": { "type": "integer" },
+            "critical_count": { "type": "integer" },
+            "major_count": { "type": "integer" },
+            "minor_count": { "type": "integer" },
+            "overall_conformance_pct": { "type": "number", "minimum": 0, "maximum": 100 }
+          }
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["finding_id", "type", "severity", "location"],
+            "properties": {
+              "finding_id": { "type": "string" },
+              "type": {
+                "type": "string",
+                "enum": ["missing_component", "incorrect_sequence", "incomplete_assembly",
+                         "geometry_deviation", "installation_gap", "elevation_error"]
+              },
+              "severity": { "type": "string", "enum": ["critical", "major", "minor", "informational"] },
+              "location": {
+                "type": "object",
+                "properties": {
+                  "floor": { "type": "string" },
+                  "zone": { "type": "string" },
+                  "element_id": { "type": "string" },
+                  "coordinates_xyz": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 }
+                }
+              },
+              "expected_value": { "type": "string" },
+              "measured_value": { "type": "string" },
+              "delta_mm": { "type": "number" },
+              "image_ref": { "type": "string" },
+              "remediation_required": { "type": "boolean" },
+              "assigned_to": { "type": "string" },
+              "due_date": { "type": "string", "format": "date" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "rules_version": "0.1",
+  "created": "2026-04-09",
+  "rules": [
+    {"rule_id": "insp-001", "condition": "parapet_termination", "check": "termination_bar_visible",     "evidence_type": "photo",            "required": true,  "severity": "FAIL"},
+    {"rule_id": "insp-002", "condition": "parapet_termination", "check": "sealant_applied",             "evidence_type": "photo",            "required": true,  "severity": "FAIL"},
+    {"rule_id": "insp-003", "condition": "roof_drain",          "check": "clamping_ring_installed",     "evidence_type": "photo",            "required": true,  "severity": "FAIL"},
+    {"rule_id": "insp-004", "condition": "roof_drain",          "check": "membrane_fully_integrated",   "evidence_type": "photo",            "required": true,  "severity": "FAIL"},
+    {"rule_id": "insp-005", "condition": "roof_drain",          "check": "drain_strainer_installed",    "evidence_type": "photo",            "required": false, "severity": "WARNING"},
+    {"rule_id": "insp-006", "condition": "pipe_penetration",    "check": "pitch_pocket_filled",         "evidence_type": "photo",            "required": true,  "severity": "FAIL"},
+    {"rule_id": "insp-007", "condition": "pipe_penetration",    "check": "membrane_collar_sealed",      "evidence_type": "photo",            "required": true,  "severity": "FAIL"},
+    {"rule_id": "insp-008", "condition": "expansion_joint",     "check": "cover_plate_secured",         "evidence_type": "photo",            "required": true,  "severity": "FAIL"},
+    {"rule_id": "insp-009", "condition": "expansion_joint",     "check": "membrane_cant_strip_present", "evidence_type": "photo",            "required": true,  "severity": "FAIL"},
+    {"rule_id": "insp-010", "condition": "wall_termination",    "check": "counterflashing_lapped",      "evidence_type": "photo",            "required": true,  "severity": "FAIL"},
+    {"rule_id": "insp-011", "condition": "wall_termination",    "check": "sealant_at_reglet",           "evidence_type": "photo",            "required": true,  "severity": "FAIL"},
+    {"rule_id": "insp-012", "condition": "roof_curb",           "check": "curb_height_compliant",       "evidence_type": "field_report",     "required": true,  "severity": "FAIL"},
+    {"rule_id": "insp-013", "condition": "roof_curb",           "check": "membrane_wrapped_to_deck",    "evidence_type": "photo",            "required": true,  "severity": "FAIL"},
+    {"rule_id": "insp-014", "condition": "walkway_pad",         "check": "pad_secured_no_puncture",     "evidence_type": "photo",            "required": false, "severity": "WARNING"},
+    {"rule_id": "insp-015", "condition": "pv_support",          "check": "ballast_load_submittal_on_file","evidence_type": "submittal",      "required": true,  "severity": "FAIL"},
+    {"rule_id": "insp-016", "condition": "pv_support",          "check": "membrane_protection_layer",   "evidence_type": "photo",            "required": true,  "severity": "FAIL"},
+    {"rule_id": "insp-017", "condition": "parapet_termination", "check": "installation_log_signed",     "evidence_type": "installation_log", "required": false, "severity": "WARNING"}
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Condition Verification Schema",
+  "description": "Uses condition atlas to validate installed building conditions. Outputs compliance status, risk alerts, and inspection readiness.",
+  "type": "object",
+  "required": ["verification_id", "project_id", "timestamp", "scope", "detections", "compliance_status"],
+  "properties": {
+    "verification_id": { "type": "string" },
+    "project_id": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "condition_atlas_version": { "type": "string" },
+    "scope": {
+      "type": "object",
+      "required": ["floor", "zone", "system"],
+      "properties": {
+        "floor": { "type": "string" },
+        "zone": { "type": "string" },
+        "system": { "type": "string", "enum": ["roofing", "envelope", "structural", "mep", "interior", "fireproofing"] },
+        "capture_ref": { "type": "string" }
+      }
+    },
+    "detections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["detection_id", "condition_type", "result", "confidence"],
+        "properties": {
+          "detection_id": { "type": "string" },
+          "condition_type": {
+            "type": "string",
+            "enum": ["missing_flashing", "membrane_termination_incorrect", "insulation_thickness_mismatch",
+                     "curb_not_flashed", "fireproofing_incomplete", "sealant_gap", "vapor_barrier_breach",
+                     "fastener_pattern_incorrect", "drain_blocked", "penetration_unsealed"]
+          },
+          "result": { "type": "string", "enum": ["pass", "fail", "marginal", "not_detectable"] },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "location": {
+            "type": "object",
+            "properties": {
+              "zone": { "type": "string" },
+              "element_ref": { "type": "string" },
+              "image_crop_uri": { "type": "string" }
+            }
+          },
+          "measured_value": { "type": "string" },
+          "required_value": { "type": "string" },
+          "code_reference": { "type": "string" }
+        }
+      }
+    },
+    "compliance_status": {
+      "type": "object",
+      "required": ["overall", "pass_count", "fail_count"],
+      "properties": {
+        "overall": { "type": "string", "enum": ["compliant", "non_compliant", "conditional", "pending_review"] },
+        "pass_count": { "type": "integer" },
+        "fail_count": { "type": "integer" },
+        "marginal_count": { "type": "integer" }
+      }
+    },
+    "risk_alerts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["alert_id", "severity", "description"],
+        "properties": {
+          "alert_id": { "type": "string" },
+          "severity": { "type": "string", "enum": ["life_safety", "high", "medium", "low"] },
+          "description": { "type": "string" },
+          "linked_detection_ids": { "type": "array", "items": { "type": "string" } },
+          "escalate_to": { "type": "string" }
+        }
+      }
+    },
+    "inspection_readiness": {
+      "type": "object",
+      "properties": {
+        "ready_for_inspection": { "type": "boolean" },
+        "blocking_items": { "type": "array", "items": { "type": "string" } },
+        "recommended_inspection_date": { "type": "string", "format": "date" }
+      }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "schema_id": "schedule_graph_v1",
+  "description": "Dependency graph engine: maps Condition → Install Step → Trade → Inspection → Next Condition",
+  "graph_model": {
+    "node_types": ["condition", "install_step", "trade_mobilization", "inspection", "milestone"],
+    "edge_types": ["depends_on", "triggers", "blocked_by", "parallel_with"],
+    "direction": "DAG"
+  },
+  "example_chain": {
+    "chain_id": "roof_assembly_sequence",
+    "description": "Standard roofing assembly critical path",
+    "nodes": [
+      { "id": "C1", "type": "condition", "label": "Substrate dry + temp >40F" },
+      { "id": "S1", "type": "install_step", "label": "deck_fireproofing", "trade": "fireproofing", "duration_days": 2 },
+      { "id": "I1", "type": "inspection", "label": "steel_inspection", "jurisdiction_required": true },
+      { "id": "S2", "type": "install_step", "label": "membrane_install", "trade": "roofing", "duration_days": 3 },
+      { "id": "S3", "type": "install_step", "label": "flashing_install", "trade": "roofing", "duration_days": 1 },
+      { "id": "S4", "type": "install_step", "label": "parapet_cap", "trade": "masonry", "duration_days": 1 },
+      { "id": "C2", "type": "condition", "label": "System complete + inspected" }
+    ],
+    "edges": [
+      { "from": "C1", "to": "S1", "type": "triggers" },
+      { "from": "S1", "to": "I1", "type": "triggers" },
+      { "from": "I1", "to": "S2", "type": "triggers" },
+      { "from": "S2", "to": "S3", "type": "depends_on" },
+      { "from": "S3", "to": "S4", "type": "depends_on" },
+      { "from": "S4", "to": "C2", "type": "triggers" }
+    ]
+  },
+  "detection_rules": {
+    "blocked_dependencies": {
+      "description": "A step cannot start until all upstream nodes are resolved",
+      "trigger": "inspection_pending OR condition_not_met OR predecessor_incomplete",
+      "output_fields": ["blocked_step_id", "blocking_node_id", "estimated_unblock_date", "float_consumed_days"]
+    },
+    "parallel_work_windows": {
+      "description": "Identify non-conflicting steps that can run concurrently",
+      "conditions": ["different_zones", "different_trades", "no_shared_access_paths"],
+      "output_fields": ["parallel_group_id", "steps", "shared_zone_risk", "congestion_score"]
+    },
+    "critical_path": {
+      "description": "Longest path through the graph determining project end date",
+      "algorithm": "CPM",
+      "output_fields": [
+        "critical_path_nodes",
+        "total_duration_days",
+        "earliest_start_dates",
+        "latest_start_dates",
+        "free_float",
+        "total_float"
+      ]
+    }
+  },
+  "outputs": {
+    "resolved_graph": {
+      "nodes_with_dates": "array",
+      "critical_path": "array",
+      "blocked_nodes": "array",
+      "parallel_windows": "array"
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "version": "0.2",
+  "extends": "simulator_schema.json",
+  "time_controls": {
+    "start_date": {
+      "type": "date",
+      "default": "",
+      "description": "Project mobilization date — anchors all predicted dates"
+    },
+    "weather_scenario": {
+      "type": "enum",
+      "options": ["best_case", "seasonal_average", "adverse_winter", "adverse_summer", "storm_risk"],
+      "default": "seasonal_average"
+    },
+    "crew_availability": {
+      "type": "enum",
+      "options": ["full_roster", "reduced_25pct", "reduced_50pct", "union_dispute_risk", "phased_onboarding"],
+      "default": "full_roster"
+    },
+    "inspection_availability": {
+      "type": "enum",
+      "options": ["standard_queue", "expedited", "backlogged_14d", "backlogged_30d", "jurisdiction_hold"],
+      "default": "standard_queue"
+    },
+    "material_delivery_timing": {
+      "type": "enum",
+      "options": ["on_schedule", "early_2d", "delayed_7d", "delayed_14d", "supply_chain_risk"],
+      "default": "on_schedule"
+    }
+  },
+  "scoring_dimensions": {
+    "time_risk": {
+      "description": "Probability the plan exceeds its predicted end date",
+      "range": [0, 100],
+      "lower_is_better": true,
+      "weight": 0.30
+    },
+    "weather_risk": {
+      "description": "Exposure of critical-path activities to adverse weather windows",
+      "range": [0, 100],
+      "lower_is_better": true,
+      "weight": 0.25
+    },
+    "inspection_risk": {
+      "description": "Likelihood inspections create schedule holds on critical activities",
+      "range": [0, 100],
+      "lower_is_better": true,
+      "weight": 0.20
+    },
+    "crew_efficiency": {
+      "description": "Predicted ratio of productive days to calendar days given availability scenario",
+      "range": [0, 100],
+      "lower_is_better": false,
+      "weight": 0.25
+    }
+  },
+  "scoring_rules": {
+    "composite_formula": "(1 - time_risk/100)*0.30 + (1 - weather_risk/100)*0.25 + (1 - inspection_risk/100)*0.20 + (crew_efficiency/100)*0.25",
+    "disqualify_if": {
+      "time_risk": { "gt": 85 },
+      "weather_risk": { "gt": 90 }
+    },
+    "flag_for_review_if": {
+      "any_dimension": { "gt": 70 }
+    }
+  },
+  "scenario_modifiers": {
+    "adverse_winter": { "time_risk_delta": +18, "weather_risk_delta": +35, "crew_efficiency_delta": -20 },
+    "adverse_summer":  { "time_risk_delta": +8,  "weather_risk_delta": +22, "crew_efficiency_delta": -10 },
+    "storm_risk":      { "time_risk_delta": +28, "weather_risk_delta": +50, "crew_efficiency_delta": -30 },
+    "backlogged_14d":  { "inspection_risk_delta": +30, "time_risk_delta": +15 },
+    "backlogged_30d":  { "inspection_risk_delta": +55, "time_risk_delta": +25 },
+    "delayed_7d":      { "time_risk_delta": +12, "crew_efficiency_delta": -8 },
+    "delayed_14d":     { "time_risk_delta": +22, "crew_efficiency_delta": -15 },
+    "reduced_25pct":   { "crew_efficiency_delta": -25, "time_risk_delta": +10 },
+    "reduced_50pct":   { "crew_efficiency_delta": -50, "time_risk_delta": +30 }
+  },
+  "output_extensions": {
+    "predicted_start_date": true,
+    "predicted_end_date": true,
+    "critical_path_weather_exposure": true,
+    "inspection_hold_windows": true,
+    "float_consumed_by_scenario": true,
+    "per_plan_time_scores": true
+  }
+}

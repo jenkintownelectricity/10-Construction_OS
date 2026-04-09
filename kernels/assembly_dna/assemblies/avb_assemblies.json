@@ -1,0 +1,98 @@
+{
+  "assemblies": [
+    {
+      "assembly_id": "Henry_Blueskin_WallBase",
+      "discipline": "air_vapor_barrier",
+      "system_family": "Henry_Blueskin_VP100",
+      "base_condition": "wall_base_at_foundation",
+      "layer_stack": [
+        { "role": "substrate",        "material": "CMU_or_CIP_Concrete_Wall",              "thickness_in": 0.00 },
+        { "role": "primer",           "material": "Henry_WB_Primer_663_Waterbase",          "thickness_in": 0.01 },
+        { "role": "avb_membrane",     "material": "Henry_Blueskin_VP100_SelfAdhered",       "thickness_in": 0.06 },
+        { "role": "end_lap_tape",     "material": "Henry_Blueskin_SA_Tape_4in",             "thickness_in": 0.03 },
+        { "role": "termination_sealant","material": "Henry_Aqua-Flash_Fluid_Sealant",       "thickness_in": 0.06 },
+        { "role": "protection_mat",   "material": "Henry_Blueskin_Protection_Mat_10mil",    "thickness_in": 0.10 }
+      ],
+      "geometry_template_ref": "gtpl_avb_wall_base_v1",
+      "compliance_rule_refs": ["IECC_C402_AVB", "ASHRAE_90.1_AVB", "ASTM_E2357_AVB_System"],
+      "installation_family": "inst_self_adhered_avb",
+      "inspection_family":   "insp_avb_wallbase_v1"
+    },
+    {
+      "assembly_id": "Henry_Blueskin_WindowHead",
+      "discipline": "air_vapor_barrier",
+      "system_family": "Henry_Blueskin_VP100",
+      "base_condition": "window_head_rough_opening",
+      "layer_stack": [
+        { "role": "substrate",        "material": "Framing_or_Sheathing_at_RO_Head",        "thickness_in": 0.00 },
+        { "role": "primer",           "material": "Henry_WB_Primer_663_Waterbase",           "thickness_in": 0.01 },
+        { "role": "avb_field",        "material": "Henry_Blueskin_VP100_SelfAdhered",        "thickness_in": 0.06 },
+        { "role": "head_flashing_tape","material": "Henry_Blueskin_SA_Tape_9in_WindowHead",  "thickness_in": 0.03 },
+        { "role": "drip_flashing",    "material": "Aluminum_Drip_Flashing_Prefinished_2in",  "thickness_in": 0.04 },
+        { "role": "sealant_backer",   "material": "Closed_Cell_Backer_Rod_0.5in",            "thickness_in": 0.50 },
+        { "role": "perimeter_sealant","material": "Silicone_Sealant_LM_NST_Gray",            "thickness_in": 0.38 }
+      ],
+      "geometry_template_ref": "gtpl_window_head_avb_v1",
+      "compliance_rule_refs": ["IECC_C402_WindowFlashing", "AAMA_2400_Flashing", "IBC_1404_Flashing"],
+      "installation_family": "inst_self_adhered_avb",
+      "inspection_family":   "insp_avb_windowhead_v1"
+    },
+    {
+      "assembly_id": "Henry_Blueskin_WindowSill",
+      "discipline": "air_vapor_barrier",
+      "system_family": "Henry_Blueskin_VP100",
+      "base_condition": "window_sill_rough_opening",
+      "layer_stack": [
+        { "role": "substrate",        "material": "Framing_or_Sheathing_at_RO_Sill",        "thickness_in": 0.00 },
+        { "role": "primer",           "material": "Henry_WB_Primer_663_Waterbase",           "thickness_in": 0.01 },
+        { "role": "sill_pan_tape",    "material": "Henry_Blueskin_SA_Tape_9in_SillPan",      "thickness_in": 0.03 },
+        { "role": "sill_pan",         "material": "Sloped_PVC_Sill_Pan_Preformed",           "thickness_in": 0.06 },
+        { "role": "avb_field",        "material": "Henry_Blueskin_VP100_SelfAdhered",        "thickness_in": 0.06 },
+        { "role": "sealant_backer",   "material": "Closed_Cell_Backer_Rod_0.5in",            "thickness_in": 0.50 },
+        { "role": "perimeter_sealant","material": "Silicone_Sealant_LM_NST_Gray",            "thickness_in": 0.38 }
+      ],
+      "geometry_template_ref": "gtpl_window_sill_avb_v1",
+      "compliance_rule_refs": ["IECC_C402_WindowFlashing", "AAMA_2400_Flashing", "IBC_1404_Flashing"],
+      "installation_family": "inst_self_adhered_avb",
+      "inspection_family":   "insp_avb_windowsill_v1"
+    },
+    {
+      "assembly_id": "Henry_Blueskin_WindowJamb",
+      "discipline": "air_vapor_barrier",
+      "system_family": "Henry_Blueskin_VP100",
+      "base_condition": "window_jamb_rough_opening",
+      "layer_stack": [
+        { "role": "substrate",        "material": "Framing_or_Sheathing_at_RO_Jamb",        "thickness_in": 0.00 },
+        { "role": "primer",           "material": "Henry_WB_Primer_663_Waterbase",           "thickness_in": 0.01 },
+        { "role": "avb_field",        "material": "Henry_Blueskin_VP100_SelfAdhered",        "thickness_in": 0.06 },
+        { "role": "jamb_tape",        "material": "Henry_Blueskin_SA_Tape_6in_Jamb",         "thickness_in": 0.03 },
+        { "role": "sealant_backer",   "material": "Closed_Cell_Backer_Rod_0.5in",            "thickness_in": 0.50 },
+        { "role": "perimeter_sealant","material": "Silicone_Sealant_LM_NST_Gray",            "thickness_in": 0.38 }
+      ],
+      "geometry_template_ref": "gtpl_window_jamb_avb_v1",
+      "compliance_rule_refs": ["IECC_C402_WindowFlashing", "AAMA_2400_Flashing", "IBC_1404_Flashing"],
+      "installation_family": "inst_self_adhered_avb",
+      "inspection_family":   "insp_avb_windowjamb_v1"
+    },
+    {
+      "assembly_id": "Henry_Blueskin_RoofToWall",
+      "discipline": "air_vapor_barrier",
+      "system_family": "Henry_Blueskin_VP100",
+      "base_condition": "roof_to_wall_transition",
+      "layer_stack": [
+        { "role": "substrate_wall",   "material": "Exterior_Wall_Sheathing",                "thickness_in": 0.00 },
+        { "role": "substrate_roof",   "material": "Roof_Deck_Structural_Panel",             "thickness_in": 0.00 },
+        { "role": "primer",           "material": "Henry_WB_Primer_663_Waterbase",           "thickness_in": 0.01 },
+        { "role": "transition_membrane","material": "Henry_Blueskin_VP100_SelfAdhered",      "thickness_in": 0.06 },
+        { "role": "reinforcing_tape", "material": "Henry_Blueskin_SA_Tape_12in_Transition",  "thickness_in": 0.03 },
+        { "role": "fluid_applied",    "material": "Henry_Aqua-Flash_650_Fluid_Transition",   "thickness_in": 0.06 },
+        { "role": "protection_mat",   "material": "Henry_Blueskin_Protection_Mat_10mil",     "thickness_in": 0.10 },
+        { "role": "termination_sealant","material": "Henry_Aqua-Flash_Fluid_Sealant",        "thickness_in": 0.06 }
+      ],
+      "geometry_template_ref": "gtpl_roof_to_wall_transition_avb_v1",
+      "compliance_rule_refs": ["IECC_C402_Transition", "ASHRAE_90.1_AVB_Continuity", "IBC_1404_WallRoofJunction"],
+      "installation_family": "inst_self_adhered_avb",
+      "inspection_family":   "insp_avb_rooftowall_v1"
+    }
+  ]
+}

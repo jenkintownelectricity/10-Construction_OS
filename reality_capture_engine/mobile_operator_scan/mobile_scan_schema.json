@@ -1,0 +1,78 @@
+{
+  "schema": "mobile_operator_scan",
+  "version": "1.0.0",
+  "description": "Continuous geometry capture as operators move through site using handheld and wearable spatial devices",
+
+  "devices": {
+    "lidar_tablet": {
+      "sensor": "structured_light_lidar",
+      "range_m": 5,
+      "accuracy_mm": 4,
+      "capture_rate_hz": 30,
+      "best_for": ["interior_rooms", "wall_geometry", "ceiling_height", "MEP_verification"],
+      "os_support": ["iOS", "iPadOS"]
+    },
+    "spatial_phone": {
+      "sensor": "tof_depth_camera",
+      "range_m": 3,
+      "accuracy_mm": 10,
+      "capture_rate_hz": 15,
+      "best_for": ["quick_checks", "small_area_scan", "element_confirmation"],
+      "os_support": ["iOS", "Android"]
+    },
+    "portable_scanner": {
+      "sensor": "phase_shift_lidar",
+      "range_m": 30,
+      "accuracy_mm": 2,
+      "capture_rate_hz": 700000,
+      "best_for": ["large_floor_plates", "structural_steel", "high_accuracy_zones"],
+      "os_support": ["windows_companion_app"]
+    },
+    "ar_headset": {
+      "sensor": "tof_plus_rgb",
+      "range_m": 4,
+      "accuracy_mm": 8,
+      "capture_rate_hz": 30,
+      "best_for": ["hands_free_capture", "install_verification", "design_overlay"],
+      "os_support": ["HoloLens2", "Magic_Leap2"]
+    }
+  },
+
+  "capture_behavior": {
+    "mode": "continuous_geometry_capture",
+    "description": "Geometry is captured automatically as operator walks — no manual trigger required",
+    "slam_tracking": true,
+    "coordinate_registration": "auto_align_to_site_control_points",
+    "session_management": {
+      "auto_save_interval_sec": 30,
+      "resume_on_reconnect": true,
+      "offline_capable": true
+    },
+    "quality_indicators": {
+      "tracking_status": ["good", "degraded", "lost"],
+      "coverage_heatmap": true,
+      "gap_detection_alert": true
+    }
+  },
+
+  "outputs": {
+    "incremental_asbuilt_reconstruction": {
+      "description": "Geometry fragments merged incrementally into the reality truth layer",
+      "format": ["e57", "las", "mesh_fragment"],
+      "destination": "spatial_reconstruction_engine",
+      "trigger": "session_end_or_upload_interval",
+      "confidence_scores": {
+        "per_region": true,
+        "scoring_factors": ["point_density", "scan_angle_diversity", "device_accuracy_class", "slam_tracking_quality"],
+        "score_range": "0.0_to_1.0",
+        "low_confidence_threshold": 0.6,
+        "action_on_low_confidence": "flag_for_rescan"
+      }
+    },
+    "operator_annotations_merged": {
+      "format": "geojson",
+      "destination": "reality_truth_layer",
+      "trigger": "session_end"
+    }
+  }
+}

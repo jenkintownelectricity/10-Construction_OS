@@ -1,0 +1,88 @@
+{
+  "schema_id": "field_intelligence_schema",
+  "version": "1.0.0",
+  "description": "Schema governing all field-originated intelligence inputs and observation objects. Field intelligence may enrich recommendations but may NOT mutate canonical assembly truth.",
+  "input_types": {
+    "shop_drawing_correction": {
+      "description": "Correction issued against a shop drawing in the field",
+      "required_fields": ["drawing_ref", "revision_number", "correction_detail", "issued_by", "date_issued"],
+      "optional_fields": ["photo_evidence", "rfi_link", "severity"]
+    },
+    "rfi_reference": {
+      "description": "Reference to a formal Request for Information tied to field observation",
+      "required_fields": ["rfi_number", "question_summary", "response_summary", "date_closed"],
+      "optional_fields": ["drawing_ref", "spec_section", "packet_link"]
+    },
+    "submittal_correction": {
+      "description": "Correction applied to an approved submittal based on field conditions",
+      "required_fields": ["submittal_number", "revision_detail", "approved_by", "date"],
+      "optional_fields": ["original_submittal_ref", "rfi_link"]
+    },
+    "installer_note": {
+      "description": "Free-form note entered by installing contractor documenting field condition",
+      "required_fields": ["installer_id", "trade", "note_text", "location_ref", "date"],
+      "optional_fields": ["photo_evidence", "audio_ref", "gps_coordinates"]
+    },
+    "field_fix": {
+      "description": "Deviation from design resolved in the field without formal RFI",
+      "required_fields": ["fix_description", "location_ref", "performed_by", "date"],
+      "optional_fields": ["before_photo", "after_photo", "material_substitution", "supervisor_approval"]
+    },
+    "observed_conflict": {
+      "description": "Conflict between two or more design elements observed during installation",
+      "required_fields": ["conflict_description", "element_a_ref", "element_b_ref", "location_ref", "observer_id"],
+      "optional_fields": ["resolution_status", "rfi_link", "photo_evidence"]
+    },
+    "inspection_observation": {
+      "description": "Formal observation recorded during a scheduled or unscheduled inspection",
+      "required_fields": ["inspector_id", "inspection_type", "finding", "location_ref", "date"],
+      "optional_fields": ["pass_fail", "corrective_action_required", "follow_up_date", "photo_evidence"]
+    },
+    "reality_capture_ref": {
+      "description": "Reference to a scan, photogrammetry model, or 360 capture documenting as-built condition",
+      "required_fields": ["capture_id", "capture_type", "capture_date", "location_ref", "file_ref"],
+      "optional_fields": ["point_cloud_ref", "bim_clash_delta", "deviation_mm"]
+    }
+  },
+  "objects": {
+    "field_observation": {
+      "description": "Atomic unit of field-originated observation",
+      "fields": ["observation_id", "input_type", "source_input_ref", "location_ref", "date_observed", "observer_id", "status"],
+      "status_values": ["open", "acknowledged", "resolved", "deferred"]
+    },
+    "deviation_record": {
+      "description": "Documented deviation between design intent and installed condition",
+      "fields": ["deviation_id", "observation_ref", "design_ref", "installed_condition", "delta_description", "severity", "resolution_path"],
+      "severity_values": ["critical", "major", "minor", "informational"]
+    },
+    "corrective_action": {
+      "description": "Action taken or prescribed to resolve a deviation",
+      "fields": ["action_id", "deviation_ref", "action_description", "assigned_to", "due_date", "completed_date", "outcome"],
+      "outcome_values": ["corrected", "accepted_as_is", "deferred", "escalated"]
+    },
+    "installer_note": {
+      "description": "Structured capture of installer-originated field note",
+      "fields": ["note_id", "installer_id", "trade", "location_ref", "note_text", "date", "attachments"]
+    },
+    "review_resolution": {
+      "description": "Resolution record for a field observation that passed through formal review",
+      "fields": ["resolution_id", "observation_ref", "reviewer_id", "review_date", "decision", "rationale", "drawing_update_required"]
+    },
+    "observed_variation": {
+      "description": "Variation in material, dimension, or method observed versus specification",
+      "fields": ["variation_id", "spec_ref", "observed_value", "specified_value", "location_ref", "disposition"],
+      "disposition_values": ["conforming", "non_conforming", "pending_review"]
+    },
+    "means_methods_note": {
+      "description": "Contractor means and methods note not subject to design review but captured for record",
+      "fields": ["note_id", "contractor_id", "activity_ref", "description", "date", "acknowledged"]
+    }
+  },
+  "immutability_rules": {
+    "rule_1": "Field intelligence objects may enrich recommendation layers and surface deviations to the revision queue.",
+    "rule_2": "Field intelligence objects may NOT write to, overwrite, or delete canonical assembly truth records.",
+    "rule_3": "Any field input that attempts to mutate a canonical kernel MUST be rejected and logged as a truth-plane violation.",
+    "rule_4": "Deviation records create enrichment annotations only; they do not alter the source design record.",
+    "enforcement": "truth_plane_separation.json"
+  }
+}

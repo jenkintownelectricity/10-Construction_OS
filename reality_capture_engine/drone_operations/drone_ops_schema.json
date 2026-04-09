@@ -1,0 +1,91 @@
+{
+  "schema": "drone_operations",
+  "version": "1.0.0",
+  "description": "Flight programming, scan scheduling, and photogrammetry/lidar capture for autonomous and manual drone operations",
+  "flight_modes": {
+    "daily_autonomous": {
+      "description": "Pre-programmed sequences on a daily schedule without operator input",
+      "trigger": "cron_schedule",
+      "requires_approval": false,
+      "abort_conditions": ["wind_speed_gt_12ms", "rain_detected", "restricted_airspace_alert"]
+    },
+    "zone_based": {
+      "description": "Scans a specific zone on demand, triggered by work completion or supervisor request",
+      "trigger": "zone_event_or_manual",
+      "requires_approval": false,
+      "zone_targeting": true
+    },
+    "manual": {
+      "description": "Operator-piloted flight with capture assistance",
+      "trigger": "operator_initiated",
+      "requires_approval": true,
+      "capture_assist": ["grid_overlay", "overlap_guide", "altitude_hold"]
+    }
+  },
+  "capture_types": {
+    "photogrammetry": {
+      "output": "dense_point_cloud_and_mesh",
+      "sensor": "rgb_camera",
+      "min_overlap_pct": 70,
+      "formats": ["jpeg", "raw"]
+    },
+    "lidar": {
+      "output": "point_cloud",
+      "sensor": "lidar_unit",
+      "point_density": "100_pts_per_sqm",
+      "formats": ["las", "laz"]
+    },
+    "thermal": {
+      "output": "thermal_map",
+      "sensor": "thermal_camera",
+      "use_case": ["moisture_detection", "hvac_verification"],
+      "formats": ["tiff", "jpeg"]
+    }
+  },
+  "path_definition": {
+    "methods": ["grid_pattern", "orbit", "waypoint_list", "facade_sweep", "custom_polygon"],
+    "coordinate_system": "WGS84_plus_site_local",
+    "altitude_reference": ["AGL", "AMSL", "site_datum"]
+  },
+  "example_sequences": {
+    "morning_roof_scan": {
+      "profile": "roof_scan_daily",
+      "schedule": "06:30_local",
+      "zone": "roof_level",
+      "capture_type": "photogrammetry",
+      "output_destination": "spatial_reconstruction_engine"
+    },
+    "afternoon_facade": {
+      "profile": "facade_progress_scan",
+      "schedule": "14:00_local",
+      "zone": "north_and_south_facade",
+      "capture_type": "photogrammetry",
+      "output_destination": "spatial_reconstruction_engine"
+    },
+    "weekly_full_building": {
+      "profile": "full_site_mesh",
+      "schedule": "monday_07:00_local",
+      "zone": "full_site",
+      "capture_type": ["photogrammetry", "lidar"],
+      "output_destination": ["spatial_reconstruction_engine", "asbuilt_model_store"]
+    }
+  },
+  "outputs": {
+    "3d_mesh_updates": {
+      "format": ["obj", "glb"],
+      "destination": "spatial_reconstruction_engine",
+      "trigger": "post_flight"
+    },
+    "point_cloud": {
+      "format": ["las", "laz"],
+      "destination": "spatial_reconstruction_engine",
+      "trigger": "post_flight"
+    },
+    "progress_detection": {
+      "format": "json",
+      "destination": "installation_progress_tracker",
+      "trigger": "post_reconstruction",
+      "includes": ["zone_delta", "new_elements_detected", "capture_timestamp"]
+    }
+  }
+}

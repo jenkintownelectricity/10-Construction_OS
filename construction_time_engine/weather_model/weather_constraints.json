@@ -1,0 +1,83 @@
+{
+  "schema_id": "weather_constraints_v1",
+  "description": "Per-system environmental installation constraints and weather-driven schedule risk model",
+  "systems": {
+    "PMMA": {
+      "full_name": "Polymethyl Methacrylate (Liquid Applied)",
+      "constraints": {
+        "min_temp_f": 40,
+        "max_humidity_pct": 90,
+        "no_precipitation": true,
+        "min_dew_point_margin_f": 5,
+        "max_wind_mph": null,
+        "substrate_must_be_dry": true
+      },
+      "notes": "Catalyst ratio must adjust below 50F; reject if rain within 4hr forecast"
+    },
+    "SBS": {
+      "full_name": "Styrene-Butadiene-Styrene Modified Bitumen",
+      "constraints": {
+        "min_temp_f": 20,
+        "max_humidity_pct": null,
+        "no_precipitation": true,
+        "min_dew_point_margin_f": 3,
+        "max_wind_mph": 25,
+        "substrate_must_be_dry": true
+      },
+      "notes": "Torch-applied variant requires wind speed <15mph for flame control"
+    },
+    "TPO": {
+      "full_name": "Thermoplastic Polyolefin",
+      "constraints": {
+        "min_temp_f": 35,
+        "max_humidity_pct": null,
+        "no_precipitation": true,
+        "min_dew_point_margin_f": 5,
+        "max_wind_mph": 30,
+        "substrate_must_be_dry": false
+      },
+      "notes": "Hot-air welding performance degrades in wind >20mph; ballasted systems require <25mph"
+    },
+    "SFRM": {
+      "full_name": "Spray-Applied Fire-Resistive Material",
+      "constraints": {
+        "min_temp_f": 40,
+        "max_humidity_pct": 85,
+        "no_precipitation": true,
+        "min_dew_point_margin_f": 5,
+        "max_wind_mph": 15,
+        "substrate_must_be_dry": true
+      },
+      "notes": "Must maintain temp ≥40F for 24hr after application; enclose if necessary"
+    },
+    "Hydrotech": {
+      "full_name": "Hydrotech Hot-Applied Rubberized Asphalt",
+      "constraints": {
+        "min_temp_f": 50,
+        "max_humidity_pct": null,
+        "no_precipitation": true,
+        "min_dew_point_margin_f": 5,
+        "max_wind_mph": 20,
+        "substrate_must_be_dry": true
+      },
+      "notes": "Kettle temp must reach 375–425F; cold ambient slows heat transfer significantly"
+    }
+  },
+  "risk_model": {
+    "install_windows": {
+      "description": "Hours or days in forecast window where all constraints are met",
+      "output": ["window_start", "window_end", "system", "zone_id", "confidence_pct"]
+    },
+    "weather_delay_probability": {
+      "description": "Probability of weather-caused delay per system per week",
+      "inputs": ["forecast_data", "system_constraints", "historical_climate"],
+      "output": ["system", "week", "delay_probability", "expected_delay_days"]
+    },
+    "schedule_risk_factor": {
+      "description": "Composite risk multiplier applied to system duration estimates",
+      "scale": "0.0 (no risk) to 1.0 (near-certain delay)",
+      "factors": ["temp_exceedance_freq", "precip_probability", "wind_exceedance_freq", "humidity_risk"],
+      "output": ["system", "zone_id", "risk_factor", "recommended_float_days"]
+    }
+  }
+}

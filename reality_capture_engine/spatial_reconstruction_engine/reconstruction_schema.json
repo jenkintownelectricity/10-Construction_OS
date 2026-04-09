@@ -1,0 +1,70 @@
+{
+  "schema": "spatial_reconstruction_engine",
+  "version": "1.0.0",
+  "description": "Transforms raw images, point clouds, and lidar scans into 3D meshes, condition geometry, and progress models",
+
+  "inputs": {
+    "image_sets": { "formats": ["jpeg", "raw", "tiff"], "source": ["drone", "fixed_camera", "360_camera"] },
+    "point_clouds": { "formats": ["las", "laz", "e57", "pts"], "source": ["lidar", "drone_lidar", "mobile_scan"] },
+    "lidar_scans": { "formats": ["e57", "pts", "zfs"], "source": ["portable_scanner", "mobile_device"] },
+    "annotations": { "formats": ["geojson", "json"], "source": ["operator_annotations"] }
+  },
+
+  "processing_pipeline": {
+    "step_1_ingest_and_validate": {
+      "actions": ["format_check", "georeferencing_verify", "duplicate_detection"],
+      "on_failure": "quarantine_and_alert"
+    },
+    "step_2_feature_extraction": {
+      "actions": ["keypoint_detection", "depth_estimation", "normal_computation"],
+      "applies_to": ["image_sets", "point_clouds"]
+    },
+    "step_3_registration": {
+      "actions": ["icp_alignment", "bundle_adjustment", "control_point_snap"],
+      "coordinate_system": "site_local_plus_WGS84"
+    },
+    "step_4_mesh_generation": {
+      "methods": ["delaunay_triangulation", "poisson_reconstruction", "alpha_shape"],
+      "lod_levels": ["LOD0_site", "LOD1_building", "LOD2_zone", "LOD3_element"]
+    },
+    "step_5_classification": {
+      "actions": ["structural_element_detection", "mep_detection", "progress_labeling"],
+      "ml_model": "construction_element_classifier_v2"
+    }
+  },
+
+  "update_modes": {
+    "incremental_updates": {
+      "description": "Merge new scan fragments into existing model without full reprocess",
+      "trigger": "new_data_received",
+      "latency_target_min": 15,
+      "affected_zones_only": true
+    },
+    "daily_mesh_evolution": {
+      "description": "Full daily reprocess of all zones with fresh data accumulated since last run",
+      "trigger": "cron_02:00_local",
+      "output": ["updated_3d_mesh", "progress_delta_report", "condition_geometry"]
+    },
+    "zone_based_reconstruction": {
+      "description": "On-demand reconstruction of a single zone, triggered by zone completion event",
+      "trigger": "zone_event_or_manual",
+      "scope": "single_zone",
+      "priority": "high"
+    }
+  },
+
+  "outputs": {
+    "3d_mesh": { "formats": ["glb", "obj", "ifc"], "destination": "asbuilt_model_store" },
+    "condition_geometry": {
+      "description": "Flagged deviations, defects, and anomalies with geometry and location",
+      "format": "geojson",
+      "destination": ["design_vs_reality_comparator", "risk_alert_engine"]
+    },
+    "progress_models": {
+      "description": "Zone-level completion states derived from element classification",
+      "format": "json",
+      "destination": "installation_progress_tracker",
+      "fields": ["zone_id", "pct_complete", "elements_installed", "elements_expected", "snapshot_date"]
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "project": "JFK_Terminal_1",
+  "wave": 117,
+  "description": "Expanded revision matrix — prioritized buckets for open conditions",
+  "generated": "2026-04-09",
+  "revisions": [
+    {
+      "revision_id": "REV-H-001", "condition": "Smoke exhaust hatch WP incomplete",
+      "zone": "STAIR_HATCH", "evidence_ref": "RFI-SMOKE-EXH-007", "priority": "HIGH",
+      "status": "OPEN", "required_action": "Issue revised WP upturn detail at all smoke exhaust hatch curbs"
+    },
+    {
+      "revision_id": "REV-H-002", "condition": "Hatch curb termination not coordinated with membrane",
+      "zone": "STAIR_HATCH", "evidence_ref": "COND-HATCH-TERM-003", "priority": "HIGH",
+      "status": "OPEN", "required_action": "Detail hatch curb termination height and membrane counterflashing interface"
+    },
+    {
+      "revision_id": "REV-H-003", "condition": "HH5 waterproofing corrections required",
+      "zone": "HH5", "evidence_ref": "RFI-WP-042", "priority": "HIGH",
+      "status": "OPEN", "required_action": "Reissue HH5 WP drawings with corrected field conditions and verified extents"
+    },
+    {
+      "revision_id": "REV-H-004", "condition": "NW_HH waterproofing corrections required",
+      "zone": "NW_HH", "evidence_ref": "RFI-WP-051", "priority": "HIGH",
+      "status": "OPEN", "required_action": "Reissue NW_HH WP drawings addressing lap seam and drain locations"
+    },
+    {
+      "revision_id": "REV-H-005", "condition": "Dunnage to roof membrane interface unresolved",
+      "zone": "DUNNAGE", "evidence_ref": "RFI-DUNNAGE-WP-009", "priority": "HIGH",
+      "status": "OPEN", "required_action": "Issue flashing detail for dunnage base plates penetrating or bearing on membrane"
+    },
+    {
+      "revision_id": "REV-H-006", "condition": "Drain gutter and edge detail at canopy incomplete",
+      "zone": "CANOPY_CLAD_DRAIN", "evidence_ref": "RFI-GUTTER-EDGE-022", "priority": "HIGH",
+      "status": "OPEN", "required_action": "Finalize canopy edge drain and gutter sizing, slope, and overflow locations"
+    },
+    {
+      "revision_id": "REV-M-001", "condition": "Structural support interface details incomplete",
+      "zone": "DUNNAGE", "evidence_ref": "SC-001", "priority": "MEDIUM",
+      "status": "IN_PROGRESS", "required_action": "Coordinate delegated design package for dunnage with structural drawings"
+    },
+    {
+      "revision_id": "REV-M-002", "condition": "Cladding to gutter drainage transition undetailed",
+      "zone": "CANOPY_CLAD_DRAIN", "evidence_ref": "COND-CANOPY-DRAIN-005", "priority": "MEDIUM",
+      "status": "OPEN", "required_action": "Issue cladding-to-gutter transition detail confirming drainage continuity"
+    },
+    {
+      "revision_id": "REV-L-001", "condition": "Portal frame to preclear wall coordination gap",
+      "zone": "TSA_PORTAL", "evidence_ref": "RFI-PORTAL-COORD-012", "priority": "LOW",
+      "status": "OPEN", "required_action": "Align portal header drawing with preclear wall layout and clearances"
+    },
+    {
+      "revision_id": "REV-L-002", "condition": "TSA portal region wall type coordination pending",
+      "zone": "PRECLEAR_WALL", "evidence_ref": "RFI-TSA-COORD-018", "priority": "LOW",
+      "status": "OPEN", "required_action": "Confirm wall types and finish schedule at TSA portal approach zones"
+    },
+    {
+      "revision_id": "REV-HP-001", "condition": "Delegated design packages not yet issued",
+      "zone": "DUNNAGE", "evidence_ref": "SC-001", "priority": "HOLD_PENDING_INPUT",
+      "status": "BLOCKED", "required_action": "Await delegated engineer submission for dunnage and MEP hanger systems"
+    },
+    {
+      "revision_id": "REV-HP-002", "condition": "Mixed-system stack resolution at stair shaft",
+      "zone": "MONUMENT_STAIR", "evidence_ref": "RFI-STAIR-WP-014", "priority": "HOLD_PENDING_INPUT",
+      "status": "BLOCKED", "required_action": "Resolve overlap of structural stair, WP upturn, and MEP penetrations before detailing"
+    }
+  ]
+}

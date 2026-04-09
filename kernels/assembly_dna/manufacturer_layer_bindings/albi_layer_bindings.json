@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "manufacturer": "ALBI Manufacturing",
+  "system_family": "ALBI_DriClad_Board_Enclosure",
+  "description": "Layer-to-product bindings for ALBI DriClad rigid calcium-silicate board fire enclosure assemblies",
+  "bindings": [
+    {
+      "binding_id": "ALBI_DRICLAD_001",
+      "manufacturer": "ALBI Manufacturing",
+      "system_family": "ALBI_DriClad_Board_Enclosure",
+      "assembly_id": "ALBI_Board_Column",
+      "layer_slot": "BOARD_INNER",
+      "product_id": "ALBI-DRICLAD-CALCIUM-SILICATE-1IN",
+      "product_role": "inner_fire_board_layer",
+      "allowed_substitutions": ["ALBI-DRICLAD-CALCIUM-SILICATE-0.75IN"],
+      "forbidden_mixes": ["STANDARD_GYPSUM_WALLBOARD_INNER_LAYER", "EPS_FOAM_BOARD_IN_FIRE_ENCLOSURE"],
+      "inspection_requirements": ["UL_X471_design_thickness_verify", "board_joints_offset_from_outer_layer_min_150mm", "fastener_pattern_per_UL_design"]
+    },
+    {
+      "binding_id": "ALBI_DRICLAD_002",
+      "manufacturer": "ALBI Manufacturing",
+      "system_family": "ALBI_DriClad_Board_Enclosure",
+      "assembly_id": "ALBI_Board_Column",
+      "layer_slot": "BOARD_OUTER",
+      "product_id": "ALBI-DRICLAD-CALCIUM-SILICATE-1IN",
+      "product_role": "outer_fire_board_layer",
+      "allowed_substitutions": [],
+      "forbidden_mixes": ["MINERAL_FIBER_BOARD_AS_OUTER_FINISH", "CEMENT_BOARD_NON_FIRE_RATED_OUTER"],
+      "inspection_requirements": ["outer_joints_staggered_from_inner_verify", "all_fastener_heads_countersunk", "no_gaps_over_3mm_at_any_seam"]
+    },
+    {
+      "binding_id": "ALBI_DRICLAD_003",
+      "manufacturer": "ALBI Manufacturing",
+      "system_family": "ALBI_DriClad_Board_Enclosure",
+      "assembly_id": "ALBI_Board_Column",
+      "layer_slot": "JOINT_TAPE",
+      "product_id": "ALBI-FIBERGLASS-MESH-TAPE-2IN",
+      "product_role": "joint_reinforcement_tape",
+      "allowed_substitutions": ["ALBI-FIBERGLASS-MESH-TAPE-4IN"],
+      "forbidden_mixes": ["PAPER_DRYWALL_TAPE_IN_FIRE_ENCLOSURE", "ALUMINUM_FOIL_TAPE_AT_FIRE_RATED_JOINT"],
+      "inspection_requirements": ["tape_embedded_fully_in_wet_compound", "no_bubbles_or_lifted_edges", "second_coat_crosshatch_to_first"]
+    },
+    {
+      "binding_id": "ALBI_DRICLAD_004",
+      "manufacturer": "ALBI Manufacturing",
+      "system_family": "ALBI_DriClad_Board_Enclosure",
+      "assembly_id": "ALBI_Board_Column",
+      "layer_slot": "JOINT_COMPOUND",
+      "product_id": "ALBI-FIRE-RESISTANT-JOINT-COMPOUND",
+      "product_role": "joint_fill_and_finishing_compound",
+      "allowed_substitutions": [],
+      "forbidden_mixes": ["STANDARD_SETTING_TYPE_JOINT_COMPOUND", "VINYL_SPACKLING_COMPOUND"],
+      "inspection_requirements": ["ASTM_E119_joint_compound_fire_test_ref", "feather_min_150mm_each_side_of_joint", "final_coat_sanded_flush_smooth"]
+    },
+    {
+      "binding_id": "ALBI_DRICLAD_005",
+      "manufacturer": "ALBI Manufacturing",
+      "system_family": "ALBI_DriClad_Board_Enclosure",
+      "assembly_id": "ALBI_Board_Beam",
+      "layer_slot": "BOARD_SOFFIT",
+      "product_id": "ALBI-DRICLAD-CALCIUM-SILICATE-0.75IN",
+      "product_role": "beam_soffit_fire_board",
+      "allowed_substitutions": ["ALBI-DRICLAD-CALCIUM-SILICATE-1IN"],
+      "forbidden_mixes": ["ACOUSTIC_TILE_AS_FIRE_BOARD_SOFFIT", "GYPSUM_BOARD_TYPE_X_WITHOUT_UL_LISTING"],
+      "inspection_requirements": ["UL_N863_soffit_thickness_min_verify", "anchor_clip_spacing_per_TD_sheet", "board_sagging_zero_tolerance_visual"]
+    },
+    {
+      "binding_id": "ALBI_DRICLAD_006",
+      "manufacturer": "ALBI Manufacturing",
+      "system_family": "ALBI_DriClad_Board_Enclosure",
+      "assembly_id": "ALBI_Board_Column",
+      "layer_slot": "PRIMER",
+      "product_id": "ZINC-RICH-PRIMER-ORGANIC-SSPC-PAINT20",
+      "product_role": "corrosion_protection_primer_under_board",
+      "allowed_substitutions": ["ZINC-RICH-PRIMER-INORGANIC-GALVITE"],
+      "forbidden_mixes": ["OIL_ALKYD_PRIMER_OVER_38_MICRONS_DFT", "NO_PRIMER_ON_UNPAINTED_STEEL_COLUMN"],
+      "inspection_requirements": ["SSPC_SP6_surface_prep_min_commercial_blast", "DFT_range_per_UL_design_typically_15_25_micron", "cure_before_board_installation_24hr"]
+    }
+  ]
+}

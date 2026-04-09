@@ -1,0 +1,10 @@
+{
+  "risk_types": [
+    {"type": "membrane_incompatibility", "severity": "FAIL", "description": "Incompatible membrane contact"},
+    {"type": "thermal_movement", "severity": "WARNING", "description": "Differential thermal expansion at transition"},
+    {"type": "water_path", "severity": "FAIL", "description": "Unprotected water entry path"},
+    {"type": "termination_failure", "severity": "FAIL", "description": "Inadequate membrane termination"},
+    {"type": "fastener_pullout", "severity": "WARNING", "description": "Insufficient fastener embedment or spacing"},
+    {"type": "overburden_pressure", "severity": "WARNING", "description": "Excessive load on membrane system"}
+  ]
+}

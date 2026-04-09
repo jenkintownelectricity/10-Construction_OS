@@ -1,0 +1,45 @@
+{
+  "surface_set_id": "JFK-T1-ROOF-SURFACES",
+  "project_code": "JFK-T1",
+  "datum": "WGS84",
+  "created": "2026-04-09",
+  "wave": 212,
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "surface_id": "RS-HH-HIGH", "zone_ref": "Z-HH-HIGH", "name": "Headhouse High Roof",
+      "elev_ft": 72.0, "slope_pct": 2.0, "slope_dir": "south", "membrane": "EPDM_60mil", "area_sqft_approx": 48000,
+      "geometry": { "type": "Polygon", "coordinates": [[40.6420,-73.7793],[40.6420,-73.7773],[40.6412,-73.7773],[40.6412,-73.7793],[40.6420,-73.7793]] }
+    },
+    {
+      "surface_id": "RS-HH-LOW", "zone_ref": "Z-HH-LOW", "name": "Headhouse Low Roof",
+      "elev_ft": 58.0, "slope_pct": 1.5, "slope_dir": "south", "membrane": "TPO_60mil", "area_sqft_approx": 32000,
+      "geometry": { "type": "Polygon", "coordinates": [[40.6412,-73.7793],[40.6412,-73.7773],[40.6406,-73.7773],[40.6406,-73.7793],[40.6412,-73.7793]] }
+    },
+    {
+      "surface_id": "RS-HH5", "zone_ref": "Z-HH5", "name": "HH Zone 5 Roof",
+      "elev_ft": 65.0, "slope_pct": 2.0, "slope_dir": "east", "membrane": "EPDM_60mil", "area_sqft_approx": 18500,
+      "geometry": { "type": "Polygon", "coordinates": [[40.6420,-73.7773],[40.6420,-73.7766],[40.6412,-73.7766],[40.6412,-73.7773],[40.6420,-73.7773]] }
+    },
+    {
+      "surface_id": "RS-NW-HH", "zone_ref": "Z-NW-HH", "name": "NW Headhouse Corner Roof",
+      "elev_ft": 70.0, "slope_pct": 1.0, "slope_dir": "south-east", "membrane": "EPDM_60mil", "area_sqft_approx": 9800,
+      "geometry": { "type": "Polygon", "coordinates": [[40.6421,-73.7795],[40.6421,-73.7790],[40.6416,-73.7790],[40.6416,-73.7795],[40.6421,-73.7795]] }
+    },
+    {
+      "surface_id": "RS-PIER-ROOF", "zone_ref": "Z-PIER-ROOF", "name": "East Pier Main Roof",
+      "elev_ft": 42.0, "slope_pct": 1.5, "slope_dir": "west", "membrane": "TPO_80mil", "area_sqft_approx": 72000,
+      "geometry": { "type": "Polygon", "coordinates": [[40.6413,-73.7760],[40.6413,-73.7742],[40.6403,-73.7742],[40.6403,-73.7760],[40.6413,-73.7760]] }
+    },
+    {
+      "surface_id": "RS-PORTAL", "zone_ref": "Z-PORTAL", "name": "Portal Canopy Roof",
+      "elev_ft": 36.0, "slope_pct": 3.0, "slope_dir": "front", "membrane": "PVC_50mil", "area_sqft_approx": 6200,
+      "geometry": { "type": "Polygon", "coordinates": [[40.6407,-73.7783],[40.6407,-73.7778],[40.6405,-73.7778],[40.6405,-73.7783],[40.6407,-73.7783]] }
+    },
+    {
+      "surface_id": "RS-DUNNAGE", "zone_ref": "Z-DUNNAGE", "name": "Mechanical Dunnage Field",
+      "elev_ft": 72.0, "slope_pct": 0.0, "slope_dir": "flat", "membrane": "EPDM_60mil_protected", "area_sqft_approx": 11000,
+      "geometry": { "type": "Polygon", "coordinates": [[40.6418,-73.7788],[40.6418,-73.7782],[40.6414,-73.7782],[40.6414,-73.7788],[40.6418,-73.7788]] }
+    }
+  ]
+}

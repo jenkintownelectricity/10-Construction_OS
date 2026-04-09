@@ -1,0 +1,84 @@
+{ "schema_version": "1.1.0", "generated": "2026-04-09",
+  "production_rules": [
+    {
+      "rule_id": "CR-001", "name": "termination_height", "discipline": "roofing",
+      "trigger": "membrane_vertical_termination_detected",
+      "required_inputs": ["termination_height_in", "substrate_type"],
+      "pass_fail_outputs": { "pass": "termination_height_in >= 8", "fail": "termination_height_in < 8" },
+      "citation": "NRCA Roofing Manual 7.2 / SMACNA",
+      "inspection_prompt": "Measure vertical height from roof plane to top of base flashing. Minimum 8 inches required."
+    },
+    {
+      "rule_id": "CR-002", "name": "min_overlap", "discipline": "roofing",
+      "trigger": "membrane_lap_joint_detected",
+      "required_inputs": ["lap_width_in", "membrane_type", "slope_percent"],
+      "pass_fail_outputs": { "pass": "lap_width_in >= required_lap_for_membrane_type", "fail": "lap_width_in < required_lap_for_membrane_type" },
+      "citation": "FM Global DS 1-29 / Manufacturer TPO/EPDM guide",
+      "inspection_prompt": "Measure lap width at 3 locations per 100 LF. Confirm against manufacturer minimum for membrane type."
+    },
+    {
+      "rule_id": "CR-003", "name": "slope_to_drain", "discipline": "roofing",
+      "trigger": "roof_drain_location_defined",
+      "required_inputs": ["slope_in_per_ft", "tributary_area_sqft", "drain_spacing_ft"],
+      "pass_fail_outputs": { "pass": "slope_in_per_ft >= 0.25", "fail": "slope_in_per_ft < 0.25" },
+      "citation": "IBC 1503.4 / ASCE 7 Roof Drainage",
+      "inspection_prompt": "Verify minimum 1/4 inch per foot slope toward each drain using level and tape at midpoint between drains."
+    },
+    {
+      "rule_id": "CR-004", "name": "fastener_spacing", "discipline": "roofing",
+      "trigger": "mechanically_attached_assembly_detected",
+      "required_inputs": ["fastener_spacing_in", "wind_zone", "membrane_type", "deck_type"],
+      "pass_fail_outputs": { "pass": "fastener_spacing_in <= max_allowed_for_wind_zone", "fail": "fastener_spacing_in > max_allowed_for_wind_zone" },
+      "citation": "FM Global DS 1-29 / ASCE 7 Wind Uplift Table",
+      "inspection_prompt": "Count and measure fastener rows at field, perimeter, and corner zones against approved FM/UL assembly."
+    },
+    {
+      "rule_id": "CR-005", "name": "air_barrier_continuity", "discipline": "air_barrier",
+      "trigger": "air_barrier_assembly_present",
+      "required_inputs": ["gap_locations", "transition_sealed_boolean", "all_penetrations_sealed_boolean"],
+      "pass_fail_outputs": { "pass": "gap_locations==[] AND transition_sealed==true AND penetrations_sealed==true", "fail": "any_gap OR unsealed_transition OR unsealed_penetration" },
+      "citation": "IBC 1202.4 / ASHRAE 90.1 Section 5.4",
+      "inspection_prompt": "Visually trace air barrier from foundation to roof. Document all transitions, penetrations, and terminations. Flag any gap."
+    },
+    {
+      "rule_id": "CR-006", "name": "vapor_barrier_continuity", "discipline": "vapor_barrier",
+      "trigger": "vapor_barrier_assembly_present",
+      "required_inputs": ["lap_width_in", "taped_laps_boolean", "penetrations_sealed_boolean", "climate_zone"],
+      "pass_fail_outputs": { "pass": "lap_width_in >= 6 AND taped_laps==true AND penetrations_sealed==true", "fail": "lap_width_in < 6 OR taped_laps==false OR penetrations_sealed==false" },
+      "citation": "IBC 1404.3 / ASHRAE 90.1 / IRC R702.7",
+      "inspection_prompt": "Inspect all vapor barrier laps for minimum 6-inch overlap with tape. Verify all penetrations are sealed."
+    },
+    {
+      "rule_id": "CR-007", "name": "fireproofing_thickness", "discipline": "fireproofing",
+      "trigger": "spray_applied_fireproofing_specified",
+      "required_inputs": ["measured_thickness_in", "required_thickness_in", "ul_assembly_number", "member_type"],
+      "pass_fail_outputs": { "pass": "measured_thickness_in >= required_thickness_in", "fail": "measured_thickness_in < required_thickness_in" },
+      "citation": "IBC 722 / UL Fire Resistance Directory / AISC Design Guide 19",
+      "inspection_prompt": "Use calibrated pin gauge per ASTM E605 grid pattern. Minimum 3 readings per member versus UL listing."
+    },
+    {
+      "rule_id": "CR-008", "name": "board_joint_stagger", "discipline": "roofing",
+      "trigger": "multi_layer_insulation_board_assembly",
+      "required_inputs": ["layer_count", "joint_offset_in", "layer_1_joint_coords", "layer_2_joint_coords"],
+      "pass_fail_outputs": { "pass": "joint_offset_in >= 6 AND no_cross_joint_alignment", "fail": "joint_offset_in < 6 OR cross_joint_aligned" },
+      "citation": "FM Global DS 1-29 Section 2.2 / NRCA Roofing Manual",
+      "inspection_prompt": "Verify insulation board joints offset minimum 6 inches between layers in both directions. No cross-joint alignment."
+    },
+    {
+      "rule_id": "CR-009", "name": "movement_joint_clearance", "discipline": "roofing",
+      "trigger": "structural_movement_joint_at_roof",
+      "required_inputs": ["joint_cover_width_in", "structural_gap_width_in", "cover_assembly_type"],
+      "pass_fail_outputs": { "pass": "joint_cover_width_in >= 2 * structural_gap_width_in", "fail": "joint_cover_width_in < 2 * structural_gap_width_in" },
+      "citation": "NRCA Roofing Manual / Architect-of-Record structural drawings",
+      "inspection_prompt": "Measure structural gap width. Confirm cover width is minimum 2x gap. Verify cover not adhered both sides."
+    },
+    {
+      "rule_id": "CR-010", "name": "drain_sump_depth", "discipline": "roofing",
+      "trigger": "roof_drain_installed",
+      "required_inputs": ["sump_depth_in", "roof_membrane_type", "drain_manufacturer"],
+      "pass_fail_outputs": { "pass": "sump_depth_in >= 1", "fail": "sump_depth_in < 1" },
+      "citation": "NRCA Roofing Manual / IPC 1106.1",
+      "inspection_prompt": "Measure sump pan depth below surrounding roof plane at each drain. Minimum 1-inch depression required."
+    }
+  ]
+}

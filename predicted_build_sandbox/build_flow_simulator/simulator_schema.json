@@ -1,0 +1,64 @@
+{
+  "version": "0.1",
+  "inputs": [
+    "project",
+    "zone",
+    "condition",
+    "assembly",
+    "install_sequence",
+    "adjacent_conditions",
+    "access_constraints",
+    "trade_readiness",
+    "material_availability",
+    "inspection_windows",
+    "weather_assumptions"
+  ],
+  "outputs": {
+    "plan_a": {
+      "goal": "fastest",
+      "description": "Minimum duration path"
+    },
+    "plan_b": {
+      "goal": "safest",
+      "description": "Lowest risk path"
+    },
+    "plan_c": {
+      "goal": "balanced",
+      "description": "Best overall score"
+    }
+  },
+  "plan_goals": [
+    "fastest",
+    "safest",
+    "lowest_risk",
+    "least_congestion",
+    "best_inspection_readiness"
+  ],
+  "simulation_modes": {
+    "sequential": {
+      "description": "Run plans one after another for comparison",
+      "output": "ranked_plan_list"
+    },
+    "parallel": {
+      "description": "Evaluate all goals simultaneously",
+      "output": "plan_matrix"
+    },
+    "sensitivity": {
+      "description": "Vary one input at a time to measure impact",
+      "output": "sensitivity_report"
+    }
+  },
+  "sequence_rules": {
+    "predecessor_required": true,
+    "allow_partial_overlap": true,
+    "buffer_days_default": 1,
+    "enforce_manufacturer_sequencing": true
+  },
+  "output_format": {
+    "gantt_compatible": true,
+    "per_zone_breakdown": true,
+    "per_trade_breakdown": true,
+    "critical_path_highlighted": true,
+    "constraint_violations_flagged": true
+  }
+}

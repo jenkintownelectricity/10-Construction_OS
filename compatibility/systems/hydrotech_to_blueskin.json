@@ -1,0 +1,13 @@
+{
+  "transition_id": "trans-hydrotech-blueskin",
+  "system_a": "Hydrotech MM6125",
+  "system_b": "Blueskin SA",
+  "compatibility_class": "COMPATIBLE",
+  "requirements": [
+    {"type": "membrane_termination", "material": "Hydrotech terminated under Blueskin overlap", "overlap_mm": 100},
+    {"type": "protection_board", "material": "6mm protection board at transition zone"},
+    {"type": "sealant", "material": "Polyurethane sealant bead", "position": "leading_edge_of_termination"}
+  ],
+  "risks": ["differential_thermal_movement"],
+  "notes": "Blueskin self-adhesive can bond directly over primed Hydrotech termination. Ensure surface is clean, primed, and above 5°C at time of application."
+}

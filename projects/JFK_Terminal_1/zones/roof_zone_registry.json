@@ -1,0 +1,60 @@
+{
+  "project_id": "jfk-t1",
+  "zones": [
+    {
+      "zone_id": "C2-high-roof",
+      "sector": "C2",
+      "level": "L06",
+      "roof_type": "PMR_paver",
+      "slope_percent": 2.0,
+      "drain_count": 4,
+      "has_pv": true,
+      "has_walkway": true,
+      "area_sqm": 2400
+    },
+    {
+      "zone_id": "C3-high-roof",
+      "sector": "C3",
+      "level": "L06",
+      "roof_type": "PMR_paver",
+      "slope_percent": 2.0,
+      "drain_count": 4,
+      "has_pv": false,
+      "has_walkway": true,
+      "area_sqm": 2200
+    },
+    {
+      "zone_id": "C4-high-roof",
+      "sector": "C4",
+      "level": "L06",
+      "roof_type": "PMR_paver",
+      "slope_percent": 1.5,
+      "drain_count": 3,
+      "has_pv": false,
+      "has_walkway": false,
+      "area_sqm": 1800
+    },
+    {
+      "zone_id": "D2-high-roof",
+      "sector": "D2",
+      "level": "L06",
+      "roof_type": "PMR_paver",
+      "slope_percent": 2.0,
+      "drain_count": 5,
+      "has_pv": true,
+      "has_walkway": true,
+      "area_sqm": 2600
+    },
+    {
+      "zone_id": "D3-high-roof",
+      "sector": "D3",
+      "level": "L06",
+      "roof_type": "PMR_paver",
+      "slope_percent": 1.5,
+      "drain_count": 3,
+      "has_pv": false,
+      "has_walkway": false,
+      "area_sqm": 1900
+    }
+  ]
+}

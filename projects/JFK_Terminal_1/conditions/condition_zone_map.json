@@ -1,0 +1,48 @@
+{
+  "project_id": "jfk-t1",
+  "zone_condition_map": {
+    "C2-high-roof": [
+      "jfk-drain-001",
+      "jfk-curb-001",
+      "jfk-pipe-pen-001",
+      "jfk-parapet-001",
+      "jfk-wall-term-001",
+      "jfk-pv-mount-001",
+      "jfk-walkway-001"
+    ],
+    "C3-high-roof": [
+      "jfk-drain-001",
+      "jfk-pipe-pen-001",
+      "jfk-parapet-001",
+      "jfk-exp-joint-001",
+      "jfk-walkway-001"
+    ],
+    "C4-high-roof": [
+      "jfk-pipe-pen-001",
+      "jfk-parapet-001",
+      "jfk-wall-term-001"
+    ],
+    "D2-high-roof": [
+      "jfk-curb-001",
+      "jfk-pipe-pen-001",
+      "jfk-parapet-001",
+      "jfk-pv-mount-001",
+      "jfk-walkway-001"
+    ],
+    "D3-high-roof": [
+      "jfk-pipe-pen-001",
+      "jfk-parapet-001",
+      "jfk-exp-joint-001"
+    ]
+  },
+  "condition_zone_map": {
+    "jfk-drain-001": ["C2-high-roof", "C3-high-roof"],
+    "jfk-curb-001": ["C2-high-roof", "D2-high-roof"],
+    "jfk-pipe-pen-001": ["C2-high-roof", "C3-high-roof", "C4-high-roof", "D2-high-roof", "D3-high-roof"],
+    "jfk-parapet-001": ["C2-high-roof", "C3-high-roof", "C4-high-roof", "D2-high-roof", "D3-high-roof"],
+    "jfk-exp-joint-001": ["C3-high-roof", "D3-high-roof"],
+    "jfk-wall-term-001": ["C2-high-roof", "C4-high-roof"],
+    "jfk-pv-mount-001": ["C2-high-roof", "D2-high-roof"],
+    "jfk-walkway-001": ["C2-high-roof", "C3-high-roof", "D2-high-roof"]
+  }
+}

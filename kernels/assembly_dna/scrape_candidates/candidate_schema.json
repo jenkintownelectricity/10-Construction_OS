@@ -1,0 +1,80 @@
+{
+  "schema_id": "candidate_schema_v1",
+  "wave": 203,
+  "schema_version": "1.0",
+  "default_trust_state": "UNTRUSTED_UNTIL_TYPED",
+  "default_admission_status": "candidate",
+  "admission_states": ["candidate", "reviewed", "admitted", "rejected"],
+  "types": {
+    "assembly_candidate": {
+      "description": "A candidate full assembly definition sourced from scrape",
+      "required_fields": ["candidate_id", "type", "source_ref", "trust_state", "admission_status", "assembly_name", "discipline", "layers"],
+      "source_ref": "string — scrape_registry record source_url or doc_title",
+      "trust_state": "UNTRUSTED_UNTIL_TYPED",
+      "admission_status": "candidate",
+      "fields": {
+        "assembly_name": "string",
+        "discipline": "string",
+        "layers": "array of layer references or inline layer objects",
+        "notes": "string | null"
+      }
+    },
+    "layer_candidate": {
+      "description": "A candidate individual layer for use within an assembly",
+      "required_fields": ["candidate_id", "type", "source_ref", "trust_state", "admission_status", "layer_name", "material_class", "thickness_mm"],
+      "source_ref": "string",
+      "trust_state": "UNTRUSTED_UNTIL_TYPED",
+      "admission_status": "candidate",
+      "fields": {
+        "layer_name": "string",
+        "material_class": "string — e.g. membrane, insulation, substrate, coating",
+        "thickness_mm": "number | null",
+        "manufacturer": "string | null",
+        "product_ref": "string | null"
+      }
+    },
+    "condition_candidate": {
+      "description": "A candidate construction condition derived from scrape",
+      "required_fields": ["candidate_id", "type", "source_ref", "trust_state", "admission_status", "condition_name", "bucket", "discipline"],
+      "source_ref": "string",
+      "trust_state": "UNTRUSTED_UNTIL_TYPED",
+      "admission_status": "candidate",
+      "fields": {
+        "condition_name": "string",
+        "bucket": "string — roofing | waterproofing | avb | fireproofing | openings | mep | structural | field | transition | geometry",
+        "discipline": "string",
+        "notes": "string | null"
+      }
+    },
+    "product_candidate": {
+      "description": "A candidate product record from manufacturer scrape",
+      "required_fields": ["candidate_id", "type", "source_ref", "trust_state", "admission_status", "product_name", "manufacturer", "discipline"],
+      "source_ref": "string",
+      "trust_state": "UNTRUSTED_UNTIL_TYPED",
+      "admission_status": "candidate",
+      "fields": {
+        "product_name": "string",
+        "manufacturer": "string",
+        "discipline": "string",
+        "product_url": "string | null",
+        "tds_url": "string | null",
+        "applicable_conditions": "array of condition_ids | null"
+      }
+    },
+    "rule_candidate": {
+      "description": "A candidate compliance or sequencing rule from spec or standard",
+      "required_fields": ["candidate_id", "type", "source_ref", "trust_state", "admission_status", "rule_name", "rule_type", "discipline"],
+      "source_ref": "string",
+      "trust_state": "UNTRUSTED_UNTIL_TYPED",
+      "admission_status": "candidate",
+      "fields": {
+        "rule_name": "string",
+        "rule_type": "string — compliance | sequencing | exclusion | dependency",
+        "discipline": "string",
+        "applies_to_conditions": "array of condition_ids | null",
+        "rule_text": "string — plain language rule statement",
+        "source_section": "string | null"
+      }
+    }
+  }
+}

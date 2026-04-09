@@ -1,0 +1,48 @@
+{
+  "anchor_id": "JFK-T1-SITE-ANCHOR",
+  "project_code": "JFK-T1",
+  "datum": "WGS84",
+  "created": "2026-04-09",
+  "wave": 212,
+  "site_center": {
+    "lat": 40.6413,
+    "lon": -73.7781,
+    "elev_ft": 12.0,
+    "description": "JFK Terminal 1 approximate site centroid"
+  },
+  "north_reference": {
+    "true_north_offset_deg": 0.0,
+    "grid_north_offset_deg": -1.3,
+    "note": "Project north rotated ~14 deg west of true north per site survey"
+  },
+  "building_footprints": {
+    "BLD-MAIN": {
+      "building_id": "BLD-MAIN",
+      "name": "Main Terminal Headhouse",
+      "footprint_type": "Polygon",
+      "coordinates": [
+        [40.6421,-73.7795],[40.6421,-73.7765],
+        [40.6405,-73.7765],[40.6405,-73.7795],
+        [40.6421,-73.7795]
+      ],
+      "area_sqft_approx": 210000
+    },
+    "BLD-EPIER": {
+      "building_id": "BLD-EPIER",
+      "name": "East Pier Concourse",
+      "footprint_type": "Polygon",
+      "coordinates": [
+        [40.6413,-73.7760],[40.6413,-73.7740],
+        [40.6403,-73.7740],[40.6403,-73.7760],
+        [40.6413,-73.7760]
+      ],
+      "area_sqft_approx": 85000
+    }
+  },
+  "survey_control_points": [
+    { "id": "CP-01", "lat": 40.6421, "lon": -73.7795, "desc": "NW corner monument" },
+    { "id": "CP-02", "lat": 40.6421, "lon": -73.7765, "desc": "NE corner monument" },
+    { "id": "CP-03", "lat": 40.6405, "lon": -73.7781, "desc": "South center benchmark" }
+  ],
+  "accuracy_note": "Coordinates approximate ±15ft; survey-grade lock required for construction use"
+}

@@ -1,0 +1,80 @@
+{
+  "assemblies": [
+    {
+      "assembly_id": "Isolatek_Beam_SFRM",
+      "discipline": "fireproofing",
+      "system_family": "Isolatek_CAFCO_300AC_SFRM",
+      "base_condition": "structural_steel_beam_exposed",
+      "layer_stack": [
+        { "role": "substrate",        "material": "Structural_Steel_Wide_Flange_Beam",           "thickness_in": 0.00 },
+        { "role": "primer",           "material": "Zinc_Rich_Primer_Inorganic_Galvite",           "thickness_in": 0.003 },
+        { "role": "bonding_agent",    "material": "Isolatek_CAFCO_Bond_Seal_Adhesive",            "thickness_in": 0.005 },
+        { "role": "sfrm_basecoat",    "material": "Isolatek_CAFCO_300AC_SFRM_Spray",             "thickness_in": 0.75 },
+        { "role": "sfrm_topcoat",     "material": "Isolatek_CAFCO_300AC_SFRM_Spray",             "thickness_in": 0.75 },
+        { "role": "sfrm_finish_coat", "material": "Isolatek_Fendolite_MII_Finish_Optional",      "thickness_in": 0.13 }
+      ],
+      "geometry_template_ref": "gtpl_sfrm_beam_3side_4side_v1",
+      "compliance_rule_refs": ["UL_D925_SFRM_Beam", "IBC_703_SFRM", "ASTM_E605_Thickness", "AWCI_12B_SFRM"],
+      "installation_family": "inst_sfrm_spray_applied",
+      "inspection_family":   "insp_fireproofing_beam_v1"
+    },
+    {
+      "assembly_id": "Isolatek_Column_SFRM",
+      "discipline": "fireproofing",
+      "system_family": "Isolatek_CAFCO_300AC_SFRM",
+      "base_condition": "structural_steel_column_exposed",
+      "layer_stack": [
+        { "role": "substrate",        "material": "Structural_Steel_Wide_Flange_Column",          "thickness_in": 0.00 },
+        { "role": "primer",           "material": "Zinc_Rich_Primer_Inorganic_Galvite",           "thickness_in": 0.003 },
+        { "role": "bonding_agent",    "material": "Isolatek_CAFCO_Bond_Seal_Adhesive",            "thickness_in": 0.005 },
+        { "role": "lath_enclosure",   "material": "Expanded_Metal_Lath_3.4lb_Diamond",            "thickness_in": 0.13 },
+        { "role": "sfrm_basecoat",    "material": "Isolatek_CAFCO_300AC_SFRM_Spray",             "thickness_in": 0.88 },
+        { "role": "sfrm_topcoat",     "material": "Isolatek_CAFCO_300AC_SFRM_Spray",             "thickness_in": 0.87 },
+        { "role": "impact_finish",    "material": "Isolatek_Fendolite_MII_Impact_Finish",         "thickness_in": 0.25 }
+      ],
+      "geometry_template_ref": "gtpl_sfrm_column_4side_v1",
+      "compliance_rule_refs": ["UL_X772_SFRM_Column", "IBC_703_SFRM", "ASTM_E605_Thickness", "AWCI_12B_SFRM"],
+      "installation_family": "inst_sfrm_spray_applied",
+      "inspection_family":   "insp_fireproofing_column_v1"
+    },
+    {
+      "assembly_id": "ALBI_Board_Column",
+      "discipline": "fireproofing",
+      "system_family": "ALBI_Clad_Rigid_Board_Enclosure",
+      "base_condition": "structural_steel_column_finished_space",
+      "layer_stack": [
+        { "role": "substrate",        "material": "Structural_Steel_Wide_Flange_Column",          "thickness_in": 0.00 },
+        { "role": "primer",           "material": "Zinc_Rich_Primer_Organic_SSPC_Paint20",        "thickness_in": 0.003 },
+        { "role": "board_inner",      "material": "ALBI_Clad_Type_X_Calcium_Silicate_1in",        "thickness_in": 1.00 },
+        { "role": "board_outer",      "material": "ALBI_Clad_Type_X_Calcium_Silicate_1in",        "thickness_in": 1.00 },
+        { "role": "joint_tape",       "material": "ALBI_Fiberglass_Mesh_Tape_2in",               "thickness_in": 0.02 },
+        { "role": "joint_compound",   "material": "ALBI_Fire_Resistant_Joint_Compound",           "thickness_in": 0.06 },
+        { "role": "finish_coat",      "material": "Latex_Paint_Field_Painted_2coat",              "thickness_in": 0.01 }
+      ],
+      "geometry_template_ref": "gtpl_board_enclosure_column_v1",
+      "compliance_rule_refs": ["UL_X471_Board_Column", "IBC_703_FireRated_Enclosure", "ASTM_E119_Fire_Rating"],
+      "installation_family": "inst_board_enclosure_screw_anchor",
+      "inspection_family":   "insp_fireproofing_board_column_v1"
+    },
+    {
+      "assembly_id": "ALBI_Board_Beam",
+      "discipline": "fireproofing",
+      "system_family": "ALBI_Clad_Rigid_Board_Enclosure",
+      "base_condition": "structural_steel_beam_finished_ceiling",
+      "layer_stack": [
+        { "role": "substrate",        "material": "Structural_Steel_Wide_Flange_Beam",            "thickness_in": 0.00 },
+        { "role": "primer",           "material": "Zinc_Rich_Primer_Organic_SSPC_Paint20",        "thickness_in": 0.003 },
+        { "role": "board_web",        "material": "ALBI_Clad_Type_X_Calcium_Silicate_0.75in",     "thickness_in": 0.75 },
+        { "role": "board_flange",     "material": "ALBI_Clad_Type_X_Calcium_Silicate_0.75in",     "thickness_in": 0.75 },
+        { "role": "board_soffit",     "material": "ALBI_Clad_Type_X_Calcium_Silicate_0.75in",     "thickness_in": 0.75 },
+        { "role": "joint_tape",       "material": "ALBI_Fiberglass_Mesh_Tape_2in",               "thickness_in": 0.02 },
+        { "role": "joint_compound",   "material": "ALBI_Fire_Resistant_Joint_Compound",           "thickness_in": 0.06 },
+        { "role": "finish_coat",      "material": "Latex_Paint_Field_Painted_2coat",              "thickness_in": 0.01 }
+      ],
+      "geometry_template_ref": "gtpl_board_enclosure_beam_v1",
+      "compliance_rule_refs": ["UL_N863_Board_Beam", "IBC_703_FireRated_Enclosure", "ASTM_E119_Fire_Rating"],
+      "installation_family": "inst_board_enclosure_screw_anchor",
+      "inspection_family":   "insp_fireproofing_board_beam_v1"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "assembly_object.schema.json",
+  "title": "Assembly Object",
+  "description": "Schema for a single Assembly DNA kernel object",
+  "type": "object",
+  "required": ["id", "name", "category", "base_condition", "layers", "geometry_template"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^ASSEMBLY_[A-Z0-9_]+$",
+      "description": "Unique assembly identifier in SCREAMING_SNAKE_CASE"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 120,
+      "description": "Human-readable assembly name"
+    },
+    "category": {
+      "type": "string",
+      "enum": ["roofing", "waterproofing", "avb", "fireproofing", "structural_transition"],
+      "description": "Top-level assembly discipline category"
+    },
+    "base_condition": {
+      "type": "string",
+      "description": "The canonical condition ID this assembly primarily addresses"
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 300,
+      "description": "Brief narrative description of the assembly"
+    },
+    "layers": {
+      "type": "array",
+      "description": "Ordered list of layer type IDs comprising this assembly",
+      "minItems": 1,
+      "items": {
+        "$ref": "assembly_layer.schema.json"
+      }
+    },
+    "geometry_template": {
+      "type": "string",
+      "description": "Reference to the geometry template used for this assembly"
+    },
+    "compliance_rules": {
+      "type": "array",
+      "description": "Applicable code and standard references",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "variants": {
+      "type": "array",
+      "description": "List of variant definitions derived from this base assembly",
+      "items": {
+        "$ref": "assembly_variant.schema.json"
+      },
+      "default": []
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional authoring and versioning metadata",
+      "properties": {
+        "created_by": { "type": "string" },
+        "created_date": { "type": "string", "format": "date" },
+        "version": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["draft", "review", "approved", "deprecated"]
+        }
+      }
+    }
+  }
+}

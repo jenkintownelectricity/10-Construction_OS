@@ -1,0 +1,67 @@
+{
+  "schema_id": "inspection_queue_model_v1",
+  "description": "Predicts inspection wait times, idle windows, and sequencing bottlenecks",
+  "inspection_types": [
+    { "id": "steel_inspection",     "required_by": "IBC", "typical_lead_days": 3, "duration_hrs": 4 },
+    { "id": "membrane_inspection",  "required_by": "manufacturer_warranty", "typical_lead_days": 5, "duration_hrs": 2 },
+    { "id": "fireproofing_inspection", "required_by": "IBC", "typical_lead_days": 4, "duration_hrs": 3 },
+    { "id": "MEP_rough_inspection", "required_by": "AHJ", "typical_lead_days": 7, "duration_hrs": 3 },
+    { "id": "final_roofing",        "required_by": "AHJ+warranty", "typical_lead_days": 10, "duration_hrs": 4 }
+  ],
+  "wait_time_factors": {
+    "jurisdiction": {
+      "description": "AHJ responsiveness tier affects base lead time multiplier",
+      "tiers": {
+        "tier_1_fast":   { "multiplier": 0.8, "examples": ["private_inspector", "third_party_IBC"] },
+        "tier_2_normal": { "multiplier": 1.0, "examples": ["suburban_building_dept"] },
+        "tier_3_slow":   { "multiplier": 1.6, "examples": ["dense_urban_AHJ", "union_jurisdiction"] }
+      }
+    },
+    "historical_wait": {
+      "description": "Rolling 12-month average wait for same inspection type in jurisdiction",
+      "fields": ["inspection_type", "jurisdiction", "avg_wait_days", "p90_wait_days", "sample_size"]
+    },
+    "batching": {
+      "description": "Scheduling multiple inspections in one visit reduces total lead time",
+      "batch_discount_days": 2,
+      "max_inspections_per_visit": 3,
+      "eligible_pairs": [
+        ["steel_inspection", "fireproofing_inspection"],
+        ["membrane_inspection", "final_roofing"]
+      ]
+    },
+    "readiness_dependency": {
+      "description": "Inspection cannot be called until predecessor work is 100% complete",
+      "fields": ["inspection_id", "required_predecessor_step", "completion_threshold_pct"]
+    }
+  },
+  "outputs": {
+    "readiness_score": {
+      "description": "0–100 score indicating how prepared a zone is for inspection call",
+      "fields": ["zone_id", "inspection_id", "score", "blocking_items", "estimated_ready_date"]
+    },
+    "delay_risk": {
+      "description": "Probability that inspection delay will impact downstream critical path",
+      "fields": [
+        "inspection_id",
+        "zone_id",
+        "predicted_wait_days",
+        "float_available_days",
+        "critical_path_impact": "boolean",
+        "delay_risk_pct"
+      ]
+    },
+    "suggested_sequencing": {
+      "description": "Optimal order to call inspections to minimize idle time and maximize batching",
+      "fields": [
+        "priority_rank",
+        "inspection_id",
+        "zone_id",
+        "call_by_date",
+        "batch_with",
+        "idle_days_avoided",
+        "rationale"
+      ]
+    }
+  }
+}

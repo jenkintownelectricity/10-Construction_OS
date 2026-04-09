@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AsBuilt Truth Layer",
+  "description": "Continuous as-built digital twin maintaining daily building geometry, installation progress, and condition completion.",
+  "type": "object",
+  "required": ["twin_id", "project_id", "last_updated", "geometry_state", "updates"],
+  "properties": {
+    "twin_id": { "type": "string", "description": "Unique identifier for this digital twin instance" },
+    "project_id": { "type": "string" },
+    "last_updated": { "type": "string", "format": "date-time" },
+    "geometry_state": {
+      "type": "object",
+      "description": "Current cumulative spatial model of the structure",
+      "properties": {
+        "coordinate_system": { "type": "string", "enum": ["WGS84", "local_grid", "BIM_origin"] },
+        "resolution_mm": { "type": "number" },
+        "floors_captured": { "type": "array", "items": { "type": "string" } },
+        "total_volume_m3": { "type": "number" },
+        "point_cloud_ref": { "type": "string", "description": "URI to latest registered point cloud" },
+        "mesh_ref": { "type": "string", "description": "URI to latest surface mesh" }
+      },
+      "required": ["coordinate_system", "floors_captured"]
+    },
+    "installation_progress": {
+      "type": "object",
+      "description": "Per-system percent completion",
+      "properties": {
+        "structural": { "type": "number", "minimum": 0, "maximum": 100 },
+        "mep": { "type": "number", "minimum": 0, "maximum": 100 },
+        "envelope": { "type": "number", "minimum": 0, "maximum": 100 },
+        "interior_finishes": { "type": "number", "minimum": 0, "maximum": 100 },
+        "roofing": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "condition_completion": {
+      "type": "array",
+      "description": "Completion status per zone/assembly",
+      "items": {
+        "type": "object",
+        "required": ["zone_id", "assembly_type", "status"],
+        "properties": {
+          "zone_id": { "type": "string" },
+          "assembly_type": { "type": "string" },
+          "status": { "type": "string", "enum": ["not_started", "in_progress", "complete", "deficient"] },
+          "percent_complete": { "type": "number", "minimum": 0, "maximum": 100 }
+        }
+      }
+    },
+    "updates": {
+      "type": "array",
+      "description": "Ordered log of all spatial capture events",
+      "items": {
+        "type": "object",
+        "required": ["update_id", "timestamp", "location", "sensor_source", "confidence_score"],
+        "properties": {
+          "update_id": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "location": {
+            "type": "object",
+            "required": ["floor", "zone"],
+            "properties": {
+              "floor": { "type": "string" },
+              "zone": { "type": "string" },
+              "coordinates_xyz": {
+                "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3
+              }
+            }
+          },
+          "sensor_source": {
+            "type": "string",
+            "enum": ["lidar_scanner", "photogrammetry", "fixed_camera", "drone", "bim360_sync", "manual_survey"]
+          },
+          "capture_method": { "type": "string" },
+          "confidence_score": { "type": "number", "minimum": 0, "maximum": 1 },
+          "data_ref": { "type": "string", "description": "URI to raw capture dataset" },
+          "operator_id": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

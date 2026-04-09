@@ -1,0 +1,77 @@
+{
+  "version": "1.0.0",
+  "description": "Assembly DNA Kernel — canonical assembly type registry",
+  "categories": [
+    {
+      "category_id": "roofing",
+      "label": "Roofing",
+      "description": "Primary roof membrane and field assemblies"
+    },
+    {
+      "category_id": "waterproofing",
+      "label": "Waterproofing",
+      "description": "Below-grade and plaza waterproofing assemblies"
+    },
+    {
+      "category_id": "avb",
+      "label": "Air & Vapor Barrier",
+      "description": "Continuous air and vapor control layer assemblies"
+    },
+    {
+      "category_id": "fireproofing",
+      "label": "Fireproofing",
+      "description": "Passive fire protection and rated assembly systems"
+    },
+    {
+      "category_id": "structural_transition",
+      "label": "Structural Transition",
+      "description": "Expansion joints, movement joints, and structural edge conditions"
+    }
+  ],
+  "assemblies": [
+    {
+      "assembly_id": "ASSEMBLY_PARAPET_SBS_01",
+      "name": "SBS Modified Bitumen Parapet Cap Assembly",
+      "category": "roofing",
+      "base_condition": "PARAPET",
+      "description": "Two-ply SBS torch-applied system at parapet wall with metal coping",
+      "geometry_template": "parapet_standard_template",
+      "compliance_rules": ["NRCA_PARAPET_01", "FM_1-90", "IBC_1507_3"],
+      "layers": ["STRUCTURAL_DECK", "VAPOR_BARRIER", "INSULATION", "MEMBRANE", "FLASHING_MEMBRANE", "COPING"],
+      "variants": ["ASSEMBLY_PARAPET_SBS_01_COLD", "ASSEMBLY_PARAPET_SBS_01_HOT"]
+    },
+    {
+      "assembly_id": "ASSEMBLY_ROOF_EDGE_TPO_01",
+      "name": "TPO Mechanically Fastened Roof Edge Assembly",
+      "category": "roofing",
+      "base_condition": "ROOF_EDGE",
+      "description": "60-mil TPO single-ply at roof edge with metal edge strip and gravel stop",
+      "geometry_template": "roof_edge_standard_template",
+      "compliance_rules": ["NRCA_EDGE_01", "FM_1-90", "ANSI_SPRI_ES1"],
+      "layers": ["STRUCTURAL_DECK", "INSULATION", "MEMBRANE", "METAL_FLASHING", "SEALANT", "TERMINATION_BAR"],
+      "variants": ["ASSEMBLY_ROOF_EDGE_TPO_01_ADHERED", "ASSEMBLY_ROOF_EDGE_TPO_01_MF"]
+    },
+    {
+      "assembly_id": "ASSEMBLY_EXPANSION_JOINT_01",
+      "name": "Roof Expansion Joint — Bellows Cover Assembly",
+      "category": "structural_transition",
+      "base_condition": "EXPANSION_JOINT",
+      "description": "Pre-fabricated bellows expansion joint cover with membrane tie-in on both sides",
+      "geometry_template": "expansion_joint_template",
+      "compliance_rules": ["NRCA_EJ_01", "SMACNA_EJ_05", "IBC_1620"],
+      "layers": ["STRUCTURAL_DECK", "INSULATION", "MEMBRANE", "FLASHING_MEMBRANE", "METAL_FLASHING", "SEALANT"],
+      "variants": ["ASSEMBLY_EXPANSION_JOINT_01_6IN", "ASSEMBLY_EXPANSION_JOINT_01_12IN"]
+    },
+    {
+      "assembly_id": "ASSEMBLY_CURB_FLASHING_01",
+      "name": "Rooftop Curb Flashing Assembly",
+      "category": "roofing",
+      "base_condition": "CURB",
+      "description": "Membrane base flashing at rooftop equipment curb with counter-flashing",
+      "geometry_template": "curb_standard_template",
+      "compliance_rules": ["NRCA_CURB_01", "FM_1-90", "SMACNA_CURB_02"],
+      "layers": ["STRUCTURAL_DECK", "INSULATION", "MEMBRANE", "FLASHING_MEMBRANE", "METAL_FLASHING", "SEALANT"],
+      "variants": ["ASSEMBLY_CURB_FLASHING_01_LOW", "ASSEMBLY_CURB_FLASHING_01_HIGH"]
+    }
+  ]
+}

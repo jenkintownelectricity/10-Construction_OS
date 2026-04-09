@@ -1,0 +1,83 @@
+{
+  "schema": "revision_intelligence_graph",
+  "version": "1.0.0",
+  "project": "JFK_Terminal_1",
+  "description": "Fuses shop drawings, submittals, and field intelligence into a unified revision decision graph. Outputs revision_queue, severity, blocking_conditions, and packet_regeneration triggers.",
+  "categories": {
+    "hatch_corrections": {
+      "category_id": "CAT-HC",
+      "sources": ["shop_drawing", "field_intelligence", "rfi"],
+      "nodes": [
+        { "node_id": "HC-001", "title": "Smoke exhaust hatch WP upturn missing", "shop_drawing_ref": "SD-ROOF-031", "rfi_ref": "RFI-SMOKE-EXH-007", "field_intel_ref": "FI-HATCH-003", "severity": "critical", "blocking": true },
+        { "node_id": "HC-002", "title": "Hatch curb termination height conflicts membrane lap", "shop_drawing_ref": "SD-ROOF-033", "rfi_ref": "RFI-HATCH-CURB-009", "field_intel_ref": "FI-HATCH-006", "severity": "critical", "blocking": true }
+      ]
+    },
+    "hh5_wp_corrections": {
+      "category_id": "CAT-HH5",
+      "sources": ["shop_drawing", "submittal", "field_intelligence"],
+      "nodes": [
+        { "node_id": "HH5-001", "title": "HH5 membrane lap at drain not per spec", "shop_drawing_ref": "SD-HH5-WP-011", "submittal_ref": "SUB-WP-018", "field_intel_ref": "FI-HH5-002", "severity": "critical", "blocking": true },
+        { "node_id": "HH5-002", "title": "HH5 edge termination bar omitted in submittal", "submittal_ref": "SUB-WP-018", "field_intel_ref": "FI-HH5-005", "severity": "major", "blocking": false }
+      ]
+    },
+    "nw_hh_wp_corrections": {
+      "category_id": "CAT-NWHH",
+      "sources": ["shop_drawing", "submittal", "field_intelligence"],
+      "nodes": [
+        { "node_id": "NWHH-001", "title": "NW_HH lap seam direction reversed vs slope", "shop_drawing_ref": "SD-NWHH-WP-004", "submittal_ref": "SUB-WP-022", "field_intel_ref": "FI-NWHH-001", "severity": "critical", "blocking": true },
+        { "node_id": "NWHH-002", "title": "NW_HH drain collar flashing absent", "shop_drawing_ref": "SD-NWHH-WP-004", "field_intel_ref": "FI-NWHH-004", "severity": "major", "blocking": false }
+      ]
+    },
+    "mixed_system_issues": {
+      "category_id": "CAT-MIX",
+      "sources": ["rfi", "field_intelligence", "shop_drawing"],
+      "nodes": [
+        { "node_id": "MIX-001", "title": "Stair shaft: WP upturn, structural stair, and MEP penetrations unresolved", "rfi_ref": "RFI-STAIR-WP-014", "field_intel_ref": "FI-STAIR-001", "shop_drawing_ref": "SD-STAIR-WP-007", "severity": "critical", "blocking": true },
+        { "node_id": "MIX-002", "title": "Rooftop MEP duct penetration flashing conflicts insulation plane", "rfi_ref": "RFI-MEP-ROOF-019", "field_intel_ref": "FI-MEP-003", "severity": "major", "blocking": false }
+      ]
+    },
+    "drain_edge_parapet_mismatches": {
+      "category_id": "CAT-DEP",
+      "sources": ["shop_drawing", "rfi", "field_intelligence"],
+      "nodes": [
+        { "node_id": "DEP-001", "title": "Canopy edge gutter sizing insufficient for design storm", "shop_drawing_ref": "SD-CANOPY-DRN-002", "rfi_ref": "RFI-GUTTER-EDGE-022", "field_intel_ref": "FI-CANOPY-002", "severity": "critical", "blocking": true },
+        { "node_id": "DEP-002", "title": "Parapet cap flashing height non-conforming to membrane upturn", "shop_drawing_ref": "SD-PARPET-FLASH-005", "field_intel_ref": "FI-PARPET-001", "severity": "major", "blocking": false },
+        { "node_id": "DEP-003", "title": "Interior drain rim elevation conflicts insulation slope design", "shop_drawing_ref": "SD-DRAIN-INT-008", "rfi_ref": "RFI-DRAIN-ELEV-031", "field_intel_ref": "FI-DRAIN-004", "severity": "major", "blocking": false }
+      ]
+    },
+    "support_roof_interfaces": {
+      "category_id": "CAT-SRI",
+      "sources": ["shop_drawing", "submittal", "field_intelligence", "rfi"],
+      "nodes": [
+        { "node_id": "SRI-001", "title": "Dunnage base plate bearing on membrane without isolation", "shop_drawing_ref": "SD-DUNNAGE-WP-003", "rfi_ref": "RFI-DUNNAGE-WP-009", "field_intel_ref": "FI-DUNNAGE-001", "severity": "critical", "blocking": true },
+        { "node_id": "SRI-002", "title": "Rooftop equipment curb flashing height below 8-inch minimum", "shop_drawing_ref": "SD-EQUIP-CURB-006", "field_intel_ref": "FI-CURB-002", "severity": "major", "blocking": false }
+      ]
+    },
+    "delegated_design": {
+      "category_id": "CAT-DD",
+      "sources": ["rfi", "submittal", "project_record"],
+      "nodes": [
+        { "node_id": "DD-001", "title": "Dunnage delegated design package not issued — blocks WP detailing", "rfi_ref": "SC-001", "submittal_ref": null, "severity": "critical", "blocking": true, "note": "Await delegated engineer submission" },
+        { "node_id": "DD-002", "title": "MEP hanger system delegated package pending — conflicts with WP plane", "rfi_ref": "SC-001", "submittal_ref": null, "severity": "major", "blocking": true, "note": "MEP hanger attachment through membrane requires delegated engineer seal" }
+      ]
+    }
+  },
+  "revision_queue": [
+    { "queue_id": "RQ-001", "node_refs": ["HC-001","HC-002"], "packet_ref": "PKT-HATCH", "action": "reissue_shop_drawing", "severity": "critical", "status": "open" },
+    { "queue_id": "RQ-002", "node_refs": ["HH5-001","HH5-002"], "packet_ref": "PKT-HH5-WP", "action": "reissue_submittal_and_shop_drawing", "severity": "critical", "status": "open" },
+    { "queue_id": "RQ-003", "node_refs": ["NWHH-001","NWHH-002"], "packet_ref": "PKT-NWHH-WP", "action": "reissue_submittal_and_shop_drawing", "severity": "critical", "status": "open" },
+    { "queue_id": "RQ-004", "node_refs": ["MIX-001"], "packet_ref": "PKT-STAIR-WP", "action": "coordinate_multi_discipline_and_reissue", "severity": "critical", "status": "blocked" },
+    { "queue_id": "RQ-005", "node_refs": ["DEP-001","DEP-002","DEP-003"], "packet_ref": "PKT-DRAIN-EDGE", "action": "reissue_shop_drawing", "severity": "critical", "status": "open" },
+    { "queue_id": "RQ-006", "node_refs": ["SRI-001","SRI-002"], "packet_ref": "PKT-SUPPORT-ROOF", "action": "new_detail_required", "severity": "critical", "status": "open" },
+    { "queue_id": "RQ-007", "node_refs": ["DD-001","DD-002"], "packet_ref": null, "action": "await_delegated_design_submission", "severity": "critical", "status": "blocked" }
+  ],
+  "blocking_conditions": ["HC-001","HC-002","HH5-001","NWHH-001","MIX-001","DEP-001","SRI-001","DD-001","DD-002"],
+  "packet_regeneration": [
+    { "packet_ref": "PKT-HATCH", "trigger_nodes": ["HC-001","HC-002"], "regenerate": true },
+    { "packet_ref": "PKT-HH5-WP", "trigger_nodes": ["HH5-001","HH5-002"], "regenerate": true },
+    { "packet_ref": "PKT-NWHH-WP", "trigger_nodes": ["NWHH-001","NWHH-002"], "regenerate": true },
+    { "packet_ref": "PKT-DRAIN-EDGE", "trigger_nodes": ["DEP-001","DEP-002","DEP-003"], "regenerate": true },
+    { "packet_ref": "PKT-SUPPORT-ROOF", "trigger_nodes": ["SRI-001","SRI-002"], "regenerate": true },
+    { "packet_ref": "PKT-STAIR-WP", "trigger_nodes": ["MIX-001"], "regenerate": false, "note": "Blocked pending multi-discipline resolution" }
+  ]
+}

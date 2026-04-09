@@ -1,0 +1,83 @@
+{
+  "version": "0.1",
+  "score_dimensions": [
+    {
+      "id": "risk",
+      "label": "Risk Score",
+      "description": "Likelihood and severity of safety, schedule, or quality failures",
+      "weight": 0.20,
+      "inputs": ["adjacent_active_work", "access_constraints", "weather_sensitivity", "fall_hazard_exposure"]
+    },
+    {
+      "id": "efficiency",
+      "label": "Efficiency Score",
+      "description": "Resource utilization and duration relative to optimal baseline",
+      "weight": 0.18,
+      "inputs": ["crew_path_congestion", "material_availability", "trade_readiness", "wait_time_ratio"]
+    },
+    {
+      "id": "safety",
+      "label": "Safety Score",
+      "description": "Compliance with safety plans, separation of trades, protection adequacy",
+      "weight": 0.20,
+      "inputs": ["protection_requirements", "exclusion_zone_compliance", "crew_density", "ppe_requirements_met"]
+    },
+    {
+      "id": "coordination_burden",
+      "label": "Coordination Burden",
+      "description": "Number and complexity of handoffs, RFIs, and inter-trade dependencies",
+      "weight": 0.15,
+      "inputs": ["trade_interface_count", "rfi_open_count", "submittal_pending_count", "concurrent_trade_count"]
+    },
+    {
+      "id": "inspection_readiness",
+      "label": "Inspection Readiness",
+      "description": "Probability that work will pass inspection without rework",
+      "weight": 0.12,
+      "inputs": ["inspection_windows", "hold_points_cleared", "deficiency_trend", "qc_sign_off_rate"]
+    },
+    {
+      "id": "rework_exposure",
+      "label": "Rework Exposure",
+      "description": "Likelihood that completed work will need to be undone or redone",
+      "weight": 0.10,
+      "inputs": ["design_change_frequency", "out_of_sequence_installs", "protection_adequacy", "cover_before_inspection_risk"]
+    },
+    {
+      "id": "weather_sensitivity",
+      "label": "Weather Sensitivity",
+      "description": "Degree to which the planned sequence is disrupted by weather events",
+      "weight": 0.05,
+      "inputs": ["outdoor_exposure_days", "temp_sensitive_installs", "forecast_confidence", "weather_contingency_plan"]
+    }
+  ],
+  "output_states": {
+    "PASS": {"threshold_min": 0.75, "color": "green", "action": "proceed"},
+    "WARNING": {"threshold_min": 0.50, "threshold_max": 0.749, "color": "yellow", "action": "review_and_mitigate"},
+    "FAIL": {"threshold_max": 0.499, "color": "red", "action": "do_not_proceed_replan"}
+  },
+  "score_levels": {
+    "overall": {
+      "description": "Single weighted composite score across all dimensions for entire project",
+      "aggregation": "weighted_average"
+    },
+    "by_zone": {
+      "description": "Composite score per zone, using only conditions relevant to that zone",
+      "aggregation": "weighted_average_filtered_by_zone"
+    },
+    "by_condition": {
+      "description": "Score per active constraint condition, measuring how well it is managed",
+      "aggregation": "per_constraint_normalized"
+    },
+    "by_sequence": {
+      "description": "Score per install sequence step, identifying weakest links in the build order",
+      "aggregation": "sequential_step_scoring"
+    }
+  },
+  "scoring_outputs": {
+    "scorecard": {"fields": ["dimension", "raw_score", "weighted_score", "state", "top_issues"]},
+    "zone_heatmap": {"fields": ["zone_id", "overall_score", "state", "dominant_risk_dimension"]},
+    "sequence_flags": {"fields": ["sequence_step", "score", "state", "blocking_constraints"]},
+    "recommended_actions": {"fields": ["priority", "dimension", "zone", "action_description", "estimated_score_gain"]}
+  }
+}

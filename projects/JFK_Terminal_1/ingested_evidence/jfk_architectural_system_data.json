@@ -1,0 +1,38 @@
+{
+  "project": {
+    "project_id": "JFK_T1",
+    "project_name": "JFK New Terminal One",
+    "building_type": "airport_terminal",
+    "source": "architectural_sections_and_details"
+  },
+  "vertical_strata": [
+    {"level_id": "L01", "name": "Arrivals_Operations", "elevation_ft": 14.5, "zone_type": "public_processing"},
+    {"level_id": "L02", "name": "Concourse", "elevation_ft": 34.5, "zone_type": "circulation_commercial"},
+    {"level_id": "L03", "name": "Departures", "elevation_ft": 57.0, "zone_type": "security_departures"}
+  ],
+  "structural_system": {
+    "system_type": "long_span_terminal_structure",
+    "primary_elements": ["branching_Y_columns", "long_span_roof_trusses", "steel_frame_structure"],
+    "design_intent": ["large_open_volumes", "minimal_columns", "long_spans"]
+  },
+  "envelope_system": {
+    "primary_systems": ["roof_membrane_system", "curtain_wall_system", "parapet_edge_system"],
+    "typical_layer_stack": ["structural_deck", "vapor_barrier", "thermal_insulation", "roof_membrane", "flashing", "coping_or_edge_metal"]
+  },
+  "canonical_conditions": [
+    "ROOF_FIELD","ROOF_EDGE","PARAPET","INSIDE_CORNER","OUTSIDE_CORNER","DRAIN","SCUPPER","ROOF_CURB","PIPE_PENETRATION","WALL_BASE","WALL_TOP","WINDOW_SILL","WINDOW_HEAD","WINDOW_JAMB","EXPANSION_JOINT","GRADE_TRANSITION","BALCONY_EDGE","PLAZA_DECK_EDGE","RAMP_EDGE","ELEVATION_CHANGE","FACADE_TO_ROOF","FACADE_TO_FOUNDATION","WALL_TO_SLAB","WALL_TO_STEEL","CURTAINWALL_HEAD","CURTAINWALL_SILL","CURTAINWALL_JAMB","COPING_EDGE","CAP_FLASHING","METAL_EDGE","TERMINATION_BAR","COUNTERFLASHING","FIRESTOP_PENETRATION","CONTROL_JOINT","STRUCTURAL_PENETRATION","MECHANICAL_PENETRATION","PARAPET_TRANSITION","EDGE_DRAIN","INTERIOR_WATERPROOFING","FOUNDATION_WALL","PODIUM_EDGE","PLAZA_DRAIN","BRIDGE_EXPANSION","STAIR_LANDING_EDGE","ELEVATOR_PIT_WATERPROOFING","ROOF_TO_SKYLIGHT","SKYLIGHT_CURB","CANOPY_EDGE","CANOPY_PENETRATION","PARAPET_CORNER","ROOF_SADDLE","DRAIN_SUMP","OVERFLOW_SCUPPER","BASE_FLASHING","MEMBRANE_TERMINATION","MEMBRANE_TRANSITION"
+  ],
+  "assemblies": [
+    {"assembly_id": "SBS_PARAPET_ASSEMBLY", "condition": "PARAPET", "layers": ["structure","insulation","membrane","flashing","coping"]},
+    {"assembly_id": "ROOF_EDGE_ASSEMBLY", "condition": "ROOF_EDGE", "layers": ["deck","vapor_barrier","insulation","membrane","edge_metal"]},
+    {"assembly_id": "CURTAINWALL_HEAD", "condition": "CURTAINWALL_HEAD", "layers": ["steel_support","anchor_bracket","mullion","sealant","air_barrier"]},
+    {"assembly_id": "ROOF_DRAIN_ASSEMBLY", "condition": "DRAIN", "layers": ["structural_deck","insulation_slope","membrane","drain_flange","clamping_ring"]}
+  ],
+  "layer_types": ["STRUCTURAL_DECK","INSULATION","TAPERED_INSULATION","VAPOR_BARRIER","MEMBRANE","FLASHING_MEMBRANE","PROTECTION_LAYER","DRAINAGE_LAYER","SETTING_BED","PAVER","COPING","METAL_FLASHING","SEALANT","FASTENER","TERMINATION_BAR"],
+  "compliance_rules": [
+    {"rule_id": "RULE_MEMBRANE_HEIGHT", "description": "membrane must extend above finished roof surface"},
+    {"rule_id": "RULE_FLASHING_OVERLAP", "description": "flashing must overlap membrane by minimum required dimension"},
+    {"rule_id": "RULE_SLOPE_TO_DRAIN", "description": "roof insulation must slope toward drain"},
+    {"rule_id": "RULE_FIRE_RATING_CONTINUITY", "description": "fire rated assemblies must maintain continuity across penetrations"}
+  ]
+}

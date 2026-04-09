@@ -1,0 +1,24 @@
+{ "schema_version": "1.2.0", "wave": 205, "generated": "2026-04-09",
+  "assemblies": [
+    { "assembly_id": "SUP-PIPESUP-ROOFMOUNT-001", "discipline": "support", "system_family": "pipe_support_roof_mount", "base_condition": "pipe_support_at_membrane", "layer_count": 5, "geometry_template_ref": "gtpl_pipe_support_roof_v1" },
+    { "assembly_id": "SUP-PIPESUP-BGMOUNT-001", "discipline": "support", "system_family": "pipe_support_below_grade", "base_condition": "pipe_support_at_below_grade_wall", "layer_count": 4, "geometry_template_ref": "gtpl_pipe_support_bg_v1" },
+    { "assembly_id": "SUP-CONDUIT-ROOFPEN-001", "discipline": "support", "system_family": "conduit_roof_penetration", "base_condition": "conduit_sleeve_through_membrane", "layer_count": 5, "geometry_template_ref": "gtpl_conduit_pen_roof_v1" },
+    { "assembly_id": "SUP-DUCT-ROOFPEN-001", "discipline": "support", "system_family": "duct_roof_penetration", "base_condition": "duct_sleeve_curb_mount", "layer_count": 6, "geometry_template_ref": "gtpl_duct_pen_roof_v1" },
+    { "assembly_id": "SUP-STRUT-ROOFBASE-001", "discipline": "support", "system_family": "unistrut_roof_base", "base_condition": "unistrut_base_at_membrane", "layer_count": 5, "geometry_template_ref": "gtpl_strut_base_roof_v1" },
+    { "assembly_id": "OPN-SCUPPER-PRMT-001", "discipline": "opening", "system_family": "scupper_drain", "base_condition": "scupper_through_parapet_wall", "layer_count": 6, "geometry_template_ref": "gtpl_scupper_parapet_v1" },
+    { "assembly_id": "OPN-SCUPPER-EDGE-001", "discipline": "opening", "system_family": "scupper_drain", "base_condition": "scupper_through_edge_fascia", "layer_count": 5, "geometry_template_ref": "gtpl_scupper_edge_v1" },
+    { "assembly_id": "OPN-OVERFLOW-DRN-001", "discipline": "opening", "system_family": "overflow_drain", "base_condition": "overflow_drain_at_field", "layer_count": 5, "geometry_template_ref": "gtpl_overflow_drain_v1" },
+    { "assembly_id": "OPN-HATCH-ROOF-001", "discipline": "opening", "system_family": "roof_hatch", "base_condition": "roof_access_hatch_curb", "layer_count": 6, "geometry_template_ref": "gtpl_hatch_SBS_std" },
+    { "assembly_id": "OPN-SKYLIGHT-CURB-001", "discipline": "opening", "system_family": "skylight_curb", "base_condition": "skylight_curb_mount_at_deck", "layer_count": 7, "geometry_template_ref": "gtpl_skylight_curb_v1" },
+    { "assembly_id": "OPN-CLEANOUT-BG-001", "discipline": "opening", "system_family": "cleanout_below_grade", "base_condition": "cleanout_through_wp_membrane", "layer_count": 5, "geometry_template_ref": "gtpl_cleanout_bg_v1" },
+    { "assembly_id": "OPN-SLAB-PEN-SLEEVE-001", "discipline": "opening", "system_family": "slab_penetration_sleeve", "base_condition": "sleeve_through_waterproofed_slab", "layer_count": 6, "geometry_template_ref": "gtpl_slab_pen_sleeve_v1" },
+    { "assembly_id": "OPN-DOORFRAME-BG-001", "discipline": "opening", "system_family": "doorframe_below_grade", "base_condition": "door_frame_at_below_grade_wall", "layer_count": 6, "geometry_template_ref": "gtpl_doorframe_bg_v1" },
+    { "assembly_id": "SPC-EXPJT-ROOF-BELLOWS-001", "discipline": "specialty", "system_family": "expansion_joint_cover", "base_condition": "roof_expansion_joint_bellows", "layer_count": 8, "geometry_template_ref": "gtpl_expjt_SBS_std" },
+    { "assembly_id": "SPC-EXPJT-WALL-COVER-001", "discipline": "specialty", "system_family": "expansion_joint_cover", "base_condition": "wall_expansion_joint_cover_plate", "layer_count": 6, "geometry_template_ref": "gtpl_expjt_wall_v1" },
+    { "assembly_id": "SPC-EXPJT-PLAZA-001", "discipline": "specialty", "system_family": "expansion_joint_cover", "base_condition": "plaza_deck_expansion_joint", "layer_count": 7, "geometry_template_ref": "gtpl_expansion_wp_v1" },
+    { "assembly_id": "SPC-FLASHBAND-REPAIR-001", "discipline": "specialty", "system_family": "flash_band_repair", "base_condition": "membrane_repair_flash_band", "layer_count": 3, "geometry_template_ref": "gtpl_repair_patch_v1" },
+    { "assembly_id": "SPC-WALKPAD-ROOF-001", "discipline": "specialty", "system_family": "walkpad_protection", "base_condition": "walkpad_over_membrane", "layer_count": 3, "geometry_template_ref": "gtpl_walkpad_roof_v1" },
+    { "assembly_id": "SPC-HVAC-DUCT-THIMBLE-001", "discipline": "specialty", "system_family": "duct_thimble", "base_condition": "duct_thimble_through_rated_assembly", "layer_count": 6, "geometry_template_ref": "gtpl_duct_thimble_v1" },
+    { "assembly_id": "SPC-FIRESTOP-PIPE-WP-001", "discipline": "specialty", "system_family": "firestop_at_wp_penetration", "base_condition": "firestop_collar_at_waterproofed_slab", "layer_count": 5, "geometry_template_ref": "gtpl_firestop_wp_pen_v1" }
+  ]
+}

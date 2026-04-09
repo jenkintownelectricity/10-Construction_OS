@@ -1,0 +1,100 @@
+{ "schema_version": "1.1.0", "generated": "2026-04-09",
+  "transition_rules": [
+    {
+      "transition_id": "TR-001", "name": "roof_to_parapet",
+      "from_condition": "roof_field", "to_condition": "parapet_wall",
+      "required_layers": ["coverboard", "membrane_upturn", "cant_strip", "coping_cap"],
+      "sequence_constraints": ["cant_strip_before_membrane_upturn", "membrane_upturn_min_8in_above_roof_plane"],
+      "forbidden_conditions": ["membrane_lap_at_cant", "exposed_fastener_at_upturn"],
+      "inspection_checkpoints": ["cant_strip_continuous", "upturn_height_verified", "coping_cap_sealed"]
+    },
+    {
+      "transition_id": "TR-002", "name": "roof_to_wall",
+      "from_condition": "roof_field", "to_condition": "exterior_wall",
+      "required_layers": ["cant_strip", "base_flashing", "counter_flashing", "sealant_at_reglet"],
+      "sequence_constraints": ["base_flashing_adhered_before_counter", "reglet_set_before_membrane"],
+      "forbidden_conditions": ["base_flashing_nailed_through_membrane", "counter_flashing_overlap_less_than_4in"],
+      "inspection_checkpoints": ["reglet_depth_verified", "counter_flashing_lock_sealed", "base_flashing_height_min_8in"]
+    },
+    {
+      "transition_id": "TR-003", "name": "roof_to_curtainwall",
+      "from_condition": "roof_field", "to_condition": "curtainwall_system",
+      "required_layers": ["structural_curb", "cant_strip", "membrane_upturn", "metal_closure", "sealant_joint"],
+      "sequence_constraints": ["curb_framed_before_membrane", "metal_closure_after_membrane_upturn"],
+      "forbidden_conditions": ["membrane_direct_contact_with_aluminum", "sealant_bridging_structural_gap"],
+      "inspection_checkpoints": ["curb_height_min_8in", "closure_fastener_pattern", "sealant_tooled_continuous"]
+    },
+    {
+      "transition_id": "TR-004", "name": "roof_to_drain",
+      "from_condition": "roof_field", "to_condition": "roof_drain",
+      "required_layers": ["sump_pan", "drain_flange", "clamping_ring", "membrane_at_drain", "strainer"],
+      "sequence_constraints": ["sump_pan_set_before_membrane", "membrane_clamped_before_strainer"],
+      "forbidden_conditions": ["membrane_lapped_over_drain_flange", "sump_sealant_omitted"],
+      "inspection_checkpoints": ["sump_depth_min_1in", "clamping_ring_torque", "strainer_installed"]
+    },
+    {
+      "transition_id": "TR-005", "name": "roof_to_edge",
+      "from_condition": "roof_field", "to_condition": "roof_edge_termination",
+      "required_layers": ["edge_metal", "cleat", "membrane_hem", "sealant_at_hem"],
+      "sequence_constraints": ["cleat_fastened_before_edge_metal", "membrane_hemmed_into_edge_metal"],
+      "forbidden_conditions": ["membrane_terminated_short_of_edge_metal", "exposed_membrane_at_fascia"],
+      "inspection_checkpoints": ["cleat_spacing_max_12in", "hem_engagement_min_1in", "edge_metal_laps_sealed"]
+    },
+    {
+      "transition_id": "TR-006", "name": "roof_to_curb",
+      "from_condition": "roof_field", "to_condition": "equipment_curb",
+      "required_layers": ["cant_strip", "base_flashing", "metal_cap_flashing", "sealant_at_curb"],
+      "sequence_constraints": ["cant_at_all_four_corners", "base_flashing_continuous_around_curb"],
+      "forbidden_conditions": ["base_flashing_below_8in", "curb_cap_laps_open"],
+      "inspection_checkpoints": ["curb_height_min_8in", "corner_patches_installed", "cap_flashing_fastened"]
+    },
+    {
+      "transition_id": "TR-007", "name": "roof_to_penetration",
+      "from_condition": "roof_field", "to_condition": "pipe_penetration",
+      "required_layers": ["pitch_pocket_or_pipe_boot", "membrane_patch", "sealant_fill", "cover_plate"],
+      "sequence_constraints": ["pipe_boot_set_before_membrane_patch", "sealant_fill_before_cover"],
+      "forbidden_conditions": ["open_pitch_pocket_without_fill", "membrane_slit_without_patch"],
+      "inspection_checkpoints": ["boot_clamp_tightened", "sealant_fill_leveled", "cover_plate_fastened"]
+    },
+    {
+      "transition_id": "TR-008", "name": "waterproofing_to_wall",
+      "from_condition": "below_grade_waterproofing", "to_condition": "foundation_wall",
+      "required_layers": ["substrate_primer", "waterproofing_membrane", "protection_board", "drainage_mat"],
+      "sequence_constraints": ["primer_cured_before_membrane", "protection_board_before_backfill"],
+      "forbidden_conditions": ["membrane_applied_to_wet_substrate", "drainage_mat_omitted_at_footing"],
+      "inspection_checkpoints": ["primer_coverage_verified", "membrane_thickness_verified", "protection_board_lapped"]
+    },
+    {
+      "transition_id": "TR-009", "name": "waterproofing_to_roof",
+      "from_condition": "below_grade_waterproofing", "to_condition": "plaza_roof_assembly",
+      "required_layers": ["waterproofing_membrane", "protection_board", "drainage_layer", "filter_fabric", "pavers_or_ballast"],
+      "sequence_constraints": ["membrane_fully_cured_before_overburden", "filter_fabric_before_pavers"],
+      "forbidden_conditions": ["point_load_on_uncured_membrane", "drainage_layer_omitted"],
+      "inspection_checkpoints": ["flood_test_passed", "protection_board_continuous", "filter_fabric_lapped_min_6in"]
+    },
+    {
+      "transition_id": "TR-010", "name": "avb_to_window",
+      "from_condition": "air_vapor_barrier_field", "to_condition": "window_frame",
+      "required_layers": ["avb_membrane", "avb_tape_at_frame", "backer_rod", "sealant_at_frame"],
+      "sequence_constraints": ["avb_lapped_onto_frame_before_tape", "backer_rod_before_sealant"],
+      "forbidden_conditions": ["avb_terminated_short_of_frame", "sealant_bridging_over_gap_without_backer"],
+      "inspection_checkpoints": ["tape_adhesion_confirmed", "sealant_tooled_three_sided", "continuity_verified_at_corner"]
+    },
+    {
+      "transition_id": "TR-011", "name": "avb_to_roof",
+      "from_condition": "air_vapor_barrier_field", "to_condition": "roof_assembly",
+      "required_layers": ["avb_membrane", "avb_tape_at_transition", "roof_membrane_connection", "compression_seal"],
+      "sequence_constraints": ["avb_lapped_min_6in_onto_roof_substrate", "tape_applied_before_insulation"],
+      "forbidden_conditions": ["avb_terminated_at_top_of_wall_without_connection", "unsupported_avb_bridging_gap"],
+      "inspection_checkpoints": ["lap_dimension_verified", "tape_rolled_continuous", "compression_seal_at_structure"]
+    },
+    {
+      "transition_id": "TR-012", "name": "fireproofing_to_structure",
+      "from_condition": "structural_steel", "to_condition": "spray_applied_fireproofing",
+      "required_layers": ["surface_prep", "primer_if_required", "base_coat_safb", "finish_coat_if_required"],
+      "sequence_constraints": ["steel_clean_dry_before_application", "base_coat_before_finish_coat"],
+      "forbidden_conditions": ["application_below_40f", "wet_overspray_on_adjacent_materials"],
+      "inspection_checkpoints": ["thickness_measured_per_grid_pattern", "adhesion_tested", "density_verified_per_ul_listing"]
+    }
+  ]
+}

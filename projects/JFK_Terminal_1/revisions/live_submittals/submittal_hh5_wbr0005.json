@@ -1,0 +1,25 @@
+{
+  "submittal_id": "submittal_hh5_wbr0005",
+  "project": "JFK_Terminal_1",
+  "wave": 114,
+  "package_ref": "WBR-0005",
+  "spec_section": "07 14 13",
+  "spec_title": "Hot Fluid-Applied Rubberized Asphalt Waterproofing",
+  "scope_zone": "HH5",
+  "generated": "2026-04-09",
+  "review_posture": "make corrections as noted",
+  "trust_state": "UNTRUSTED_UNTIL_VERIFIED",
+  "assembly_claims": [
+    {"assembly_id": "Hydrotech_MM6125_base", "role": "primary_membrane", "trust_state": "TRUSTED"},
+    {"assembly_id": "Hydrotech_flashings_drains", "role": "drain_flashing", "trust_state": "TRUSTED"},
+    {"assembly_id": "Hydrotech_flashings_penetrations", "role": "penetration_flashing", "trust_state": "TRUSTED"},
+    {"assembly_id": "Hydrotech_flashings_curbs", "role": "curb_flashing", "trust_state": "TRUSTED"},
+    {"assembly_id": "Hydrotech_flashings_perimeter", "role": "perimeter_termination", "trust_state": "TRUSTED"},
+    {"assembly_id": "Hydroseal_termination_stack", "role": "termination_detail", "trust_state": "TRUSTED"}
+  ],
+  "correction_required": [
+    {"item": "curb_flashing_height", "note": "minimum 8-inch turn-up required per spec 07 14 13-3.4"},
+    {"item": "drain_clamping_ring", "note": "confirm compatibility with MM6125 membrane thickness"},
+    {"item": "perimeter_termination_sealant", "note": "specify sealant product meeting spec requirements"}
+  ]
+}

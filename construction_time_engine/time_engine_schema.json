@@ -1,0 +1,51 @@
+{
+  "schema_id": "construction_time_engine_v1",
+  "description": "Core orchestration schema: predicts schedules, conflicts, and risk windows",
+  "inputs": {
+    "project": {
+      "fields": ["project_id", "name", "location", "start_date:ISO8601", "contract_duration_days:int", "jurisdiction"]
+    },
+    "zone": {
+      "fields": ["zone_id", "level", "area_sqft:number", "system_type:enum[PMMA,SBS,TPO,SFRM,Hydrotech]", "substrate"]
+    },
+    "condition": {
+      "fields": ["temperature_f:number", "humidity_pct:number", "wind_mph:number", "precipitation:bool", "forecast_window_days:int"]
+    },
+    "assembly": {
+      "type": "array",
+      "item_fields": ["assembly_id", "system", "layers:array", "dependencies:array"]
+    },
+    "crew_routes": {
+      "type": "array",
+      "item_fields": ["trade", "crew_id", "zones_assigned:array", "mobilization_date:ISO8601"]
+    },
+    "install_sequence": {
+      "type": "array",
+      "description": "Ordered install steps with dependency links",
+      "item_fields": ["step_id", "step_name", "trade", "depends_on:array", "estimated_duration_days:number"]
+    },
+    "inspection_requirements": {
+      "type": "array",
+      "item_fields": ["inspection_id", "type", "required_before_step", "jurisdiction", "estimated_lead_days:number"]
+    }
+  },
+  "outputs": {
+    "predicted_schedule_graph": {
+      "description": "Resolved dependency graph with dates, critical path, and float",
+      "fields": ["nodes:array", "edges:array", "critical_path:array", "total_float_days:number", "projected_completion:ISO8601"]
+    },
+    "time_conflicts": {
+      "type": "array",
+      "item_fields": ["conflict_id", "type", "affected_steps:array", "severity:enum[low,medium,high,critical]", "resolution_options:array"]
+    },
+    "inspection_queue_delays": {
+      "type": "array",
+      "item_fields": ["inspection_id", "predicted_wait_days:number", "delay_impact_days:number", "affected_downstream_steps:array"]
+    },
+    "weather_risk_windows": {
+      "type": "array",
+      "item_fields": ["zone_id", "system", "risk_start:ISO8601", "risk_end:ISO8601", "risk_type", "probability:number"]
+    }
+  },
+  "engine_version": "1.0.0"
+}

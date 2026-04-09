@@ -1,0 +1,87 @@
+{
+  "project_id": "jfk-t1",
+  "mapped_at": "2026-04-09T00:00:00Z",
+  "source": "revision_queue",
+  "mappings": [
+    {
+      "condition": "jfk-parapet-001",
+      "canonical": "PARAPET",
+      "assembly": "Barrett_SBS_Parapet",
+      "geometry_template": "tmpl-parapet",
+      "packet_family": "roofing_packet",
+      "status": "mapped"
+    },
+    {
+      "condition": "jfk-drain-001",
+      "canonical": "DRAIN",
+      "assembly": "Barrett_SBS_DrainSump",
+      "geometry_template": "tmpl-drain-sump",
+      "packet_family": "roofing_packet",
+      "status": "mapped"
+    },
+    {
+      "condition": "jfk-curb-001",
+      "canonical": "ROOF_CURB",
+      "assembly": "CurbFrameWeldedStd",
+      "geometry_template": "tmpl-curb-frame",
+      "packet_family": "roofing_packet",
+      "status": "mapped"
+    },
+    {
+      "condition": "jfk-pipe-pen-001",
+      "canonical": "PENETRATION",
+      "assembly": "PenetrationSleeveStd",
+      "geometry_template": "tmpl-pipe-penetration",
+      "packet_family": "roofing_packet",
+      "status": "mapped"
+    },
+    {
+      "condition": "jfk-exp-joint-001",
+      "canonical": "ROOF_EDGE",
+      "assembly": "Hydrotech_MM6125_RoofEdge",
+      "geometry_template": "tmpl-roof-edge",
+      "packet_family": "roofing_packet",
+      "status": "mapped"
+    },
+    {
+      "condition": "jfk-wall-term-001",
+      "canonical": "ROOF_TO_WALL",
+      "assembly": "AVB_Transition_RoofToWall",
+      "geometry_template": "tmpl-roof-to-wall",
+      "packet_family": "avb_packet",
+      "status": "mapped"
+    },
+    {
+      "condition": "jfk-wall-base-001",
+      "canonical": "WALL_BASE",
+      "assembly": "Tremco_ExoAir_WallBase",
+      "geometry_template": "tmpl-wall-base",
+      "packet_family": "waterproofing_packet",
+      "status": "mapped"
+    },
+    {
+      "condition": "jfk-window-head-001",
+      "canonical": "WINDOW_HEAD",
+      "assembly": "Tremco_ExoAir_WindowHead",
+      "geometry_template": "tmpl-window-head",
+      "packet_family": "avb_packet",
+      "status": "mapped"
+    },
+    {
+      "condition": "jfk-beam-sfrm-001",
+      "canonical": "BEAM_SFRM",
+      "assembly": "Beam_SFRM_W8x31",
+      "geometry_template": "tmpl-beam-sfrm",
+      "packet_family": "fireproofing_packet",
+      "status": "mapped"
+    },
+    {
+      "condition": "jfk-column-sfrm-001",
+      "canonical": "COLUMN_SFRM",
+      "assembly": "Column_SFRM_HSS6x6",
+      "geometry_template": "tmpl-column-sfrm",
+      "packet_family": "fireproofing_packet",
+      "status": "mapped"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "project_id": "jfk-t1",
+  "conditions": [
+    {
+      "condition_id": "jfk-drain-001",
+      "type": "roof_drain",
+      "zone_ids": ["C2-high-roof", "C3-high-roof"],
+      "count": 20,
+      "manufacturer": "Hydrotech",
+      "system": "MM6125"
+    },
+    {
+      "condition_id": "jfk-curb-001",
+      "type": "roof_curb",
+      "zone_ids": ["C2-high-roof", "D2-high-roof"],
+      "count": 15,
+      "manufacturer": "Hydrotech",
+      "system": "MM6125"
+    },
+    {
+      "condition_id": "jfk-pipe-pen-001",
+      "type": "pipe_penetration",
+      "zone_ids": ["C2-high-roof", "C3-high-roof", "C4-high-roof", "D2-high-roof", "D3-high-roof"],
+      "count": 45,
+      "manufacturer": "Hydrotech",
+      "system": "MM6125"
+    },
+    {
+      "condition_id": "jfk-parapet-001",
+      "type": "parapet_termination",
+      "zone_ids": ["C2-high-roof", "C3-high-roof", "C4-high-roof", "D2-high-roof", "D3-high-roof"],
+      "count": 30,
+      "manufacturer": "Hydrotech",
+      "system": "MM6125"
+    },
+    {
+      "condition_id": "jfk-exp-joint-001",
+      "type": "expansion_joint",
+      "zone_ids": ["C3-high-roof", "D3-high-roof"],
+      "count": 8,
+      "manufacturer": "Hydrotech",
+      "system": "MM6125"
+    },
+    {
+      "condition_id": "jfk-wall-term-001",
+      "type": "wall_termination",
+      "zone_ids": ["C2-high-roof", "C4-high-roof"],
+      "count": 12,
+      "manufacturer": "Hydrotech",
+      "system": "MM6125"
+    },
+    {
+      "condition_id": "jfk-pv-mount-001",
+      "type": "pv_support",
+      "zone_ids": ["C2-high-roof", "D2-high-roof"],
+      "count": 200,
+      "manufacturer": "PVC Fleeceback",
+      "system": "pvc_roof"
+    },
+    {
+      "condition_id": "jfk-walkway-001",
+      "type": "walkway_pad",
+      "zone_ids": ["C2-high-roof", "C3-high-roof", "D2-high-roof"],
+      "count": 50,
+      "manufacturer": "PVC Fleeceback",
+      "system": "pvc_roof"
+    }
+  ]
+}

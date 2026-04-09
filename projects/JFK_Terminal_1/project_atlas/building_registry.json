@@ -1,0 +1,50 @@
+{
+  "registry_id": "JFK-T1-BLDG-REG-001",
+  "project_code": "JFK-T1",
+  "version": "1.0.0",
+  "created": "2026-04-09",
+  "wave": 211,
+  "hierarchy": "site > building > level > sector > roof > zone > condition",
+  "site": {
+    "site_id": "SITE-JFK-T1",
+    "name": "JFK Terminal 1",
+    "iata": "JFK",
+    "address": "Jamaica, Queens, NY 11430",
+    "buildings": ["BLD-MAIN","BLD-EPIER"]
+  },
+  "buildings": {
+    "BLD-MAIN":  { "name": "Main Terminal / Headhouse", "abbrev": "HH", "levels": ["L01","L02","L03","L04","L05","L06"], "primary_roof": "L06" },
+    "BLD-EPIER": { "name": "East Pier / Concourse",     "abbrev": "EP", "levels": ["L01","L02","L03"],                   "primary_roof": "L03" }
+  },
+  "levels": {
+    "L01": { "name": "Grade / Arrivals",     "elevation_ft": 0.0  },
+    "L02": { "name": "Mezzanine",            "elevation_ft": 14.0 },
+    "L03": { "name": "Departures",           "elevation_ft": 28.0 },
+    "L04": { "name": "Upper Departures",     "elevation_ft": 42.0 },
+    "L05": { "name": "Mechanical / Plant",   "elevation_ft": 56.0 },
+    "L06": { "name": "Roof Level",           "elevation_ft": 72.0 }
+  },
+  "sectors": {
+    "SEC-HH":       { "name": "Headhouse Main Body",       "building_id": "BLD-MAIN",  "level_id": "L06" },
+    "SEC-HH5":      { "name": "Headhouse Zone 5",          "building_id": "BLD-MAIN",  "level_id": "L06" },
+    "SEC-NW-HH":    { "name": "NW Headhouse Corner",       "building_id": "BLD-MAIN",  "level_id": "L06" },
+    "SEC-PIER-E":   { "name": "East Pier Roof",            "building_id": "BLD-EPIER", "level_id": "L03" },
+    "SEC-PORTAL":   { "name": "Portal Entry Canopy",       "building_id": "BLD-MAIN",  "level_id": "L03" },
+    "SEC-DUNNAGE":  { "name": "Mechanical Dunnage Field",  "building_id": "BLD-MAIN",  "level_id": "L06" },
+    "SEC-MON-STAIR":{ "name": "Monument Stair Roof",       "building_id": "BLD-MAIN",  "level_id": "L05" }
+  },
+  "zones": {
+    "Z-HH-HIGH":  { "name": "Headhouse High Roof",        "sector_id": "SEC-HH",        "zone_type": "roof_field" },
+    "Z-HH-LOW":   { "name": "Headhouse Low Roof",         "sector_id": "SEC-HH",        "zone_type": "roof_field" },
+    "Z-HH5":      { "name": "HH Zone 5 Roof",             "sector_id": "SEC-HH5",       "zone_type": "roof_field" },
+    "Z-NW-HH":    { "name": "NW Headhouse Roof",          "sector_id": "SEC-NW-HH",     "zone_type": "roof_field" },
+    "Z-HATCH-N":  { "name": "North Stair Hatch Region",   "sector_id": "SEC-HH",        "zone_type": "stair_hatch" },
+    "Z-HATCH-S":  { "name": "South Stair Hatch Region",   "sector_id": "SEC-HH",        "zone_type": "stair_hatch" },
+    "Z-PIER-ROOF":{ "name": "East Pier Main Roof",        "sector_id": "SEC-PIER-E",    "zone_type": "roof_field" },
+    "Z-PORTAL":   { "name": "Portal Canopy Roof",         "sector_id": "SEC-PORTAL",    "zone_type": "canopy" },
+    "Z-DUNNAGE":  { "name": "Dunnage Equipment Field",    "sector_id": "SEC-DUNNAGE",   "zone_type": "mechanical_field" },
+    "Z-MON-STAIR":{ "name": "Monument Stair Cap",         "sector_id": "SEC-MON-STAIR", "zone_type": "stair_cap" },
+    "Z-CLADDING": { "name": "Parapet Cladding Band",      "sector_id": "SEC-HH",        "zone_type": "parapet_cladding" },
+    "Z-GUTTER":   { "name": "Gutter / Leader System",     "sector_id": "SEC-HH",        "zone_type": "drainage_linear" }
+  }
+}

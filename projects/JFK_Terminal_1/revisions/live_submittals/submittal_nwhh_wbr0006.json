@@ -1,0 +1,31 @@
+{
+  "submittal_id": "submittal_nwhh_wbr0006",
+  "project": "JFK_Terminal_1",
+  "wave": 114,
+  "package_ref": "WBR-0006",
+  "spec_section": "07 14 13",
+  "spec_title": "Hot Fluid-Applied Rubberized Asphalt Waterproofing",
+  "scope_zone": "NW_HH",
+  "generated": "2026-04-09",
+  "review_posture": "make corrections as noted",
+  "trust_state": "UNTRUSTED_UNTIL_VERIFIED",
+  "assembly_claims": [
+    {"assembly_id": "Hydrotech_MM6125_base", "role": "primary_membrane", "trust_state": "TRUSTED"},
+    {"assembly_id": "Hydrotech_flashings_drains", "role": "drain_flashing", "trust_state": "TRUSTED"},
+    {"assembly_id": "Hydrotech_flashings_penetrations", "role": "penetration_flashing", "trust_state": "TRUSTED"},
+    {"assembly_id": "Hydrotech_flashings_curbs", "role": "curb_flashing", "trust_state": "TRUSTED"},
+    {"assembly_id": "Hydrotech_flashings_perimeter", "role": "perimeter_termination", "trust_state": "TRUSTED"},
+    {"assembly_id": "Hydroseal_termination_stack", "role": "termination_detail", "trust_state": "TRUSTED"}
+  ],
+  "mixed_system_references": [
+    {"product_id": "Carlisle_SureFlex_PVC_fleeceback", "role": "alternate_membrane_noted", "trust_state": "PARTIALLY_TRUSTED", "flag": "incompatible_with_primary_system_unless_isolated"},
+    {"product_id": "SecurShield_HD", "role": "coverboard_alternate", "trust_state": "PARTIALLY_TRUSTED", "flag": "verify_compatibility_with_MM6125"},
+    {"product_id": "InsulBase_Polyiso", "role": "insulation_substrate", "trust_state": "PARTIALLY_TRUSTED", "flag": "confirm_FM_approval_and_slope_per_drawings"},
+    {"product_id": "Securock_coverboard", "role": "protection_board", "trust_state": "PARTIALLY_TRUSTED", "flag": "confirm_spec_section_applicability"}
+  ],
+  "correction_required": [
+    {"item": "mixed_system_coordination", "note": "PVC fleeceback reference requires isolation from hot-applied system; clarify intent"},
+    {"item": "coverboard_selection", "note": "single coverboard product must be confirmed for entire NW HH scope"},
+    {"item": "insulation_slope", "note": "polyiso slope must match civil grading shown on PKG30-14"}
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "framework_id": "spatial_device_adapter_framework",
+  "version": "2.0.0",
+  "description": "Adapter layer normalizing heterogeneous spatial capture devices into unified point_clouds, mesh_models, and image_sets outputs.",
+  "normalized_outputs": ["point_clouds", "mesh_models", "image_sets"],
+  "normalization_schema": {
+    "point_clouds": { "required_fields": ["x", "y", "z", "intensity", "rgb", "timestamp", "source_adapter"], "format": "LAZ", "crs": "site_local_grid" },
+    "mesh_models": { "required_fields": ["vertices", "faces", "normals", "uv_coords", "texture_ref", "source_adapter"], "format": "OBJ_MTL" },
+    "image_sets": { "required_fields": ["file_ref", "capture_timestamp", "pose_matrix", "crs", "source_adapter"], "format": "JPEG_TIFF" }
+  },
+  "adapters": {
+    "drone_systems": {
+      "adapter_id": "adapter_drone",
+      "supported_devices": ["DJI Matrice 300", "Skydio 2+", "senseFly eBee X", "Wingtra WingtraOne"],
+      "input_formats": ["GeoTIFF", "JPEG_EXIF", "DNG_RAW", "LAS"],
+      "capture_modes": ["nadir", "oblique", "facade", "inspection"],
+      "processing_pipeline": ["georeferencing", "photogrammetric_reconstruction", "dense_matching", "export"],
+      "normalizes_to": ["point_clouds", "mesh_models", "image_sets"],
+      "accuracy_spec": { "horizontal_cm": 2.5, "vertical_cm": 3.0 }
+    },
+    "lidar_scanners": {
+      "adapter_id": "adapter_lidar",
+      "supported_devices": ["Leica BLK360", "FARO Focus S350", "Trimble X7", "NavVis VLX"],
+      "input_formats": ["E57", "LAS", "LAZ", "PTX", "FARO_FLS"],
+      "capture_modes": ["static_tripod", "mobile_backpack", "vehicle_mounted"],
+      "processing_pipeline": ["registration_ICP", "noise_filtering", "colorization", "export"],
+      "normalizes_to": ["point_clouds", "mesh_models", "image_sets"],
+      "accuracy_spec": { "horizontal_cm": 0.3, "vertical_cm": 0.3 }
+    },
+    "photogrammetry_rigs": {
+      "adapter_id": "adapter_photogrammetry",
+      "supported_devices": ["Sony A7R IV Rig", "Phase One iXM-100", "custom_multi_cam_array"],
+      "input_formats": ["RAW_CR3", "TIFF_16BIT", "JPEG"],
+      "capture_modes": ["ground_based", "pole_mounted", "vehicle_mounted"],
+      "processing_pipeline": ["feature_extraction_SIFT", "bundle_adjustment", "MVS_reconstruction", "export"],
+      "normalizes_to": ["point_clouds", "mesh_models", "image_sets"],
+      "accuracy_spec": { "horizontal_cm": 1.5, "vertical_cm": 2.0 }
+    },
+    "ar_scanning": {
+      "adapter_id": "adapter_ar",
+      "supported_devices": ["Apple iPhone 15 Pro LiDAR", "iPad Pro LiDAR", "HoloLens 2", "Trimble SiteVision"],
+      "input_formats": ["USDZ", "OBJ", "PLY", "ARKit_ARWorldMap"],
+      "capture_modes": ["room_scan", "element_scan", "walkthrough"],
+      "processing_pipeline": ["ARKit_SLAM", "depth_fusion", "anchor_alignment", "export"],
+      "normalizes_to": ["point_clouds", "mesh_models", "image_sets"],
+      "accuracy_spec": { "horizontal_cm": 5.0, "vertical_cm": 6.0 }
+    },
+    "robotic_inspection": {
+      "adapter_id": "adapter_robotic",
+      "supported_devices": ["Boston Dynamics Spot", "ANYbotics ANYmal", "Hilti Jaibot", "custom_uav"],
+      "input_formats": ["ROS_bag", "SLAM_map_PCD", "E57", "thermal_IR_TIFF"],
+      "capture_modes": ["autonomous_patrol", "inspection_route", "targeted_element"],
+      "processing_pipeline": ["SLAM_localization", "multi_sensor_fusion", "thermal_overlay", "export"],
+      "normalizes_to": ["point_clouds", "mesh_models", "image_sets"],
+      "accuracy_spec": { "horizontal_cm": 1.0, "vertical_cm": 1.5 }
+    }
+  }
+}

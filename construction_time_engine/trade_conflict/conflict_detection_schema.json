@@ -1,0 +1,87 @@
+{
+  "schema_id": "conflict_detection_v1",
+  "description": "Detects scheduling conflicts between trade crews sharing zones, access paths, or sequencing dependencies",
+  "trade_registry": [
+    { "trade_id": "roofing",    "activities": ["membrane_install", "flashing_install", "parapet_cap", "drain_setting"] },
+    { "trade_id": "mechanical", "activities": ["equipment_pad_pour", "curb_install", "pipe_penetration", "equipment_set"] },
+    { "trade_id": "steel",      "activities": ["deck_fireproofing", "beam_coating", "embed_install"] },
+    { "trade_id": "facade",     "activities": ["parapet_coping", "curtain_wall_head", "window_flashing"] },
+    { "trade_id": "inspection", "activities": ["steel_inspection", "membrane_inspection", "MEP_inspection", "final_inspection"] }
+  ],
+  "conflict_rules": [
+    {
+      "rule_id": "CR-01",
+      "name": "membrane_vs_curb_conflict",
+      "description": "Membrane cannot be installed while mechanical curbs are being set in the same zone",
+      "trade_a": "roofing",
+      "activity_a": "membrane_install",
+      "trade_b": "mechanical",
+      "activity_b": "curb_install",
+      "conflict_type": "zone_overlap",
+      "severity": "high",
+      "resolution": "complete_curb_install_first"
+    },
+    {
+      "rule_id": "CR-02",
+      "name": "fireproofing_vs_steel_inspection",
+      "description": "Steel inspection must complete before fireproofing is applied",
+      "trade_a": "steel",
+      "activity_a": "deck_fireproofing",
+      "trade_b": "inspection",
+      "activity_b": "steel_inspection",
+      "conflict_type": "sequence_violation",
+      "severity": "critical",
+      "resolution": "hold_fireproofing_until_inspection_passed"
+    },
+    {
+      "rule_id": "CR-03",
+      "name": "facade_vs_roofing_parapet",
+      "description": "Parapet coping (facade) conflicts with roofing parapet cap on same roof edge",
+      "trade_a": "roofing",
+      "activity_a": "parapet_cap",
+      "trade_b": "facade",
+      "activity_b": "parapet_coping",
+      "conflict_type": "access_conflict",
+      "severity": "medium",
+      "resolution": "coordinate_section_by_section"
+    },
+    {
+      "rule_id": "CR-04",
+      "name": "roofing_vs_equipment_set",
+      "description": "Equipment crane pick conflicts with roofing crew on deck",
+      "trade_a": "roofing",
+      "activity_a": "membrane_install",
+      "trade_b": "mechanical",
+      "activity_b": "equipment_set",
+      "conflict_type": "safety_exclusion_zone",
+      "severity": "critical",
+      "resolution": "schedule_equipment_set_on_separate_day"
+    },
+    {
+      "rule_id": "CR-05",
+      "name": "inspection_idle_window",
+      "description": "Work must halt in inspected zone while inspector is present and reviewing",
+      "trade_a": "roofing",
+      "activity_a": "any",
+      "trade_b": "inspection",
+      "activity_b": "membrane_inspection",
+      "conflict_type": "inspection_hold",
+      "severity": "medium",
+      "resolution": "pre_schedule_inspection_at_zone_boundary"
+    }
+  ],
+  "outputs": {
+    "conflict_alerts": {
+      "type": "array",
+      "fields": ["conflict_id", "rule_id", "zone_id", "date_range", "trades_involved", "severity", "description"]
+    },
+    "suggested_resequencing": {
+      "type": "array",
+      "fields": ["conflict_id", "original_sequence", "proposed_sequence", "schedule_impact_days", "rationale"]
+    },
+    "crew_congestion_warnings": {
+      "type": "array",
+      "fields": ["zone_id", "date", "crew_count", "max_safe_crew_count", "congestion_level", "affected_trades"]
+    }
+  }
+}

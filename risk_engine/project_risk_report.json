@@ -1,0 +1,77 @@
+{
+  "report_id": "risk-rpt-jfk-t8-2026",
+  "project": {
+    "name": "JFK Terminal 8 Roof Replacement",
+    "location": "Jamaica, NY",
+    "project_code": "JFK-T8-2024",
+    "report_date": "2026-04-09",
+    "inspector": "TBD",
+    "phase": "Pre-Construction / Design Review"
+  },
+  "membrane_systems": [
+    {"zone": "Main Roof Field", "system": "PVC Fleeceback", "area_sqm": 4200},
+    {"zone": "Plaza Deck", "system": "Hydrotech MM6125", "area_sqm": 1100},
+    {"zone": "Parapet Caps and Transitions", "system": "Blueskin SA", "area_sqm": 340}
+  ],
+  "compatibility_flags": [
+    {
+      "transition_id": "trans-pvc-hydrotech",
+      "zone_interface": "Main Roof to Plaza Deck",
+      "compatibility_class": "CONDITION_REQUIRED",
+      "status": "PENDING_DETAIL_REVIEW",
+      "notes": "Modified bitumen transition strip detail must be confirmed on IFC drawings."
+    },
+    {
+      "transition_id": "trans-pvc-blueskin",
+      "zone_interface": "Main Roof Field to Parapet Cap",
+      "compatibility_class": "FLASHING_REQUIRED",
+      "status": "PENDING_DETAIL_REVIEW",
+      "notes": "AVB transition membrane and termination bar required at all parapet interfaces."
+    }
+  ],
+  "risk_findings": [
+    {
+      "finding_id": "RF-001",
+      "condition": "parapet_termination",
+      "risk_type": "termination_failure",
+      "severity": "FAIL",
+      "location": "North parapet, grid lines B-D",
+      "description": "Termination height below 200mm minimum at 3 locations per preliminary survey.",
+      "action_required": "Revise parapet height detail or provide raised cant block assembly."
+    },
+    {
+      "finding_id": "RF-002",
+      "condition": "roof_drain",
+      "risk_type": "water_path",
+      "severity": "FAIL",
+      "location": "Plaza Deck — drains D-3, D-7",
+      "description": "Slope-to-drain not confirmed at 1% minimum. Ponding risk flagged by civil.",
+      "action_required": "Provide tapered insulation plan with positive drainage confirmation."
+    },
+    {
+      "finding_id": "RF-003",
+      "condition": "expansion_joint",
+      "risk_type": "thermal_movement",
+      "severity": "WARNING",
+      "location": "Structural EJ at column line 6",
+      "description": "25mm movement allowance not yet confirmed in joint detail.",
+      "action_required": "Structural engineer to confirm movement range; update cover plate spec."
+    },
+    {
+      "finding_id": "RF-004",
+      "condition": "fastener_pattern",
+      "risk_type": "fastener_pullout",
+      "severity": "WARNING",
+      "location": "Roof field perimeter zone (3m band)",
+      "description": "Wind zone uplift calculations pending. Fastener spacing may require tightening.",
+      "action_required": "Submit FM Global or ASCE 7 uplift calc before IFC issue."
+    }
+  ],
+  "summary": {
+    "total_findings": 4,
+    "fail_count": 2,
+    "warning_count": 2,
+    "overall_status": "ACTION_REQUIRED",
+    "next_review_date": "2026-04-23"
+  }
+}

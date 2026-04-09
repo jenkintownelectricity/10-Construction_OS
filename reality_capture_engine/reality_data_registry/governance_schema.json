@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Reality Data Governance Schema",
+  "description": "Audit trail and lineage registry for all spatial data. Tracks scan origin, device, operator, confidence, and data provenance.",
+  "type": "object",
+  "required": ["registry_id", "project_id", "records"],
+  "properties": {
+    "registry_id": { "type": "string" },
+    "project_id": { "type": "string" },
+    "schema_version": { "type": "string", "default": "1.0.0" },
+    "records": {
+      "type": "array",
+      "description": "Immutable log of every spatial data capture event",
+      "items": {
+        "type": "object",
+        "required": ["record_id", "timestamp", "scan_origin", "sensor_device", "operator_identity", "confidence_score", "data_lineage"],
+        "properties": {
+          "record_id": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+          "scan_origin": {
+            "type": "object",
+            "required": ["method", "location_description"],
+            "properties": {
+              "method": { "type": "string", "enum": ["terrestrial_lidar", "drone_photogrammetry", "bim_export", "fixed_camera", "mobile_mapping", "manual_survey", "structured_light"] },
+              "location_description": { "type": "string" },
+              "floor": { "type": "string" },
+              "zone": { "type": "string" }
+            }
+          },
+          "sensor_device": {
+            "type": "object",
+            "required": ["device_id", "make", "model"],
+            "properties": {
+              "device_id": { "type": "string" },
+              "make": { "type": "string" },
+              "model": { "type": "string" },
+              "serial_number": { "type": "string" },
+              "calibration_date": { "type": "string", "format": "date" },
+              "firmware_version": { "type": "string" }
+            }
+          },
+          "operator_identity": {
+            "type": "object",
+            "required": ["operator_id", "name"],
+            "properties": {
+              "operator_id": { "type": "string" },
+              "name": { "type": "string" },
+              "role": { "type": "string" },
+              "company": { "type": "string" },
+              "certification_ref": { "type": "string" }
+            }
+          },
+          "confidence_score": { "type": "number", "minimum": 0, "maximum": 1 },
+          "quality_metrics": {
+            "type": "object",
+            "properties": {
+              "point_density_per_m2": { "type": "number" },
+              "registration_error_mm": { "type": "number" },
+              "coverage_pct": { "type": "number", "minimum": 0, "maximum": 100 }
+            }
+          },
+          "data_lineage": {
+            "type": "object",
+            "required": ["raw_data_uri", "processing_steps"],
+            "properties": {
+              "raw_data_uri": { "type": "string" },
+              "processed_data_uri": { "type": "string" },
+              "processing_steps": { "type": "array", "items": { "type": "object", "properties": { "step": { "type": "string" }, "tool": { "type": "string" }, "timestamp": { "type": "string", "format": "date-time" }, "output_uri": { "type": "string" } } } },
+              "parent_record_ids": { "type": "array", "items": { "type": "string" } },
+              "checksum_sha256": { "type": "string" }
+            }
+          },
+          "access_control": {
+            "type": "object",
+            "properties": {
+              "classification": { "type": "string", "enum": ["public", "internal", "confidential", "restricted"] },
+              "authorized_roles": { "type": "array", "items": { "type": "string" } },
+              "immutable": { "type": "boolean", "default": true }
+            }
+          }
+        }
+      }
+    }
+  }
+}

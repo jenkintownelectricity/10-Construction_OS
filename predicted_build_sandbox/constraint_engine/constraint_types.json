@@ -1,0 +1,53 @@
+{
+  "version": "0.1",
+  "constraint_classes": [
+    {
+      "id": "access",
+      "label": "Access Constraints",
+      "parameters": ["path_id", "available_hours", "max_load_kg", "min_clearance_m", "requires_escort"],
+      "recompute_triggers": ["schedule_change", "zone_status_change", "exclusion_zone_added"]
+    },
+    {
+      "id": "weather",
+      "label": "Weather Constraints",
+      "parameters": ["wind_speed_limit_kph", "temp_min_c", "temp_max_c", "rain_threshold_mm", "lightning_standdown_radius_km", "forecast_horizon_days"],
+      "recompute_triggers": ["forecast_update", "site_weather_event", "season_change"]
+    },
+    {
+      "id": "trade_readiness",
+      "label": "Trade Readiness",
+      "parameters": ["trade_id", "crew_size_available", "cert_current", "mobilization_lead_days", "predecessor_trades_complete"],
+      "recompute_triggers": ["manpower_update", "cert_expiry", "predecessor_completion"]
+    },
+    {
+      "id": "material_availability",
+      "label": "Material Availability",
+      "parameters": ["material_id", "on_site_qty", "lead_time_days", "supplier_id", "substitution_allowed", "staging_area_required"],
+      "recompute_triggers": ["delivery_confirmation", "delivery_delay", "material_rejection", "quantity_change"]
+    },
+    {
+      "id": "protection_requirements",
+      "label": "Protection Requirements",
+      "parameters": ["protection_type", "zone_id", "duration_days", "adjacent_trades_restricted", "inspection_required_before_cover"],
+      "recompute_triggers": ["adjacent_work_start", "protection_damage_reported", "cover_request_submitted"]
+    },
+    {
+      "id": "inspection_windows",
+      "label": "Inspection Windows",
+      "parameters": ["inspection_type", "authority", "advance_notice_days", "estimated_duration_hrs", "reinspection_allowed", "hold_point"],
+      "recompute_triggers": ["inspection_scheduled", "inspection_failed", "rfi_issued", "design_change"]
+    },
+    {
+      "id": "adjacent_active_work",
+      "label": "Adjacent Active Work",
+      "parameters": ["adjacent_zone_id", "work_type", "noise_db", "vibration_level", "dust_impact", "fall_zone_radius_m", "coordination_required"],
+      "recompute_triggers": ["adjacent_zone_start", "adjacent_zone_complete", "incident_reported", "scope_change"]
+    },
+    {
+      "id": "manufacturer_sequencing_rules",
+      "label": "Manufacturer Sequencing Rules",
+      "parameters": ["product_id", "required_predecessor_products", "required_conditions_at_install", "cure_time_hrs", "temp_humidity_range", "warranty_voiding_violations"],
+      "recompute_triggers": ["submittal_approval", "product_substitution", "field_condition_deviation", "rfi_response"]
+    }
+  ]
+}

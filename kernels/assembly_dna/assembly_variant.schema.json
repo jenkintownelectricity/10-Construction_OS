@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "assembly_variant.schema.json",
+  "title": "Assembly Variant",
+  "description": "Schema for a manufacturer- or system-specific variant of a base assembly",
+  "type": "object",
+  "required": ["variant_id", "base_assembly", "modifications", "manufacturer", "system_type"],
+  "additionalProperties": false,
+  "properties": {
+    "variant_id": {
+      "type": "string",
+      "pattern": "^ASSEMBLY_[A-Z0-9_]+$",
+      "description": "Unique variant identifier; must begin with ASSEMBLY_ and extend the base ID"
+    },
+    "base_assembly": {
+      "type": "string",
+      "pattern": "^ASSEMBLY_[A-Z0-9_]+$",
+      "description": "ID of the parent assembly object this variant derives from"
+    },
+    "modifications": {
+      "type": "array",
+      "description": "List of layer-level or parameter-level changes relative to the base assembly",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["target", "change_type", "value"],
+        "additionalProperties": false,
+        "properties": {
+          "target": {
+            "type": "string",
+            "description": "The layer order index or property path being modified (e.g. 'layer[2].material_family')"
+          },
+          "change_type": {
+            "type": "string",
+            "enum": ["replace", "add", "remove", "update"],
+            "description": "Nature of the modification"
+          },
+          "value": {
+            "description": "New value to apply; type depends on the target property"
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "Optional explanation for why the modification is made"
+          }
+        }
+      }
+    },
+    "manufacturer": {
+      "type": "string",
+      "description": "Manufacturer or brand associated with this variant (e.g. 'Firestone', 'Carlisle', 'GAF')"
+    },
+    "system_type": {
+      "type": "string",
+      "enum": [
+        "mechanically_fastened",
+        "fully_adhered",
+        "ballasted",
+        "torch_applied",
+        "self_adhered",
+        "hybrid"
+      ],
+      "description": "Primary attachment/installation system classification for this variant"
+    },
+    "product_references": {
+      "type": "array",
+      "description": "Manufacturer product names or spec section references",
+      "items": { "type": "string" }
+    },
+    "climate_applicability": {
+      "type": "array",
+      "description": "ASHRAE climate zone codes where this variant is appropriate",
+      "items": { "type": "string", "pattern": "^[1-8][A-C]?$" }
+    },
+    "notes": {
+      "type": "string",
+      "maxLength": 300,
+      "description": "Any additional variant-level notes or restrictions"
+    }
+  }
+}

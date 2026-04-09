@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "authority": "10-Construction_OS/kernels/assembly_dna",
+  "rules": [
+    {
+      "rule_id": "RULE_MEMBRANE_HEIGHT",
+      "name": "Membrane Termination Height Above Roof",
+      "description": "Membrane flashing must terminate minimum 200mm above finished roof surface at all vertical transitions.",
+      "trigger_condition": "condition_type IN ['parapet_termination', 'curb_flashing', 'wall_transition', 'edge_termination']",
+      "layer_requirements": ["flashing", "cap_sheet", "termination_bar"],
+      "min_dimensions": {
+        "height_above_roof_mm": 200,
+        "unit": "mm"
+      },
+      "severity": "HALT",
+      "code_reference": {
+        "standard": "NRCA Roofing Manual",
+        "section": "Chapter 4 — Flashings",
+        "clause": "4.2.1",
+        "ibc_section": "1503.6"
+      }
+    },
+    {
+      "rule_id": "RULE_FLASHING_OVERLAP",
+      "name": "Flashing Lap Splice Minimum Overlap",
+      "description": "All flashing lap splices and membrane overlaps must maintain minimum 100mm in the direction of water flow.",
+      "trigger_condition": "component_type IN ['flashing', 'base_sheet', 'cap_sheet'] AND has_lap_splice == true",
+      "layer_requirements": ["flashing", "base_sheet", "cap_sheet"],
+      "min_dimensions": {
+        "overlap_mm": 100,
+        "unit": "mm"
+      },
+      "severity": "HALT",
+      "code_reference": {
+        "standard": "ASTM D6163",
+        "section": "Section 8",
+        "clause": "8.4",
+        "ibc_section": "1507.3.3"
+      }
+    },
+    {
+      "rule_id": "RULE_INSULATION_CONTINUITY",
+      "name": "Insulation Layer Continuity",
+      "description": "No gaps greater than 6mm permitted in insulation layer. Gaps create thermal bridges and void warranty.",
+      "trigger_condition": "layer_role == 'insulation' AND assembly_type IN ['roof_deck', 'parapet_termination', 'curb_flashing']",
+      "layer_requirements": ["insulation"],
+      "min_dimensions": {
+        "max_gap_mm": 6,
+        "unit": "mm"
+      },
+      "severity": "HALT",
+      "code_reference": {
+        "standard": "ASHRAE 90.1",
+        "section": "Section 5.8",
+        "clause": "5.8.1",
+        "ibc_section": "1510.3"
+      }
+    },
+    {
+      "rule_id": "RULE_SLOPE_TO_DRAIN",
+      "name": "Minimum Slope to Drain",
+      "description": "Roof assembly must maintain minimum 1% slope (1:100) toward primary drainage points to prevent ponding.",
+      "trigger_condition": "condition_type IN ['roof_drain', 'primary_field', 'low_point'] OR drain_proximity_mm <= 3000",
+      "layer_requirements": ["substrate", "insulation", "membrane"],
+      "min_dimensions": {
+        "slope_percent": 1.0,
+        "slope_ratio": "1:100",
+        "unit": "percent"
+      },
+      "severity": "HALT",
+      "code_reference": {
+        "standard": "IBC 2021",
+        "section": "Section 1503",
+        "clause": "1503.4",
+        "ibc_section": "1503.4"
+      }
+    },
+    {
+      "rule_id": "RULE_EXPANSION_JOINT_CLEARANCE",
+      "name": "Expansion Joint Assembly Clearance",
+      "description": "Minimum 25mm clearance required between structural expansion joint and adjacent rigid assemblies to allow thermal movement.",
+      "trigger_condition": "condition_type == 'expansion_joint' OR proximity_to_expansion_joint_mm <= 300",
+      "layer_requirements": ["expansion_joint_cover", "substrate"],
+      "min_dimensions": {
+        "clearance_mm": 25,
+        "unit": "mm"
+      },
+      "severity": "HALT",
+      "code_reference": {
+        "standard": "SMACNA Architectural Sheet Metal Manual",
+        "section": "Chapter 7",
+        "clause": "7.3.2",
+        "ibc_section": "1620.1"
+      }
+    },
+    {
+      "rule_id": "RULE_FIRE_RATING_CONTINUITY",
+      "name": "Fire-Rated Assembly Continuity",
+      "description": "No breaks or discontinuities permitted in fire-rated assembly. All penetrations must be protected with listed assemblies maintaining the rated barrier.",
+      "trigger_condition": "fire_rating_required == true OR assembly_context.fire_zone IN ['A', 'B', 'I', 'II', 'III']",
+      "layer_requirements": ["fire_barrier", "intumescent_seal", "rated_substrate"],
+      "min_dimensions": {
+        "max_unprotected_gap_mm": 0,
+        "unit": "mm"
+      },
+      "severity": "HALT",
+      "code_reference": {
+        "standard": "UL 263 / ASTM E119",
+        "section": "IBC Chapter 7",
+        "clause": "703.2",
+        "ibc_section": "703.2"
+      }
+    }
+  ]
+}

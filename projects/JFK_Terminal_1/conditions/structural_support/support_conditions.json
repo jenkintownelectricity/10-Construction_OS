@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "project": "JFK_Terminal_1",
+  "wave": 115,
+  "description": "Structural support conditions for roof and envelope systems",
+  "generated": "2026-04-09",
+  "conditions": [
+    {
+      "condition_id": "SC-001",
+      "type": "DUNNAGE_SUPPORT",
+      "support_structure_type": "steel_dunnage_frame",
+      "attachment_point_type": "welded_clip_to_structure",
+      "top_of_steel": "varies_per_dunnage_layout",
+      "movement_allowance": "12mm_horizontal",
+      "thermal_break": true,
+      "waterproofing_interface": true,
+      "delegated_design_dependency": true
+    },
+    {
+      "condition_id": "SC-002",
+      "type": "SCREEN_WALL_SUPPORT",
+      "support_structure_type": "perimeter_steel_post_and_rail",
+      "attachment_point_type": "base_plate_anchor_to_slab",
+      "top_of_steel": "roof_level_plus_2400mm",
+      "movement_allowance": "6mm_vertical",
+      "thermal_break": true,
+      "waterproofing_interface": true,
+      "delegated_design_dependency": false
+    },
+    {
+      "condition_id": "SC-003",
+      "type": "PRECLEAR_WALL_SUPPORT",
+      "support_structure_type": "light_gauge_steel_framing",
+      "attachment_point_type": "track_anchored_to_slab_and_deck",
+      "top_of_steel": "soffit_minus_50mm",
+      "movement_allowance": "25mm_vertical_slip_track",
+      "thermal_break": false,
+      "waterproofing_interface": false,
+      "delegated_design_dependency": false
+    },
+    {
+      "condition_id": "SC-004",
+      "type": "PORTAL_HEADER_SUPPORT",
+      "support_structure_type": "wide_flange_header_beam",
+      "attachment_point_type": "bolted_end_plate_to_column",
+      "top_of_steel": "opening_plus_300mm",
+      "movement_allowance": "3mm_thermal",
+      "thermal_break": false,
+      "waterproofing_interface": false,
+      "delegated_design_dependency": false
+    },
+    {
+      "condition_id": "SC-005",
+      "type": "STAIR_STRINGER_SUPPORT",
+      "support_structure_type": "structural_steel_stringer",
+      "attachment_point_type": "welded_plate_to_landing_beam",
+      "top_of_steel": "per_stair_layout_drawing",
+      "movement_allowance": "none",
+      "thermal_break": false,
+      "waterproofing_interface": true,
+      "delegated_design_dependency": false
+    },
+    {
+      "condition_id": "SC-006",
+      "type": "STERILE_CORRIDOR_SUPPORT",
+      "support_structure_type": "overhead_suspended_steel_frame",
+      "attachment_point_type": "threaded_rod_hanger_to_deck",
+      "top_of_steel": "ceiling_plus_150mm",
+      "movement_allowance": "6mm_seismic",
+      "thermal_break": false,
+      "waterproofing_interface": false,
+      "delegated_design_dependency": true
+    },
+    {
+      "condition_id": "SC-007",
+      "type": "TROLLEY_BEAM_SUPPORT",
+      "support_structure_type": "monorail_beam_with_end_stops",
+      "attachment_point_type": "welded_bracket_to_primary_steel",
+      "top_of_steel": "clearance_per_equipment_schedule",
+      "movement_allowance": "none",
+      "thermal_break": false,
+      "waterproofing_interface": false,
+      "delegated_design_dependency": true
+    },
+    {
+      "condition_id": "SC-008",
+      "type": "MEP_SUPPORT_ATTACHMENT",
+      "support_structure_type": "unistrut_trapeze_and_clevis_hanger",
+      "attachment_point_type": "powder_actuated_to_deck_or_beam_clamp",
+      "top_of_steel": "n/a_suspended",
+      "movement_allowance": "per_seismic_bracing_schedule",
+      "thermal_break": false,
+      "waterproofing_interface": false,
+      "delegated_design_dependency": true
+    }
+  ]
+}

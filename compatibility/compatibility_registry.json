@@ -1,0 +1,58 @@
+{
+  "registry_id": "compat-registry-v1",
+  "description": "Master registry of all membrane system transition compatibility classifications",
+  "last_updated": "2026-04-09",
+  "compatibility_classes": {
+    "COMPATIBLE": "Systems can transition directly with standard detailing",
+    "CONDITION_REQUIRED": "Transition permitted only with specific materials and conditions met",
+    "FLASHING_REQUIRED": "Dedicated flashing assembly mandatory; direct contact not permitted",
+    "INCOMPATIBLE": "Systems must not be used in same roof assembly; no approved transition"
+  },
+  "transitions": [
+    {
+      "transition_id": "trans-pvc-hydrotech",
+      "system_a": "PVC Fleeceback",
+      "system_b": "Hydrotech MM6125",
+      "compatibility_class": "CONDITION_REQUIRED",
+      "detail_file": "systems/pvc_to_hydrotech.json"
+    },
+    {
+      "transition_id": "trans-hydrotech-blueskin",
+      "system_a": "Hydrotech MM6125",
+      "system_b": "Blueskin SA",
+      "compatibility_class": "COMPATIBLE",
+      "detail_file": "systems/hydrotech_to_blueskin.json"
+    },
+    {
+      "transition_id": "trans-pvc-blueskin",
+      "system_a": "PVC Fleeceback",
+      "system_b": "Blueskin SA",
+      "compatibility_class": "FLASHING_REQUIRED",
+      "detail_file": "systems/pvc_to_blueskin.json"
+    },
+    {
+      "transition_id": "trans-epdm-pvc",
+      "system_a": "EPDM",
+      "system_b": "PVC Fleeceback",
+      "compatibility_class": "INCOMPATIBLE",
+      "detail_file": null,
+      "notes": "EPDM oils degrade PVC. No approved transition detail."
+    },
+    {
+      "transition_id": "trans-epdm-blueskin",
+      "system_a": "EPDM",
+      "system_b": "Blueskin SA",
+      "compatibility_class": "FLASHING_REQUIRED",
+      "detail_file": null,
+      "notes": "EPDM tape flashing required as isolator at transition."
+    },
+    {
+      "transition_id": "trans-tpo-hydrotech",
+      "system_a": "TPO",
+      "system_b": "Hydrotech MM6125",
+      "compatibility_class": "CONDITION_REQUIRED",
+      "detail_file": null,
+      "notes": "Modified bitumen cant strip and protection board required at transition."
+    }
+  ]
+}

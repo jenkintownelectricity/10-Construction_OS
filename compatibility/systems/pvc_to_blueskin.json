@@ -1,0 +1,27 @@
+{
+  "transition_id": "trans-pvc-blueskin",
+  "system_a": "PVC Fleeceback",
+  "system_b": "Blueskin SA",
+  "compatibility_class": "FLASHING_REQUIRED",
+  "requirements": [
+    {
+      "type": "avb_transition_membrane",
+      "material": "AVB self-adhered transition membrane",
+      "width_mm": 230,
+      "notes": "Bridge PVC edge and Blueskin field; press firmly across full width"
+    },
+    {
+      "type": "termination_bar",
+      "material": "Aluminum termination bar",
+      "fastener_spacing_mm": 200,
+      "notes": "Secure PVC edge prior to AVB application"
+    },
+    {
+      "type": "primer",
+      "material": "Blueskin-compatible primer",
+      "coverage": "All concrete and metal contact surfaces"
+    }
+  ],
+  "risks": ["pvc_plasticizer_migration", "adhesion_failure_at_avb_lap", "thermal_movement_at_interface"],
+  "notes": "PVC plasticizers can degrade self-adhered membranes over time. AVB transition membrane acts as isolator. Do not allow direct PVC-to-Blueskin contact."
+}
