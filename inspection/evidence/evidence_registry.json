@@ -1,0 +1,48 @@
+{
+  "registry_version": "0.1",
+  "created": "2026-04-09",
+  "description": "Template for registering inspection evidence per project, zone, and condition",
+  "project_id": "",
+  "entries": [
+    {
+      "evidence_id": "",
+      "evidence_type": "",
+      "project_id": "",
+      "zone_id": "",
+      "condition_id": "",
+      "assembly_id": "",
+      "file_path": "",
+      "uploaded_by": "",
+      "upload_timestamp": "",
+      "ingestion_status": "pending",
+      "classification": {
+        "condition_tag": "",
+        "zone_tag": "",
+        "assembly_tag": ""
+      },
+      "validation_result": {
+        "rules_checked": [],
+        "rules_passed": [],
+        "rules_failed": [],
+        "result_value": ""
+      },
+      "lineage_hash": "",
+      "notes": ""
+    }
+  ],
+  "summary": {
+    "total_entries": 0,
+    "by_type": {
+      "photo": 0,
+      "field_report": 0,
+      "submittal": 0,
+      "installation_log": 0
+    },
+    "by_result": {
+      "PASS": 0,
+      "WARNING": 0,
+      "FAIL": 0,
+      "pending": 0
+    }
+  }
+}

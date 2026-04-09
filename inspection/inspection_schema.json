@@ -1,0 +1,36 @@
+{
+  "version": "0.1",
+  "schema_id": "inspection-schema",
+  "created": "2026-04-09",
+  "evidence_types": ["photo", "field_report", "submittal", "installation_log"],
+  "processing_pipeline": ["ingest", "classify", "validate", "constrain", "result"],
+  "result_values": ["PASS", "WARNING", "FAIL"],
+  "attachment_targets": ["project", "zone", "condition", "assembly"],
+  "pipeline_steps": {
+    "ingest": {
+      "description": "Receive raw evidence from field or submittals",
+      "inputs": ["file_path", "evidence_type", "uploaded_by", "timestamp"],
+      "outputs": ["evidence_id", "ingestion_receipt"]
+    },
+    "classify": {
+      "description": "Tag evidence to condition, zone, and assembly",
+      "inputs": ["evidence_id", "evidence_type"],
+      "outputs": ["condition_tag", "zone_tag", "assembly_tag"]
+    },
+    "validate": {
+      "description": "Check evidence against validation_rules.json",
+      "inputs": ["evidence_id", "condition_tag"],
+      "outputs": ["rule_matches", "missing_checks"]
+    },
+    "constrain": {
+      "description": "Apply compatibility and manufacturer constraints",
+      "inputs": ["assembly_tag", "manufacturer"],
+      "outputs": ["constraint_flags"]
+    },
+    "result": {
+      "description": "Emit PASS / WARNING / FAIL per condition",
+      "inputs": ["rule_matches", "missing_checks", "constraint_flags"],
+      "outputs": ["result_value", "result_receipt"]
+    }
+  }
+}
