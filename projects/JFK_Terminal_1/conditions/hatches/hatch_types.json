@@ -1,0 +1,45 @@
+{
+  "registry_id": "JFK_T1_HATCH_TYPES",
+  "project": "JFK_Terminal_1",
+  "wave": 113,
+  "spec_section": "07 72 00",
+  "generated": "2026-04-09",
+  "hatch_types": [
+    {
+      "type_id": "RV-1",
+      "function": "smoke_exhaust",
+      "manufacturer": "Bilco",
+      "material": "thermally_broken_aluminum",
+      "dimensions": "36x36",
+      "dimensions_unit": "inches",
+      "elevation_class": "roof_level"
+    },
+    {
+      "type_id": "RV-2",
+      "function": "roof_access",
+      "manufacturer": "Bilco",
+      "material": "thermally_broken_aluminum",
+      "dimensions": "30x30",
+      "dimensions_unit": "inches",
+      "elevation_class": "roof_level"
+    },
+    {
+      "type_id": "RV-3",
+      "function": "equipment_hatch",
+      "manufacturer": "Bilco",
+      "material": "thermally_broken_aluminum",
+      "dimensions": "48x48",
+      "dimensions_unit": "inches",
+      "elevation_class": "roof_level"
+    },
+    {
+      "type_id": "RV-4",
+      "function": "personnel_hatch",
+      "manufacturer": "Bilco",
+      "material": "thermally_broken_aluminum",
+      "dimensions": "30x54",
+      "dimensions_unit": "inches",
+      "elevation_class": "roof_level"
+    }
+  ]
+}

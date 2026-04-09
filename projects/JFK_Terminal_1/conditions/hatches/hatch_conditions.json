@@ -1,0 +1,36 @@
+{
+  "registry_id": "JFK_T1_HATCH_CONDITIONS",
+  "project": "JFK_Terminal_1",
+  "wave": 113,
+  "generated": "2026-04-09",
+  "conditions": [
+    {
+      "condition_id": "ROOF_TO_HATCH",
+      "base_condition": "transition from primary roof membrane up to hatch curb base",
+      "hatch_types_applicable": ["RV-1", "RV-2", "RV-3", "RV-4"],
+      "layer_requirements": ["primary_membrane", "flashing_membrane", "cant_strip", "curb_substrate"],
+      "assembly_candidate": "Hydrotech_MM6125_base"
+    },
+    {
+      "condition_id": "HATCH_CURB",
+      "base_condition": "vertical curb face waterproofing and thermal break integration",
+      "hatch_types_applicable": ["RV-1", "RV-2", "RV-3", "RV-4"],
+      "layer_requirements": ["curb_flashing", "thermal_break_sealant", "counterflashing"],
+      "assembly_candidate": "Hydrotech_flashings_curbs"
+    },
+    {
+      "condition_id": "HATCH_PERIMETER_TERMINATION",
+      "base_condition": "termination of flashing membrane at top of curb or frame",
+      "hatch_types_applicable": ["RV-1", "RV-2", "RV-3", "RV-4"],
+      "layer_requirements": ["termination_bar", "sealant_bead", "perimeter_flashing"],
+      "assembly_candidate": "Hydrotech_flashings_perimeter"
+    },
+    {
+      "condition_id": "HATCH_DRAINAGE_SADDLE",
+      "base_condition": "slope-to-drain saddle around hatch curb base to prevent ponding",
+      "hatch_types_applicable": ["RV-2", "RV-3", "RV-4"],
+      "layer_requirements": ["tapered_insulation_saddle", "primary_membrane_overlay", "drain_tie_in"],
+      "assembly_candidate": "Hydrotech_MM6125_base"
+    }
+  ]
+}
