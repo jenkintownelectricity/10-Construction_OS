@@ -1,0 +1,55 @@
+{
+  "version": "0.1",
+  "description": "Routes crews, materials, staging, equipment, inspection, and protection paths through the project zone graph",
+  "inputs": {
+    "zone_graph": {
+      "type": "directed_graph",
+      "description": "Nodes are zones/levels; edges are access paths with capacity and time attributes"
+    },
+    "access_paths": {
+      "type": "array",
+      "description": "Named corridors, stairwells, ramps, hoists with width, height, load capacity"
+    },
+    "crane_hoist": {
+      "type": "array",
+      "description": "Crane/hoist positions, reach radii, swing exclusion arcs, scheduled windows"
+    },
+    "walkways": {
+      "type": "array",
+      "description": "Protected pedestrian paths with separation requirements"
+    },
+    "adjacent_work": {
+      "type": "array",
+      "description": "Active work zones nearby with noise, dust, vibration, fall-zone impacts"
+    },
+    "exclusion_zones": {
+      "type": "array",
+      "description": "Hard-blocked areas: open penetrations, wet concrete, live electrical, quarantine"
+    }
+  },
+  "outputs": {
+    "crew_path_map": {
+      "description": "Assigned entry/exit routes per crew per shift with time windows",
+      "fields": ["crew_id", "trade", "zone", "path_id", "start_time", "end_time", "headcount"]
+    },
+    "staging_map": {
+      "description": "Material staging locations per zone with delivery schedules",
+      "fields": ["zone_id", "staging_area_id", "material_type", "delivery_window", "sq_ft_required"]
+    },
+    "congestion_warnings": {
+      "description": "Predicted pinch points where path capacity is exceeded",
+      "fields": ["path_id", "time_window", "predicted_load", "capacity", "severity"]
+    },
+    "route_conflicts": {
+      "description": "Detected conflicts between simultaneous route assignments",
+      "fields": ["conflict_id", "conflicting_crews", "location", "time_overlap", "resolution_options"]
+    }
+  },
+  "routing_constraints": {
+    "max_crew_density_per_zone": "defined_per_zone",
+    "material_delivery_separation_from_crew_routes": true,
+    "hoist_exclusion_enforced": true,
+    "inspection_path_reserved": true
+  },
+  "conflict_resolution_strategies": ["time_shift", "alternate_path", "split_crew", "flag_for_super"]
+}
