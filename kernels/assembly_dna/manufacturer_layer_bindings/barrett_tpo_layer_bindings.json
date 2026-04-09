@@ -38,7 +38,7 @@
       "product_role": "thermal_insulation",
       "allowed_substitutions": ["BARRETT-POLYISO-50MM", "ATLAS-ACFoam-CI"],
       "forbidden_mixes": ["EPS_BELOW_TPO_ADHERED", "XPS_INCOMPATIBLE_ADHESIVE"],
-      "inspection_requirements": ["r_value_certification_on_site", "board_stagger_verify", "adhesive_ribbons_min_300mm_oc"]
+      "inspection_requirements": ["r_value_cert_on_site", "board_stagger_verify", "adhesive_ribbons_min_300mm_oc"]
     },
     {
       "binding_id": "BARRETT_TPO_004",
