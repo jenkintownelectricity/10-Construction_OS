@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <pattern id="stipple" patternUnits="userSpaceOnUse" width="6" height="6">
+      <rect width="6" height="6" fill="#D8D8D8"/>
+      <circle cx="1" cy="1" r="0.6" fill="#999"/>
+      <circle cx="4" cy="4" r="0.6" fill="#999"/>
+    </pattern>
+    <pattern id="stipple-lg" patternUnits="userSpaceOnUse" width="8" height="8">
+      <rect width="8" height="8" fill="#D8D8D8"/>
+      <circle cx="2" cy="2" r="0.7" fill="#999"/>
+      <circle cx="6" cy="6" r="0.7" fill="#999"/>
+      <circle cx="6" cy="2" r="0.5" fill="#aaa"/>
+      <circle cx="2" cy="6" r="0.5" fill="#aaa"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1056" height="816" fill="#FFFFFF"/>
+
+  <!-- DRAFT Watermark -->
+  <text x="528" y="400" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="48" fill="#CCCCCC" opacity="0.3" transform="rotate(-25,528,400)">DRAFT</text>
+
+  <!-- Title Block -->
+  <text x="528" y="50" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#000000">Fireproofing — W-Beam 4-Sided SFRM</text>
+  <text x="528" y="68" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#333333">Section Through Wide Flange Beam — Spray-Applied Fire-Resistive Material on All Four Surfaces</text>
+
+  <!-- Fire Rating Badge -->
+  <rect x="900" y="32" width="100" height="28" rx="3" fill="none" stroke="#000000" stroke-width="1.5"/>
+  <text x="950" y="51" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold" fill="#000000">2-HR RATED</text>
+
+  <!-- === MAIN DRAWING === -->
+  <!-- Center the beam at roughly 480, 380 -->
+
+  <!-- SFRM Outer Envelope (drawn first, behind steel) -->
+  <!-- Top flange SFRM top -->
+  <rect x="350" y="195" width="260" height="30" rx="2" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <!-- Bottom flange SFRM bottom -->
+  <rect x="350" y="505" width="260" height="30" rx="2" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <!-- Left web SFRM -->
+  <rect x="440" y="225" width="28" height="280" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <!-- Right web SFRM -->
+  <rect x="492" y="225" width="28" height="280" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <!-- SFRM inside top flange left -->
+  <rect x="350" y="265" width="118" height="24" rx="1" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <!-- SFRM inside top flange right -->
+  <rect x="492" y="265" width="118" height="24" rx="1" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <!-- SFRM inside bottom flange left -->
+  <rect x="350" y="445" width="118" height="24" rx="1" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <!-- SFRM inside bottom flange right -->
+  <rect x="492" y="445" width="118" height="24" rx="1" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+
+  <!-- Steel W-Beam Cross Section -->
+  <!-- Top Flange -->
+  <rect x="370" y="225" width="220" height="40" fill="#E0E0E0" stroke="#000000" stroke-width="1.5"/>
+  <!-- Bottom Flange -->
+  <rect x="370" y="469" width="220" height="36" fill="#E0E0E0" stroke="#000000" stroke-width="1.5"/>
+  <!-- Web -->
+  <rect x="468" y="265" width="24" height="204" fill="#E0E0E0" stroke="#000000" stroke-width="1.5"/>
+
+  <!-- Fillet regions (small triangles at flange-web junction) -->
+  <polygon points="468,265 460,265 468,273" fill="#E0E0E0" stroke="#000000" stroke-width="0.75"/>
+  <polygon points="492,265 500,265 492,273" fill="#E0E0E0" stroke="#000000" stroke-width="0.75"/>
+  <polygon points="468,469 460,469 468,461" fill="#E0E0E0" stroke="#000000" stroke-width="0.75"/>
+  <polygon points="492,469 500,469 492,461" fill="#E0E0E0" stroke="#000000" stroke-width="0.75"/>
+
+  <!-- === DIMENSION LINES === -->
+  <!-- SFRM Thickness - Top -->
+  <line x1="620" y1="195" x2="660" y2="195" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="620" y1="225" x2="660" y2="225" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="650" y1="195" x2="650" y2="225" stroke="#666666" stroke-width="0.5"/>
+  <line x1="645" y1="195" x2="655" y2="195" stroke="#666666" stroke-width="0.75"/>
+  <line x1="645" y1="225" x2="655" y2="225" stroke="#666666" stroke-width="0.75"/>
+  <text x="670" y="214" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">1-1/16"</text>
+
+  <!-- Overall beam depth -->
+  <line x1="610" y1="225" x2="720" y2="225" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="610" y1="505" x2="720" y2="505" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="710" y1="225" x2="710" y2="505" stroke="#666666" stroke-width="0.5"/>
+  <line x1="705" y1="225" x2="715" y2="225" stroke="#666666" stroke-width="0.75"/>
+  <line x1="705" y1="505" x2="715" y2="505" stroke="#666666" stroke-width="0.75"/>
+  <text x="720" y="370" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">W14x22</text>
+  <text x="720" y="383" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">d = 13.74"</text>
+
+  <!-- Flange width -->
+  <line x1="370" y1="540" x2="370" y2="570" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="590" y1="540" x2="590" y2="570" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="370" y1="560" x2="590" y2="560" stroke="#666666" stroke-width="0.5"/>
+  <line x1="370" y1="555" x2="370" y2="565" stroke="#666666" stroke-width="0.75"/>
+  <line x1="590" y1="555" x2="590" y2="565" stroke="#666666" stroke-width="0.75"/>
+  <text x="455" y="555" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">bf = 5.00"</text>
+
+  <!-- === CALLOUTS === -->
+  <!-- Top Flange -->
+  <line x1="480" y1="245" x2="780" y2="140" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="480" cy="245" r="2" fill="#000000"/>
+  <text x="785" y="144" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">TOP FLANGE</text>
+
+  <!-- Web -->
+  <line x1="480" y1="370" x2="780" y2="310" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="480" cy="370" r="2" fill="#000000"/>
+  <text x="785" y="314" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">WEB</text>
+
+  <!-- Bottom Flange -->
+  <line x1="480" y1="487" x2="780" y2="440" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="480" cy="487" r="2" fill="#000000"/>
+  <text x="785" y="444" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">BOTTOM FLANGE</text>
+
+  <!-- SFRM Coating callout -->
+  <line x1="395" y1="200" x2="180" y2="140" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="395" cy="200" r="2" fill="#000000"/>
+  <text x="80" y="134" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">SFRM COATING (TYP.)</text>
+  <text x="80" y="148" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Spray-Applied Fire-Resistive Material</text>
+
+  <!-- Required Thickness callout -->
+  <line x1="460" y1="456" x2="180" y2="440" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="460" cy="456" r="2" fill="#000000"/>
+  <text x="80" y="434" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">REQUIRED THICKNESS</text>
+  <text x="80" y="448" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Per UL Design No. / Manufacturer Listing</text>
+  <text x="80" y="462" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Min. 1-1/16" for 2-HR Rating</text>
+
+  <!-- Notes -->
+  <text x="80" y="620" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" fill="#000000">NOTES:</text>
+  <text x="80" y="636" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">1. SFRM applied to all four surfaces of the W-beam.</text>
+  <text x="80" y="650" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">2. Minimum thickness per approved fire-resistance design.</text>
+  <text x="80" y="664" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">3. Surface preparation per ASTM E605 / manufacturer requirements.</text>
+  <text x="80" y="678" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">4. Bond strength per ASTM E736.</text>
+
+  <!-- Scale indicator -->
+  <text x="80" y="710" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">SCALE: NOT TO SCALE</text>
+
+  <!-- === TITLE BLOCK === -->
+  <line x1="40" y1="760" x2="1016" y2="760" stroke="#000000" stroke-width="0.75"/>
+  <text x="60" y="778" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">DETAIL ATLAS | CONSTRUCTION INTELLIGENCE</text>
+  <text x="528" y="778" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">Fireproofing — SFRM / Enclosure</text>
+  <text x="996" y="778" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">DRAFT | 2026-04-16</text>
+  <text x="528" y="796" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#333333">CSI 07 81 00 | Generic SFRM | Starter Packet</text>
+  <text x="996" y="796" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#333333">Sheet 01 of 10</text>
+</svg>
