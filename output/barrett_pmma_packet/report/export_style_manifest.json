@@ -1,0 +1,22 @@
+{
+  "manifest_id": "EXPORT-STYLE-MANIFEST-001",
+  "active_mode": "PRINT_STANDARD",
+  "modes": {
+    "SCREEN_MODE": {"background": "#0A0D11", "primary": "#00E5FF", "secondary": "#FF6B35", "print_safe": false},
+    "PRINT_STANDARD": {"background": "#FFFFFF", "primary": "#000000", "secondary": "#555555", "pmma_highlight": "#0088BB", "print_safe": true},
+    "CAD_MODE": {"format": "DXF", "layer_based": true}
+  },
+  "barrett_pmma_exports": {
+    "screen_svgs": "output/barrett_pmma_packet/svg/",
+    "print_svgs": "output/barrett_pmma_packet/print/",
+    "combined_pdf": "output/barrett_pmma_packet/client/Barrett_PMMA_Detail_Packet_v1.pdf",
+    "individual_pdfs": "output/barrett_pmma_packet/client/Barrett_PMMA_page_*.pdf",
+    "dxf_files": "output/barrett_pmma_packet/dxf/"
+  },
+  "fireproofing_exports": {
+    "screen_svgs": "output/fireproofing_packet/svg/",
+    "print_svgs": "output/fireproofing_packet/print/",
+    "combined_pdf": "output/fireproofing_packet/client/Fireproofing_Starter_Packet_v1.pdf",
+    "dxf_files": "output/fireproofing_packet/dxf/"
+  }
+}

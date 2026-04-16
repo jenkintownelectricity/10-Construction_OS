@@ -1,0 +1,42 @@
+{
+  "validator_id": "PACKET-COMPLETENESS-001",
+  "last_run": "2026-04-16",
+  "packets": {
+    "barrett_pmma": {
+      "cover_exists": true,
+      "cover_path": "output/barrett_pmma_packet/preview/00_cover_and_toc.svg",
+      "expected_details": 10,
+      "actual_details": 10,
+      "json_count": 10,
+      "svg_screen_count": 10,
+      "svg_print_count": 10,
+      "pdf_combined": true,
+      "pdf_path": "output/barrett_pmma_packet/client/Barrett_PMMA_Detail_Packet_v1.pdf",
+      "pdf_pages": 10,
+      "pdf_size_kb": 276.8,
+      "dxf_count": 10,
+      "client_folder_exists": true,
+      "readme_exists": true,
+      "white_background_validated": true,
+      "titleblock_present": true,
+      "callout_legend_present": true,
+      "status": "COMPLETE"
+    },
+    "fireproofing": {
+      "cover_exists": true,
+      "expected_details": 10,
+      "actual_details": 10,
+      "json_count": 10,
+      "svg_screen_count": 10,
+      "svg_print_count": 10,
+      "pdf_combined": true,
+      "pdf_path": "output/fireproofing_packet/client/Fireproofing_Starter_Packet_v1.pdf",
+      "pdf_pages": 10,
+      "pdf_size_kb": 287.7,
+      "dxf_count": 10,
+      "client_folder_exists": true,
+      "white_background_validated": true,
+      "status": "COMPLETE"
+    }
+  }
+}

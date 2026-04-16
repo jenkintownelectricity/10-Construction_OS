@@ -1,0 +1,21 @@
+{
+  "receipt_id": "EXPORT-RECEIPTS-001",
+  "generated_at": "2026-04-16",
+  "exports": [
+    {"type": "svg_screen", "packet": "barrett_pmma", "count": 10, "status": "COMPLETE"},
+    {"type": "svg_print", "packet": "barrett_pmma", "count": 10, "status": "COMPLETE", "white_bg": true},
+    {"type": "pdf_combined", "packet": "barrett_pmma", "pages": 10, "size_kb": 276.8, "status": "COMPLETE"},
+    {"type": "pdf_individual", "packet": "barrett_pmma", "count": 10, "status": "COMPLETE"},
+    {"type": "dxf", "packet": "barrett_pmma", "count": 10, "status": "COMPLETE", "engine": "ezdxf"},
+    {"type": "json", "packet": "barrett_pmma", "count": 10, "status": "COMPLETE"},
+    {"type": "svg_screen", "packet": "fireproofing", "count": 10, "status": "COMPLETE"},
+    {"type": "svg_print", "packet": "fireproofing", "count": 10, "status": "COMPLETE", "white_bg": true},
+    {"type": "pdf_combined", "packet": "fireproofing", "pages": 10, "size_kb": 287.7, "status": "COMPLETE"},
+    {"type": "dxf", "packet": "fireproofing", "count": 10, "status": "COMPLETE", "engine": "ezdxf"},
+    {"type": "json", "packet": "fireproofing", "count": 10, "status": "COMPLETE"}
+  ],
+  "tools_installed": [
+    {"tool": "tools/export_svg_to_pdf.py", "engine": "cairosvg+pypdf", "status": "INSTALLED"},
+    {"tool": "tools/export_assembly_to_dxf.py", "engine": "ezdxf", "status": "INSTALLED"}
+  ]
+}
