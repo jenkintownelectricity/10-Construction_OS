@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <pattern id="concrete-stipple" patternUnits="userSpaceOnUse" width="10" height="10">
+      <circle cx="2" cy="3" r="0.5" fill="#CCC"/><circle cx="7" cy="8" r="0.5" fill="#CCC"/><circle cx="5" cy="1" r="0.5" fill="#CCC"/>
+    </pattern>
+    <pattern id="insulation-hatch" patternUnits="userSpaceOnUse" width="8" height="8">
+      <path d="M0,8 L8,0" stroke="#999" stroke-width="0.5" fill="none"/>
+    </pattern>
+  </defs>
+  <rect width="1056" height="816" fill="#FFFFFF"/>
+  <text x="528" y="408" font-family="Arial, Helvetica, sans-serif" font-size="48" fill="#CCC" opacity="0.3" text-anchor="middle" transform="rotate(-25 528 408)">DRAFT FOR REVIEW</text>
+  <text x="60" y="40" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#000">Barrett PMMA — Parapet Wall Termination</text>
+  <text x="60" y="58" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#333">Section Detail — Rendered from parametric geometry JSON</text>
+  <rect x="60.0" y="528.3" width="384.5" height="173.0" fill="#F0F0F0" stroke="#000000" stroke-width="1.5"/>
+  <rect x="60.0" y="528.3" width="384.5" height="173.0" fill="url(#concrete-stipple)" opacity="0.4"/>
+  <text x="252.2" y="614.9" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#555" text-anchor="middle">Structural Slab</text>
+  <rect x="60.0" y="441.8" width="384.5" height="86.5" fill="#E8E8E8" stroke="#000000" stroke-width="1"/>
+  <rect x="60.0" y="441.8" width="384.5" height="86.5" fill="url(#insulation-hatch)" opacity="0.4"/>
+  <text x="252.2" y="485.1" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#555" text-anchor="middle">Insulation</text>
+  <rect x="444.5" y="124.6" width="230.7" height="490.2" fill="#F0F0F0" stroke="#000000" stroke-width="1.5"/>
+  <rect x="444.5" y="124.6" width="230.7" height="490.2" fill="url(#concrete-stipple)" opacity="0.4"/>
+  <text x="559.8" y="369.7" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#555" text-anchor="middle">Parapet Wall</text>
+  <path d="M329.1,441.8 L444.5,441.8 L444.5,326.5 Z" fill="#FAFAFA" stroke="#000000" stroke-width="0.75"/>
+  <line x1="60.0" y1="439.0" x2="444.5" y2="439.0" stroke="#333333" stroke-width="2"/>
+  <line x1="447.4" y1="326.5" x2="447.4" y2="211.1" stroke="#333333" stroke-width="2"/>
+  <line x1="60.0" y1="436.1" x2="444.5" y2="436.1" stroke="#333333" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <rect x="442.6" y="211.1" width="234.5" height="3.8" fill="#E0E0E0" stroke="#000000" stroke-width="1"/>
+  <text x="559.8" y="213.1" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#555" text-anchor="middle">Termination Bar</text>
+  <rect x="439.7" y="196.7" width="240.3" height="9.6" fill="#E0E0E0" stroke="#000000" stroke-width="1"/>
+  <text x="559.8" y="201.5" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#555" text-anchor="middle">Metal Coping</text>
+  <line x1="704.8" y1="441.8" x2="704.8" y2="211.1" stroke="#666" stroke-width="0.5" stroke-dasharray="3 2"/>
+  <line x1="699.8" y1="441.8" x2="709.8" y2="441.8" stroke="#666" stroke-width="0.75"/>
+  <line x1="699.8" y1="211.1" x2="709.8" y2="211.1" stroke="#666" stroke-width="0.75"/>
+  <text x="714.8" y="326.5" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000">8" MIN</text>
+  <text x="720" y="130" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" fill="#000">CALLOUT KEY</text>
+  <line x1="720" y1="135" x2="920" y2="135" stroke="#000" stroke-width="0.5"/>
+  <circle cx="252.2" cy="614.9" r="3" fill="#000"/>
+  <line x1="252.2" y1="614.9" x2="710.0" y2="155.0" stroke="#000" stroke-width="0.5"/>
+  <circle cx="726" cy="152" r="3" fill="#000"/>
+  <text x="734" y="155" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000"><tspan font-weight="bold">1.</tspan> Substrate</text>
+  <circle cx="252.2" cy="485.1" r="3" fill="#000"/>
+  <line x1="252.2" y1="485.1" x2="710.0" y2="175.0" stroke="#000" stroke-width="0.5"/>
+  <circle cx="726" cy="172" r="3" fill="#000"/>
+  <text x="734" y="175" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000"><tspan font-weight="bold">2.</tspan> Insulation</text>
+  <circle cx="434.9" cy="384.2" r="3" fill="#000"/>
+  <line x1="434.9" y1="384.2" x2="710.0" y2="195.0" stroke="#000" stroke-width="0.5"/>
+  <circle cx="726" cy="192" r="3" fill="#000"/>
+  <text x="734" y="195" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000"><tspan font-weight="bold">3.</tspan> Cant Strip</text>
+  <circle cx="204.2" cy="439.9" r="3" fill="#000"/>
+  <line x1="204.2" y1="439.9" x2="710.0" y2="215.0" stroke="#000" stroke-width="0.5"/>
+  <circle cx="726" cy="212" r="3" fill="#000"/>
+  <text x="734" y="215" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000"><tspan font-weight="bold">4.</tspan> PMMA Primer</text>
+  <circle cx="204.2" cy="437.0" r="3" fill="#000"/>
+  <line x1="204.2" y1="437.0" x2="710.0" y2="235.0" stroke="#000" stroke-width="0.5"/>
+  <circle cx="726" cy="232" r="3" fill="#000"/>
+  <text x="734" y="235" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000"><tspan font-weight="bold">5.</tspan> Fleece Reinforcement</text>
+  <circle cx="204.2" cy="434.1" r="3" fill="#000"/>
+  <line x1="204.2" y1="434.1" x2="710.0" y2="255.0" stroke="#000" stroke-width="0.5"/>
+  <circle cx="726" cy="252" r="3" fill="#000"/>
+  <text x="734" y="255" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000"><tspan font-weight="bold">6.</tspan> PMMA Membrane</text>
+  <circle cx="463.7" cy="213.1" r="3" fill="#000"/>
+  <line x1="463.7" y1="213.1" x2="710.0" y2="275.0" stroke="#000" stroke-width="0.5"/>
+  <circle cx="726" cy="272" r="3" fill="#000"/>
+  <text x="734" y="275" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000"><tspan font-weight="bold">7.</tspan> Termination Bar + Sealant</text>
+  <circle cx="463.7" cy="201.5" r="3" fill="#000"/>
+  <line x1="463.7" y1="201.5" x2="710.0" y2="295.0" stroke="#000" stroke-width="0.5"/>
+  <circle cx="726" cy="292" r="3" fill="#000"/>
+  <text x="734" y="295" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000"><tspan font-weight="bold">8.</tspan> Metal Coping</text>
+  <line x1="60" y1="760" x2="996" y2="760" stroke="#000" stroke-width="0.75"/>
+  <text x="60" y="778" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold" fill="#000">DETAIL ATLAS</text>
+  <text x="190" y="778" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333">CONSTRUCTION INTELLIGENCE</text>
+  <text x="450" y="778" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333">RamFlash PMMA | LF-PW-01</text>
+  <text x="876" y="778" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333">DRAFT | 2026-04-16</text>
+  <text x="60" y="794" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#666">FAM-BARRETT-PMMA | barrett_pmma_parapet_wall_001 | Parametric Renderer Output</text>
+</svg>
