@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" font-family="'JetBrains Mono', monospace">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="none" stroke="#4A657D" stroke-width="1"/></marker>
+    <marker id="arrowR" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M8,0 L0,3 L8,6" fill="none" stroke="#4A657D" stroke-width="1"/></marker>
+  </defs>
+
+  <rect width="1056" height="816" fill="#0A0D11"/>
+  <text x="528" y="450" text-anchor="middle" font-size="110" font-weight="bold" fill="#1A1D21" opacity="0.35" transform="rotate(-35,528,450)">DRAFT FOR REVIEW</text>
+
+  <!-- Title Block -->
+  <text x="40" y="45" font-size="14" font-weight="bold" fill="#00E5FF">Barrett PMMA — Pipe Penetration Detail</text>
+  <text x="40" y="65" font-size="10" fill="#B0B7BD">Detail 04 | DWG-PMMA-04 Rev A | Section Cut — Pipe Through Roof Assembly</text>
+  <line x1="40" y1="78" x2="1016" y2="78" stroke="#4A657D" stroke-width="1"/>
+
+  <!-- ============ DRAWING AREA ============ -->
+
+  <!-- Structural Deck -->
+  <rect x="80" y="480" width="530" height="50" fill="#2C3136" stroke="#4A657D" stroke-width="1.5"/>
+  <g stroke="#3A3F44" stroke-width="0.5" opacity="0.6">
+    <line x1="90" y1="480" x2="115" y2="530"/><line x1="130" y1="480" x2="155" y2="530"/>
+    <line x1="170" y1="480" x2="195" y2="530"/><line x1="210" y1="480" x2="235" y2="530"/>
+    <line x1="250" y1="480" x2="275" y2="530"/><line x1="290" y1="480" x2="315" y2="530"/>
+    <line x1="400" y1="480" x2="425" y2="530"/><line x1="440" y1="480" x2="465" y2="530"/>
+    <line x1="480" y1="480" x2="505" y2="530"/><line x1="520" y1="480" x2="545" y2="530"/>
+    <line x1="560" y1="480" x2="585" y2="530"/>
+  </g>
+
+  <!-- Deck opening for pipe -->
+  <rect x="325" y="475" width="55" height="60" fill="#0A0D11" stroke="#4A657D" stroke-width="0.8"/>
+
+  <!-- Insulation -->
+  <rect x="80" y="435" width="530" height="45" fill="#22262C" stroke="#4A657D" stroke-width="1"/>
+  <g stroke="#2E3338" stroke-width="0.5">
+    <line x1="90" y1="435" x2="115" y2="480"/><line x1="115" y1="435" x2="90" y2="480"/>
+    <line x1="140" y1="435" x2="165" y2="480"/><line x1="165" y1="435" x2="140" y2="480"/>
+    <line x1="190" y1="435" x2="215" y2="480"/><line x1="215" y1="435" x2="190" y2="480"/>
+    <line x1="240" y1="435" x2="265" y2="480"/><line x1="265" y1="435" x2="240" y2="480"/>
+    <line x1="290" y1="435" x2="315" y2="480"/><line x1="315" y1="435" x2="290" y2="480"/>
+    <line x1="400" y1="435" x2="425" y2="480"/><line x1="425" y1="435" x2="400" y2="480"/>
+    <line x1="450" y1="435" x2="475" y2="480"/><line x1="475" y1="435" x2="450" y2="480"/>
+    <line x1="500" y1="435" x2="525" y2="480"/><line x1="525" y1="435" x2="500" y2="480"/>
+    <line x1="550" y1="435" x2="575" y2="480"/><line x1="575" y1="435" x2="550" y2="480"/>
+  </g>
+
+  <!-- Pipe (vertical, through deck and insulation) -->
+  <rect x="335" y="140" width="35" height="395" fill="#1A1D21" stroke="#B0B7BD" stroke-width="1.5"/>
+  <!-- Pipe interior line -->
+  <line x1="340" y1="140" x2="340" y2="535" stroke="#3A3F44" stroke-width="0.5"/>
+  <line x1="365" y1="140" x2="365" y2="535" stroke="#3A3F44" stroke-width="0.5"/>
+
+  <!-- Pipe sleeve (slightly larger, around pipe at deck level) -->
+  <rect x="325" y="430" width="55" height="55" fill="none" stroke="#4A657D" stroke-width="1.2" stroke-dasharray="4,2"/>
+
+  <!-- PMMA Primer around pipe base -->
+  <line x1="80" y1="433" x2="325" y2="433" stroke="#00E5FF" stroke-width="2" opacity="0.7"/>
+  <line x1="380" y1="433" x2="610" y2="433" stroke="#00E5FF" stroke-width="2" opacity="0.7"/>
+  <!-- Primer up pipe sides -->
+  <line x1="333" y1="433" x2="333" y2="330" stroke="#00E5FF" stroke-width="2" opacity="0.7"/>
+  <line x1="372" y1="433" x2="372" y2="330" stroke="#00E5FF" stroke-width="2" opacity="0.7"/>
+
+  <!-- Fleece boot wrapping pipe (orange) -->
+  <line x1="80" y1="430" x2="325" y2="430" stroke="#FF6B35" stroke-width="4" opacity="0.6"/>
+  <line x1="380" y1="430" x2="610" y2="430" stroke="#FF6B35" stroke-width="4" opacity="0.6"/>
+  <!-- Fleece boot up pipe -->
+  <line x1="330" y1="430" x2="330" y2="335" stroke="#FF6B35" stroke-width="4" opacity="0.6"/>
+  <line x1="375" y1="430" x2="375" y2="335" stroke="#FF6B35" stroke-width="4" opacity="0.6"/>
+  <!-- Fleece transitions at base -->
+  <line x1="325" y1="430" x2="330" y2="430" stroke="#FF6B35" stroke-width="4" opacity="0.6"/>
+  <line x1="375" y1="430" x2="380" y2="430" stroke="#FF6B35" stroke-width="4" opacity="0.6"/>
+
+  <!-- PMMA Seal coat -->
+  <line x1="80" y1="427" x2="325" y2="427" stroke="#00E5FF" stroke-width="2.5"/>
+  <line x1="380" y1="427" x2="610" y2="427" stroke="#00E5FF" stroke-width="2.5"/>
+  <!-- Seal coat up pipe -->
+  <line x1="327" y1="427" x2="327" y2="338" stroke="#00E5FF" stroke-width="2.5"/>
+  <line x1="378" y1="427" x2="378" y2="338" stroke="#00E5FF" stroke-width="2.5"/>
+
+  <!-- Storm collar (metal ring around pipe) -->
+  <rect x="328" y="230" width="49" height="8" rx="2" fill="#4A657D" stroke="#B0B7BD" stroke-width="1"/>
+
+  <!-- Sealant at top of storm collar -->
+  <ellipse cx="352" cy="226" rx="16" ry="4" fill="#4A657D" stroke="#B0B7BD" stroke-width="0.8" opacity="0.8"/>
+
+  <!-- ============ DIMENSION LINES ============ -->
+
+  <!-- 4" MIN flash height on pipe -->
+  <line x1="385" y1="338" x2="420" y2="338" stroke="#4A657D" stroke-width="0.6" stroke-dasharray="3,2"/>
+  <line x1="385" y1="430" x2="420" y2="430" stroke="#4A657D" stroke-width="0.6" stroke-dasharray="3,2"/>
+  <line x1="415" y1="342" x2="415" y2="426" stroke="#4A657D" stroke-width="0.8" marker-start="url(#arrowR)" marker-end="url(#arrow)"/>
+  <text x="428" y="390" font-size="9" fill="#4A657D" transform="rotate(-90,428,390)" text-anchor="middle">4" MIN FLASH HT.</text>
+
+  <!-- ============ CALLOUT LEADERS ============ -->
+
+  <!-- 1: Structural Deck -->
+  <circle cx="200" cy="505" r="3" fill="#00E5FF"/>
+  <line x1="200" y1="505" x2="140" y2="600" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="140" y1="600" x2="95" y2="600" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="82" cy="600" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="82" y="604" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">1</text>
+
+  <!-- 2: Insulation -->
+  <circle cx="200" cy="457" r="3" fill="#00E5FF"/>
+  <line x1="200" y1="457" x2="140" y2="630" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="140" y1="630" x2="95" y2="630" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="82" cy="630" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="82" y="634" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">2</text>
+
+  <!-- 3: Pipe -->
+  <circle cx="352" cy="200" r="3" fill="#00E5FF"/>
+  <line x1="352" y1="200" x2="200" y2="150" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="200" y1="150" x2="95" y2="150" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="82" cy="150" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="82" y="154" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">3</text>
+
+  <!-- 4: Pipe Sleeve -->
+  <circle cx="325" cy="455" r="3" fill="#00E5FF"/>
+  <line x1="325" y1="455" x2="200" y2="660" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="200" y1="660" x2="95" y2="660" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="82" cy="660" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="82" y="664" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">4</text>
+
+  <!-- 5: PMMA Primer -->
+  <circle cx="250" cy="433" r="3" fill="#00E5FF"/>
+  <line x1="250" y1="433" x2="200" y2="340" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="200" y1="340" x2="95" y2="340" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="82" cy="340" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="82" y="344" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">5</text>
+
+  <!-- 6: Fleece Boot -->
+  <circle cx="250" cy="430" r="3" fill="#FF6B35"/>
+  <line x1="250" y1="430" x2="200" y2="310" stroke="#FF6B35" stroke-width="0.7"/>
+  <line x1="200" y1="310" x2="95" y2="310" stroke="#FF6B35" stroke-width="0.7"/>
+  <circle cx="82" cy="310" r="10" fill="none" stroke="#FF6B35" stroke-width="1"/>
+  <text x="82" y="314" text-anchor="middle" font-size="9" font-weight="bold" fill="#FF6B35">6</text>
+
+  <!-- 7: PMMA Seal Coat -->
+  <circle cx="250" cy="427" r="3" fill="#00E5FF"/>
+  <line x1="250" y1="427" x2="200" y2="280" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="200" y1="280" x2="95" y2="280" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="82" cy="280" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="82" y="284" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">7</text>
+
+  <!-- 8: Storm Collar -->
+  <circle cx="377" cy="234" r="3" fill="#00E5FF"/>
+  <line x1="377" y1="234" x2="250" y2="210" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="250" y1="210" x2="95" y2="210" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="82" cy="210" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="82" y="214" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">8</text>
+
+  <!-- 9: Sealant -->
+  <circle cx="352" cy="222" r="3" fill="#00E5FF"/>
+  <line x1="352" y1="222" x2="230" y2="180" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="230" y1="180" x2="95" y2="180" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="82" cy="180" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="82" y="184" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">9</text>
+
+  <!-- ============ LEGEND ============ -->
+  <rect x="660" y="100" width="370" height="400" fill="#0D1117" stroke="#4A657D" stroke-width="0.8" rx="3"/>
+  <text x="680" y="126" font-size="12" font-weight="bold" fill="#00E5FF">COMPONENT KEY</text>
+  <line x1="680" y1="136" x2="1010" y2="136" stroke="#4A657D" stroke-width="0.5"/>
+
+  <circle cx="692" cy="162" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="166" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">1</text>
+  <text x="714" y="166" font-size="10" fill="#B0B7BD">Structural Concrete Deck</text>
+
+  <circle cx="692" cy="192" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="196" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">2</text>
+  <text x="714" y="196" font-size="10" fill="#B0B7BD">Rigid Insulation</text>
+
+  <circle cx="692" cy="222" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="226" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">3</text>
+  <text x="714" y="226" font-size="10" fill="#B0B7BD">Pipe Penetration</text>
+
+  <circle cx="692" cy="252" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="256" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">4</text>
+  <text x="714" y="256" font-size="10" fill="#B0B7BD">Pipe Sleeve</text>
+
+  <circle cx="692" cy="282" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="286" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">5</text>
+  <text x="714" y="286" font-size="10" fill="#B0B7BD">Barrett PMMA Primer Coat</text>
+
+  <circle cx="692" cy="312" r="10" fill="none" stroke="#FF6B35" stroke-width="1"/>
+  <text x="692" y="316" text-anchor="middle" font-size="9" font-weight="bold" fill="#FF6B35">6</text>
+  <text x="714" y="316" font-size="10" fill="#B0B7BD">Fleece Boot (around pipe)</text>
+
+  <circle cx="692" cy="342" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="346" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">7</text>
+  <text x="714" y="346" font-size="10" fill="#B0B7BD">Barrett PMMA Seal Coat</text>
+
+  <circle cx="692" cy="372" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="376" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">8</text>
+  <text x="714" y="376" font-size="10" fill="#B0B7BD">Storm Collar</text>
+
+  <circle cx="692" cy="402" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="406" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">9</text>
+  <text x="714" y="406" font-size="10" fill="#B0B7BD">Sealant (Polyurethane)</text>
+
+  <line x1="680" y1="426" x2="1010" y2="426" stroke="#4A657D" stroke-width="0.5"/>
+  <text x="680" y="448" font-size="9" fill="#4A657D">COLOR KEY:</text>
+  <line x1="680" y1="464" x2="710" y2="464" stroke="#00E5FF" stroke-width="2.5"/>
+  <text x="720" y="468" font-size="9" fill="#4A657D">PMMA System</text>
+  <line x1="820" y1="464" x2="850" y2="464" stroke="#FF6B35" stroke-width="3"/>
+  <text x="860" y="468" font-size="9" fill="#4A657D">Fleece Reinforcement</text>
+
+  <!-- ============ BOTTOM BAR ============ -->
+  <rect x="0" y="780" width="1056" height="36" fill="#0D1117"/>
+  <line x1="0" y1="780" x2="1056" y2="780" stroke="#4A657D" stroke-width="1"/>
+  <text x="40" y="802" font-size="10" fill="#4A657D" letter-spacing="2">DETAIL ATLAS | CONSTRUCTION INTELLIGENCE</text>
+  <text x="1016" y="802" font-size="10" fill="#4A657D" text-anchor="end">2026-04-16</text>
+  <text x="528" y="802" font-size="9" fill="#4A657D" text-anchor="middle">Barrett Roofing | PMMA Liquid-Applied Membrane System</text>
+</svg>
