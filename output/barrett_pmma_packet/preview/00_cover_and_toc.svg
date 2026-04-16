@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <style>
+      .cover-title { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: bold; fill: #00E5FF; }
+      .cover-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 16px; fill: #B0B7BD; }
+      .cover-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: #4A657D; }
+      .toc-header { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: bold; fill: #00E5FF; }
+      .toc-entry { font-family: 'JetBrains Mono', monospace; font-size: 12px; fill: #B0B7BD; }
+      .toc-number { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: bold; fill: #00E5FF; }
+      .draft-mark { font-family: 'JetBrains Mono', monospace; font-size: 60px; font-weight: bold; fill: #FF4444; opacity: 0.08; }
+      .brand { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: bold; fill: #00E5FF; }
+      .brand-sub { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #4A657D; }
+      .separator { stroke: #22262C; stroke-width: 1; }
+      .accent-line { stroke: #00E5FF; stroke-width: 2; }
+    </style>
+  </defs>
+  <rect width="1056" height="816" fill="#0A0D11"/>
+  <text x="528" y="450" class="draft-mark" text-anchor="middle" transform="rotate(-30 528 450)">DRAFT FOR REVIEW</text>
+  <line x1="60" y1="50" x2="996" y2="50" class="accent-line"/>
+  <text x="60" y="120" class="cover-title">BARRETT PMMA</text>
+  <text x="60" y="155" class="cover-title">DETAIL PACKET</text>
+  <text x="60" y="190" class="cover-subtitle">RamFlash PMMA Flashing / Waterproofing System</text>
+  <text x="60" y="215" class="cover-subtitle">Emergency Detail Delivery — Craig Schaaf Review Set</text>
+  <line x1="60" y1="235" x2="500" y2="235" class="separator"/>
+  <text x="60" y="260" class="cover-meta">MANUFACTURER: Barrett Company</text>
+  <text x="60" y="278" class="cover-meta">SYSTEM: RamFlash PMMA (PUMA PROOF)</text>
+  <text x="60" y="296" class="cover-meta">CSI SECTION: 07 62 00</text>
+  <text x="60" y="314" class="cover-meta">VARIANTS: HIPPA COAT (topcoat) | HYPPOCOAT 250 (parking deck)</text>
+  <text x="60" y="332" class="cover-meta">DATE: 2026-04-16</text>
+  <text x="60" y="350" class="cover-meta">STATUS: DRAFT FOR REVIEW — Not for construction</text>
+  <text x="60" y="368" class="cover-meta">PACKET ID: MANIFEST-BARRETT-PMMA-EMERGENCY-001</text>
+  <line x1="60" y1="390" x2="996" y2="390" class="separator"/>
+  <text x="60" y="420" class="toc-header">TABLE OF CONTENTS — 10 DETAIL CONDITIONS</text>
+  <text x="80" y="455" class="toc-number">01</text><text x="120" y="455" class="toc-entry">Parapet Wall Termination</text>
+  <text x="80" y="480" class="toc-number">02</text><text x="120" y="480" class="toc-entry">Edge / Drip Edge</text>
+  <text x="80" y="505" class="toc-number">03</text><text x="120" y="505" class="toc-entry">Primary Roof Drain</text>
+  <text x="80" y="530" class="toc-number">04</text><text x="120" y="530" class="toc-entry">Pipe Penetration</text>
+  <text x="80" y="555" class="toc-number">05</text><text x="120" y="555" class="toc-entry">Equipment Curb</text>
+  <text x="80" y="580" class="toc-number">06</text><text x="120" y="580" class="toc-entry">Inside Corner Reinforcement — 3-step logic</text>
+  <text x="80" y="605" class="toc-number">07</text><text x="120" y="605" class="toc-entry">Outside Corner Reinforcement — relief cuts</text>
+  <text x="80" y="630" class="toc-number">08</text><text x="120" y="630" class="toc-entry">Crack / Control Joint</text>
+  <text x="80" y="655" class="toc-number">09</text><text x="120" y="655" class="toc-entry">Tile / Overburden Assembly — HYPPOCOAT 250</text>
+  <text x="80" y="680" class="toc-number">10</text><text x="120" y="680" class="toc-entry">Expansion Joint — loose-laid fleece</text>
+  <line x1="60" y1="750" x2="996" y2="750" class="separator"/>
+  <text x="60" y="775" class="brand">DETAIL ATLAS</text>
+  <text x="210" y="775" class="brand-sub">CONSTRUCTION INTELLIGENCE</text>
+  <text x="800" y="775" class="cover-meta">Barrett PMMA Emergency Packet | 2026-04-16</text>
+  <text x="60" y="795" class="cover-meta">Source Authority: 10-Construction_OS | Family: FAM-BARRETT-PMMA</text>
+</svg>
