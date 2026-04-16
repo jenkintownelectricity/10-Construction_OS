@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <pattern id="stipple" patternUnits="userSpaceOnUse" width="6" height="6">
+      <rect width="6" height="6" fill="#D8D8D8"/>
+      <circle cx="1" cy="1" r="0.6" fill="#999"/>
+      <circle cx="4" cy="4" r="0.6" fill="#999"/>
+    </pattern>
+    <pattern id="stipple-lg" patternUnits="userSpaceOnUse" width="8" height="8">
+      <rect width="8" height="8" fill="#D8D8D8"/>
+      <circle cx="2" cy="2" r="0.7" fill="#999"/>
+      <circle cx="6" cy="6" r="0.7" fill="#999"/>
+      <circle cx="6" cy="2" r="0.5" fill="#aaa"/>
+      <circle cx="2" cy="6" r="0.5" fill="#aaa"/>
+    </pattern>
+    <pattern id="intumescent" patternUnits="userSpaceOnUse" width="6" height="6">
+      <rect width="6" height="6" fill="#E8D0D0"/>
+      <line x1="0" y1="3" x2="6" y2="3" stroke="#C09090" stroke-width="0.5"/>
+      <line x1="3" y1="0" x2="3" y2="6" stroke="#C09090" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1056" height="816" fill="#FFFFFF"/>
+
+  <!-- DRAFT Watermark -->
+  <text x="528" y="400" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="48" fill="#CCCCCC" opacity="0.3" transform="rotate(-25,528,400)">DRAFT</text>
+
+  <!-- Title -->
+  <text x="528" y="50" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#000000">Fireproofing — Penetration / Hanger Interruption</text>
+  <text x="528" y="68" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#333333">Section Detail — SFRM Interrupted by Hanger Rod or Pipe with Supplemental Protection</text>
+
+  <!-- Fire Rating Badge -->
+  <rect x="900" y="32" width="100" height="28" rx="3" fill="none" stroke="#000000" stroke-width="1.5"/>
+  <text x="950" y="51" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold" fill="#000000">2-HR RATED</text>
+
+  <!-- === MAIN DRAWING === -->
+
+  <!-- SFRM on beam (drawn first as background) -->
+  <!-- Top SFRM -->
+  <rect x="180" y="210" width="700" height="28" rx="3" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <!-- Bottom SFRM -->
+  <rect x="180" y="458" width="700" height="28" rx="3" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <!-- Left web SFRM -->
+  <rect x="390" y="238" width="26" height="220" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <!-- Right web SFRM -->
+  <rect x="544" y="238" width="26" height="220" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <!-- Inner top flange SFRM left -->
+  <rect x="180" y="278" width="236" height="20" rx="1" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <!-- Inner top flange SFRM right -->
+  <rect x="544" y="278" width="336" height="20" rx="1" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <!-- Inner bottom flange SFRM left -->
+  <rect x="180" y="430" width="236" height="20" rx="1" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <!-- Inner bottom flange SFRM right -->
+  <rect x="544" y="430" width="336" height="20" rx="1" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+
+  <!-- Void zone around penetration (gap in SFRM) -->
+  <rect x="450" y="205" width="60" height="290" fill="#FFFFFF" stroke="#000000" stroke-width="0.75" stroke-dasharray="4,3"/>
+
+  <!-- Steel beam -->
+  <!-- Top flange -->
+  <rect x="200" y="238" width="560" height="32" fill="#E0E0E0" stroke="#000000" stroke-width="1.5"/>
+  <!-- Web -->
+  <rect x="470" y="270" width="20" height="168" fill="#E0E0E0" stroke="#000000" stroke-width="1.5"/>
+  <!-- Holes shown in flange for penetration (dashed circles) -->
+  <circle cx="480" cy="254" r="14" fill="#FFFFFF" stroke="#000000" stroke-width="1" stroke-dasharray="3,2"/>
+  <circle cx="480" cy="448" r="14" fill="#FFFFFF" stroke="#000000" stroke-width="1" stroke-dasharray="3,2"/>
+  <!-- Bottom flange -->
+  <rect x="200" y="438" width="560" height="32" fill="#E0E0E0" stroke="#000000" stroke-width="1.5"/>
+
+  <!-- Fillets -->
+  <polygon points="470,270 463,270 470,278" fill="#E0E0E0" stroke="#000000" stroke-width="0.5"/>
+  <polygon points="490,270 497,270 490,278" fill="#E0E0E0" stroke="#000000" stroke-width="0.5"/>
+  <polygon points="470,438 463,438 470,430" fill="#E0E0E0" stroke="#000000" stroke-width="0.5"/>
+  <polygon points="490,438 497,438 490,430" fill="#E0E0E0" stroke="#000000" stroke-width="0.5"/>
+
+  <!-- Hanger rod / pipe (vertical, passing through beam) -->
+  <rect x="474" y="120" width="12" height="420" fill="#BBBBBB" stroke="#000000" stroke-width="1.5"/>
+  <!-- Pipe interior -->
+  <rect x="477" y="120" width="6" height="420" fill="#999999" stroke="none"/>
+
+  <!-- Intumescent collar at top penetration -->
+  <rect x="458" y="232" width="44" height="14" rx="3" fill="url(#intumescent)" stroke="#000000" stroke-width="1"/>
+  <rect x="458" y="262" width="44" height="10" rx="2" fill="url(#intumescent)" stroke="#000000" stroke-width="1"/>
+
+  <!-- Intumescent collar at bottom penetration -->
+  <rect x="458" y="434" width="44" height="10" rx="2" fill="url(#intumescent)" stroke="#000000" stroke-width="1"/>
+  <rect x="458" y="462" width="44" height="14" rx="3" fill="url(#intumescent)" stroke="#000000" stroke-width="1"/>
+
+  <!-- === CALLOUTS === -->
+  <!-- Beam -->
+  <line x1="350" y1="354" x2="100" y2="180" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="350" cy="354" r="2" fill="#000000"/>
+  <text x="60" y="174" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">BEAM</text>
+  <text x="60" y="188" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">W14x22 (typ.)</text>
+
+  <!-- SFRM -->
+  <line x1="300" y1="220" x2="100" y2="280" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="300" cy="220" r="2" fill="#000000"/>
+  <text x="60" y="274" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">SFRM</text>
+  <text x="60" y="288" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Existing spray fireproofing</text>
+
+  <!-- Hanger/Pipe -->
+  <line x1="486" y1="140" x2="800" y2="130" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="486" cy="140" r="2" fill="#000000"/>
+  <text x="805" y="128" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">HANGER / PIPE</text>
+  <text x="805" y="142" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Penetrating through beam flanges</text>
+  <text x="805" y="156" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">and SFRM coating</text>
+
+  <!-- Void Zone -->
+  <line x1="510" y1="300" x2="800" y2="260" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="510" cy="300" r="2" fill="#000000"/>
+  <text x="805" y="258" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">VOID ZONE</text>
+  <text x="805" y="272" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">SFRM interrupted at penetration</text>
+  <text x="805" y="286" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Supplemental protection required</text>
+
+  <!-- Intumescent Collar -->
+  <line x1="502" y1="239" x2="800" y2="360" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="502" cy="239" r="2" fill="#000000"/>
+  <text x="805" y="358" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">INTUMESCENT COLLAR</text>
+  <text x="805" y="372" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Firestop collar at each flange</text>
+  <text x="805" y="386" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">penetration (top and bottom)</text>
+
+  <!-- SFRM termination callout -->
+  <line x1="450" y1="460" x2="100" y2="420" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="450" cy="460" r="2" fill="#000000"/>
+  <text x="60" y="414" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">SFRM TERMINATION</text>
+  <text x="60" y="428" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">SFRM terminates at void zone;</text>
+  <text x="60" y="442" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">seal edge with intumescent</text>
+
+  <!-- Notes -->
+  <text x="80" y="580" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" fill="#000000">NOTES:</text>
+  <text x="80" y="596" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">1. Where hanger rods or pipes penetrate SFRM, provide intumescent firestop collar at each penetration.</text>
+  <text x="80" y="610" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">2. Void zone to be minimized — SFRM brought as close to penetration as practical.</text>
+  <text x="80" y="624" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">3. Intumescent collar rating to match or exceed assembly fire rating.</text>
+  <text x="80" y="638" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">4. Submit firestop detail per EJ (engineering judgment) or UL System for approval.</text>
+  <text x="80" y="652" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">5. Coordinate penetration locations with structural engineer — verify beam capacity with holes.</text>
+
+  <text x="80" y="685" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">SCALE: NOT TO SCALE | VIEW: SECTION THROUGH BEAM AT PENETRATION</text>
+
+  <!-- === TITLE BLOCK === -->
+  <line x1="40" y1="760" x2="1016" y2="760" stroke="#000000" stroke-width="0.75"/>
+  <text x="60" y="778" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">DETAIL ATLAS | CONSTRUCTION INTELLIGENCE</text>
+  <text x="528" y="778" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">Fireproofing — SFRM / Enclosure</text>
+  <text x="996" y="778" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">DRAFT | 2026-04-16</text>
+  <text x="528" y="796" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#333333">CSI 07 81 00 | Generic SFRM | Starter Packet</text>
+  <text x="996" y="796" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#333333">Sheet 09 of 10</text>
+</svg>

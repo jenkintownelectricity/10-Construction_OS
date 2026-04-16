@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <pattern id="concrete-stipple" patternUnits="userSpaceOnUse" width="10" height="10">
+      <circle cx="2" cy="3" r="0.5" fill="#CCCCCC"/>
+      <circle cx="7" cy="8" r="0.5" fill="#CCCCCC"/>
+      <circle cx="5" cy="1" r="0.5" fill="#CCCCCC"/>
+    </pattern>
+    <pattern id="insulation-hatch" patternUnits="userSpaceOnUse" width="8" height="8">
+      <path d="M0,8 L8,0" stroke="#999999" stroke-width="0.5" fill="none"/>
+    </pattern>
+  </defs>
+
+  <!-- White background -->
+  <rect width="1056" height="816" fill="#FFFFFF"/>
+
+  <!-- DRAFT watermark -->
+  <text x="528" y="400" font-family="Arial, Helvetica, sans-serif" font-size="48px" fill="#CCCCCC" opacity="0.3" text-anchor="middle" transform="rotate(-25, 528, 400)">DRAFT FOR REVIEW</text>
+
+  <!-- Title -->
+  <text x="60" y="50" font-family="Arial, Helvetica, sans-serif" font-size="16px" font-weight="bold" fill="#000000">Barrett PMMA — Expansion Joint</text>
+  <text x="60" y="68" font-family="Arial, Helvetica, sans-serif" font-size="11px" fill="#333333">Section Detail — Structural expansion joint with PMMA each side, fleece loose-laid at center</text>
+
+  <!-- ============ MAIN DETAIL ============ -->
+  <!-- Left structural section -->
+  <rect x="80" y="380" width="230" height="120" fill="#F0F0F0" stroke="#000000" stroke-width="1.5"/>
+  <rect x="80" y="380" width="230" height="120" fill="url(#concrete-stipple)" opacity="0.4"/>
+
+  <!-- Right structural section -->
+  <rect x="380" y="380" width="230" height="120" fill="#F0F0F0" stroke="#000000" stroke-width="1.5"/>
+  <rect x="380" y="380" width="230" height="120" fill="url(#concrete-stipple)" opacity="0.4"/>
+
+  <!-- Expansion joint gap -->
+  <rect x="310" y="380" width="70" height="120" fill="#FAFAFA" stroke="#000000" stroke-width="0.75"/>
+  <!-- Gap center line -->
+  <line x1="345" y1="380" x2="345" y2="500" stroke="#000000" stroke-width="0.5" stroke-dasharray="3 3"/>
+
+  <!-- Compressible filler in joint -->
+  <rect x="318" y="395" width="54" height="90" fill="#E8E8E8" stroke="#555555" stroke-width="0.5" stroke-dasharray="2 2"/>
+  <text x="345" y="445" font-family="Arial, Helvetica, sans-serif" font-size="7px" fill="#555555" text-anchor="middle">COMP.</text>
+  <text x="345" y="453" font-family="Arial, Helvetica, sans-serif" font-size="7px" fill="#555555" text-anchor="middle">FILLER</text>
+
+  <!-- Left insulation -->
+  <rect x="80" y="345" width="230" height="35" fill="#E8E8E8" stroke="#000000" stroke-width="1"/>
+  <rect x="80" y="345" width="230" height="35" fill="url(#insulation-hatch)"/>
+
+  <!-- Right insulation -->
+  <rect x="380" y="345" width="230" height="35" fill="#E8E8E8" stroke="#000000" stroke-width="1"/>
+  <rect x="380" y="345" width="230" height="35" fill="url(#insulation-hatch)"/>
+
+  <!-- PMMA membrane LEFT side (terminated before joint) -->
+  <rect x="80" y="337" width="230" height="8" fill="#D8D8D8" stroke="#333333" stroke-width="2"/>
+  <!-- Fleece in left PMMA -->
+  <line x1="85" y1="341" x2="305" y2="341" stroke="#333333" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+  <!-- PMMA membrane RIGHT side (terminated before joint) -->
+  <rect x="380" y="337" width="230" height="8" fill="#D8D8D8" stroke="#333333" stroke-width="2"/>
+  <!-- Fleece in right PMMA -->
+  <line x1="385" y1="341" x2="605" y2="341" stroke="#333333" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+  <!-- Fleece LOOSE-LAID at center (NOT rigidly bridging) -->
+  <!-- Shown as a drooping/loose curve across the joint -->
+  <path d="M290,339 Q300,337 310,340 Q325,348 345,352 Q365,348 380,340 Q390,337 400,339" fill="none" stroke="#333333" stroke-width="2" stroke-dasharray="4 2"/>
+  <!-- Small gap indicators showing fleece is not adhered -->
+  <circle cx="310" cy="340" r="1.5" fill="#FFFFFF" stroke="#333333" stroke-width="0.5"/>
+  <circle cx="380" cy="340" r="1.5" fill="#FFFFFF" stroke="#333333" stroke-width="0.5"/>
+
+  <!-- Bellows / Cover plate above joint -->
+  <path d="M295,320 L295,310 L310,310 Q320,325 330,310 Q340,325 350,310 Q360,325 370,310 L385,310 L395,320 L395,330 L385,330 L385,320 L305,320 L305,330 L295,330 Z" fill="#E0E0E0" stroke="#000000" stroke-width="1.5"/>
+  <!-- Cover plate flanges -->
+  <rect x="270" y="328" width="35" height="6" fill="#E0E0E0" stroke="#000000" stroke-width="1"/>
+  <rect x="385" y="328" width="35" height="6" fill="#E0E0E0" stroke="#000000" stroke-width="1"/>
+  <!-- Fastener dots -->
+  <circle cx="280" cy="331" r="2" fill="#000000"/>
+  <circle cx="295" cy="331" r="2" fill="#000000"/>
+  <circle cx="395" cy="331" r="2" fill="#000000"/>
+  <circle cx="410" cy="331" r="2" fill="#000000"/>
+
+  <!-- ============ PROMINENT WARNING NOTE ============ -->
+  <rect x="140" y="540" width="410" height="40" rx="3" fill="#FFFFFF" stroke="#000000" stroke-width="1.5"/>
+  <line x1="140" y1="540" x2="550" y2="540" stroke="#000000" stroke-width="2"/>
+  <text x="345" y="558" font-family="Arial, Helvetica, sans-serif" font-size="11px" font-weight="bold" fill="#000000" text-anchor="middle">FLEECE LOOSE-LAID — DO NOT BRIDGE JOINT</text>
+  <text x="345" y="572" font-family="Arial, Helvetica, sans-serif" font-size="8px" fill="#333333" text-anchor="middle">Fleece must remain unbonded across joint to allow structural movement</text>
+
+  <!-- ============ DIMENSIONS ============ -->
+  <!-- Left side: 6 IN. MIN -->
+  <line x1="160" y1="310" x2="310" y2="310" stroke="#666666" stroke-width="0.5" stroke-dasharray="3 2"/>
+  <line x1="160" y1="305" x2="160" y2="315" stroke="#666666" stroke-width="0.75"/>
+  <line x1="310" y1="305" x2="310" y2="315" stroke="#666666" stroke-width="0.75"/>
+  <line x1="160" y1="335" x2="160" y2="313" stroke="#666666" stroke-width="0.3" stroke-dasharray="2 2"/>
+  <text x="200" y="305" font-family="Arial, Helvetica, sans-serif" font-size="9px" fill="#000000">6 IN. MIN</text>
+
+  <!-- Right side: 6 IN. MIN -->
+  <line x1="380" y1="310" x2="530" y2="310" stroke="#666666" stroke-width="0.5" stroke-dasharray="3 2"/>
+  <line x1="380" y1="305" x2="380" y2="315" stroke="#666666" stroke-width="0.75"/>
+  <line x1="530" y1="305" x2="530" y2="315" stroke="#666666" stroke-width="0.75"/>
+  <line x1="530" y1="335" x2="530" y2="313" stroke="#666666" stroke-width="0.3" stroke-dasharray="2 2"/>
+  <text x="420" y="305" font-family="Arial, Helvetica, sans-serif" font-size="9px" fill="#000000">6 IN. MIN</text>
+
+  <!-- ============ CALLOUT LEADERS ============ -->
+  <!-- 1. Structural slab (left) -->
+  <circle cx="180" cy="440" r="3" fill="#000000"/>
+  <line x1="180" y1="440" x2="100" y2="610" stroke="#000000" stroke-width="0.5"/>
+  <text x="85" y="625" font-family="Arial, Helvetica, sans-serif" font-size="10px" fill="#000000">1</text>
+
+  <!-- 2. Insulation -->
+  <circle cx="200" cy="362" r="3" fill="#000000"/>
+  <line x1="200" y1="362" x2="100" y2="280" stroke="#000000" stroke-width="0.5"/>
+  <text x="85" y="276" font-family="Arial, Helvetica, sans-serif" font-size="10px" fill="#000000">2</text>
+
+  <!-- 3. PMMA Membrane (left) -->
+  <circle cx="200" cy="341" r="3" fill="#000000"/>
+  <line x1="200" y1="341" x2="100" y2="260" stroke="#000000" stroke-width="0.5"/>
+  <text x="85" y="256" font-family="Arial, Helvetica, sans-serif" font-size="10px" fill="#000000">3</text>
+
+  <!-- 4. Fleece (adhered in field) -->
+  <circle cx="250" cy="341" r="3" fill="#000000"/>
+  <line x1="250" y1="341" x2="100" y2="240" stroke="#000000" stroke-width="0.5"/>
+  <text x="85" y="236" font-family="Arial, Helvetica, sans-serif" font-size="10px" fill="#000000">4</text>
+
+  <!-- 5. Fleece loose-laid (at joint) -->
+  <circle cx="345" cy="352" r="3" fill="#FFFFFF" stroke="#000000" stroke-width="0.75"/>
+  <line x1="345" y1="355" x2="345" y2="535" stroke="#000000" stroke-width="0.5"/>
+  <text x="337" y="530" font-family="Arial, Helvetica, sans-serif" font-size="10px" fill="#000000">5</text>
+
+  <!-- 6. Expansion joint gap -->
+  <circle cx="345" cy="460" r="3" fill="#000000"/>
+  <line x1="345" y1="460" x2="620" y2="460" stroke="#000000" stroke-width="0.5"/>
+  <text x="625" y="463" font-family="Arial, Helvetica, sans-serif" font-size="10px" fill="#000000">6</text>
+
+  <!-- 7. Compressible filler -->
+  <circle cx="345" cy="430" r="3" fill="#000000"/>
+  <line x1="345" y1="430" x2="620" y2="430" stroke="#000000" stroke-width="0.5"/>
+  <text x="625" y="433" font-family="Arial, Helvetica, sans-serif" font-size="10px" fill="#000000">7</text>
+
+  <!-- 8. Bellows / cover plate -->
+  <circle cx="345" cy="315" r="3" fill="#000000"/>
+  <line x1="345" y1="315" x2="620" y2="280" stroke="#000000" stroke-width="0.5"/>
+  <text x="625" y="283" font-family="Arial, Helvetica, sans-serif" font-size="10px" fill="#000000">8</text>
+
+  <!-- ============ CALLOUT LEGEND ============ -->
+  <text x="720" y="130" font-family="Arial, Helvetica, sans-serif" font-size="10px" font-weight="bold" fill="#000000">CALLOUT KEY</text>
+  <line x1="720" y1="135" x2="900" y2="135" stroke="#000000" stroke-width="0.5"/>
+
+  <circle cx="730" cy="158" r="4" fill="#000000"/>
+  <text x="740" y="162" font-family="Arial, Helvetica, sans-serif" font-size="9px" fill="#000000"><tspan font-weight="bold">1</tspan> — Structural Slab</text>
+
+  <circle cx="730" cy="182" r="4" fill="#000000"/>
+  <text x="740" y="186" font-family="Arial, Helvetica, sans-serif" font-size="9px" fill="#000000"><tspan font-weight="bold">2</tspan> — Insulation</text>
+
+  <circle cx="730" cy="206" r="4" fill="#000000"/>
+  <text x="740" y="210" font-family="Arial, Helvetica, sans-serif" font-size="9px" fill="#000000"><tspan font-weight="bold">3</tspan> — PMMA Membrane (each side)</text>
+
+  <circle cx="730" cy="230" r="4" fill="#000000"/>
+  <text x="740" y="234" font-family="Arial, Helvetica, sans-serif" font-size="9px" fill="#000000"><tspan font-weight="bold">4</tspan> — Fleece (adhered in field)</text>
+
+  <circle cx="730" cy="254" r="4" fill="#000000"/>
+  <text x="740" y="258" font-family="Arial, Helvetica, sans-serif" font-size="9px" fill="#000000"><tspan font-weight="bold">5</tspan> — Fleece Loose-Laid (at joint)</text>
+
+  <circle cx="730" cy="278" r="4" fill="#000000"/>
+  <text x="740" y="282" font-family="Arial, Helvetica, sans-serif" font-size="9px" fill="#000000"><tspan font-weight="bold">6</tspan> — Expansion Joint Gap</text>
+
+  <circle cx="730" cy="302" r="4" fill="#000000"/>
+  <text x="740" y="306" font-family="Arial, Helvetica, sans-serif" font-size="9px" fill="#000000"><tspan font-weight="bold">7</tspan> — Compressible Filler</text>
+
+  <circle cx="730" cy="326" r="4" fill="#000000"/>
+  <text x="740" y="330" font-family="Arial, Helvetica, sans-serif" font-size="9px" fill="#000000"><tspan font-weight="bold">8</tspan> — Bellows / Cover Plate</text>
+
+  <!-- ============ TITLE BLOCK ============ -->
+  <line x1="40" y1="760" x2="1016" y2="760" stroke="#000000" stroke-width="0.75"/>
+  <text x="50" y="778" font-family="Arial, Helvetica, sans-serif" font-size="11px" font-weight="bold" fill="#000000">DETAIL ATLAS</text>
+  <text x="50" y="792" font-family="Arial, Helvetica, sans-serif" font-size="9px" fill="#000000">CONSTRUCTION INTELLIGENCE</text>
+  <text x="440" y="778" font-family="Arial, Helvetica, sans-serif" font-size="9px" fill="#000000" text-anchor="middle">Barrett Company — RamFlash PMMA</text>
+  <text x="1010" y="778" font-family="Arial, Helvetica, sans-serif" font-size="9px" fill="#000000" text-anchor="end">DRAFT | 2026-04-16</text>
+  <text x="528" y="805" font-family="Arial, Helvetica, sans-serif" font-size="8px" fill="#666666" text-anchor="middle">CSI 07 62 00 | FAM-BARRETT-PMMA | Emergency Detail Delivery</text>
+</svg>
