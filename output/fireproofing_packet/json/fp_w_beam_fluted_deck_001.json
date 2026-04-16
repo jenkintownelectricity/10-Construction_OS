@@ -1,0 +1,97 @@
+{
+  "assembly_id": "fp_w_beam_fluted_deck_001",
+  "assembly_version": "1.0.0",
+  "node_id": "fireproofing_w_beam_fluted_deck_001",
+  "manufacturer_id": "generic_sfrm",
+  "manufacturer_name": "Generic SFRM (Isolatek / ALBI / equivalent)",
+  "condition_type": "w_beam_at_fluted_deck",
+  "system_type": "Spray-Applied Fire-Resistive Material (SFRM)",
+  "csi_section": "07 81 00",
+  "fire_rating": {
+    "hours": 2,
+    "ul_design": "UL D902 (or equivalent restrained beam/floor assembly)",
+    "astm_e119": true
+  },
+  "components": [
+    {
+      "component_id": "comp_w_beam_002",
+      "name": "W-Beam (Wide Flange) — Supporting Beam",
+      "material": "ASTM A992 Structural Steel",
+      "description": "Wide flange beam supporting fluted metal deck above. Top flange is partially shielded by deck bearing.",
+      "properties": {
+        "typical_sizes": ["W14x30", "W16x36", "W18x40", "W21x50", "W24x55"],
+        "yield_strength_ksi": 50,
+        "hp_a_range": "40-200 (W/D)"
+      }
+    },
+    {
+      "component_id": "comp_fluted_deck_001",
+      "name": "Fluted Metal Deck",
+      "material": "Galvanized steel deck — ASTM A653, Grade 33",
+      "description": "Corrugated/fluted metal deck spanning between beams. Deck profile creates flutes (ribs) that bear on beam top flange.",
+      "properties": {
+        "deck_gauge": "20 ga, 18 ga, or 16 ga typical",
+        "deck_depth_inches": "1.5 (type B) or 3.0 (type N)",
+        "rib_spacing_inches": "6 or 12 typical",
+        "attachment": "Puddle weld or TEK screw to beam top flange"
+      }
+    },
+    {
+      "component_id": "comp_sfrm_3_sided_001",
+      "name": "SFRM Spray Coat — 3-Sided Application",
+      "material": "Cementitious spray-applied fire-resistive material",
+      "description": "Spray-applied fireproofing on three exposed sides of the beam: bottom of top flange (between deck flutes), both sides of web, and entire bottom flange. Top of top flange is shielded by deck.",
+      "properties": {
+        "density_pcf": "15-22 (standard density)",
+        "thickness_range_inches": "0.50-2.00",
+        "coverage_note": "Must fill gap between deck flutes and beam top flange"
+      }
+    },
+    {
+      "component_id": "comp_edge_coverage_001",
+      "name": "Edge Coverage at Deck-Beam Interface",
+      "material": "SFRM continuous with beam coating",
+      "description": "SFRM must wrap around the deck-to-beam junction to ensure fire-rated continuity. Coverage extends onto deck underside at beam edge per UL listing.",
+      "properties": {
+        "extension_inches": "2-4 onto deck underside from beam flange edge",
+        "critical_note": "No gaps allowed between beam SFRM and deck underside SFRM"
+      }
+    }
+  ],
+  "assembly_constraints": [
+    {
+      "constraint_id": "ac_3_sided_thickness_001",
+      "type": "dimensional",
+      "description": "Minimum SFRM thickness for 3-sided condition per UL listing. 3-sided designs typically require less thickness than 4-sided due to deck shielding top flange.",
+      "rule": "Use 3-sided W/D column in UL design listing thickness table"
+    },
+    {
+      "constraint_id": "ac_deck_flute_fill_001",
+      "type": "coverage",
+      "description": "SFRM must fill the gap between the deck flute valleys and the beam top flange",
+      "rule": "No voids permitted at deck-to-beam interface within the rated assembly zone"
+    },
+    {
+      "constraint_id": "ac_deck_attachment_001",
+      "type": "sequencing",
+      "description": "Deck must be fully attached (welded or screwed) to beam before SFRM application",
+      "rule": "All deck-to-beam connections complete prior to fireproofing"
+    },
+    {
+      "constraint_id": "ac_edge_wrap_001",
+      "type": "continuity",
+      "description": "SFRM on beam must transition continuously to deck underside coating where required by UL listing",
+      "rule": "Min 2-inch overlap onto deck underside from beam flange tip"
+    }
+  ],
+  "related_conditions": ["COND-F-001", "COND-F-003"],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "created_at": "2026-04-16T00:00:00Z",
+    "created_by": "emergency_detail_delivery_pass"
+  },
+  "artifacts_enabled": {
+    "detail_packet": true,
+    "svg_overlay": true
+  }
+}
