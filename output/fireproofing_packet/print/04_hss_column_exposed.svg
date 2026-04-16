@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <pattern id="stipple" patternUnits="userSpaceOnUse" width="6" height="6">
+      <rect width="6" height="6" fill="#D8D8D8"/>
+      <circle cx="1" cy="1" r="0.6" fill="#999"/>
+      <circle cx="4" cy="4" r="0.6" fill="#999"/>
+    </pattern>
+    <pattern id="stipple-lg" patternUnits="userSpaceOnUse" width="8" height="8">
+      <rect width="8" height="8" fill="#D8D8D8"/>
+      <circle cx="2" cy="2" r="0.7" fill="#999"/>
+      <circle cx="6" cy="6" r="0.7" fill="#999"/>
+      <circle cx="6" cy="2" r="0.5" fill="#aaa"/>
+      <circle cx="2" cy="6" r="0.5" fill="#aaa"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1056" height="816" fill="#FFFFFF"/>
+
+  <!-- DRAFT Watermark -->
+  <text x="528" y="400" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="48" fill="#CCCCCC" opacity="0.3" transform="rotate(-25,528,400)">DRAFT</text>
+
+  <!-- Title -->
+  <text x="528" y="50" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#000000">Fireproofing — HSS Column Exposed SFRM</text>
+  <text x="528" y="68" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#333333">Plan Section Through HSS Column — SFRM on All Four Faces with Corner Build-Up</text>
+
+  <!-- Fire Rating Badge -->
+  <rect x="900" y="32" width="100" height="28" rx="3" fill="none" stroke="#000000" stroke-width="1.5"/>
+  <text x="950" y="51" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold" fill="#000000">2-HR RATED</text>
+
+  <!-- === MAIN DRAWING (plan section) === -->
+  <!-- Center at 480, 370 -->
+
+  <!-- SFRM Outer envelope with rounded corners for build-up -->
+  <rect x="380" y="270" width="200" height="200" rx="20" ry="20" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+
+  <!-- HSS Tube (steel) -->
+  <rect x="420" y="310" width="120" height="120" fill="#E0E0E0" stroke="#000000" stroke-width="1.5"/>
+  <!-- HSS hollow interior -->
+  <rect x="430" y="320" width="100" height="100" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+
+  <!-- Corner build-up detail (enlarged) - top right corner area -->
+  <!-- Zoom circle -->
+  <circle cx="540" cy="310" r="5" fill="none" stroke="#000000" stroke-width="0.75"/>
+
+  <!-- Detail enlargement box -->
+  <rect x="700" y="120" width="260" height="200" fill="#FFFFFF" stroke="#000000" stroke-width="1"/>
+  <text x="830" y="140" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" fill="#000000">CORNER BUILD-UP DETAIL</text>
+  <text x="830" y="153" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">(Enlarged)</text>
+
+  <!-- Leader from main to detail -->
+  <line x1="545" y1="310" x2="700" y2="200" stroke="#000000" stroke-width="0.5" stroke-dasharray="6,3"/>
+
+  <!-- Enlarged corner detail -->
+  <!-- HSS corner in detail -->
+  <line x1="840" y1="240" x2="920" y2="240" stroke="#000000" stroke-width="1.5"/>
+  <line x1="920" y1="240" x2="920" y2="310" stroke="#000000" stroke-width="1.5"/>
+  <!-- HSS inner wall -->
+  <line x1="840" y1="250" x2="910" y2="250" stroke="#000000" stroke-width="1"/>
+  <line x1="910" y1="250" x2="910" y2="310" stroke="#000000" stroke-width="1"/>
+
+  <!-- SFRM on top face of detail -->
+  <rect x="830" y="210" width="100" height="30" fill="url(#stipple)" stroke="#666666" stroke-width="0.75"/>
+  <!-- SFRM on right face of detail -->
+  <rect x="920" y="230" width="30" height="80" fill="url(#stipple)" stroke="#666666" stroke-width="0.75"/>
+  <!-- Corner build-up (radiused SFRM mass) -->
+  <path d="M930,210 Q960,210 960,240 L950,240 Q950,220 930,220 Z" fill="url(#stipple)" stroke="#666666" stroke-width="0.75"/>
+
+  <!-- Min thickness arrows in detail -->
+  <line x1="870" y1="210" x2="870" y2="240" stroke="#666666" stroke-width="0.5"/>
+  <line x1="866" y1="210" x2="874" y2="210" stroke="#666666" stroke-width="0.75"/>
+  <line x1="866" y1="240" x2="874" y2="240" stroke="#666666" stroke-width="0.75"/>
+  <text x="720" y="228" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">t min = 1-1/8"</text>
+
+  <!-- Corner radius callout in detail -->
+  <line x1="955" y1="215" x2="955" y2="180" stroke="#000000" stroke-width="0.5"/>
+  <text x="940" y="175" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#000000">CORNER</text>
+  <text x="940" y="185" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#000000">BUILD-UP</text>
+
+  <!-- === DIMENSION LINES on main drawing === -->
+  <!-- SFRM Thickness - top face -->
+  <line x1="480" y1="270" x2="480" y2="250" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="480" y1="310" x2="480" y2="250" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="505" y1="270" x2="505" y2="310" stroke="#666666" stroke-width="0.5"/>
+  <line x1="500" y1="270" x2="510" y2="270" stroke="#666666" stroke-width="0.75"/>
+  <line x1="500" y1="310" x2="510" y2="310" stroke="#666666" stroke-width="0.75"/>
+  <text x="515" y="294" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">1-1/8"</text>
+
+  <!-- HSS outer dimension -->
+  <line x1="420" y1="450" x2="420" y2="510" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="540" y1="450" x2="540" y2="510" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="420" y1="500" x2="540" y2="500" stroke="#666666" stroke-width="0.5"/>
+  <line x1="420" y1="495" x2="420" y2="505" stroke="#666666" stroke-width="0.75"/>
+  <line x1="540" y1="495" x2="540" y2="505" stroke="#666666" stroke-width="0.75"/>
+  <text x="480" y="496" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">HSS 8x8</text>
+
+  <!-- Overall with SFRM -->
+  <line x1="380" y1="480" x2="380" y2="540" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="580" y1="480" x2="580" y2="540" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="380" y1="530" x2="580" y2="530" stroke="#666666" stroke-width="0.5"/>
+  <line x1="380" y1="525" x2="380" y2="535" stroke="#666666" stroke-width="0.75"/>
+  <line x1="580" y1="525" x2="580" y2="535" stroke="#666666" stroke-width="0.75"/>
+  <text x="480" y="526" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">10-1/4" overall</text>
+
+  <!-- === CALLOUTS === -->
+  <!-- HSS Tube -->
+  <line x1="480" y1="370" x2="170" y2="200" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="480" cy="370" r="2" fill="#000000"/>
+  <text x="60" y="194" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">HSS TUBE</text>
+  <text x="60" y="208" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">HSS 8x8x1/2</text>
+
+  <!-- SFRM Coating -->
+  <line x1="400" y1="340" x2="170" y2="300" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="400" cy="340" r="2" fill="#000000"/>
+  <text x="60" y="294" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">SFRM COATING</text>
+  <text x="60" y="308" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Spray-Applied Fire-Resistive Material</text>
+  <text x="60" y="322" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">All four faces</text>
+
+  <!-- Corner Build-Up -->
+  <line x1="398" y1="288" x2="170" y2="400" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="398" cy="288" r="2" fill="#000000"/>
+  <text x="60" y="394" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">CORNER BUILD-UP</text>
+  <text x="60" y="408" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Radiused SFRM build-up at corners</text>
+  <text x="60" y="422" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">to achieve min. thickness</text>
+
+  <!-- Min Thickness -->
+  <line x1="430" y1="290" x2="170" y2="490" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="430" cy="290" r="2" fill="#000000"/>
+  <text x="60" y="484" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">MIN THICKNESS</text>
+  <text x="60" y="498" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">1-1/8" minimum per UL Design</text>
+  <text x="60" y="512" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Verify at corners and flat faces</text>
+
+  <!-- Notes -->
+  <text x="80" y="600" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" fill="#000000">NOTES:</text>
+  <text x="80" y="616" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">1. SFRM applied to all four faces of HSS column.</text>
+  <text x="80" y="630" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">2. Corner build-up required to maintain minimum thickness at all corners.</text>
+  <text x="80" y="644" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">3. Thickness measured perpendicular to steel surface at corners and flat faces.</text>
+  <text x="80" y="658" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">4. Surface must be clean, dry, and free of contaminants before application.</text>
+
+  <text x="80" y="690" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">SCALE: NOT TO SCALE | VIEW: PLAN SECTION</text>
+
+  <!-- === TITLE BLOCK === -->
+  <line x1="40" y1="760" x2="1016" y2="760" stroke="#000000" stroke-width="0.75"/>
+  <text x="60" y="778" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">DETAIL ATLAS | CONSTRUCTION INTELLIGENCE</text>
+  <text x="528" y="778" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">Fireproofing — SFRM / Enclosure</text>
+  <text x="996" y="778" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">DRAFT | 2026-04-16</text>
+  <text x="528" y="796" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#333333">CSI 07 81 00 | Generic SFRM | Starter Packet</text>
+  <text x="996" y="796" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#333333">Sheet 04 of 10</text>
+</svg>
