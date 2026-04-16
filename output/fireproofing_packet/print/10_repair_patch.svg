@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <pattern id="stipple" patternUnits="userSpaceOnUse" width="6" height="6">
+      <rect width="6" height="6" fill="#D8D8D8"/>
+      <circle cx="1" cy="1" r="0.6" fill="#999"/>
+      <circle cx="4" cy="4" r="0.6" fill="#999"/>
+    </pattern>
+    <pattern id="stipple-lg" patternUnits="userSpaceOnUse" width="8" height="8">
+      <rect width="8" height="8" fill="#D8D8D8"/>
+      <circle cx="2" cy="2" r="0.7" fill="#999"/>
+      <circle cx="6" cy="6" r="0.7" fill="#999"/>
+      <circle cx="6" cy="2" r="0.5" fill="#aaa"/>
+      <circle cx="2" cy="6" r="0.5" fill="#aaa"/>
+    </pattern>
+    <pattern id="patch-stipple" patternUnits="userSpaceOnUse" width="5" height="5">
+      <rect width="5" height="5" fill="#CDCDCD"/>
+      <circle cx="1.5" cy="1.5" r="0.7" fill="#888"/>
+      <circle cx="4" cy="3.5" r="0.7" fill="#888"/>
+    </pattern>
+    <pattern id="damaged" patternUnits="userSpaceOnUse" width="10" height="10">
+      <rect width="10" height="10" fill="#F8F0E8"/>
+      <line x1="0" y1="5" x2="10" y2="5" stroke="#D0B090" stroke-width="0.5" stroke-dasharray="2,2"/>
+      <line x1="5" y1="0" x2="5" y2="10" stroke="#D0B090" stroke-width="0.5" stroke-dasharray="2,2"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1056" height="816" fill="#FFFFFF"/>
+
+  <!-- DRAFT Watermark -->
+  <text x="528" y="400" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="48" fill="#CCCCCC" opacity="0.3" transform="rotate(-25,528,400)">DRAFT</text>
+
+  <!-- Title -->
+  <text x="528" y="50" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#000000">Fireproofing — Repair / Patch Condition</text>
+  <text x="528" y="68" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#333333">Elevation Detail — Damaged SFRM Removal, Substrate Preparation, and Patch with Feathered Edges</text>
+
+  <!-- Fire Rating Badge -->
+  <rect x="900" y="32" width="100" height="28" rx="3" fill="none" stroke="#000000" stroke-width="1.5"/>
+  <text x="950" y="51" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold" fill="#000000">2-HR RATED</text>
+
+  <!-- === MAIN DRAWING (elevation of beam bottom flange) === -->
+
+  <!-- Steel beam bottom flange (long horizontal member) -->
+  <rect x="120" y="310" width="820" height="28" fill="#E0E0E0" stroke="#000000" stroke-width="1.5"/>
+
+  <!-- Existing SFRM — left section (intact) -->
+  <rect x="120" y="338" width="280" height="40" rx="2" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <!-- Existing SFRM surface texture (slightly wavy top) -->
+  <path d="M120,338 C160,335 200,340 240,336 C280,340 320,335 400,338" fill="none" stroke="#666666" stroke-width="0.5"/>
+
+  <!-- Existing SFRM — right section (intact) -->
+  <rect x="620" y="338" width="320" height="40" rx="2" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+  <path d="M620,338 C660,335 700,340 740,336 C780,340 820,335 900,338 C920,340 940,338" fill="none" stroke="#666666" stroke-width="0.5"/>
+
+  <!-- Damaged zone (center area — partially removed, exposed substrate) -->
+  <!-- Ragged existing SFRM edges at damage boundary -->
+  <!-- Left ragged edge -->
+  <path d="M400,338 L400,370 C405,375 395,378 400,378 L408,374 C412,378 398,378 405,378" fill="url(#stipple-lg)" stroke="#666666" stroke-width="0.75"/>
+  <!-- Right ragged edge -->
+  <path d="M620,338 L620,370 C615,375 625,378 620,378 L612,374 C608,378 622,378 615,378" fill="url(#stipple-lg)" stroke="#666666" stroke-width="0.75"/>
+
+  <!-- Exposed/damaged zone — bare substrate or thin remaining SFRM -->
+  <rect x="405" y="338" width="210" height="10" fill="url(#damaged)" stroke="#000000" stroke-width="0.5" stroke-dasharray="3,2"/>
+
+  <!-- Prepared substrate indicator (clean steel surface) -->
+  <rect x="420" y="338" width="180" height="4" fill="#E8E8E8" stroke="#000000" stroke-width="0.5"/>
+
+  <!-- === REPAIR/PATCH OVERLAY (shown slightly offset for clarity) === -->
+  <!-- This section shows the AFTER condition -->
+
+  <!-- Label: BEFORE (top) / AFTER (bottom) -->
+  <text x="528" y="290" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold" fill="#000000">BEFORE REPAIR</text>
+  <line x1="200" y1="296" x2="860" y2="296" stroke="#666666" stroke-width="0.5" stroke-dasharray="6,3"/>
+
+  <!-- AFTER condition - lower drawing -->
+  <text x="528" y="460" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold" fill="#000000">AFTER REPAIR</text>
+
+  <!-- Steel beam (after) -->
+  <rect x="120" y="480" width="820" height="28" fill="#E0E0E0" stroke="#000000" stroke-width="1.5"/>
+
+  <!-- Existing SFRM left (after) -->
+  <rect x="120" y="508" width="280" height="40" rx="2" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+
+  <!-- Existing SFRM right (after) -->
+  <rect x="620" y="508" width="320" height="40" rx="2" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+
+  <!-- Patch material (fills the damaged zone) -->
+  <rect x="395" y="508" width="230" height="40" fill="url(#patch-stipple)" stroke="#000000" stroke-width="1"/>
+
+  <!-- Feathered edge left (tapered overlap) -->
+  <path d="M395,508 L370,508 L370,548 L395,548 Z" fill="url(#patch-stipple)" stroke="#000000" stroke-width="0.75" opacity="0.7"/>
+  <path d="M370,508 L350,518 L350,548 L370,548 Z" fill="url(#patch-stipple)" stroke="#000000" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- Feathered edge right (tapered overlap) -->
+  <path d="M625,508 L650,508 L650,548 L625,548 Z" fill="url(#patch-stipple)" stroke="#000000" stroke-width="0.75" opacity="0.7"/>
+  <path d="M650,508 L670,518 L670,548 L650,548 Z" fill="url(#patch-stipple)" stroke="#000000" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- Feathered edge taper lines -->
+  <line x1="350" y1="518" x2="395" y2="508" stroke="#000000" stroke-width="0.75"/>
+  <line x1="670" y1="518" x2="625" y2="508" stroke="#000000" stroke-width="0.75"/>
+
+  <!-- === DIMENSION LINES === -->
+  <!-- Patch thickness -->
+  <line x1="510" y1="508" x2="560" y2="508" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="510" y1="548" x2="560" y2="548" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="550" y1="508" x2="550" y2="548" stroke="#666666" stroke-width="0.5"/>
+  <line x1="545" y1="508" x2="555" y2="508" stroke="#666666" stroke-width="0.75"/>
+  <line x1="545" y1="548" x2="555" y2="548" stroke="#666666" stroke-width="0.75"/>
+  <text x="560" y="532" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">t (min.)</text>
+
+  <!-- Feather length -->
+  <line x1="350" y1="555" x2="350" y2="580" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="395" y1="555" x2="395" y2="580" stroke="#666666" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="350" y1="575" x2="395" y2="575" stroke="#666666" stroke-width="0.5"/>
+  <line x1="350" y1="570" x2="350" y2="580" stroke="#666666" stroke-width="0.75"/>
+  <line x1="395" y1="570" x2="395" y2="580" stroke="#666666" stroke-width="0.75"/>
+  <text x="372" y="592" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#000000">FEATHER</text>
+  <text x="372" y="602" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#000000">3" min.</text>
+
+  <!-- === CALLOUTS === -->
+  <!-- Existing SFRM -->
+  <line x1="250" y1="358" x2="100" y2="140" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="250" cy="358" r="2" fill="#000000"/>
+  <text x="60" y="134" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">EXISTING SFRM</text>
+  <text x="60" y="148" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Original spray fireproofing (intact)</text>
+
+  <!-- Damaged Zone -->
+  <line x1="510" y1="345" x2="800" y2="310" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="510" cy="345" r="2" fill="#000000"/>
+  <text x="805" y="308" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">DAMAGED ZONE</text>
+  <text x="805" y="322" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">SFRM removed or compromised</text>
+  <text x="805" y="336" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Remove loose material to sound edge</text>
+
+  <!-- Prepared Substrate -->
+  <line x1="510" y1="340" x2="800" y2="380" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="510" cy="340" r="2" fill="#000000"/>
+  <text x="805" y="378" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">PREPARED SUBSTRATE</text>
+  <text x="805" y="392" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Clean steel surface, free of oil/rust</text>
+  <text x="805" y="406" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Prime if required by manufacturer</text>
+
+  <!-- Patch Material -->
+  <line x1="510" y1="528" x2="800" y2="480" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="510" cy="528" r="2" fill="#000000"/>
+  <text x="805" y="478" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">PATCH MATERIAL</text>
+  <text x="805" y="492" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Same SFRM product as original</text>
+  <text x="805" y="506" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">or approved equivalent</text>
+
+  <!-- Feathered Edge -->
+  <line x1="360" y1="520" x2="100" y2="500" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="360" cy="520" r="2" fill="#000000"/>
+  <text x="60" y="494" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">FEATHERED EDGE</text>
+  <text x="60" y="508" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Patch tapers over existing SFRM</text>
+  <text x="60" y="522" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Min. 3" overlap each side</text>
+
+  <!-- Notes -->
+  <text x="80" y="630" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" fill="#000000">NOTES:</text>
+  <text x="80" y="646" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">1. Remove all loose, damaged, or delaminated SFRM back to sound material.</text>
+  <text x="80" y="660" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">2. Clean exposed steel substrate — remove oil, grease, dirt, loose rust.</text>
+  <text x="80" y="674" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">3. Apply patch material to full required thickness. Feather edges min. 3" overlap on existing.</text>
+  <text x="80" y="688" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">4. Patch material to be same product as original SFRM or manufacturer-approved equivalent.</text>
+  <text x="80" y="702" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">5. Repair area shall be inspected for thickness and bond per ASTM E605 / E736.</text>
+
+  <text x="80" y="730" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">SCALE: NOT TO SCALE | VIEW: ELEVATION — UNDERSIDE OF BEAM</text>
+
+  <!-- === TITLE BLOCK === -->
+  <line x1="40" y1="760" x2="1016" y2="760" stroke="#000000" stroke-width="0.75"/>
+  <text x="60" y="778" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">DETAIL ATLAS | CONSTRUCTION INTELLIGENCE</text>
+  <text x="528" y="778" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">Fireproofing — SFRM / Enclosure</text>
+  <text x="996" y="778" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">DRAFT | 2026-04-16</text>
+  <text x="528" y="796" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#333333">CSI 07 81 00 | Generic SFRM | Starter Packet</text>
+  <text x="996" y="796" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#333333">Sheet 10 of 10</text>
+</svg>
