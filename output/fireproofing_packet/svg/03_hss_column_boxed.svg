@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <style>
+      .title { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: bold; fill: #FF4444; }
+      .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #B0B7BD; }
+      .dim { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #4A657D; }
+      .callout-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: bold; fill: #0A0D11; }
+      .bar-text { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #4A657D; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1056" height="816" fill="#0A0D11"/>
+
+  <!-- DRAFT Watermark -->
+  <text x="528" y="450" font-family="JetBrains Mono, monospace" font-size="60" fill="#FF4444" opacity="0.08" text-anchor="middle" transform="rotate(-30, 528, 450)">DRAFT</text>
+
+  <!-- Title -->
+  <text x="40" y="45" class="title">Fireproofing — HSS Column Boxed Enclosure</text>
+  <line x1="40" y1="55" x2="550" y2="55" stroke="#FF4444" stroke-width="1" opacity="0.4"/>
+
+  <!-- Fire Rating Badge -->
+  <rect x="880" y="25" width="140" height="35" rx="3" fill="none" stroke="#FF4444" stroke-width="2"/>
+  <text x="950" y="42" font-family="JetBrains Mono, monospace" font-size="11" fill="#FF4444" text-anchor="middle" font-weight="bold">FIRE RATING</text>
+  <text x="950" y="54" font-family="JetBrains Mono, monospace" font-size="10" fill="#FF4444" text-anchor="middle">2-HR</text>
+
+  <!-- HSS Column (center) -->
+  <rect x="458" y="195" width="140" height="140" fill="#5C6670" stroke="#8B959E" stroke-width="2.5"/>
+  <!-- HSS hollow interior -->
+  <rect x="474" y="211" width="108" height="108" fill="#0A0D11" stroke="#8B959E" stroke-width="1"/>
+
+  <!-- Metal Stud Track - Top -->
+  <rect x="350" y="140" width="356" height="12" fill="#8B959E" stroke="#B0B7BD" stroke-width="1"/>
+  <!-- Metal Stud Track - Bottom -->
+  <rect x="350" y="378" width="356" height="12" fill="#8B959E" stroke="#B0B7BD" stroke-width="1"/>
+  <!-- Metal Stud Track - Left -->
+  <rect x="350" y="140" width="12" height="250" fill="#8B959E" stroke="#B0B7BD" stroke-width="1"/>
+  <!-- Metal Stud Track - Right -->
+  <rect x="694" y="140" width="12" height="250" fill="#8B959E" stroke="#B0B7BD" stroke-width="1"/>
+
+  <!-- Gypsum Board Layer 1 (outer) - Top -->
+  <rect x="330" y="115" width="396" height="15" fill="#E8E0D4" stroke="#C8C0B4" stroke-width="1.5"/>
+  <!-- Gypsum Board Layer 1 (outer) - Bottom -->
+  <rect x="330" y="400" width="396" height="15" fill="#E8E0D4" stroke="#C8C0B4" stroke-width="1.5"/>
+  <!-- Gypsum Board Layer 1 (outer) - Left -->
+  <rect x="330" y="115" width="15" height="300" fill="#E8E0D4" stroke="#C8C0B4" stroke-width="1.5"/>
+  <!-- Gypsum Board Layer 1 (outer) - Right -->
+  <rect x="711" y="115" width="15" height="300" fill="#E8E0D4" stroke="#C8C0B4" stroke-width="1.5"/>
+
+  <!-- Gypsum Board Layer 2 (outer-most) - Top -->
+  <rect x="315" y="98" width="426" height="15" fill="#E8E0D4" stroke="#C8C0B4" stroke-width="1.5"/>
+  <!-- Gypsum Board Layer 2 (outer-most) - Bottom -->
+  <rect x="315" y="417" width="426" height="15" fill="#E8E0D4" stroke="#C8C0B4" stroke-width="1.5"/>
+  <!-- Gypsum Board Layer 2 (outer-most) - Left -->
+  <rect x="315" y="98" width="15" height="334" fill="#E8E0D4" stroke="#C8C0B4" stroke-width="1.5"/>
+  <!-- Gypsum Board Layer 2 (outer-most) - Right -->
+  <rect x="726" y="98" width="15" height="334" fill="#E8E0D4" stroke="#C8C0B4" stroke-width="1.5"/>
+
+  <!-- Corner Bead indicators -->
+  <circle cx="330" cy="113" r="4" fill="#C8C0B4" stroke="#8B959E" stroke-width="1"/>
+  <circle cx="726" cy="113" r="4" fill="#C8C0B4" stroke="#8B959E" stroke-width="1"/>
+  <circle cx="330" cy="417" r="4" fill="#C8C0B4" stroke="#8B959E" stroke-width="1"/>
+  <circle cx="726" cy="417" r="4" fill="#C8C0B4" stroke="#8B959E" stroke-width="1"/>
+
+  <!-- Airspace hatching (diagonal lines between HSS and studs) -->
+  <line x1="370" y1="160" x2="380" y2="170" stroke="#4A657D" stroke-width="0.5" opacity="0.4"/>
+  <line x1="390" y1="160" x2="400" y2="170" stroke="#4A657D" stroke-width="0.5" opacity="0.4"/>
+  <line x1="410" y1="160" x2="420" y2="170" stroke="#4A657D" stroke-width="0.5" opacity="0.4"/>
+  <line x1="430" y1="160" x2="440" y2="170" stroke="#4A657D" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- Callout 1: HSS Column -->
+  <circle cx="528" cy="265" r="8" fill="#00E5FF"/>
+  <text x="528" y="269" class="callout-num" text-anchor="middle">1</text>
+  <line x1="528" y1="273" x2="528" y2="550" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="528" y1="550" x2="620" y2="550" stroke="#00E5FF" stroke-width="1"/>
+  <text x="625" y="554" class="label">HSS Column (HSS 8x8x1/2)</text>
+
+  <!-- Callout 2: Metal Stud Track -->
+  <circle cx="400" cy="146" r="8" fill="#00E5FF"/>
+  <text x="400" y="150" class="callout-num" text-anchor="middle">2</text>
+  <line x1="400" y1="138" x2="400" y2="82" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="400" y1="82" x2="460" y2="82" stroke="#00E5FF" stroke-width="1"/>
+  <text x="465" y="86" class="label">Metal Stud Track</text>
+
+  <!-- Callout 3: Gypsum Board Layer 1 -->
+  <circle cx="338" cy="250" r="8" fill="#00E5FF"/>
+  <text x="338" y="254" class="callout-num" text-anchor="middle">3</text>
+  <line x1="330" y1="250" x2="120" y2="250" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="30" y="254" class="label">Gypsum Layer 1</text>
+
+  <!-- Callout 4: Gypsum Board Layer 2 -->
+  <circle cx="322" cy="300" r="8" fill="#00E5FF"/>
+  <text x="322" y="304" class="callout-num" text-anchor="middle">4</text>
+  <line x1="314" y1="300" x2="120" y2="300" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="30" y="304" class="label">Gypsum Layer 2</text>
+
+  <!-- Callout 5: Joint Compound -->
+  <circle cx="741" cy="265" r="8" fill="#00E5FF"/>
+  <text x="741" y="269" class="callout-num" text-anchor="middle">5</text>
+  <line x1="749" y1="265" x2="850" y2="265" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="855" y="269" class="label">Joint Compound</text>
+
+  <!-- Callout 6: Corner Bead -->
+  <circle cx="726" cy="113" r="12" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <line x1="735" y1="105" x2="850" y2="105" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <circle cx="858" cy="105" r="8" fill="#00E5FF"/>
+  <text x="858" y="109" class="callout-num" text-anchor="middle">6</text>
+  <text x="872" y="109" class="label">Corner Bead</text>
+
+  <!-- Dimension: Airspace -->
+  <line x1="598" y1="160" x2="598" y2="195" stroke="#00E5FF" stroke-width="0.8"/>
+  <text x="600" y="182" class="dim">Airspace</text>
+
+  <!-- Dimension: Overall -->
+  <line x1="315" y1="450" x2="315" y2="470" stroke="#00E5FF" stroke-width="0.5"/>
+  <line x1="741" y1="450" x2="741" y2="470" stroke="#00E5FF" stroke-width="0.5"/>
+  <line x1="315" y1="465" x2="741" y2="465" stroke="#00E5FF" stroke-width="0.5"/>
+  <polygon points="315,465 322,462 322,468" fill="#00E5FF"/>
+  <polygon points="741,465 734,462 734,468" fill="#00E5FF"/>
+  <text x="500" y="462" class="dim">Overall Enclosure Width</text>
+
+  <!-- Section note -->
+  <text x="40" y="620" class="label" opacity="0.6">PLAN SECTION — HSS column with gypsum board enclosure</text>
+  <text x="40" y="640" class="label" opacity="0.6">2-layer Type X gypsum board on metal stud framing</text>
+
+  <!-- Legend -->
+  <rect x="40" y="690" width="16" height="10" fill="#5C6670" stroke="#8B959E" stroke-width="1"/>
+  <text x="62" y="699" class="label">Steel HSS</text>
+  <rect x="170" y="690" width="16" height="10" fill="#E8E0D4" stroke="#C8C0B4" stroke-width="1"/>
+  <text x="192" y="699" class="label">Gypsum Board</text>
+  <rect x="330" y="690" width="16" height="10" fill="#8B959E" stroke="#B0B7BD" stroke-width="1"/>
+  <text x="352" y="699" class="label">Metal Stud</text>
+
+  <!-- Bottom Bar -->
+  <rect x="0" y="790" width="1056" height="26" fill="#0D1117"/>
+  <line x1="0" y1="790" x2="1056" y2="790" stroke="#1A1D21" stroke-width="1"/>
+  <text x="528" y="806" class="bar-text" text-anchor="middle">DETAIL ATLAS | CONSTRUCTION INTELLIGENCE | Fireproofing Starter Packet | 2026-04-16</text>
+</svg>

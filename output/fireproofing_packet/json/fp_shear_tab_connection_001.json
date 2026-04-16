@@ -1,0 +1,110 @@
+{
+  "assembly_id": "fp_shear_tab_connection_001",
+  "assembly_version": "1.0.0",
+  "node_id": "fireproofing_shear_tab_connection_001",
+  "manufacturer_id": "generic_sfrm",
+  "manufacturer_name": "Generic SFRM (Isolatek / ALBI / equivalent)",
+  "condition_type": "shear_tab_connection_sfrm",
+  "system_type": "Spray-Applied Fire-Resistive Material (SFRM)",
+  "csi_section": "07 81 00",
+  "fire_rating": {
+    "hours": 2,
+    "ul_design": "UL D916 (beam assembly — connection zone included)",
+    "astm_e119": true
+  },
+  "components": [
+    {
+      "component_id": "comp_beam_web_001",
+      "name": "Beam Web",
+      "material": "ASTM A992 Structural Steel",
+      "description": "Web of the supported beam at the shear tab connection. Beam web may be coped at top and/or bottom flange.",
+      "properties": {
+        "web_thickness_inches": "0.25-0.50 typical",
+        "cope_note": "Top cope typical for framing into column web; bottom cope less common"
+      }
+    },
+    {
+      "component_id": "comp_shear_tab_plate_001",
+      "name": "Shear Tab Plate",
+      "material": "ASTM A36 Steel Plate",
+      "description": "Single plate (shear tab) shop-welded to column flange or web, field-bolted to beam web",
+      "properties": {
+        "plate_thickness_inches": [0.25, 0.375, 0.5],
+        "plate_depth_inches": "Varies — typically 50-70% of beam depth",
+        "weld_to_column": "Fillet weld both sides, shop applied",
+        "bolt_to_beam": "A325 or A490 bolts in standard holes"
+      }
+    },
+    {
+      "component_id": "comp_bolts_001",
+      "name": "High-Strength Bolts",
+      "material": "ASTM A325 or A490",
+      "description": "Bolts connecting shear tab to beam web. Bolt heads and nuts must be fully encapsulated in SFRM.",
+      "properties": {
+        "diameter_inches": [0.75, 0.875],
+        "bolt_count": "3-6 typical",
+        "installation": "Snug-tight or pretensioned per connection design",
+        "sfrm_note": "Bolt projection adds to required SFRM profile depth"
+      }
+    },
+    {
+      "component_id": "comp_sfrm_encapsulation_001",
+      "name": "SFRM Encapsulating Connection",
+      "material": "Cementitious spray-applied fire-resistive material",
+      "description": "SFRM coverage encapsulating the entire shear tab connection — plate, bolts, weld, and adjacent beam/column surfaces",
+      "properties": {
+        "coverage": "100% of plate, bolt heads, nut faces, weld profiles",
+        "thickness": "Match the greater of beam or column SFRM requirement",
+        "build_up_at_bolts": "SFRM must cover bolt head/nut projection plus specified thickness beyond"
+      }
+    },
+    {
+      "component_id": "comp_continuity_001",
+      "name": "Fireproofing Continuity — Beam and Column",
+      "material": "SFRM continuous transition",
+      "description": "SFRM on shear tab must transition seamlessly into beam SFRM and column SFRM with no gaps",
+      "properties": {
+        "beam_side": "Feather into beam web/flange SFRM",
+        "column_side": "Continuous with column SFRM — no shadow zone behind tab"
+      }
+    }
+  ],
+  "assembly_constraints": [
+    {
+      "constraint_id": "ac_bolt_encapsulation_001",
+      "type": "coverage",
+      "description": "All bolt heads and nuts must be fully encapsulated — bolt projection must be included in thickness measurement",
+      "rule": "SFRM thickness measured from outermost point (bolt head/nut face), not from plate surface"
+    },
+    {
+      "constraint_id": "ac_shadow_zone_001",
+      "type": "coverage",
+      "description": "No shadow zones — back side of shear tab (between tab and column) must be filled with SFRM",
+      "rule": "SFRM must fill the gap between shear tab and column surface or the gap must be within the column SFRM envelope"
+    },
+    {
+      "constraint_id": "ac_cope_coverage_001",
+      "type": "coverage",
+      "description": "Coped beam ends at shear tab expose additional steel surfaces",
+      "rule": "All coped surfaces must receive full SFRM coverage at specified thickness"
+    },
+    {
+      "constraint_id": "ac_weld_coverage_001",
+      "type": "coverage",
+      "description": "Shop welds attaching tab to column must be covered",
+      "rule": "Weld profiles fully encapsulated — no weld toes exposed"
+    }
+  ],
+  "related_conditions": ["COND-F-005", "COND-F-007", "COND-F-008"],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "created_at": "2026-04-16T00:00:00Z",
+    "created_by": "emergency_detail_delivery_pass",
+    "review_status": "DRAFT",
+    "applicable_codes": ["IBC 2021 Section 714", "ASTM E119", "UL Fire Resistance Directory"]
+  },
+  "artifacts_enabled": {
+    "detail_packet": true,
+    "svg_overlay": true
+  }
+}

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <style>
+      .title { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: bold; fill: #00E5FF; }
+      .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #B0B7BD; }
+      .dim { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #4A657D; }
+      .callout-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: bold; fill: #0A0D11; }
+      .watermark { font-family: 'JetBrains Mono', monospace; font-size: 60px; fill: #FF4444; opacity: 0.08; }
+      .bottom-bar { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #4A657D; }
+      .bottom-bar-title { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #00E5FF; }
+      .warning { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: bold; fill: #FF4444; }
+      .warning-box { fill: #0A0D11; stroke: #FF4444; stroke-width: 1.5; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1056" height="816" fill="#0A0D11"/>
+
+  <!-- DRAFT Watermark -->
+  <text x="528" y="450" class="watermark" text-anchor="middle" transform="rotate(-30, 528, 450)">DRAFT</text>
+
+  <!-- Title Block -->
+  <text x="40" y="40" class="title">Barrett PMMA — Expansion Joint</text>
+  <line x1="40" y1="50" x2="420" y2="50" stroke="#00E5FF" stroke-width="1" opacity="0.4"/>
+  <text x="40" y="68" class="label" opacity="0.6">SECTION DETAIL — EXPANSION JOINT TREATMENT</text>
+
+  <!-- Left structural section -->
+  <rect x="100" y="350" width="300" height="120" fill="#1A1D21" stroke="#4A657D" stroke-width="1.5"/>
+  <line x1="120" y1="360" x2="140" y2="465" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="160" y1="360" x2="180" y2="465" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="200" y1="360" x2="220" y2="465" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="240" y1="360" x2="260" y2="465" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="280" y1="360" x2="300" y2="465" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="320" y1="360" x2="340" y2="465" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="360" y1="360" x2="380" y2="465" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+
+  <!-- Right structural section -->
+  <rect x="440" y="350" width="300" height="120" fill="#1A1D21" stroke="#4A657D" stroke-width="1.5"/>
+  <line x1="460" y1="360" x2="480" y2="465" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="500" y1="360" x2="520" y2="465" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="540" y1="360" x2="560" y2="465" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="580" y1="360" x2="600" y2="465" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="620" y1="360" x2="640" y2="465" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="660" y1="360" x2="680" y2="465" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="700" y1="360" x2="720" y2="465" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+
+  <!-- Gap between sections -->
+  <rect x="400" y="350" width="40" height="120" fill="#0A0D11"/>
+  <line x1="400" y1="350" x2="400" y2="470" stroke="#4A657D" stroke-width="1"/>
+  <line x1="440" y1="350" x2="440" y2="470" stroke="#4A657D" stroke-width="1"/>
+
+  <!-- Filler material in joint -->
+  <rect x="405" y="370" width="30" height="90" fill="#22262C" stroke="#4A657D" stroke-width="0.5"/>
+  <line x1="408" y1="375" x2="432" y2="375" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="408" y1="390" x2="432" y2="390" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="408" y1="405" x2="432" y2="405" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="408" y1="420" x2="432" y2="420" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="408" y1="435" x2="432" y2="435" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="408" y1="450" x2="432" y2="450" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+
+  <!-- Compressible filler top -->
+  <ellipse cx="420" cy="370" rx="14" ry="5" fill="#22262C" stroke="#4A657D" stroke-width="0.8"/>
+
+  <!-- PMMA on LEFT side (NOT bridging) -->
+  <line x1="250" y1="347" x2="400" y2="347" stroke="#00E5FF" stroke-width="3" opacity="0.6"/>
+  <line x1="255" y1="343" x2="400" y2="343" stroke="#FF6B35" stroke-width="2" stroke-dasharray="6,3"/>
+  <line x1="245" y1="339" x2="400" y2="339" stroke="#00E5FF" stroke-width="3"/>
+
+  <!-- PMMA on RIGHT side (NOT bridging) -->
+  <line x1="440" y1="347" x2="590" y2="347" stroke="#00E5FF" stroke-width="3" opacity="0.6"/>
+  <line x1="440" y1="343" x2="585" y2="343" stroke="#FF6B35" stroke-width="2" stroke-dasharray="6,3"/>
+  <line x1="440" y1="339" x2="595" y2="339" stroke="#00E5FF" stroke-width="3"/>
+
+  <!-- Termination bars -->
+  <rect x="396" y="335" width="6" height="18" fill="#2C3136" stroke="#00E5FF" stroke-width="1"/>
+  <rect x="438" y="335" width="6" height="18" fill="#2C3136" stroke="#00E5FF" stroke-width="1"/>
+
+  <!-- FLEECE LOOSE-LAID spanning gap -->
+  <line x1="350" y1="330" x2="490" y2="330" stroke="#FF6B35" stroke-width="3" stroke-dasharray="8,4"/>
+  <path d="M395,330 Q410,340 420,330 Q430,320 440,330" fill="none" stroke="#FF6B35" stroke-width="2" opacity="0.7"/>
+  <line x1="350" y1="326" x2="350" y2="334" stroke="#FF6B35" stroke-width="1"/>
+  <line x1="490" y1="326" x2="490" y2="334" stroke="#FF6B35" stroke-width="1"/>
+
+  <!-- Cover plate / bellows -->
+  <rect x="370" y="310" width="100" height="14" fill="#2C3136" stroke="#00E5FF" stroke-width="1.5"/>
+  <path d="M370,310 L390,305 Q420,298 450,305 L470,310" fill="none" stroke="#00E5FF" stroke-width="1.5"/>
+  <circle cx="380" cy="317" r="2" fill="#4A657D"/>
+  <circle cx="460" cy="317" r="2" fill="#4A657D"/>
+
+  <!-- 6 IN. MIN left side dimension -->
+  <line x1="250" y1="290" x2="250" y2="300" stroke="#4A657D" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <line x1="400" y1="290" x2="400" y2="300" stroke="#4A657D" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <line x1="255" y1="295" x2="395" y2="295" stroke="#4A657D" stroke-width="0.8" stroke-dasharray="4,2"/>
+  <line x1="250" y1="290" x2="250" y2="300" stroke="#4A657D" stroke-width="1"/>
+  <line x1="400" y1="290" x2="400" y2="300" stroke="#4A657D" stroke-width="1"/>
+  <polygon points="258,295 266,292 266,298" fill="#4A657D"/>
+  <polygon points="392,295 384,292 384,298" fill="#4A657D"/>
+  <text x="325" y="290" class="dim" text-anchor="middle">6 IN. MIN</text>
+
+  <!-- 6 IN. MIN right side dimension -->
+  <line x1="440" y1="290" x2="440" y2="300" stroke="#4A657D" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <line x1="590" y1="290" x2="590" y2="300" stroke="#4A657D" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <line x1="445" y1="295" x2="585" y2="295" stroke="#4A657D" stroke-width="0.8" stroke-dasharray="4,2"/>
+  <line x1="440" y1="290" x2="440" y2="300" stroke="#4A657D" stroke-width="1"/>
+  <line x1="590" y1="290" x2="590" y2="300" stroke="#4A657D" stroke-width="1"/>
+  <polygon points="448,295 456,292 456,298" fill="#4A657D"/>
+  <polygon points="582,295 574,292 574,298" fill="#4A657D"/>
+  <text x="515" y="290" class="dim" text-anchor="middle">6 IN. MIN</text>
+
+  <!-- Joint gap dimension -->
+  <line x1="400" y1="480" x2="400" y2="510" stroke="#4A657D" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <line x1="440" y1="480" x2="440" y2="510" stroke="#4A657D" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <line x1="400" y1="505" x2="440" y2="505" stroke="#4A657D" stroke-width="0.8"/>
+  <text x="420" y="522" class="dim" text-anchor="middle">JOINT GAP</text>
+  <text x="420" y="534" class="dim" text-anchor="middle">(VARIES)</text>
+
+  <!-- Movement arrows -->
+  <line x1="385" y1="420" x2="370" y2="420" stroke="#4A657D" stroke-width="1"/>
+  <polygon points="370,420 378,417 378,423" fill="#4A657D"/>
+  <line x1="455" y1="420" x2="470" y2="420" stroke="#4A657D" stroke-width="1"/>
+  <polygon points="470,420 462,417 462,423" fill="#4A657D"/>
+  <text x="420" y="416" class="dim" text-anchor="middle" font-size="7">MOVEMENT</text>
+
+  <!-- KEY WARNING -->
+  <rect x="100" y="560" width="640" height="45" class="warning-box" rx="3"/>
+  <text x="130" y="580" class="warning" font-size="11">KEY REQUIREMENT:</text>
+  <text x="130" y="596" class="warning" font-size="12">FLEECE LOOSE-LAID — DO NOT RIGIDLY BRIDGE JOINT</text>
+
+  <!-- Callout leaders -->
+  <circle cx="320" cy="339" r="3" fill="#00E5FF"/>
+  <line x1="320" y1="339" x2="800" y2="180" stroke="#4A657D" stroke-width="0.5"/>
+  <text x="800" y="176" class="label">PMMA Membrane (left side)</text>
+
+  <circle cx="520" cy="339" r="3" fill="#00E5FF"/>
+  <line x1="520" y1="339" x2="800" y2="200" stroke="#4A657D" stroke-width="0.5"/>
+  <text x="800" y="196" class="label">PMMA Membrane (right side)</text>
+
+  <circle cx="420" cy="330" r="3" fill="#FF6B35"/>
+  <line x1="420" y1="330" x2="800" y2="220" stroke="#4A657D" stroke-width="0.5"/>
+  <text x="800" y="216" class="label" fill="#FF6B35">Fleece — LOOSE-LAID</text>
+
+  <circle cx="420" cy="310" r="3" fill="#4A657D" opacity="0.5"/>
+  <line x1="420" y1="310" x2="800" y2="240" stroke="#4A657D" stroke-width="0.5"/>
+  <text x="800" y="236" class="label">Cover Plate / Bellows</text>
+
+  <circle cx="420" cy="410" r="3" fill="#4A657D" opacity="0.5"/>
+  <line x1="420" y1="410" x2="800" y2="260" stroke="#4A657D" stroke-width="0.5"/>
+  <text x="800" y="256" class="label">Compressible Filler</text>
+
+  <circle cx="399" cy="344" r="3" fill="#4A657D" opacity="0.5"/>
+  <line x1="399" y1="344" x2="800" y2="280" stroke="#4A657D" stroke-width="0.5"/>
+  <text x="800" y="276" class="label">Termination Bar</text>
+
+  <circle cx="250" cy="410" r="3" fill="#4A657D" opacity="0.5"/>
+  <line x1="250" y1="410" x2="800" y2="300" stroke="#4A657D" stroke-width="0.5"/>
+  <text x="800" y="296" class="label">Structural Section</text>
+
+  <!-- Callout Legend -->
+  <rect x="770" y="340" width="260" height="230" fill="#0A0D11" stroke="#4A657D" stroke-width="0.5" rx="2"/>
+  <text x="790" y="365" class="title" font-size="11">CALLOUT LEGEND</text>
+  <line x1="790" y1="372" x2="1010" y2="372" stroke="#4A657D" stroke-width="0.5" opacity="0.4"/>
+  <rect x="790" y="385" width="12" height="8" fill="#1A1D21" stroke="#4A657D" stroke-width="0.5"/>
+  <text x="812" y="393" class="label">Structural Section</text>
+  <line x1="790" y1="410" x2="802" y2="410" stroke="#00E5FF" stroke-width="3"/>
+  <text x="812" y="414" class="label">PMMA Membrane</text>
+  <line x1="790" y1="432" x2="802" y2="432" stroke="#00E5FF" stroke-width="3" opacity="0.6"/>
+  <text x="812" y="436" class="label">PMMA Primer</text>
+  <line x1="790" y1="454" x2="802" y2="454" stroke="#FF6B35" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="812" y="458" class="label">Fleece (bonded)</text>
+  <line x1="790" y1="476" x2="802" y2="476" stroke="#FF6B35" stroke-width="3" stroke-dasharray="8,4"/>
+  <text x="812" y="480" class="label">Fleece (loose-laid)</text>
+  <rect x="790" y="492" width="12" height="8" fill="#2C3136" stroke="#00E5FF" stroke-width="1"/>
+  <text x="812" y="500" class="label">Termination Bar</text>
+  <rect x="790" y="514" width="12" height="8" fill="#2C3136" stroke="#00E5FF" stroke-width="1.5"/>
+  <text x="812" y="522" class="label">Cover Plate / Bellows</text>
+  <rect x="790" y="536" width="12" height="8" fill="#22262C" stroke="#4A657D" stroke-width="0.5"/>
+  <text x="812" y="544" class="label">Compressible Filler</text>
+
+  <!-- Installation Notes -->
+  <rect x="770" y="590" width="260" height="80" fill="#0A0D11" stroke="#FF6B35" stroke-width="0.5" rx="2"/>
+  <text x="790" y="612" class="label" fill="#FF6B35" font-size="9">INSTALLATION NOTES:</text>
+  <text x="790" y="630" class="label" font-size="8">1. Terminate PMMA at each side of joint.</text>
+  <text x="790" y="644" class="label" font-size="8">2. Fleece must remain unbonded at center.</text>
+  <text x="790" y="658" class="label" font-size="8">3. Allow joint movement without membrane</text>
+  <text x="790" y="670" class="label" font-size="8">   stress or tear.</text>
+
+  <!-- Bottom Bar -->
+  <rect x="0" y="786" width="1056" height="30" fill="#0A0D11" stroke="#4A657D" stroke-width="0.5"/>
+  <text x="40" y="805" class="bottom-bar-title">DETAIL ATLAS | CONSTRUCTION INTELLIGENCE</text>
+  <text x="1016" y="805" class="bottom-bar" text-anchor="end">Barrett PMMA Emergency Packet | 2026-04-16</text>
+  <text x="528" y="805" class="dim" text-anchor="middle">CONDITION 10 — EXPANSION JOINT</text>
+</svg>

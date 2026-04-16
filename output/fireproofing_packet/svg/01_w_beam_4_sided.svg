@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <style>
+      .title { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: bold; fill: #FF4444; }
+      .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #B0B7BD; }
+      .dim { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #4A657D; }
+      .callout-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: bold; fill: #0A0D11; }
+      .bar-text { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #4A657D; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1056" height="816" fill="#0A0D11"/>
+
+  <!-- DRAFT Watermark -->
+  <text x="528" y="450" font-family="JetBrains Mono, monospace" font-size="60" fill="#FF4444" opacity="0.08" text-anchor="middle" transform="rotate(-30, 528, 450)">DRAFT</text>
+
+  <!-- Title -->
+  <text x="40" y="45" class="title">Fireproofing — W-Beam 4-Sided SFRM</text>
+  <line x1="40" y1="55" x2="500" y2="55" stroke="#FF4444" stroke-width="1" opacity="0.4"/>
+
+  <!-- Fire Rating Badge -->
+  <rect x="880" y="25" width="140" height="35" rx="3" fill="none" stroke="#FF4444" stroke-width="2"/>
+  <text x="950" y="42" font-family="JetBrains Mono, monospace" font-size="11" fill="#FF4444" text-anchor="middle" font-weight="bold">FIRE RATING</text>
+  <text x="950" y="54" font-family="JetBrains Mono, monospace" font-size="10" fill="#FF4444" text-anchor="middle">2-HR</text>
+
+  <!-- W-Beam Cross Section (centered) -->
+  <!-- Top Flange -->
+  <rect x="378" y="200" width="300" height="30" fill="#5C6670" stroke="#8B959E" stroke-width="2"/>
+  <!-- Web -->
+  <rect x="503" y="230" width="50" height="250" fill="#5C6670" stroke="#8B959E" stroke-width="2"/>
+  <!-- Bottom Flange -->
+  <rect x="378" y="480" width="300" height="30" fill="#5C6670" stroke="#8B959E" stroke-width="2"/>
+
+  <!-- SFRM Coating - Top of Top Flange -->
+  <rect x="365" y="180" width="326" height="20" rx="3" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <!-- SFRM Coating - Bottom of Bottom Flange -->
+  <rect x="365" y="510" width="326" height="20" rx="3" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <!-- SFRM Coating - Left side of Web (between flanges) -->
+  <rect x="483" y="230" width="20" height="250" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <!-- SFRM Coating - Right side of Web (between flanges) -->
+  <rect x="553" y="230" width="20" height="250" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <!-- SFRM Coating - Left side of Top Flange -->
+  <rect x="358" y="180" width="20" height="50" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <!-- SFRM Coating - Right side of Top Flange -->
+  <rect x="678" y="180" width="20" height="50" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <!-- SFRM Coating - Left side of Bottom Flange -->
+  <rect x="358" y="480" width="20" height="50" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <!-- SFRM Coating - Right side of Bottom Flange -->
+  <rect x="678" y="480" width="20" height="50" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+
+  <!-- Callout 1: Top Flange -->
+  <circle cx="528" cy="215" r="8" fill="#00E5FF"/>
+  <text x="528" y="219" class="callout-num" text-anchor="middle">1</text>
+  <line x1="528" y1="207" x2="528" y2="140" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="528" y1="140" x2="620" y2="140" stroke="#00E5FF" stroke-width="1"/>
+  <text x="625" y="144" class="label">Top Flange</text>
+
+  <!-- Callout 2: Web -->
+  <circle cx="528" cy="355" r="8" fill="#00E5FF"/>
+  <text x="528" y="359" class="callout-num" text-anchor="middle">2</text>
+  <line x1="536" y1="355" x2="750" y2="355" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="755" y="359" class="label">Web</text>
+
+  <!-- Callout 3: Bottom Flange -->
+  <circle cx="528" cy="495" r="8" fill="#00E5FF"/>
+  <text x="528" y="499" class="callout-num" text-anchor="middle">3</text>
+  <line x1="528" y1="503" x2="528" y2="570" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="528" y1="570" x2="620" y2="570" stroke="#00E5FF" stroke-width="1"/>
+  <text x="625" y="574" class="label">Bottom Flange</text>
+
+  <!-- Callout 4: SFRM Coating -->
+  <circle cx="490" cy="340" r="8" fill="#00E5FF"/>
+  <text x="490" y="344" class="callout-num" text-anchor="middle">4</text>
+  <line x1="482" y1="340" x2="200" y2="340" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="80" y="344" class="label">SFRM Coating</text>
+
+  <!-- Callout 5: Required Thickness -->
+  <circle cx="375" cy="190" r="8" fill="#00E5FF"/>
+  <text x="375" y="194" class="callout-num" text-anchor="middle">5</text>
+  <line x1="367" y1="190" x2="200" y2="190" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="60" y="194" class="label">Required Thickness</text>
+
+  <!-- Dimension: SFRM Thickness on top -->
+  <line x1="710" y1="180" x2="730" y2="180" stroke="#00E5FF" stroke-width="0.8"/>
+  <line x1="710" y1="200" x2="730" y2="200" stroke="#00E5FF" stroke-width="0.8"/>
+  <line x1="720" y1="180" x2="720" y2="200" stroke="#00E5FF" stroke-width="0.8"/>
+  <text x="735" y="194" class="dim">7/8" SFRM</text>
+
+  <!-- Dimension: Flange width -->
+  <line x1="378" y1="550" x2="378" y2="560" stroke="#00E5FF" stroke-width="0.5"/>
+  <line x1="678" y1="550" x2="678" y2="560" stroke="#00E5FF" stroke-width="0.5"/>
+  <line x1="378" y1="555" x2="678" y2="555" stroke="#00E5FF" stroke-width="0.5"/>
+  <polygon points="378,555 385,552 385,558" fill="#00E5FF"/>
+  <polygon points="678,555 671,552 671,558" fill="#00E5FF"/>
+  <text x="510" y="553" class="dim">bf = 12"</text>
+
+  <!-- Dimension: Beam depth -->
+  <line x1="340" y1="200" x2="350" y2="200" stroke="#00E5FF" stroke-width="0.5"/>
+  <line x1="340" y1="510" x2="350" y2="510" stroke="#00E5FF" stroke-width="0.5"/>
+  <line x1="345" y1="200" x2="345" y2="510" stroke="#00E5FF" stroke-width="0.5"/>
+  <polygon points="345,200 342,207 348,207" fill="#00E5FF"/>
+  <polygon points="345,510 342,503 348,503" fill="#00E5FF"/>
+  <text x="300" y="360" class="dim" transform="rotate(-90, 300, 360)">d = 18"</text>
+
+  <!-- Section indicator -->
+  <text x="40" y="640" class="label" opacity="0.6">SECTION VIEW — Looking along beam axis</text>
+  <text x="40" y="660" class="label" opacity="0.6">4-sided SFRM encapsulation per UL Design No.</text>
+
+  <!-- Legend -->
+  <rect x="40" y="690" width="16" height="10" fill="#5C6670" stroke="#8B959E" stroke-width="1"/>
+  <text x="62" y="699" class="label">Steel (W-Shape)</text>
+  <rect x="200" y="690" width="16" height="10" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1"/>
+  <text x="222" y="699" class="label">SFRM (Spray-Applied)</text>
+
+  <!-- Bottom Bar -->
+  <rect x="0" y="790" width="1056" height="26" fill="#0D1117"/>
+  <line x1="0" y1="790" x2="1056" y2="790" stroke="#1A1D21" stroke-width="1"/>
+  <text x="528" y="806" class="bar-text" text-anchor="middle">DETAIL ATLAS | CONSTRUCTION INTELLIGENCE | Fireproofing Starter Packet | 2026-04-16</text>
+</svg>

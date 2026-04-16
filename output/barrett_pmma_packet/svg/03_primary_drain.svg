@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" font-family="'JetBrains Mono', monospace">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="none" stroke="#4A657D" stroke-width="1"/></marker>
+    <marker id="arrowR" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M8,0 L0,3 L8,6" fill="none" stroke="#4A657D" stroke-width="1"/></marker>
+  </defs>
+
+  <rect width="1056" height="816" fill="#0A0D11"/>
+  <text x="528" y="450" text-anchor="middle" font-size="110" font-weight="bold" fill="#1A1D21" opacity="0.35" transform="rotate(-35,528,450)">DRAFT FOR REVIEW</text>
+
+  <!-- Title Block -->
+  <text x="40" y="45" font-size="14" font-weight="bold" fill="#00E5FF">Barrett PMMA — Primary Drain Detail</text>
+  <text x="40" y="65" font-size="10" fill="#B0B7BD">Detail 03 | DWG-PMMA-03 Rev A | Section Cut — Roof Drain Assembly</text>
+  <line x1="40" y1="78" x2="1016" y2="78" stroke="#4A657D" stroke-width="1"/>
+
+  <!-- ============ DRAWING AREA ============ -->
+
+  <!-- Structural Deck with opening -->
+  <rect x="80" y="420" width="220" height="50" fill="#2C3136" stroke="#4A657D" stroke-width="1.5"/>
+  <rect x="380" y="420" width="220" height="50" fill="#2C3136" stroke="#4A657D" stroke-width="1.5"/>
+  <!-- Deck hatch left -->
+  <g stroke="#3A3F44" stroke-width="0.5" opacity="0.6">
+    <line x1="90" y1="420" x2="115" y2="470"/><line x1="130" y1="420" x2="155" y2="470"/>
+    <line x1="170" y1="420" x2="195" y2="470"/><line x1="210" y1="420" x2="235" y2="470"/>
+    <line x1="250" y1="420" x2="275" y2="470"/>
+  </g>
+  <!-- Deck hatch right -->
+  <g stroke="#3A3F44" stroke-width="0.5" opacity="0.6">
+    <line x1="390" y1="420" x2="415" y2="470"/><line x1="430" y1="420" x2="455" y2="470"/>
+    <line x1="470" y1="420" x2="495" y2="470"/><line x1="510" y1="420" x2="535" y2="470"/>
+    <line x1="550" y1="420" x2="575" y2="470"/>
+  </g>
+
+  <!-- Drain opening in deck -->
+  <rect x="300" y="420" width="80" height="50" fill="#0A0D11" stroke="#4A657D" stroke-width="1"/>
+
+  <!-- Drain body (pipe going down) -->
+  <rect x="315" y="470" width="50" height="100" fill="#1A1D21" stroke="#4A657D" stroke-width="1.5"/>
+  <rect x="310" y="470" width="60" height="8" fill="#4A657D" stroke="#B0B7BD" stroke-width="0.8"/>
+
+  <!-- Tapered insulation (slopes to drain from both sides) -->
+  <!-- Left taper -->
+  <polygon points="80,370 300,370 300,420 80,400" fill="#22262C" stroke="#4A657D" stroke-width="1"/>
+  <!-- Right taper -->
+  <polygon points="380,420 600,400 600,370 380,370" fill="#22262C" stroke="#4A657D" stroke-width="1"/>
+  <!-- Insulation hatch left -->
+  <g stroke="#2E3338" stroke-width="0.5">
+    <line x1="100" y1="375" x2="120" y2="400"/><line x1="120" y1="375" x2="100" y2="400"/>
+    <line x1="160" y1="373" x2="180" y2="408"/><line x1="180" y1="373" x2="160" y2="408"/>
+    <line x1="220" y1="372" x2="240" y2="414"/><line x1="240" y1="372" x2="220" y2="414"/>
+  </g>
+  <!-- Insulation hatch right -->
+  <g stroke="#2E3338" stroke-width="0.5">
+    <line x1="420" y1="373" x2="440" y2="414"/><line x1="440" y1="373" x2="420" y2="414"/>
+    <line x1="480" y1="373" x2="500" y2="408"/><line x1="500" y1="373" x2="480" y2="408"/>
+    <line x1="540" y1="375" x2="560" y2="400"/><line x1="560" y1="375" x2="540" y2="400"/>
+  </g>
+
+  <!-- Sump area around drain -->
+  <rect x="290" y="370" width="100" height="50" fill="#22262C" stroke="#4A657D" stroke-width="0.8"/>
+
+  <!-- Clamping ring -->
+  <rect x="295" y="415" width="90" height="8" rx="2" fill="#4A657D" stroke="#B0B7BD" stroke-width="1.2"/>
+  <!-- Bolts on clamping ring -->
+  <circle cx="310" cy="419" r="2.5" fill="#B0B7BD"/>
+  <circle cx="340" cy="419" r="2.5" fill="#B0B7BD"/>
+  <circle cx="370" cy="419" r="2.5" fill="#B0B7BD"/>
+
+  <!-- PMMA Primer around drain -->
+  <line x1="80" y1="368" x2="290" y2="368" stroke="#00E5FF" stroke-width="2" opacity="0.7"/>
+  <line x1="390" y1="368" x2="600" y2="368" stroke="#00E5FF" stroke-width="2" opacity="0.7"/>
+  <!-- Primer wrapping into drain area -->
+  <line x1="290" y1="368" x2="290" y2="413" stroke="#00E5FF" stroke-width="2" opacity="0.7"/>
+  <line x1="390" y1="368" x2="390" y2="413" stroke="#00E5FF" stroke-width="2" opacity="0.7"/>
+
+  <!-- Fleece collar (orange) -->
+  <line x1="80" y1="365" x2="288" y2="365" stroke="#FF6B35" stroke-width="4" opacity="0.6"/>
+  <line x1="392" y1="365" x2="600" y2="365" stroke="#FF6B35" stroke-width="4" opacity="0.6"/>
+  <!-- Fleece wrapping into clamping ring area -->
+  <line x1="288" y1="365" x2="288" y2="415" stroke="#FF6B35" stroke-width="4" opacity="0.6"/>
+  <line x1="392" y1="365" x2="392" y2="415" stroke="#FF6B35" stroke-width="4" opacity="0.6"/>
+  <!-- Fleece under clamp ring -->
+  <line x1="288" y1="415" x2="295" y2="415" stroke="#FF6B35" stroke-width="4" opacity="0.6"/>
+  <line x1="385" y1="415" x2="392" y2="415" stroke="#FF6B35" stroke-width="4" opacity="0.6"/>
+
+  <!-- PMMA Seal coat -->
+  <line x1="80" y1="362" x2="285" y2="362" stroke="#00E5FF" stroke-width="2.5"/>
+  <line x1="395" y1="362" x2="600" y2="362" stroke="#00E5FF" stroke-width="2.5"/>
+
+  <!-- Strainer dome on top -->
+  <path d="M305,370 Q340,300 375,370" fill="none" stroke="#B0B7BD" stroke-width="1.5"/>
+  <!-- Strainer grate lines -->
+  <line x1="320" y1="360" x2="325" y2="325" stroke="#B0B7BD" stroke-width="0.8"/>
+  <line x1="340" y1="355" x2="340" y2="310" stroke="#B0B7BD" stroke-width="0.8"/>
+  <line x1="360" y1="360" x2="355" y2="325" stroke="#B0B7BD" stroke-width="0.8"/>
+  <!-- Dome base ring -->
+  <rect x="302" y="368" width="76" height="5" rx="2" fill="none" stroke="#B0B7BD" stroke-width="1"/>
+
+  <!-- ============ DIMENSION LINES ============ -->
+
+  <!-- 4" MIN fleece collar dimension (left side) -->
+  <line x1="250" y1="360" x2="250" y2="340" stroke="#4A657D" stroke-width="0.6" stroke-dasharray="3,2"/>
+  <line x1="290" y1="360" x2="290" y2="340" stroke="#4A657D" stroke-width="0.6" stroke-dasharray="3,2"/>
+  <line x1="252" y1="345" x2="288" y2="345" stroke="#4A657D" stroke-width="0.8" marker-start="url(#arrowR)" marker-end="url(#arrow)"/>
+  <text x="270" y="338" font-size="9" fill="#4A657D" text-anchor="middle">4" MIN</text>
+
+  <!-- 4" MIN fleece collar (right side) -->
+  <line x1="390" y1="360" x2="390" y2="340" stroke="#4A657D" stroke-width="0.6" stroke-dasharray="3,2"/>
+  <line x1="430" y1="360" x2="430" y2="340" stroke="#4A657D" stroke-width="0.6" stroke-dasharray="3,2"/>
+  <line x1="392" y1="345" x2="428" y2="345" stroke="#4A657D" stroke-width="0.8" marker-start="url(#arrowR)" marker-end="url(#arrow)"/>
+  <text x="410" y="338" font-size="9" fill="#4A657D" text-anchor="middle">4" MIN</text>
+
+  <!-- Slope arrows -->
+  <line x1="120" y1="358" x2="260" y2="365" stroke="#4A657D" stroke-width="0.8" marker-end="url(#arrow)"/>
+  <text x="180" y="353" font-size="8" fill="#4A657D" text-anchor="middle">SLOPE TO DRAIN</text>
+  <line x1="560" y1="358" x2="420" y2="365" stroke="#4A657D" stroke-width="0.8" marker-end="url(#arrow)"/>
+  <text x="500" y="353" font-size="8" fill="#4A657D" text-anchor="middle">SLOPE TO DRAIN</text>
+
+  <!-- ============ CALLOUT LEADERS ============ -->
+
+  <!-- 1: Structural Deck -->
+  <circle cx="180" cy="445" r="3" fill="#00E5FF"/>
+  <line x1="180" y1="445" x2="130" y2="590" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="130" y1="590" x2="95" y2="590" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="82" cy="590" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="82" y="594" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">1</text>
+
+  <!-- 2: Tapered Insulation -->
+  <circle cx="200" cy="390" r="3" fill="#00E5FF"/>
+  <line x1="200" y1="390" x2="140" y2="620" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="140" y1="620" x2="95" y2="620" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="82" cy="620" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="82" y="624" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">2</text>
+
+  <!-- 3: Drain Body -->
+  <circle cx="340" cy="520" r="3" fill="#00E5FF"/>
+  <line x1="340" y1="520" x2="180" y2="650" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="180" y1="650" x2="95" y2="650" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="82" cy="650" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="82" y="654" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">3</text>
+
+  <!-- 4: Clamping Ring -->
+  <circle cx="340" cy="419" r="3" fill="#00E5FF"/>
+  <line x1="340" y1="419" x2="200" y2="680" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="200" y1="680" x2="95" y2="680" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="82" cy="680" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="82" y="684" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">4</text>
+
+  <!-- 5: PMMA Primer -->
+  <circle cx="150" cy="368" r="3" fill="#00E5FF"/>
+  <line x1="150" y1="368" x2="130" y2="250" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="130" y1="250" x2="95" y2="250" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="82" cy="250" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="82" y="254" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">5</text>
+
+  <!-- 6: Fleece Collar -->
+  <circle cx="180" cy="365" r="3" fill="#FF6B35"/>
+  <line x1="180" y1="365" x2="140" y2="280" stroke="#FF6B35" stroke-width="0.7"/>
+  <line x1="140" y1="280" x2="95" y2="280" stroke="#FF6B35" stroke-width="0.7"/>
+  <circle cx="82" cy="280" r="10" fill="none" stroke="#FF6B35" stroke-width="1"/>
+  <text x="82" y="284" text-anchor="middle" font-size="9" font-weight="bold" fill="#FF6B35">6</text>
+
+  <!-- 7: PMMA Seal Coat -->
+  <circle cx="200" cy="362" r="3" fill="#00E5FF"/>
+  <line x1="200" y1="362" x2="150" y2="310" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="150" y1="310" x2="95" y2="310" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="82" cy="310" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="82" y="314" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">7</text>
+
+  <!-- 8: Strainer Dome -->
+  <circle cx="340" cy="320" r="3" fill="#00E5FF"/>
+  <line x1="340" y1="320" x2="250" y2="200" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="250" y1="200" x2="95" y2="200" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="82" cy="200" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="82" y="204" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">8</text>
+
+  <!-- ============ LEGEND ============ -->
+  <rect x="660" y="100" width="370" height="360" fill="#0D1117" stroke="#4A657D" stroke-width="0.8" rx="3"/>
+  <text x="680" y="126" font-size="12" font-weight="bold" fill="#00E5FF">COMPONENT KEY</text>
+  <line x1="680" y1="136" x2="1010" y2="136" stroke="#4A657D" stroke-width="0.5"/>
+
+  <circle cx="692" cy="162" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="166" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">1</text>
+  <text x="714" y="166" font-size="10" fill="#B0B7BD">Structural Concrete Deck</text>
+
+  <circle cx="692" cy="192" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="196" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">2</text>
+  <text x="714" y="196" font-size="10" fill="#B0B7BD">Tapered Insulation to Sump</text>
+
+  <circle cx="692" cy="222" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="226" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">3</text>
+  <text x="714" y="226" font-size="10" fill="#B0B7BD">Drain Body in Deck</text>
+
+  <circle cx="692" cy="252" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="256" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">4</text>
+  <text x="714" y="256" font-size="10" fill="#B0B7BD">Clamping Ring w/ Fasteners</text>
+
+  <circle cx="692" cy="282" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="286" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">5</text>
+  <text x="714" y="286" font-size="10" fill="#B0B7BD">Barrett PMMA Primer Coat</text>
+
+  <circle cx="692" cy="312" r="10" fill="none" stroke="#FF6B35" stroke-width="1"/>
+  <text x="692" y="316" text-anchor="middle" font-size="9" font-weight="bold" fill="#FF6B35">6</text>
+  <text x="714" y="316" font-size="10" fill="#B0B7BD">Fleece Collar (4" min each side)</text>
+
+  <circle cx="692" cy="342" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="346" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">7</text>
+  <text x="714" y="346" font-size="10" fill="#B0B7BD">Barrett PMMA Seal Coat</text>
+
+  <circle cx="692" cy="372" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="376" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">8</text>
+  <text x="714" y="376" font-size="10" fill="#B0B7BD">Strainer Dome / Grate</text>
+
+  <line x1="680" y1="396" x2="1010" y2="396" stroke="#4A657D" stroke-width="0.5"/>
+  <text x="680" y="418" font-size="9" fill="#4A657D">COLOR KEY:</text>
+  <line x1="680" y1="434" x2="710" y2="434" stroke="#00E5FF" stroke-width="2.5"/>
+  <text x="720" y="438" font-size="9" fill="#4A657D">PMMA System</text>
+  <line x1="820" y1="434" x2="850" y2="434" stroke="#FF6B35" stroke-width="3"/>
+  <text x="860" y="438" font-size="9" fill="#4A657D">Fleece Reinforcement</text>
+
+  <!-- ============ BOTTOM BAR ============ -->
+  <rect x="0" y="780" width="1056" height="36" fill="#0D1117"/>
+  <line x1="0" y1="780" x2="1056" y2="780" stroke="#4A657D" stroke-width="1"/>
+  <text x="40" y="802" font-size="10" fill="#4A657D" letter-spacing="2">DETAIL ATLAS | CONSTRUCTION INTELLIGENCE</text>
+  <text x="1016" y="802" font-size="10" fill="#4A657D" text-anchor="end">2026-04-16</text>
+  <text x="528" y="802" font-size="9" fill="#4A657D" text-anchor="middle">Barrett Roofing | PMMA Liquid-Applied Membrane System</text>
+</svg>

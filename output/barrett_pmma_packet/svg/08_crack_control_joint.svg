@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <style>
+      .title { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: bold; fill: #00E5FF; }
+      .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #B0B7BD; }
+      .dim { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #4A657D; }
+      .callout-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: bold; fill: #0A0D11; }
+      .watermark { font-family: 'JetBrains Mono', monospace; font-size: 60px; fill: #FF4444; opacity: 0.08; }
+      .bottom-bar { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #4A657D; }
+      .bottom-bar-title { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #00E5FF; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1056" height="816" fill="#0A0D11"/>
+
+  <!-- DRAFT Watermark -->
+  <text x="528" y="450" class="watermark" text-anchor="middle" transform="rotate(-30, 528, 450)">DRAFT</text>
+
+  <!-- Title Block -->
+  <text x="40" y="40" class="title">Barrett PMMA — Crack / Control Joint</text>
+  <line x1="40" y1="50" x2="440" y2="50" stroke="#00E5FF" stroke-width="1" opacity="0.4"/>
+  <text x="40" y="68" class="label" opacity="0.6">SECTION DETAIL — CRACK/JOINT TREATMENT</text>
+
+  <!-- Left substrate section -->
+  <rect x="120" y="380" width="330" height="80" fill="#1A1D21" stroke="#4A657D" stroke-width="1"/>
+  <line x1="140" y1="385" x2="160" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="175" y1="385" x2="195" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="210" y1="385" x2="230" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="245" y1="385" x2="265" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="280" y1="385" x2="300" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="315" y1="385" x2="335" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="350" y1="385" x2="370" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="385" y1="385" x2="405" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="420" y1="385" x2="440" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+
+  <!-- Right substrate section -->
+  <rect x="465" y="380" width="330" height="80" fill="#1A1D21" stroke="#4A657D" stroke-width="1"/>
+  <line x1="485" y1="385" x2="505" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="520" y1="385" x2="540" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="555" y1="385" x2="575" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="590" y1="385" x2="610" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="625" y1="385" x2="645" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="660" y1="385" x2="680" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="695" y1="385" x2="715" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="730" y1="385" x2="750" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+  <line x1="765" y1="385" x2="785" y2="455" stroke="#4A657D" stroke-width="0.3" opacity="0.3"/>
+
+  <!-- Joint/Crack gap -->
+  <rect x="450" y="380" width="15" height="80" fill="#0A0D11" stroke="#4A657D" stroke-width="0.5"/>
+  <!-- Jagged crack edges -->
+  <line x1="450" y1="380" x2="452" y2="395" stroke="#4A657D" stroke-width="0.8"/>
+  <line x1="452" y1="395" x2="449" y2="410" stroke="#4A657D" stroke-width="0.8"/>
+  <line x1="449" y1="410" x2="453" y2="425" stroke="#4A657D" stroke-width="0.8"/>
+  <line x1="453" y1="425" x2="450" y2="440" stroke="#4A657D" stroke-width="0.8"/>
+  <line x1="450" y1="440" x2="452" y2="460" stroke="#4A657D" stroke-width="0.8"/>
+  <line x1="465" y1="380" x2="463" y2="395" stroke="#4A657D" stroke-width="0.8"/>
+  <line x1="463" y1="395" x2="466" y2="410" stroke="#4A657D" stroke-width="0.8"/>
+  <line x1="466" y1="410" x2="462" y2="425" stroke="#4A657D" stroke-width="0.8"/>
+  <line x1="462" y1="425" x2="465" y2="440" stroke="#4A657D" stroke-width="0.8"/>
+  <line x1="465" y1="440" x2="463" y2="460" stroke="#4A657D" stroke-width="0.8"/>
+
+  <!-- Backer Rod -->
+  <ellipse cx="457" cy="395" rx="6" ry="6" fill="#22262C" stroke="#4A657D" stroke-width="1"/>
+  <line x1="453" y1="391" x2="461" y2="399" stroke="#4A657D" stroke-width="0.4"/>
+  <line x1="461" y1="391" x2="453" y2="399" stroke="#4A657D" stroke-width="0.4"/>
+
+  <!-- PMMA Primer (cyan on surface flanking joint) -->
+  <line x1="310" y1="377" x2="450" y2="377" stroke="#00E5FF" stroke-width="3" opacity="0.6"/>
+  <line x1="465" y1="377" x2="605" y2="377" stroke="#00E5FF" stroke-width="3" opacity="0.6"/>
+
+  <!-- Fleece strip centered on joint (orange) -->
+  <line x1="330" y1="373" x2="585" y2="373" stroke="#FF6B35" stroke-width="2" stroke-dasharray="6,3"/>
+  <rect x="328" y="370" width="260" height="6" fill="none" stroke="#FF6B35" stroke-width="0.5" opacity="0.3" rx="1"/>
+
+  <!-- PMMA Membrane over fleece (cyan top coat) -->
+  <line x1="320" y1="368" x2="595" y2="368" stroke="#00E5FF" stroke-width="3"/>
+
+  <!-- Bond-breaker tape over joint -->
+  <rect x="445" y="375" width="25" height="3" fill="#4A657D" opacity="0.4"/>
+  <text x="457" y="374" class="dim" text-anchor="middle" font-size="7">BOND BREAKER</text>
+
+  <!-- 6 IN. TOTAL dimension -->
+  <line x1="330" y1="340" x2="330" y2="355" stroke="#4A657D" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <line x1="585" y1="340" x2="585" y2="355" stroke="#4A657D" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <line x1="335" y1="348" x2="580" y2="348" stroke="#4A657D" stroke-width="0.8" stroke-dasharray="4,2"/>
+  <line x1="330" y1="343" x2="330" y2="353" stroke="#4A657D" stroke-width="1"/>
+  <line x1="585" y1="343" x2="585" y2="353" stroke="#4A657D" stroke-width="1"/>
+  <polygon points="338,348 346,345 346,351" fill="#4A657D"/>
+  <polygon points="577,348 569,345 569,351" fill="#4A657D"/>
+  <text x="457" y="344" class="dim" text-anchor="middle">6 IN. TOTAL</text>
+
+  <!-- 3" each side sub-dimensions -->
+  <line x1="330" y1="330" x2="457" y2="330" stroke="#4A657D" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="393" y="328" class="dim" text-anchor="middle">3 IN.</text>
+  <line x1="457" y1="330" x2="585" y2="330" stroke="#4A657D" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="521" y="328" class="dim" text-anchor="middle">3 IN.</text>
+  <line x1="457" y1="326" x2="457" y2="334" stroke="#4A657D" stroke-width="0.8"/>
+
+  <!-- Joint width callout -->
+  <line x1="450" y1="470" x2="450" y2="500" stroke="#4A657D" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <line x1="465" y1="470" x2="465" y2="500" stroke="#4A657D" stroke-width="0.5" stroke-dasharray="3,2"/>
+  <line x1="450" y1="495" x2="465" y2="495" stroke="#4A657D" stroke-width="0.8"/>
+  <text x="457" y="515" class="dim" text-anchor="middle">JOINT WIDTH</text>
+  <text x="457" y="527" class="dim" text-anchor="middle">(VARIES)</text>
+
+  <!-- Callout 1: Substrate -->
+  <circle cx="250" cy="420" r="3" fill="#4A657D" opacity="0.5"/>
+  <line x1="250" y1="420" x2="100" y2="560" stroke="#4A657D" stroke-width="0.5"/>
+  <circle cx="86" cy="560" r="8" fill="#00E5FF"/>
+  <text x="86" y="564" class="callout-num" text-anchor="middle">1</text>
+  <text x="100" y="564" class="label">Substrate</text>
+
+  <!-- Callout 2: Joint/Crack -->
+  <circle cx="457" cy="440" r="3" fill="#4A657D" opacity="0.5"/>
+  <line x1="457" y1="440" x2="100" y2="590" stroke="#4A657D" stroke-width="0.5"/>
+  <circle cx="86" cy="590" r="8" fill="#00E5FF"/>
+  <text x="86" y="594" class="callout-num" text-anchor="middle">2</text>
+  <text x="100" y="594" class="label">Joint / Crack</text>
+
+  <!-- Callout 3: Backer Rod -->
+  <circle cx="457" cy="395" r="3" fill="#4A657D" opacity="0.5"/>
+  <line x1="457" y1="395" x2="100" y2="620" stroke="#4A657D" stroke-width="0.5"/>
+  <circle cx="86" cy="620" r="8" fill="#00E5FF"/>
+  <text x="86" y="624" class="callout-num" text-anchor="middle">3</text>
+  <text x="100" y="624" class="label">Backer Rod</text>
+
+  <!-- Callout 4: PMMA Primer -->
+  <circle cx="380" cy="377" r="3" fill="#00E5FF" opacity="0.7"/>
+  <line x1="380" y1="377" x2="100" y2="650" stroke="#4A657D" stroke-width="0.5"/>
+  <circle cx="86" cy="650" r="8" fill="#00E5FF"/>
+  <text x="86" y="654" class="callout-num" text-anchor="middle">4</text>
+  <text x="100" y="654" class="label">PMMA Primer</text>
+
+  <!-- Callout 5: Fleece Strip -->
+  <circle cx="400" cy="373" r="3" fill="#FF6B35" opacity="0.7"/>
+  <line x1="400" y1="373" x2="100" y2="680" stroke="#4A657D" stroke-width="0.5"/>
+  <circle cx="86" cy="680" r="8" fill="#FF6B35"/>
+  <text x="86" y="684" class="callout-num" text-anchor="middle">5</text>
+  <text x="100" y="684" class="label">Fleece Strip</text>
+
+  <!-- Callout 6: PMMA Membrane -->
+  <circle cx="500" cy="368" r="3" fill="#00E5FF"/>
+  <line x1="500" y1="368" x2="100" y2="710" stroke="#4A657D" stroke-width="0.5"/>
+  <circle cx="86" cy="710" r="8" fill="#00E5FF"/>
+  <text x="86" y="714" class="callout-num" text-anchor="middle">6</text>
+  <text x="100" y="714" class="label">PMMA Membrane</text>
+
+  <!-- Callout Legend -->
+  <rect x="760" y="120" width="260" height="230" fill="#0A0D11" stroke="#4A657D" stroke-width="0.5" rx="2"/>
+  <text x="780" y="145" class="title" font-size="11">CALLOUT LEGEND</text>
+  <line x1="780" y1="152" x2="1000" y2="152" stroke="#4A657D" stroke-width="0.5" opacity="0.4"/>
+  <circle cx="790" cy="175" r="7" fill="#00E5FF"/><text x="790" y="179" class="callout-num" text-anchor="middle">1</text><text x="806" y="179" class="label">Substrate</text>
+  <circle cx="790" cy="200" r="7" fill="#00E5FF"/><text x="790" y="204" class="callout-num" text-anchor="middle">2</text><text x="806" y="204" class="label">Joint / Crack</text>
+  <circle cx="790" cy="225" r="7" fill="#00E5FF"/><text x="790" y="229" class="callout-num" text-anchor="middle">3</text><text x="806" y="229" class="label">Backer Rod</text>
+  <circle cx="790" cy="250" r="7" fill="#00E5FF"/><text x="790" y="254" class="callout-num" text-anchor="middle">4</text><text x="806" y="254" class="label">PMMA Primer</text>
+  <circle cx="790" cy="275" r="7" fill="#FF6B35"/><text x="790" y="279" class="callout-num" text-anchor="middle">5</text><text x="806" y="279" class="label">Fleece Strip</text>
+  <circle cx="790" cy="300" r="7" fill="#00E5FF"/><text x="790" y="304" class="callout-num" text-anchor="middle">6</text><text x="806" y="304" class="label">PMMA Membrane</text>
+
+  <!-- Note box -->
+  <rect x="760" y="370" width="260" height="60" fill="#0A0D11" stroke="#FF6B35" stroke-width="0.5" rx="2"/>
+  <text x="780" y="393" class="label" font-size="9" fill="#FF6B35">NOTE:</text>
+  <text x="780" y="410" class="label" font-size="8">Bond-breaker tape required over</text>
+  <text x="780" y="422" class="label" font-size="8">joint to prevent rigid bridging.</text>
+
+  <!-- Material Key -->
+  <rect x="760" y="450" width="260" height="80" fill="#0A0D11" stroke="#4A657D" stroke-width="0.5" rx="2"/>
+  <text x="780" y="475" class="title" font-size="11">MATERIAL KEY</text>
+  <line x1="780" y1="482" x2="1000" y2="482" stroke="#4A657D" stroke-width="0.5" opacity="0.4"/>
+  <line x1="780" y1="500" x2="810" y2="500" stroke="#00E5FF" stroke-width="3"/>
+  <text x="820" y="504" class="label">PMMA System (Primer/Membrane)</text>
+  <line x1="780" y1="520" x2="810" y2="520" stroke="#FF6B35" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="820" y="524" class="label">Fleece Strip</text>
+
+  <!-- Bottom Bar -->
+  <rect x="0" y="786" width="1056" height="30" fill="#0A0D11" stroke="#4A657D" stroke-width="0.5"/>
+  <text x="40" y="805" class="bottom-bar-title">DETAIL ATLAS | CONSTRUCTION INTELLIGENCE</text>
+  <text x="1016" y="805" class="bottom-bar" text-anchor="end">Barrett PMMA Emergency Packet | 2026-04-16</text>
+  <text x="528" y="805" class="dim" text-anchor="middle">CONDITION 08 — CRACK / CONTROL JOINT</text>
+</svg>

@@ -1,0 +1,111 @@
+{
+  "assembly_id": "fp_hss_column_boxed_001",
+  "assembly_version": "1.0.0",
+  "node_id": "fireproofing_hss_column_boxed_001",
+  "manufacturer_id": "generic_gypsum_enclosure",
+  "manufacturer_name": "Generic Gypsum Board Enclosure (USG / NGC / equivalent)",
+  "condition_type": "hss_column_boxed_enclosure",
+  "system_type": "Gypsum Board Enclosure (Boxed Column)",
+  "csi_section": "07 81 00",
+  "fire_rating": {
+    "hours": 2,
+    "ul_design": "UL X508 (or equivalent column enclosure assembly)",
+    "astm_e119": true
+  },
+  "components": [
+    {
+      "component_id": "comp_hss_column_001",
+      "name": "HSS Column (Hollow Structural Section)",
+      "material": "ASTM A500 Grade B/C Structural Steel",
+      "description": "Hollow structural section column — square or rectangular tube profile",
+      "properties": {
+        "typical_sizes": ["HSS6x6x3/8", "HSS8x8x1/2", "HSS10x10x1/2", "HSS12x12x5/8"],
+        "yield_strength_ksi": "46 (Gr B) / 50 (Gr C)",
+        "shape": "Square or rectangular tube"
+      }
+    },
+    {
+      "component_id": "comp_metal_stud_framing_001",
+      "name": "Metal Stud Framing",
+      "material": "Galvanized steel studs — ASTM C645",
+      "description": "Light gauge metal stud framing forming the boxed enclosure around the HSS column. Studs create an air gap between column face and gypsum board.",
+      "properties": {
+        "stud_size": "1-5/8 in. or 2-1/2 in. typical",
+        "stud_gauge": "25 ga or 20 ga",
+        "spacing_inches": "24 o.c. typical",
+        "air_gap_note": "Min 1 in. air space between column face and back of gypsum board",
+        "track_attachment": "Floor and ceiling track fastened to structure"
+      }
+    },
+    {
+      "component_id": "comp_gypsum_board_001",
+      "name": "Gypsum Board Layers",
+      "material": "Type X Gypsum Board — ASTM C1396",
+      "description": "Multiple layers of 5/8 in. Type X gypsum board forming the fire-rated enclosure. Number of layers per UL listing.",
+      "properties": {
+        "board_thickness_inches": 0.625,
+        "board_type": "Type X (fire rated)",
+        "layers": "2 layers typical for 2-hour rating",
+        "total_thickness_inches": 1.25,
+        "fastener_pattern": "1 in. Type S screws at 12 in. o.c. (base layer), 1-5/8 in. Type S screws at 12 in. o.c. (face layer)",
+        "joint_stagger": "Joints staggered between layers min 12 in."
+      }
+    },
+    {
+      "component_id": "comp_joint_compound_001",
+      "name": "Joint Compound",
+      "material": "Setting-type or drying-type joint compound",
+      "description": "Joint compound applied at all gypsum board joints and screw heads",
+      "properties": {
+        "application": "All joints taped and finished, all screw heads covered",
+        "tape_type": "Paper joint tape or fiberglass mesh tape per listing"
+      }
+    },
+    {
+      "component_id": "comp_corner_bead_001",
+      "name": "Corner Bead",
+      "material": "Galvanized steel corner bead or vinyl corner bead",
+      "description": "Corner bead installed at all outside corners of the gypsum board enclosure for edge protection and clean finish",
+      "properties": {
+        "type": "Standard outside corner bead",
+        "attachment": "Screws or clinch-on, per gypsum board manufacturer"
+      }
+    }
+  ],
+  "assembly_constraints": [
+    {
+      "constraint_id": "ac_air_gap_001",
+      "type": "dimensional",
+      "description": "Maintain minimum air space between HSS column face and gypsum board",
+      "rule": "Min 1 in. clear air space per UL listing. No insulation in cavity unless specified by listing."
+    },
+    {
+      "constraint_id": "ac_layer_stagger_001",
+      "type": "installation",
+      "description": "Gypsum board joints must be staggered between layers",
+      "rule": "Min 12 in. offset between base layer and face layer joints"
+    },
+    {
+      "constraint_id": "ac_top_bottom_track_001",
+      "type": "continuity",
+      "description": "Track must be continuous at top and bottom of enclosure and sealed to floor/ceiling assembly",
+      "rule": "No gaps at track-to-structure interface. Fire caulk at gaps exceeding 1/4 in."
+    },
+    {
+      "constraint_id": "ac_height_limit_001",
+      "type": "structural",
+      "description": "Enclosure height limited by stud structural capacity",
+      "rule": "Max enclosure height per stud size/gauge deflection tables. Brace or increase gauge for heights exceeding limits."
+    }
+  ],
+  "related_conditions": ["COND-F-004", "COND-F-005"],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "created_at": "2026-04-16T00:00:00Z",
+    "created_by": "emergency_detail_delivery_pass"
+  },
+  "artifacts_enabled": {
+    "detail_packet": true,
+    "svg_overlay": true
+  }
+}

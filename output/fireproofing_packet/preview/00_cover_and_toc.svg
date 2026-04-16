@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs><style>
+    .cover-title { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: bold; fill: #FF4444; }
+    .cover-subtitle { font-family: 'JetBrains Mono', monospace; font-size: 16px; fill: #B0B7BD; }
+    .cover-meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: #4A657D; }
+    .toc-header { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: bold; fill: #FF4444; }
+    .toc-entry { font-family: 'JetBrains Mono', monospace; font-size: 12px; fill: #B0B7BD; }
+    .toc-number { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: bold; fill: #FF4444; }
+    .draft-mark { font-family: 'JetBrains Mono', monospace; font-size: 60px; font-weight: bold; fill: #FF4444; opacity: 0.08; }
+    .brand { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: bold; fill: #00E5FF; }
+    .brand-sub { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #4A657D; }
+    .separator { stroke: #22262C; stroke-width: 1; }
+    .accent-line { stroke: #FF4444; stroke-width: 2; }
+    .fire-badge { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: bold; fill: #FF4444; }
+  </style></defs>
+  <rect width="1056" height="816" fill="#0A0D11"/>
+  <text x="528" y="450" class="draft-mark" text-anchor="middle" transform="rotate(-30 528 450)">DRAFT STARTER PACKET</text>
+  <line x1="60" y1="50" x2="996" y2="50" class="accent-line"/>
+  <rect x="850" y="70" width="140" height="50" rx="4" fill="none" stroke="#FF4444" stroke-width="2"/>
+  <text x="920" y="95" class="fire-badge" text-anchor="middle">2-HR RATED</text>
+  <text x="920" y="112" class="cover-meta" text-anchor="middle">ASTM E119</text>
+  <text x="60" y="120" class="cover-title">FIREPROOFING</text>
+  <text x="60" y="155" class="cover-title">STARTER DETAIL PACKET</text>
+  <text x="60" y="190" class="cover-subtitle">Spray-Applied Fire-Resistive Material (SFRM) and Enclosures</text>
+  <text x="60" y="215" class="cover-subtitle">Emergency Detail Delivery — System Activation</text>
+  <line x1="60" y1="235" x2="500" y2="235" class="separator"/>
+  <text x="60" y="260" class="cover-meta">MANUFACTURER: Generic SFRM (Isolatek / ALBI / equivalent)</text>
+  <text x="60" y="278" class="cover-meta">CSI SECTION: 07 81 00</text>
+  <text x="60" y="296" class="cover-meta">FIRE RATING: 2-Hour typical (varies by UL design number)</text>
+  <text x="60" y="314" class="cover-meta">DATE: 2026-04-16</text>
+  <text x="60" y="332" class="cover-meta">STATUS: STARTER PACKET — Generic conditions, not manufacturer-specific</text>
+  <line x1="60" y1="390" x2="996" y2="390" class="separator"/>
+  <text x="60" y="420" class="toc-header">TABLE OF CONTENTS — 10 FIREPROOFING CONDITIONS</text>
+  <text x="80" y="455" class="toc-number">01</text><text x="120" y="455" class="toc-entry">W-Beam 4-Sided SFRM</text>
+  <text x="80" y="480" class="toc-number">02</text><text x="120" y="480" class="toc-entry">W-Beam at Fluted Deck (3-sided)</text>
+  <text x="80" y="505" class="toc-number">03</text><text x="120" y="505" class="toc-entry">HSS Column Boxed Enclosure</text>
+  <text x="80" y="530" class="toc-number">04</text><text x="120" y="530" class="toc-entry">HSS Column Exposed SFRM</text>
+  <text x="80" y="555" class="toc-number">05</text><text x="120" y="555" class="toc-entry">Beam-to-Column Connection</text>
+  <text x="80" y="580" class="toc-number">06</text><text x="120" y="580" class="toc-entry">Shear Tab Connection</text>
+  <text x="80" y="605" class="toc-number">07</text><text x="120" y="605" class="toc-entry">Deck-to-Beam Fireproofing Transition</text>
+  <text x="80" y="630" class="toc-number">08</text><text x="120" y="630" class="toc-entry">Joist / Deck Edge Condition</text>
+  <text x="80" y="655" class="toc-number">09</text><text x="120" y="655" class="toc-entry">Penetration / Hanger Interruption</text>
+  <text x="80" y="680" class="toc-number">10</text><text x="120" y="680" class="toc-entry">Repair / Patch Condition</text>
+  <line x1="60" y1="750" x2="996" y2="750" class="separator"/>
+  <text x="60" y="775" class="brand">DETAIL ATLAS</text>
+  <text x="210" y="775" class="brand-sub">CONSTRUCTION INTELLIGENCE</text>
+  <text x="800" y="775" class="cover-meta">Fireproofing Starter Packet | 2026-04-16</text>
+</svg>

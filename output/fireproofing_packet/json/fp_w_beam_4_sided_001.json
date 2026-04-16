@@ -1,0 +1,104 @@
+{
+  "assembly_id": "fp_w_beam_4_sided_001",
+  "assembly_version": "1.0.0",
+  "node_id": "fireproofing_w_beam_4_sided_001",
+  "manufacturer_id": "generic_sfrm",
+  "manufacturer_name": "Generic SFRM (Isolatek / ALBI / equivalent)",
+  "condition_type": "w_beam_4_sided_sfrm",
+  "system_type": "Spray-Applied Fire-Resistive Material (SFRM)",
+  "csi_section": "07 81 00",
+  "fire_rating": {
+    "hours": 2,
+    "ul_design": "UL D916 (or equivalent restrained beam assembly)",
+    "astm_e119": true
+  },
+  "components": [
+    {
+      "component_id": "comp_w_beam_001",
+      "name": "W-Beam (Wide Flange)",
+      "material": "ASTM A992 Structural Steel",
+      "description": "Wide flange beam — web and flanges form I-profile",
+      "properties": {
+        "typical_sizes": ["W12x26", "W14x30", "W16x36", "W18x40", "W21x50"],
+        "yield_strength_ksi": 50,
+        "hp_a_range": "40-200 (W/D)"
+      }
+    },
+    {
+      "component_id": "comp_sfrm_spray_coat_001",
+      "name": "SFRM Spray Coat — 4-Sided Application",
+      "material": "Cementitious spray-applied fire-resistive material",
+      "description": "Spray-applied fireproofing encapsulating all four sides of the beam (top flange top, bottom flange bottom, both flange edges, and web faces)",
+      "properties": {
+        "density_pcf": "15-22 (standard density) or 22-40 (medium density)",
+        "thickness_range_inches": "0.75-2.50",
+        "bond_strength_psf": ">=150 (ASTM E736)",
+        "cohesion_strength_psf": ">=150 (ASTM E736)"
+      }
+    },
+    {
+      "component_id": "comp_primer_001",
+      "name": "Steel Primer (if required)",
+      "material": "SFRM-compatible primer per manufacturer",
+      "description": "Primer applied to steel substrate when required for adhesion or corrosion resistance. Required when steel has been painted or has mill scale issues.",
+      "properties": {
+        "application": "Brush, roller, or spray",
+        "dry_film_thickness_mils": "1.0-3.0",
+        "compatibility_note": "Must be listed as compatible by SFRM manufacturer"
+      }
+    },
+    {
+      "component_id": "comp_mesh_reinforcement_001",
+      "name": "Mesh Reinforcement at Corners",
+      "material": "Galvanized welded wire mesh or expanded metal lath",
+      "description": "Reinforcing mesh applied at flange tips and re-entrant corners to prevent SFRM cracking and delamination at geometric transitions",
+      "properties": {
+        "mesh_gauge": "20 ga expanded metal lath or 1-inch hex mesh",
+        "attachment": "Mechanical fastener or speed clip to steel",
+        "coverage": "Wrap around flange tips min 2 inches each side"
+      }
+    }
+  ],
+  "assembly_constraints": [
+    {
+      "constraint_id": "ac_min_thickness_001",
+      "type": "dimensional",
+      "description": "Minimum SFRM thickness per UL design listing based on beam Hp/A (W/D) ratio",
+      "rule": "SFRM thickness shall not be less than the value specified in the UL design listing for the specific W/D ratio of the beam"
+    },
+    {
+      "constraint_id": "ac_surface_prep_001",
+      "type": "surface_preparation",
+      "description": "Steel surfaces must be clean, free of oil, grease, loose mill scale, and dirt prior to SFRM application",
+      "rule": "Surface prep per AWCI 12-B and SFRM manufacturer requirements"
+    },
+    {
+      "constraint_id": "ac_ambient_conditions_001",
+      "type": "environmental",
+      "description": "Ambient and substrate temperature must be minimum 40 deg F during application and curing",
+      "rule": "Temp >= 40F, substrate dry, no condensation"
+    },
+    {
+      "constraint_id": "ac_corner_mesh_001",
+      "type": "reinforcement",
+      "description": "Mesh reinforcement required at all flange tip corners where SFRM thickness exceeds 1 inch",
+      "rule": "Install mesh at all re-entrant corners and flange edges per manufacturer detail"
+    },
+    {
+      "constraint_id": "ac_adhesion_test_001",
+      "type": "quality_control",
+      "description": "Bond strength adhesion/cohesion testing per ASTM E736",
+      "rule": "Min 1 test per 10,000 sq ft or per floor, whichever is more frequent"
+    }
+  ],
+  "related_conditions": ["COND-F-001", "COND-F-002"],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "created_at": "2026-04-16T00:00:00Z",
+    "created_by": "emergency_detail_delivery_pass"
+  },
+  "artifacts_enabled": {
+    "detail_packet": true,
+    "svg_overlay": true
+  }
+}

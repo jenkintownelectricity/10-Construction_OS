@@ -1,0 +1,88 @@
+{
+  "assembly_id": "fp_hss_column_exposed_001",
+  "assembly_version": "1.0.0",
+  "node_id": "fireproofing_hss_column_exposed_001",
+  "manufacturer_id": "generic_sfrm",
+  "manufacturer_name": "Generic SFRM (Isolatek / ALBI / equivalent)",
+  "condition_type": "hss_column_exposed_sfrm",
+  "system_type": "Spray-Applied Fire-Resistive Material (SFRM)",
+  "csi_section": "07 81 00",
+  "fire_rating": {
+    "hours": 2,
+    "ul_design": "UL X772 (or equivalent column SFRM assembly)",
+    "astm_e119": true
+  },
+  "components": [
+    {
+      "component_id": "comp_hss_tube_001",
+      "name": "HSS Column (Hollow Structural Section)",
+      "material": "ASTM A500 Grade B/C Structural Steel",
+      "description": "Hollow structural section column — square, rectangular, or round tube profile. Exposed surfaces receive direct SFRM application.",
+      "properties": {
+        "typical_sizes": ["HSS6x6x3/8", "HSS8x8x1/2", "HSS10x10x1/2", "HSS12x12x5/8", "HSS10.75x0.500 (round)"],
+        "yield_strength_ksi": "46 (Gr B) / 50 (Gr C)",
+        "shape": "Square, rectangular, or round tube",
+        "hp_a_note": "HSS columns have lower Hp/A (W/D) ratios than wide flange; typically require thicker SFRM"
+      }
+    },
+    {
+      "component_id": "comp_sfrm_coating_001",
+      "name": "SFRM Coating — Direct Application",
+      "material": "Cementitious spray-applied fire-resistive material",
+      "description": "Spray-applied fireproofing directly to all exposed faces of the HSS tube. Uniform thickness required around entire perimeter.",
+      "properties": {
+        "density_pcf": "15-22 (standard density) or 22-40 (medium density)",
+        "thickness_range_inches": "1.00-3.00 (HSS typically requires more than WF)",
+        "application_method": "Spray applied in multiple passes to build thickness",
+        "surface_profile": "Rough texture acceptable; smooth troweled finish available"
+      }
+    },
+    {
+      "component_id": "comp_corner_buildup_001",
+      "name": "Corner Build-Up",
+      "material": "SFRM with optional mesh reinforcement",
+      "description": "Additional SFRM material built up at corner radii of square/rectangular HSS to achieve required thickness. Corners are vulnerable to damage and thickness reduction.",
+      "properties": {
+        "corner_radius_note": "HSS corners have tight radii — SFRM tends to thin at corners",
+        "reinforcement": "Expanded metal lath or welded wire mesh wrap at corners if thickness cannot be maintained by spray alone",
+        "min_thickness_at_corner": "Must meet or exceed specified thickness at all points including corners"
+      }
+    }
+  ],
+  "assembly_constraints": [
+    {
+      "constraint_id": "ac_hss_thickness_001",
+      "type": "dimensional",
+      "description": "Minimum SFRM thickness for HSS column per UL listing W/D ratio. HSS sections have lower W/D than WF, requiring thicker SFRM.",
+      "rule": "SFRM thickness per UL listing. Verify W/D for specific HSS size — do not use WF tables."
+    },
+    {
+      "constraint_id": "ac_corner_thickness_001",
+      "type": "quality_control",
+      "description": "SFRM thickness at HSS corners must be verified separately — corners are the thinnest point",
+      "rule": "Thickness gauge readings required at flat faces AND at corners. Both must meet minimum."
+    },
+    {
+      "constraint_id": "ac_round_hss_001",
+      "type": "geometry",
+      "description": "Round HSS sections have uniform curvature — SFRM application is more uniform but adhesion can be challenging",
+      "rule": "For round HSS, use Hp/A formula for circular sections. Surface must be clean and free of mill scale."
+    },
+    {
+      "constraint_id": "ac_impact_zone_001",
+      "type": "protection",
+      "description": "Columns in traffic areas require impact-resistant SFRM or protective jacket",
+      "rule": "Below 8 ft AFF in traffic areas: use medium-density SFRM or install protective corner guards / jackets"
+    }
+  ],
+  "related_conditions": ["COND-F-004", "COND-F-006"],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "created_at": "2026-04-16T00:00:00Z",
+    "created_by": "emergency_detail_delivery_pass"
+  },
+  "artifacts_enabled": {
+    "detail_packet": true,
+    "svg_overlay": true
+  }
+}

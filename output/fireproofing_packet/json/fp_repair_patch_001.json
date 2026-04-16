@@ -1,0 +1,126 @@
+{
+  "assembly_id": "fp_repair_patch_001",
+  "assembly_version": "1.0.0",
+  "node_id": "fireproofing_repair_patch_001",
+  "manufacturer_id": "generic_sfrm",
+  "manufacturer_name": "Generic SFRM (Isolatek / ALBI / equivalent)",
+  "condition_type": "repair_patch_condition",
+  "system_type": "Spray-Applied Fire-Resistive Material (SFRM)",
+  "csi_section": "07 81 00",
+  "fire_rating": {
+    "hours": 2,
+    "ul_design": "Per original UL design listing for the member being repaired",
+    "astm_e119": true
+  },
+  "components": [
+    {
+      "component_id": "comp_existing_sfrm_001",
+      "name": "Existing SFRM",
+      "material": "Previously applied cementitious SFRM",
+      "description": "Original spray-applied fireproofing that remains intact adjacent to the damaged/removed area",
+      "properties": {
+        "condition": "Intact, bonded to substrate, at or above specified thickness",
+        "edge_preparation": "Cut back to sound material — remove all loose, delaminated, or water-damaged SFRM",
+        "edge_profile": "Square cut or slightly undercut to allow patch material to key in"
+      }
+    },
+    {
+      "component_id": "comp_prepared_substrate_001",
+      "name": "Prepared Substrate",
+      "material": "Exposed steel surface at repair area",
+      "description": "Steel surface exposed by SFRM removal. Must be cleaned and prepared before patch application.",
+      "properties": {
+        "cleaning": "Remove all loose material, dust, oil, grease, and corrosion products",
+        "surface_prep_standard": "SSPC-SP2 (Hand Tool Cleaning) minimum, SP3 (Power Tool Cleaning) if corroded",
+        "primer_note": "Re-prime if original primer was damaged or if bare steel is exposed",
+        "moisture_note": "Substrate must be dry — no condensation or standing water"
+      }
+    },
+    {
+      "component_id": "comp_patch_material_001",
+      "name": "Patch Material",
+      "material": "SFRM — same product as original or manufacturer-approved compatible product",
+      "description": "Repair material applied to restore fire rating. Must be same product or listed compatible alternative.",
+      "properties": {
+        "product_match": "Use same manufacturer and product as original SFRM when possible",
+        "alternative": "If original product unavailable, use manufacturer-approved compatible product with equal or better properties",
+        "application_method": "Spray-applied for large areas, hand-trowel (tuckpointing) for small patches",
+        "density_match": "Patch material density must match original — do not mix standard and medium density"
+      }
+    },
+    {
+      "component_id": "comp_feathered_edges_001",
+      "name": "Feathered Edges",
+      "material": "SFRM transition zone",
+      "description": "Perimeter of the patch where new material overlaps existing SFRM. Must be feathered for adhesion and continuous thickness.",
+      "properties": {
+        "overlap_inches_min": 2,
+        "overlap_inches_recommended": 4,
+        "profile": "New material feathered over existing SFRM edge — no abrupt step",
+        "bond_note": "Dampen (not soak) existing SFRM edge to improve bond with patch material"
+      }
+    },
+    {
+      "component_id": "comp_reapplication_zone_001",
+      "name": "Re-Application Zone",
+      "material": "SFRM — full thickness restored",
+      "description": "The entire area where SFRM is reapplied to full specified thickness. Zone extends beyond the damage area to ensure overlap with existing.",
+      "properties": {
+        "zone_extent": "Damage area plus min 2 inches beyond on all sides",
+        "thickness_requirement": "Must match or exceed original specified thickness at every point",
+        "thickness_verification": "Pin gauge measurement after curing — minimum 5 readings per patch",
+        "cure_time_hours": "24-48 before thickness testing (per manufacturer)"
+      }
+    }
+  ],
+  "assembly_constraints": [
+    {
+      "constraint_id": "ac_product_compatibility_001",
+      "type": "material",
+      "description": "Patch material must be compatible with existing SFRM",
+      "rule": "Use same manufacturer and product. If unavailable, obtain manufacturer written approval for alternative."
+    },
+    {
+      "constraint_id": "ac_substrate_prep_001",
+      "type": "surface_preparation",
+      "description": "Exposed steel must be properly prepared before re-application",
+      "rule": "Clean to SSPC-SP2 minimum. Re-prime if primer was damaged. Substrate must be dry."
+    },
+    {
+      "constraint_id": "ac_thickness_restored_001",
+      "type": "dimensional",
+      "description": "Full specified thickness must be restored at all points within the repair zone",
+      "rule": "No point within the repair zone may be less than the specified minimum thickness per UL listing"
+    },
+    {
+      "constraint_id": "ac_overlap_001",
+      "type": "continuity",
+      "description": "Patch must overlap existing SFRM to prevent delamination at the interface",
+      "rule": "Min 2-inch overlap onto existing sound SFRM on all sides of patch"
+    },
+    {
+      "constraint_id": "ac_documentation_001",
+      "type": "quality_control",
+      "description": "Repair must be documented — before/after photos and thickness readings",
+      "rule": "Document: location, cause of damage, product used, thickness readings, date, applicator. Per AWCI 12-B."
+    },
+    {
+      "constraint_id": "ac_environmental_001",
+      "type": "environmental",
+      "description": "Same environmental requirements as original application",
+      "rule": "Ambient and substrate temp min 40F, substrate dry, no wind (if exterior), adequate ventilation"
+    }
+  ],
+  "related_conditions": ["COND-F-011", "COND-F-012"],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "created_at": "2026-04-16T00:00:00Z",
+    "created_by": "emergency_detail_delivery_pass",
+    "review_status": "DRAFT",
+    "applicable_codes": ["IBC 2021 Section 714", "ASTM E119", "AWCI 12-B Technical Manual", "UL Fire Resistance Directory"]
+  },
+  "artifacts_enabled": {
+    "detail_packet": true,
+    "svg_overlay": true
+  }
+}

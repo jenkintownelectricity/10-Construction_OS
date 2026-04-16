@@ -1,0 +1,108 @@
+{
+  "assembly_id": "fp_beam_to_column_connection_001",
+  "assembly_version": "1.0.0",
+  "node_id": "fireproofing_beam_to_column_connection_001",
+  "manufacturer_id": "generic_sfrm",
+  "manufacturer_name": "Generic SFRM (Isolatek / ALBI / equivalent)",
+  "condition_type": "beam_to_column_connection_sfrm",
+  "system_type": "Spray-Applied Fire-Resistive Material (SFRM)",
+  "csi_section": "07 81 00",
+  "fire_rating": {
+    "hours": 2,
+    "ul_design": "UL D916 / UL X772 (beam and column designs must be compatible at intersection)",
+    "astm_e119": true
+  },
+  "components": [
+    {
+      "component_id": "comp_column_001",
+      "name": "Column (WF or HSS)",
+      "material": "ASTM A992 / A500 Structural Steel",
+      "description": "Vertical column member receiving beam connection. Column fireproofing must be continuous through connection zone.",
+      "properties": {
+        "typical_sizes": ["W12x65", "W14x90", "HSS10x10x1/2"],
+        "yield_strength_ksi": 50,
+        "continuity_note": "Column SFRM must not be interrupted by beam connection"
+      }
+    },
+    {
+      "component_id": "comp_beam_001",
+      "name": "Beam (Wide Flange)",
+      "material": "ASTM A992 Structural Steel",
+      "description": "Horizontal beam member framing into column. Beam fireproofing must terminate at or transition into column fireproofing.",
+      "properties": {
+        "typical_sizes": ["W16x36", "W18x40", "W21x50", "W24x55"],
+        "yield_strength_ksi": 50
+      }
+    },
+    {
+      "component_id": "comp_connection_plates_bolts_001",
+      "name": "Connection Plates and Bolts",
+      "material": "ASTM A36 plates, A325/A490 bolts",
+      "description": "Shear tab, end plate, clip angles, and/or moment plates with high-strength bolts forming the beam-to-column connection. All hardware must be encapsulated in SFRM.",
+      "properties": {
+        "connection_types": ["shear tab", "end plate", "clip angle", "moment connection flange plates"],
+        "bolt_diameter_inches": [0.75, 0.875, 1.0],
+        "all_hardware_covered": true
+      }
+    },
+    {
+      "component_id": "comp_sfrm_continuous_001",
+      "name": "Continuous SFRM Coverage at Connection",
+      "material": "Cementitious spray-applied fire-resistive material",
+      "description": "SFRM must provide uninterrupted coverage through the entire beam-to-column connection zone. No exposed steel permitted at plates, bolts, or transition areas.",
+      "properties": {
+        "thickness_at_connection": "Match thicker of beam or column SFRM requirement",
+        "coverage_note": "All bolts, plates, welds, and copes must be fully encapsulated",
+        "transition_method": "Feather SFRM from beam thickness to column thickness over 6-inch zone"
+      }
+    },
+    {
+      "component_id": "comp_transition_zone_001",
+      "name": "Transition Zones",
+      "material": "SFRM blended zone",
+      "description": "Areas where beam SFRM meets column SFRM — thickness and profile may differ. Transition must be smooth with no voids or thin spots.",
+      "properties": {
+        "transition_length_inches": 6,
+        "inspection_note": "Verify thickness at transition with pin gauge — this is a common deficiency area"
+      }
+    }
+  ],
+  "assembly_constraints": [
+    {
+      "constraint_id": "ac_continuity_001",
+      "type": "continuity",
+      "description": "SFRM coverage must be continuous through beam-column intersection with no exposed steel",
+      "rule": "Zero tolerance for bare steel at connections — verify 100% coverage at all bolt heads, plate edges, and coped areas"
+    },
+    {
+      "constraint_id": "ac_thickness_transition_001",
+      "type": "dimensional",
+      "description": "Where beam and column have different SFRM thickness requirements, use the greater thickness through the connection zone",
+      "rule": "Connection zone thickness = max(beam SFRM thickness, column SFRM thickness)"
+    },
+    {
+      "constraint_id": "ac_coped_beam_001",
+      "type": "coverage",
+      "description": "Coped beam ends expose additional steel surface area that must be fireproofed",
+      "rule": "SFRM must cover all exposed surfaces of coped beam ends including cope return cuts"
+    },
+    {
+      "constraint_id": "ac_access_001",
+      "type": "constructability",
+      "description": "Verify spray access to all surfaces in tight connection zones — back side of connection may require hand-packing",
+      "rule": "Where spray nozzle cannot reach, SFRM may be hand-packed (trowel applied) per manufacturer allowance"
+    }
+  ],
+  "related_conditions": ["COND-F-001", "COND-F-005", "COND-F-007"],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "created_at": "2026-04-16T00:00:00Z",
+    "created_by": "emergency_detail_delivery_pass",
+    "review_status": "DRAFT",
+    "applicable_codes": ["IBC 2021 Section 714", "ASTM E119", "UL Fire Resistance Directory"]
+  },
+  "artifacts_enabled": {
+    "detail_packet": true,
+    "svg_overlay": true
+  }
+}

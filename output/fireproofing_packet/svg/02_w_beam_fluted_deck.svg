@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <style>
+      .title { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: bold; fill: #FF4444; }
+      .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #B0B7BD; }
+      .dim { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #4A657D; }
+      .callout-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: bold; fill: #0A0D11; }
+      .bar-text { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #4A657D; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1056" height="816" fill="#0A0D11"/>
+
+  <!-- DRAFT Watermark -->
+  <text x="528" y="450" font-family="JetBrains Mono, monospace" font-size="60" fill="#FF4444" opacity="0.08" text-anchor="middle" transform="rotate(-30, 528, 450)">DRAFT</text>
+
+  <!-- Title -->
+  <text x="40" y="45" class="title">Fireproofing — W-Beam at Fluted Deck</text>
+  <line x1="40" y1="55" x2="520" y2="55" stroke="#FF4444" stroke-width="1" opacity="0.4"/>
+
+  <!-- Fire Rating Badge -->
+  <rect x="880" y="25" width="140" height="35" rx="3" fill="none" stroke="#FF4444" stroke-width="2"/>
+  <text x="950" y="42" font-family="JetBrains Mono, monospace" font-size="11" fill="#FF4444" text-anchor="middle" font-weight="bold">FIRE RATING</text>
+  <text x="950" y="54" font-family="JetBrains Mono, monospace" font-size="10" fill="#FF4444" text-anchor="middle">2-HR RESTRAINED</text>
+
+  <!-- Fluted Deck Profile -->
+  <path d="M280,170 L280,200 L320,200 L320,170 L360,170 L360,200 L400,200 L400,170 L440,170 L440,200 L480,200 L480,170 L520,170 L520,200 L560,200 L560,170 L600,170 L600,200 L640,200 L640,170 L680,170 L680,200 L720,200 L720,170 L760,170"
+        fill="#1A1D21" stroke="#4A657D" stroke-width="2"/>
+  <!-- Deck top surface -->
+  <rect x="280" y="155" width="480" height="15" fill="#1A1D21" stroke="#4A657D" stroke-width="2"/>
+
+  <!-- W-Beam Top Flange (partially under deck) -->
+  <rect x="400" y="200" width="240" height="25" fill="#5C6670" stroke="#8B959E" stroke-width="2"/>
+  <!-- Web -->
+  <rect x="495" y="225" width="50" height="220" fill="#5C6670" stroke="#8B959E" stroke-width="2"/>
+  <!-- Bottom Flange -->
+  <rect x="400" y="445" width="240" height="25" fill="#5C6670" stroke="#8B959E" stroke-width="2"/>
+
+  <!-- SFRM on left side of web -->
+  <rect x="475" y="225" width="20" height="220" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <!-- SFRM on right side of web -->
+  <rect x="545" y="225" width="20" height="220" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <!-- SFRM on bottom of bottom flange -->
+  <rect x="387" y="470" width="266" height="18" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <!-- SFRM on left side of bottom flange -->
+  <rect x="387" y="445" width="13" height="43" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <!-- SFRM on right side of bottom flange -->
+  <rect x="640" y="445" width="13" height="43" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <!-- SFRM on left underside of top flange -->
+  <rect x="400" y="225" width="75" height="12" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <!-- SFRM on right underside of top flange -->
+  <rect x="565" y="225" width="75" height="12" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+
+  <!-- Callout 1: Fluted Deck -->
+  <circle cx="340" cy="175" r="8" fill="#00E5FF"/>
+  <text x="340" y="179" class="callout-num" text-anchor="middle">1</text>
+  <line x1="332" y1="175" x2="150" y2="130" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="55" y="134" class="label">Fluted Deck</text>
+
+  <!-- Callout 2: Top Flange -->
+  <circle cx="520" cy="212" r="8" fill="#00E5FF"/>
+  <text x="520" y="216" class="callout-num" text-anchor="middle">2</text>
+  <line x1="528" y1="212" x2="750" y2="212" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="755" y="216" class="label">Top Flange</text>
+
+  <!-- Callout 3: Web -->
+  <circle cx="520" cy="335" r="8" fill="#00E5FF"/>
+  <text x="520" y="339" class="callout-num" text-anchor="middle">3</text>
+  <line x1="528" y1="335" x2="750" y2="335" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="755" y="339" class="label">Web</text>
+
+  <!-- Callout 4: Bottom Flange -->
+  <circle cx="520" cy="457" r="8" fill="#00E5FF"/>
+  <text x="520" y="461" class="callout-num" text-anchor="middle">4</text>
+  <line x1="528" y1="457" x2="750" y2="457" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="755" y="461" class="label">Bottom Flange</text>
+
+  <!-- Callout 5: SFRM (3 sides) -->
+  <circle cx="475" cy="380" r="8" fill="#00E5FF"/>
+  <text x="475" y="384" class="callout-num" text-anchor="middle">5</text>
+  <line x1="467" y1="380" x2="150" y2="380" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="50" y="384" class="label">SFRM (3 sides)</text>
+
+  <!-- Callout 6: Deck-to-Beam Contact -->
+  <circle cx="450" cy="200" r="8" fill="#00E5FF"/>
+  <text x="450" y="204" class="callout-num" text-anchor="middle">6</text>
+  <line x1="442" y1="200" x2="150" y2="260" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="35" y="264" class="label">Deck-to-Beam Contact</text>
+
+  <!-- Dimension: SFRM thickness -->
+  <line x1="660" y1="470" x2="680" y2="470" stroke="#00E5FF" stroke-width="0.8"/>
+  <line x1="660" y1="488" x2="680" y2="488" stroke="#00E5FF" stroke-width="0.8"/>
+  <line x1="670" y1="470" x2="670" y2="488" stroke="#00E5FF" stroke-width="0.8"/>
+  <text x="685" y="483" class="dim">7/8" SFRM</text>
+
+  <!-- Section note -->
+  <text x="40" y="640" class="label" opacity="0.6">SECTION VIEW — Beam perpendicular to deck flutes</text>
+  <text x="40" y="660" class="label" opacity="0.6">Top flange shielded by deck — SFRM on 3 exposed sides</text>
+
+  <!-- Legend -->
+  <rect x="40" y="690" width="16" height="10" fill="#5C6670" stroke="#8B959E" stroke-width="1"/>
+  <text x="62" y="699" class="label">Steel (W-Shape)</text>
+  <rect x="200" y="690" width="16" height="10" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1"/>
+  <text x="222" y="699" class="label">SFRM (Spray-Applied)</text>
+  <rect x="400" y="690" width="16" height="10" fill="#1A1D21" stroke="#4A657D" stroke-width="1"/>
+  <text x="422" y="699" class="label">Concrete / Deck</text>
+
+  <!-- Bottom Bar -->
+  <rect x="0" y="790" width="1056" height="26" fill="#0D1117"/>
+  <line x1="0" y1="790" x2="1056" y2="790" stroke="#1A1D21" stroke-width="1"/>
+  <text x="528" y="806" class="bar-text" text-anchor="middle">DETAIL ATLAS | CONSTRUCTION INTELLIGENCE | Fireproofing Starter Packet | 2026-04-16</text>
+</svg>

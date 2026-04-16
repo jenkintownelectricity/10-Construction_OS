@@ -1,0 +1,109 @@
+{
+  "assembly_id": "fp_deck_beam_transition_001",
+  "assembly_version": "1.0.0",
+  "node_id": "fireproofing_deck_beam_transition_001",
+  "manufacturer_id": "generic_sfrm",
+  "manufacturer_name": "Generic SFRM (Isolatek / ALBI / equivalent)",
+  "condition_type": "deck_to_beam_fireproofing_transition",
+  "system_type": "Spray-Applied Fire-Resistive Material (SFRM)",
+  "csi_section": "07 81 00",
+  "fire_rating": {
+    "hours": 2,
+    "ul_design": "UL D902 / D916 (floor-ceiling assembly with protected beams)",
+    "astm_e119": true
+  },
+  "components": [
+    {
+      "component_id": "comp_fluted_deck_001",
+      "name": "Fluted Metal Deck",
+      "material": "Galvanized steel deck — ASTM A653, Grade 33",
+      "description": "Corrugated metal floor deck spanning between beams. Underside receives SFRM for fire rating.",
+      "properties": {
+        "deck_gauge": "20 ga or 18 ga typical",
+        "deck_depth_inches": "1.5 (type B) or 3.0 (type N)",
+        "rib_spacing_inches": "6 or 12 typical"
+      }
+    },
+    {
+      "component_id": "comp_beam_top_flange_001",
+      "name": "Beam Top Flange",
+      "material": "ASTM A992 Structural Steel",
+      "description": "Top flange of supporting beam where deck bears. Deck-to-beam junction is the critical transition zone.",
+      "properties": {
+        "flange_width_inches": "6-12 typical",
+        "deck_bearing_note": "Deck rests on top flange — creates geometry change for SFRM application"
+      }
+    },
+    {
+      "component_id": "comp_sfrm_deck_underside_001",
+      "name": "SFRM on Deck Underside",
+      "material": "Cementitious spray-applied fire-resistive material",
+      "description": "Fireproofing applied to the underside of the metal deck between beams (field of deck). Fills flute valleys and covers flat pans.",
+      "properties": {
+        "thickness_range_inches": "0.375-1.50",
+        "coverage": "Full coverage of flute valleys and flat pans between ribs",
+        "density_pcf": "15-22 (standard density)"
+      }
+    },
+    {
+      "component_id": "comp_sfrm_beam_001",
+      "name": "SFRM on Beam",
+      "material": "Cementitious spray-applied fire-resistive material",
+      "description": "Fireproofing on the beam (3-sided where deck shields top flange, or 4-sided at exposed conditions)",
+      "properties": {
+        "thickness_range_inches": "0.75-2.50",
+        "application": "Spray-applied to web and bottom flange, into flute-to-flange gaps at top"
+      }
+    },
+    {
+      "component_id": "comp_transition_zone_001",
+      "name": "Transition Zone",
+      "material": "SFRM blended / continuous",
+      "description": "The critical zone where deck underside SFRM meets beam SFRM at the beam top flange. Must be continuous with no gaps or exposed steel.",
+      "properties": {
+        "location": "Beam top flange edge where deck terminates or changes direction",
+        "overlap_inches_min": 2,
+        "deficiency_note": "Most common inspection deficiency — applicators often leave a gap at this junction",
+        "repair_method": "Hand-trowel or re-spray to fill gap and achieve specified thickness"
+      }
+    }
+  ],
+  "assembly_constraints": [
+    {
+      "constraint_id": "ac_no_gap_001",
+      "type": "continuity",
+      "description": "No gap permitted between deck SFRM and beam SFRM at the transition zone",
+      "rule": "SFRM must be continuous from deck underside through beam flange edge onto beam web/flange surfaces"
+    },
+    {
+      "constraint_id": "ac_transition_thickness_001",
+      "type": "dimensional",
+      "description": "Thickness at transition must meet the more stringent of deck or beam SFRM requirement",
+      "rule": "Measure thickness at transition zone — do not assume compliance from adjacent areas"
+    },
+    {
+      "constraint_id": "ac_deck_edge_fill_001",
+      "type": "coverage",
+      "description": "Flute valleys at beam top flange must be filled",
+      "rule": "SFRM must fill the triangular void between deck flute valley and beam top flange"
+    },
+    {
+      "constraint_id": "ac_sequence_001",
+      "type": "sequencing",
+      "description": "Apply beam SFRM and deck SFRM in same pass where possible to ensure monolithic transition",
+      "rule": "If applied in separate passes, second pass must bond to first with no cold joint"
+    }
+  ],
+  "related_conditions": ["COND-F-003", "COND-F-009"],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "created_at": "2026-04-16T00:00:00Z",
+    "created_by": "emergency_detail_delivery_pass",
+    "review_status": "DRAFT",
+    "applicable_codes": ["IBC 2021 Section 714", "ASTM E119", "UL Fire Resistance Directory"]
+  },
+  "artifacts_enabled": {
+    "detail_packet": true,
+    "svg_overlay": true
+  }
+}

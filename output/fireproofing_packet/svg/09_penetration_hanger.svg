@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <style>
+      .title { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: bold; fill: #FF4444; }
+      .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #B0B7BD; }
+      .dim { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #4A657D; }
+      .callout-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: bold; fill: #0A0D11; }
+      .bar-text { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #4A657D; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1056" height="816" fill="#0A0D11"/>
+
+  <!-- DRAFT Watermark -->
+  <text x="528" y="450" font-family="JetBrains Mono, monospace" font-size="60" fill="#FF4444" opacity="0.08" text-anchor="middle" transform="rotate(-30, 528, 450)">DRAFT</text>
+
+  <!-- Title -->
+  <text x="40" y="45" class="title">Fireproofing — Penetration / Hanger Interruption</text>
+  <line x1="40" y1="55" x2="570" y2="55" stroke="#FF4444" stroke-width="1" opacity="0.4"/>
+
+  <!-- Fire Rating Badge -->
+  <rect x="880" y="25" width="140" height="35" rx="3" fill="none" stroke="#FF4444" stroke-width="2"/>
+  <text x="950" y="42" font-family="JetBrains Mono, monospace" font-size="11" fill="#FF4444" text-anchor="middle" font-weight="bold">FIRE RATING</text>
+  <text x="950" y="54" font-family="JetBrains Mono, monospace" font-size="10" fill="#FF4444" text-anchor="middle">2-HR</text>
+
+  <!-- === MAIN VIEW: Elevation of beam with penetration === -->
+
+  <!-- Beam - Top Flange -->
+  <rect x="130" y="250" width="800" height="20" fill="#5C6670" stroke="#8B959E" stroke-width="2"/>
+  <!-- Beam - Web -->
+  <rect x="130" y="270" width="800" height="160" fill="#5C6670" stroke="#8B959E" stroke-width="2"/>
+  <!-- Beam - Bottom Flange -->
+  <rect x="130" y="430" width="800" height="20" fill="#5C6670" stroke="#8B959E" stroke-width="2"/>
+
+  <!-- SFRM on beam - LEFT of penetration -->
+  <rect x="115" y="233" width="380" height="17" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <rect x="115" y="233" width="15" height="234" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <rect x="115" y="450" width="380" height="17" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+
+  <!-- SFRM on beam - RIGHT of penetration -->
+  <rect x="575" y="233" width="370" height="17" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <rect x="930" y="233" width="15" height="234" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <rect x="575" y="450" width="370" height="17" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+
+  <!-- Void zone in SFRM (where penetration passes through) -->
+  <rect x="495" y="233" width="80" height="234" fill="#0A0D11" stroke="#FF4444" stroke-width="1" stroke-dasharray="4,2" opacity="0.8"/>
+  <!-- Void zone X pattern -->
+  <line x1="500" y1="238" x2="570" y2="462" stroke="#FF4444" stroke-width="0.5" opacity="0.3"/>
+  <line x1="570" y1="238" x2="500" y2="462" stroke="#FF4444" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- Hanger Rod / Pipe (vertical, passing through beam) -->
+  <rect x="520" y="100" width="30" height="600" fill="#4A657D" stroke="#6B8BA4" stroke-width="2" rx="2"/>
+  <!-- Pipe interior -->
+  <rect x="528" y="100" width="14" height="600" fill="#1A1D21" stroke="none"/>
+
+  <!-- Intumescent Collar (around pipe at SFRM interface) -->
+  <rect x="505" y="225" width="60" height="25" rx="3" fill="#FF4444" opacity="0.3" stroke="#FF4444" stroke-width="1.5"/>
+  <rect x="505" y="450" width="60" height="25" rx="3" fill="#FF4444" opacity="0.3" stroke="#FF4444" stroke-width="1.5"/>
+
+  <!-- Supplemental Protection wrap around pipe in void zone -->
+  <rect x="510" y="250" width="50" height="180" rx="4" fill="none" stroke="#FF4444" stroke-width="1.5" stroke-dasharray="6,3"/>
+
+  <!-- Callout 1: Beam -->
+  <circle cx="300" cy="350" r="8" fill="#00E5FF"/>
+  <text x="300" y="354" class="callout-num" text-anchor="middle">1</text>
+  <line x1="292" y1="350" x2="60" y2="350" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="40" y="345" class="label">Beam</text>
+
+  <!-- Callout 2: SFRM -->
+  <circle cx="300" cy="242" r="8" fill="#00E5FF"/>
+  <text x="300" y="246" class="callout-num" text-anchor="middle">2</text>
+  <line x1="300" y1="234" x2="300" y2="170" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="300" y1="170" x2="370" y2="170" stroke="#00E5FF" stroke-width="1"/>
+  <text x="375" y="174" class="label">SFRM</text>
+
+  <!-- Callout 3: Hanger Rod/Pipe -->
+  <circle cx="535" cy="140" r="8" fill="#00E5FF"/>
+  <text x="535" y="144" class="callout-num" text-anchor="middle">3</text>
+  <line x1="543" y1="140" x2="650" y2="140" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="655" y="144" class="label">Hanger Rod / Pipe</text>
+
+  <!-- Callout 4: Void Zone -->
+  <circle cx="535" cy="380" r="8" fill="#00E5FF"/>
+  <text x="535" y="384" class="callout-num" text-anchor="middle">4</text>
+  <line x1="543" y1="380" x2="700" y2="500" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="705" y="504" class="label">Void Zone</text>
+
+  <!-- Callout 5: Intumescent Collar -->
+  <circle cx="505" cy="237" r="8" fill="#00E5FF"/>
+  <text x="505" y="241" class="callout-num" text-anchor="middle">5</text>
+  <line x1="497" y1="237" x2="420" y2="130" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="345" y="125" class="label">Intumescent</text>
+  <text x="345" y="139" class="label">Collar</text>
+
+  <!-- Callout 6: Supplemental Protection -->
+  <circle cx="565" cy="340" r="8" fill="#00E5FF"/>
+  <text x="565" y="344" class="callout-num" text-anchor="middle">6</text>
+  <line x1="573" y1="340" x2="700" y2="340" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="705" y="335" class="label">Supplemental</text>
+  <text x="705" y="349" class="label">Protection</text>
+
+  <!-- Enlarged detail circle -->
+  <circle cx="535" cy="350" r="110" fill="none" stroke="#4A657D" stroke-width="1" stroke-dasharray="6,3" opacity="0.4"/>
+
+  <!-- Important note -->
+  <rect x="40" y="580" width="520" height="65" rx="3" fill="none" stroke="#FF4444" stroke-width="1" opacity="0.5"/>
+  <text x="55" y="600" class="label" fill="#FF4444">PENETRATION PROTOCOL: All voids in SFRM caused by</text>
+  <text x="55" y="617" class="label" fill="#FF4444">hangers, pipes, or conduit must receive supplemental</text>
+  <text x="55" y="634" class="label" fill="#FF4444">fire protection (intumescent collar, wrap, or caulk).</text>
+
+  <!-- Legend -->
+  <rect x="40" y="690" width="16" height="10" fill="#5C6670" stroke="#8B959E" stroke-width="1"/>
+  <text x="62" y="699" class="label">Steel</text>
+  <rect x="130" y="690" width="16" height="10" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1"/>
+  <text x="152" y="699" class="label">SFRM</text>
+  <rect x="220" y="690" width="16" height="10" fill="#4A657D" stroke="#6B8BA4" stroke-width="1"/>
+  <text x="242" y="699" class="label">Pipe / Hanger</text>
+  <rect x="370" y="690" width="16" height="10" fill="#FF4444" opacity="0.3" stroke="#FF4444" stroke-width="1"/>
+  <text x="392" y="699" class="label">Intumescent</text>
+
+  <!-- Bottom Bar -->
+  <rect x="0" y="790" width="1056" height="26" fill="#0D1117"/>
+  <line x1="0" y1="790" x2="1056" y2="790" stroke="#1A1D21" stroke-width="1"/>
+  <text x="528" y="806" class="bar-text" text-anchor="middle">DETAIL ATLAS | CONSTRUCTION INTELLIGENCE | Fireproofing Starter Packet | 2026-04-16</text>
+</svg>
