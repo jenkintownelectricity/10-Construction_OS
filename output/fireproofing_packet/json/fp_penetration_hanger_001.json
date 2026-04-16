@@ -1,0 +1,106 @@
+{
+  "assembly_id": "fp_penetration_hanger_001",
+  "assembly_version": "1.0.0",
+  "node_id": "fireproofing_penetration_hanger_001",
+  "manufacturer_id": "generic_sfrm",
+  "manufacturer_name": "Generic SFRM (Isolatek / ALBI / equivalent)",
+  "condition_type": "penetration_hanger_interruption",
+  "system_type": "Spray-Applied Fire-Resistive Material (SFRM)",
+  "csi_section": "07 81 00",
+  "fire_rating": {
+    "hours": 2,
+    "ul_design": "UL D916 (beam) / UL C-AJ-xxxx (through-penetration firestop)",
+    "astm_e119": true
+  },
+  "components": [
+    {
+      "component_id": "comp_beam_001",
+      "name": "Beam (Wide Flange)",
+      "material": "ASTM A992 Structural Steel",
+      "description": "Fireproofed beam interrupted by penetrating element (hanger rod, pipe, conduit, or similar)",
+      "properties": {
+        "typical_sizes": ["W14x30", "W16x36", "W18x40", "W21x50"],
+        "sfrm_status": "Continuous SFRM except at penetration zone"
+      }
+    },
+    {
+      "component_id": "comp_penetration_001",
+      "name": "Hanger Rod / Pipe Penetration",
+      "material": "Steel rod, steel/copper pipe, or EMT conduit",
+      "description": "Element penetrating through or attached to the fireproofed beam. Creates a discontinuity in the SFRM envelope.",
+      "properties": {
+        "penetration_types": ["threaded hanger rod", "pipe sleeve", "conduit", "ductwork hanger", "sprinkler branch line"],
+        "diameter_range_inches": "0.375-4.0",
+        "attachment_method": "Beam clamp, welded tab, drilled hole, or powder-actuated fastener"
+      }
+    },
+    {
+      "component_id": "comp_sfrm_interrupted_zone_001",
+      "name": "SFRM Interrupted Zone",
+      "material": "Removed or displaced SFRM",
+      "description": "Area where SFRM is missing or reduced due to the penetrating element. This zone must be repaired/supplemented.",
+      "properties": {
+        "zone_radius_inches": "Typically 2-6 around penetration",
+        "damage_cause": ["penetration installation after SFRM", "SFRM applied around penetration with voids", "hanger adjustment displacing SFRM"],
+        "inspection_flag": "High-priority inspection item"
+      }
+    },
+    {
+      "component_id": "comp_supplemental_protection_001",
+      "name": "Supplemental Protection (Intumescent Collar or Wrap)",
+      "material": "Intumescent firestop collar, intumescent wrap strip, or firestop sealant",
+      "description": "Supplemental fire protection at the penetration to restore fire rating. Method depends on penetration type and UL/FM listing.",
+      "properties": {
+        "collar_type": "Intumescent collar (for pipe penetrations through rated assembly)",
+        "wrap_type": "Intumescent wrap strip (for hanger rods and small penetrations)",
+        "sealant_type": "Firestop sealant (for annular space sealing)",
+        "listing_required": "Must be installed per tested and listed firestop system (UL/FM)",
+        "csi_section": "07 84 00 (Firestopping)"
+      }
+    }
+  ],
+  "assembly_constraints": [
+    {
+      "constraint_id": "ac_restore_rating_001",
+      "type": "fire_rating",
+      "description": "Fire rating must be restored at every penetration through or attachment to fireproofed members",
+      "rule": "Each penetration requires a listed firestop system or engineering judgment (EJ) to restore the fire rating"
+    },
+    {
+      "constraint_id": "ac_sfrm_repair_at_pen_001",
+      "type": "coverage",
+      "description": "SFRM must be repaired/reapplied as close to penetration as possible",
+      "rule": "Patch SFRM tight to penetrating element, then apply supplemental firestop per listing"
+    },
+    {
+      "constraint_id": "ac_sequence_001",
+      "type": "sequencing",
+      "description": "Ideal sequence: SFRM first, then penetrations with firestop. Reality: penetrations often occur before SFRM.",
+      "rule": "If penetrations installed before SFRM, spray around them. If installed after, repair SFRM and add firestop."
+    },
+    {
+      "constraint_id": "ac_documentation_001",
+      "type": "quality_control",
+      "description": "Each penetration firestop must be documented with the UL/FM system number used",
+      "rule": "Maintain firestop log per IBC Section 714.3.1.2 — photo documentation recommended"
+    },
+    {
+      "constraint_id": "ac_hanger_load_001",
+      "type": "structural",
+      "description": "Hanger attachment must not compromise fire rating of supporting member",
+      "rule": "Beam clamps preferred over welded attachments. If welded, SFRM must cover weld and attachment hardware."
+    }
+  ],
+  "related_conditions": ["COND-F-007", "COND-F-011"],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "created_at": "2026-04-16T00:00:00Z",
+    "created_by": "emergency_detail_delivery_pass",
+    "review_status": "DRAFT",
+    "applicable_codes": ["IBC 2021 Section 714", "IBC 2021 Section 714.3.1", "ASTM E119", "ASTM E814", "UL Fire Resistance Directory"]
+  },
+  "artifacts_enabled": {
+    "detail_packet": true,
+    "svg_overlay": true
+  }
+}
