@@ -1,0 +1,119 @@
+{
+  "assembly_id": "fp_joist_deck_edge_001",
+  "assembly_version": "1.0.0",
+  "node_id": "fireproofing_joist_deck_edge_001",
+  "manufacturer_id": "generic_sfrm",
+  "manufacturer_name": "Generic SFRM (Isolatek / ALBI / equivalent)",
+  "condition_type": "joist_deck_edge_condition",
+  "system_type": "Spray-Applied Fire-Resistive Material (SFRM)",
+  "csi_section": "07 81 00",
+  "fire_rating": {
+    "hours": 2,
+    "ul_design": "UL D925 (or equivalent floor-ceiling assembly with steel joists)",
+    "astm_e119": true
+  },
+  "components": [
+    {
+      "component_id": "comp_spandrel_beam_001",
+      "name": "Spandrel Beam",
+      "material": "ASTM A992 Structural Steel",
+      "description": "Perimeter beam at building edge supporting joist seats and deck edge. Receives full SFRM coverage.",
+      "properties": {
+        "typical_sizes": ["W14x30", "W16x36", "W18x40"],
+        "orientation": "Top flange at deck elevation, web vertical at building perimeter",
+        "fireproofing": "3-sided or 4-sided per UL listing"
+      }
+    },
+    {
+      "component_id": "comp_joist_seat_001",
+      "name": "Joist Seat",
+      "material": "Steel bearing plate — part of open-web steel joist",
+      "description": "Joist bottom chord extension and seat angle bearing on spandrel beam top flange. Connection hardware must be fireproofed.",
+      "properties": {
+        "seat_type": "Standard SJI joist seat",
+        "attachment": "Welded to beam top flange (field weld)",
+        "coverage_note": "Seat, weld, and joist bottom chord end must be encapsulated in SFRM"
+      }
+    },
+    {
+      "component_id": "comp_deck_edge_001",
+      "name": "Deck Edge",
+      "material": "Metal deck termination — ASTM A653",
+      "description": "Edge of metal deck at spandrel beam. Deck may overhang beam slightly or terminate at beam flange edge.",
+      "properties": {
+        "edge_condition": "Deck cut edge or factory edge at spandrel",
+        "closure_note": "Deck edge may require closure pour stop or edge angle"
+      }
+    },
+    {
+      "component_id": "comp_pour_stop_001",
+      "name": "Pour Stop",
+      "material": "Galvanized sheet metal or formed steel angle",
+      "description": "Pour stop (edge form) at deck perimeter retaining concrete slab edge. Must be coordinated with SFRM termination.",
+      "properties": {
+        "type": "Sheet metal bent plate or steel angle",
+        "height": "Matches concrete slab thickness above deck",
+        "sfrm_interface": "SFRM terminates at or behind pour stop — verify no gap"
+      }
+    },
+    {
+      "component_id": "comp_sfrm_coverage_001",
+      "name": "SFRM Coverage — Edge Assembly",
+      "material": "Cementitious spray-applied fire-resistive material",
+      "description": "Complete SFRM encapsulation of spandrel beam, joist seat connection, and deck edge zone per UL listing requirements",
+      "properties": {
+        "beam_coverage": "Full 3-sided or 4-sided per listing",
+        "joist_seat_coverage": "Seat, weld, and first 6 inches of joist chords",
+        "deck_edge_coverage": "SFRM extends to deck edge — continuous with deck underside SFRM"
+      }
+    },
+    {
+      "component_id": "comp_edge_termination_001",
+      "name": "Edge Termination",
+      "material": "SFRM terminated at pour stop or edge angle",
+      "description": "Clean termination of SFRM at building edge where fireproofing meets exterior envelope or pour stop",
+      "properties": {
+        "termination_method": "SFRM feathered to edge or terminated against pour stop/closure angle",
+        "weatherproofing_note": "SFRM at exposed edges must be protected from moisture if exterior is not yet enclosed"
+      }
+    }
+  ],
+  "assembly_constraints": [
+    {
+      "constraint_id": "ac_joist_seat_encapsulation_001",
+      "type": "coverage",
+      "description": "Joist seat and connection hardware must be fully encapsulated in SFRM",
+      "rule": "No exposed steel at joist seat, weld, or bearing plate. Extend SFRM min 6 inches onto joist chords."
+    },
+    {
+      "constraint_id": "ac_pour_stop_coordination_001",
+      "type": "sequencing",
+      "description": "Pour stop installation must be coordinated with SFRM application",
+      "rule": "Apply SFRM to beam and joist seat before or concurrent with pour stop installation. Verify no gap behind pour stop."
+    },
+    {
+      "constraint_id": "ac_edge_continuity_001",
+      "type": "continuity",
+      "description": "SFRM must be continuous from deck underside through beam and joist seat to slab edge",
+      "rule": "No interruption in fire-rated envelope at building perimeter edge"
+    },
+    {
+      "constraint_id": "ac_moisture_protection_001",
+      "type": "environmental",
+      "description": "SFRM at exposed perimeter edges is vulnerable to weather damage before building is enclosed",
+      "rule": "Protect exposed SFRM from rain, wind, and freezing until exterior envelope is installed"
+    }
+  ],
+  "related_conditions": ["COND-F-003", "COND-F-009", "COND-F-010"],
+  "lineage": {
+    "source_authority": "10-Construction_OS",
+    "created_at": "2026-04-16T00:00:00Z",
+    "created_by": "emergency_detail_delivery_pass",
+    "review_status": "DRAFT",
+    "applicable_codes": ["IBC 2021 Section 714", "ASTM E119", "UL Fire Resistance Directory", "SJI Standard Specification"]
+  },
+  "artifacts_enabled": {
+    "detail_packet": true,
+    "svg_overlay": true
+  }
+}
