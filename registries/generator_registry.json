@@ -1,0 +1,16 @@
+{
+  "registry_id": "generator_registry_v1",
+  "updated_at": "2026-04-16",
+  "generators": [
+    {
+      "system": "barrett_pmma",
+      "generator_path": "generators/pmma/pmma_flash_generator.py",
+      "template_path": "kernels/assembly_dna/pmma/barrett_pmma_flash_template.json",
+      "calibration_path": "source/barrett/calibration/barrett_pmma_calibration_specimen_001.json",
+      "condition_map_path": "source/barrett/condition_maps/barrett_pmma_condition_family_map.json",
+      "conditions": 10,
+      "export_pipeline": ["json", "svg", "pdf", "dxf"],
+      "status": "ACTIVE"
+    }
+  ]
+}
