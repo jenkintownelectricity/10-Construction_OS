@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" font-family="'JetBrains Mono', monospace">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="none" stroke="#4A657D" stroke-width="1"/></marker>
+    <marker id="arrowR" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto"><path d="M8,0 L0,3 L8,6" fill="none" stroke="#4A657D" stroke-width="1"/></marker>
+  </defs>
+
+  <rect width="1056" height="816" fill="#0A0D11"/>
+  <text x="528" y="450" text-anchor="middle" font-size="110" font-weight="bold" fill="#1A1D21" opacity="0.35" transform="rotate(-35,528,450)">DRAFT FOR REVIEW</text>
+
+  <!-- Title Block -->
+  <text x="40" y="45" font-size="14" font-weight="bold" fill="#00E5FF">Barrett PMMA — Edge / Drip Edge Detail</text>
+  <text x="40" y="65" font-size="10" fill="#B0B7BD">Detail 02 | DWG-PMMA-02 Rev A | Section Cut — Roof Edge Termination with Drip Edge</text>
+  <line x1="40" y1="78" x2="1016" y2="78" stroke="#4A657D" stroke-width="1"/>
+
+  <!-- ============ DRAWING AREA ============ -->
+
+  <!-- Structural Deck -->
+  <rect x="80" y="400" width="460" height="50" fill="#2C3136" stroke="#4A657D" stroke-width="1.5"/>
+  <g stroke="#3A3F44" stroke-width="0.5" opacity="0.6">
+    <line x1="90" y1="400" x2="115" y2="450"/><line x1="125" y1="400" x2="150" y2="450"/>
+    <line x1="160" y1="400" x2="185" y2="450"/><line x1="195" y1="400" x2="220" y2="450"/>
+    <line x1="230" y1="400" x2="255" y2="450"/><line x1="265" y1="400" x2="290" y2="450"/>
+    <line x1="300" y1="400" x2="325" y2="450"/><line x1="335" y1="400" x2="360" y2="450"/>
+    <line x1="370" y1="400" x2="395" y2="450"/><line x1="405" y1="400" x2="430" y2="450"/>
+    <line x1="440" y1="400" x2="465" y2="450"/><line x1="475" y1="400" x2="500" y2="450"/>
+    <line x1="510" y1="400" x2="535" y2="450"/>
+  </g>
+
+  <!-- Deck edge fascia (vertical face at right) -->
+  <rect x="520" y="400" width="20" height="120" fill="#2C3136" stroke="#4A657D" stroke-width="1.5"/>
+  <g stroke="#3A3F44" stroke-width="0.5" opacity="0.6">
+    <line x1="522" y1="405" x2="538" y2="430"/><line x1="522" y1="440" x2="538" y2="465"/>
+    <line x1="522" y1="475" x2="538" y2="500"/>
+  </g>
+
+  <!-- Rigid Insulation -->
+  <rect x="80" y="355" width="440" height="45" fill="#22262C" stroke="#4A657D" stroke-width="1"/>
+  <g stroke="#2E3338" stroke-width="0.5">
+    <line x1="90" y1="355" x2="115" y2="400"/><line x1="115" y1="355" x2="90" y2="400"/>
+    <line x1="135" y1="355" x2="160" y2="400"/><line x1="160" y1="355" x2="135" y2="400"/>
+    <line x1="180" y1="355" x2="205" y2="400"/><line x1="205" y1="355" x2="180" y2="400"/>
+    <line x1="225" y1="355" x2="250" y2="400"/><line x1="250" y1="355" x2="225" y2="400"/>
+    <line x1="270" y1="355" x2="295" y2="400"/><line x1="295" y1="355" x2="270" y2="400"/>
+    <line x1="315" y1="355" x2="340" y2="400"/><line x1="340" y1="355" x2="315" y2="400"/>
+    <line x1="360" y1="355" x2="385" y2="400"/><line x1="385" y1="355" x2="360" y2="400"/>
+    <line x1="405" y1="355" x2="430" y2="400"/><line x1="430" y1="355" x2="405" y2="400"/>
+    <line x1="450" y1="355" x2="475" y2="400"/><line x1="475" y1="355" x2="450" y2="400"/>
+    <line x1="495" y1="355" x2="518" y2="400"/><line x1="518" y1="355" x2="495" y2="400"/>
+  </g>
+
+  <!-- Wood nailer at edge -->
+  <rect x="480" y="355" width="40" height="45" fill="#1A1D21" stroke="#4A657D" stroke-width="1"/>
+  <g stroke="#2E3338" stroke-width="0.3">
+    <line x1="482" y1="362" x2="518" y2="362"/><line x1="482" y1="372" x2="518" y2="372"/>
+    <line x1="482" y1="382" x2="518" y2="382"/><line x1="482" y1="392" x2="518" y2="392"/>
+  </g>
+
+  <!-- PMMA Primer on field -->
+  <line x1="80" y1="353" x2="520" y2="353" stroke="#00E5FF" stroke-width="2" opacity="0.7"/>
+  <!-- Primer wrapping over edge -->
+  <line x1="520" y1="353" x2="545" y2="353" stroke="#00E5FF" stroke-width="2" opacity="0.7"/>
+  <line x1="545" y1="353" x2="545" y2="400" stroke="#00E5FF" stroke-width="2" opacity="0.7"/>
+
+  <!-- Fleece reinforcement -->
+  <line x1="80" y1="350" x2="520" y2="350" stroke="#FF6B35" stroke-width="4" opacity="0.6"/>
+  <!-- Fleece wrapping over edge and down -->
+  <line x1="520" y1="350" x2="548" y2="350" stroke="#FF6B35" stroke-width="4" opacity="0.6"/>
+  <line x1="548" y1="350" x2="548" y2="405" stroke="#FF6B35" stroke-width="4" opacity="0.6"/>
+
+  <!-- PMMA seal coat -->
+  <line x1="80" y1="347" x2="520" y2="347" stroke="#00E5FF" stroke-width="2.5"/>
+  <!-- Seal coat wrapping over edge -->
+  <line x1="520" y1="347" x2="551" y2="347" stroke="#00E5FF" stroke-width="2.5"/>
+  <line x1="551" y1="347" x2="551" y2="408" stroke="#00E5FF" stroke-width="2.5"/>
+
+  <!-- Drip Edge Metal (L-shaped) -->
+  <path d="M515,395 L555,395 L555,520 L550,525 L548,520 L548,400 L515,400 Z" fill="#2C3136" stroke="#B0B7BD" stroke-width="1.2"/>
+  <!-- Drip edge kick-out at bottom -->
+  <line x1="550" y1="525" x2="545" y2="530" stroke="#B0B7BD" stroke-width="1"/>
+
+  <!-- ============ DIMENSION LINES ============ -->
+
+  <!-- 2" overhang dimension -->
+  <line x1="520" y1="540" x2="520" y2="560" stroke="#4A657D" stroke-width="0.6" stroke-dasharray="3,2"/>
+  <line x1="551" y1="540" x2="551" y2="560" stroke="#4A657D" stroke-width="0.6" stroke-dasharray="3,2"/>
+  <line x1="522" y1="555" x2="549" y2="555" stroke="#4A657D" stroke-width="0.8" marker-start="url(#arrowR)" marker-end="url(#arrow)"/>
+  <text x="536" y="572" font-size="9" fill="#4A657D" text-anchor="middle">2" OVERHANG</text>
+
+  <!-- Insulation thickness -->
+  <line x1="62" y1="355" x2="62" y2="400" stroke="#4A657D" stroke-width="0.6" stroke-dasharray="3,2"/>
+  <line x1="57" y1="355" x2="67" y2="355" stroke="#4A657D" stroke-width="0.6"/>
+  <line x1="57" y1="400" x2="67" y2="400" stroke="#4A657D" stroke-width="0.6"/>
+  <text x="48" y="382" font-size="8" fill="#4A657D" transform="rotate(-90,48,382)" text-anchor="middle">INSUL.</text>
+
+  <!-- ============ CALLOUT LEADERS ============ -->
+
+  <!-- 1: Structural Deck -->
+  <circle cx="300" cy="425" r="3" fill="#00E5FF"/>
+  <line x1="300" y1="425" x2="200" y2="590" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="200" y1="590" x2="105" y2="590" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="92" cy="590" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="92" y="594" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">1</text>
+
+  <!-- 2: Insulation -->
+  <circle cx="280" cy="377" r="3" fill="#00E5FF"/>
+  <line x1="280" y1="377" x2="200" y2="620" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="200" y1="620" x2="105" y2="620" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="92" cy="620" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="92" y="624" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">2</text>
+
+  <!-- 3: PMMA Primer -->
+  <circle cx="350" cy="353" r="3" fill="#00E5FF"/>
+  <line x1="350" y1="353" x2="240" y2="650" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="240" y1="650" x2="105" y2="650" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="92" cy="650" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="92" y="654" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">3</text>
+
+  <!-- 4: Fleece -->
+  <circle cx="400" cy="350" r="3" fill="#FF6B35"/>
+  <line x1="400" y1="350" x2="330" y2="250" stroke="#FF6B35" stroke-width="0.7"/>
+  <line x1="330" y1="250" x2="105" y2="250" stroke="#FF6B35" stroke-width="0.7"/>
+  <circle cx="92" cy="250" r="10" fill="none" stroke="#FF6B35" stroke-width="1"/>
+  <text x="92" y="254" text-anchor="middle" font-size="9" font-weight="bold" fill="#FF6B35">4</text>
+
+  <!-- 5: PMMA Seal Coat -->
+  <circle cx="420" cy="347" r="3" fill="#00E5FF"/>
+  <line x1="420" y1="347" x2="350" y2="280" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="350" y1="280" x2="105" y2="280" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="92" cy="280" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="92" y="284" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">5</text>
+
+  <!-- 6: Drip Edge Metal -->
+  <circle cx="551" cy="460" r="3" fill="#00E5FF"/>
+  <line x1="551" y1="460" x2="430" y2="680" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="430" y1="680" x2="105" y2="680" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="92" cy="680" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="92" y="684" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">6</text>
+
+  <!-- 7: Wood Nailer -->
+  <circle cx="500" cy="377" r="3" fill="#00E5FF"/>
+  <line x1="500" y1="377" x2="380" y2="310" stroke="#00E5FF" stroke-width="0.7"/>
+  <line x1="380" y1="310" x2="105" y2="310" stroke="#00E5FF" stroke-width="0.7"/>
+  <circle cx="92" cy="310" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="92" y="314" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">7</text>
+
+  <!-- ============ LEGEND ============ -->
+  <rect x="660" y="100" width="370" height="330" fill="#0D1117" stroke="#4A657D" stroke-width="0.8" rx="3"/>
+  <text x="680" y="126" font-size="12" font-weight="bold" fill="#00E5FF">COMPONENT KEY</text>
+  <line x1="680" y1="136" x2="1010" y2="136" stroke="#4A657D" stroke-width="0.5"/>
+
+  <circle cx="692" cy="162" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="166" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">1</text>
+  <text x="714" y="166" font-size="10" fill="#B0B7BD">Structural Concrete Deck</text>
+
+  <circle cx="692" cy="192" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="196" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">2</text>
+  <text x="714" y="196" font-size="10" fill="#B0B7BD">Rigid Insulation (Polyiso)</text>
+
+  <circle cx="692" cy="222" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="226" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">3</text>
+  <text x="714" y="226" font-size="10" fill="#B0B7BD">Barrett PMMA Primer Coat</text>
+
+  <circle cx="692" cy="252" r="10" fill="none" stroke="#FF6B35" stroke-width="1"/>
+  <text x="692" y="256" text-anchor="middle" font-size="9" font-weight="bold" fill="#FF6B35">4</text>
+  <text x="714" y="256" font-size="10" fill="#B0B7BD">Polyester Fleece in PMMA Resin</text>
+
+  <circle cx="692" cy="282" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="286" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">5</text>
+  <text x="714" y="286" font-size="10" fill="#B0B7BD">Barrett PMMA Seal Coat</text>
+
+  <circle cx="692" cy="312" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="316" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">6</text>
+  <text x="714" y="316" font-size="10" fill="#B0B7BD">Drip Edge Metal Flashing</text>
+
+  <circle cx="692" cy="342" r="10" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <text x="692" y="346" text-anchor="middle" font-size="9" font-weight="bold" fill="#00E5FF">7</text>
+  <text x="714" y="346" font-size="10" fill="#B0B7BD">Wood Nailer / Blocking</text>
+
+  <line x1="680" y1="366" x2="1010" y2="366" stroke="#4A657D" stroke-width="0.5"/>
+  <text x="680" y="388" font-size="9" fill="#4A657D">COLOR KEY:</text>
+  <line x1="680" y1="404" x2="710" y2="404" stroke="#00E5FF" stroke-width="2.5"/>
+  <text x="720" y="408" font-size="9" fill="#4A657D">PMMA System</text>
+  <line x1="820" y1="404" x2="850" y2="404" stroke="#FF6B35" stroke-width="3"/>
+  <text x="860" y="408" font-size="9" fill="#4A657D">Fleece Reinforcement</text>
+
+  <!-- ============ BOTTOM BAR ============ -->
+  <rect x="0" y="780" width="1056" height="36" fill="#0D1117"/>
+  <line x1="0" y1="780" x2="1056" y2="780" stroke="#4A657D" stroke-width="1"/>
+  <text x="40" y="802" font-size="10" fill="#4A657D" letter-spacing="2">DETAIL ATLAS | CONSTRUCTION INTELLIGENCE</text>
+  <text x="1016" y="802" font-size="10" fill="#4A657D" text-anchor="end">2026-04-16</text>
+  <text x="528" y="802" font-size="9" fill="#4A657D" text-anchor="middle">Barrett Roofing | PMMA Liquid-Applied Membrane System</text>
+</svg>
