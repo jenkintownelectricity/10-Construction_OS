@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <pattern id="stipple" patternUnits="userSpaceOnUse" width="6" height="6">
+      <rect width="6" height="6" fill="#D8D8D8"/>
+      <circle cx="1" cy="1" r="0.6" fill="#999"/>
+      <circle cx="4" cy="4" r="0.6" fill="#999"/>
+    </pattern>
+    <pattern id="stipple-lg" patternUnits="userSpaceOnUse" width="8" height="8">
+      <rect width="8" height="8" fill="#D8D8D8"/>
+      <circle cx="2" cy="2" r="0.7" fill="#999"/>
+      <circle cx="6" cy="6" r="0.7" fill="#999"/>
+      <circle cx="6" cy="2" r="0.5" fill="#aaa"/>
+      <circle cx="2" cy="6" r="0.5" fill="#aaa"/>
+    </pattern>
+    <pattern id="conc-fill" patternUnits="userSpaceOnUse" width="12" height="12">
+      <rect width="12" height="12" fill="#F0F0F0"/>
+      <circle cx="3" cy="4" r="1.2" fill="#ccc"/>
+      <circle cx="9" cy="9" r="1" fill="#ccc"/>
+      <circle cx="7" cy="2" r="0.8" fill="#ddd"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1056" height="816" fill="#FFFFFF"/>
+
+  <!-- DRAFT Watermark -->
+  <text x="528" y="400" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="48" fill="#CCCCCC" opacity="0.3" transform="rotate(-25,528,400)">DRAFT</text>
+
+  <!-- Title -->
+  <text x="528" y="50" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#000000">Fireproofing — Joist / Deck Edge Condition</text>
+  <text x="528" y="68" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#333333">Section at Floor Edge — Spandrel Beam, Joist Seat, Metal Deck, Pour Stop, and SFRM Coverage</text>
+
+  <!-- Fire Rating Badge -->
+  <rect x="900" y="32" width="100" height="28" rx="3" fill="none" stroke="#000000" stroke-width="1.5"/>
+  <text x="950" y="51" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold" fill="#000000">2-HR RATED</text>
+
+  <!-- === MAIN DRAWING === -->
+  <!-- Left side = exterior/edge, Right side = interior -->
+
+  <!-- Concrete fill on deck -->
+  <rect x="350" y="180" width="600" height="35" fill="url(#conc-fill)" stroke="#000000" stroke-width="1"/>
+
+  <!-- Fluted metal deck -->
+  <path d="M350,215 L390,215 L395,245 L425,245 L430,215 L470,215 L475,245 L505,245 L510,215 L550,215 L555,245 L585,245 L590,215 L630,215 L635,245 L665,245 L670,215 L710,215 L715,245 L745,245 L750,215 L790,215 L795,245 L825,245 L830,215 L870,215 L875,245 L905,245 L910,215 L950,215" fill="#F0F0F0" stroke="#000000" stroke-width="1"/>
+
+  <!-- Deck SFRM underside (interior span) -->
+  <rect x="500" y="245" width="450" height="22" fill="url(#stipple)" stroke="#666666" stroke-width="0.75"/>
+
+  <!-- Pour stop at edge (left side) -->
+  <rect x="340" y="180" width="10" height="70" fill="#E0E0E0" stroke="#000000" stroke-width="1"/>
+  <!-- Pour stop closure at top -->
+  <rect x="340" y="178" width="20" height="4" fill="#C0C0C0" stroke="#000000" stroke-width="0.75"/>
+
+  <!-- Spandrel beam (W-shape at edge) -->
+  <!-- SFRM on spandrel beam -->
+  <rect x="180" y="240" width="200" height="250" rx="4" fill="url(#stipple-lg)" stroke="#666666" stroke-width="1"/>
+
+  <!-- Spandrel beam steel -->
+  <!-- Top flange -->
+  <rect x="210" y="255" width="150" height="22" fill="#E0E0E0" stroke="#000000" stroke-width="1.5"/>
+  <!-- Web -->
+  <rect x="275" y="277" width="16" height="176" fill="#E0E0E0" stroke="#000000" stroke-width="1.5"/>
+  <!-- Bottom flange -->
+  <rect x="210" y="453" width="150" height="22" fill="#E0E0E0" stroke="#000000" stroke-width="1.5"/>
+
+  <!-- Fillets -->
+  <polygon points="275,277 268,277 275,285" fill="#E0E0E0" stroke="#000000" stroke-width="0.5"/>
+  <polygon points="291,277 298,277 291,285" fill="#E0E0E0" stroke="#000000" stroke-width="0.5"/>
+  <polygon points="275,453 268,453 275,445" fill="#E0E0E0" stroke="#000000" stroke-width="0.5"/>
+  <polygon points="291,453 298,453 291,445" fill="#E0E0E0" stroke="#000000" stroke-width="0.5"/>
+
+  <!-- Joist seat on top of spandrel beam -->
+  <!-- Seat angle (L-shape) -->
+  <rect x="350" y="245" width="60" height="8" fill="#C0C0C0" stroke="#000000" stroke-width="1"/>
+  <rect x="350" y="245" width="8" height="30" fill="#C0C0C0" stroke="#000000" stroke-width="1"/>
+
+  <!-- Joist top chord (extending right from seat) -->
+  <rect x="400" y="242" width="550" height="8" fill="#E0E0E0" stroke="#000000" stroke-width="1.5"/>
+  <!-- Joist bottom chord -->
+  <rect x="420" y="430" width="530" height="8" fill="#E0E0E0" stroke="#000000" stroke-width="1.5"/>
+  <!-- Joist web members (diagonal) -->
+  <line x1="420" y1="250" x2="450" y2="430" stroke="#000000" stroke-width="1.2"/>
+  <line x1="450" y1="430" x2="500" y2="250" stroke="#000000" stroke-width="1.2"/>
+  <line x1="500" y1="250" x2="550" y2="430" stroke="#000000" stroke-width="1.2"/>
+  <line x1="550" y1="430" x2="600" y2="250" stroke="#000000" stroke-width="1.2"/>
+  <line x1="600" y1="250" x2="650" y2="430" stroke="#000000" stroke-width="1.2"/>
+  <line x1="650" y1="430" x2="700" y2="250" stroke="#000000" stroke-width="1.2"/>
+  <line x1="700" y1="250" x2="750" y2="430" stroke="#000000" stroke-width="1.2"/>
+  <line x1="750" y1="430" x2="800" y2="250" stroke="#000000" stroke-width="1.2"/>
+
+  <!-- Joist SFRM (on bottom chord and web near seat) -->
+  <rect x="420" y="438" width="530" height="16" rx="2" fill="url(#stipple)" stroke="#666666" stroke-width="0.75"/>
+
+  <!-- Weld at joist seat -->
+  <polygon points="397,252 393,245 401,245" fill="#000000" stroke="none"/>
+
+  <!-- === CALLOUTS === -->
+  <!-- Spandrel Beam -->
+  <line x1="283" y1="370" x2="100" y2="370" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="283" cy="370" r="2" fill="#000000"/>
+  <text x="60" y="364" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">SPANDREL BEAM</text>
+  <text x="60" y="378" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">W14x22 (typ.)</text>
+
+  <!-- Joist Seat -->
+  <line x1="380" y1="260" x2="100" y2="145" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="380" cy="260" r="2" fill="#000000"/>
+  <text x="60" y="139" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">JOIST SEAT</text>
+  <text x="60" y="153" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Seat angle welded to beam</text>
+
+  <!-- Metal Deck -->
+  <line x1="600" y1="215" x2="800" y2="120" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="600" cy="215" r="2" fill="#000000"/>
+  <text x="805" y="118" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">METAL DECK</text>
+  <text x="805" y="132" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">20 Ga. fluted deck</text>
+
+  <!-- Pour Stop -->
+  <line x1="345" y1="215" x2="100" y2="250" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="345" cy="215" r="2" fill="#000000"/>
+  <text x="60" y="244" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">POUR STOP</text>
+  <text x="60" y="258" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Galvanized steel closure</text>
+
+  <!-- Concrete Fill -->
+  <line x1="500" y1="195" x2="800" y2="170" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="500" cy="195" r="2" fill="#000000"/>
+  <text x="805" y="168" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">CONCRETE FILL</text>
+  <text x="805" y="182" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Lightweight concrete on deck</text>
+
+  <!-- SFRM (on beam) -->
+  <line x1="240" y1="480" x2="100" y2="500" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="240" cy="480" r="2" fill="#000000"/>
+  <text x="60" y="494" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">SFRM</text>
+  <text x="60" y="508" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Spray-applied on spandrel beam,</text>
+  <text x="60" y="522" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">joist bottom chord, and deck underside</text>
+
+  <!-- Joist -->
+  <line x1="650" y1="340" x2="800" y2="380" stroke="#000000" stroke-width="0.5"/>
+  <circle cx="650" cy="340" r="2" fill="#000000"/>
+  <text x="805" y="378" font-family="Arial, Helvetica, sans-serif" font-size="10" fill="#000000">OPEN-WEB JOIST</text>
+  <text x="805" y="392" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">Steel joist per schedule</text>
+
+  <!-- Notes -->
+  <text x="80" y="590" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" fill="#000000">NOTES:</text>
+  <text x="80" y="606" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">1. SFRM coverage continuous from spandrel beam through joist seat to deck underside.</text>
+  <text x="80" y="620" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">2. Pour stop prevents concrete from flowing over edge of deck.</text>
+  <text x="80" y="634" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">3. Joist bottom chord SFRM per joist fire-resistance listing.</text>
+  <text x="80" y="648" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">4. Deck underside SFRM thickness per floor/ceiling assembly requirements.</text>
+  <text x="80" y="662" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">5. Coordinate edge detail with curtain wall / cladding trades.</text>
+
+  <text x="80" y="695" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333333">SCALE: NOT TO SCALE | VIEW: SECTION AT FLOOR EDGE</text>
+
+  <!-- === TITLE BLOCK === -->
+  <line x1="40" y1="760" x2="1016" y2="760" stroke="#000000" stroke-width="0.75"/>
+  <text x="60" y="778" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">DETAIL ATLAS | CONSTRUCTION INTELLIGENCE</text>
+  <text x="528" y="778" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">Fireproofing — SFRM / Enclosure</text>
+  <text x="996" y="778" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000000">DRAFT | 2026-04-16</text>
+  <text x="528" y="796" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#333333">CSI 07 81 00 | Generic SFRM | Starter Packet</text>
+  <text x="996" y="796" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#333333">Sheet 08 of 10</text>
+</svg>
