@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <style>
+      .title { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: bold; fill: #FF4444; }
+      .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #B0B7BD; }
+      .dim { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #4A657D; }
+      .callout-num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: bold; fill: #0A0D11; }
+      .bar-text { font-family: 'JetBrains Mono', monospace; font-size: 9px; fill: #4A657D; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1056" height="816" fill="#0A0D11"/>
+
+  <!-- DRAFT Watermark -->
+  <text x="528" y="450" font-family="JetBrains Mono, monospace" font-size="60" fill="#FF4444" opacity="0.08" text-anchor="middle" transform="rotate(-30, 528, 450)">DRAFT</text>
+
+  <!-- Title -->
+  <text x="40" y="45" class="title">Fireproofing — Repair / Patch Condition</text>
+  <line x1="40" y1="55" x2="510" y2="55" stroke="#FF4444" stroke-width="1" opacity="0.4"/>
+
+  <!-- Fire Rating Badge -->
+  <rect x="880" y="25" width="140" height="35" rx="3" fill="none" stroke="#FF4444" stroke-width="2"/>
+  <text x="950" y="42" font-family="JetBrains Mono, monospace" font-size="11" fill="#FF4444" text-anchor="middle" font-weight="bold">FIRE RATING</text>
+  <text x="950" y="54" font-family="JetBrains Mono, monospace" font-size="10" fill="#FF4444" text-anchor="middle">MATCH EXISTING</text>
+
+  <!-- === ELEVATION VIEW OF BEAM BOTTOM === -->
+
+  <!-- Beam - shown as horizontal member -->
+  <!-- Top Flange -->
+  <rect x="80" y="200" width="900" height="20" fill="#5C6670" stroke="#8B959E" stroke-width="2"/>
+  <!-- Web -->
+  <rect x="80" y="220" width="900" height="120" fill="#5C6670" stroke="#8B959E" stroke-width="2"/>
+  <!-- Bottom Flange -->
+  <rect x="80" y="340" width="900" height="20" fill="#5C6670" stroke="#8B959E" stroke-width="2"/>
+
+  <!-- Existing SFRM - LEFT section (intact) -->
+  <rect x="65" y="183" width="350" height="17" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <rect x="65" y="183" width="15" height="194" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <rect x="65" y="360" width="350" height="17" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+
+  <!-- Existing SFRM - RIGHT section (intact) -->
+  <rect x="680" y="183" width="315" height="17" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <rect x="980" y="183" width="15" height="194" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+  <rect x="680" y="360" width="315" height="17" rx="2" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1.5"/>
+
+  <!-- Damaged/Removed Zone (exposed steel) -->
+  <rect x="415" y="183" width="265" height="194" fill="none" stroke="#FF4444" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <!-- Damage indication marks -->
+  <line x1="430" y1="200" x2="445" y2="210" stroke="#FF4444" stroke-width="0.8" opacity="0.4"/>
+  <line x1="460" y1="195" x2="475" y2="205" stroke="#FF4444" stroke-width="0.8" opacity="0.4"/>
+  <line x1="620" y1="360" x2="640" y2="370" stroke="#FF4444" stroke-width="0.8" opacity="0.4"/>
+  <line x1="550" y1="355" x2="565" y2="370" stroke="#FF4444" stroke-width="0.8" opacity="0.4"/>
+
+  <!-- Prepared Substrate (cleaned steel surface in damage zone) -->
+  <rect x="440" y="200" width="210" height="160" fill="#5C6670" stroke="#8B959E" stroke-width="1" opacity="0.8"/>
+  <!-- Cross-hatch indicating cleaned surface -->
+  <line x1="450" y1="210" x2="470" y2="230" stroke="#8B959E" stroke-width="0.4" opacity="0.5"/>
+  <line x1="480" y1="210" x2="500" y2="230" stroke="#8B959E" stroke-width="0.4" opacity="0.5"/>
+  <line x1="510" y1="210" x2="530" y2="230" stroke="#8B959E" stroke-width="0.4" opacity="0.5"/>
+  <line x1="540" y1="210" x2="560" y2="230" stroke="#8B959E" stroke-width="0.4" opacity="0.5"/>
+  <line x1="570" y1="210" x2="590" y2="230" stroke="#8B959E" stroke-width="0.4" opacity="0.5"/>
+  <line x1="600" y1="210" x2="620" y2="230" stroke="#8B959E" stroke-width="0.4" opacity="0.5"/>
+
+  <!-- Patch Material (new SFRM over the repair zone) -->
+  <rect x="430" y="178" width="230" height="22" rx="3" fill="#D4A574" opacity="0.9" stroke="#E8C39E" stroke-width="2"/>
+  <rect x="430" y="355" width="230" height="22" rx="3" fill="#D4A574" opacity="0.9" stroke="#E8C39E" stroke-width="2"/>
+
+  <!-- Feathered Edges - LEFT transition (top) -->
+  <path d="M415,200 L430,183 L430,200 Z" fill="#D4A574" opacity="0.5" stroke="#E8C39E" stroke-width="1"/>
+  <!-- Feathered Edges - RIGHT transition (top) -->
+  <path d="M660,200 L660,183 L680,200 Z" fill="#D4A574" opacity="0.5" stroke="#E8C39E" stroke-width="1"/>
+  <!-- Feathered Edges - LEFT transition (bottom) -->
+  <path d="M415,360 L430,377 L430,360 Z" fill="#D4A574" opacity="0.5" stroke="#E8C39E" stroke-width="1"/>
+  <!-- Feathered Edges - RIGHT transition (bottom) -->
+  <path d="M660,360 L660,377 L680,360 Z" fill="#D4A574" opacity="0.5" stroke="#E8C39E" stroke-width="1"/>
+
+  <!-- Min Overlap dimension -->
+  <line x1="395" y1="415" x2="395" y2="435" stroke="#00E5FF" stroke-width="0.8"/>
+  <line x1="430" y1="415" x2="430" y2="435" stroke="#00E5FF" stroke-width="0.8"/>
+  <line x1="395" y1="425" x2="430" y2="425" stroke="#00E5FF" stroke-width="0.8"/>
+  <polygon points="395,425 402,422 402,428" fill="#00E5FF"/>
+  <polygon points="430,425 423,422 423,428" fill="#00E5FF"/>
+  <text x="380" y="448" class="dim">6" min overlap</text>
+
+  <!-- Right overlap dimension -->
+  <line x1="660" y1="415" x2="660" y2="435" stroke="#00E5FF" stroke-width="0.8"/>
+  <line x1="700" y1="415" x2="700" y2="435" stroke="#00E5FF" stroke-width="0.8"/>
+  <line x1="660" y1="425" x2="700" y2="425" stroke="#00E5FF" stroke-width="0.8"/>
+  <polygon points="660,425 667,422 667,428" fill="#00E5FF"/>
+  <polygon points="700,425 693,422 693,428" fill="#00E5FF"/>
+  <text x="645" y="448" class="dim">6" min overlap</text>
+
+  <!-- Callout 1: Existing SFRM -->
+  <circle cx="250" cy="191" r="8" fill="#00E5FF"/>
+  <text x="250" y="195" class="callout-num" text-anchor="middle">1</text>
+  <line x1="250" y1="183" x2="250" y2="130" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="250" y1="130" x2="330" y2="130" stroke="#00E5FF" stroke-width="1"/>
+  <text x="335" y="134" class="label">Existing SFRM (intact)</text>
+
+  <!-- Callout 2: Damaged/Removed Zone -->
+  <circle cx="540" cy="280" r="8" fill="#00E5FF"/>
+  <text x="540" y="284" class="callout-num" text-anchor="middle">2</text>
+  <line x1="540" y1="288" x2="540" y2="520" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="540" y1="520" x2="620" y2="520" stroke="#00E5FF" stroke-width="1"/>
+  <text x="625" y="524" class="label">Damaged / Removed Zone</text>
+
+  <!-- Callout 3: Prepared Substrate -->
+  <circle cx="500" cy="260" r="8" fill="#00E5FF"/>
+  <text x="500" y="264" class="callout-num" text-anchor="middle">3</text>
+  <line x1="492" y1="260" x2="90" y2="260" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="40" y="255" class="label">Prepared</text>
+  <text x="40" y="269" class="label">Substrate</text>
+
+  <!-- Callout 4: Patch Material -->
+  <circle cx="545" cy="189" r="8" fill="#00E5FF"/>
+  <text x="545" y="193" class="callout-num" text-anchor="middle">4</text>
+  <line x1="545" y1="181" x2="545" y2="130" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="545" y1="130" x2="630" y2="130" stroke="#00E5FF" stroke-width="1"/>
+  <text x="635" y="134" class="label">Patch Material (new SFRM)</text>
+
+  <!-- Callout 5: Feathered Edge -->
+  <circle cx="420" cy="190" r="12" fill="none" stroke="#00E5FF" stroke-width="1"/>
+  <line x1="410" y1="180" x2="200" y2="100" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <circle cx="192" cy="97" r="8" fill="#00E5FF"/>
+  <text x="192" y="101" class="callout-num" text-anchor="middle">5</text>
+  <text x="115" y="101" class="label">Feathered Edge</text>
+
+  <!-- Callout 6: Min Overlap -->
+  <circle cx="412" cy="425" r="8" fill="#00E5FF"/>
+  <text x="412" y="429" class="callout-num" text-anchor="middle">6</text>
+  <line x1="412" y1="433" x2="412" y2="520" stroke="#00E5FF" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="412" y1="520" x2="340" y2="520" stroke="#00E5FF" stroke-width="1"/>
+  <text x="245" y="524" class="label">Min Overlap</text>
+
+  <!-- Repair procedure note -->
+  <rect x="40" y="570" width="560" height="80" rx="3" fill="none" stroke="#FF4444" stroke-width="1" opacity="0.5"/>
+  <text x="55" y="590" class="label" fill="#FF4444">REPAIR PROCEDURE:</text>
+  <text x="55" y="607" class="label" fill="#B0B7BD">1. Remove loose/damaged SFRM to sound material</text>
+  <text x="55" y="621" class="label" fill="#B0B7BD">2. Clean and prepare substrate (wire brush)</text>
+  <text x="55" y="635" class="label" fill="#B0B7BD">3. Apply patch SFRM to match existing thickness, feather edges 6" min</text>
+
+  <!-- Legend -->
+  <rect x="40" y="690" width="16" height="10" fill="#5C6670" stroke="#8B959E" stroke-width="1"/>
+  <text x="62" y="699" class="label">Steel</text>
+  <rect x="130" y="690" width="16" height="10" fill="#D4A574" opacity="0.7" stroke="#E8C39E" stroke-width="1"/>
+  <text x="152" y="699" class="label">Existing SFRM</text>
+  <rect x="280" y="690" width="16" height="10" fill="#D4A574" opacity="0.9" stroke="#E8C39E" stroke-width="2"/>
+  <text x="302" y="699" class="label">Patch Material</text>
+  <rect x="430" y="690" width="16" height="10" fill="none" stroke="#FF4444" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="452" y="699" class="label">Damage Zone</text>
+
+  <!-- Bottom Bar -->
+  <rect x="0" y="790" width="1056" height="26" fill="#0D1117"/>
+  <line x1="0" y1="790" x2="1056" y2="790" stroke="#1A1D21" stroke-width="1"/>
+  <text x="528" y="806" class="bar-text" text-anchor="middle">DETAIL ATLAS | CONSTRUCTION INTELLIGENCE | Fireproofing Starter Packet | 2026-04-16</text>
+</svg>
