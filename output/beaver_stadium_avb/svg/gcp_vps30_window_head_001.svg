@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1056 816" width="1056" height="816">
+  <defs>
+    <pattern id="concrete-stipple" patternUnits="userSpaceOnUse" width="10" height="10">
+      <circle cx="2" cy="3" r="0.5" fill="#CCCCCC"/>
+      <circle cx="7" cy="8" r="0.5" fill="#CCCCCC"/>
+      <circle cx="5" cy="1" r="0.5" fill="#CCCCCC"/>
+    </pattern>
+    <pattern id="insulation-hatch" patternUnits="userSpaceOnUse" width="8" height="8">
+      <path d="M0,8 L8,0" stroke="#999999" stroke-width="0.5" fill="none"/>
+    </pattern>
+    <pattern id="fleece-diagonal" patternUnits="userSpaceOnUse" width="6" height="6">
+      <path d="M0,6 L6,0" stroke="#333333" stroke-width="0.75" fill="none"/>
+    </pattern>
+  </defs>
+  <rect width="1056" height="816" fill="#FFFFFF"/>
+  <text x="528" y="408" font-family="Arial, Helvetica, sans-serif" font-size="48" fill="#CCC" opacity="0.3" text-anchor="middle" transform="rotate(-25 528 408)">DRAFT FOR REVIEW</text>
+  <text x="60" y="40" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="bold" fill="#000">GCP VPS30 — Window Head</text>
+  <text x="60" y="58" font-family="Arial, Helvetica, sans-serif" font-size="11" fill="#333">Section Detail — Rendered from parametric geometry (v3)</text>
+  <line x1="60" y1="66" x2="620" y2="66" stroke="#000" stroke-width="0.5"/>
+  <rect x="272.5" y="388.0" width="200.0" height="40.0" fill="#F0F0F0" stroke="#000000" stroke-width="1.5"/>
+  <rect x="272.5" y="388.0" width="200.0" height="40.0" fill="url(#concrete-stipple)" opacity="0.4"/>
+  <text x="372.5" y="411.0" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#555" text-anchor="middle">Header/Lintel</text>
+  <rect x="272.5" y="338.0" width="200.0" height="50.0" fill="#F0F0F0" stroke="#000000" stroke-width="1.5"/>
+  <rect x="272.5" y="338.0" width="200.0" height="50.0" fill="url(#concrete-stipple)" opacity="0.4"/>
+  <text x="372.5" y="366.0" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#555" text-anchor="middle">Sheathing Above</text>
+  <rect x="272.5" y="428.0" width="200.0" height="60.0" fill="#FAFAFA" stroke="#000000" stroke-width="0.75"/>
+  <text x="372.5" y="461.0" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#555" text-anchor="middle">Window Frame</text>
+  <rect x="267.5" y="338.0" width="10.0" height="150.0" fill="#D8D8D8" stroke="#333333" stroke-width="2"/>
+  <text x="272.5" y="416.0" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#555" text-anchor="middle">VPS30 Turn-in</text>
+  <line x1="277.5" y1="338.0" x2="277.5" y2="388.0" stroke="#333333" stroke-width="2"/>
+  <line x1="277.5" y1="388.0" x2="472.5" y2="388.0" stroke="#333333" stroke-width="2"/>
+  <rect x="272.5" y="383.0" width="200.0" height="10.0" fill="none" stroke="#333333" stroke-width="1.5"/>
+  <rect x="272.5" y="383.0" width="200.0" height="10.0" fill="url(#fleece-diagonal)" opacity="0.4"/>
+  <text x="372.5" y="391.0" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#555" text-anchor="middle">Head Flashing</text>
+  <line x1="482.5" y1="383.0" x2="497.5" y2="383.0" stroke="#666" stroke-width="0.3" stroke-dasharray="2 2"/>
+  <line x1="482.5" y1="428.0" x2="497.5" y2="428.0" stroke="#666" stroke-width="0.3" stroke-dasharray="2 2"/>
+  <line x1="507.5" y1="383.0" x2="507.5" y2="428.0" stroke="#666" stroke-width="0.5" stroke-dasharray="3 2"/>
+  <line x1="503.5" y1="383.0" x2="511.5" y2="383.0" stroke="#666" stroke-width="0.75"/>
+  <line x1="503.5" y1="428.0" x2="511.5" y2="428.0" stroke="#666" stroke-width="0.75"/>
+  <text x="515.5" y="408.5" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000">4 IN. MIN LAP</text>
+  <text x="700" y="130" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="bold" fill="#000">CALLOUT KEY</text>
+  <line x1="700" y1="135" x2="920" y2="135" stroke="#000" stroke-width="0.5"/>
+  <circle cx="372.5" cy="363.0" r="3" fill="#000"/>
+  <line x1="372.5" y1="363.0" x2="690.0" y2="155.0" stroke="#000" stroke-width="0.5"/>
+  <circle cx="706" cy="152" r="4" fill="#000"/>
+  <text x="706" y="155" font-family="Arial, Helvetica, sans-serif" font-size="7" fill="#FFF" text-anchor="middle" font-weight="bold">2</text>
+  <text x="716" y="155" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000">Sheathing</text>
+  <circle cx="372.5" cy="388.0" r="3" fill="#000"/>
+  <line x1="372.5" y1="388.0" x2="690.0" y2="177.0" stroke="#000" stroke-width="0.5"/>
+  <circle cx="706" cy="174" r="4" fill="#000"/>
+  <text x="706" y="177" font-family="Arial, Helvetica, sans-serif" font-size="7" fill="#FFF" text-anchor="middle" font-weight="bold">5</text>
+  <text x="716" y="177" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000">Head Flashing</text>
+  <circle cx="372.5" cy="408.0" r="3" fill="#000"/>
+  <line x1="372.5" y1="408.0" x2="690.0" y2="199.0" stroke="#000" stroke-width="0.5"/>
+  <circle cx="706" cy="196" r="4" fill="#000"/>
+  <text x="706" y="199" font-family="Arial, Helvetica, sans-serif" font-size="7" fill="#FFF" text-anchor="middle" font-weight="bold">1</text>
+  <text x="716" y="199" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000">Header</text>
+  <circle cx="264.5" cy="408.0" r="3" fill="#000"/>
+  <line x1="264.5" y1="408.0" x2="690.0" y2="221.0" stroke="#000" stroke-width="0.5"/>
+  <circle cx="706" cy="218" r="4" fill="#000"/>
+  <text x="706" y="221" font-family="Arial, Helvetica, sans-serif" font-size="7" fill="#FFF" text-anchor="middle" font-weight="bold">4</text>
+  <text x="716" y="221" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000">VPS30 Turn-in</text>
+  <circle cx="372.5" cy="458.0" r="3" fill="#000"/>
+  <line x1="372.5" y1="458.0" x2="690.0" y2="243.0" stroke="#000" stroke-width="0.5"/>
+  <circle cx="706" cy="240" r="4" fill="#000"/>
+  <text x="706" y="243" font-family="Arial, Helvetica, sans-serif" font-size="7" fill="#FFF" text-anchor="middle" font-weight="bold">3</text>
+  <text x="716" y="243" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#000">Window Frame</text>
+
+  <line x1="60" y1="760" x2="996" y2="760" stroke="#000" stroke-width="0.75"/>
+  <text x="60" y="778" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="bold" fill="#000">DETAIL ATLAS</text>
+  <text x="190" y="778" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333">CONSTRUCTION INTELLIGENCE</text>
+  <text x="450" y="778" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333">Perm-A-Barrier VPS30 | AVB-WH-01</text>
+  <text x="876" y="778" font-family="Arial, Helvetica, sans-serif" font-size="9" fill="#333">DRAFT | 2026-04-16</text>
+  <text x="60" y="794" font-family="Arial, Helvetica, sans-serif" font-size="8" fill="#666">FAM-GCP-AVB | gcp_vps30_window_head_001 | v3 Parametric Renderer</text>
+</svg>
